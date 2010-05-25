@@ -1,0 +1,18 @@
+This is an experiment. It's not official. It may all get merged back
+into the proper trunk at http://sourceforge.net/projects/docbook/
+
+That's where you want to be now. Go on, off you go, I don't mind.
+
+Still here?
+
+Ok, the user "docbook" at GitHub is an alias for Norman Walsh, ndw@nwalsh.com.
+
+I'm experimenting with Git and with a fairly radical redesign of some
+parts of the DocBook XSL stylesheets to better support dynamic styling
+from environments like XML databases.
+
+It's not clear if this is a good idea or not. It's not clear if doing
+this at github is a good idea or not. Not much is clear.
+
+But I wanted a place to do this and I wanted to try git and so here I
+am.
