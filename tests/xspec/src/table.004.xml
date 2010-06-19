@@ -1,0 +1,21 @@
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+<title>Article wrapper</title>
+
+<informaltable frame="none">
+<tgroup cols="2" rowsep="0" colsep="0">
+<colspec colname="col2" colnum="2" rowsep="1"/>
+<tbody>
+<row>
+<entry>foo</entry>
+</row>
+<row>
+<entry>foo</entry><entry>bar</entry>
+</row>
+<row>
+<entry>foo</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</article>

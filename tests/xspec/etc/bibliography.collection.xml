@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bibliography xmlns="http://docbook.org/ns/docbook" version="5.0"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>References</title>
+
+<bibliomixed xml:id="xml11"><abbrev>XML 1.1</abbrev>John Cowan, editor.
+<citetitle xlink:href="http://www.w3.org/TR/2001/WD-xml11-20011213/">XML 1.1</citetitle>.
+World Wide Web Consortium, 2002.
+</bibliomixed>
+
+<bibliomixed xml:id="bib.docbook43"><abbrev>DocBook V4.3</abbrev>Norman Walsh, editor.
+<citetitle xlink:href="http://docbook.org/specs/cd-docbook-docbook-4.3.html">The
+DocBook Document Type: Version 4.3</citetitle>.
+OASIS, 2004.
+</bibliomixed>
+
+</bibliography>

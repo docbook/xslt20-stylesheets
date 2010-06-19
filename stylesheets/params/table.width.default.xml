@@ -1,0 +1,28 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="table.width.default">
+<refmeta>
+<refentrytitle>table.width.default</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>table.width.default</refname>
+<refpurpose>The default width of tables</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='table.width.default.frag'>
+<xsl:param name="table.width.default" select="''"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If specified, this value will be used for the WIDTH attribute on
+tables that do not specify an alternate width (with the dbhtml processing
+instruction).</para>
+
+</refsect1>
+</refentry>

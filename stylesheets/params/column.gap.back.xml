@@ -1,0 +1,28 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="column.gap.back">
+<refmeta>
+<refentrytitle>column.gap.back</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>column.gap.back</refname>
+<refpurpose>Gap between columns in back matter</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="column.gap.back.frag">
+<xsl:param name="column.gap.back" select="'12pt'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies the gap between columns in back matter (if
+<parameter>column.count.back</parameter> is greater than one).</para>
+
+</refsect1>
+</refentry>

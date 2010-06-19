@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Article wrapper</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css" /></head><body><div class="article" id="R.1"><div class="article-titlepage"><h2>Article wrapper</h2></div><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>@rem = '--*-Perl-*--                                       <a name="prologue"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/1.png" alt="1" border="0" />
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>@echo off
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>perl.exe %_batchname %$
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>goto endofperl                                             <a name="skipeof"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/2.png" alt="2" border="0" />
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>@rem ';
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span># Compress mail...
+<span class="linenumber">  8</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>require 'n:/home/nwalsh/lib/cygnus.pl';                    <a name="xreq"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/3.png" alt="3" border="0" />
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>require 'timelocal.pl';                                    <a name="require2"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/3.png" alt="3" border="0" />
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>use Cwd;                                         <a name="use"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/4.png" alt="4" border="0" />
+<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>select (STDERR); $| = 1;
+<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>select (STDOUT); $| = 1;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber"> 16</span><span class="linenumber-separator"> </span>@DIRS = ("/home/nwalsh/Mail");
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>while (@DIRS) {
+<span class="linenumber"> 18</span><span class="linenumber-separator"> </span>    $dir = shift @DIRS;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    opendir (DIR, $dir);
+<span class="linenumber"> 20</span><span class="linenumber-separator"> </span>    while ($fname = readdir(DIR)) {
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        $file = "$dir/$fname";
+<span class="linenumber"> 22</span><span class="linenumber-separator"> </span>        next if ! -d $file;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        next if $fname =~ /^\.\.?$/;
+<span class="linenumber"> 24</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        print "$file\n";
+<span class="linenumber"> 26</span><span class="linenumber-separator"> </span>        push (@DIRS, $file);
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &amp;compress ($file);                                 <a name="funccall"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/5.png" alt="5" border="0" />
+<span class="linenumber"> 28</span><span class="linenumber-separator"> </span>    }
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>}
+<span class="linenumber"> 30</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>exit;
+</pre></div><div class="calloutlist"><table border="0" summary="Callout list"><tr class="callout-row"><td class="callout-bug" valign="baseline" align="left"><p class="callout"><img src="http://docbook.sf.net/release/xsl/current/images/callouts/1.png" alt="1" border="0" /> </p></td><td class="callout-body" valign="baseline" align="left"><p>The prologue handles embedding a Perl script in a DOS batch file.</p></td></tr><tr class="callout-row"><td class="callout-bug" valign="baseline" align="left"><p id="skipeof-desc" class="callout"><img src="http://docbook.sf.net/release/xsl/current/images/callouts/2.png" alt="2" border="0" /> </p></td><td class="callout-body" valign="baseline" align="left"><p>The <tt class="literal">goto</tt> statement, interpreted by the DOS
+batch file interpreter, skips over the body of the Perl script. (Note
+that this callout has an “id” attribute that is referenced by a
+“linkends” attribute on the callout bug for line 4 above.)</p></td></tr><tr class="callout-row"><td class="callout-bug" valign="baseline" align="left"><p class="callout"><img src="http://docbook.sf.net/release/xsl/current/images/callouts/3.png" alt="3" border="0" /><img src="http://docbook.sf.net/release/xsl/current/images/callouts/3.png" alt="3" border="0" /> </p></td><td class="callout-body" valign="baseline" align="left"><p>The <tt class="literal">require</tt> statement sources in external program
+fragments.</p></td></tr><tr class="callout-row"><td class="callout-bug" valign="baseline" align="left"><p class="callout"><img src="http://docbook.sf.net/release/xsl/current/images/callouts/4.png" alt="4" border="0" /> </p></td><td class="callout-body" valign="baseline" align="left"><p>The <tt class="literal">use</tt> statement is similar, but has additional
+utility.  It is a Perl5 function.  (Note that this callout area specifies
+both a line and a column.)</p></td></tr><tr class="callout-row"><td class="callout-bug" valign="baseline" align="left"><p class="callout"><img src="http://docbook.sf.net/release/xsl/current/images/callouts/5.png" alt="5" border="0" /> </p></td><td class="callout-body" valign="baseline" align="left"><p>This is a user subroutine call.</p></td></tr></table></div></div></body></html>

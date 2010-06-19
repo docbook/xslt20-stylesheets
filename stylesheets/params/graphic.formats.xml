@@ -1,0 +1,28 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="graphic.formats">
+<refmeta>
+<refentrytitle>graphic.formats</refentrytitle>
+<refmiscinfo role="type">list</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>graphic.formats</refname>
+<refpurpose>List of graphic formats</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='graphic.formats.frag'>
+<xsl:param name="graphic.formats"
+	   select="('svg','png','jpg','jpeg','gif','gif87a','gif89a','bmp',
+                    'linespecific')"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>FIXME:</para>
+
+</refsect1>
+</refentry>

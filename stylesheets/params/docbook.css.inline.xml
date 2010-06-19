@@ -1,0 +1,29 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="docbook.css.inline">
+<refmeta>
+<refentrytitle>docbook.css.inline</refentrytitle>
+<refmiscinfo role="type"></refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>docbook.css.inline</refname>
+<refpurpose>Should CSS be inlined?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="docbook.css.inline.frag">
+<xsl:param name="docbook.css.inline" select="0"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If non-zero, then the CSS will be incorporated directly into
+the resulting HTML file, rather incorporating a link to it.
+</para>
+
+</refsect1>
+</refentry>

@@ -1,0 +1,49 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="body.start.indent">
+<refmeta>
+<refentrytitle>body.start.indent</refentrytitle>
+<refmiscinfo role="type">length</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>body.start.indent</refname>
+<refpurpose>The start-indent for the body text</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="body.start.indent.frag">
+<xsl:param name="body.start.indent" select="'0pt'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>This parameter provides one means of indenting the body text
+relative to the left page margin. It is used in place of the
+<parameter>title.margin.left</parameter> for all XSL-FO processors
+except FOP. It enables support for side floats to appear in the
+indented margin area.
+</para>
+
+<para>This start-indent property is added to the fo:flow for certain
+page sequences. Which page-sequences it is applied to is determined by
+the template named <literal>set.flow.properties</literal>. By default,
+that template adds it to the flow for page-sequences using the
+<quote>body</quote> master-reference, as well as appendixes and
+prefaces.
+</para>
+
+<para>If this parameter is used, section titles should have a
+start-indent value of 0pt if they are to be outdented relative to the
+body text.
+</para>
+
+<para>See also <parameter>body.end.indent</parameter> and
+<parameter>title.margin.left</parameter>.
+</para>
+
+</refsect1>
+</refentry>

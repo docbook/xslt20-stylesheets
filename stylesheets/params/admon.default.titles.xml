@@ -1,0 +1,27 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="admon.default.titles">
+<refmeta>
+<refentrytitle>admon.default.titles</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>admon.default.titles</refname>
+<refpurpose>Use graphics in admonitions?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='admon.default.titles.frag'>
+<xsl:param name="admon.default.titles" select="1"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If true (non-zero), default titles (“Note”, “Warning”, etc.) are
+placed on admonitions that do not have explicit titles.</para>
+
+</refsect1>
+</refentry>

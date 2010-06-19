@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<t:titlepages xmlns:t="http://docbook.org/xslt/ns/template"
+	      xmlns="http://www.w3.org/1999/xhtml"
+	      xmlns:db="http://docbook.org/ns/docbook">
+
+<db:set t:side="recto">
+  <div class="set-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+</db:set>
+
+<db:article t:side="recto">
+  <div class="article-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+</db:article>
+
+<db:book t:side="recto">
+  <div class="book-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:editor/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+  <hr/>
+</db:book>
+
+<db:part t:side="recto">
+  <div class="part-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+</db:part>
+
+<db:reference t:side="recto">
+  <div class="reference-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+</db:reference>
+
+<db:partintro t:side="recto">
+  <div class="partintro-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+</db:partintro>
+
+<db:refentry t:side="recto">
+  <!-- nop -->
+</db:refentry>
+
+<db:dedication t:side="recto">
+  <div class="dedication-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:dedication>
+
+<db:preface t:side="recto">
+  <div class="preface-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+</db:preface>
+
+<db:chapter t:side="recto">
+  <div class="chapter-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+</db:chapter>
+
+<db:appendix t:side="recto">
+  <div class="appendix-titlepage">
+    <db:title/>
+    <db:subtitle/>
+    <db:corpauthor/>
+    <db:authorgroup/>
+    <db:author/>
+    <db:othercredit/>
+    <db:releaseinfo/>
+    <db:copyright/>
+    <db:legalnotice/>
+    <db:pubdate/>
+    <db:revision/>
+    <db:revhistory/>
+    <db:abstract/>
+  </div>
+</db:appendix>
+
+<db:bibliography t:side="recto">
+  <div class="bibliography-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:bibliography>
+
+<db:bibliodiv t:side="recto">
+  <div class="bibliography-titlepage">
+    <db:title/>
+  </div>
+</db:bibliodiv>
+
+<db:bibliolist>
+  <db:title/>
+</db:bibliolist>
+
+<db:glossary t:side="recto">
+  <div class="glossary-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:glossary>
+
+<db:glosslist>
+  <db:title/>
+</db:glosslist>
+
+<db:index t:side="recto">
+  <div class="index-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:index>
+
+<db:setindex t:side="recto">
+  <div class="setindex-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:setindex>
+
+<db:indexdiv t:side="recto">
+  <div class="indexdiv-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:indexdiv>
+
+<db:section t:side="recto">
+  <div class="section-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:section>
+
+<db:sect1 t:side="recto">
+  <div class="section-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:sect1>
+
+<db:sect2 t:side="recto">
+  <div class="section-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:sect2>
+
+<db:sect3 t:side="recto">
+  <div class="section-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:sect3>
+
+<db:sect4 t:side="recto">
+  <div class="section-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:sect4>
+
+<db:sect5 t:side="recto">
+  <div class="section-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:sect5>
+
+<db:simplesect t:side="recto">
+  <div class="section-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:simplesect>
+
+<db:refsection t:side="recto">
+  <div class="refsection-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:refsection>
+
+<db:refsect1 t:side="recto">
+  <div class="refsection-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:refsect1>
+
+<db:refsect2 t:side="recto">
+  <div class="refsection-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:refsect2>
+
+<db:refsect3 t:side="recto">
+  <div class="refsection-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:refsect3>
+
+<db:glossdiv t:side="recto">
+  <div class="glossdiv-titlepage">
+    <db:title/>
+    <db:subtitle/>
+  </div>
+</db:glossdiv>
+
+<db:itemizedlist>
+  <db:title/>
+</db:itemizedlist>
+
+<db:orderedlist>
+  <db:title/>
+</db:orderedlist>
+
+<db:variablelist>
+  <db:title/>
+</db:variablelist>
+
+<db:calloutlist>
+  <db:title/>
+</db:calloutlist>
+
+<db:segmentedlist>
+  <db:title/>
+</db:segmentedlist>
+
+<db:figure>
+  <db:title/>
+</db:figure>
+
+<db:table>
+  <db:title/>
+</db:table>
+
+<db:example>
+  <db:title/>
+</db:example>
+
+<db:equation>
+  <db:title/>
+</db:equation>
+
+<db:note>
+  <db:title/>
+</db:note>
+
+<db:tip>
+  <db:title/>
+</db:tip>
+
+<db:caution>
+  <db:title/>
+</db:caution>
+
+<db:warning>
+  <db:title/>
+</db:warning>
+
+<db:important>
+  <db:title/>
+</db:important>
+
+<db:procedure>
+  <db:title/>
+</db:procedure>
+
+<db:step>
+  <db:title/>
+</db:step>
+
+<db:qandaset>
+  <db:title/>
+</db:qandaset>
+
+<db:qandadiv>
+  <db:title/>
+</db:qandadiv>
+
+<db:task>
+  <db:title/>
+</db:task>
+
+<db:tasksummary>
+  <db:title/>
+</db:tasksummary>
+
+<db:taskprerequisites>
+  <db:title/>
+</db:taskprerequisites>
+
+<db:taskrelated>
+  <db:title/>
+</db:taskrelated>
+
+<db:sidebar>
+  <db:title/>
+</db:sidebar>
+
+<db:annotation>
+  <db:title/>
+</db:annotation>
+
+<db:msgset>
+  <db:title/>
+</db:msgset>
+
+<db:msg>
+  <db:title/>
+</db:msg>
+
+<db:msgmain>
+  <db:title/>
+</db:msgmain>
+
+<db:msgrel>
+  <db:title/>
+</db:msgrel>
+
+<db:msgsub>
+  <db:title/>
+</db:msgsub>
+
+<db:msgexplan>
+  <db:title/>
+</db:msgexplan>
+
+</t:titlepages>
+

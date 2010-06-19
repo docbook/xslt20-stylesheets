@@ -1,0 +1,29 @@
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+<title>Article wrapper</title>
+
+  <mediaobject>
+    <imageobjectco>
+      <areaspec>
+        <area xml:id="a1" units="calspair" coords="50,50,50,50"/>
+        <areaset xml:id="s1">
+          <area xml:id="a2" units="calspair" coords="25,25,25,25"/>
+          <area xml:id="a3" units="calspair" coords="75,75,75,75"/>
+        </areaset>
+      </areaspec>
+      <imageobject>
+        <imagedata
+          fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck.png"
+          contentwidth="400px"
+          contentdepth="400px">
+          <info>
+            <othercredit>
+              <orgname>O'Reilly &amp; Associates/Dover Archives</orgname>
+            </othercredit>
+          </info>
+        </imagedata>
+      </imageobject>
+    </imageobjectco>
+    <textobject><phrase>alt text</phrase></textobject>
+  </mediaobject>
+
+</article>

@@ -1,0 +1,27 @@
+Modes go in m: (http://docbook.org/xslt/ns/mode)
+Private modes go in mp: (http://docbook.org/xslt/ns/mode/private)
+
+Functions go in f: (http://docbook.org/xslt/ns/extension)
+Private functions go in fp: (http://docbook.org/xslt/ns/extension/private)
+
+Templates go in t: (http://docbook.org/xslt/ns/template)
+Private templates go in tp: (http://docbook.org/xslt/ns/template/private)
+
+Named templates have '-'s not '.'s
+
+Use tools/doccheck.xsl to check for documentation problems
+
+Use tools/writetests to run the unit tests:
+
+  1. Process html/docbook.xsl with tools/writetests.xsl using Saxon 8b
+     (you need 8.4 patched). This will produce a stylesheet, tests.xsl
+
+  2. Process tests.xsl with any input you want. This will produce an HTML
+     summary of the unit tests.
+
+Norm's notes to himself:
+
+- Consider making <index/> contextual, so an index in a part, for example,
+  can index just that part.
+
+

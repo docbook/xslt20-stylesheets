@@ -1,0 +1,47 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  xmlns:db="http://docbook.org/ns/docbook"
+	  version="5.0"
+	  xml:id="root.elements">
+<refmeta>
+<refentrytitle>root.elements</refentrytitle>
+<refmiscinfo role="type"></refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>root.elements</refname>
+<refpurpose>FIXME: TBA</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="root.elements.frag">
+<xsl:param name="root.elements">
+  <db:appendix/>
+  <db:article/>
+  <db:bibliography/>
+  <db:book/>
+  <db:chapter/>
+  <db:colophon/>
+  <db:dedication/>
+  <db:glossary/>
+  <db:index/>
+  <db:part/>
+  <db:preface/>
+  <db:refentry/>
+  <db:reference/>
+  <db:sect1/>
+  <db:section/>
+  <db:set/>
+  <db:setindex/>
+</xsl:param>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>FIXME: TBA
+</para>
+
+</refsect1>
+</refentry>

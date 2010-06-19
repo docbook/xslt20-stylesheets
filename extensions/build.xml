@@ -1,0 +1,64 @@
+<!-- Build file for docbook-xsl extensions -->
+
+<!-- Submitted by Ville Skytt (scop@users.sf.net) -->
+
+<project name="docbook-xsl2" default="all" basedir=".">
+
+  <!-- Properties -->
+
+  <property name="name" value="docbook-xsl2"/>
+  <property name="src.saxon" value="saxon/src"/>
+  <property name="build" value="build"/>
+  <property name="build.classes" value="${build}/classes"/>
+  <property name="build.doc.saxon" value="${build}/api/saxon"/>
+  <property name="build.lib" value="${build}/lib"/>
+
+  <!-- Targets -->
+
+  <target name="prepare" description="Prepare build directories">
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build.classes}"/>
+    <mkdir dir="${build.lib}"/>
+    <mkdir dir="${build.doc.saxon}"/>
+  </target>
+
+  <target name="clean" description="Remove build directories">
+    <delete dir="${build}"/>
+  </target>
+
+  <target name="classes.saxon" depends="prepare"
+          description="Build Saxon extension classes">
+    <javac srcdir="${src.saxon}" destdir="${build.classes}"/>
+  </target>
+
+  <target name="jar.saxon" depends="classes.saxon"
+          description="Build the Saxon extension jar">
+    <jar destfile="${build.lib}/${name}-saxon.jar"
+         basedir="${build.classes}"
+         includes="net/sf/docbook/saxon/*">
+    </jar>
+  </target>
+
+  <target name="jars" depends="jar.saxon"
+          description="Build all jars" />
+
+  <target name="javadoc.saxon" depends="prepare"
+          description="Build Saxon extension javadocs">
+    <javadoc sourcepath="${src.saxon}"
+            destdir="${build.doc.saxon}"
+            doctitle="${name}-saxon JavaDoc"
+            windowtitle="${name}-saxon JavaDoc"
+            package="true"
+            author="true"
+            version="true"
+            packagenames="net.sf.docbook.saxon.*"
+    />
+  </target>
+
+  <target name="javadocs" depends="javadoc.saxon"
+          description="Build all javadocs" />
+
+  <target name="all" depends="jars,javadocs"
+          description="Build everything" />
+
+</project>

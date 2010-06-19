@@ -1,0 +1,29 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="callout.graphics.path">
+<refmeta>
+<refentrytitle>callout.graphics.path</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>callout.graphics.path</refname>
+<refpurpose>Path to callout graphics</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='callout.graphics.path.frag'>
+<xsl:param name="callout.graphics.path"
+	   select="'http://docbook.sf.net/release/xsl/current/images/callouts/'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Sets the path, probably relative to the directory where the HTML
+files are created, to the callout graphics.
+</para>
+
+</refsect1>
+</refentry>

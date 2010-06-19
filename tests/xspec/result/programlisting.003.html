@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Article wrapper</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css" /></head><body><div class="article" id="R.1"><div class="article-titlepage"><h2>Article wrapper</h2></div><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>@rem = '--*-Perl-*--
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>@echo off
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>perl.exe %_batchname %$
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>goto endofperl
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>@rem ';
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span># Compress mail...
+<span class="linenumber">  8</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>require 'n:/home/nwalsh/lib/cygnus.pl';
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>require 'timelocal.pl';
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>use Cwd;
+<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>select (STDERR); $| = 1;
+<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>select (STDOUT); $| = 1;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber"> 16</span><span class="linenumber-separator"> </span>@DIRS = ("/home/nwalsh/Mail");
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>while (@DIRS) {
+<span class="linenumber"> 18</span><span class="linenumber-separator"> </span>    $dir = shift @DIRS;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    opendir (DIR, $dir);
+<span class="linenumber"> 20</span><span class="linenumber-separator"> </span>    while ($fname = readdir(DIR)) {
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        $file = "$dir/$fname";
+<span class="linenumber"> 22</span><span class="linenumber-separator"> </span>        next if ! -d $file;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        next if $fname =~ /^\.\.?$/;
+<span class="linenumber"> 24</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        print "$file\n";
+<span class="linenumber"> 26</span><span class="linenumber-separator"> </span>        push (@DIRS, $file);
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &amp;compress ($file);
+<span class="linenumber"> 28</span><span class="linenumber-separator"> </span>    }
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>}
+<span class="linenumber"> 30</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>exit;</pre></div></div></body></html>

@@ -1,0 +1,32 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="fo.processor">
+<refmeta>
+<refentrytitle>fo.processor</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>fo.processor</refname>
+<refpurpose>Identifies the anticipated XSL FO processor</refpurpose>
+</refnamediv>
+
+<!-- FIXME: shouldn't be xep here -->
+
+<!-- 'xep', 'passivetex', 'fop', 'antennahouse', ... -->
+
+<refsynopsisdiv>
+<src:fragment xml:id="fo.processor.frag">
+<xsl:param name="fo.processor" select="'xep'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Identifies the anticipated XSL FO processor. If specified, the
+stylesheets will deploy some processor-dependent extensions.
+</para>
+
+</refsect1>
+</refentry>

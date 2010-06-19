@@ -1,0 +1,1328 @@
+<locale language="eo" english-language-name="Esperanto">
+
+<info xmlns="http://docbook.org/ns/docbook">
+<authorgroup>
+  <author>
+    <personname>
+      <honorific>Dr.</honorific>
+    <firstname>Robert</firstname>
+    <surname>Read</surname>
+    </personname>
+    <email>read@robertlread.net</email>
+  </author>
+</authorgroup>
+</info>
+
+<gentext key="Abstract" text="Resumo"/>
+<gentext key="abstract" text="Resumo"/>
+<gentext key="Answer" text="R:"/>
+<gentext key="answer" text="R:"/>
+<gentext key="Appendix" text="Apendico"/>
+<gentext key="appendix" text="Apendico"/>
+<gentext key="Article" text="Artikolo"/>
+<gentext key="article" text="Artikolo"/>
+<gentext key="Author" text="A&#365;toro"/>
+<gentext key="Bibliography" text="Bibliografio"/>
+<gentext key="bibliography" text="Bibliografio"/>
+<gentext key="Book" text="Libro"/>
+<gentext key="book" text="Libro"/>
+<gentext key="CAUTION" text="ATENTU"/>
+<gentext key="Caution" text="Atentu"/>
+<gentext key="caution" text="Atentu"/>
+<gentext key="Chapter" text="&#264;apitro"/>
+<gentext key="chapter" text="&#264;apitro"/>
+<gentext key="Colophon" text="Kolofono"/>
+<gentext key="colophon" text="Kolofono"/>
+<gentext key="Copyright" text="Kopirajto"/>
+<gentext key="copyright" text="Kopirajto"/>
+<gentext key="Dedication" text="Dedi&#265;o"/>
+<gentext key="dedication" text="Dedi&#265;o"/>
+<gentext key="Edition" text="Eldono"/>
+<gentext key="edition" text="Eldono"/>
+<gentext key="Editor" text="Redaktoro"/>
+<gentext key="Equation" text="Ekvacio"/>
+<gentext key="equation" text="Ekvacio"/>
+<gentext key="Example" text="Ekzemplo"/>
+<gentext key="example" text="Ekzemplo"/>
+<gentext key="Figure" text="Figuro"/>
+<gentext key="figure" text="Figuro"/>
+<gentext key="Glossary" text="Glosaro"/>
+<gentext key="glossary" text="Glosaro"/>
+<gentext key="GlossSee" text="Vidu"/>
+<gentext key="glosssee" text="Vidu"/>
+<gentext key="GlossSeeAlso" text="Vidu anka&#365;"/>
+<gentext key="glossseealso" text="Vidu anka&#365;"/>
+<gentext key="IMPORTANT" text="GRAVA"/>
+<gentext key="important" text="Grava"/>
+<gentext key="Important" text="Grava"/>
+<gentext key="Index" text="Indekso"/>
+<gentext key="index" text="Indekso"/>
+<gentext key="ISBN" text="ISBN"/>
+<gentext key="isbn" text="ISBN"/>
+<gentext key="LegalNotice" text="Le&#285;a Avizo"/>
+<gentext key="legalnotice" text="Le&#285;a Avizo"/>
+<gentext key="MsgAud" text="Cela legantaro"/>
+<gentext key="msgaud" text="Cela legantaro"/>
+<gentext key="MsgLevel" text="Nivelo"/>
+<gentext key="msglevel" text="Nivelo"/>
+<gentext key="MsgOrig" text="Origino"/>
+<gentext key="msgorig" text="Origino"/>
+<gentext key="NOTE" text="RIMARKO"/>
+<gentext key="Note" text="Rimarko"/>
+<gentext key="note" text="Rimarko"/>
+<gentext key="Part" text="Parto"/>
+<gentext key="part" text="Parto"/>
+<gentext key="Preface" text="Anta&#365;parolo"/>
+<gentext key="preface" text="Anta&#365;parolo"/>
+<gentext key="Procedure" text="Procezo"/>
+<gentext key="procedure" text="Procezo"/>
+<gentext key="ProductionSet" text="Produkta&#309;o"/>
+<gentext key="PubDate" text="Eldona Dato"/>
+<gentext key="pubdate" text="Eldona Dato"/>
+<gentext key="Published" text="Eldonita "/>
+<gentext key="published" text="Eldonita"/>
+<gentext key="Publisher" text="Eldonita"/>
+<gentext key="Qandadiv" text="Demandoj &amp; Respondoj"/>
+<gentext key="qandadiv" text="Demandoj &amp; Respondoj"/>
+<gentext key="QandASet" text="Oftaj Demandoj"/>
+<gentext key="Question" text="D:"/>
+<gentext key="question" text="D:"/>
+<gentext key="RefEntry" text=""/>
+<gentext key="refentry" text=""/>
+<gentext key="Reference" text="Referenco"/>
+<gentext key="reference" text="Referenco"/>
+<gentext key="References" text="Referencoj"/>
+<gentext key="RefName" text="Nomo"/>
+<gentext key="refname" text="Nomo"/>
+<gentext key="RefSection" text=""/>
+<gentext key="refsection" text=""/>
+<gentext key="RefSynopsisDiv" text="Resumo"/>
+<gentext key="refsynopsisdiv" text="Resumo"/>
+<gentext key="RevHistory" text="Historio de Versioj"/>
+<gentext key="revhistory" text="Historio de Versioj"/>
+<gentext key="revision" text="Versio"/>
+<gentext key="Revision" text="Versio"/>
+<gentext key="sect1" text="Sekcio"/>
+<gentext key="sect2" text="Sekcio"/>
+<gentext key="sect3" text="Sekcio"/>
+<gentext key="sect4" text="Sekcio"/>
+<gentext key="sect5" text="Sekcio"/>
+<gentext key="section" text="Sekcio"/>
+<gentext key="Section" text="Sekcio"/>
+<gentext key="see" text="vidu"/>             
+<gentext key="See" text="Vidu"/>
+<gentext key="seealso" text="vidu anka&#365;"/>    
+<gentext key="Seealso" text="Vidu anka&#365;"/>
+<gentext key="SeeAlso" text="Vidu Anka&#365;"/>
+<gentext key="set" text="Libraro"/>
+<gentext key="Set" text="Libraro"/>
+<gentext key="setindex" text="Indekso de Libraro"/>
+<gentext key="SetIndex" text="Indesko de Libraro"/>
+<gentext key="Sidebar" text=""/>
+<gentext key="sidebar" text="flanka&#309;o"/>
+<gentext key="step" text="&#349;tupo"/>
+<gentext key="Step" text="&#348;tupo"/>
+<gentext key="table" text="Tabelo"/>
+<gentext key="Table" text="Tabelo"/>
+<gentext key="task" text="Tasko"/>
+<gentext key="Task" text="Tasko"/>
+<gentext key="tip" text="Sugesto"/>
+<gentext key="TIP" text="SUGESTO"/>
+<gentext key="Tip" text="Sugesto"/>
+<gentext key="Warning" text="Averto"/>
+<gentext key="warning" text="Averto"/>
+<gentext key="WARNING" text="AVERTO"/>
+
+<gentext key="and" text="kaj"/>
+<gentext key="by" text="fare de"/>
+<gentext key="Edited" text="Redaktita"/>
+<gentext key="edited" text="Redaktita"/>
+<gentext key="Editedby" text="Redaktita de"/>
+<gentext key="editedby" text="Redaktita de"/>
+<gentext key="in" text="en"/>
+<gentext key="lastlistcomma" text=","/>
+<gentext key="listcomma" text=","/>
+<gentext key="notes" text="Notoj"/>
+<gentext key="Notes" text="Notoj"/>
+<gentext key="Pgs" text="p."/>
+<gentext key="pgs" text="p."/>
+<gentext key="Revisedby" text="Reviziita de: "/>
+<gentext key="revisedby" text="Reviziita de: "/>
+<gentext key="TableNotes" text="Notoj"/>
+<gentext key="tablenotes" text="Notoj"/>
+<gentext key="TableofContents" text="Enhavo"/>
+<gentext key="tableofcontents" text="Enhavo"/>
+<gentext key="unexpectedelementname" text="Neanta&#365;vidita nomo de elemento"/>
+
+<gentext key="unsupported" text="netraktebla"/>
+
+<gentext key="xrefto" text="aludo al"/>
+
+
+
+<gentext key="Authors" text="A&#365;toroj"/>
+
+
+
+
+<gentext key="copyeditor" text="Provredaktinto"/>
+
+<gentext key="graphicdesigner" text="Grafikisto"/>
+<gentext key="productioneditor" text="Produkta Redaktoro"/>
+
+<gentext key="technicaleditor" text="Teknika Redaktoro"/>
+<gentext key="translator" text="Tradukisto"/>
+
+<gentext key="listofequations" text="Listo de Ekvacioj"/>
+<gentext key="ListofEquations" text="Listo de Ekvacioj"/>
+<gentext key="ListofExamples" text="Listo de Ekzemploj"/>
+<gentext key="listofexamples" text="Listo de Ekzemploj"/>
+<gentext key="ListofFigures" text="Listo de Figuroj"/>
+<gentext key="listoffigures" text="Listo de Figuroj"/>
+<gentext key="ListofProcedures" text="Listo de Procedoj"/>
+<gentext key="listofprocedures" text="Listo de Procedoj"/>
+<gentext key="listoftables" text="Listo de Tabeloj"/>
+<gentext key="ListofTables" text="Listo de Tabeloj"/>
+<gentext key="ListofUnknown" text="Listo de Nesciatoj"/>
+<gentext key="listofunknown" text="Listo de Nesciatoj"/>
+
+<gentext key="nav-home" text="Hejmen"/>
+<gentext key="nav-next" text="Sekven"/>
+
+<gentext key="nav-next-sibling" text="Pli sekven"/>
+
+<gentext key="nav-prev" text="Anta&#365;en"/>
+<gentext key="nav-prev-sibling" text="Pli anta&#365;en"/>
+<gentext key="nav-up" text="Supren"/>
+<gentext key="nav-toc" text="Enhavlisten"/>
+
+<gentext key="Draft" text="Malneto"/>
+<gentext key="above" text="supra"/>
+<gentext key="below" text="suba"/>
+<gentext key="sectioncalled" text="la sekcio nomata"/>
+<gentext key="index symbols" text="Simboloj"/>
+<gentext key="writing-mode" text="lr-tb"/>
+
+<gentext key="lowercase.alpha" text="abc&#265;defg&#285;h&#293;ij&#309;klmnopqrs&#349;tu&#365;vyz"/>
+<gentext key="uppercase.alpha" text="ABC&#264;DEFG&#284;H&#292;IJ&#308;KLMNOPQRS&#348;TU&#364;VYZ"/>
+
+<dingbat key="startquote" text="&#8220;"/>
+<dingbat key="endquote" text="&#8221;"/>
+<dingbat key="nestedstartquote" text="&#8216;"/>
+<dingbat key="nestedendquote" text="&#8217;"/>
+<dingbat key="singlestartquote" text="&#8216;" lang="eo"/>
+<dingbat key="singleendquote" text="&#8217;" lang="eo"/>
+<dingbat key="bullet" text="&#8226;"/>
+
+
+<gentext key="hyphenation-character" text="-"/>
+<gentext key="hyphenation-push-character-count" text="2"/>
+<gentext key="hyphenation-remain-character-count" text="2"/>
+
+<context name="styles">
+
+<template name="person-name">first-last</template>
+
+</context>
+
+<context name="title">
+<template name="abstract">%t</template>
+<template name="answer">%t</template>
+<template name="appendix"><Appendix/>&#160;%n.&#160;%t</template>
+<template name="article">%t</template>
+<template name="authorblurb">%t</template>
+<template name="bibliodiv">%t</template>
+<template name="biblioentry">%t</template>
+<template name="bibliography">%t</template>
+<template name="bibliolist">%t</template>
+<template name="bibliomixed">%t</template>
+<template name="bibliomset">%t</template>
+<template name="biblioset">%t</template>
+<template name="blockquote">%t</template>
+<template name="book">%t</template>
+<template name="calloutlist">%t</template>
+<template name="caution">%t</template>
+<template name="chapter"><Chapter/> %n. %t"</template>
+<template name="colophon">%t</template>
+<template name="dedication">%t</template>
+<template name="equation"><Equation/>&#160;%n.&#160;%t</template>
+<template name="example"><Example/>&#160;%n.&#160;%t</template>
+<template name="figure"><Figure/>&#160;%n.&#160;%t</template>
+<template name="foil">%t</template>	
+<template name="foilgroup">%t</template>  
+<template name="formalpara">%t</template>
+<template name="glossary">%t</template>
+<template name="glossdiv">%t</template>
+<template name="glosslist">%t</template>
+<template name="glossentry">%t</template>
+<template name="important">%t</template>
+<template name="index">%t</template>
+<template name="indexdiv">%t</template>
+<template name="itemizedlist">%t</template>
+<template name="legalnotice">%t</template>
+<template name="listitem"/>
+<template name="lot">%t</template>
+<template name="msg">%t</template>
+<template name="msgexplan">%t</template>
+<template name="msgmain">%t</template>
+<template name="msgrel">%t</template>
+<template name="msgset">%t</template>
+<template name="msgsub">%t</template>
+<template name="note">%t</template>
+<template name="orderedlist">%t</template>
+<template name="part"><Part/>&#160;%n.&#160;%t</template>
+<template name="partintro">%t</template>
+<template name="preface">%t</template>
+<template name="procedure">%t</template>
+<template name="procedure.formal"><Procedure/>&#160;%n.&#160;%t</template>
+<template name="productionset">%t</template>
+<template name="productionset.formal"><ProductionSet/>&#160;%n</template>
+<template name="qandadiv">%t</template>
+<template name="qandaentry">%t</template>
+<template name="qandaset">%t</template>
+<template name="question">%t</template>
+<template name="refentry">%t</template>
+<template name="reference">%t</template>
+<template name="refsection">%t</template>
+<template name="refsect1">%t</template>
+<template name="refsect2">%t</template>
+<template name="refsect3">%t</template>
+<template name="refsynopsisdiv">%t</template>
+<template name="refsynopsisdivinfo">%t</template>
+<template name="segmentedlist">%t</template>
+<template name="set">%t</template>
+<template name="setindex">%t</template>
+<template name="sidebar">%t</template>
+<template name="step">%t</template>
+<template name="table"><Table/>&#160;%n.&#160;%t</template>
+<template name="task">%t</template>
+<template name="tasksummary">%t</template>
+<template name="taskprerequisites">%t</template>
+<template name="taskrelated">%t</template>
+<template name="tip">%t</template>
+<template name="toc">%t</template>
+<template name="variablelist">%t</template>
+<template name="varlistentry"/>
+<template name="warning">%t</template>
+</context>
+
+<context name="title-unnumbered">
+
+<template name="appendix">%t</template>
+<template name="article/appendix">%t</template>
+<template name="bridgehead">%t</template>
+<template name="chapter">%t</template>
+<template name="sect1">%t</template>
+<template name="sect2">%t</template>
+<template name="sect3">%t</template>
+<template name="sect4">%t</template>
+<template name="sect5">%t</template>
+<template name="section">%t</template>
+<template name="simplesect">%t</template>
+<template name="part">%t</template>
+
+</context>
+
+<context name="title-numbered">
+
+<template name="appendix"><Appendix/>&#160;%n.&#160;%t</template>
+<template name="article/appendix">%n.&#160;%t</template>
+<template name="bridgehead">%n.&#160;%t</template>
+<template name="chapter"><Chapter/>&#160;%n.&#160;%t</template>
+<template name="part"><Part/>&#160;%n.&#160;%t</template>
+<template name="sect1">%n.&#160;%t</template>
+<template name="sect2">%n.&#160;%t</template>
+<template name="sect3">%n.&#160;%t</template>
+<template name="sect4">%n.&#160;%t</template>
+<template name="sect5">%n.&#160;%t</template>
+<template name="section">%n.&#160;%t</template>
+<template name="simplesect">%t</template>
+
+</context>
+
+<context name="subtitle">
+
+<template name="appendix">%s</template>
+<template name="article">%s</template>
+<template name="bibliodiv">%s</template>
+<template name="biblioentry">%s</template>
+<template name="bibliography">%s</template>
+<template name="bibliomixed">%s</template>
+<template name="bibliomset">%s</template>
+<template name="biblioset">%s</template>
+<template name="book">%s</template>
+<template name="chapter">%s</template>
+<template name="colophon">%s</template>
+<template name="dedication">%s</template>
+<template name="glossary">%s</template>
+<template name="glossdiv">%s</template>
+<template name="index">%s</template>
+<template name="indexdiv">%s</template>
+<template name="lot">%s</template>
+<template name="part">%s</template>
+<template name="partintro">%s</template>
+<template name="preface">%s</template>
+<template name="refentry">%s</template>
+<template name="reference">%s</template>
+<template name="refsection">%s</template>
+<template name="refsect1">%s</template>
+<template name="refsect2">%s</template>
+<template name="refsect3">%s</template>
+<template name="refsynopsisdiv">%s</template>
+<template name="sect1">%s</template>
+<template name="sect2">%s</template>
+<template name="sect3">%s</template>
+<template name="sect4">%s</template>
+<template name="sect5">%s</template>
+<template name="section">%s</template>
+<template name="set">%s</template>
+<template name="setindex">%s</template>
+<template name="sidebar">%s</template>
+<template name="simplesect">%s</template>
+<template name="toc">%s</template>
+
+</context>
+
+<context name="xref">
+<template name="abstract">%t</template>
+<template name="answer"><Answer/>&#160;%n</template>
+<template name="appendix">%t</template>
+<template name="article">%t</template>
+<template name="authorblurb">%t</template>
+<template name="bibliodiv">%t</template>
+<template name="bibliography">%t</template>
+<template name="bibliomset">%t</template>
+<template name="biblioset">%t</template>
+<template name="blockquote">%t</template>
+<template name="book">%t</template>
+<template name="calloutlist">%t</template>
+<template name="caution">%t</template>
+<template name="chapter">%t</template>
+<template name="colophon">%t</template>
+<template name="constraintdef">%t</template>
+<template name="dedication">%t</template>
+<template name="equation">%t</template>
+<template name="example">%t</template>
+<template name="figure">%t</template>
+<template name="foil">%t</template>	
+<template name="foilgroup">%t</template> 
+<template name="formalpara">%t</template>
+<template name="glossary">%t</template>
+<template name="glossdiv">%t</template>
+<template name="important">%t</template>
+<template name="index">%t</template>
+<template name="indexdiv">%t</template>
+<template name="itemizedlist">%t</template>
+<template name="legalnotice">%t</template>
+<template name="listitem">%n</template>
+<template name="lot">%t</template>
+<template name="msg">%t</template>
+<template name="msgexplan">%t</template>
+<template name="msgmain">%t</template>
+<template name="msgrel">%t</template>
+<template name="msgset">%t</template>
+<template name="msgsub">%t</template>
+<template name="note">%t</template>
+<template name="orderedlist">%t</template>
+<template name="part">%t</template>
+<template name="partintro">%t</template>
+<template name="preface">%t</template>
+<template name="procedure">%t</template>
+<template name="productionset">%t</template>
+<template name="qandadiv">%t</template>
+<template name="qandaentry">Demando&#160;%n</template>
+<template name="qandaset">%t</template>
+<template name="question">Demando&#160;%n</template>
+<template name="reference">%t</template>
+<template name="refsynopsisdiv">%t</template>
+<template name="segmentedlist">%t</template>
+<template name="set">%t</template>
+<template name="setindex">%t</template>
+<template name="sidebar">%t</template>
+<template name="table">%t</template>
+<template name="task">%t</template>
+<template name="tip">%t</template>
+<template name="toc">%t</template>
+<template name="variablelist">%t</template>
+<template name="varlistentry">%n</template>
+<template name="warning">%t</template>
+<template name="olink.document.citation"> in %o</template>
+<template name="olink.page.citation"> (pa&#285;o %p)</template>
+<template name="page.citation"> [%p]</template>
+<template name="page">(pa&#285;o %p)</template>
+<template name="docname"> en %o</template>
+<template name="docnamelong"> en la dokumento titolata %o</template>
+<template name="pageabbrev">(p. %p)</template>
+<template name="Page">Pa&#285;o %p</template>
+
+<template name="bridgehead"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="refsection"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="refsect1"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="refsect2"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="refsect3"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="sect1"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="sect2"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="sect3"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="sect4"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="sect5"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="section"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="simplesect"><sectioncalled/> <startquote/>%t<endquote/></template>
+
+</context>
+
+<context name="xref-number">
+
+<template name="answer"><Answer/>&#160;%n</template>
+<template name="appendix"><Appendix/>&#160;%n</template>
+<template name="bridgehead"><Section/>&#160;%n</template>
+<template name="chapter"><Chapter/>&#160;%n</template>
+<template name="equation"><Equation/>&#160;%n</template>
+<template name="example"><Example/>&#160;%n</template>
+<template name="figure"><Figure/>&#160;%n</template>
+<template name="part"><Part/>&#160;%n</template>
+<template name="procedure"><Procedure/>&#160;%n</template>
+<template name="productionset"><ProductionSet/>&#160;%n</template>
+<template name="qandadiv"><Qandadiv/>&#160;%n</template>
+<template name="qandaentry"><Question/>&#160;%n</template>
+<template name="question"><Question/>&#160;%n</template>
+<template name="sect1"><Section/>&#160;%n</template>
+<template name="sect2"><Section/>&#160;%n</template>
+<template name="sect3"><Section/>&#160;%n</template>
+<template name="sect4"><Section/>&#160;%n</template>
+<template name="sect5"><Section/>&#160;%n</template>
+<template name="section"><Section/>&#160;%n</template>
+<template name="table"><Table/>&#160;%n</template>
+
+</context>
+
+<context name="xref-number-and-title">
+
+<template name="appendix"><Appendix/>&#160;%n, %t</template>
+<template name="bridgehead"><Section/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="chapter"><Chapter/>&#160;%n, %t</template>
+<template name="equation"><Equation/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="example"><Example/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="figure"><Figure/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="part"><Part/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="procedure"><Procedure/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="productionset"><ProductionSet/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="qandadiv"><Qandadiv/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="refsect1"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="refsect2"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="refsect3"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="refsection"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="sect1"><Section/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="sect2"><Section/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="sect3"><Section/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="sect4"><Section/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="sect5"><Section/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="section"><Section/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="simplesect"><sectioncalled/> <startquote/>%t<endquote/></template>
+<template name="table"><Table/>&#160;%n, <startquote/>%t<endquote/></template>
+
+</context>
+
+<context name="authorgroup">
+<template name="sep"><listcomma/> </template>
+<template name="sep2"> <and/> </template>
+<template name="seplast"><lastlistcomma/> <and/> </template>
+</context>
+
+<context name="glossary">
+<template name="see"><GlossSee/> %t.</template>
+<template name="seealso"><GlossSeeAlso/> %t.</template>
+<template name="seealso-separator">, </template>
+</context>
+
+<context name="msgset">
+<template name="MsgAud"><MsgAud/>: </template>
+<template name="MsgLevel"><MsgLevel/>: </template>
+<template name="MsgOrig"><MsgOrig/>: </template>
+</context>
+
+<context name="datetime">
+<template name="format">m/d/Y</template>
+</context>
+
+<context name="termdef">
+<template name="prefix">[Difino: </template>
+<template name="suffix">]</template>
+</context>
+
+<context name="datetime-full">
+<template name="January">januaro</template>
+<template name="February">februaro</template>
+<template name="March">marto</template>
+<template name="April">aprilo</template>
+<template name="May">majo</template>
+<template name="June">junio</template>
+<template name="July">julio</template>
+<template name="August">a&#365;gusto</template>
+<template name="September">septembro</template>
+<template name="October">oktobro</template>
+<template name="November">novembro</template>
+<template name="December">decembro</template>
+<template name="Monday">lundo</template>
+<template name="Tuesday">mardo</template>
+<template name="Wednesday">merkredo</template>
+<template name="Thursday">&#309;audo</template>
+<template name="Friday">vendredo</template>
+<template name="Saturday">sabato</template>
+<template name="Sunday">diman&#265;o</template>
+</context>
+
+<context name="datetime-abbrev">
+
+<template name="Jan">jan</template>
+<template name="Feb">feb</template>
+<template name="Mar">mar</template>
+<template name="Apr">apr</template>
+<template name="May">maj</template>
+<template name="Jun">jun</template>
+<template name="Jul">jul</template>
+<template name="Aug">a&#365;g</template>
+<template name="Sep">sep</template>
+<template name="Oct">okt</template>
+<template name="Nov">nov</template>
+<template name="Dec">dec</template>
+<template name="Mon">lun</template>
+<template name="Tue">mar</template>
+<template name="Wed">mer</template>
+<template name="Thu">&#309;au</template>
+<template name="Fri">ven</template>
+<template name="Sat">sab</template>
+<template name="Sun">dim</template>
+</context>
+
+<context name="htmlhelp">
+
+<template name="langcode">0x0409 Esperanto</template>
+</context>
+
+<context name="index">
+<template name="term-separator">, </template>
+<template name="number-separator">, </template>
+<template name="range-separator">-</template>
+</context>
+
+<context name="iso690">
+  
+  
+  <template name="lastfirst.sep">, </template> 
+  <template name="alt.person.two.sep"> &#8211; </template>
+  <template name="alt.person.last.sep"> &#8211; </template> 
+  <template name="alt.person.more.sep"> &#8211; </template> 
+  <template name="primary.editor"> (red.)</template> 
+  <template name="primary.many">, k.a.</template> 
+  <template name="primary.sep">. </template> 
+  
+  
+  
+  <template name="submaintitle.sep">: </template> 
+  <template name="title.sep">. </template> 
+  <template name="othertitle.sep">, </template> 
+  
+  
+  
+  <template name="medium1"> [</template>
+  <template name="medium2">]</template>
+  
+  
+  
+  <template name="secondary.person.sep">; </template> 
+  <template name="secondary.sep">. </template> 
+  
+  
+  
+  <template name="respons.sep">. </template> 
+  
+  
+  <template name="edition.sep">. </template> 
+  <template name="edition.serial.sep">, </template> 
+  
+  
+  <template name="issuing.range">-</template> 
+  <template name="issuing.div">, </template> 
+  <template name="issuing.sep">. </template> 
+  
+  
+  <template name="partnr.sep">. </template> 
+  
+  
+  <template name="placepubl.sep">: </template> 
+  <template name="publyear.sep">, </template> 
+  <template name="pubinfo.sep">. </template> 
+  <template name="spec.pubinfo.sep">, </template> 
+  
+  
+  <template name="upd.sep">, </template> 
+  
+  
+  
+  <template name="datecit1"> [referencita </template>
+  <template name="datecit2">]</template>
+  
+  
+  <template name="extent.sep">. </template>
+  
+  
+  <template name="locs.sep">, </template> 
+  <template name="location.sep">. </template>
+  
+  
+  <template name="serie.sep">. </template>
+  
+  
+  <template name="notice.sep">. </template>
+  
+  
+  
+  <template name="access">Havebla </template>
+  <template name="acctoo">Anka&#365; havebla </template>
+  <template name="onwww">de la Tut-Tera Teksa&#309;o</template>
+  <template name="oninet">de la Interreto</template>
+  <template name="access.end">: </template>
+  <template name="link1">&lt;</template> 
+  <template name="link2">&gt;</template> 
+  <template name="access.sep">. </template>
+  
+  
+  
+  <template name="isbn">ISBN </template>
+  <template name="issn">ISSN </template>
+  <template name="stdnum.sep">. </template> 
+  
+  
+  <template name="patcountry.sep">. </template> 
+  <template name="pattype.sep">, </template> 
+  <template name="patnum.sep">. </template> 
+  <template name="patdate.sep">. </template> 
+</context>
+  
+<letters>
+  <l i="-1"/>
+  <l i="0">Symbols</l>
+  <l i="10">A</l>
+  <l i="10">a</l>
+  <l i="10">&#192;</l>
+  <l i="10">&#224;</l>
+  <l i="10">&#193;</l>
+  <l i="10">&#225;</l>
+  <l i="10">&#194;</l>
+  <l i="10">&#226;</l>
+  <l i="10">&#195;</l>
+  <l i="10">&#227;</l>
+  <l i="10">&#196;</l>
+  <l i="10">&#228;</l>
+  <l i="10">&#197;</l>
+  <l i="10">&#229;</l>
+  <l i="10">&#256;</l>
+  <l i="10">&#257;</l>
+  <l i="10">&#258;</l>
+  <l i="10">&#259;</l>
+  <l i="10">&#260;</l>
+  <l i="10">&#261;</l>
+  <l i="10">&#461;</l>
+  <l i="10">&#462;</l>
+  <l i="10">&#478;</l>
+  <l i="10">&#479;</l>
+  <l i="10">&#480;</l>
+  <l i="10">&#481;</l>
+  <l i="10">&#506;</l>
+  <l i="10">&#507;</l>
+  <l i="10">&#512;</l>
+  <l i="10">&#513;</l>
+  <l i="10">&#514;</l>
+  <l i="10">&#515;</l>
+  <l i="10">&#550;</l>
+  <l i="10">&#551;</l>
+  <l i="10">&#7680;</l>
+  <l i="10">&#7681;</l>
+  <l i="10">&#7834;</l>
+  <l i="10">&#7840;</l>
+  <l i="10">&#7841;</l>
+  <l i="10">&#7842;</l>
+  <l i="10">&#7843;</l>
+  <l i="10">&#7844;</l>
+  <l i="10">&#7845;</l>
+  <l i="10">&#7846;</l>
+  <l i="10">&#7847;</l>
+  <l i="10">&#7848;</l>
+  <l i="10">&#7849;</l>
+  <l i="10">&#7850;</l>
+  <l i="10">&#7851;</l>
+  <l i="10">&#7852;</l>
+  <l i="10">&#7853;</l>
+  <l i="10">&#7854;</l>
+  <l i="10">&#7855;</l>
+  <l i="10">&#7856;</l>
+  <l i="10">&#7857;</l>
+  <l i="10">&#7858;</l>
+  <l i="10">&#7859;</l>
+  <l i="10">&#7860;</l>
+  <l i="10">&#7861;</l>
+  <l i="10">&#7862;</l>
+  <l i="10">&#7863;</l>
+  <l i="20">B</l>
+  <l i="20">b</l>
+  <l i="20">&#384;</l>
+  <l i="20">&#385;</l>
+  <l i="20">&#595;</l>
+  <l i="20">&#386;</l>
+  <l i="20">&#387;</l>
+  <l i="20">&#7682;</l>
+  <l i="20">&#7683;</l>
+  <l i="20">&#7684;</l>
+  <l i="20">&#7685;</l>
+  <l i="20">&#7686;</l>
+  <l i="20">&#7687;</l>
+  <l i="30">C</l>
+  <l i="30">c</l>
+  <l i="30">&#199;</l>
+  <l i="30">&#231;</l>
+  <l i="30">&#262;</l>
+  <l i="30">&#263;</l>
+  <l i="30">&#264;</l>
+  <l i="30">&#265;</l>
+  <l i="30">&#266;</l>
+  <l i="30">&#267;</l>
+  <l i="30">&#268;</l>
+  <l i="30">&#269;</l>
+  <l i="30">&#391;</l>
+  <l i="30">&#392;</l>
+  <l i="30">&#597;</l>
+  <l i="30">&#7688;</l>
+  <l i="30">&#7689;</l>
+  <l i="40">D</l>
+  <l i="40">d</l>
+  <l i="40">&#270;</l>
+  <l i="40">&#271;</l>
+  <l i="40">&#272;</l>
+  <l i="40">&#273;</l>
+  <l i="40">&#394;</l>
+  <l i="40">&#599;</l>
+  <l i="40">&#395;</l>
+  <l i="40">&#396;</l>
+  <l i="40">&#453;</l>
+  <l i="40">&#498;</l>
+  <l i="40">&#545;</l>
+  <l i="40">&#598;</l>
+  <l i="40">&#7690;</l>
+  <l i="40">&#7691;</l>
+  <l i="40">&#7692;</l>
+  <l i="40">&#7693;</l>
+  <l i="40">&#7694;</l>
+  <l i="40">&#7695;</l>
+  <l i="40">&#7696;</l>
+  <l i="40">&#7697;</l>
+  <l i="40">&#7698;</l>
+  <l i="40">&#7699;</l>
+  <l i="50">E</l>
+  <l i="50">e</l>
+  <l i="50">&#200;</l>
+  <l i="50">&#232;</l>
+  <l i="50">&#201;</l>
+  <l i="50">&#233;</l>
+  <l i="50">&#202;</l>
+  <l i="50">&#234;</l>
+  <l i="50">&#203;</l>
+  <l i="50">&#235;</l>
+  <l i="50">&#274;</l>
+  <l i="50">&#275;</l>
+  <l i="50">&#276;</l>
+  <l i="50">&#277;</l>
+  <l i="50">&#278;</l>
+  <l i="50">&#279;</l>
+  <l i="50">&#280;</l>
+  <l i="50">&#281;</l>
+  <l i="50">&#282;</l>
+  <l i="50">&#283;</l>
+  <l i="50">&#516;</l>
+  <l i="50">&#517;</l>
+  <l i="50">&#518;</l>
+  <l i="50">&#519;</l>
+  <l i="50">&#552;</l>
+  <l i="50">&#553;</l>
+  <l i="50">&#7700;</l>
+  <l i="50">&#7701;</l>
+  <l i="50">&#7702;</l>
+  <l i="50">&#7703;</l>
+  <l i="50">&#7704;</l>
+  <l i="50">&#7705;</l>
+  <l i="50">&#7706;</l>
+  <l i="50">&#7707;</l>
+  <l i="50">&#7708;</l>
+  <l i="50">&#7709;</l>
+  <l i="50">&#7864;</l>
+  <l i="50">&#7865;</l>
+  <l i="50">&#7866;</l>
+  <l i="50">&#7867;</l>
+  <l i="50">&#7868;</l>
+  <l i="50">&#7869;</l>
+  <l i="50">&#7870;</l>
+  <l i="50">&#7871;</l>
+  <l i="50">&#7872;</l>
+  <l i="50">&#7873;</l>
+  <l i="50">&#7874;</l>
+  <l i="50">&#7875;</l>
+  <l i="50">&#7876;</l>
+  <l i="50">&#7877;</l>
+  <l i="50">&#7878;</l>
+  <l i="50">&#7879;</l>
+  <l i="60">F</l>
+  <l i="60">f</l>
+  <l i="60">&#401;</l>
+  <l i="60">&#402;</l>
+  <l i="60">&#7710;</l>
+  <l i="60">&#7711;</l>
+  <l i="70">G</l>
+  <l i="70">g</l>
+  <l i="70">&#284;</l>
+  <l i="70">&#285;</l>
+  <l i="70">&#286;</l>
+  <l i="70">&#287;</l>
+  <l i="70">&#288;</l>
+  <l i="70">&#289;</l>
+  <l i="70">&#290;</l>
+  <l i="70">&#291;</l>
+  <l i="70">&#403;</l>
+  <l i="70">&#608;</l>
+  <l i="70">&#484;</l>
+  <l i="70">&#485;</l>
+  <l i="70">&#486;</l>
+  <l i="70">&#487;</l>
+  <l i="70">&#500;</l>
+  <l i="70">&#501;</l>
+  <l i="70">&#7712;</l>
+  <l i="70">&#7713;</l>
+  <l i="80">H</l>
+  <l i="80">h</l>
+  <l i="80">&#292;</l>
+  <l i="80">&#293;</l>
+  <l i="80">&#294;</l>
+  <l i="80">&#295;</l>
+  <l i="80">&#542;</l>
+  <l i="80">&#543;</l>
+  <l i="80">&#614;</l>
+  <l i="80">&#7714;</l>
+  <l i="80">&#7715;</l>
+  <l i="80">&#7716;</l>
+  <l i="80">&#7717;</l>
+  <l i="80">&#7718;</l>
+  <l i="80">&#7719;</l>
+  <l i="80">&#7720;</l>
+  <l i="80">&#7721;</l>
+  <l i="80">&#7722;</l>
+  <l i="80">&#7723;</l>
+  <l i="80">&#7830;</l>
+  <l i="90">I</l>
+  <l i="90">i</l>
+  <l i="90">&#204;</l>
+  <l i="90">&#236;</l>
+  <l i="90">&#205;</l>
+  <l i="90">&#237;</l>
+  <l i="90">&#206;</l>
+  <l i="90">&#238;</l>
+  <l i="90">&#207;</l>
+  <l i="90">&#239;</l>
+  <l i="90">&#296;</l>
+  <l i="90">&#297;</l>
+  <l i="90">&#298;</l>
+  <l i="90">&#299;</l>
+  <l i="90">&#300;</l>
+  <l i="90">&#301;</l>
+  <l i="90">&#302;</l>
+  <l i="90">&#303;</l>
+  <l i="90">&#304;</l>
+  <l i="90">&#407;</l>
+  <l i="90">&#616;</l>
+  <l i="90">&#463;</l>
+  <l i="90">&#464;</l>
+  <l i="90">&#520;</l>
+  <l i="90">&#521;</l>
+  <l i="90">&#522;</l>
+  <l i="90">&#523;</l>
+  <l i="90">&#7724;</l>
+  <l i="90">&#7725;</l>
+  <l i="90">&#7726;</l>
+  <l i="90">&#7727;</l>
+  <l i="90">&#7880;</l>
+  <l i="90">&#7881;</l>
+  <l i="90">&#7882;</l>
+  <l i="90">&#7883;</l>
+  <l i="100">J</l>
+  <l i="100">j</l>
+  <l i="100">&#308;</l>
+  <l i="100">&#309;</l>
+  <l i="100">&#496;</l>
+  <l i="100">&#669;</l>
+  <l i="110">K</l>
+  <l i="110">k</l>
+  <l i="110">&#310;</l>
+  <l i="110">&#311;</l>
+  <l i="110">&#408;</l>
+  <l i="110">&#409;</l>
+  <l i="110">&#488;</l>
+  <l i="110">&#489;</l>
+  <l i="110">&#7728;</l>
+  <l i="110">&#7729;</l>
+  <l i="110">&#7730;</l>
+  <l i="110">&#7731;</l>
+  <l i="110">&#7732;</l>
+  <l i="110">&#7733;</l>
+  <l i="120">L</l>
+  <l i="120">l</l>
+  <l i="120">&#313;</l>
+  <l i="120">&#314;</l>
+  <l i="120">&#315;</l>
+  <l i="120">&#316;</l>
+  <l i="120">&#317;</l>
+  <l i="120">&#318;</l>
+  <l i="120">&#319;</l>
+  <l i="120">&#320;</l>
+  <l i="120">&#321;</l>
+  <l i="120">&#322;</l>
+  <l i="120">&#410;</l>
+  <l i="120">&#456;</l>
+  <l i="120">&#564;</l>
+  <l i="120">&#619;</l>
+  <l i="120">&#620;</l>
+  <l i="120">&#621;</l>
+  <l i="120">&#7734;</l>
+  <l i="120">&#7735;</l>
+  <l i="120">&#7736;</l>
+  <l i="120">&#7737;</l>
+  <l i="120">&#7738;</l>
+  <l i="120">&#7739;</l>
+  <l i="120">&#7740;</l>
+  <l i="120">&#7741;</l>
+  <l i="130">M</l>
+  <l i="130">m</l>
+  <l i="130">&#625;</l>
+  <l i="130">&#7742;</l>
+  <l i="130">&#7743;</l>
+  <l i="130">&#7744;</l>
+  <l i="130">&#7745;</l>
+  <l i="130">&#7746;</l>
+  <l i="130">&#7747;</l>
+  <l i="140">N</l>
+  <l i="140">n</l>
+  <l i="140">&#209;</l>
+  <l i="140">&#241;</l>
+  <l i="140">&#323;</l>
+  <l i="140">&#324;</l>
+  <l i="140">&#325;</l>
+  <l i="140">&#326;</l>
+  <l i="140">&#327;</l>
+  <l i="140">&#328;</l>
+  <l i="140">&#413;</l>
+  <l i="140">&#626;</l>
+  <l i="140">&#414;</l>
+  <l i="140">&#544;</l>
+  <l i="140">&#459;</l>
+  <l i="140">&#504;</l>
+  <l i="140">&#505;</l>
+  <l i="140">&#565;</l>
+  <l i="140">&#627;</l>
+  <l i="140">&#7748;</l>
+  <l i="140">&#7749;</l>
+  <l i="140">&#7750;</l>
+  <l i="140">&#7751;</l>
+  <l i="140">&#7752;</l>
+  <l i="140">&#7753;</l>
+  <l i="140">&#7754;</l>
+  <l i="140">&#7755;</l>
+  <l i="150">O</l>
+  <l i="150">o</l>
+  <l i="150">&#210;</l>
+  <l i="150">&#242;</l>
+  <l i="150">&#211;</l>
+  <l i="150">&#243;</l>
+  <l i="150">&#212;</l>
+  <l i="150">&#244;</l>
+  <l i="150">&#213;</l>
+  <l i="150">&#245;</l>
+  <l i="150">&#214;</l>
+  <l i="150">&#246;</l>
+  <l i="150">&#216;</l>
+  <l i="150">&#248;</l>
+  <l i="150">&#332;</l>
+  <l i="150">&#333;</l>
+  <l i="150">&#334;</l>
+  <l i="150">&#335;</l>
+  <l i="150">&#336;</l>
+  <l i="150">&#337;</l>
+  <l i="150">&#415;</l>
+  <l i="150">&#416;</l>
+  <l i="150">&#417;</l>
+  <l i="150">&#465;</l>
+  <l i="150">&#466;</l>
+  <l i="150">&#490;</l>
+  <l i="150">&#491;</l>
+  <l i="150">&#492;</l>
+  <l i="150">&#493;</l>
+  <l i="150">&#510;</l>
+  <l i="150">&#511;</l>
+  <l i="150">&#524;</l>
+  <l i="150">&#525;</l>
+  <l i="150">&#526;</l>
+  <l i="150">&#527;</l>
+  <l i="150">&#554;</l>
+  <l i="150">&#555;</l>
+  <l i="150">&#556;</l>
+  <l i="150">&#557;</l>
+  <l i="150">&#558;</l>
+  <l i="150">&#559;</l>
+  <l i="150">&#560;</l>
+  <l i="150">&#561;</l>
+  <l i="150">&#7756;</l>
+  <l i="150">&#7757;</l>
+  <l i="150">&#7758;</l>
+  <l i="150">&#7759;</l>
+  <l i="150">&#7760;</l>
+  <l i="150">&#7761;</l>
+  <l i="150">&#7762;</l>
+  <l i="150">&#7763;</l>
+  <l i="150">&#7884;</l>
+  <l i="150">&#7885;</l>
+  <l i="150">&#7886;</l>
+  <l i="150">&#7887;</l>
+  <l i="150">&#7888;</l>
+  <l i="150">&#7889;</l>
+  <l i="150">&#7890;</l>
+  <l i="150">&#7891;</l>
+  <l i="150">&#7892;</l>
+  <l i="150">&#7893;</l>
+  <l i="150">&#7894;</l>
+  <l i="150">&#7895;</l>
+  <l i="150">&#7896;</l>
+  <l i="150">&#7897;</l>
+  <l i="150">&#7898;</l>
+  <l i="150">&#7899;</l>
+  <l i="150">&#7900;</l>
+  <l i="150">&#7901;</l>
+  <l i="150">&#7902;</l>
+  <l i="150">&#7903;</l>
+  <l i="150">&#7904;</l>
+  <l i="150">&#7905;</l>
+  <l i="150">&#7906;</l>
+  <l i="150">&#7907;</l>
+  <l i="160">P</l>
+  <l i="160">p</l>
+  <l i="160">&#420;</l>
+  <l i="160">&#421;</l>
+  <l i="160">&#7764;</l>
+  <l i="160">&#7765;</l>
+  <l i="160">&#7766;</l>
+  <l i="160">&#7767;</l>
+  <l i="170">Q</l>
+  <l i="170">q</l>
+  <l i="170">&#672;</l>
+  <l i="180">R</l>
+  <l i="180">r</l>
+  <l i="180">&#340;</l>
+  <l i="180">&#341;</l>
+  <l i="180">&#342;</l>
+  <l i="180">&#343;</l>
+  <l i="180">&#344;</l>
+  <l i="180">&#345;</l>
+  <l i="180">&#528;</l>
+  <l i="180">&#529;</l>
+  <l i="180">&#530;</l>
+  <l i="180">&#531;</l>
+  <l i="180">&#636;</l>
+  <l i="180">&#637;</l>
+  <l i="180">&#638;</l>
+  <l i="180">&#7768;</l>
+  <l i="180">&#7769;</l>
+  <l i="180">&#7770;</l>
+  <l i="180">&#7771;</l>
+  <l i="180">&#7772;</l>
+  <l i="180">&#7773;</l>
+  <l i="180">&#7774;</l>
+  <l i="180">&#7775;</l>
+  <l i="190">S</l>
+  <l i="190">s</l>
+  <l i="190">&#346;</l>
+  <l i="190">&#347;</l>
+  <l i="190">&#348;</l>
+  <l i="190">&#349;</l>
+  <l i="190">&#350;</l>
+  <l i="190">&#351;</l>
+  <l i="190">&#352;</l>
+  <l i="190">&#353;</l>
+  <l i="190">&#536;</l>
+  <l i="190">&#537;</l>
+  <l i="190">&#642;</l>
+  <l i="190">&#7776;</l>
+  <l i="190">&#7777;</l>
+  <l i="190">&#7778;</l>
+  <l i="190">&#7779;</l>
+  <l i="190">&#7780;</l>
+  <l i="190">&#7781;</l>
+  <l i="190">&#7782;</l>
+  <l i="190">&#7783;</l>
+  <l i="190">&#7784;</l>
+  <l i="190">&#7785;</l>
+  <l i="200">T</l>
+  <l i="200">t</l>
+  <l i="200">&#354;</l>
+  <l i="200">&#355;</l>
+  <l i="200">&#356;</l>
+  <l i="200">&#357;</l>
+  <l i="200">&#358;</l>
+  <l i="200">&#359;</l>
+  <l i="200">&#427;</l>
+  <l i="200">&#428;</l>
+  <l i="200">&#429;</l>
+  <l i="200">&#430;</l>
+  <l i="200">&#648;</l>
+  <l i="200">&#538;</l>
+  <l i="200">&#539;</l>
+  <l i="200">&#566;</l>
+  <l i="200">&#7786;</l>
+  <l i="200">&#7787;</l>
+  <l i="200">&#7788;</l>
+  <l i="200">&#7789;</l>
+  <l i="200">&#7790;</l>
+  <l i="200">&#7791;</l>
+  <l i="200">&#7792;</l>
+  <l i="200">&#7793;</l>
+  <l i="200">&#7831;</l>
+  <l i="210">U</l>
+  <l i="210">u</l>
+  <l i="210">&#217;</l>
+  <l i="210">&#249;</l>
+  <l i="210">&#218;</l>
+  <l i="210">&#250;</l>
+  <l i="210">&#219;</l>
+  <l i="210">&#251;</l>
+  <l i="210">&#220;</l>
+  <l i="210">&#252;</l>
+  <l i="210">&#360;</l>
+  <l i="210">&#361;</l>
+  <l i="210">&#362;</l>
+  <l i="210">&#363;</l>
+  <l i="210">&#364;</l>
+  <l i="210">&#365;</l>
+  <l i="210">&#366;</l>
+  <l i="210">&#367;</l>
+  <l i="210">&#368;</l>
+  <l i="210">&#369;</l>
+  <l i="210">&#370;</l>
+  <l i="210">&#371;</l>
+  <l i="210">&#431;</l>
+  <l i="210">&#432;</l>
+  <l i="210">&#467;</l>
+  <l i="210">&#468;</l>
+  <l i="210">&#469;</l>
+  <l i="210">&#470;</l>
+  <l i="210">&#471;</l>
+  <l i="210">&#472;</l>
+  <l i="210">&#473;</l>
+  <l i="210">&#474;</l>
+  <l i="210">&#475;</l>
+  <l i="210">&#476;</l>
+  <l i="210">&#532;</l>
+  <l i="210">&#533;</l>
+  <l i="210">&#534;</l>
+  <l i="210">&#535;</l>
+  <l i="210">&#7794;</l>
+  <l i="210">&#7795;</l>
+  <l i="210">&#7796;</l>
+  <l i="210">&#7797;</l>
+  <l i="210">&#7798;</l>
+  <l i="210">&#7799;</l>
+  <l i="210">&#7800;</l>
+  <l i="210">&#7801;</l>
+  <l i="210">&#7802;</l>
+  <l i="210">&#7803;</l>
+  <l i="210">&#7908;</l>
+  <l i="210">&#7909;</l>
+  <l i="210">&#7910;</l>
+  <l i="210">&#7911;</l>
+  <l i="210">&#7912;</l>
+  <l i="210">&#7913;</l>
+  <l i="210">&#7914;</l>
+  <l i="210">&#7915;</l>
+  <l i="210">&#7916;</l>
+  <l i="210">&#7917;</l>
+  <l i="210">&#7918;</l>
+  <l i="210">&#7919;</l>
+  <l i="210">&#7920;</l>
+  <l i="210">&#7921;</l>
+  <l i="220">V</l>
+  <l i="220">v</l>
+  <l i="220">&#434;</l>
+  <l i="220">&#651;</l>
+  <l i="220">&#7804;</l>
+  <l i="220">&#7805;</l>
+  <l i="220">&#7806;</l>
+  <l i="220">&#7807;</l>
+  <l i="230">W</l>
+  <l i="230">w</l>
+  <l i="230">&#372;</l>
+  <l i="230">&#373;</l>
+  <l i="230">&#7808;</l>
+  <l i="230">&#7809;</l>
+  <l i="230">&#7810;</l>
+  <l i="230">&#7811;</l>
+  <l i="230">&#7812;</l>
+  <l i="230">&#7813;</l>
+  <l i="230">&#7814;</l>
+  <l i="230">&#7815;</l>
+  <l i="230">&#7816;</l>
+  <l i="230">&#7817;</l>
+  <l i="230">&#7832;</l>
+  <l i="240">X</l>
+  <l i="240">x</l>
+  <l i="240">&#7818;</l>
+  <l i="240">&#7819;</l>
+  <l i="240">&#7820;</l>
+  <l i="240">&#7821;</l>
+  <l i="250">Y</l>
+  <l i="250">y</l>
+  <l i="250">&#221;</l>
+  <l i="250">&#253;</l>
+  <l i="250">&#255;</l>
+  <l i="250">&#376;</l>
+  <l i="250">&#374;</l>
+  <l i="250">&#375;</l>
+  <l i="250">&#435;</l>
+  <l i="250">&#436;</l>
+  <l i="250">&#562;</l>
+  <l i="250">&#563;</l>
+  <l i="250">&#7822;</l>
+  <l i="250">&#7823;</l>
+  <l i="250">&#7833;</l>
+  <l i="250">&#7922;</l>
+  <l i="250">&#7923;</l>
+  <l i="250">&#7924;</l>
+  <l i="250">&#7925;</l>
+  <l i="250">&#7926;</l>
+  <l i="250">&#7927;</l>
+  <l i="250">&#7928;</l>
+  <l i="250">&#7929;</l>
+  <l i="260">Z</l>
+  <l i="260">z</l>
+  <l i="260">&#377;</l>
+  <l i="260">&#378;</l>
+  <l i="260">&#379;</l>
+  <l i="260">&#380;</l>
+  <l i="260">&#381;</l>
+  <l i="260">&#382;</l>
+  <l i="260">&#437;</l>
+  <l i="260">&#438;</l>
+  <l i="260">&#548;</l>
+  <l i="260">&#549;</l>
+  <l i="260">&#656;</l>
+  <l i="260">&#657;</l>
+  <l i="260">&#7824;</l>
+  <l i="260">&#7825;</l>
+  <l i="260">&#7826;</l>
+  <l i="260">&#7827;</l>
+  <l i="260">&#7828;</l>
+  <l i="260">&#7829;</l>
+</letters>
+
+</locale>

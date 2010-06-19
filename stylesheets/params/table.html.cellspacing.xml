@@ -1,0 +1,27 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="table.html.cellspacing">
+<refmeta>
+<refentrytitle>table.html.cellspacing</refentrytitle>
+<refmiscinfo role="type">integer</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>table.html.cellspacing</refname>
+<refpurpose>Default value for cellspacing in HTML tables</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='table.html.cellspacing.frag'>
+<xsl:param name="table.html.cellspacing" select="''"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If specified, this value will be used as the default cellspacing value
+in HTML tables.</para>
+
+</refsect1>
+</refentry>

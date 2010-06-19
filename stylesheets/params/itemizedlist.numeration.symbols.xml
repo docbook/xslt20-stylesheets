@@ -1,0 +1,29 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="itemizedlist.numeration.symbols">
+<refmeta>
+<refentrytitle>itemizedlist.numeration.symbols</refentrytitle>
+<refmiscinfo role="type"></refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>itemizedlist.numeration.symbols</refname>
+<refpurpose>The sequence of symbols used in (nested) itemized lists</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="itemizedlist.numeration.symbols.frag">
+<xsl:param name="itemizedlist.numeration.symbols"
+	   select="('disc', 'round')"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The sequence of symbols used in (nested) itemized lists.
+</para>
+
+</refsect1>
+</refentry>

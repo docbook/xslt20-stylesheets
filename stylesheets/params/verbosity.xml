@@ -1,0 +1,30 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="verbosity">
+<refmeta>
+<refentrytitle>verbosity</refentrytitle>
+</refmeta>
+<refnamediv>
+<refname>verbosity</refname>
+<refpurpose>integer</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="verosity.frag">
+<xsl:param name="verbosity" select="0"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Sets the level of “verbosity” of the stylesheets. The default value,
+0, prints very few informative messages. Higher values print progressively
+more status, progress, and other informational messages. A value of 10 or
+higher prints pretty much all of them.
+</para>
+
+</refsect1>
+</refentry>

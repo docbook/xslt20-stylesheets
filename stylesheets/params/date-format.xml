@@ -1,0 +1,28 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="date-format">
+<refmeta>
+<refentrytitle>date-format</refentrytitle>
+</refmeta>
+<refnamediv>
+<refname>date-format</refname>
+<refpurpose>Date format string</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="date-format.frag">
+<xsl:param name="date-format" select="'[D01] [MNn,*-3] [Y0001]'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>This belongs in the locale files as it is in the XSLT 1.0
+stylesheets.
+</para>
+
+</refsect1>
+</refentry>

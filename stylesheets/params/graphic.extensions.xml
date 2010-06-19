@@ -1,0 +1,28 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="graphic.extensions">
+<refmeta>
+<refentrytitle>graphic.extensions</refentrytitle>
+<refmiscinfo role="type">list</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>graphic.extensions</refname>
+<refpurpose>List of graphic extensions</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='graphic.extensions.frag'>
+<xsl:param name="graphic.extensions"
+	   select="('svg','png','jpg','jpeg','gif','bmp',
+		    'avi', 'mpg', 'mpeg', 'qt')"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>FIXME:</para>
+
+</refsect1>
+</refentry>

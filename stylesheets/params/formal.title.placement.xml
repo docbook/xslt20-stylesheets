@@ -1,0 +1,40 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="formal.title.placement">
+<refmeta>
+<refentrytitle>formal.title.placement</refentrytitle>
+<refmiscinfo role="type"></refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>formal.title.placement</refname>
+<refpurpose>Specifies where formal object titles should occur</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='formal.title.placement.frag'>
+<xsl:param xmlns:db="http://docbook.org/ns/docbook"
+	   name="formal.title.placement" as="element()*">
+  <db:figure placement="after"/>
+  <db:example placement="before"/>
+  <db:equation placement="after"/>
+  <db:table placement="before"/>
+  <db:procedure placement="before"/>
+  <db:task placement="before"/>
+</xsl:param>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies where formal object titles should occur. For each
+formal object type (<tag>figure</tag>,
+<tag>example</tag>, <tag>equation</tag>,
+<tag>table</tag>, and <tag>procedure</tag>) you can
+specify either the keyword <quote><literal>before</literal></quote> or
+<quote><literal>after</literal></quote> as the
+<tag class="attribute">placement</tag>.</para>
+
+</refsect1>
+</refentry>

@@ -1,0 +1,28 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="gYear-format">
+<refmeta>
+<refentrytitle>gYear-format</refentrytitle>
+</refmeta>
+<refnamediv>
+<refname>gYear-format</refname>
+<refpurpose>Date-time format string</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="gYear-format.frag">
+<xsl:param name="gYear-format" select="'[Y0001]'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>This belongs in the locale files as it is in the XSLT 1.0
+stylesheets.
+</para>
+
+</refsect1>
+</refentry>

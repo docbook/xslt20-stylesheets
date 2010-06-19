@@ -1,0 +1,19 @@
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+<title>Article wrapper</title>
+
+<para>Testing <tag>quote</tag>.</para>
+
+<itemizedlist>
+   <listitem>
+      <para><quote xml:id="quote">quote</quote></para>
+   </listitem>
+   <listitem>
+      <para><quote xml:id="quote">quote <quote>nested quote</quote></quote></para>
+   </listitem>
+   <listitem>
+      <para><quote xml:id="quote">quote <quote>nested quote <quote>nested quote</quote></quote></quote></para>
+   </listitem>
+</itemizedlist>
+
+</article>
+

@@ -1,0 +1,28 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="[[TEMPLATE]]">
+<refmeta>
+<refentrytitle>[[TEMPLATE]]</refentrytitle>
+<refmiscinfo role="type"></refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>[[TEMPLATE]]</refname>
+<refpurpose>FIXME: TBA</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="[[TEMPLATE]].frag">
+<xsl:param name="[[TEMPLATE]]" select="1"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>FIXME: TBA
+</para>
+
+</refsect1>
+</refentry>

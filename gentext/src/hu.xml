@@ -1,0 +1,485 @@
+<locale language="hu" english-language-name="Hungarian">
+
+<info xmlns="http://docbook.org/ns/docbook">
+<authorgroup>
+  <author><personname><firstname>Tamas</firstname><surname>Szanto</surname></personname>
+  <email>tszanto@mol.hu</email>
+          
+  </author>
+</authorgroup>
+</info>
+
+<gentext key="Abstract" text="Kivonat"/>
+<gentext key="abstract" text="kivonat"/>
+<gentext key="Answer" text="V:"/>
+<gentext key="answer" text="v:"/>
+<gentext key="Appendix" text="F&#252;ggel&#233;k"/>
+<gentext key="appendix" text="f&#252;ggel&#233;k"/>
+<gentext key="Article" text="Cikk"/>
+<gentext key="article" text="cikk"/>
+<gentext key="Author" text="Szerz"/>
+<gentext key="Bibliography" text="Irodalomjegyz&#233;k"/>
+<gentext key="bibliography" text="irodalomjegyz&#233;k"/>
+<gentext key="Book" text="K&#246;nyv"/>
+<gentext key="book" text="k&#246;nyv"/>
+<gentext key="CAUTION" text="FIGYELEM"/>
+<gentext key="Caution" text="Figyelem"/>
+<gentext key="caution" text="figyelem"/>
+<gentext key="Chapter" text="Fejezet"/>
+<gentext key="chapter" text="fejezet"/>
+<gentext key="Colophon" text="V&#233;gsz&#243;"/>
+<gentext key="colophon" text="v&#233;gsz&#243;"/>
+<gentext key="Copyright" text="Copyright"/>
+<gentext key="copyright" text="copyright"/>
+<gentext key="Dedication" text="Aj&#225;nl&#225;s"/>
+<gentext key="dedication" text="aj&#225;nl&#225;s"/>
+<gentext key="Edition" text="Kiad&#225;s"/>
+<gentext key="edition" text="kiad&#225;s"/>
+<gentext key="Equation" text="Egyenlet"/>
+<gentext key="equation" text="egyenlet"/>
+<gentext key="Example" text="P&#233;lda"/>
+<gentext key="example" text="p&#233;lda"/>
+<gentext key="Figure" text="&#193;bra"/>
+<gentext key="figure" text="&#225;bra"/>
+<gentext key="Glossary" text="Sz&#243;jegyz&#233;k"/>
+<gentext key="glossary" text="sz&#243;jegyz&#233;k"/>
+<gentext key="GlossSee" text="L&#225;sd"/>
+<gentext key="glosssee" text="l&#225;sd"/>
+<gentext key="GlossSeeAlso" text="L&#225;sd m&#233;g"/>
+<gentext key="glossseealso" text="l&#225;sd m&#233;g"/>
+<gentext key="IMPORTANT" text="FONTOS"/>
+<gentext key="Important" text="Fontos"/>
+<gentext key="important" text="fontos"/>
+<gentext key="Index" text="T&#225;rgymutat&#243;"/>
+<gentext key="index" text="t&#225;rgymutat&#243;"/>
+<gentext key="ISBN" text="ISBN"/>
+<gentext key="isbn" text="isbn"/>
+<gentext key="LegalNotice" text="Jogi k&#246;zlem&#233;ny"/>
+<gentext key="legalnotice" text="jogi k&#246;zlem&#233;ny"/>
+<gentext key="MsgAud" text="C&#233;lk&#246;z&#246;ns&#233;g"/>
+<gentext key="msgaud" text="c&#233;lk&#246;z&#246;ns&#233;g"/>
+<gentext key="MsgLevel" text="Szint"/>
+<gentext key="msglevel" text="szint"/>
+<gentext key="MsgOrig" text="Eredet"/>
+<gentext key="msgorig" text="eredet"/>
+<gentext key="NOTE" text="MEGJEGYZ&#201;S"/>
+<gentext key="Note" text="Megjegyz&#233;s"/>
+<gentext key="note" text="megjegyz&#233;s"/>
+<gentext key="Part" text="R&#233;sz"/>
+<gentext key="part" text="r&#233;sz"/>
+<gentext key="Preface" text="El&#337;sz&#243;"/>
+<gentext key="preface" text="el&#337;sz&#243;"/>
+<gentext key="Procedure" text="Elj&#225;r&#225;s"/>
+<gentext key="procedure" text="elj&#225;r&#225;s"/>
+<gentext key="ProductionSet" text="Elemcsoport"/>
+<gentext key="Published" text="Megjelent"/>
+<gentext key="published" text="megjelent"/>
+<gentext key="Qandadiv" text="K &#233;s V"/>
+<gentext key="qandadiv" text="K &#233;s V"/>
+<gentext key="Question" text="K:"/>
+<gentext key="question" text="k:"/>
+<gentext key="RefEntry" text="Bejegyz&#233;s"/>
+<gentext key="refentry" text="bejegyz&#233;s"/>
+<gentext key="Reference" text="Referencia"/>
+<gentext key="reference" text="referencia"/>
+<gentext key="RefName" text="N&#233;v"/>
+<gentext key="refname" text="n&#233;v"/>
+<gentext key="RefSection" text="Szakasz"/>
+<gentext key="refsection" text="szakasz"/>
+<gentext key="RefSynopsisDiv" text="&#193;ttekint&#233;s"/>
+<gentext key="refsynopsisdiv" text="&#225;ttekint&#233;s"/>
+<gentext key="RevHistory" text="Verzi&#243;t&#246;rt&#233;net"/>
+<gentext key="revhistory" text="verzi&#243;t&#246;rt&#233;net"/>
+<gentext key="Revision" text="Verzi&#243;"/>
+<gentext key="revision" text="verzi&#243;"/>
+<gentext key="sect1" text="Szakasz"/>
+<gentext key="sect2" text="Szakasz"/>
+<gentext key="sect3" text="Szakasz"/>
+<gentext key="sect4" text="Szakasz"/>
+<gentext key="sect5" text="Szakasz"/>
+<gentext key="Section" text="Szakasz"/>
+<gentext key="section" text="szakasz"/>
+<gentext key="See" text="L&#225;sd"/>
+<gentext key="see" text="l&#225;sd"/>
+<gentext key="SeeAlso" text="L&#225;sd m&#233;g"/>
+<gentext key="Seealso" text="L&#225;sd m&#233;g"/>
+<gentext key="seealso" text="l&#225;sd m&#233;g"/>
+<gentext key="Set" text="Csoport"/>
+<gentext key="set" text="csoport"/>
+<gentext key="SetIndex" text="Csoportmutat&#243;"/>
+<gentext key="setindex" text="csoportmutat&#243;"/>
+<gentext key="Sidebar" text="Sz&#233;ljegyzet"/>
+<gentext key="sidebar" text="sz&#233;ljegyzet"/>
+<gentext key="Step" text="L&#233;p&#233;s"/>
+<gentext key="step" text="l&#233;p&#233;s"/>
+<gentext key="Table" text="T&#225;bl&#225;zat"/>
+<gentext key="table" text="t&#225;bl&#225;zat"/>
+<gentext key="TIP" text="TIPP"/>
+<gentext key="Tip" text="Tipp"/>
+<gentext key="tip" text="tipp"/>
+<gentext key="WARNING" text="FIGYELEM"/>
+<gentext key="Warning" text="Figyelem"/>
+<gentext key="warning" text="figyelem"/>
+
+<gentext key="and" text="&#233;s"/>
+<gentext key="by" text=""/>
+<gentext key="Edited" text="Szerk."/>
+<gentext key="edited" text="szerk."/>
+<gentext key="Editedby" text="Szerkesztette"/>
+<gentext key="editedby" text="szerkesztette"/>
+<gentext key="in" text=""/>
+<gentext key="lastlistcomma" text=","/>
+<gentext key="listcomma" text=","/>
+<gentext key="notes" text="megjegyz&#233;sek"/>
+<gentext key="Notes" text="Megjegyz&#233;sek"/>
+<gentext key="Pgs" text="Lsz."/>
+<gentext key="pgs" text="lsz."/>
+<gentext key="Revisedby" text="Megvizsg&#225;lva"/>
+<gentext key="revisedby" text="megvizsg&#225;lva"/>
+<gentext key="TableNotes" text="Megjegyz&#233;sek"/>
+<gentext key="tablenotes" text="megjegyz&#233;sek"/>
+<gentext key="TableofContents" text="Tartalom"/>
+<gentext key="tableofcontents" text="tartalom"/>
+<gentext key="unexpectedelementname" text="nem v&#225;rt elemn&#233;v"/>
+<gentext key="unsupported" text="nem t&#225;mogatott"/>
+<gentext key="xrefto" text="keresztref"/>
+
+<gentext key="listofequations" text="az egyenletek list&#225;ja"/>
+<gentext key="ListofEquations" text="Az egyenletek list&#225;ja"/>
+<gentext key="ListofExamples" text="A p&#233;ld&#225;k list&#225;ja"/>
+<gentext key="listofexamples" text="a p&#233;ld&#225;k list&#225;ja"/>
+<gentext key="ListofFigures" text="Az &#225;br&#225;k list&#225;ja"/>
+<gentext key="listoffigures" text="az &#225;br&#225;k list&#225;ja"/>
+<gentext key="listoftables" text="a t&#225;bl&#225;zatok list&#225;ja"/>
+<gentext key="ListofTables" text="A t&#225;bl&#225;zatok list&#225;ja"/>
+<gentext key="ListofUnknown" text="Az egy&#233;b elemek list&#225;ja"/>
+<gentext key="listofunknown" text="az egy&#233;b elemek list&#225;ja"/>
+
+<gentext key="nav-home" text="Tartalom"/>
+<gentext key="nav-next" text="K&#246;vetkez&#337;"/>
+<gentext key="nav-next-sibling" text="Gyors el&#337;re"/>
+<gentext key="nav-prev" text="El&#337;z&#337;"/>
+<gentext key="nav-prev-sibling" text="Gyors vissza"/>
+<gentext key="nav-up" text="Fel"/>
+
+<gentext key="sectioncalled" text="ilyen nev&#369; szakasz:"/>
+<gentext key="Draft" text="V&#225;zlat"/>
+<gentext key="above" text="fent"/>
+<gentext key="below" text="lent"/>
+<gentext key="index symbols" text="szimb&#243;lummutat&#243;"/>
+<gentext key="writing-mode" text="lr-tb"/>
+
+<gentext key="lowercase.alpha" text="a&#225;bcde&#233;fghi&#237;jklmno&#243;&#246;&#337;pqrstu&#250;&#252;&#369;vwxyz"/>
+<gentext key="uppercase.alpha" text="A&#193;BCDE&#201;FGHI&#205;JKLMNO&#211;&#214;&#336;PQRSTU&#218;&#220;&#368;VWXYZ"/>
+
+<dingbat key="startquote" text="&#8222;"/>
+<dingbat key="endquote" text="&#8221;"/>
+<dingbat key="nestedstartquote" text="&#187;"/>
+<dingbat key="nestedendquote" text="&#171;"/>
+<dingbat key="bullet" text="&#8226;"/>
+
+<context name="styles">
+
+<template name="person-name">last-first</template>
+
+</context>
+
+<context name="title">
+
+<template name="abstract">%t</template>
+<template name="answer">%t</template>
+<template name="appendix">%n. <appendix/> - %t</template>
+<template name="article">%t</template>
+<template name="authorblurb">%t</template>
+<template name="bibliodiv">%t</template>
+<template name="biblioentry">%t</template>
+<template name="bibliography">%t</template>
+<template name="bibliomixed">%t</template>
+<template name="bibliomset">%t</template>
+<template name="biblioset">%t</template>
+<template name="blockquote">%t</template>
+<template name="book">%t</template>
+<template name="calloutlist">%t</template>
+<template name="caution">%t</template>
+<template name="chapter">%n. <chapter/> - %t</template>
+<template name="colophon">%t</template>
+<template name="dedication">%t</template>
+<template name="equation">%n. <equation/> - %t</template>
+<template name="example">%n. <example/> - %t</template>
+<template name="figure">%n. <figure/> - %t</template>
+<template name="formalpara">%t</template>
+<template name="glossary">%t</template>
+<template name="glossdiv">%t</template>
+<template name="important">%t</template>
+<template name="index">%t</template>
+<template name="indexdiv">%t</template>
+<template name="itemizedlist">%t</template>
+<template name="legalnotice">%t</template>
+<template name="listitem"/>
+<template name="lot">%t</template>
+<template name="msg">%t</template>
+<template name="msgexplan">%t</template>
+<template name="msgmain">%t</template>
+<template name="msgrel">%t</template>
+<template name="msgset">%t</template>
+<template name="msgsub">%t</template>
+<template name="note">%t</template>
+<template name="orderedlist">%t</template>
+<template name="part">%n. <part/> - %t</template>
+<template name="partintro">%t</template>
+<template name="preface">%t</template>
+<template name="procedure">%t</template>
+<template name="procedure.formal"><Procedure/>&#160;%n.&#160;%t</template>
+<template name="productionset">%t</template>
+<template name="productionset.formal"><ProductionSet/>&#160;%n</template>
+<template name="qandadiv">%t</template>
+<template name="qandaentry">%t</template>
+<template name="qandaset">%t</template>
+<template name="question">%t</template>
+<template name="refentry">%t</template>
+<template name="reference">%t</template>
+<template name="refsection">%t</template>
+<template name="refsect1">%t</template>
+<template name="refsect2">%t</template>
+<template name="refsect3">%t</template>
+<template name="refsynopsisdiv">%t</template>
+<template name="refsynopsisdivinfo">%t</template>
+<template name="segmentedlist">%t</template>
+<template name="set">%t</template>
+<template name="setindex">%t</template>
+<template name="sidebar">%t</template>
+<template name="step">%t</template>
+<template name="table">%n. <table/> - %t</template>
+<template name="tip">%t</template>
+<template name="toc">%t</template>
+<template name="variablelist">%t</template>
+<template name="warning">%t</template>
+
+</context>
+
+<context name="title-unnumbered">
+
+<template name="appendix">%t</template>
+<template name="bridgehead">%t</template>
+<template name="chapter">%t</template>
+<template name="sect1">%t</template>
+<template name="sect2">%t</template>
+<template name="sect3">%t</template>
+<template name="sect4">%t</template>
+<template name="sect5">%t</template>
+<template name="section">%t</template>
+<template name="simplesect">%t</template>
+
+</context>
+
+<context name="title-numbered">
+
+<template name="appendix">%n. <appendix/> - %t</template>
+<template name="bridgehead">%t</template>
+<template name="chapter">%n. <chapter/> - %t</template>
+<template name="part">%n. <part/> - %t</template>
+<template name="sect1">%n. %t</template>
+<template name="sect2">%n. %t</template>
+<template name="sect3">%n. %t</template>
+<template name="sect4">%n. %t</template>
+<template name="sect5">%n. %t</template>
+<template name="section">%n. %t</template>
+<template name="simplesect">%n. %t</template>
+
+</context>
+
+<context name="subtitle">
+
+<template name="appendix">%s</template>
+<template name="article">%s</template>
+<template name="bibliodiv">%s</template>
+<template name="biblioentry">%s</template>
+<template name="bibliography">%s</template>
+<template name="bibliomixed">%s</template>
+<template name="bibliomset">%s</template>
+<template name="biblioset">%s</template>
+<template name="book">%s</template>
+<template name="chapter">%s</template>
+<template name="colophon">%s</template>
+<template name="dedication">%s</template>
+<template name="glossary">%s</template>
+<template name="glossdiv">%s</template>
+<template name="index">%s</template>
+<template name="indexdiv">%s</template>
+<template name="lot">%s</template>
+<template name="part">%s</template>
+<template name="partintro">%s</template>
+<template name="preface">%s</template>
+<template name="refentry">%s</template>
+<template name="reference">%s</template>
+<template name="refsection">%s</template>
+<template name="refsect1">%s</template>
+<template name="refsect2">%s</template>
+<template name="refsect3">%s</template>
+<template name="refsynopsisdiv">%s</template>
+<template name="sect1">%s</template>
+<template name="sect2">%s</template>
+<template name="sect3">%s</template>
+<template name="sect4">%s</template>
+<template name="sect5">%s</template>
+<template name="section">%s</template>
+<template name="set">%s</template>
+<template name="setindex">%s</template>
+<template name="sidebar">%s</template>
+<template name="simplesect">%s</template>
+<template name="toc">%s</template>
+
+</context>
+
+<context name="xref">
+<template name="abstract">%t</template>
+<template name="answer"><Answer/>&#160;%n</template>
+<template name="appendix">%t</template>
+<template name="article">%t</template>
+<template name="authorblurb">%t</template>
+<template name="bibliodiv">%t</template>
+<template name="bibliography">%t</template>
+<template name="bibliomset">%t</template>
+<template name="biblioset">%t</template>
+<template name="blockquote">%t</template>
+<template name="book">%t</template>
+<template name="calloutlist">%t</template>
+<template name="caution">%t</template>
+<template name="chapter">%t</template>
+<template name="colophon">%t</template>
+<template name="constraintdef">%t</template>
+<template name="dedication">%t</template>
+<template name="equation">%t</template>
+<template name="example">%t</template>
+<template name="figure">%t</template>
+<template name="formalpara">%t</template>
+<template name="glossary">%t</template>
+<template name="glossdiv">%t</template>
+<template name="important">%t</template>
+<template name="index">%t</template>
+<template name="indexdiv">%t</template>
+<template name="itemizedlist">%t</template>
+<template name="legalnotice">%t</template>
+<template name="listitem">%n</template>
+<template name="lot">%t</template>
+<template name="msg">%t</template>
+<template name="msgexplan">%t</template>
+<template name="msgmain">%t</template>
+<template name="msgrel">%t</template>
+<template name="msgset">%t</template>
+<template name="msgsub">%t</template>
+<template name="note">%t</template>
+<template name="orderedlist">%t</template>
+<template name="part">%t</template>
+<template name="partintro">%t</template>
+<template name="preface">%t</template>
+<template name="procedure">%t</template>
+<template name="productionset">%t</template>
+<template name="qandadiv">%t</template>
+<template name="qandaentry"><Question/>&#160;%n</template>
+<template name="qandaset">%t</template>
+<template name="question"><Question/>&#160;%n</template>
+<template name="reference">%t</template>
+<template name="refsynopsisdiv">%t</template>
+<template name="segmentedlist">%t</template>
+<template name="set">%t</template>
+<template name="setindex">%t</template>
+<template name="sidebar">%t</template>
+<template name="table">%t</template>
+<template name="tip">%t</template>
+<template name="toc">%t</template>
+<template name="variablelist">%t</template>
+<template name="varlistentry">%n</template>
+<template name="warning">%t</template>
+<template name="page.citation"> [%p]</template>
+
+<template name="bridgehead"><startquote/>%t<endquote/></template>
+<template name="refsection"><startquote/>%t<endquote/></template>
+<template name="refsect1"><startquote/>%t<endquote/></template>
+<template name="refsect2"><startquote/>%t<endquote/></template>
+<template name="refsect3"><startquote/>%t<endquote/></template>
+<template name="sect1"><startquote/>%t<endquote/></template>
+<template name="sect2"><startquote/>%t<endquote/></template>
+<template name="sect3"><startquote/>%t<endquote/></template>
+<template name="sect4"><startquote/>%t<endquote/></template>
+<template name="sect5"><startquote/>%t<endquote/></template>
+<template name="section"><startquote/>%t<endquote/></template>
+<template name="simplesect"><startquote/>%t<endquote/></template>
+
+</context>
+
+<context name="xref-number">
+
+<template name="answer"><Answer/>&#160;%n</template>
+<template name="appendix">%n. <appendix/></template>
+<template name="bridgehead"><Section/>&#160;%n</template>
+<template name="chapter">%n. <chapter/></template>
+<template name="equation"><Equation/>&#160;%n</template>
+<template name="example">%n. <example/></template>
+<template name="figure">%n. <figure/></template>
+<template name="part">%n. <part/></template>
+<template name="procedure"><Procedure/>&#160;%n</template>
+<template name="productionset"><ProductionSet/>&#160;%n</template>
+<template name="qandadiv"><Qandadiv/>&#160;%n</template>
+<template name="qandaentry"><Question/>&#160;%n</template>
+<template name="question"><Question/>&#160;%n</template>
+<template name="sect1">%n. <section/></template>
+<template name="sect2">%n. <section/></template>
+<template name="sect3">%n. <section/></template>
+<template name="sect4">%n. <section/></template>
+<template name="sect5">%n. <section/></template>
+<template name="section">%n. <section/></template>
+<template name="table"><Table/>&#160;%n</template>
+
+</context>
+
+<context name="xref-number-and-title">
+
+<template name="appendix">%n. <appendix/> - %t</template>
+<template name="bridgehead"><Section/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="chapter">%n. <chapter/> - %t</template>
+<template name="equation"><Equation/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="example">%n. <example/> - %t</template>
+<template name="figure">%n. <figure/> - %t</template>
+<template name="part">%n. <part/> - %t</template>
+<template name="procedure"><Procedure/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="productionset"><ProductionSet/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="qandadiv"><Qandadiv/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="refsect1"><startquote/>%t<endquote/></template>
+<template name="refsect2"><startquote/>%t<endquote/></template>
+<template name="refsect3"><startquote/>%t<endquote/></template>
+<template name="refsection"><startquote/>%t<endquote/></template>
+<template name="sect1">%n. <section/> - %t</template>
+<template name="sect2">%n. <section/> - %t</template>
+<template name="sect3">%n. <section/> - %t</template>
+<template name="sect4">%n. <section/> - %t</template>
+<template name="sect5">%n. <section/> - %t</template>
+<template name="section">%n. <section/> - %t</template>
+<template name="simplesect"><startquote/>%t<endquote/></template>
+<template name="table">%n. <table/> - %t</template>
+
+</context>
+
+<context name="authorgroup">
+<template name="sep"><listcomma/> </template>
+<template name="sep2"> <and/> </template>
+<template name="seplast"><lastlistcomma/> <and/> </template>
+</context>
+
+<context name="glossary">
+<template name="see"><GlossSee/> %t.</template>
+<template name="seealso"><GlossSeeAlso/> %t.</template>
+<template name="seealso-separator">, </template>
+</context>
+
+<context name="msgset">
+<template name="MsgAud"><MsgAud/>: </template>
+<template name="MsgLevel"><MsgLevel/>: </template>
+<template name="MsgOrig"><MsgOrig/>: </template>
+</context>
+
+<context name="htmlhelp">
+<template name="langcode">0x040e Hungarian</template>
+</context>
+
+</locale>

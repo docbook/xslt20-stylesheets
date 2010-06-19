@@ -1,0 +1,81 @@
+default namespace l = "http://docbook.sourceforge.net/xmlns/l10n/1.0"
+
+start = i18n
+
+any =
+   element * {
+      (attribute * { text } | text | any)*
+    }
+
+# ============================================================
+
+i18n =
+   element i18n {
+      l10n*
+   }
+
+l10n =
+   element l10n {
+      attribute language { text },
+      attribute english-language-name { text },
+      (gentext|dingbat|xref|context|letters)*
+   }
+
+gentext =
+   element gentext {
+      attribute key { text },
+      attribute text { text },
+      attribute lang { text }?,
+      empty
+   }
+
+dingbat =
+   element dingbat {
+      attribute key { text },
+      attribute text { text },
+      attribute lang { text }?,
+      empty
+   }
+
+xref =
+   element xref {
+      attribute element { text },
+      attribute text { text },
+      empty
+   }
+
+context =
+   element context {
+      attribute name { text },
+      template*
+   }
+
+template = textTemplate | contentTemplate
+
+contentTemplate =
+   element template {
+      attribute name { text },
+      attribute lang { text }?,
+      (text | any)*
+   }
+
+textTemplate =
+   element template {
+      attribute name { text },
+      attribute text { text },
+      attribute lang { text }?,
+      empty
+   }
+
+letters =
+   element letters {
+      attribute lang { text }?,
+      l*
+   }
+
+l =
+   element l {
+      attribute i { xsd:integer },
+      text
+   }
+

@@ -1,0 +1,205 @@
+div.epigraph          { margin-left: 0.5in;
+                        margin-right: 0.5in;
+                      }
+
+div.attribution       { margin-left: 50%;
+                      }
+
+div.admonition        { margin-left: 5px;
+                      }
+
+span.admon-graphic    { padding-right: 5px;
+                        vertical-align: middle;
+                      }
+
+div.admon-title-text  { font-size: x-large;
+                        font-weight: bold;
+                      }
+
+div.admon-text        { padding-top: 0px;
+                        margin-top: 0px;
+                      }
+
+div.admon-text > p:first-child { padding-top: 0px;
+                                 margin-top: 0px;
+                               }
+
+div.section           { margin-left: 0.25in;
+                      }
+div.section-titlepage { margin-left: -0.25in;
+                      }
+
+span.linenumber       { padding-right: 10px;
+                        border-right: 1px solid black;
+                      }
+
+span.linenumber-separator {
+                        padding-right: 5px;
+                      }
+
+div.address           { white-space: pre }
+div.literallayout     { white-space: pre }
+span.linenumber       { white-space: pre;
+                        font-family: monospace;
+                      }
+span.linenumber-separator { white-space: pre; }
+
+div.footnote p { margin-top: 0px;
+                 padding-top: 1px;
+                 margin-bottom: 0px;
+                 padding-bottom: 1px;
+               }
+
+div.title { font-weight: bold; }
+
+div.float-right    { float: right; }
+div.float-left     { float: left; }
+
+div.figure-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.figure         { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.informalfigure-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.informalfigure { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.table-wrapper  { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.table          { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.informaltable-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.informaltable  { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.equation-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.example-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+div.figure-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.caption        { margin-left: 5%;
+                     margin-right: 5%;
+                     font-family: sans-serif;
+                   }
+
+div.longdesc-link  { position: absolute;
+                     right: 10px;
+                     font-size: small;
+                   }
+
+.revision-added    { background-color: #FFFF99; }
+
+.revision-deleted  { text-decoration: line-through;
+                     background-color: #FF9999;
+                   }
+.revision-changed  { background-color: #99FF99; }
+
+.revision-inherited { border-left-style: solid;
+                      border-left-width: 1px;
+                      border-left-color: #303030;
+                      padding-left: 10px;
+                    }
+
+div.synopfragment  { margin-bottom: 1em;
+                   }
+
+div.cmdsynopsis    { margin-bottom: 1em;
+                   }
+
+body.draft         { background-image: url("http://docbook.sf.net/release/images/draft.png");
+                   }
+
+em.strikethrough   { text-decoration: line-through;
+                     font-style: normal;
+                   }
+
+em.underline       { text-decoration: underline;
+                     font-style: normal;
+                   }
+
+em                 { font-style: italic; }
+
+em em              { font-style: normal; }
+
+em em em           { font-style: italic; }
+
+em em em em        { font-style: normal; }
+
+em em em em em     { font-style: italic; }
+
+div.remark         { padding: 10px;
+                     border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-bottom: 1ex;
+                   }
+
+
+div.sidebar        { border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-bottom: 1ex;
+                   }
+
+div.sidebar
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.sidebar-content { padding: 10px;
+                    }
+
+div.annotation     { border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-top: 1ex;
+                     margin-bottom: 1ex;
+                   }
+
+div.annotation
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.annotation-content { padding: 10px;
+                    }

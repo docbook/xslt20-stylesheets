@@ -1,0 +1,29 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="annotation.graphic.open">
+<refmeta>
+<refentrytitle>annotation.graphic.open</refentrytitle>
+<refmiscinfo role="type">uri</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>annotation.graphic.open</refname>
+<refpurpose>Location of “open annotation” graphic</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="annotation.graphic.open.frag">
+<xsl:param name="annotation.graphic.open" select="'../images/annot-open.png'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If <property>annotation.support</property> is enabled and the
+document contains <sgmltag>annotation</sgmltag>s, then the graphic identified
+by this parameter will be used to indicate where the reader should “click”
+to view the annotation.</para>
+
+</refsect1>
+</refentry>

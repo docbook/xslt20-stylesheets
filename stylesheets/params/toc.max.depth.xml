@@ -1,0 +1,22 @@
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="toc.max.depth">
+<refmeta>
+<refentrytitle>toc.max.depth</refentrytitle>
+<refmiscinfo role="type">integer</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>toc.max.depth</refname>
+<refpurpose>How maximaly deep should be each TOC?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="toc.max.depth.frag">
+<xsl:param name="toc.max.depth" select="8"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Specifies the maximal depth of TOC on all levels.</para>
+
+</refsect1>
+</refentry>

@@ -1,0 +1,208 @@
+<article xmlns="http://docbook.org/ns/docbook">
+<title>HTML Parameters</title>
+
+<para>This should be expanded to do a better job of documentation.
+It's just a bogus mess right now.</para>
+
+<refentry xml:id="dateTime-format"/>
+<refentry xml:id="date-format"/>
+<refentry xml:id="gYearMonth-format"/>
+<refentry xml:id="gYear-format"/>
+<refentry xml:id="verbosity"/>
+<refentry xml:id="docbook.css"/>
+<refentry xml:id="docbook.css.inline"/>
+<refentry xml:id="annotation.js"/>
+<refentry xml:id="annotation.graphic.open"/>
+<refentry xml:id="annotation.graphic.close"/>
+<refentry xml:id="toc.list.type"/>
+<refentry xml:id="manual.toc"/>
+<refentry xml:id="bridgehead.in.toc"/>
+<refentry xml:id="toc.section.depth"/>
+<refentry xml:id="toc.max.depth"/>
+<refentry xml:id="autotoc.label.separator"/>
+<refentry xml:id="annotate.toc"/>
+<refentry xml:id="refentry.separator"/>
+<refentry xml:id="refentry.generate.name"/>
+<refentry xml:id="refentry.generate.title"/>
+<refentry xml:id="make.year.ranges"/>
+<refentry xml:id="make.single.year.ranges"/>
+<refentry xml:id="component.label.includes.part.label"/>
+<refentry xml:id="section.label.includes.component.label"/>
+<refentry xml:id="qanda.inherit.numeration"/>
+<refentry xml:id="label.from.part"/>
+<refentry xml:id="xref.label-title.separator"/>
+<refentry xml:id="xref.label-page.separator"/>
+<refentry xml:id="xref.title-page.separator"/>
+<refentry xml:id="insert.xref.page.number"/>
+<refentry xml:id="formal.procedures"/>
+<refentry xml:id="xref.with.number.and.title"/>
+<refentry xml:id="qanda.defaultlabel"/>
+<refentry xml:id="orderedlist.numeration.styles"/>
+<refentry xml:id="procedure.step.numeration.styles"/>
+<refentry xml:id="persistent.generated.ids"/>
+<refentry xml:id="bibliography.numbered"/>
+<refentry xml:id="bibliography.collection"/>
+<refentry xml:id="bibliography.style"/>
+<refentry xml:id="biblioentry.item.separator"/>
+<refentry xml:id="biblioentry.properties"/>
+<refentry xml:id="glossary.collection"/>
+<refentry xml:id="glossentry.show.acronym"/>
+<refentry xml:id="glossterm.auto.link"/>
+<refentry xml:id="firstterm.only.link"/>
+<refentry xml:id="inline.style.attribute"/>
+<refentry xml:id="superscript.properties"/>
+<refentry xml:id="subscript.properties"/>
+<refentry xml:id="titlepage.templates"/>
+<refentry xml:id="l10n.gentext.default.language"/>
+<refentry xml:id="l10n.gentext.language"/>
+<refentry xml:id="l10n.gentext.use.xref.language"/>
+<refentry xml:id="l10n.xml"/>
+<refentry xml:id="local.l10n.xml"/>
+<refentry xml:id="docbook-namespace"/>
+<refentry xml:id="punct.honorific"/>
+<refentry xml:id="author.othername.in.middle"/>
+<refentry xml:id="itemizedlist.numeration.symbols"/>
+<refentry xml:id="root.elements"/>
+<refentry xml:id="autolabel.elements"/>
+<refentry xml:id="section.autolabel.max.depth"/>
+<refentry xml:id="rootid"/>
+<refentry xml:id="index.on.role"/>
+<refentry xml:id="index.on.type"/>
+<refentry xml:id="generate.index"/>
+<refentry xml:id="index.prefer.titleabbrev"/>
+<refentry xml:id="profile.arch"/>
+<refentry xml:id="profile.condition"/>
+<refentry xml:id="profile.conformance"/>
+<refentry xml:id="profile.lang"/>
+<refentry xml:id="profile.os"/>
+<refentry xml:id="profile.revision"/>
+<refentry xml:id="profile.revisionflag"/>
+<refentry xml:id="profile.role"/>
+<refentry xml:id="profile.security"/>
+<refentry xml:id="profile.userlevel"/>
+<refentry xml:id="profile.vendor"/>
+<refentry xml:id="profile.attribute"/>
+<refentry xml:id="profile.value"/>
+<refentry xml:id="profile.separator"/>
+<refentry xml:id="show.comments"/>
+<refentry xml:id="segmentedlist.as.table"/>
+
+<refentry xml:id="pixels.per.inch"/>
+
+<refentry xml:id="graphic.formats"/>
+<refentry xml:id="graphic.extensions"/>
+
+<refentry xml:id="generate.toc"/>
+
+<refentry xml:id="callout.graphics"/>
+<refentry xml:id="callout.graphics.path"/>
+<refentry xml:id="callout.graphics.number.limit"/>
+<refentry xml:id="callout.graphics.extension"/>
+<refentry xml:id="callout.unicode"/>
+<refentry xml:id="callout.unicode.start.character"/>
+<refentry xml:id="callout.unicode.number.limit"/>
+
+<refentry xml:id="table.footnote.number.symbols"/>
+<refentry xml:id="table.footnote.number.format"/>
+<refentry xml:id="footnote.number.symbols"/>
+<refentry xml:id="footnote.number.format"/>
+<refentry xml:id="footnote.sep.leader.properties"/>
+
+<refentry xml:id="formal.title.placement"/>
+
+<refentry xml:id="body.font.family"/>
+<refentry xml:id="title.font.family"/>
+<refentry xml:id="symbol.font.family"/>
+<refentry xml:id="dingbat.font.family"/>
+
+<refentry xml:id="body.font.size"/>
+<refentry xml:id="body.font.master"/>
+
+<refentry xml:id="page.margin.inner"/>
+<refentry xml:id="page.margin.outer"/>
+<refentry xml:id="title.margin.left"/>
+<refentry xml:id="double.sided"/>
+
+<refentry xml:id="page.width"/>
+<refentry xml:id="page.height"/>
+<refentry xml:id="page.margin.top"/>
+<refentry xml:id="page.margin.bottom"/>
+<refentry xml:id="body.margin.bottom"/>
+<refentry xml:id="body.margin.top"/>
+<refentry xml:id="paper.type"/>
+<refentry xml:id="page.orientation"/>
+<refentry xml:id="page.width.portrait"/>
+<refentry xml:id="page.height.portrait"/>
+
+<refentry xml:id="body.end.indent"/>
+<refentry xml:id="body.start.indent"/>
+<refentry xml:id="column.count.back"/>
+<refentry xml:id="column.count.body"/>
+<refentry xml:id="column.count.front"/>
+<refentry xml:id="column.count.index"/>
+<refentry xml:id="column.count.lot"/>
+<refentry xml:id="column.count.titlepage"/>
+<refentry xml:id="column.gap.back"/>
+<refentry xml:id="column.gap.body"/>
+<refentry xml:id="column.gap.front"/>
+<refentry xml:id="column.gap.index"/>
+<refentry xml:id="column.gap.lot"/>
+<refentry xml:id="column.gap.titlepage"/>
+<refentry xml:id="draft.mode"/>
+<refentry xml:id="draft.watermark.image"/>
+<refentry xml:id="footer.column.widths"/>
+<refentry xml:id="footer.rule"/>
+<refentry xml:id="footers.on.blank.pages"/>
+<refentry xml:id="header.column.widths"/>
+<refentry xml:id="header.rule"/>
+<refentry xml:id="headers.on.blank.pages"/>
+<refentry xml:id="region.after.extent"/>
+<refentry xml:id="region.before.extent"/>
+
+<refentry xml:id="fo.processor"/>
+<refentry xml:id="root.properties"/>
+<refentry xml:id="alignment"/>
+<refentry xml:id="line.height"/>
+
+<refentry xml:id="olink.insert.page.number"/>
+<refentry xml:id="olink.doctitle"/>
+<refentry xml:id="olink.properties"/>
+
+<refentry xml:id="header.content.properties"/>
+<refentry xml:id="footer.content.properties"/>
+
+<refentry xml:id="hyphenate"/>
+<refentry xml:id="normal.para.spacing"/>
+
+<refentry xml:id="itemizedlist.label.width"/>
+<refentry xml:id="variablelist.as.blocks"/>
+<refentry xml:id="variablelist.max.termlength"/>
+<refentry xml:id="variablelist.term.separator"/>
+<refentry xml:id="variablelist.term.break.after"/>
+<refentry xml:id="default.table.width"/>
+
+<refentry xml:id="formal.object.properties"/>
+<refentry xml:id="informal.object.properties"/>
+<refentry xml:id="itemizedlist.properties"/>
+<refentry xml:id="itemizedlist.label.properties"/>
+<refentry xml:id="orderedlist.label.properties"/>
+<refentry xml:id="list.block.spacing"/>
+<refentry xml:id="list.block.properties"/>
+<refentry xml:id="list.item.spacing"/>
+<refentry xml:id="compact.list.item.spacing"/>
+
+<refentry xml:id="component.title.properties"/>
+
+<refentry xml:id="use.role.as.xrefstyle"/>
+<refentry xml:id="insert.link.page.number"/>
+<refentry xml:id="ulink.footnotes"/>
+<refentry xml:id="ulink.hyphenate"/>
+<refentry xml:id="ulink.hyphenate.chars"/>
+<refentry xml:id="ulink.show"/>
+
+<refentry xml:id="xref.properties"/>
+<refentry xml:id="footnote.properties"/>
+<refentry xml:id="footnote.mark.properties"/>
+<refentry xml:id="footnote.font.size"/>
+
+</article>

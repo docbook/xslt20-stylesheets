@@ -1,0 +1,27 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="table.frame.default">
+<refmeta>
+<refentrytitle>table.frame.default</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>table.frame.default</refname>
+<refpurpose>The default framing of tables</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='table.frame.default.frag'>
+<xsl:param name="table.frame.default" select="'all'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>This value will be used when there is no frame attribute on the
+table.</para>
+
+</refsect1>
+</refentry>

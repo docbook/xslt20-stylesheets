@@ -1,0 +1,148 @@
+<article xmlns="http://docbook.org/ns/docbook">
+<title>HTML Parameters</title>
+
+<para>This should be expanded to do a better job of documentation.
+It's just a bogus mess right now.</para>
+
+<refentry xml:id="root.filename"/>
+<refentry xml:id="verbosity"/>
+<refentry xml:id="html.ext"/>
+<refentry xml:id="use.id.as.filename"/>
+<refentry xml:id="dateTime-format"/>
+<refentry xml:id="date-format"/>
+<refentry xml:id="gYearMonth-format"/>
+<refentry xml:id="gYear-format"/>
+<refentry xml:id="docbook.css"/>
+<refentry xml:id="docbook.css.inline"/>
+<refentry xml:id="annotation.js"/>
+<refentry xml:id="annotation.graphic.open"/>
+<refentry xml:id="annotation.graphic.close"/>
+<refentry xml:id="toc.list.type"/>
+<refentry xml:id="manual.toc"/>
+<refentry xml:id="bridgehead.in.toc"/>
+<refentry xml:id="toc.section.depth"/>
+<refentry xml:id="toc.max.depth"/>
+<refentry xml:id="autotoc.label.separator"/>
+<refentry xml:id="annotate.toc"/>
+<refentry xml:id="refentry.separator"/>
+<refentry xml:id="refentry.generate.name"/>
+<refentry xml:id="refentry.generate.title"/>
+<refentry xml:id="make.year.ranges"/>
+<refentry xml:id="make.single.year.ranges"/>
+<refentry xml:id="component.label.includes.part.label"/>
+<refentry xml:id="section.label.includes.component.label"/>
+<refentry xml:id="qanda.inherit.numeration"/>
+<refentry xml:id="label.from.part"/>
+<refentry xml:id="xref.label-title.separator"/>
+<refentry xml:id="xref.label-page.separator"/>
+<refentry xml:id="xref.title-page.separator"/>
+<refentry xml:id="insert.xref.page.number"/>
+<refentry xml:id="formal.procedures"/>
+<refentry xml:id="xref.with.number.and.title"/>
+<refentry xml:id="qanda.defaultlabel"/>
+<refentry xml:id="orderedlist.numeration.styles"/>
+<refentry xml:id="procedure.step.numeration.styles"/>
+<refentry xml:id="persistent.generated.ids"/>
+<refentry xml:id="bibliography.numbered"/>
+<refentry xml:id="bibliography.collection"/>
+<refentry xml:id="glossary.collection"/>
+<refentry xml:id="glossentry.show.acronym"/>
+<refentry xml:id="glossterm.auto.link"/>
+<refentry xml:id="firstterm.only.link"/>
+<refentry xml:id="inline.style.attribute"/>
+<refentry xml:id="titlepage.templates"/>
+<refentry xml:id="l10n.gentext.default.language"/>
+<refentry xml:id="l10n.gentext.language"/>
+<refentry xml:id="l10n.gentext.use.xref.language"/>
+<refentry xml:id="l10n.xml"/>
+<refentry xml:id="local.l10n.xml"/>
+<refentry xml:id="docbook-namespace"/>
+<refentry xml:id="punct.honorific"/>
+<refentry xml:id="author.othername.in.middle"/>
+<refentry xml:id="itemizedlist.numeration.symbols"/>
+<refentry xml:id="root.elements"/>
+<refentry xml:id="autolabel.elements"/>
+<refentry xml:id="section.autolabel.max.depth"/>
+<refentry xml:id="rootid"/>
+<refentry xml:id="index.on.role"/>
+<refentry xml:id="index.on.type"/>
+<refentry xml:id="generate.index"/>
+<refentry xml:id="index.prefer.titleabbrev"/>
+<refentry xml:id="profile.arch"/>
+<refentry xml:id="profile.condition"/>
+<refentry xml:id="profile.conformance"/>
+<refentry xml:id="profile.lang"/>
+<refentry xml:id="profile.os"/>
+<refentry xml:id="profile.revision"/>
+<refentry xml:id="profile.revisionflag"/>
+<refentry xml:id="profile.role"/>
+<refentry xml:id="profile.security"/>
+<refentry xml:id="profile.userlevel"/>
+<refentry xml:id="profile.vendor"/>
+<refentry xml:id="profile.attribute"/>
+<refentry xml:id="profile.value"/>
+<refentry xml:id="profile.separator"/>
+<refentry xml:id="show.comments"/>
+<refentry xml:id="segmentedlist.as.table"/>
+<refentry xml:id="keep.relative.image.uris"/>
+
+<refentry xml:id="pixels.per.inch"/>
+<refentry xml:id="table.cell.border.style"/>
+<refentry xml:id="table.cell.border.color"/>
+<refentry xml:id="table.cell.border.thickness"/>
+<refentry xml:id="table.frame.default"/>
+<refentry xml:id="table.width.default"/>
+<refentry xml:id="table.width.nominal"/>
+<refentry xml:id="table.html.cellpadding"/>
+<refentry xml:id="table.html.cellspacing"/>
+
+<refentry xml:id="admon.graphics"/>
+<refentry xml:id="admon.graphics.path"/>
+<refentry xml:id="admon.graphics.extension"/>
+<refentry xml:id="admon.default.titles"/>
+
+<refentry xml:id="html.longdesc"/>
+<refentry xml:id="html.longdesc.link"/>
+<refentry xml:id="base.dir"/>
+<refentry xml:id="ignore.image.scaling"/>
+<refentry xml:id="default.image.width"/>
+<refentry xml:id="img.src.path"/>
+<refentry xml:id="use.extensions"/>
+<refentry xml:id="nominal.image.width"/>
+<refentry xml:id="nominal.image.depth"/>
+<refentry xml:id="graphicsize.extension"/>
+<refentry xml:id="graphicsize.use.img.src.path"/>
+<refentry xml:id="points.per.em"/>
+<refentry xml:id="make.graphic.viewport"/>
+<refentry xml:id="use.embed.for.svg"/>
+<refentry xml:id="textdata.default.encoding"/>
+<refentry xml:id="graphic.formats"/>
+<refentry xml:id="graphic.extensions"/>
+
+<refentry xml:id="generate.toc"/>
+
+<refentry xml:id="callout.graphics"/>
+<refentry xml:id="callout.graphics.path"/>
+<refentry xml:id="callout.graphics.number.limit"/>
+<refentry xml:id="callout.graphics.extension"/>
+<refentry xml:id="callout.unicode"/>
+<refentry xml:id="callout.unicode.start.character"/>
+<refentry xml:id="callout.unicode.number.limit"/>
+
+<refentry xml:id="table.footnote.number.symbols"/>
+<refentry xml:id="table.footnote.number.format"/>
+<refentry xml:id="footnote.number.symbols"/>
+<refentry xml:id="footnote.number.format"/>
+
+<refentry xml:id="formal.title.placement"/>
+
+<refentry xml:id="olink.insert.page.number"/>
+<refentry xml:id="olink.doctitle"/>
+<refentry xml:id="olink.properties"/>
+
+<!-- For function fake-eval-avt; fix this -->
+<refentry xml:id="body.font.family"/>
+<refentry xml:id="title.font.family"/>
+<refentry xml:id="symbol.font.family"/>
+
+</article>

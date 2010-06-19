@@ -1,0 +1,22 @@
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+<title>Article wrapper</title>
+
+<table frame="all">
+<title>TFoot Test</title>
+<tgroup cols="2">
+<tfoot>
+<row>
+<entry>Foot Left</entry>
+<entry>Foot Right</entry>
+</row>
+</tfoot>
+<tbody>
+<row>
+<entry>Body Left</entry>
+<entry>Body Right</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</article>
