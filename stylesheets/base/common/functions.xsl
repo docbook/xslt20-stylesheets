@@ -119,7 +119,7 @@ node does not have an ID, the XSLT
 
 <xsl:function name="f:node-id" as="xs:string">
   <xsl:param name="node" as="node()"/>
-  
+
   <xsl:choose>
     <xsl:when test="$node/@xml:id">
       <xsl:value-of select="$node/@xml:id"/>
@@ -2064,6 +2064,15 @@ the empty string.</para>
       <xsl:value-of select="''"/>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:function>
+
+<!-- ============================================================ -->
+
+<xsl:function name="f:findid" as="element()*">
+  <xsl:param name="id" as="xs:string"/>
+  <xsl:param name="context" as="node()"/>
+
+  <xsl:sequence select="key('id', $id, $context)"/>
 </xsl:function>
 
 </xsl:stylesheet>
