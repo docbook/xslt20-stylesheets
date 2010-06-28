@@ -80,10 +80,10 @@ identified.</entry>
 	  </a>
 	</xsl:when>
 	<xsl:otherwise>
-          <xsl:if test="not(key('id',@linkend))">
+          <xsl:if test="not(f:findid(@linkend,.))">
             <xsl:message>Attempt to link to undefined ID: <xsl:value-of select="@linkend"/></xsl:message>
           </xsl:if>
-	  <a href="{f:href(/,key('id',@linkend)[1])}">
+	  <a href="{f:href(/,f:findid(@linkend,.)[1])}">
 	    <xsl:call-template name="class"/>
 	    <xsl:if test="$title != ''">
 	      <xsl:attribute name="title" select="$title"/>
@@ -128,18 +128,10 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
 <xsl:template match="db:xref" name="db:xref">
   <xsl:param name="linkend" select="@linkend"/>
 
-  <xsl:variable name="target" select="key('id',$linkend)[1]"/>
+  <xsl:variable name="target" select="f:findid($linkend,.)[1]"/>
   <xsl:variable name="refelem" select="node-name($target)"/>
 
-<!--
-  <xsl:if test="generate-id(/) != 'd49'">
-    <xsl:message>
-      <xsl:copy-of select="/"/>
-    </xsl:message>
-  </xsl:if>
--->
-
-  <xsl:if test="count(key('id', $linkend)) &gt; 1">
+  <xsl:if test="count(f:findid($linkend,.)) &gt; 1">
     <xsl:message>
       <xsl:text>Warning: the ID '</xsl:text>
       <xsl:value-of select="$linkend"/>
@@ -160,9 +152,9 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
     </xsl:when>
 
     <xsl:when test="@endterm">
-      <xsl:variable name="etarget" select="key('id',@endterm)[1]"/>
+      <xsl:variable name="etarget" select="f:findid(@endterm,.)[1]"/>
 
-      <xsl:if test="count(key('id', @endterm)) &gt; 1">
+      <xsl:if test="count(f:findid(@endterm,.)) &gt; 1">
 	<xsl:message>
 	  <xsl:text>Warning: the ID '</xsl:text>
 	  <xsl:value-of select="@endterm"/>
@@ -703,11 +695,12 @@ cross references to that element.</para>
       <xsl:text>Don't know what gentext to create for xref to: "</xsl:text>
       <xsl:value-of select="name(.)"/>
       <xsl:text>", ("</xsl:text>
-      <xsl:value-of select="@id"/>
+      <xsl:value-of select="@xml:id"/>
       <xsl:text>")</xsl:text>
     </xsl:message>
   </xsl:if>
-  <xsl:text>???</xsl:text>
+
+  <xsl:value-of select="."/>
 </xsl:template>
 
 <xsl:template match="db:title" mode="m:xref-to">
