@@ -11,10 +11,16 @@
 
 <!-- Load the language file passed as a parameter into a variable -->
 <xsl:param name="locale.file" select="''"/>
-<xsl:param name="locale" select="document($locale.file, /)"/>
+<xsl:param name="locale" select="/"/>
+<xsl:param name="en.locale.file" select="''"/>
+<xsl:param name="en.locale" select="document($en.locale.file, /)"/>
 <xsl:param name="locales" select="''"/>
 
 <xsl:template match="db:*"/>
+  
+<xsl:template match="/">
+  <xsl:apply-templates select="$en.locale/node()"/>
+</xsl:template>  
 
 <xsl:template match="locale">
   <l:l10n>

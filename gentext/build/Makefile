@@ -10,7 +10,7 @@ SOURCES=$(notdir $(wildcard ../src/*.xml))
 
 %.xml: src/%.xml
 	$(JING) -c -i ../../schemas/locale.rnc $<
-	$(XSLT) ../src/en.xml ../../tools/build-l10n.xsl $@ locale.file=$@
+	$(XSLT) $< ../../tools/build-l10n.xsl $@ locale.file=$@ en.locale.file=en.xml
 
 clean:
 	rm -f *.xml
