@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DocBook XSLT 2.0 stylesheets - Gentext &amp; Localization" default="all"
+  xmlns:ac="antlib:net.sf.antcontrib">
+  
+  <property name="dbroot.dir" value="${ant.file}/../../.."/>  
+  <import file="${dbroot.dir}/anttools/build-shared.xml"/>
+  
+  <fileset id="l10n-files" dir="src">
+    <include name="*.xml"/>
+  </fileset>
+  
+  <target name="all">
+    
+    <echo>Validating l10n files...</echo>
+    <jing rngfile="../schemas/locale.rnc" compactsyntax="true" checkid="false">
+      <fileset refid="l10n-files"/>
+    </jing>
+    
+    <echo>Adding missing translations from English master localization...</echo>
+    <xslt2 style="../tools/build-l10n.xsl" destdir="build" basedir="src" includes="*.xml">
+      <!-- FIXME: Pass current locale filename into locale.file parameter -->
+      <param name="en.locale.file" expression="en.xml"/>
+      <mapper type="identity"/>
+    </xslt2>
+    
+    <!-- FIXME: remove after we will switch to new locale mechanism -->
+    <echo>Generating i18n.xml...</echo>
+    <pathconvert pathsep=" " property="locales" refid="l10n-files">
+      <mapper type="flatten" />
+    </pathconvert>
+    
+    <xslt2 style="../tools/build-l10n.xsl" in="src/en.xml"
+          out="i18n.xml" initialTemplate="join">
+      <param name="locales" expression="${locales}"/>
+    </xslt2>
+    
+  </target>
+
+  <target name="clean">
+    <delete>
+      <fileset dir=".">
+        <include name="build/*.xml"/>
+        <include name="i18n.xml"/>
+      </fileset>
+    </delete>    
+  </target>
+
+</project>
