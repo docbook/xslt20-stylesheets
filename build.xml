@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DocBook XSLT 2.0 stylesheets" default="all">
+  
+  <property name="dbroot.dir" value="${ant.file}/../.."/>  
+  <import file="${dbroot.dir}/anttools/build-shared.xml"/>
+  
+  <!-- FIXME: this implements just build for now, not all functionality from makefile is hanedled -->
+  <target name="all">
+    <ant dir="gentext"/>
+    <ant dir="extensions"/>
+    <ant dir="stylesheets/base"/>
+  </target>
+
+  <target name="clean">
+    <ant dir="gentext" target="clean"/>
+    <ant dir="extensions" target="clean"/>
+    <ant dir="stylesheets/base" target="clean"/>
+  </target>
+
+</project>

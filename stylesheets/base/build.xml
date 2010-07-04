@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DocBook XSLT 2.0 stylesheets - Base" default="all">
+  
+  <property name="dbroot.dir" value="${ant.file}/../../../.."/>  
+  <import file="${dbroot.dir}/anttools/build-shared.xml"/>
+
+  <target name="all">
+    <ant dir="common"/>
+    <ant dir="html"/>
+    <ant dir="fo"/>
+  </target>
+
+  <target name="clean">
+    <ant dir="common" target="clean"/>
+    <ant dir="html" target="clean"/>
+    <ant dir="fo" target="clean"/>
+  </target>
+
+</project>

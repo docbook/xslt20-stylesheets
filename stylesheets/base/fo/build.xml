@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DocBook XSLT 2.0 stylesheets - FO" default="all">
+  
+  <property name="dbroot.dir" value="${ant.file}/../../../../.."/>  
+  <import file="${dbroot.dir}/anttools/build-shared.xml"/>
+
+  <target name="all">
+    <xslt2 style="../common/mkparam.xsl" in="param.xml" out="param.xsl"/>    
+  </target>
+
+  <target name="clean">
+    <delete file="param.xsl"/>   
+  </target>
+
+</project>
