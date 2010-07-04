@@ -160,7 +160,7 @@
 
 <xsl:param name="l10n.gentext.use.xref.language" select="0"/>
 
-<xsl:param name="l10n.xml" select="document('../common/l10n.xml')"/>
+<xsl:param name="l10n.locale.dir">locales/</xsl:param>
 
 <xsl:param name="label.from.part" select="0"/>
 

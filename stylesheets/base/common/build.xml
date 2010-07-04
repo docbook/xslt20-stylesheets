@@ -49,11 +49,7 @@
 
   <target name="clean">
     <delete file="i18ndata.xsl"/>
-    <delete>
-      <fileset>
-        <include name="locales/*"/>
-      </fileset>
-    </delete>
+    <delete dir="locales"/>
   </target>
 
 </project>

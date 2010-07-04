@@ -18,9 +18,6 @@
      This file contains localization templates (for internationalization)
      ******************************************************************** -->
 
-<!-- FIXME: Make proper parameter after code is working -->
-<xsl:param name="l10n.locale.dir">locales/</xsl:param>
-  
 <xsl:key name="l10n-gentext" match="l:l10n/l:gentext" use="concat(../@language, '#', @key)"/>  
 <xsl:key name="l10n-context" match="l:l10n/l:context" use="concat(../@language, '#', @name)"/>  
 <xsl:key name="l10n-dingbat" match="l:l10n/l:dingbat" use="concat(../@language, '#', @key)"/>  

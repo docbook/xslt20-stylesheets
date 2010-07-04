@@ -56,7 +56,7 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="l10n.gentext.default.language"/>
 <refentry xml:id="l10n.gentext.language"/>
 <refentry xml:id="l10n.gentext.use.xref.language"/>
-<refentry xml:id="l10n.xml"/>
+<refentry xml:id="l10n.locale.dir"/>
 <refentry xml:id="local.l10n.xml"/>
 <refentry xml:id="docbook-namespace"/>
 <refentry xml:id="punct.honorific"/>
