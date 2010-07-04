@@ -20,7 +20,11 @@
 
 <!-- FIXME: Make proper parameter after code is working -->
 <xsl:param name="l10n.locale.dir">locales/</xsl:param>
-
+  
+<xsl:key name="l10n-gentext" match="l:l10n/l:gentext" use="concat(../@language, '#', @key)"/>  
+<xsl:key name="l10n-context" match="l:l10n/l:context" use="concat(../@language, '#', @name)"/>  
+<xsl:key name="l10n-dingbat" match="l:l10n/l:dingbat" use="concat(../@language, '#', @key)"/>  
+  
 <xsl:variable name="localization">
   <xsl:call-template name="user-localization-data"/>
 </xsl:variable>
@@ -290,10 +294,8 @@ context node.</para>
   <xsl:param name="lang"/>
 
   <xsl:variable name="l10n.gentext"
-		select="($localization
-			 //l:l10n[@language=$lang]
-			 /l:gentext[@key=$key],
-			 f:load-locale($lang)/l:l10n/l:gentext[@key=$key])[1]"/>
+		select="($localization/key('l10n-gentext', concat($lang, '#', $key)),
+		         f:load-locale($lang)/key('l10n-gentext', concat($lang, '#', $key)))[1]"/>
 
   <xsl:choose>
     <xsl:when test="$l10n.gentext">
@@ -315,10 +317,8 @@ context node.</para>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:message>
-      <xsl:value-of select="($localization
-			    //l:l10n[@language='en']
-			    /l:gentext[@key=$key],
-			    f:load-locale('en')/l:l10n/l:gentext[@key=$key])[1]/@text"/>
+      <xsl:value-of select="($localization/key('l10n-gentext', concat('en#', $key)),
+                             f:load-locale('en')/key('l10n-gentext', concat('en#', $key)))[1]/@text"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -424,10 +424,13 @@ parameters.</para>
   <xsl:param name="lang" select="f:l10n-language(.)"/>
   <xsl:param name="origname" select="$name"/>
 
+  <xsl:variable name="user.localization.nodes"
+		select="$localization//l:l10n[@language=$lang]"/>
+  
   <xsl:variable name="localization.nodes"
-		select="($localization//l:l10n[@language=$lang], f:load-locale($lang)/l:l10n)"/>
-
-  <xsl:if test="not($localization.nodes)">
+    select="f:load-locale($lang)/l:l10n"/>
+  
+  <xsl:if test="not($localization.nodes | $user.localization.nodes)">
     <xsl:message>
       <xsl:text>No "</xsl:text>
       <xsl:value-of select="$lang"/>
@@ -435,10 +438,13 @@ parameters.</para>
     </xsl:message>
   </xsl:if>
 
-  <xsl:variable name="context.nodes"
-                select="$localization.nodes/l:context[@name=$context]"/>
+  <xsl:variable name="user.context.nodes"
+    select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
 
-  <xsl:if test="not($context.nodes)">
+  <xsl:variable name="context.nodes"
+    select="$localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
+
+  <xsl:if test="not($context.nodes | $user.context.nodes)">
     <xsl:message>
       <xsl:text>No context named "</xsl:text>
       <xsl:value-of select="$context"/>
@@ -449,11 +455,16 @@ parameters.</para>
   </xsl:if>
 
   <xsl:variable name="template.node"
-                select="($context.nodes/l:template[@name=$name
+                select="(($user.context.nodes/l:template[@name=$name
                                                    and @style
                                                    and @style=$xrefstyle]
-                        |$context.nodes/l:template[@name=$name
-                                                   and not(@style)])[1]"/>
+                        |$user.context.nodes/l:template[@name=$name
+                                                   and not(@style)])[1],
+                         ($context.nodes/l:template[@name=$name
+                                                    and @style
+                                                    and @style=$xrefstyle]
+                         |$context.nodes/l:template[@name=$name
+                                                    and not(@style)])[1])[1]"/>
 
   <xsl:choose>
     <xsl:when test="$template.node/@text">
@@ -550,18 +561,30 @@ the specified parameters.</para>
   <xsl:param name="referrer"/>
   <xsl:param name="lang" select="f:l10n-language(.)"/>
 
+  <xsl:variable name="user.localization.nodes"
+		select="$localization//l:l10n[@language=$lang]"/>
+  
   <xsl:variable name="localization.nodes"
-    select="($localization//l:l10n[@language=$lang], f:load-locale($lang)/l:l10n)"/>
+		select="f:load-locale($lang)/l:l10n"/>
+  
+  <xsl:variable name="user.context.nodes"
+		select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
 
   <xsl:variable name="context.nodes"
-                select="$localization.nodes/l:context[@name=$context]"/>
+		select="$localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
 
   <xsl:variable name="template.node"
-                select="($context.nodes/l:template[@name=$name
+                select="(($user.context.nodes/l:template[@name=$name
                                                    and @style
                                                    and @style=$xrefstyle]
-                        |$context.nodes/l:template[@name=$name
-                                                   and not(@style)])[1]"/>
+                        |$user.context.nodes/l:template[@name=$name
+                                                   and not(@style)])[1],
+                         ($context.nodes/l:template[@name=$name
+                                                    and @style
+                                                    and @style=$xrefstyle]
+                         |$context.nodes/l:template[@name=$name
+                                                    and not(@style)])[1])[1]"/>
+
 
   <xsl:choose>
     <xsl:when test="$template.node/@text">1</xsl:when>
@@ -779,10 +802,8 @@ the English locale value will be used as the default.</para>
   <xsl:param name="lang" as="xs:string"/>
 
   <xsl:variable name="l10n.dingbat"
-                select="($localization
-			 //l:l10n[@language=$lang]
-			 /l:dingbat[@key=$dingbat],
-			 f:load-locale($lang)/l:l10n/l:dingbat[@key=$dingbat])[1]"/>
+                select="($localization/key('l10n-dingbat', concat($lang, '#', $dingbat)),
+                         f:load-locale($lang)/key('l10n-dingbat', concat($lang, '#', $dingbat)))[1]"/>
 
   <xsl:choose>
     <xsl:when test="$l10n.dingbat">
@@ -796,10 +817,8 @@ the English locale value will be used as the default.</para>
         <xsl:value-of select="$dingbat"/>
         <xsl:text> exists; using "en".</xsl:text>
       </xsl:message>
-      <xsl:value-of select="($localization
-			     //l:l10n[@language='en']
-			     /l:dingbat[@key=$dingbat],
-			     f:load-locale('en')/l:l10n/l:dingbat[@key=$dingbat])[1]"/>
+      <xsl:value-of select="($localization/key('l10n-dingbat', concat('en#', $dingbat)),
+                             f:load-locale('en')/key('l10n-dingbat', concat('en#', $dingbat)))[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
