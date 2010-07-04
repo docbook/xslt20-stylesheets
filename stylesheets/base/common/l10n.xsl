@@ -18,11 +18,11 @@
      This file contains localization templates (for internationalization)
      ******************************************************************** -->
 
-<xsl:include href="i18ndata.xsl"/> <!-- declares $localization.data -->
+<!-- FIXME: Make proper parameter after code is working -->
+<xsl:param name="l10n.locale.dir">locales/</xsl:param>
 
 <xsl:variable name="localization">
   <xsl:call-template name="user-localization-data"/>
-  <xsl:copy-of select="$localization.data/l:l10n"/>
 </xsl:variable>
 
 <!-- ============================================================ -->
@@ -148,11 +148,13 @@ target.</para>
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="$localization/l:l10n[@language=$adjusted.language]">
+    <xsl:when test="$localization/l:l10n[@language=$adjusted.language]
+                    or f:check-locale($adjusted.language)">
       <xsl:value-of select="$adjusted.language"/>
     </xsl:when>
     <!-- try just the lang code without country -->
-    <xsl:when test="$localization/l:l10n[@language=substring-before($adjusted.language,'_')]">
+    <xsl:when test="$localization/l:l10n[@language=substring-before($adjusted.language,'_')]
+                    or f:check-locale(substring-before($adjusted.language,'_'))">
       <xsl:value-of select="substring-before($adjusted.language,'_')"/>
     </xsl:when>
     <!-- or use the default -->
@@ -290,7 +292,8 @@ context node.</para>
   <xsl:variable name="l10n.gentext"
 		select="($localization
 			 //l:l10n[@language=$lang]
-			 /l:gentext[@key=$key])[1]"/>
+			 /l:gentext[@key=$key],
+			 f:load-locale($lang)/l:l10n/l:gentext[@key=$key])[1]"/>
 
   <xsl:choose>
     <xsl:when test="$l10n.gentext">
@@ -314,7 +317,8 @@ context node.</para>
       </xsl:message>
       <xsl:value-of select="($localization
 			    //l:l10n[@language='en']
-			    /l:gentext[@key=$key])[1]/@text"/>
+			    /l:gentext[@key=$key],
+			    f:load-locale('en')/l:l10n/l:gentext[@key=$key])[1]/@text"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -421,7 +425,7 @@ parameters.</para>
   <xsl:param name="origname" select="$name"/>
 
   <xsl:variable name="localization.nodes"
-		select="$localization//l:l10n[@language=$lang]"/>
+		select="($localization//l:l10n[@language=$lang], f:load-locale($lang)/l:l10n)"/>
 
   <xsl:if test="not($localization.nodes)">
     <xsl:message>
@@ -547,7 +551,7 @@ the specified parameters.</para>
   <xsl:param name="lang" select="f:l10n-language(.)"/>
 
   <xsl:variable name="localization.nodes"
-		select="$localization//l:l10n[@language=$lang]"/>
+    select="($localization//l:l10n[@language=$lang], f:load-locale($lang)/l:l10n)"/>
 
   <xsl:variable name="context.nodes"
                 select="$localization.nodes/l:context[@name=$context]"/>
@@ -777,7 +781,8 @@ the English locale value will be used as the default.</para>
   <xsl:variable name="l10n.dingbat"
                 select="($localization
 			 //l:l10n[@language=$lang]
-			 /l:dingbat[@key=$dingbat])[1]"/>
+			 /l:dingbat[@key=$dingbat],
+			 f:load-locale($lang)/l:l10n/l:dingbat[@key=$dingbat])[1]"/>
 
   <xsl:choose>
     <xsl:when test="$l10n.dingbat">
@@ -793,10 +798,69 @@ the English locale value will be used as the default.</para>
       </xsl:message>
       <xsl:value-of select="($localization
 			     //l:l10n[@language='en']
-			     /l:dingbat[@key=$dingbat])[1]"/>
+			     /l:dingbat[@key=$dingbat],
+			     f:load-locale('en')/l:l10n/l:dingbat[@key=$dingbat])[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
 
+<!-- ============================================================ -->
+
+<doc:function name="f:check-locale" xmlns="http://docbook.org/ns/docbook">
+  <refpurpose>Test whether there is localization file for specified languahe</refpurpose>
+  
+  <refdescription>
+    <para>This function returns true/false.</para>
+  </refdescription>
+  
+  <refparameter>
+    <variablelist>
+      <varlistentry><term>lang</term>
+        <listitem>
+          <para>BCP 47 code of language.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refparameter>
+  
+  <refreturn>
+    <para>true/false</para>
+  </refreturn>
+</doc:function>
+
+<xsl:function name="f:check-locale" as="xs:boolean">
+  <xsl:param name="lang" as="xs:string"/>
+  <xsl:sequence select="doc-available(resolve-uri(concat($lang,'.xml'), $l10n.locale.dir))"/>
+</xsl:function>
+
+<!-- ============================================================ -->
+
+<doc:function name="f:load-locale" xmlns="http://docbook.org/ns/docbook">
+  <refpurpose>Loads localization file for specified languahe</refpurpose>
+  
+  <refdescription>
+    <para>This function returns localization data for specified language.</para>
+  </refdescription>
+  
+  <refparameter>
+    <variablelist>
+      <varlistentry><term>lang</term>
+        <listitem>
+          <para>BCP 47 code of language.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refparameter>
+  
+  <refreturn>
+    <para>Document node of localization document for specified language.</para>
+  </refreturn>
+</doc:function>
+
+<xsl:function name="f:load-locale" as="document-node(element(l:l10n))">
+  <xsl:param name="lang" as="xs:string"/>
+  <xsl:sequence select="doc(resolve-uri(concat($lang,'.xml'), $l10n.locale.dir))"/>
+</xsl:function>
+  
 </xsl:stylesheet>
 

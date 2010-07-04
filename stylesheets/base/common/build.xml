@@ -4,16 +4,26 @@
   <property name="dbroot.dir" value="${ant.file}/../../../../.."/>  
   <import file="${dbroot.dir}/anttools/build-shared.xml"/>
 
-  <!-- FIXME: remove after we will switch to new locale mechanism -->
+  
   <target name="all">
+    <!-- FIXME: remove after we will switch to new locale mechanism -->
     <echo>Generating i18ndata.xsl...</echo>
     <xslt2 style="../../../tools/i18nxsl.xsl " in="../../../gentext/i18n.xml"
           out="i18ndata.xsl">
     </xslt2>
+    
+    <copy todir="locales">
+      <fileset dir="../../../gentext/build" includes="*.xml"/>
+    </copy>
   </target>
 
   <target name="clean">
-    <delete file="i18ndata.xsl"/>   
+    <delete file="i18ndata.xsl"/>
+    <delete>
+      <fileset>
+        <include name="locales/*"/>
+      </fileset>
+    </delete>
   </target>
 
 </project>
