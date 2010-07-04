@@ -1,0 +1,30 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="l10n.locale.dir">
+<refmeta>
+<refentrytitle>l10n.locale.dir</refentrytitle>
+<refmiscinfo role="type"></refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>l10n.locale.dir</refname>
+<refpurpose>FIXME: TBA</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="l10n.locale.dir.frag">
+<xsl:param name="l10n.locale.dir">locales/</xsl:param>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Location of directory with localization files. If the relative
+path is used then it is resolved relatively to
+<filename>common</filename> directory.
+</para>
+
+</refsect1>
+</refentry>
