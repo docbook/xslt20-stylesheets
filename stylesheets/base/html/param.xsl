@@ -154,7 +154,17 @@
 
 <xsl:param name="keep.relative.image.uris" select="1"/>
 
+<xsl:param name="l10n.gentext.default.language" select="'en'"/>
+
+<xsl:param name="l10n.gentext.language" select="''"/>
+
+<xsl:param name="l10n.gentext.use.xref.language" select="0"/>
+
+<xsl:param name="l10n.xml" select="document('../common/l10n.xml')"/>
+
 <xsl:param name="label.from.part" select="0"/>
+
+<xsl:param name="local.l10n.xml" select="document('')"/>
 
 <xsl:param name="make.graphic.viewport" select="1"/>
 
@@ -282,6 +292,8 @@
 <xsl:param name="textdata.default.encoding" select="''"/>
 
 <xsl:param name="title.font.family" select="'sans-serif'"/>
+
+<xsl:param name="titlepage.templates" select="'titlepages.xml'"/>
 
 <xsl:param name="toc.list.type">dl</xsl:param>
 

@@ -20,10 +20,6 @@
 
 <xsl:include href="i18ndata.xsl"/> <!-- declares $localization.data -->
 
-<xsl:param name="l10n.gentext.default.language" select="'en'"/>
-<xsl:param name="l10n.gentext.language" select="''"/>
-<xsl:param name="l10n.gentext.use.xref.language" select="0"/>
-
 <xsl:variable name="localization">
   <xsl:call-template name="user-localization-data"/>
   <xsl:copy-of select="$localization.data/l:l10n"/>

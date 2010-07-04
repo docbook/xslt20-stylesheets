@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="DocBook XSLT 2.0 stylesheets - Gentext &amp; Localization" default="all"
-  xmlns:ac="antlib:net.sf.antcontrib">
+<project name="DocBook XSLT 2.0 stylesheets - Gentext &amp; Localization" default="all">
   
   <property name="dbroot.dir" value="${ant.file}/../../.."/>  
   <import file="${dbroot.dir}/anttools/build-shared.xml"/>
@@ -25,11 +24,12 @@
     
     <!-- FIXME: remove after we will switch to new locale mechanism -->
     <echo>Generating i18n.xml...</echo>
+    
     <pathconvert pathsep=" " property="locales" refid="l10n-files">
       <mapper type="flatten" />
     </pathconvert>
     
-    <xslt2 style="../tools/build-l10n.xsl" in="src/en.xml"
+    <xslt2 style="../tools/build-l10n.xsl" in="build/en.xml"
           out="i18n.xml" initialTemplate="join">
       <param name="locales" expression="${locales}"/>
     </xslt2>
