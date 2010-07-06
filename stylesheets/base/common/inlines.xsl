@@ -302,18 +302,21 @@
       <xsl:choose>
 	<xsl:when test=". castable as xs:dateTime">
 	  <xsl:value-of select="format-dateTime(xs:dateTime(.),
-				                $dateTime-format)"/>
+				                $dateTime-format,
+						f:l10n-language(.), (), ())"/>
 	</xsl:when>
 	<xsl:when test=". castable as xs:date">
-	  <xsl:value-of select="format-date(xs:date(.), $date-format)"/>
+	  <xsl:value-of select="format-date(xs:date(.), $date-format, f:l10n-language(.), (), ())"/>
 	</xsl:when>
 	<xsl:when test=". castable as xs:gYearMonth">
 	  <xsl:value-of select="format-date(xs:date(concat(.,'-01')),
-				            $gYearMonth-format)"/>
+				            $gYearMonth-format,
+					    f:l10n-language(.), (), ())"/>
 	</xsl:when>
 	<xsl:when test=". castable as xs:gYear">
 	  <xsl:value-of select="format-date(xs:date(concat(.,'-01-01')),
-				            $gYear-format)"/>
+				            $gYear-format,
+					    f:l10n-language(.), (), ())"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:apply-templates/>
