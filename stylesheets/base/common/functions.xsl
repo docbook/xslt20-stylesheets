@@ -2076,7 +2076,7 @@ the empty string.</para>
   <xsl:param name="id" as="xs:string"/>
   <xsl:param name="context" as="node()"/>
 
-  <xsl:sequence select="key('id', $id, $context)"/>
+  <xsl:sequence select="key('id', $id, root($context))"/>
 </xsl:function>
 
 </xsl:stylesheet>
