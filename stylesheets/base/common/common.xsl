@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:fp="http://docbook.org/xslt/ns/extension/private"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:mp="http://docbook.org/xslt/ns/mode/private"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fp m t xs"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:fp="http://docbook.org/xslt/ns/extension/private"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:mp="http://docbook.org/xslt/ns/mode/private"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db doc f fp m t xs"
                 version="2.0">
 
 
@@ -81,9 +81,9 @@ and <tag>othercredit</tag>) or with the locale.</para>
   <xsl:param name="node" select="."/>
 
   <xsl:variable name="personname"
-		select="if ($node/self::db:personname)
+                select="if ($node/self::db:personname)
                         then $node
-			else $node/db:personname"/>
+                        else $node/db:personname"/>
 
   <xsl:variable name="style">
     <xsl:choose>
@@ -111,9 +111,9 @@ and <tag>othercredit</tag>) or with the locale.</para>
     <xsl:otherwise>
       <!-- $node/db:personname -->
       <xsl:choose>
-	<xsl:when test="not($personname/*)">
-	  <xsl:value-of select="$personname"/>
-	</xsl:when>
+        <xsl:when test="not($personname/*)">
+          <xsl:value-of select="$personname"/>
+        </xsl:when>
         <xsl:when test="$style = 'family-given'">
           <xsl:call-template name="t:person-name-family-given">
             <xsl:with-param name="node" select="$personname"/>
@@ -137,7 +137,7 @@ and <tag>othercredit</tag>) or with the locale.</para>
 <!-- ============================================================ -->
 
 <doc:template name="person-name-family-given"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Formats a personal name in the “family given” style</refpurpose>
 
 <refdescription>
@@ -215,7 +215,7 @@ converted to upper-case.</para>
 <!-- ============================================================ -->
 
 <doc:template name="person-name-last-first"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Formats a personal name in the “last, first” style</refpurpose>
 
 <refdescription>
@@ -254,7 +254,7 @@ template.</para>
 <!-- ============================================================ -->
 
 <doc:template name="person-name-first-last"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Formats a personal name in the “first last” style</refpurpose>
 
 <refdescription>
@@ -317,7 +317,7 @@ template.</para>
 <!-- ============================================================ -->
 
 <doc:template name="person-name-list"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Formats a list of personal names</refpurpose>
 
 <refdescription>
@@ -428,22 +428,22 @@ Any element processed in this mode should generate its number.</para>
   <xsl:variable name="num">
     <xsl:choose>
       <xsl:when test="$format = 'arabic'">
-	<xsl:number count="db:step" format="1"/>
+        <xsl:number count="db:step" format="1"/>
       </xsl:when>
       <xsl:when test="$format = 'loweralpha'">
-	<xsl:number count="db:step" format="a"/>
+        <xsl:number count="db:step" format="a"/>
       </xsl:when>
       <xsl:when test="$format = 'lowerroman'">
-	<xsl:number count="db:step" format="i"/>
+        <xsl:number count="db:step" format="i"/>
       </xsl:when>
       <xsl:when test="$format = 'upperalpha'">
-	<xsl:number count="db:step" format="A"/>
+        <xsl:number count="db:step" format="A"/>
       </xsl:when>
       <xsl:when test="$format = 'upperroman'">
-	<xsl:number count="db:step" format="I"/>
+        <xsl:number count="db:step" format="I"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:number count="db:step" format="i"/>
+        <xsl:number count="db:step" format="i"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -451,7 +451,7 @@ Any element processed in this mode should generate its number.</para>
   <xsl:choose>
     <xsl:when test="$recursive != 0 and ancestor::db:step">
       <xsl:apply-templates select="ancestor::db:step[1]" mode="m:number">
-	<xsl:with-param name="rest" select="concat('.', $num, $rest)"/>
+        <xsl:with-param name="rest" select="concat('.', $num, $rest)"/>
       </xsl:apply-templates>
     </xsl:when>
     <xsl:otherwise>
@@ -673,7 +673,7 @@ to determine which object in the list is appropriate.</para>
   <xsl:variable name="olist" select="*[not(self::db:info)]"/>
 
   <xsl:variable name="mediaobject.index"
-		select="f:select-mediaobject-index($olist)"/>
+                select="f:select-mediaobject-index($olist)"/>
 
   <xsl:if test="$mediaobject.index != 0">
     <xsl:apply-templates select="$olist[position() = $mediaobject.index]"/>
@@ -683,7 +683,7 @@ to determine which object in the list is appropriate.</para>
 <!-- ====================================================================== -->
 
 <doc:function name="f:select-mediaobject-index"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Selects the position of the appropriate media object from a list</refpurpose>
 
 <refdescription>
@@ -728,40 +728,40 @@ or 0 if no object is selected.</para>
   <xsl:choose>
     <!-- Test for objects preferred by role -->
     <xsl:when test="$use.role.for.mediaobject != 0
-		    and $preferred.mediaobject.role != ''
-		    and $olist[@role = $preferred.mediaobject.role]">
+                    and $preferred.mediaobject.role != ''
+                    and $olist[@role = $preferred.mediaobject.role]">
 
       <!-- Get the first hit's position index -->
       <xsl:for-each select="$olist">
-	<xsl:if test="@role = $preferred.mediaobject.role and
-		      not(preceding-sibling::*
-		          [@role = $preferred.mediaobject.role])">
-	  <xsl:value-of select="position()"/>
-	</xsl:if>
+        <xsl:if test="@role = $preferred.mediaobject.role and
+                      not(preceding-sibling::*
+                          [@role = $preferred.mediaobject.role])">
+          <xsl:value-of select="position()"/>
+        </xsl:if>
       </xsl:for-each>
     </xsl:when>
 
     <xsl:when test="$use.role.for.mediaobject != 0
-		    and $olist[@role = $stylesheet.result.type]">
+                    and $olist[@role = $stylesheet.result.type]">
       <!-- Get the first hit's position index -->
       <xsl:for-each select="$olist">
         <xsl:if test="@role = $stylesheet.result.type and
-		      not(preceding-sibling::*
-		          [@role = $stylesheet.result.type])">
-	  <xsl:value-of select="position()"/>
+                      not(preceding-sibling::*
+                          [@role = $stylesheet.result.type])">
+          <xsl:value-of select="position()"/>
         </xsl:if>
       </xsl:for-each>
     </xsl:when>
 
     <!-- Accept 'html' for $stylesheet.result.type = 'xhtml' -->
     <xsl:when test="$use.role.for.mediaobject != 0
-		    and $stylesheet.result.type = 'xhtml'
-		    and $olist[@role = 'html']">
+                    and $stylesheet.result.type = 'xhtml'
+                    and $olist[@role = 'html']">
       <!-- Get the first hit's position index -->
       <xsl:for-each select="$olist">
-	<xsl:if test="@role = 'html' and
-		      not(preceding-sibling::*[@role = 'html'])">
-	  <xsl:value-of select="position()"/>
+        <xsl:if test="@role = 'html' and
+                      not(preceding-sibling::*[@role = 'html'])">
+          <xsl:value-of select="position()"/>
         </xsl:if>
       </xsl:for-each>
     </xsl:when>
@@ -784,65 +784,65 @@ or 0 if no object is selected.</para>
       <xsl:variable name="object" select="$olist[position()=$count]"/>
 
       <xsl:variable name="useobject">
-	<xsl:choose>
-	  <!-- Phrase is used only for TeX Math when the output is FO -->
-	  <xsl:when test="$object/self::db:textobject
-			  and $object/db:phrase
-			  and $object/@role='tex'
-			  and $stylesheet.result.type = 'fo'
-			  and $tex.math.in.alt != ''">
-	    <xsl:value-of select="1"/>
-	  </xsl:when>
+        <xsl:choose>
+          <!-- Phrase is used only for TeX Math when the output is FO -->
+          <xsl:when test="$object/self::db:textobject
+                          and $object/db:phrase
+                          and $object/@role='tex'
+                          and $stylesheet.result.type = 'fo'
+                          and $tex.math.in.alt != ''">
+            <xsl:value-of select="1"/>
+          </xsl:when>
 
-	  <!-- Otherwise, phrase is never used -->
-	  <xsl:when test="$object/self::db:textobject and $object/db:phrase">
-	    <xsl:value-of select="0"/>
-	  </xsl:when>
+          <!-- Otherwise, phrase is never used -->
+          <xsl:when test="$object/self::db:textobject and $object/db:phrase">
+            <xsl:value-of select="0"/>
+          </xsl:when>
 
-	  <!-- The first textobject is a reasonable fallback -->
-	  <xsl:when test="$object/self::db:textobject
-			  and $object[not(@role) or @role != 'tex']">
-	    <xsl:value-of select="1"/>
-	  </xsl:when>
+          <!-- The first textobject is a reasonable fallback -->
+          <xsl:when test="$object/self::db:textobject
+                          and $object[not(@role) or @role != 'tex']">
+            <xsl:value-of select="1"/>
+          </xsl:when>
 
-	  <!-- don't use graphic when output is FO, TeX Math is used
-	       and there is math in alt element -->
-	  <xsl:when test="$object/ancestor::db:equation
-			  and $object/ancestor::db:equation/db:alt[@role='tex']
-			  and $stylesheet.result.type = 'fo'
-			  and $tex.math.in.alt != ''">
-	    <xsl:value-of select="0"/>
-	  </xsl:when>
+          <!-- don't use graphic when output is FO, TeX Math is used
+               and there is math in alt element -->
+          <xsl:when test="$object/ancestor::db:equation
+                          and $object/ancestor::db:equation/db:alt[@role='tex']
+                          and $stylesheet.result.type = 'fo'
+                          and $tex.math.in.alt != ''">
+            <xsl:value-of select="0"/>
+          </xsl:when>
 
-	  <!-- If there's only one object, use it -->
-	  <xsl:when test="$count = 1 and count($olist) = 1">
-	    <xsl:value-of select="1"/>
-	  </xsl:when>
+          <!-- If there's only one object, use it -->
+          <xsl:when test="$count = 1 and count($olist) = 1">
+            <xsl:value-of select="1"/>
+          </xsl:when>
 
-	  <!-- Otherwise, see if this one is a useable graphic -->
-	  <xsl:otherwise>
-	    <xsl:choose>
-	      <!-- peek inside imageobjectco to simplify the test -->
-	      <xsl:when test="$object/self::db:imageobjectco">
-		<xsl:value-of select="f:is-acceptable-mediaobject
-				      ($object/db:imageobject)"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:value-of select="f:is-acceptable-mediaobject($object)"/>
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:otherwise>
-	</xsl:choose>
+          <!-- Otherwise, see if this one is a useable graphic -->
+          <xsl:otherwise>
+            <xsl:choose>
+              <!-- peek inside imageobjectco to simplify the test -->
+              <xsl:when test="$object/self::db:imageobjectco">
+                <xsl:value-of select="f:is-acceptable-mediaobject
+                                      ($object/db:imageobject)"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="f:is-acceptable-mediaobject($object)"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:variable>
 
       <xsl:choose>
-	<xsl:when test="$useobject != '0'">
-	  <xsl:value-of select="$count"/>
-	</xsl:when>
+        <xsl:when test="$useobject != '0'">
+          <xsl:value-of select="$count"/>
+        </xsl:when>
 
-	<xsl:otherwise>
-	  <xsl:value-of select="fp:select-mediaobject-index($olist, $count+1)"/>
-	</xsl:otherwise>
+        <xsl:otherwise>
+          <xsl:value-of select="fp:select-mediaobject-index($olist, $count+1)"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -875,13 +875,13 @@ object is recognized as a graphic.</para>
   <xsl:param name="object" as="element()"/>
 
   <xsl:variable name="filename"
-		select="f:mediaobject-filename($object)"/>
+                select="f:mediaobject-filename($object)"/>
 
   <xsl:variable name="ext"
-		select="f:filename-extension($filename)"/>
+                select="f:filename-extension($filename)"/>
 
   <xsl:variable name="data" select="$object/db:videodata
-				    |$object/db:imagedata
+                                    |$object/db:imagedata
                                     |$object/db:audiodata"/>
 
   <xsl:variable name="explicit-format" select="lower-case($data/@format)"/>
@@ -897,7 +897,7 @@ object is recognized as a graphic.</para>
   <xsl:choose>
     <xsl:when test="$use.svg = 0 and $format = 'svg'">0</xsl:when>
     <xsl:when xmlns:svg="http://www.w3.org/2000/svg"
-	      test="$use.svg != 0 and $format = 'svg'">1</xsl:when>
+              test="$use.svg != 0 and $format = 'svg'">1</xsl:when>
     <xsl:when test="index-of($graphic.formats, $format)">1</xsl:when>
     <xsl:when test="index-of($graphic.extensions, $ext)">1</xsl:when>
     <xsl:otherwise>0</xsl:otherwise>
@@ -915,10 +915,10 @@ object is recognized as a graphic.</para>
   <xsl:variable name="filename">
     <xsl:choose>
       <xsl:when test="$data[@fileref]">
-	<xsl:apply-templates select="$data/@fileref"/>
+        <xsl:apply-templates select="$data/@fileref"/>
       </xsl:when>
       <xsl:when test="$data[@entityref]">
-	<xsl:value-of select="$data/unparsed-entity-uri($data/@entityref)"/>
+        <xsl:value-of select="$data/unparsed-entity-uri($data/@entityref)"/>
       </xsl:when>
     </xsl:choose>
   </xsl:variable>
@@ -939,11 +939,11 @@ object is recognized as a graphic.</para>
   <xsl:choose>
     <xsl:when test="$real.ext = ''">
       <xsl:choose>
-	<xsl:when test="$ext != ''">
-	  <xsl:value-of select="$filename"/>
-	  <xsl:text>.</xsl:text>
-	  <xsl:value-of select="$ext"/>
-	</xsl:when>
+        <xsl:when test="$ext != ''">
+          <xsl:value-of select="$filename"/>
+          <xsl:text>.</xsl:text>
+          <xsl:value-of select="$ext"/>
+        </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="$filename"/>
         </xsl:otherwise>
@@ -977,23 +977,23 @@ object is recognized as a graphic.</para>
     <xsl:call-template name="t:strippath">
       <xsl:with-param name="filename">
         <xsl:call-template name="t:xml-base-dirs">
-	  <xsl:with-param name="base.elem"
-			  select="$filename/ancestor-or-self::*
-				    [@xml:base != ''][1]"/>
-	</xsl:call-template>
+          <xsl:with-param name="base.elem"
+                          select="$filename/ancestor-or-self::*
+                                    [@xml:base != ''][1]"/>
+        </xsl:call-template>
         <xsl:value-of select="$filename"/>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:variable>
 
   <xsl:variable name="srcurl.trimmed"
-		select="f:trim-common-uri-paths($srcurl, $destdir)"/>
+                select="f:trim-common-uri-paths(resolve-uri($srcurl, $destdir), $destdir)"/>
 
   <xsl:variable name="destdir.trimmed"
-		select="f:trim-common-uri-paths($destdir, $srcurl)"/>
+                select="f:trim-common-uri-paths($destdir, resolve-uri($srcurl, $destdir))"/>
 
   <xsl:variable name="depth"
-		select="count(tokenize($destdir.trimmed, '/'))"/>
+                select="count(tokenize($destdir.trimmed, '/')[. ne ''])"/>
 
   <xsl:for-each select="(1 to $depth)">
     <xsl:value-of select="'../'"/>
@@ -1026,18 +1026,19 @@ object is recognized as a graphic.</para>
       <xsl:value-of select="'../'"/>
       <xsl:call-template name="t:strippath">
         <xsl:with-param name="filename"
-			select="substring-after($filename, '../')"/>
+                        select="substring-after($filename, '../')"/>
       </xsl:call-template>
     </xsl:when>
+    <!-- FIXME: this code is broken for paths starting with ./../... (I don't have time to fix it today) -->
     <xsl:when test="contains($filename, '/../')">
       <xsl:call-template name="t:strippath">
         <xsl:with-param name="filename">
-	  <xsl:call-template name="t:getdir">
-	    <xsl:with-param name="filename"
-			    select="substring-before($filename, '/../')"/>
-	  </xsl:call-template>
-	  <xsl:value-of select="substring-after($filename, '/../')"/>
-	</xsl:with-param>
+          <xsl:call-template name="t:getdir">
+            <xsl:with-param name="filename"
+                            select="substring-before($filename, '/../')"/>
+          </xsl:call-template>
+          <xsl:value-of select="substring-after($filename, '/../')"/>
+        </xsl:with-param>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
@@ -1053,7 +1054,7 @@ object is recognized as a graphic.</para>
     <xsl:text>/</xsl:text>
     <xsl:call-template name="t:getdir">
       <xsl:with-param name="filename"
-		      select="substring-after($filename, '/')"/>
+                      select="substring-after($filename, '/')"/>
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
@@ -1129,7 +1130,7 @@ the ID is not unique.</para>
 
     <xsl:if test="not($targets)">
       <xsl:message>
-	<xsl:text>Error: no ID for constraint linkend: </xsl:text>
+        <xsl:text>Error: no ID for constraint linkend: </xsl:text>
         <xsl:value-of select="$linkend"/>
         <xsl:text>.</xsl:text>
       </xsl:message>
@@ -1138,8 +1139,8 @@ the ID is not unique.</para>
     <xsl:if test="count($targets) &gt; 1">
       <xsl:message>
         <xsl:text>Warning: multiple "IDs" for constraint linkend: </xsl:text>
-	<xsl:value-of select="$linkend"/>
-	<xsl:text>.</xsl:text>
+        <xsl:value-of select="$linkend"/>
+        <xsl:text>.</xsl:text>
       </xsl:message>
     </xsl:if>
   </xsl:if>
@@ -1164,14 +1165,14 @@ pointed to by the link is one of the elements listed in
     <xsl:variable name="targets" select="key('id',$linkend)"/>
 
     <xsl:if test="$targets
-		  and empty(index-of($element-list,node-name($targets[1])))">
+                  and empty(index-of($element-list,node-name($targets[1])))">
       <xsl:message>
-	<xsl:text>Error: linkend (</xsl:text>
-	<xsl:value-of select="$linkend"/>
-	<xsl:text>) points to "</xsl:text>
-	<xsl:value-of select="local-name($targets[1])"/>
-	<xsl:text>" not (one of): </xsl:text>
-	<xsl:value-of select="$element-list" separator=", "/>
+        <xsl:text>Error: linkend (</xsl:text>
+        <xsl:value-of select="$linkend"/>
+        <xsl:text>) points to "</xsl:text>
+        <xsl:value-of select="local-name($targets[1])"/>
+        <xsl:text>" not (one of): </xsl:text>
+        <xsl:value-of select="$element-list" separator=", "/>
       </xsl:message>
     </xsl:if>
   </xsl:if>

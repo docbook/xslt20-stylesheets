@@ -1709,6 +1709,36 @@
   </x:scenario>
 </x:scenario>
 
+<x:scenario label="Image path calculatuin tests">
+  <x:scenario label="stamp.050.xml">
+    <x:context href="src/stamp.050.xml"/>
+    <x:expect label="Relative URL starting with ./"
+      test="//html:div[@class='mediaobject'][1]"
+      select="//html:div[@class='mediaobject'][1]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Relative URL starting with multiple ../"
+      test="//html:div[@class='mediaobject'][2]"
+      select="//html:div[@class='mediaobject'][2]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Relative URL starting with multiple ../"
+      test="//html:div[@class='mediaobject'][3]"
+      select="//html:div[@class='mediaobject'][3]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Relative URL with /dummy/../ in the middle"
+      test="//html:div[@class='mediaobject'][4]"
+      select="//html:div[@class='mediaobject'][4]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Relative URL with /./ in the middle"
+      test="//html:div[@class='mediaobject'][5]"
+      select="//html:div[@class='mediaobject'][5]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Relative URL with just filename"
+      test="//html:div[@class='mediaobject'][6]"
+      select="//html:div[@class='mediaobject'][6]"
+      href="result/stamp.050.html"/>
+  </x:scenario>
+</x:scenario>
+    
 <x:scenario label="Admonition tests">
   <x:scenario label="admonitions.001.xml">
     <x:context href="src/admonitions.001.xml"/>

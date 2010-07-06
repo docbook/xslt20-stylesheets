@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics"
-		exclude-result-prefixes="db doc f ghost h m t u xlink xs simg"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics"
+                exclude-result-prefixes="db doc f ghost h m t u xlink xs simg"
                 version="2.0">
 
 <!-- ==================================================================== -->
@@ -22,9 +22,9 @@
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
       <div class="{local-name(.)}">
-	<xsl:call-template name="t:id"/>
-	<xsl:call-template name="class"/>
-	<xsl:apply-templates/>
+        <xsl:call-template name="t:id"/>
+        <xsl:call-template name="class"/>
+        <xsl:apply-templates/>
       </div>
     </xsl:with-param>
   </xsl:call-template>
@@ -180,10 +180,10 @@ vertical alignment.</para>
     <xsl:choose>
       <xsl:when test="$ignore.image.scaling != 0"></xsl:when>
       <xsl:when test="@width">
-	<xsl:value-of select="f:length-units(@width)"/>
+        <xsl:value-of select="f:length-units(@width)"/>
       </xsl:when>
       <xsl:when test="not(@depth) and $default.image.width != ''">
-	<xsl:value-of select="f:length-units($default.image.width)"/>
+        <xsl:value-of select="f:length-units($default.image.width)"/>
       </xsl:when>
     </xsl:choose>
   </xsl:variable>
@@ -239,7 +239,7 @@ vertical alignment.</para>
                       not(starts-with($filename, '/')) and
                       not(contains($filename, ':/'))">
         <xsl:value-of select="resolve-uri(concat($img.src.path, $filename),
-			                  base-uri(.))"/>
+                                          base-uri(.))"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="resolve-uri($filename, base-uri(.))"/>
@@ -249,41 +249,41 @@ vertical alignment.</para>
 
   <xsl:variable name="imageproperties" as="xs:integer*">
     <xsl:sequence use-when="function-available('simg:new')
-			    and function-available('simg:properties')"
-		  select="simg:properties(simg:new($filename.for.graphicsize))"/>
+                            and function-available('simg:properties')"
+                  select="simg:properties(simg:new($filename.for.graphicsize))"/>
     <xsl:sequence use-when="not(function-available('simg:new'))
-			    or not(function-available('simg:properties'))"
-		  select="()"/>
+                            or not(function-available('simg:properties'))"
+                  select="()"/>
   </xsl:variable>
 
   <xsl:variable name="intrinsicwidth"
-		select="if (exists($imageproperties))
+                select="if (exists($imageproperties))
                         then $imageproperties[1]
-			else $nominal.image.width"/>
+                        else $nominal.image.width"/>
 
   <xsl:variable name="intrinsicdepth"
-		select="if (exists($imageproperties))
+                select="if (exists($imageproperties))
                         then $imageproperties[2]
-			else $nominal.image.depth"/>
+                        else $nominal.image.depth"/>
 
   <xsl:variable name="contentwidth">
     <xsl:choose>
       <xsl:when test="$ignore.image.scaling != 0"></xsl:when>
       <xsl:when test="@contentwidth">
-	<xsl:variable name="units">
-	  <xsl:value-of select="f:length-units(@contentwidth)"/>
-	</xsl:variable>
+        <xsl:variable name="units">
+          <xsl:value-of select="f:length-units(@contentwidth)"/>
+        </xsl:variable>
 
         <xsl:choose>
           <xsl:when test="$units = '%'">
             <xsl:variable name="cmagnitude">
-	      <xsl:value-of select="f:length-magnitude(@contentwidth)"/>
-	    </xsl:variable>
-	    <xsl:value-of select="$intrinsicwidth * $cmagnitude div 100.0"/>
-	    <xsl:text>px</xsl:text>
+              <xsl:value-of select="f:length-magnitude(@contentwidth)"/>
+            </xsl:variable>
+            <xsl:value-of select="$intrinsicwidth * $cmagnitude div 100.0"/>
+            <xsl:text>px</xsl:text>
           </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:value-of select="f:length-spec(@contentwidth)"/>
+          <xsl:otherwise>
+            <xsl:value-of select="f:length-spec(@contentwidth)"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
@@ -297,9 +297,9 @@ vertical alignment.</para>
   <xsl:variable name="scaled.contentwidth">
     <xsl:if test="$contentwidth != ''">
       <xsl:variable name="cwidth.in.points"
-		    select="f:length-in-points($contentwidth,$points.per.em)"/>
+                    select="f:length-in-points($contentwidth,$points.per.em)"/>
       <xsl:value-of select="$cwidth.in.points div 72.0
-			    * $pixels.per.inch * $scale"/>
+                            * $pixels.per.inch * $scale"/>
     </xsl:if>
   </xsl:variable>
 
@@ -311,9 +311,9 @@ vertical alignment.</para>
       </xsl:when>
       <xsl:when test="$width != ''">
         <xsl:variable name="width.in.points"
-		      select="f:length-in-points($width,$points.per.em)"/>
-	<xsl:value-of select="round($width.in.points div 72.0
-			            * $pixels.per.inch)"/>
+                      select="f:length-in-points($width,$points.per.em)"/>
+        <xsl:value-of select="round($width.in.points div 72.0
+                                    * $pixels.per.inch)"/>
       </xsl:when>
       <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
@@ -328,13 +328,13 @@ vertical alignment.</para>
         <xsl:choose>
           <xsl:when test="$units = '%'">
             <xsl:variable name="cmagnitude"
-			  select="f:length-magnitude(@contentdepth)"/>
+                          select="f:length-magnitude(@contentdepth)"/>
             <xsl:value-of select="$intrinsicdepth * $cmagnitude div 100.0"/>
             <xsl:text>px</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-	    <xsl:value-of select="f:length-spec(@contentdepth)"/>
-	  </xsl:otherwise>
+            <xsl:value-of select="f:length-spec(@contentdepth)"/>
+          </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
@@ -347,9 +347,9 @@ vertical alignment.</para>
   <xsl:variable name="scaled.contentdepth">
     <xsl:if test="$contentdepth != ''">
       <xsl:variable name="cdepth.in.points"
-		    select="f:length-in-points($contentdepth,$points.per.em)"/>
+                    select="f:length-in-points($contentdepth,$points.per.em)"/>
       <xsl:value-of select="$cdepth.in.points div 72.0
-			    * $pixels.per.inch * $scale"/>
+                            * $pixels.per.inch * $scale"/>
     </xsl:if>
   </xsl:variable>
 
@@ -362,17 +362,17 @@ vertical alignment.</para>
   <xsl:variable name="depth" as="xs:string">
     <xsl:choose>
       <xsl:when test="@depth">
-	<xsl:choose>
-	  <xsl:when test="$depth-units = '%'">
-	    <xsl:value-of select="@depth"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:value-of select="f:length-spec(@depth)"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$depth-units = '%'">
+            <xsl:value-of select="@depth"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="f:length-spec(@depth)"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="''"/>
+        <xsl:value-of select="''"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -385,9 +385,9 @@ vertical alignment.</para>
       </xsl:when>
       <xsl:when test="@depth and @depth != ''">
         <xsl:variable name="depth.in.points"
-		      select="f:length-in-points($depth,$points.per.em)"/>
+                      select="f:length-in-points($depth,$points.per.em)"/>
         <xsl:value-of select="round($depth.in.points div 72.0
-			            * $pixels.per.inch)"/>
+                                    * $pixels.per.inch)"/>
       </xsl:when>
       <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
@@ -424,22 +424,22 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 -->
 
   <xsl:variable name="scaled"
-		select="@width|@depth|@contentwidth|@contentdepth
+                select="@width|@depth|@contentwidth|@contentdepth
                         |@scale|@scalefit"/>
 
   <xsl:variable name="img">
     <xsl:choose>
       <!-- attempt to handle audio data -->
       <xsl:when test="self::db:audiodata">
-	<object data="{$filename}">
-	  <!-- this is a complete hack; DocBook needs more markup -->
-	  <xsl:if test="@condition = 'hidden'">
-	    <param name="hidden" value="true"/>
-	  </xsl:if>
-	  <xsl:if test="@role = 'autostart'">
-	    <param name="autostart" value="true"/>
-	  </xsl:if>
-	</object>
+        <object data="{$filename}">
+          <!-- this is a complete hack; DocBook needs more markup -->
+          <xsl:if test="@condition = 'hidden'">
+            <param name="hidden" value="true"/>
+          </xsl:if>
+          <xsl:if test="@role = 'autostart'">
+            <param name="autostart" value="true"/>
+          </xsl:if>
+        </object>
       </xsl:when>
 
       <xsl:when xmlns:svg="http://www.w3.org/2000/svg"
@@ -448,21 +448,21 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
       </xsl:when>
 
       <xsl:when test="lower-case($format) = 'svg'">
-	<object data="{$filename}" type="image/svg+xml">
-	  <xsl:call-template name="t:process-image-attributes">
-	    <xsl:with-param name="alt" select="$alt"/>
+        <object data="{$filename}" type="image/svg+xml">
+          <xsl:call-template name="t:process-image-attributes">
+            <xsl:with-param name="alt" select="$alt"/>
             <xsl:with-param name="html.depth" select="$html.depth"/>
             <xsl:with-param name="html.width" select="$html.width"/>
             <xsl:with-param name="longdesc" select="$longdesc"/>
             <xsl:with-param name="scale" select="$scale"/>
             <xsl:with-param name="scalefit" select="$scalefit"/>
             <xsl:with-param name="scaled.contentdepth"
-			    select="$scaled.contentdepth"/>
+                            select="$scaled.contentdepth"/>
             <xsl:with-param name="scaled.contentwidth"
-			    select="$scaled.contentwidth"/>
+                            select="$scaled.contentwidth"/>
             <xsl:with-param name="viewport" select="$viewport"/>
-	  </xsl:call-template>
-	  <xsl:if test="@align">
+          </xsl:call-template>
+          <xsl:if test="@align">
             <xsl:attribute name="align">
                 <xsl:choose>
                   <xsl:when test="@align = 'center'">middle</xsl:when>
@@ -472,62 +472,62 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                 </xsl:choose>
             </xsl:attribute>
           </xsl:if>
-	  <xsl:if test="$use.embed.for.svg != 0">
+          <xsl:if test="$use.embed.for.svg != 0">
             <embed src="{$filename}" type="image/svg+xml">
               <xsl:call-template name="t:process-image-attributes">
-		<xsl:with-param name="alt" select="$alt"/>
+                <xsl:with-param name="alt" select="$alt"/>
                 <xsl:with-param name="html.depth" select="$html.depth"/>
                 <xsl:with-param name="html.width" select="$html.width"/>
                 <xsl:with-param name="longdesc" select="$longdesc"/>
                 <xsl:with-param name="scale" select="$scale"/>
                 <xsl:with-param name="scalefit" select="$scalefit"/>
                 <xsl:with-param name="scaled.contentdepth"
-				select="$scaled.contentdepth"/>
+                                select="$scaled.contentdepth"/>
                 <xsl:with-param name="scaled.contentwidth"
-				select="$scaled.contentwidth"/>
-		<xsl:with-param name="viewport" select="$viewport"/>
+                                select="$scaled.contentwidth"/>
+                <xsl:with-param name="viewport" select="$viewport"/>
               </xsl:call-template>
             </embed>
           </xsl:if>
         </object>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:element name="{$tag}">
-	  <xsl:copy-of select="$tag-attributes"/>
-	  <xsl:if test="$tag = 'img' and ancestor::db:imageobjectco">
-	    <xsl:choose>
-	      <xsl:when test="$scaled">
-		<!-- It might be possible to handle some scaling; needs -->
-		<!-- more investigation -->
-		<xsl:message>
-		  <xsl:text>Warning: imagemaps not supported </xsl:text>
-		  <xsl:text>on scaled images</xsl:text>
-		</xsl:message>
-	      </xsl:when>
-	      <xsl:when test="empty($imageproperties)">
-		<xsl:message>
-		  <xsl:text>Warning: imagemaps require image </xsl:text>
-		  <xsl:text>intrinsics extension</xsl:text>
-		</xsl:message>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:attribute name="border">0</xsl:attribute>
-		<xsl:attribute name="usemap">
-		  <xsl:value-of select="generate-id(ancestor::db:imageobjectco)"/>
-		</xsl:attribute>
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:if>
+        <xsl:element name="{$tag}">
+          <xsl:copy-of select="$tag-attributes"/>
+          <xsl:if test="$tag = 'img' and ancestor::db:imageobjectco">
+            <xsl:choose>
+              <xsl:when test="$scaled">
+                <!-- It might be possible to handle some scaling; needs -->
+                <!-- more investigation -->
+                <xsl:message>
+                  <xsl:text>Warning: imagemaps not supported </xsl:text>
+                  <xsl:text>on scaled images</xsl:text>
+                </xsl:message>
+              </xsl:when>
+              <xsl:when test="empty($imageproperties)">
+                <xsl:message>
+                  <xsl:text>Warning: imagemaps require image </xsl:text>
+                  <xsl:text>intrinsics extension</xsl:text>
+                </xsl:message>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:attribute name="border">0</xsl:attribute>
+                <xsl:attribute name="usemap">
+                  <xsl:value-of select="generate-id(ancestor::db:imageobjectco)"/>
+                </xsl:attribute>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:if>
 
-	  <xsl:attribute name="src">
-	    <xsl:choose>
-	      <xsl:when test="$img.src.path != '' and
-			      $tag = 'img' and
-	                      not(starts-with($filename, '/')) and
-			      not(contains($filename, ':/'))">
-	        <xsl:value-of select="$img.src.path"/>
-	      </xsl:when>
-	    </xsl:choose>
+          <xsl:attribute name="src">
+            <xsl:choose>
+              <xsl:when test="$img.src.path != '' and
+                              $tag = 'img' and
+                              not(starts-with($filename, '/')) and
+                              not(contains($filename, ':/'))">
+                <xsl:value-of select="$img.src.path"/>
+              </xsl:when>
+            </xsl:choose>
             <xsl:value-of select="$filename"/>
           </xsl:attribute>
 
@@ -543,13 +543,13 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
           </xsl:if>
 
           <xsl:call-template name="t:process-image-attributes">
-	    <xsl:with-param name="alt">
-	      <xsl:choose>
+            <xsl:with-param name="alt">
+              <xsl:choose>
                 <xsl:when test="$alt != ''">
                   <xsl:copy-of select="$alt"/>
                 </xsl:when>
                 <xsl:when test="ancestor::db:figure">
-		  <xsl:value-of select="normalize-space(ancestor::db:figure/db:info/db:title)"/>
+                  <xsl:value-of select="normalize-space(ancestor::db:figure/db:info/db:title)"/>
                 </xsl:when>
               </xsl:choose>
             </xsl:with-param>
@@ -559,10 +559,10 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
             <xsl:with-param name="scale" select="$scale"/>
             <xsl:with-param name="scalefit" select="$scalefit"/>
             <xsl:with-param name="scaled.contentdepth"
-			    select="$scaled.contentdepth"/>
+                            select="$scaled.contentdepth"/>
             <xsl:with-param name="scaled.contentwidth"
-			    select="$scaled.contentwidth"/>
-	    <xsl:with-param name="viewport" select="$viewport"/>
+                            select="$scaled.contentwidth"/>
+            <xsl:with-param name="viewport" select="$viewport"/>
           </xsl:call-template>
         </xsl:element>
       </xsl:otherwise>
@@ -583,7 +583,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
   <xsl:choose>
     <xsl:when test="$use.viewport">
       <table border="0" summary="Manufactured viewport for HTML image"
-	     cellspacing="0" cellpadding="0">
+             cellspacing="0" cellpadding="0">
         <xsl:if test="$html.width != ''">
           <xsl:attribute name="width">
             <xsl:value-of select="$html.width"/>
@@ -592,20 +592,20 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
         <tr>
           <xsl:if test="$html.depth != '' and $depth-units != '%'">
             <!-- don't do this for percentages because browsers get confused -->
-	    <xsl:attribute name="style">
-	      <xsl:text>height: </xsl:text>
-	      <xsl:value-of select="$html.depth"/>
-	      <xsl:text>px</xsl:text>
-	    </xsl:attribute>
-	  </xsl:if>
-	  <td>
-	    <xsl:if test="$bgcolor != ''">
-	      <xsl:attribute name="style">
-		<xsl:text>background-color: </xsl:text>
-		<xsl:value-of select="$bgcolor"/>
-	      </xsl:attribute>
-	    </xsl:if>
-	    <xsl:if test="@align">
+            <xsl:attribute name="style">
+              <xsl:text>height: </xsl:text>
+              <xsl:value-of select="$html.depth"/>
+              <xsl:text>px</xsl:text>
+            </xsl:attribute>
+          </xsl:if>
+          <td>
+            <xsl:if test="$bgcolor != ''">
+              <xsl:attribute name="style">
+                <xsl:text>background-color: </xsl:text>
+                <xsl:value-of select="$bgcolor"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:if test="@align">
               <xsl:attribute name="align">
                 <xsl:value-of select="@align"/>
               </xsl:attribute>
@@ -615,9 +615,9 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                 <xsl:value-of select="@valign"/>
               </xsl:attribute>
             </xsl:if>
-	    <xsl:copy-of select="$img"/>
-	  </td>
-	</tr>
+            <xsl:copy-of select="$img"/>
+          </td>
+        </tr>
       </table>
     </xsl:when>
     <xsl:otherwise>
@@ -626,69 +626,69 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
   </xsl:choose>
 
   <xsl:if test="$tag = 'img'
-		and ancestor::db:imageobjectco
-		and not($scaled)
-		and exists($imageproperties)">
+                and ancestor::db:imageobjectco
+                and not($scaled)
+                and exists($imageproperties)">
     <map name="{generate-id(ancestor::db:imageobjectco)}">
       <xsl:for-each select="ancestor::db:imageobjectco/db:areaspec//db:area">
-	<xsl:variable name="units" as="xs:string"
-		      select="if (@units) then @units
-			      else if (../@units) then ../@units
-			           else 'calspair'"/>
+        <xsl:variable name="units" as="xs:string"
+                      select="if (@units) then @units
+                              else if (../@units) then ../@units
+                                   else 'calspair'"/>
 
-	<xsl:choose>
-	  <xsl:when test="$units = 'calspair'">
-	    <xsl:variable name="coords"
-			  select="tokenize(normalize-space(@coords),
-	                                   '[\s,]')"/>
+        <xsl:choose>
+          <xsl:when test="$units = 'calspair'">
+            <xsl:variable name="coords"
+                          select="tokenize(normalize-space(@coords),
+                                           '[\s,]')"/>
 
-	    <xsl:variable name="x1p" select="xs:decimal($coords[1]) div 100.0"/>
-	    <xsl:variable name="y1p" select="xs:decimal($coords[2]) div 100.0"/>
-	    <xsl:variable name="x2p" select="xs:decimal($coords[3]) div 100.0"/>
-	    <xsl:variable name="y2p" select="xs:decimal($coords[4]) div 100.0"/>
+            <xsl:variable name="x1p" select="xs:decimal($coords[1]) div 100.0"/>
+            <xsl:variable name="y1p" select="xs:decimal($coords[2]) div 100.0"/>
+            <xsl:variable name="x2p" select="xs:decimal($coords[3]) div 100.0"/>
+            <xsl:variable name="y2p" select="xs:decimal($coords[4]) div 100.0"/>
 
-	    <area shape="rect">
-	      <xsl:choose>
-		<xsl:when test="@linkends
-				or (parent::db:areaset and ../@linkends)">
-		  <xsl:variable name="idrefs"
-				select="if (@linkends)
-		                        then normalize-space(@linkends)
-					else normalize-space(../@linkends)"/>
-		  <xsl:variable name="target"
-				select="key('id', tokenize($idrefs, '[\s]'))
-				  [1]"/>
-		
-		  <xsl:if test="$target">
-		    <xsl:attribute name="href"
-				   select="f:href(/,$target)"/>
-		  </xsl:if>
-		</xsl:when>
-		<xsl:when test="@xlink:href">
-		  <xsl:attribute name="href" select="@xlink:href"/>
-		</xsl:when>
-	      </xsl:choose>
+            <area shape="rect">
+              <xsl:choose>
+                <xsl:when test="@linkends
+                                or (parent::db:areaset and ../@linkends)">
+                  <xsl:variable name="idrefs"
+                                select="if (@linkends)
+                                        then normalize-space(@linkends)
+                                        else normalize-space(../@linkends)"/>
+                  <xsl:variable name="target"
+                                select="key('id', tokenize($idrefs, '[\s]'))
+                                  [1]"/>
+                
+                  <xsl:if test="$target">
+                    <xsl:attribute name="href"
+                                   select="f:href(/,$target)"/>
+                  </xsl:if>
+                </xsl:when>
+                <xsl:when test="@xlink:href">
+                  <xsl:attribute name="href" select="@xlink:href"/>
+                </xsl:when>
+              </xsl:choose>
 
-	      <xsl:attribute name="coords">
-		<xsl:value-of select="round($x1p * $intrinsicwidth div 100.0)"/>
-		<xsl:text>,</xsl:text>
+              <xsl:attribute name="coords">
+                <xsl:value-of select="round($x1p * $intrinsicwidth div 100.0)"/>
+                <xsl:text>,</xsl:text>
                 <xsl:value-of select="round($intrinsicdepth
                                         - ($y1p * $intrinsicdepth div 100.0))"/>
-		<xsl:text>,</xsl:text>
-		<xsl:value-of select="round($x2p * $intrinsicwidth div 100.0)"/>
-		<xsl:text>,</xsl:text>
-		<xsl:value-of select="round($intrinsicdepth
-				        - ($y2p * $intrinsicdepth div 100.0))"/>
-	      </xsl:attribute>
-	    </area>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:message>
-	      <xsl:text>Warning: only calspair supported </xsl:text>
-	      <xsl:text>in imageobjectco</xsl:text>
-	    </xsl:message>
-	  </xsl:otherwise>
-	</xsl:choose>
+                <xsl:text>,</xsl:text>
+                <xsl:value-of select="round($x2p * $intrinsicwidth div 100.0)"/>
+                <xsl:text>,</xsl:text>
+                <xsl:value-of select="round($intrinsicdepth
+                                        - ($y2p * $intrinsicdepth div 100.0))"/>
+              </xsl:attribute>
+            </area>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:message>
+              <xsl:text>Warning: only calspair supported </xsl:text>
+              <xsl:text>in imageobjectco</xsl:text>
+            </xsl:message>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:for-each>
     </map>
   </xsl:if>
@@ -814,29 +814,29 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
   <xsl:variable name="olist" select="*[not(self::db:info)]"/>
 
   <xsl:variable name="object.index"
-		select="f:select-mediaobject-index($olist)"/>
+                select="f:select-mediaobject-index($olist)"/>
 
   <xsl:variable name="object" select="$olist[position() = $object.index]"/>
 
   <!-- hack -->
   <xsl:choose>
     <xsl:when test="$object/self::db:audioobject
-		    and $object/db:audiodata/@condition='hidden'">
+                    and $object/db:audiodata/@condition='hidden'">
       <!-- don't output a div wrapper -->
       <xsl:apply-templates select="$object"/>
     </xsl:when>
     <xsl:otherwise>
       <div class="{local-name(.)}">
-	<xsl:call-template name="t:id"/>
-	<xsl:call-template name="class"/>
-	<xsl:if test="$html.longdesc != 0 and $html.longdesc.link != 0">
-	  <xsl:call-template name="t:longdesc-link">
-	    <xsl:with-param name="textobject"
-			    select="db:textobject[not(db:phrase)][1]"/>
-	  </xsl:call-template>
-	</xsl:if>
-	<xsl:apply-templates select="$object"/>
-	<xsl:apply-templates select="db:caption"/>
+        <xsl:call-template name="t:id"/>
+        <xsl:call-template name="class"/>
+        <xsl:if test="$html.longdesc != 0 and $html.longdesc.link != 0">
+          <xsl:call-template name="t:longdesc-link">
+            <xsl:with-param name="textobject"
+                            select="db:textobject[not(db:phrase)][1]"/>
+          </xsl:call-template>
+        </xsl:if>
+        <xsl:apply-templates select="$object"/>
+        <xsl:apply-templates select="db:caption"/>
       </div>
     </xsl:otherwise>
   </xsl:choose>
@@ -870,7 +870,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <xsl:template match="db:imageobject">
   <xsl:choose>
     <xsl:when xmlns:svg="http://www.w3.org/2000/svg"
-	      test="svg:*">
+              test="svg:*">
       <xsl:apply-templates/>
     </xsl:when>
     <xsl:otherwise>
@@ -885,7 +885,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
   <xsl:choose>
     <xsl:when test="@format='linespecific' and $textdata.default.encoding != ''">
       <xsl:value-of select="unparsed-text($filename,
-			                  $textdata.default.encoding)"/>
+                                          $textdata.default.encoding)"/>
     </xsl:when>
 
     <xsl:when test="@format='linespecific'">
@@ -894,26 +894,26 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 
     <xsl:otherwise>
       <xsl:variable name="longdesc.uri"
-		    select="f:longdesc-uri(ancestor::db:imageobject/parent::*)"/>
+                    select="f:longdesc-uri(ancestor::db:imageobject/parent::*)"/>
 
       <xsl:variable name="phrases"
-		    select="../../db:textobject[db:phrase]"/>
+                    select="../../db:textobject[db:phrase]"/>
 
       <xsl:variable name="normalphrases"
-		    select="$phrases[not(@role) or @role != 'tex']"/>
+                    select="$phrases[not(@role) or @role != 'tex']"/>
 
       <xsl:call-template name="t:process-image">
-	<xsl:with-param name="alt">
-	  <xsl:choose>
-	    <xsl:when test="../../db:alt">
-	      <xsl:value-of select="../../db:alt"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:apply-templates select="$normalphrases[1]"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:with-param>
-	<xsl:with-param name="longdesc" select="$longdesc.uri"/>
+        <xsl:with-param name="alt">
+          <xsl:choose>
+            <xsl:when test="../../db:alt">
+              <xsl:value-of select="../../db:alt"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:apply-templates select="$normalphrases[1]"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+        <xsl:with-param name="longdesc" select="$longdesc.uri"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -978,8 +978,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
   </xsl:variable>
 
   <xsl:value-of select="if ($encoding = '')
-			then unparsed-text($filename)
-			else unparsed-text($filename, $encoding)"/>
+                        then unparsed-text($filename)
+                        else unparsed-text($filename, $encoding)"/>
 </xsl:template>
 
 <!-- ==================================================================== -->
@@ -1005,7 +1005,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <!-- Resolve xml:base attributes -->
 <xsl:template match="@fileref">
   <xsl:variable name="basedir"
-		select="replace(base-uri(.),'/[^/]+$','/')"/>
+                select="replace(base-uri(.),'/[^/]+$','/')"/>
 
   <xsl:choose>
     <xsl:when test="contains(., ':') and not(starts-with(.,'file:'))">
@@ -1022,8 +1022,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
     <xsl:otherwise>
       <!-- its a relative uri -->
       <xsl:call-template name="t:relative-uri">
-	<xsl:with-param name="filename" select="."/>
-	<xsl:with-param name="destdir" select="$basedir"/>
+        <xsl:with-param name="filename" select="."/>
+        <xsl:with-param name="destdir" select="$basedir"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -1035,17 +1035,17 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
   <xsl:param name="node" as="element()?"/>
 
   <xsl:if test="exists($node) and $html.longdesc != 0
-		and $node/db:textobject[not(db:phrase)]">
+                and $node/db:textobject[not(db:phrase)]">
     <xsl:variable name="image-id" select="f:node-id($node)"/>
     <xsl:variable name="dbhtml.dir" select="f:dbhtml-dir($node)"/>
     <xsl:value-of>
       <xsl:choose>
-	<xsl:when test="$dbhtml.dir != ''">
-	  <xsl:value-of select="$dbhtml.dir"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="$base.dir"/>
-	</xsl:otherwise>
+        <xsl:when test="$dbhtml.dir != ''">
+          <xsl:value-of select="$dbhtml.dir"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$base.dir"/>
+        </xsl:otherwise>
       </xsl:choose>
       <xsl:value-of select="concat('ld-',$image-id,$html.ext)"/>
     </xsl:value-of>
@@ -1057,16 +1057,16 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 
   <xsl:if test="exists($textobject) and $html.longdesc != 0">
     <xsl:variable name="this.uri"
-		  select="concat($base.dir, f:href-target-uri($textobject))"/>
+                  select="concat($base.dir, f:href-target-uri($textobject))"/>
 
     <xsl:variable name="href.to"
-		  select="f:trim-common-uri-paths(f:longdesc-uri($textobject),
-			                          $this.uri)"/>
+                  select="f:trim-common-uri-paths(f:longdesc-uri($textobject),
+                                                  $this.uri)"/>
 
     <div class="longdesc-link">
       <xsl:text>[</xsl:text>
       <a href="{$href.to}" target="longdesc"
-	 title="Link to long description">D</a>
+         title="Link to long description">D</a>
       <xsl:text>]</xsl:text>
     </div>
   </xsl:if>
@@ -1075,29 +1075,29 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <xsl:template name="t:write-longdesc">
   <xsl:param name="mediaobject" select="."/>
   <xsl:variable name="firsttext"
-		select="$mediaobject/db:textobject[not(db:phrase)][1]"/>
+                select="$mediaobject/db:textobject[not(db:phrase)][1]"/>
 
   <xsl:variable name="filename" select="f:longdesc-uri($firsttext)"/>
 
   <xsl:if test="$html.longdesc != 0
-		and $mediaobject/db:textobject[not(db:phrase)]
-		and $filename != ''">
+                and $mediaobject/db:textobject[not(db:phrase)]
+                and $filename != ''">
 
     <xsl:result-document href="{$filename}" method="xhtml">
       <xsl:call-template name="t:user-preroot"/>
       <html>
-	<head>
-	  <xsl:call-template name="t:system-head-content"/>
-	  <xsl:call-template name="t:head-content">
-	    <xsl:with-param name="title" select="'Long Description'"/>
-	  </xsl:call-template>
-	  <xsl:call-template name="t:user-head-content"/>
-	</head>
-	<body>
-	  <xsl:for-each select="$mediaobject/db:textobject[not(db:phrase)]">
-	    <xsl:apply-templates select="*"/>
-	  </xsl:for-each>
-	</body>
+        <head>
+          <xsl:call-template name="t:system-head-content"/>
+          <xsl:call-template name="t:head-content">
+            <xsl:with-param name="title" select="'Long Description'"/>
+          </xsl:call-template>
+          <xsl:call-template name="t:user-head-content"/>
+        </head>
+        <body>
+          <xsl:for-each select="$mediaobject/db:textobject[not(db:phrase)]">
+            <xsl:apply-templates select="*"/>
+          </xsl:for-each>
+        </body>
       </html>
     </xsl:result-document>
   </xsl:if>
