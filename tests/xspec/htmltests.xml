@@ -1709,7 +1709,7 @@
   </x:scenario>
 </x:scenario>
 
-<x:scenario label="Image path calculatuin tests">
+<x:scenario label="Image path calculating tests">
   <x:scenario label="stamp.050.xml">
     <x:context href="src/stamp.050.xml"/>
     <x:expect label="Relative URL starting with ./"
