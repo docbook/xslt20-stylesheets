@@ -1,4 +1,4 @@
-<?oxygen RNGSchema="file:/projects/src/xspec-v0.1/xspec.rnc" type="compact"?>
+<?oxygen RNGSchema="../../tools/xspec-v0.2/xspec.rnc" type="compact"?>
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
                xmlns:db="http://docbook.org/ns/docbook"
                xmlns:html="http://www.w3.org/1999/xhtml"
@@ -1745,31 +1745,31 @@
     <x:expect label="Relative URI + relative xml:base"
       test="//html:div[@class='mediaobject'][1]"
       select="//html:div[@class='mediaobject'][1]"
-      href="result/stamp.050.html"/>
+      href="result/stamp.051.html"/>
     <x:expect label="Relative URI + relative xml:base w/trailing slash"
       test="//html:div[@class='mediaobject'][2]"
       select="//html:div[@class='mediaobject'][2]"
-      href="result/stamp.050.html"/>
+      href="result/stamp.051.html"/>
     <x:expect label="Relative URI w/. + relative xml:base w/trailing slash"
       test="//html:div[@class='mediaobject'][3]"
       select="//html:div[@class='mediaobject'][3]"
-      href="result/stamp.050.html"/>
+      href="result/stamp.051.html"/>
     <x:expect label="Relative URI w/. + relative xml:base"
       test="//html:div[@class='mediaobject'][4]"
       select="//html:div[@class='mediaobject'][4]"
-      href="result/stamp.050.html"/>
+      href="result/stamp.051.html"/>
     <x:expect label="Two level relative xml:base"
       test="//html:div[@class='mediaobject'][5]"
       select="//html:div[@class='mediaobject'][5]"
-      href="result/stamp.050.html"/>
+      href="result/stamp.051.html"/>
     <x:expect label="Absolute xml:base + relative URI"
       test="//html:div[@class='mediaobject'][6]"
       select="//html:div[@class='mediaobject'][6]"
-      href="result/stamp.050.html"/>
+      href="result/stamp.051.html"/>
     <x:expect label="Absolute xml:base + absolute URI"
       test="//html:div[@class='mediaobject'][7]"
       select="//html:div[@class='mediaobject'][7]"
-      href="result/stamp.050.html"/>
+      href="result/stamp.051.html"/>
   </x:scenario>
 </x:scenario>
   
