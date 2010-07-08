@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="DocBook XSLT 2.0 stylesheets - HTML" default="all">
-  
-  <property name="dbroot.dir" value="${ant.file}/../../../../.."/>  
-  <import file="${dbroot.dir}/anttools/build-shared.xml"/>
+
+  <import file="../../../tools/build-shared.xml"/>
 
   <target name="all">
-    <xslt2 style="../common/mkparam.xsl" in="param.xml" out="param.xsl"/>
-    <xslt2 style="../../../tools/titlepages.xsl " in="titlepages.xml" out="titlepages.xsl"/>    
+    <xslt2 style="../../../tools/mkparam.xsl" in="param.xml" out="param.xsl"/>
+    <xslt2 style="../../../tools/titlepages.xsl " in="titlepages.xml" out="titlepages.xsl"/>
   </target>
 
   <target name="clean">
-    <delete file="param.xsl"/> 
-    <delete file="titlepages.xsl"/>    
+    <delete file="param.xsl"/>
+    <delete file="titlepages.xsl"/>
   </target>
 
 </project>

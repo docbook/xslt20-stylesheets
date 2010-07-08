@@ -228,6 +228,19 @@ vertical alignment.</para>
     </xsl:choose>
   </xsl:variable>
 
+  <!--
+  <xsl:message><xsl:copy-of select="."/></xsl:message>
+  <xsl:message>
+    <xsl:value-of select="$ignore.image.scaling"/>,
+    <xsl:value-of select="$width-units"/>,
+    <xsl:value-of select="@width"/>,
+    <xsl:value-of select="if (@width) then f:length-spec(@width) else '!@width'"/>,
+    <xsl:value-of select="$default.image.width"/>,
+    <xsl:value-of select="$scalefit"/>,
+    <xsl:value-of select="$scale"/>,
+  </xsl:message>
+  -->
+
   <!-- imagedata, videodata, audiodata -->
   <xsl:variable name="filename" select="f:mediaobject-filename(..)"/>
 
@@ -255,6 +268,11 @@ vertical alignment.</para>
                             or not(function-available('simg:properties'))"
                   select="()"/>
   </xsl:variable>
+
+  <xsl:if test="not(function-available('simg:new'))
+                or not(function-available('simg:properties'))">
+    <xsl:message>WARNING: Image properties extension function not available!</xsl:message>
+  </xsl:if>
 
   <xsl:variable name="intrinsicwidth"
                 select="if (exists($imageproperties))

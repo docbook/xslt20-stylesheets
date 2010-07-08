@@ -28,7 +28,7 @@
 
   <target name="classes.saxon" depends="prepare"
           description="Build Saxon extension classes">
-    <javac srcdir="${src.saxon}" destdir="${build.classes}"/>
+    <javac srcdir="${src.saxon}" destdir="${build.classes}" includeantruntime="false"/>
   </target>
 
   <target name="jar.saxon" depends="classes.saxon"

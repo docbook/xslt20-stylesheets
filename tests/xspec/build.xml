@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="DocBook XSLT 2.0 stylesheets - XSpec" default="all">
-  
-  <property name="dbroot.dir" value="${ant.file}/../../../.."/>  
-  <import file="${dbroot.dir}/anttools/build-shared.xml"/>
+
+  <import file="../../tools/build-shared.xml"/>
 
   <property name="xspec.test.dir" value="xspec/"/>
 
-  <target name="all" depends="html, fo">    
+  <target name="all" depends="html, fo">
   </target>
-  
+
   <target name="html">
     <property name="filename" value="htmltests"/>
     <property name="xspec" value="${filename}.xml"/>
     <property name="test.stylesheet" value="${xspec.test.dir}/${filename}.xsl"/>
     <property name="result" value="${xspec.test.dir}/${filename}-result.xml"/>
     <property name="html.result" value="${xspec.test.dir}/${filename}-result.html"/>
-    
+
     <mkdir dir="${xspec.test.dir}"/>
-    
+
     <echo>Creating test stylesheet...</echo>
-    <xslt2 in="${xspec}" out="${test.stylesheet}" style="${dbroot.dir}/anttools/xspec/generate-xspec-tests.xsl"/>
+    <xslt2 in="${xspec}" out="${test.stylesheet}"
+           style="../../tools/xspec-v0.2/generate-xspec-tests.xsl"/>
 
     <echo>Running tests...</echo>
-    <xslt2 in="${xspec}" out="${result}" style="${test.stylesheet}" initialTemplate="{http://www.jenitennison.com/xslt/xspec}main"/>
+    <xslt2 in="${xspec}" out="${result}" style="${test.stylesheet}"
+           initialTemplate="{http://www.jenitennison.com/xslt/xspec}main"/>
 
     <echo>Formatting report...</echo>
-    <xslt2 in="${result}" out="${html.result}"  style="${dbroot.dir}/anttools/xspec/format-xspec-report.xsl"/>
-    
+    <xslt2 in="${result}" out="${html.result}"
+           style="../../tools/xspec-v0.2/format-xspec-report.xsl"/>
+
   </target>
-  
+
   <target name="fo">
     <!-- FIXME: add XSpec tests for FO -->
   </target>
