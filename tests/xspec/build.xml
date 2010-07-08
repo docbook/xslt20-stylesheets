@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="DocBook XSLT 2.0 stylesheets - XSpec" default="all">
 
+  <property name="dbroot.dir" value="${ant.file}/../../.."/>
   <import file="../../tools/build-shared.xml"/>
 
   <property name="xspec.test.dir" value="xspec/"/>
