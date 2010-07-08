@@ -4,7 +4,9 @@
   <property name="dbroot.dir" value="${ant.file}/.."/>
   <import file="tools/build-shared.xml"/>
 
-  <target name="all">
+  <target name="all" depends="build, tests"/>
+
+  <target name="build">
     <ant dir="gentext"/>
     <ant dir="extensions"/>
     <ant dir="stylesheets/base"/>
@@ -14,6 +16,10 @@
     <ant dir="gentext" target="clean"/>
     <ant dir="extensions" target="clean"/>
     <ant dir="stylesheets/base" target="clean"/>
+  </target>
+  
+  <target name="tests">
+    <ant dir="tests/xspec"/>
   </target>
 
 </project>
