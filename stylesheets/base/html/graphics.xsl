@@ -1023,7 +1023,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <!-- Resolve xml:base attributes -->
 <xsl:template match="@fileref">
   <xsl:variable name="basedir"
-                select="replace(base-uri(.),'/[^/]+$','/')"/>
+                select="replace(base-uri(root(.)),'/[^/]+$','/')"/>
 
   <xsl:choose>
     <xsl:when test="contains(., ':') and not(starts-with(.,'file:'))">

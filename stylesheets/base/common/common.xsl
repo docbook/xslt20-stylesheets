@@ -975,29 +975,26 @@ object is recognized as a graphic.</para>
 
   <xsl:variable name="srcurl">
     <xsl:call-template name="t:strippath">
-      <xsl:with-param name="filename">
-        <xsl:call-template name="t:xml-base-dirs">
-          <xsl:with-param name="base.elem"
-                          select="$filename/ancestor-or-self::*
-                                    [@xml:base != ''][1]"/>
-        </xsl:call-template>
-        <xsl:value-of select="$filename"/>
-      </xsl:with-param>
+      <xsl:with-param name="filename" select="resolve-uri($filename, base-uri($filename))"/>
     </xsl:call-template>
   </xsl:variable>
 
   <xsl:variable name="srcurl.trimmed"
-                select="f:trim-common-uri-paths(resolve-uri($srcurl, $destdir), $destdir)"/>
+                select="f:trim-common-uri-paths($srcurl, $destdir)"/>
 
   <xsl:variable name="destdir.trimmed"
-                select="f:trim-common-uri-paths($destdir, resolve-uri($srcurl, $destdir))"/>
+                select="f:trim-common-uri-paths($destdir, $srcurl)"/>
 
   <xsl:variable name="depth"
                 select="count(tokenize($destdir.trimmed, '/')[. ne ''])"/>
 
-  <xsl:for-each select="(1 to $depth)">
-    <xsl:value-of select="'../'"/>
-  </xsl:for-each>
+  <xsl:if test="$srcurl ne $srcurl.trimmed">
+    <!-- common start of URLs was trimmed we have to 
+         use ../ to reach proper level in directory structure -->
+    <xsl:for-each select="(1 to $depth)">
+      <xsl:value-of select="'../'"/>
+    </xsl:for-each>
+  </xsl:if>
 
   <xsl:value-of select="$srcurl.trimmed"/>
 </xsl:template>
@@ -1021,6 +1018,13 @@ object is recognized as a graphic.</para>
   <xsl:param name="filename" select="''"/>
 
   <xsl:choose>
+    <!-- ./ can be ignored -->
+    <xsl:when test="starts-with($filename, './')">
+      <xsl:call-template name="t:strippath">
+        <xsl:with-param name="filename"
+          select="substring-after($filename, './')"/>
+      </xsl:call-template>
+    </xsl:when>
     <!-- Leading .. are not eliminated -->
     <xsl:when test="starts-with($filename, '../')">
       <xsl:value-of select="'../'"/>
@@ -1029,7 +1033,6 @@ object is recognized as a graphic.</para>
                         select="substring-after($filename, '../')"/>
       </xsl:call-template>
     </xsl:when>
-    <!-- FIXME: this code is broken for paths starting with ./../... (I don't have time to fix it today) -->
     <xsl:when test="contains($filename, '/../')">
       <xsl:call-template name="t:strippath">
         <xsl:with-param name="filename">
