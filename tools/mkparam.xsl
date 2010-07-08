@@ -25,7 +25,7 @@
 
 <xsl:template match="db:refentry">
   <xsl:variable name="refentry"
-		select="document(concat('../../params/',@xml:id,'.xml'))"/>
+		select="document(concat('../../params/',@xml:id,'.xml'), /)"/>
 
   <xsl:text>&#10;&#10;</xsl:text>
 
