@@ -1738,7 +1738,41 @@
       href="result/stamp.050.html"/>
   </x:scenario>
 </x:scenario>
-    
+  
+<x:scenario label="Image path calculating tests with xml:base">
+  <x:scenario label="stamp.051.xml">
+    <x:context href="src/stamp.051.xml"/>
+    <x:expect label="Relative URI + relative xml:base"
+      test="//html:div[@class='mediaobject'][1]"
+      select="//html:div[@class='mediaobject'][1]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Relative URI + relative xml:base w/trailing slash"
+      test="//html:div[@class='mediaobject'][2]"
+      select="//html:div[@class='mediaobject'][2]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Relative URI w/. + relative xml:base w/trailing slash"
+      test="//html:div[@class='mediaobject'][3]"
+      select="//html:div[@class='mediaobject'][3]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Relative URI w/. + relative xml:base"
+      test="//html:div[@class='mediaobject'][4]"
+      select="//html:div[@class='mediaobject'][4]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Two level relative xml:base"
+      test="//html:div[@class='mediaobject'][5]"
+      select="//html:div[@class='mediaobject'][5]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Absolute xml:base + relative URI"
+      test="//html:div[@class='mediaobject'][6]"
+      select="//html:div[@class='mediaobject'][6]"
+      href="result/stamp.050.html"/>
+    <x:expect label="Absolute xml:base + absolute URI"
+      test="//html:div[@class='mediaobject'][7]"
+      select="//html:div[@class='mediaobject'][7]"
+      href="result/stamp.050.html"/>
+  </x:scenario>
+</x:scenario>
+  
 <x:scenario label="Admonition tests">
   <x:scenario label="admonitions.001.xml">
     <x:context href="src/admonitions.001.xml"/>
