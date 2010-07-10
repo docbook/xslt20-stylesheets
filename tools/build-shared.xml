@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="DocBook XSLT 2.0 stylesheets - Shared settings" default="all">
 
+  <property name="dbroot.dir" value="${ant.file}/.."/>
   <property name="libs" value="${dbroot.dir}/tools/lib"/>
   <property name="saxon.jar" value="${libs}/saxon9he.jar"/>
   <property name="saxon-ant.jar" value="${libs}/saxon9-ant.jar"/>
