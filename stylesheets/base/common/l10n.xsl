@@ -877,7 +877,6 @@ the English locale value will be used as the default.</para>
   <xsl:param name="lang" as="xs:string"/>
   <xsl:variable name="locale-file"
                 select="resolve-uri(concat($lang,'.xml'), $l10n.locale.dir)"/>
-  <xsl:message>Loading locale: <xsl:value-of select="$locale-file"/></xsl:message>
   <xsl:sequence select="doc($locale-file)"/>
 </xsl:function>
 
