@@ -423,10 +423,10 @@ parameters.</para>
 
   <xsl:variable name="user.localization.nodes"
 		select="$localization//l:l10n[@language=$lang]"/>
-  
+
   <xsl:variable name="localization.nodes"
     select="f:load-locale($lang)/l:l10n"/>
-  
+
   <xsl:if test="not($localization.nodes | $user.localization.nodes)">
     <xsl:message>
       <xsl:text>No "</xsl:text>
@@ -560,10 +560,10 @@ the specified parameters.</para>
 
   <xsl:variable name="user.localization.nodes"
 		select="$localization//l:l10n[@language=$lang]"/>
-  
+
   <xsl:variable name="localization.nodes"
 		select="f:load-locale($lang)/l:l10n"/>
-  
+
   <xsl:variable name="user.context.nodes"
 		select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
 
@@ -823,12 +823,12 @@ the English locale value will be used as the default.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:check-locale" xmlns="http://docbook.org/ns/docbook">
-  <refpurpose>Test whether there is localization file for specified languahe</refpurpose>
-  
+  <refpurpose>Test whether there is localization file for specified language</refpurpose>
+
   <refdescription>
     <para>This function returns true/false.</para>
   </refdescription>
-  
+
   <refparameter>
     <variablelist>
       <varlistentry><term>lang</term>
@@ -838,7 +838,7 @@ the English locale value will be used as the default.</para>
       </varlistentry>
     </variablelist>
   </refparameter>
-  
+
   <refreturn>
     <para>true/false</para>
   </refreturn>
@@ -853,11 +853,11 @@ the English locale value will be used as the default.</para>
 
 <doc:function name="f:load-locale" xmlns="http://docbook.org/ns/docbook">
   <refpurpose>Loads localization file for specified languahe</refpurpose>
-  
+
   <refdescription>
     <para>This function returns localization data for specified language.</para>
   </refdescription>
-  
+
   <refparameter>
     <variablelist>
       <varlistentry><term>lang</term>
@@ -867,7 +867,7 @@ the English locale value will be used as the default.</para>
       </varlistentry>
     </variablelist>
   </refparameter>
-  
+
   <refreturn>
     <para>Document node of localization document for specified language.</para>
   </refreturn>
@@ -875,8 +875,11 @@ the English locale value will be used as the default.</para>
 
 <xsl:function name="f:load-locale" as="document-node(element(l:l10n))">
   <xsl:param name="lang" as="xs:string"/>
-  <xsl:sequence select="doc(resolve-uri(concat($lang,'.xml'), $l10n.locale.dir))"/>
+  <xsl:variable name="locale-file"
+                select="resolve-uri(concat($lang,'.xml'), $l10n.locale.dir)"/>
+  <xsl:message>Loading locale: <xsl:value-of select="$locale-file"/></xsl:message>
+  <xsl:sequence select="doc($locale-file)"/>
 </xsl:function>
-  
+
 </xsl:stylesheet>
 
