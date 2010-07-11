@@ -4,12 +4,36 @@
   <property name="dbroot.dir" value="${ant.file}/../../.."/>
   <import file="../../tools/build-shared.xml"/>
 
+  <!-- Several of the image tests require an extension function. Extension functions
+       cannnot be loaded by the standard SaxonHE driver. If you have access to
+       SaxonEE and you enable schema-aware processing, which seems to be the only
+       way to force the Ant task to use SaxonEE, then all the tests should pass.
+
+       N.B. You will have to provide saxon9ee.jar as well, for example by running
+       ant with the -Dsaxon.jar=/path/to/saxon9ee.jar option.
+
+       If you put a copy of saxon9ee.jar in ../../tools/lib, then we assume you
+       want to use SaxonEE and we use it by default.
+  -->
+
+  <condition property="schema-aware">
+    <available file="../../tools/lib/saxon9ee.jar"/>
+  </condition>
+
   <property name="xspec.test.dir" value="xspec/"/>
 
   <target name="all" depends="html, fo">
   </target>
 
-  <target name="html">
+  <target name="html" depends="html-with-extensions, html-without-extensions"/>
+
+  <target name="html-with-extensions" depends="run-html" if="schema-aware"/>
+
+  <target name="html-without-extensions" depends="run-html" unless="schema-aware">
+    <echo>Note: Lack of extension functions means some tests are expected to fail.</echo>
+  </target>
+
+  <target name="run-html">
     <property name="filename" value="htmltests"/>
     <property name="xspec" value="${filename}.xml"/>
     <property name="test.stylesheet" value="${xspec.test.dir}/${filename}.xsl"/>
@@ -24,12 +48,12 @@
 
     <echo>Running tests...</echo>
     <xslt2 in="${xspec}" out="${result}" style="${test.stylesheet}"
+           schemaAware="${schema-aware}"
            initialTemplate="{http://www.jenitennison.com/xslt/xspec}main"/>
 
     <echo>Formatting report...</echo>
     <xslt2 in="${result}" out="${html.result}"
            style="../../tools/xspec-v0.2/format-xspec-report.xsl"/>
-
   </target>
 
   <target name="fo">

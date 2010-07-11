@@ -4,6 +4,7 @@
   <property name="dbroot.dir" value="${ant.file}/.."/>
   <property name="libs" value="${dbroot.dir}/tools/lib"/>
   <property name="saxon.jar" value="${libs}/saxon9he.jar"/>
+  <property name="saxonee.jar" value="${libs}/saxon9ee.jar"/>
   <property name="saxon-ant.jar" value="${libs}/saxon9-ant.jar"/>
   <property name="jing.jar" value="${libs}/jing.jar"/>
   <property name="ant-contrib.jar" value="${libs}/ant-contrib-1.0b3.jar"/>
@@ -25,6 +26,7 @@
   <taskdef name="xslt2"
            classname="net.sf.saxon.ant.AntTransform">
     <classpath>
+      <pathelement location="${saxonee.jar}"/>
       <pathelement location="${saxon.jar}"/>
       <pathelement location="${saxon-ant.jar}"/>
       <pathelement location="${extensions.jar}"/>
