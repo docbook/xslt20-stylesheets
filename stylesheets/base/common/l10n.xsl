@@ -425,7 +425,7 @@ parameters.</para>
 		select="$localization//l:l10n[@language=$lang]"/>
   
   <xsl:variable name="localization.nodes"
-    select="f:load-locale($lang)/l:l10n"/>
+    select="f:load-locale($lang)"/>
   
   <xsl:if test="not($localization.nodes | $user.localization.nodes)">
     <xsl:message>
@@ -562,7 +562,7 @@ the specified parameters.</para>
 		select="$localization//l:l10n[@language=$lang]"/>
   
   <xsl:variable name="localization.nodes"
-		select="f:load-locale($lang)/l:l10n"/>
+		select="f:load-locale($lang)"/>
   
   <xsl:variable name="user.context.nodes"
 		select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
@@ -873,11 +873,11 @@ the English locale value will be used as the default.</para>
   </refreturn>
 </doc:function>
 
-<xsl:function name="f:load-locale" as="document-node(element(l:l10n))">
+<xsl:function name="f:load-locale" as="element(l:l10n)">
   <xsl:param name="lang" as="xs:string"/>
   <xsl:variable name="locale-file"
                 select="resolve-uri(concat($lang,'.xml'), $l10n.locale.dir)"/>
-  <xsl:sequence select="doc($locale-file)"/>
+  <xsl:sequence select="doc($locale-file)/l:l10n"/>
 </xsl:function>
   
 </xsl:stylesheet>

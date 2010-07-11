@@ -1141,7 +1141,7 @@ This number is used to group index terms and to define order of groups.</para>
       select="($localization
 			 //l:l10n[@language=$lang]
 			 /l:letters,
-               f:load-locale($lang)/l:l10n/l:letters)[1]"/>
+               f:load-locale($lang)/l:letters)[1]"/>
     
     <xsl:choose>
       <xsl:when test="$l10n.letters">
@@ -1165,7 +1165,7 @@ This number is used to group index terms and to define order of groups.</para>
         <xsl:copy-of select="($localization
 			 //l:l10n[@language='en']
 			 /l:letters,
-			 f:load-locale('en')/l:l10n/l:letters)[1]"/>
+			 f:load-locale('en')/l:letters)[1]"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -1227,7 +1227,7 @@ it can be also longer text like "Symbols" or "Ch".</para>
       select="($localization
 			 //l:l10n[@language=$lang]
 			 /l:letters,
-	       f:load-locale($lang)/l:l10n/l:letters)[1]"/>
+	       f:load-locale($lang)/l:letters)[1]"/>
     
     <xsl:choose>
       <xsl:when test="$l10n.letters">
@@ -1251,7 +1251,7 @@ it can be also longer text like "Symbols" or "Ch".</para>
         <xsl:copy-of select="($localization
 			 //l:l10n[@language='en']
 			 /l:letters,
-			 f:load-locale('en')/l:l10n/l:letters)[1]"/>
+			 f:load-locale('en')/l:letters)[1]"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
