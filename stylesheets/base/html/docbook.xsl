@@ -28,6 +28,7 @@
   <xsl:include href="titlepage.xsl"/>
   <xsl:include href="title-markup.xsl"/>
   <xsl:include href="autotoc.xsl"/>
+  <xsl:include href="toc.xsl"/>
   <xsl:include href="division.xsl"/>
   <xsl:include href="component.xsl"/>
   <xsl:include href="refentry.xsl"/>

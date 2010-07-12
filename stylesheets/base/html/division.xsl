@@ -30,7 +30,10 @@
       </xsl:call-template>
     </xsl:if>
 
-    <xsl:apply-templates select="." mode="m:toc"/>
+    <xsl:if test="not(db:toc)">
+      <!-- only generate a toc automatically if there's no explicit toc -->
+      <xsl:apply-templates select="." mode="m:toc"/>
+    </xsl:if>
 
     <xsl:apply-templates/>
   </div>
