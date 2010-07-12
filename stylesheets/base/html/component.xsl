@@ -34,17 +34,7 @@
       </xsl:call-template>
     </xsl:if>
 
-    <xsl:variable name="toc.params"
-		  select="f:find-toc-params(., $generate.toc)"/>
-
-    <xsl:call-template name="make-lots">
-      <xsl:with-param name="toc.params" select="$toc.params"/>
-      <xsl:with-param name="toc">
-	<xsl:call-template name="component-toc">
-	  <xsl:with-param name="toc.title" select="$toc.params/@title != 0"/>
-	</xsl:call-template>
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:apply-templates select="." mode="m:toc"/>
 
     <xsl:apply-templates/>
 
@@ -52,6 +42,22 @@
       <xsl:call-template name="t:process-footnotes"/>
     </xsl:if>
   </div>
+</xsl:template>
+
+<xsl:template match="db:dedication
+		     |db:preface|db:chapter|db:appendix
+		     |db:colophon|db:article" mode="m:toc">
+    <xsl:param name="toc.params"
+               select="f:find-toc-params(., $generate.toc)"/>
+
+    <xsl:call-template name="t:make-lots">
+      <xsl:with-param name="toc.params" select="$toc.params"/>
+      <xsl:with-param name="toc">
+	<xsl:call-template name="t:component-toc">
+	  <xsl:with-param name="toc.title" select="$toc.params/@title != 0"/>
+	</xsl:call-template>
+      </xsl:with-param>
+    </xsl:call-template>
 </xsl:template>
 
 </xsl:stylesheet>
