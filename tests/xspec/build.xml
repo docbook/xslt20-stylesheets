@@ -9,7 +9,7 @@
   <target name="all" depends="html, fo">
   </target>
 
-  <target name="html">
+  <target name="html" depends="clean">
     <property name="filename" value="htmltests"/>
     <property name="xspec" value="${filename}.xml"/>
     <property name="test.stylesheet" value="${xspec.test.dir}/${filename}.xsl"/>
@@ -32,7 +32,7 @@
 
   </target>
 
-  <target name="fo">
+  <target name="fo" depends="clean">
     <!-- FIXME: add XSpec tests for FO -->
   </target>
 
