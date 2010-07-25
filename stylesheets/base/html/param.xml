@@ -41,6 +41,7 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="xref.with.number.and.title"/>
 <refentry xml:id="qanda.defaultlabel"/>
 <refentry xml:id="orderedlist.numeration.styles"/>
+<refentry xml:id="preprocess"/>
 <refentry xml:id="procedure.step.numeration.styles"/>
 <refentry xml:id="persistent.generated.ids"/>
 <refentry xml:id="bibliography.numbered"/>

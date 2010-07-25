@@ -23,6 +23,7 @@
   <xsl:include href="../common/titles.xsl"/>
   <xsl:include href="../common/inlines.xsl"/>
 <!--  <xsl:include href="../common/olink.xsl"/>-->
+  <xsl:include href="../common/preprocess.xsl"/>
   <xsl:include href="pagesetup.xsl"/>
   <xsl:include href="titlepages.xsl"/>
   <xsl:include href="autotoc.xsl"/>
@@ -84,11 +85,8 @@
 </xsl:param>
 
 <xsl:template match="/">
-  <xsl:variable name="normalized" as="document-node()"
-		select="f:cleanup-docbook(/)"/>
-
   <xsl:variable name="root" as="element()"
-		select="f:docbook-root-element($normalized,$rootid)"/>
+		select="f:docbook-root-element(f:preprocess(/),$rootid)"/>
 
   <xsl:if test="$verbosity &gt; 3">
     <xsl:message>Styling...</xsl:message>

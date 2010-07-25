@@ -975,7 +975,10 @@ object is recognized as a graphic.</para>
 
   <xsl:variable name="srcurl">
     <xsl:call-template name="t:strippath">
-      <xsl:with-param name="filename" select="resolve-uri($filename, base-uri($filename))"/>
+      <xsl:with-param name="filename"
+                      select="if ($filename instance of attribute()) 
+                              then resolve-uri($filename, base-uri($filename))
+                              else $filename"/>
     </xsl:call-template>
   </xsl:variable>
 
