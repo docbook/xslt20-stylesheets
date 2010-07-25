@@ -1,0 +1,84 @@
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="preprocess">
+<refmeta>
+<refentrytitle>preprocess</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>preprocess</refname>
+<refpurpose>List of preprocessing steps perfomed on document</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="preprocess.frag">
+<xsl:param name="preprocess" select="''"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>This parameter can contain space separate list of steps which
+are perfomed prior the normal document processing. The following steps
+can be specified.</para>
+
+<variablelist>
+<varlistentry>
+<term><literal>db4to5</literal></term>
+<listitem><para>Any DocBook V4.x contained in the document is
+automatically converted into DocBook V5.0 markup. This step allows
+processing of older DocBook V4.x documents or it can be used for
+processing documents which mix fragments of several viarous DocBook
+versions.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>transclude</literal></term>
+<listitem><para>FIXME: this step is not implemented yet. It is
+reserved for emerging DocBook transclusion mechanism.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>preprofile</literal></term>
+<listitem><para>User defined step which takes place before profiling.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>profile</literal></term>
+<listitem><para>Step which performs profiling (conditional
+processing). It is necessary to specify this step if parameters like
+FIXME: …
+should have efffect.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>postprofile</literal></term>
+<listitem><para>User defined step which takes place after profiling.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>schemaext</literal></term>
+<listitem><para>Support of schema based specialization as described in
+<link xlink:href="http://norman.walsh.name/2005/10/21/dita"/>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>normalize</literal></term>
+<listitem><para>Normalization
+moves all <tag>title</tag>, <tag>subtitle</tag>, and
+<tag>titleabbrev</tag> elements inside <tag>info</tag> wrappers,
+creating the wrapper if necessary.</para>
+<para>If the element being normalized has a default title (e.g.,
+<tag>bibligraphy</tag> and <tag>glossary</tag>), the title is made
+explicit during normalization.</para>
+<para>External glossaries and bibliographies (not yet!) are also
+copied by normalization.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>If more then one step is specified then they are performed in the
+same order as shown above.</para>
+
+<para>Steps <literal>preprofile</literal> and
+<literal>postprofile</literal> are user defined. If they are specified
+the root node of document is passed to functions
+<function>f:preprofile()</function>
+and <function>f:postprofile</function>). Default behaviour of those
+functions is to return identical copy. Users are expected to override
+these functions in customization layer.</para>
+
+</refsect1>
+</refentry>
