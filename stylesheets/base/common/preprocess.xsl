@@ -51,6 +51,12 @@ oreder.</para>
       <xsl:sequence select="$root"/>
     </xsl:when>
     <xsl:otherwise>
+      <xsl:for-each select="$steps">
+	<xsl:if test="not(. = ('db4to5', 'preprofile', 'profile', 'postprofile', 'schemaext', 'normalize'))">
+	  <xsl:message>Warning: Preprocessing step "<xsl:value-of select="."/>" is not supported. Ignoring.</xsl:message>
+	</xsl:if>
+      </xsl:for-each>
+
       <!-- We must always perform this step in order to retain base URI -->
       <xsl:variable name="logstruct" select="f:explicit-logical-structure($root)"/>
 
