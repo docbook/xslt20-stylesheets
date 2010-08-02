@@ -12,6 +12,7 @@
 
 <xsl:import href="../preprocess/1-logstruct.xsl"/>
 <xsl:import href="../preprocess/1-db4to5.xsl"/>
+<xsl:import href="../preprocess/15-transclude.xsl"/>
 <xsl:import href="../preprocess/2-profile.xsl"/>
 <xsl:import href="../preprocess/3-schemaext.xsl"/>
 <xsl:import href="../preprocess/4-normalize.xsl"/>
@@ -52,7 +53,7 @@ oreder.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:for-each select="$steps">
-	<xsl:if test="not(. = ('db4to5', 'preprofile', 'profile', 'postprofile', 'schemaext', 'normalize'))">
+	<xsl:if test="not(. = ('db4to5', 'transclude', 'preprofile', 'profile', 'postprofile', 'schemaext', 'normalize'))">
 	  <xsl:message>Warning: Preprocessing step "<xsl:value-of select="."/>" is not supported. Ignoring.</xsl:message>
 	</xsl:if>
       </xsl:for-each>
@@ -62,9 +63,9 @@ oreder.</para>
 
       <xsl:variable name="db4to5" select="if (index-of($steps, 'db4to5')) then f:convert-to-docbook5($logstruct) else $logstruct"/>
 
-      <!-- FIXME: add transclude step -->
-      
-      <xsl:variable name="preprofile" select="if (index-of($steps, 'preprofile')) then f:preprofile($db4to5) else $db4to5"/>
+      <xsl:variable name="transclude" select="if (index-of($steps, 'transclude')) then f:transclude-and-adjust-idrefs($db4to5) else $db4to5"/>
+
+      <xsl:variable name="preprofile" select="if (index-of($steps, 'preprofile')) then f:preprofile($transclude) else $transclude"/>
 
       <xsl:variable name="profile" select="if (index-of($steps, 'profile')) 
 					   then f:profile($preprofile, $profile.separator, $profile.arch, $profile.condition,
