@@ -60,7 +60,7 @@
   <xsl:param name="table.layout" select="()"/>
 
   <xsl:variable name="id">
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
   </xsl:variable>
 
   <xsl:variable name="param.placement"

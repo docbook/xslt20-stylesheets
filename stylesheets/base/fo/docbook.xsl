@@ -11,16 +11,16 @@
                 version="2.0">
 
   <xsl:include href="param.xsl"/>
+  <xsl:include href="../common/control.xsl"/>
   <xsl:include href="../common/l10n.xsl"/>
   <xsl:include href="../common/spspace.xsl"/>
   <xsl:include href="../common/gentext.xsl"/>
   <xsl:include href="../common/normalize.xsl"/>
-  <xsl:include href="../common/control.xsl"/>
   <xsl:include href="../common/functions.xsl"/>
   <xsl:include href="../common/common.xsl"/>
   <xsl:include href="../common/titlepages.xsl"/>
-  <xsl:include href="../common/labels.xsl"/>
-  <xsl:include href="../common/titles.xsl"/>
+  <xsl:include href="../common/label-content.xsl"/>
+  <xsl:include href="../common/title-content.xsl"/>
   <xsl:include href="../common/inlines.xsl"/>
 <!--  <xsl:include href="../common/olink.xsl"/>-->
   <xsl:include href="../common/preprocess.xsl"/>
@@ -161,7 +161,7 @@
 
 <xsl:template match="*">
   <fo:block>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <fo:inline color="red">
       <xsl:text>&lt;</xsl:text>
       <xsl:value-of select="name(.)"/>

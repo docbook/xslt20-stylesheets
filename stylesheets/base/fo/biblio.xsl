@@ -45,7 +45,7 @@
           </xsl:call-template>
 
 	  <fo:block>
-	    <xsl:call-template name="id"/>
+	    <xsl:call-template name="t:id"/>
 	    <xsl:apply-templates select="db:info" mode="t:titlepage-mode"/>
           </fo:block>
 
@@ -57,7 +57,7 @@
       <fo:block space-before.minimum="1em"
                 space-before.optimum="1.5em"
                 space-before.maximum="2em">
-	<xsl:call-template name="id"/>
+	<xsl:call-template name="t:id"/>
 	<xsl:apply-templates select="db:info" mode="t:titlepage-mode"/>
 	<xsl:apply-templates/>
       </fo:block>
@@ -69,7 +69,7 @@
 
 <xsl:template match="db:bibliodiv">
   <fo:block>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
     <xsl:apply-templates/>
   </fo:block>
@@ -81,7 +81,7 @@
   <fo:block space-before.minimum="1em"
             space-before.optimum="1.5em"
             space-before.maximum="2em">
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
     <xsl:apply-templates/>
   </fo:block>
@@ -96,7 +96,7 @@
   <!-- during *normalization*, not here... -->
 
   <fo:block xsl:use-attribute-sets="biblioentry.properties">
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:text>[</xsl:text>
     <xsl:copy-of select="$label"/>
     <xsl:text>] </xsl:text>
@@ -174,7 +174,7 @@
 
 <xsl:template match="db:author" mode="m:biblioentry-mode">
   <fo:inline>
-    <xsl:call-template name="person-name"/>
+    <xsl:call-template name="t:person-name"/>
     <xsl:value-of select="$biblioentry.item.separator"/>
   </fo:inline>
 </xsl:template>
@@ -188,7 +188,7 @@
 
 <xsl:template match="db:authorgroup" mode="m:biblioentry-mode">
   <fo:inline>
-    <xsl:call-template name="person-name-list"/>
+    <xsl:call-template name="t:person-name-list"/>
     <xsl:value-of select="$biblioentry.item.separator"/>
   </fo:inline>
 </xsl:template>
@@ -374,7 +374,7 @@
 
 <xsl:template match="db:editor" mode="m:biblioentry-mode">
   <fo:inline>
-    <xsl:call-template name="person-name"/>
+    <xsl:call-template name="t:person-name"/>
     <xsl:value-of select="$biblioentry.item.separator"/>
   </fo:inline>
 </xsl:template>
@@ -679,7 +679,7 @@
 
 <xsl:template match="db:author" mode="m:bibliomixed-mode">
   <fo:inline>
-    <xsl:call-template name="person-name"/>
+    <xsl:call-template name="t:person-name"/>
   </fo:inline>
 </xsl:template>
 

@@ -22,7 +22,7 @@
 
 <xsl:template match="db:abstract">
   <fo:block>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
 
     <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
 
@@ -34,7 +34,7 @@
 
 <xsl:template match="db:legalnotice">
   <fo:block>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
 
     <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
 

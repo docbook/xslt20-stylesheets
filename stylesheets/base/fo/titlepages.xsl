@@ -326,7 +326,7 @@ for the title page.</para>
 	      priority="100">
   <fo:block keep-with-next.within-column="always">
     <xsl:apply-templates select="../.." mode="m:object-title-markup">
-      <xsl:with-param name="allow-anchors" select="1"/>
+      <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
   </fo:block>
 </xsl:template>
@@ -355,7 +355,7 @@ for the title page.</para>
 	      priority="100">
   <fo:block xsl:use-attribute-sets="component.title.properties">
     <xsl:apply-templates select="../.." mode="m:object-title-markup">
-      <xsl:with-param name="allow-anchors" select="1"/>
+      <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
   </fo:block>
 </xsl:template>
@@ -365,7 +365,7 @@ for the title page.</para>
 	      priority="110">
   <fo:block xsl:use-attribute-sets="section.title.level1.properties">
     <xsl:apply-templates select="../.." mode="m:object-title-markup">
-      <xsl:with-param name="allow-anchors" select="1"/>
+      <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
   </fo:block>
 </xsl:template>
@@ -392,7 +392,7 @@ for the title page.</para>
 	      priority="100">
   <fo:block keep-with-next.within-column="always">
     <xsl:apply-templates select="../.." mode="m:object-title-markup">
-      <xsl:with-param name="allow-anchors" select="1"/>
+      <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
   </fo:block>
 </xsl:template>
@@ -438,13 +438,13 @@ for the title page.</para>
 
   <xsl:variable name="title">
     <xsl:apply-templates select="$section" mode="m:object-title-markup">
-      <xsl:with-param name="allow-anchors" select="1"/>
+      <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
   </xsl:variable>
 
   <xsl:variable name="marker.title">
     <xsl:apply-templates select="$section" mode="m:titleabbrev-markup">
-      <xsl:with-param name="allow-anchors" select="0"/>
+      <xsl:with-param name="allow-anchors" select="false()"/>
     </xsl:apply-templates>
   </xsl:variable>
 
@@ -522,7 +522,7 @@ for the title page.</para>
 
 <xsl:template match="db:title" mode="m:titlepage-mode">
   <xsl:apply-templates select="../.." mode="m:object-title-markup">
-    <xsl:with-param name="allow-anchors" select="1"/>
+    <xsl:with-param name="allow-anchors" select="true()"/>
   </xsl:apply-templates>
 </xsl:template>
 
@@ -555,7 +555,7 @@ for the title page.</para>
 
 <xsl:template match="db:year" mode="m:titlepage-mode">
   <fo:inline>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:apply-templates/>
   </fo:inline>
   <xsl:if test="following-sibling::db:year">, </xsl:if>
@@ -564,7 +564,7 @@ for the title page.</para>
 <xsl:template match="db:holder" mode="m:titlepage-mode">
   <xsl:text> </xsl:text>
   <fo:inline>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:apply-templates/>
   </fo:inline>
   <xsl:if test="following-sibling::db:holder">
@@ -574,7 +574,7 @@ for the title page.</para>
 
 <xsl:template match="db:releaseinfo" mode="m:titlepage-mode">
   <fo:block>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:apply-templates mode="m:titlepage-mode"/>
   </fo:block>
 </xsl:template>

@@ -23,7 +23,7 @@
 
 <xsl:template match="db:anchor">
   <fo:inline>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
   </fo:inline>
 </xsl:template>
 
@@ -306,7 +306,7 @@
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
 
-  <xsl:call-template name="person-name"/>
+  <xsl:call-template name="t:person-name"/>
 </xsl:template>
 
 <xsl:template match="db:authorgroup" mode="m:xref-to">
@@ -314,7 +314,7 @@
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
 
-  <xsl:call-template name="person-name-list"/>
+  <xsl:call-template name="t:person-name-list"/>
 </xsl:template>
 
 <xsl:template match="db:figure|db:example|db:table|db:equation" mode="m:xref-to">

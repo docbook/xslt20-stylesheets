@@ -33,7 +33,7 @@
   <xsl:param name="placement" select="'before'"/>
 
   <xsl:variable name="id">
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
   </xsl:variable>
 
   <xsl:variable name="content">
@@ -114,14 +114,14 @@
       </xsl:otherwise>
     </xsl:choose>
     <xsl:apply-templates select="$object" mode="object.title.markup">
-      <xsl:with-param name="allow-anchors" select="1"/>
+      <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
   </fo:block>
 </xsl:template>
 
 <xsl:template name="t:informal.object">
   <xsl:variable name="id">
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
   </xsl:variable>
 
   <xsl:variable name="keep.together"><!--
