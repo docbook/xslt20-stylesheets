@@ -25,7 +25,9 @@
 <!--  <xsl:include href="../common/olink.xsl"/>-->
   <xsl:include href="../common/preprocess.xsl"/>
   <xsl:include href="pagesetup.xsl"/>
+  <xsl:include href="titlepage.xsl"/>
   <xsl:include href="titlepages.xsl"/>
+  <xsl:include href="title-markup.xsl"/>
   <xsl:include href="autotoc.xsl"/>
   <xsl:include href="division.xsl"/>
   <xsl:include href="component.xsl"/>
