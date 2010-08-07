@@ -123,13 +123,28 @@
 </xsl:template>
 
 <xsl:template name="t:section-content">
+  <xsl:variable name="recto"
+		select="$titlepages/*[node-name(.) = node-name(current())
+			              and @t:side='recto'][1]"/>
+  <xsl:variable name="verso"
+		select="$titlepages/*[node-name(.) = node-name(current())
+			              and @t:side='verso'][1]"/>
+
   <xsl:variable name="toc.params"
 		select="f:find-toc-params(., $generate.toc)"/>
 
   <fo:block>
     <xsl:call-template name="t:id"/>
 
-    <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
+    <xsl:call-template name="titlepage">
+      <xsl:with-param name="content" select="$recto"/>
+    </xsl:call-template>
+
+    <xsl:if test="not(empty($verso))">
+      <xsl:call-template name="titlepage">
+	<xsl:with-param name="content" select="$verso"/>
+      </xsl:call-template>
+    </xsl:if>
 
     <xsl:call-template name="make-lots">
       <xsl:with-param name="toc.params" select="$toc.params"/>

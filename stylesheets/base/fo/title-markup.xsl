@@ -17,6 +17,44 @@
   <!-- nop -->
 </xsl:template>
 
+<!-- FIXME: make real parameters -->
+<xsl:attribute-set name="division.title.properties"/>
+<xsl:attribute-set name="partintro.title.properties"/>
+<xsl:attribute-set name="div.title.properties"/>
+<xsl:attribute-set name="qandaset.title.properties"/>
+<xsl:attribute-set name="list.title.properties"/>
+<xsl:attribute-set name="taskpart.title.properties"/>
+<xsl:attribute-set name="procedure.title.properties"/>
+<xsl:attribute-set name="step.title.properties"/>
+<xsl:attribute-set name="admonition.title.properties"/>
+<xsl:attribute-set name="section.title.properties"/>
+<xsl:attribute-set name="section.level1.title.properties" use-attribute-sets="section.title.properties"/>
+<xsl:attribute-set name="section.level2.title.properties" use-attribute-sets="section.title.properties"/>
+<xsl:attribute-set name="section.level3.title.properties" use-attribute-sets="section.title.properties"/>
+<xsl:attribute-set name="section.level4.title.properties" use-attribute-sets="section.title.properties"/>
+<xsl:attribute-set name="section.level5.title.properties" use-attribute-sets="section.title.properties"/>
+<xsl:attribute-set name="section.level6.title.properties" use-attribute-sets="section.title.properties"/>
+<xsl:attribute-set name="refsection.title.properties"/>
+<xsl:attribute-set name="refsection.level1.title.properties" use-attribute-sets="refsection.title.properties"/>
+<xsl:attribute-set name="refsection.level2.title.properties" use-attribute-sets="refsection.title.properties"/>
+<xsl:attribute-set name="refsection.level3.title.properties" use-attribute-sets="refsection.title.properties"/>
+<xsl:attribute-set name="annotation.title.properties"/>
+<xsl:attribute-set name="sidebar.title.properties"/>
+
+<xsl:attribute-set name="division.subtitle.properties"/>
+<xsl:attribute-set name="div.subtitle.properties"/>
+<xsl:attribute-set name="section.subtitle.properties"/>
+<xsl:attribute-set name="section.level1.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
+<xsl:attribute-set name="section.level2.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
+<xsl:attribute-set name="section.level3.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
+<xsl:attribute-set name="section.level4.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
+<xsl:attribute-set name="section.level5.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
+<xsl:attribute-set name="section.level6.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
+<xsl:attribute-set name="refsection.subtitle.properties"/>
+<xsl:attribute-set name="refsection.level1.subtitle.properties" use-attribute-sets="refsection.subtitle.properties"/>
+<xsl:attribute-set name="refsection.level2.subtitle.properties" use-attribute-sets="refsection.subtitle.properties"/>
+<xsl:attribute-set name="refsection.level3.subtitle.properties" use-attribute-sets="refsection.subtitle.properties"/>
+
 <!-- ============================================================ -->
 
 <doc:mode name="m:title-markup"
@@ -32,7 +70,7 @@ for the title page.</para>
 
 <xsl:template match="db:set|db:book|db:part|db:reference|db:setindex"
               mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="division.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -40,7 +78,7 @@ for the title page.</para>
 </xsl:template>
 
 <xsl:template match="db:partintro" mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="partintro.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -51,7 +89,7 @@ for the title page.</para>
 		     |db:colophon|db:article|db:glossary|db:index
                      |db:bibliography"
               mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="component.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -60,7 +98,7 @@ for the title page.</para>
 
 <xsl:template match="db:bibliodiv|db:glossdiv|db:indexdiv"
 	      mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="div.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -69,7 +107,7 @@ for the title page.</para>
 
 <xsl:template match="db:qandaset"
 	      mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="qandaset.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -78,7 +116,7 @@ for the title page.</para>
 
 <xsl:template match="db:bibliolist|db:glosslist|db:qandadiv|db:task"
 	      mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="list.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -87,7 +125,7 @@ for the title page.</para>
 
 <xsl:template match="db:tasksummary|db:taskprerequisites|db:taskrelated"
 	      mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="taskpart.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -104,12 +142,12 @@ for the title page.</para>
 
   <xsl:choose>
     <xsl:when test="ancestor::db:task">
-      <fo:block> <!-- FIXME: add property set -->
+      <fo:block xsl:use-attribute-sets="procedure.title.properties">
 	<xsl:sequence select="$content"/>
       </fo:block>
     </xsl:when>
     <xsl:otherwise>
-      <fo:block> <!-- FIXME: add property set -->
+      <fo:block xsl:use-attribute-sets="procedure.title.properties">
 	<xsl:sequence select="$content"/>
       </fo:block>
     </xsl:otherwise>
@@ -118,7 +156,7 @@ for the title page.</para>
 
 <xsl:template match="db:step"
 	      mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="step.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -127,7 +165,7 @@ for the title page.</para>
 
 <xsl:template match="db:tip|db:note|db:important|db:warning|db:caution"
 	      mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="admonition.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -136,7 +174,7 @@ for the title page.</para>
 
 <xsl:template match="db:sidebar"
 	      mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="sidebar.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
@@ -145,99 +183,121 @@ for the title page.</para>
 
 <xsl:template match="db:annotation"
 	      mode="m:title-markup">
-  <fo:block> <!-- FIXME: add property set -->
+  <fo:block xsl:use-attribute-sets="annotation.title.properties">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
   </fo:block>
 </xsl:template>
 
-<xsl:template match="db:section"
-	      mode="m:title-markup">
-  <xsl:variable name="depth"
-		select="count(ancestor::db:section)"/>
-
-  <xsl:variable name="hlevel"
-		select="if ($depth &lt; 4) then $depth else 3"/>
-
-  <fo:block> <!-- FIXME: add property set -->
-    <xsl:apply-templates select="." mode="m:title-content">
-      <xsl:with-param name="allow-anchors" select="true()"/>
-    </xsl:apply-templates>
-  </fo:block>
-</xsl:template>
-
-<xsl:template match="db:sect1|db:sect2|db:sect3|db:sect4|db:sect5|db:sect6"
+<xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5|db:sect6|db:simplesect"
 	      mode="m:title-markup">
 
-  <xsl:variable name="depth"
-		select="xs:decimal(substring-after(local-name(.), 'sect')) - 1"/>
-
-  <xsl:variable name="hlevel"
-		select="if ($depth &lt; 5) then $depth else 4"/>
-
-  <fo:block> <!-- FIXME: add property set -->
-    <xsl:apply-templates select="." mode="m:title-content">
-      <xsl:with-param name="allow-anchors" select="true()"/>
-    </xsl:apply-templates>
-  </fo:block>
-</xsl:template>
-
-<xsl:template match="db:simplesect"
-	      mode="m:title-markup">
   <xsl:variable name="depth" as="xs:decimal">
     <xsl:choose>
-      <xsl:when test="ancestor::db:sect5">5</xsl:when>
-      <xsl:when test="ancestor::db:sect4">4</xsl:when>
-      <xsl:when test="ancestor::db:sect3">3</xsl:when>
-      <xsl:when test="ancestor::db:sect2">2</xsl:when>
-      <xsl:when test="ancestor::db:sect1">1</xsl:when>
-      <xsl:when test="ancestor::db:section">
-        <xsl:value-of select="count(ancestor::db:section)"/>
+      <xsl:when test="self::db:section">
+	<xsl:sequence select="count(ancestor-or-self::db:section)"/>
       </xsl:when>
-      <xsl:otherwise>6</xsl:otherwise>
+      <xsl:when test="self::db:simplesect">
+	<xsl:choose>
+	  <xsl:when test="ancestor::db:sect5">6</xsl:when>
+	  <xsl:when test="ancestor::db:sect4">5</xsl:when>
+	  <xsl:when test="ancestor::db:sect3">4</xsl:when>
+	  <xsl:when test="ancestor::db:sect2">3</xsl:when>
+	  <xsl:when test="ancestor::db:sect1">2</xsl:when>
+	  <xsl:when test="ancestor::db:section">
+	    <xsl:value-of select="count(ancestor::db:section) + 1"/>
+	  </xsl:when>
+	  <xsl:otherwise>1</xsl:otherwise>
+	</xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:sequence select="xs:decimal(substring-after(local-name(.), 'sect')) - 1"/>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:variable name="hlevel"
-		select="if ($depth &lt; 5) then $depth else 4"/>
-
-  <fo:block> <!-- FIXME: add property set -->
+  <xsl:variable name="content">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
-  </fo:block>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="$depth eq 1">
+      <fo:block xsl:use-attribute-sets="section.level1.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:when test="$depth eq 2">
+      <fo:block xsl:use-attribute-sets="section.level2.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:when test="$depth eq 3">
+      <fo:block xsl:use-attribute-sets="section.level3.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:when test="$depth eq 4">
+      <fo:block xsl:use-attribute-sets="section.level4.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:when test="$depth eq 5">
+      <fo:block xsl:use-attribute-sets="section.level5.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:when test="$depth eq 6">
+      <fo:block xsl:use-attribute-sets="section.level6.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:message>Warning: styling of more then six levels of nested sections is not supported.</xsl:message>
+      <fo:block xsl:use-attribute-sets="section.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
-<xsl:template match="db:refsection"
+<xsl:template match="db:refsection|db:refsect1|db:refsect2|db:refsect3"
 	      mode="m:title-markup">
   <xsl:variable name="depth"
-		select="count(ancestor::db:refsection)"/>
+		select="if (self::db:refsection) then count(ancestor::db:refsection)
+			                         else xs:decimal(substring-after(local-name(.), 'sect')) - 1"/>
 
-  <xsl:variable name="hlevel"
-		select="if ($depth &lt; 4) then $depth else 3"/>
-
-  <fo:block> <!-- FIXME: add property set -->
+  <xsl:variable name="content">
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
-  </fo:block>
-</xsl:template>
+  </xsl:variable>
 
-<xsl:template match="db:refsect1|db:refsect2|db:refsect3"
-	      mode="m:title-markup">
-
-  <xsl:variable name="depth"
-		select="xs:decimal(substring-after(local-name(.), 'sect')) - 1"/>
-
-  <xsl:variable name="hlevel"
-		select="if ($depth &lt; 5) then $depth else 4"/>
-
-  <fo:block> <!-- FIXME: add property set -->
-    <xsl:apply-templates select="." mode="m:title-content">
-      <xsl:with-param name="allow-anchors" select="true()"/>
-    </xsl:apply-templates>
-  </fo:block>
+  <xsl:choose>
+    <xsl:when test="$depth eq 1">
+      <fo:block xsl:use-attribute-sets="refsection.level1.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:when test="$depth eq 2">
+      <fo:block xsl:use-attribute-sets="refsection.level2.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:when test="$depth eq 3">
+      <fo:block xsl:use-attribute-sets="refsection.level3.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:message>Warning: styling of more then three levels of nested refsections is not supported.</xsl:message>
+      <fo:block xsl:use-attribute-sets="section.title.properties">
+	<xsl:sequence select="$content"/>
+      </fo:block>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- ============================================================ -->
@@ -250,7 +310,7 @@ for the title page.</para>
     </xsl:apply-templates>
   </xsl:variable>
   <xsl:if test="not(empty($content))">
-    <fo:block> <!-- FIXME: add property set -->
+    <fo:block xsl:use-attribute-sets="division.subtitle.properties">
       <xsl:sequence select="$content"/>
     </fo:block>
   </xsl:if>
@@ -266,7 +326,7 @@ for the title page.</para>
     </xsl:apply-templates>
   </xsl:variable>
   <xsl:if test="not(empty($content))">
-    <fo:block> <!-- FIXME: add property set -->
+    <fo:block xsl:use-attribute-sets="component.title.properties">
       <xsl:sequence select="$content"/>
     </fo:block>
   </xsl:if>
@@ -280,14 +340,38 @@ for the title page.</para>
     </xsl:apply-templates>
   </xsl:variable>
   <xsl:if test="not(empty($content))">
-    <fo:block> <!-- FIXME: add property set -->
+    <fo:block xsl:use-attribute-sets="div.subtitle.properties">
       <xsl:sequence select="$content"/>
     </fo:block>
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="db:section"
+<xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5|db:sect6|db:simplesect"
 	      mode="m:subtitle-markup">
+  <xsl:variable name="depth" as="xs:decimal">
+    <xsl:choose>
+      <xsl:when test="self::db:section">
+	<xsl:sequence select="count(ancestor-or-self::db:section)"/>
+      </xsl:when>
+      <xsl:when test="self::db:simplesect">
+	<xsl:choose>
+	  <xsl:when test="ancestor::db:sect5">6</xsl:when>
+	  <xsl:when test="ancestor::db:sect4">5</xsl:when>
+	  <xsl:when test="ancestor::db:sect3">4</xsl:when>
+	  <xsl:when test="ancestor::db:sect2">3</xsl:when>
+	  <xsl:when test="ancestor::db:sect1">2</xsl:when>
+	  <xsl:when test="ancestor::db:section">
+	    <xsl:value-of select="count(ancestor::db:section) + 1"/>
+	  </xsl:when>
+	  <xsl:otherwise>1</xsl:otherwise>
+	</xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:sequence select="xs:decimal(substring-after(local-name(.), 'sect')) - 1"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
   <xsl:variable name="content" as="node()*">
     <xsl:apply-templates select="." mode="m:subtitle-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
@@ -295,20 +379,53 @@ for the title page.</para>
   </xsl:variable>
 
   <xsl:if test="not(empty($content))">
-    <xsl:variable name="depth"
-                  select="count(ancestor::db:section)"/>
-
-    <xsl:variable name="hlevel"
-                  select="if ($depth &lt; 3) then $depth else 2"/>
-
-    <fo:block> <!-- FIXME: add property set -->
-      <xsl:sequence select="$content"/>
-    </fo:block>
+    <xsl:choose>
+      <xsl:when test="$depth eq 1">
+	<fo:block xsl:use-attribute-sets="section.level1.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:when test="$depth eq 2">
+	<fo:block xsl:use-attribute-sets="section.level2.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:when test="$depth eq 3">
+	<fo:block xsl:use-attribute-sets="section.level3.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:when test="$depth eq 4">
+	<fo:block xsl:use-attribute-sets="section.level4.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:when test="$depth eq 5">
+	<fo:block xsl:use-attribute-sets="section.level5.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:when test="$depth eq 6">
+	<fo:block xsl:use-attribute-sets="section.level6.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:message>Warning: styling of more then six levels of nested sections is not supported.</xsl:message>
+	<fo:block xsl:use-attribute-sets="section.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="db:sect1|db:sect2|db:sect3|db:sect4|db:sect5|db:sect6"
+<xsl:template match="db:refsection|db:refsect1|db:refsect2|db:refsect3"
 	      mode="m:subtitle-markup">
+  <xsl:variable name="depth"
+		select="if (self::db:refsection) then count(ancestor::db:refsection)
+			                         else xs:decimal(substring-after(local-name(.), 'sect')) - 1"/>
+
   <xsl:variable name="content" as="node()*">
     <xsl:apply-templates select="." mode="m:subtitle-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
@@ -316,89 +433,29 @@ for the title page.</para>
   </xsl:variable>
 
   <xsl:if test="not(empty($content))">
-    <xsl:variable name="depth"
-                  select="xs:decimal(substring-after(local-name(.), 'sect')) - 1"/>
-
-    <xsl:variable name="hlevel"
-                  select="if ($depth &lt; 4) then $depth else 3"/>
-
-    <fo:block> <!-- FIXME: add property set -->
-      <xsl:sequence select="$content"/>
-    </fo:block>
-  </xsl:if>
-</xsl:template>
-
-<xsl:template match="db:simplesect"
-	      mode="m:subtitle-markup">
-  <xsl:variable name="content" as="node()*">
-    <xsl:apply-templates select="." mode="m:subtitle-content">
-      <xsl:with-param name="allow-anchors" select="true()"/>
-    </xsl:apply-templates>
-  </xsl:variable>
-
-  <xsl:if test="not(empty($content))">
-    <xsl:variable name="depth" as="xs:decimal">
-      <xsl:choose>
-        <xsl:when test="ancestor::db:sect5">5</xsl:when>
-        <xsl:when test="ancestor::db:sect4">4</xsl:when>
-        <xsl:when test="ancestor::db:sect3">3</xsl:when>
-        <xsl:when test="ancestor::db:sect2">2</xsl:when>
-        <xsl:when test="ancestor::db:sect1">1</xsl:when>
-        <xsl:when test="ancestor::db:section">
-          <xsl:value-of select="count(ancestor::db:section)"/>
-        </xsl:when>
-        <xsl:otherwise>6</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-
-    <xsl:variable name="hlevel"
-                  select="if ($depth &lt; 4) then $depth else 3"/>
-
-    <fo:block> <!-- FIXME: add property set -->
-      <xsl:sequence select="$content"/>
-    </fo:block>
-  </xsl:if>
-</xsl:template>
-
-<xsl:template match="db:refsection"
-	      mode="m:subtitle-markup">
-  <xsl:variable name="content" as="node()*">
-    <xsl:apply-templates select="." mode="m:subtitle-content">
-      <xsl:with-param name="allow-anchors" select="true()"/>
-    </xsl:apply-templates>
-  </xsl:variable>
-
-  <xsl:if test="not(empty($content))">
-    <xsl:variable name="depth"
-                  select="count(ancestor::db:refsection)"/>
-
-    <xsl:variable name="hlevel"
-                  select="if ($depth &lt; 4) then $depth else 3"/>
-
-    <fo:block> <!-- FIXME: add property set -->
-      <xsl:sequence select="$content"/>
-    </fo:block>
-  </xsl:if>
-</xsl:template>
-
-<xsl:template match="db:refsect1|db:refsect2|db:refsect3"
-	      mode="m:subtitle-markup">
-  <xsl:variable name="content" as="node()*">
-    <xsl:apply-templates select="." mode="m:subtitle-content">
-      <xsl:with-param name="allow-anchors" select="true()"/>
-    </xsl:apply-templates>
-  </xsl:variable>
-
-  <xsl:if test="not(empty($content))">
-    <xsl:variable name="depth"
-                  select="xs:decimal(substring-after(local-name(.), 'sect')) - 1"/>
-
-    <xsl:variable name="hlevel"
-                  select="if ($depth &lt; 4) then $depth else 3"/>
-
-    <fo:block> <!-- FIXME: add property set -->
-      <xsl:sequence select="$content"/>
-    </fo:block>
+    <xsl:choose>
+      <xsl:when test="$depth eq 1">
+	<fo:block xsl:use-attribute-sets="refsection.level1.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:when test="$depth eq 2">
+	<fo:block xsl:use-attribute-sets="refsection.level2.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:when test="$depth eq 3">
+	<fo:block xsl:use-attribute-sets="refsection.level3.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:message>Warning: styling of more then three levels of nested refsections is not supported.</xsl:message>
+	<fo:block xsl:use-attribute-sets="section.subtitle.properties">
+	  <xsl:sequence select="$content"/>
+	</fo:block>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:if>
 </xsl:template>
 
