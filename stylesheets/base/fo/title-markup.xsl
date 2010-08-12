@@ -41,6 +41,7 @@
 <xsl:attribute-set name="annotation.title.properties"/>
 <xsl:attribute-set name="sidebar.title.properties"/>
 
+<xsl:attribute-set name="component.subtitle.properties"/>
 <xsl:attribute-set name="division.subtitle.properties"/>
 <xsl:attribute-set name="div.subtitle.properties"/>
 <xsl:attribute-set name="section.subtitle.properties"/>
@@ -326,7 +327,7 @@ for the title page.</para>
     </xsl:apply-templates>
   </xsl:variable>
   <xsl:if test="not(empty($content))">
-    <fo:block xsl:use-attribute-sets="component.title.properties">
+    <fo:block xsl:use-attribute-sets="component.subtitle.properties">
       <xsl:sequence select="$content"/>
     </fo:block>
   </xsl:if>

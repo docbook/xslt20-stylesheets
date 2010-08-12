@@ -327,7 +327,9 @@ multiple places).</para>
 </xsl:template>
 
 <xsl:template match="db:abstract" mode="m:titlepage-mode">
+  <xsl:param name="attributes" as="attribute()*"/>
   <fo:block>
+    <xsl:copy-of select="$attributes"/>
     <xsl:apply-templates/>
   </fo:block>
 </xsl:template>
@@ -343,13 +345,19 @@ multiple places).</para>
 </xsl:template>
 
 <xsl:template match="db:authorgroup" mode="m:titlepage-mode">
-  <xsl:apply-templates mode="m:titlepage-mode"/>
+  <xsl:param name="attributes" as="attribute()*"/>
+  <fo:block>
+    <xsl:copy-of select="$attributes"/>
+    <xsl:apply-templates mode="m:titlepage-mode"/>
+  </fo:block>
 </xsl:template>
 
 <xsl:template match="db:info/db:author
 		     |db:info/db:authorgroup/db:author"
 	      mode="m:titlepage-mode">
+  <xsl:param name="attributes" as="attribute()*"/>
   <fo:block>
+    <xsl:copy-of select="$attributes"/>
     <xsl:apply-templates select="."/>
   </fo:block>
 </xsl:template>

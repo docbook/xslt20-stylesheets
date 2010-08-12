@@ -61,6 +61,19 @@
                <db:author/>
                <db:editor/>
                <db:othercredit/>
+               <db:pubdate/>
+            </fo:block>
+         </db:book>
+
+         <db:book t:side="verso">
+            <fo:block>
+               <db:title/>
+               <db:subtitle/>
+               <db:corpauthor/>
+               <db:authorgroup/>
+               <db:author/>
+               <db:editor/>
+               <db:othercredit/>
                <db:releaseinfo/>
                <db:copyright/>
                <db:legalnotice/>
@@ -69,6 +82,10 @@
                <db:revhistory/>
                <db:abstract/>
             </fo:block>
+         </db:book>
+
+         <db:book t:side="before-verso">
+            <fo:block break-after="page"/>
          </db:book>
 
          <db:part t:side="recto">

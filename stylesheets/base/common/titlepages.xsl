@@ -12,6 +12,8 @@
 		exclude-result-prefixes="h f m fn db doc t xs"
                 version="2.0">
 
+<!-- FIXME: This template is now used only in HTML. HTML code should by updated to more
+     sophisticated t:titlepage -->
 <doc:template name="titlepage" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Processes a title page</refpurpose>
 
@@ -44,6 +46,182 @@ this is <tag>db:info/*</tag>.</para>
 </doc:template>
 
 <xsl:template name="titlepage">
+  <xsl:param name="context" select="."/>
+  <xsl:param name="info" select="$context/db:title
+                                 |$context/db:subtitle
+                                 |$context/db:titleabbrev
+                                 |$context/db:info/*" as="element()*"/>
+  <xsl:param name="content"/>
+
+<!--
+  <xsl:message>
+    <xsl:text>titlepage for: </xsl:text>
+    <xsl:value-of select="node-name($context)"/>
+    <xsl:copy-of select="$content"/>
+  </xsl:message>
+
+  <xsl:message>
+    <xsl:text>titlepage with: </xsl:text>
+    <xsl:copy-of select="$info"/>
+  </xsl:message>
+-->
+
+  <xsl:choose>
+    <xsl:when test="$content instance of document-node()">
+      <xsl:apply-templates select="$content" mode="m:titlepage-templates">
+        <xsl:with-param name="node" select="$context" tunnel="yes"/>
+        <xsl:with-param name="info" select="$info" tunnel="yes"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:when test="$content instance of element()">
+      <xsl:apply-templates select="$content/*" mode="m:titlepage-templates">
+        <xsl:with-param name="node" select="$context" tunnel="yes"/>
+        <xsl:with-param name="info" select="$info" tunnel="yes"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:when test="fn:empty($content)">
+      <xsl:message>
+        <xsl:text>Empty $content in titlepage template (for </xsl:text>
+        <xsl:value-of select="name(.)"/>
+        <xsl:text>).</xsl:text>
+      </xsl:message>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:message>
+        <xsl:text>Unexpected $content in titlepage template (for </xsl:text>
+        <xsl:value-of select="name(.)"/>
+        <xsl:text>).</xsl:text>
+      </xsl:message>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<doc:template name="t:titlepage" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Generates titlepage for element</refpurpose>
+
+<refdescription>
+<para>This template FIXME</para>
+<para>This template also copies content of
+<literal>before-recto</literal>, <literal>after-recto</literal> and
+<literal>before-verso</literal>, <literal>after-verso</literal>
+templates into output. Templates for verso side are applied only if
+verso template returns non-empty content.</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry><term>info</term>
+<listitem>
+<para>The bibliographic metadata associated with the element. By default,
+this is <tag>db:info/*</tag>.</para>
+</listitem>
+</varlistentry>
+<varlistentry><term>content</term>
+<listitem>
+<para>The title page template.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>The formatted title page.</para>
+</refreturn>
+</doc:template>
+
+<xsl:template name="t:titlepage">
+  <xsl:variable name="recto"
+		select="$titlepages/*[node-name(.) = node-name(current())
+			              and @t:side='recto'][1]"/>
+  <xsl:variable name="verso"
+		select="$titlepages/*[node-name(.) = node-name(current())
+			              and @t:side='verso'][1]"/>
+  <xsl:variable name="before-recto"
+		select="$titlepages/*[node-name(.) = node-name(current())
+			              and @t:side='before-recto'][1]"/>
+  <xsl:variable name="before-verso"
+		select="$titlepages/*[node-name(.) = node-name(current())
+			              and @t:side='before-verso'][1]"/>
+  <xsl:variable name="after-recto"
+		select="$titlepages/*[node-name(.) = node-name(current())
+			              and @t:side='after-recto'][1]"/>
+  <xsl:variable name="after-verso"
+		select="$titlepages/*[node-name(.) = node-name(current())
+			              and @t:side='after-verso'][1]"/>
+  
+  <xsl:if test="not(empty($before-recto))">
+    <xsl:call-template name="t:process-titlepage-content">
+      <xsl:with-param name="content" select="$before-recto"/>
+    </xsl:call-template>
+  </xsl:if>
+
+  <xsl:call-template name="t:process-titlepage-content">
+    <xsl:with-param name="content" select="$recto"/>
+  </xsl:call-template>
+
+  <xsl:if test="not(empty($after-recto))">
+    <xsl:call-template name="t:process-titlepage-content">
+      <xsl:with-param name="content" select="$after-recto"/>
+    </xsl:call-template>
+  </xsl:if>
+  
+  <xsl:if test="not(empty($verso))">
+    <xsl:if test="not(empty($before-verso))">
+      <xsl:call-template name="t:process-titlepage-content">
+	<xsl:with-param name="content" select="$before-verso"/>
+      </xsl:call-template>
+    </xsl:if>
+
+    <xsl:call-template name="t:process-titlepage-content">
+      <xsl:with-param name="content" select="$verso"/>
+    </xsl:call-template>
+
+    <xsl:if test="not(empty($after-verso))">
+      <xsl:call-template name="t:process-titlepage-content">
+	<xsl:with-param name="content" select="$after-verso"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:if>
+</xsl:template>
+
+<doc:template name="t:process-titlepage-content" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Processes a title page</refpurpose>
+
+<refdescription>
+<para>This template processes the title page content for an element
+based on a specified template.  For each element in the template, the
+corresponding element from the content is processed (with
+<code>apply-templates</code>). This is done for both recto and verso
+templates.</para>
+<para>This template also copies content of
+<literal>before-recto</literal>, <literal>after-recto</literal> and
+<literal>before-verso</literal>, <literal>after-verso</literal>
+templates into output. Templates for verso side are applied only if
+verso template returns non-empty content.</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry><term>info</term>
+<listitem>
+<para>The bibliographic metadata associated with the element. By default,
+this is <tag>db:info/*</tag>.</para>
+</listitem>
+</varlistentry>
+<varlistentry><term>content</term>
+<listitem>
+<para>The title page template.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>The formatted title page.</para>
+</refreturn>
+</doc:template>
+
+<xsl:template name="t:process-titlepage-content">
   <xsl:param name="context" select="."/>
   <xsl:param name="info" select="$context/db:title
                                  |$context/db:subtitle
@@ -161,7 +339,9 @@ an element that occurs in the source document.</para>
     </xsl:when>
 
     <xsl:when test="$content">
-      <xsl:apply-templates select="$content" mode="m:titlepage-mode"/>
+      <xsl:apply-templates select="$content" mode="m:titlepage-mode">
+	<xsl:with-param name="attributes" select="f:select-style-attributes(@*)"/>
+      </xsl:apply-templates>
     </xsl:when>
 
     <xsl:otherwise>
@@ -342,6 +522,47 @@ element to match.</para>
   <xsl:param name="template-node" as="element()"/>
   <xsl:param name="document-node" as="element()"/>
   <xsl:value-of select="true()"/>
+</xsl:function>
+
+<doc:function name="f:select-style-attrbutes" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Return attributes required for styling of element in titlepage tempate.</refpurpose>
+
+<refdescription>
+<para>Only attributes in namespace which is different from template
+namespace are returned. Depending on stylesheet result type attributes
+from FO or HTML namespace are returned in no namespace.</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry><term>attributes</term>
+<listitem>
+<para>Attributes for adjusting.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>Adjusted style attributes.</para>
+</refreturn>
+</doc:function>
+
+<xsl:function name="f:select-style-attributes" as="attribute()*">
+  <xsl:param name="attributes" as="attribute()*"/>
+
+  <xsl:variable name="style-namespace" select="if ($stylesheet.result.type eq 'fo') then 'http://www.w3.org/1999/XSL/Format' else 'http://www.w3.org/1999/xhtml'"/>
+
+  <xsl:for-each select="$attributes[(namespace-uri(.) ne '') and (namespace-uri(.) ne 'http://docbook.org/xslt/ns/template')]">
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) != $style-namespace">
+	<xsl:sequence select="."/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:attribute name="{local-name(.)}" select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:for-each>
 </xsl:function>
 
 </xsl:stylesheet>

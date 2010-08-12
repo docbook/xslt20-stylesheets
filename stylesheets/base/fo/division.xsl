@@ -14,13 +14,6 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:book">
-  <xsl:variable name="recto"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='recto'][1]"/>
-  <xsl:variable name="verso"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='verso'][1]"/>
-
   <xsl:call-template name="t:front-cover"/>
 
   <xsl:call-template name="t:page-sequence">
@@ -28,15 +21,7 @@
 		    select="f:select-pagemaster(.,'titlepage')"/>
     <xsl:with-param name="content">
       <fo:block id="{f:node-id(.)}">
-	<xsl:call-template name="titlepage">
-	  <xsl:with-param name="content" select="$recto"/>
-	</xsl:call-template>
-	
-	<xsl:if test="not(empty($verso))">
-	  <xsl:call-template name="titlepage">
-	    <xsl:with-param name="content" select="$verso"/>
-	  </xsl:call-template>
-	</xsl:if>
+	<xsl:call-template name="t:titlepage"/>
       </fo:block>
     </xsl:with-param>
   </xsl:call-template>
