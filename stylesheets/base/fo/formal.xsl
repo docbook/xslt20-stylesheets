@@ -111,7 +111,7 @@
         <xsl:attribute name="keep-with-previous.within-column" select="'always'"/>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:apply-templates select="$object" mode="object.title.markup">
+    <xsl:apply-templates select="$object" mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
   </fo:block>
