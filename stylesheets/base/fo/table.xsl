@@ -21,6 +21,15 @@
 <xsl:param name="table.cell.border.style">solid</xsl:param>
 <xsl:param name="table.cell.border.thickness">0.4pt</xsl:param>
 <xsl:param name="table.cell.border.color">black</xsl:param>
+<xsl:attribute-set name="table.cell.properties">
+  <xsl:attribute name="padding-start">2pt</xsl:attribute>
+  <xsl:attribute name="padding-end">2pt</xsl:attribute>
+  <xsl:attribute name="padding-top">2pt</xsl:attribute>
+  <xsl:attribute name="padding-bottom">2pt</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="table.head.properties">
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+</xsl:attribute-set>
 
 <xsl:include href="../common/table.xsl"/>
 
@@ -412,7 +421,7 @@
 
 <xsl:template match="db:thead" mode="m:cals">
   <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-  <fo:table-header>
+  <fo:table-header xsl:use-attribute-sets="table.head.properties">
     <xsl:apply-templates mode="m:cals">
       <xsl:with-param name="origtable" select="$origtable"/>
     </xsl:apply-templates>
@@ -443,7 +452,21 @@
 
 <xsl:template match="db:row" mode="m:cals">
   <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
+
+  <xsl:variable name="row-height"
+		select="f:pi(processing-instruction('dbfo'),'row-height')"/>
+
+  <xsl:variable name="bgcolor"
+		select="f:pi(processing-instruction('dbfo'),'bgcolor')"/>
+
   <fo:table-row>
+    <xsl:if test="$row-height != ''">
+      <xsl:attribute name="block-progression-dimension" select="$row-height"/>
+    </xsl:if>
+
+    <xsl:if test="$bgcolor != ''">
+      <xsl:attribute name="background-color" select="$bgcolor"/>
+    </xsl:if>
 
     <xsl:if test="@rowsep = 1 and (following-sibling::db:row or ../(following-sibling::db:tbody|following-sibling::db:tfoot))">
       <xsl:attribute name="style">
@@ -452,6 +475,13 @@
 	</xsl:call-template>
       </xsl:attribute>
     </xsl:if>
+
+    <!-- Keep header row with next row -->
+    <xsl:if test="ancestor::db:thead">
+      <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+    </xsl:if>
+
+    <!-- FIXME: handle @valign -->
 
     <xsl:apply-templates mode="m:cals">
       <xsl:with-param name="origtable" select="$origtable"/>
@@ -464,8 +494,16 @@
 
   <xsl:variable name="empty.cell" select="not(node())"/>
 
-  <fo:table-cell>
+  <xsl:variable name="bgcolor"
+		select="f:pi(processing-instruction('dbfo'),'bgcolor')"/>
+
+  <fo:table-cell xsl:use-attribute-sets="table.cell.properties">
     <!-- FIXME: handle @revisionflag -->
+
+    <xsl:if test="$bgcolor != ''">
+      <xsl:attribute name="background-color" select="$bgcolor"/>
+    </xsl:if>
+
     <xsl:if test="@ghost:morerows &gt; 0">
       <xsl:attribute name="number-rows-spanned" select="@ghost:morerows + 1"/>
     </xsl:if>
@@ -485,7 +523,40 @@
 	<xsl:with-param name="side" select="'bottom'"/>
       </xsl:call-template>
     </xsl:if>
-    
+
+    <!-- FIXME: add support for <?dbfo ?> from XSLT1 stylesheets -->
+
+    <xsl:if test="@valign != ''">
+      <xsl:attribute name="display-align">
+	<xsl:choose>
+	  <xsl:when test="@valign='top'">before</xsl:when>
+	  <xsl:when test="@valign='middle'">center</xsl:when>
+	  <xsl:when test="@valign='bottom'">after</xsl:when>
+	  <xsl:otherwise>
+	    <xsl:message>
+	      <xsl:text>Unexpected valign value: </xsl:text>
+	      <xsl:value-of select="@valign"/>
+	      <xsl:text>, center used.</xsl:text>
+	    </xsl:message>
+	    <xsl:text>center</xsl:text>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
+
+    <xsl:choose>
+      <xsl:when test="@align = 'char' and @char != ''">
+	<xsl:attribute name="text-align">
+	  <xsl:value-of select="@char"/>
+	</xsl:attribute>
+      </xsl:when>
+      <xsl:when test="@align != ''">
+	<xsl:attribute name="text-align">
+	  <xsl:value-of select="@align"/>
+	</xsl:attribute>
+      </xsl:when>
+    </xsl:choose>
+
     <fo:block>
       <xsl:choose>
 	<xsl:when test="$empty.cell">
