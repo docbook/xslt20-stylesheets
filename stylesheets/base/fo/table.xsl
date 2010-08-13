@@ -16,10 +16,10 @@
 <xsl:param name="table.width.nominal" select="'6.5in'"/>
 <xsl:param name="table.frame.default">all</xsl:param>
 <xsl:param name="table.frame.border.style">solid</xsl:param>
-<xsl:param name="table.frame.border.thickness">2pt</xsl:param>
+<xsl:param name="table.frame.border.thickness">0.8pt</xsl:param>
 <xsl:param name="table.frame.border.color">black</xsl:param>
 <xsl:param name="table.cell.border.style">solid</xsl:param>
-<xsl:param name="table.cell.border.thickness">1pt</xsl:param>
+<xsl:param name="table.cell.border.thickness">0.4pt</xsl:param>
 <xsl:param name="table.cell.border.color">black</xsl:param>
 
 <xsl:include href="../common/table.xsl"/>
