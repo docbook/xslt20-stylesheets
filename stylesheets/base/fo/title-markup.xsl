@@ -39,11 +39,20 @@
 <xsl:attribute-set name="step.title.properties" use-attribute-sets="title.properties"/>
 <xsl:attribute-set name="admonition.title.properties" use-attribute-sets="title.properties"/>
 <xsl:attribute-set name="section.title.properties" use-attribute-sets="title.properties"/>
-<xsl:attribute-set name="section.level1.title.properties" use-attribute-sets="section.title.properties"/>
-<xsl:attribute-set name="section.level2.title.properties" use-attribute-sets="section.title.properties"/>
-<xsl:attribute-set name="section.level3.title.properties" use-attribute-sets="section.title.properties"/>
+<xsl:attribute-set name="section.level1.title.properties" use-attribute-sets="section.title.properties">
+   <xsl:attribute name="font-size" select="concat($body.font.master * 1.728, 'pt')"/>
+</xsl:attribute-set>
+<xsl:attribute-set name="section.level2.title.properties" use-attribute-sets="section.title.properties">
+   <xsl:attribute name="font-size" select="concat($body.font.master * 1.44, 'pt')"/>
+</xsl:attribute-set>
+<xsl:attribute-set name="section.level3.title.properties" use-attribute-sets="section.title.properties">
+   <xsl:attribute name="font-size" select="concat($body.font.master * 1.2, 'pt')"/>
+</xsl:attribute-set>
 <xsl:attribute-set name="section.level4.title.properties" use-attribute-sets="section.title.properties"/>
-<xsl:attribute-set name="section.level5.title.properties" use-attribute-sets="section.title.properties"/>
+<xsl:attribute-set name="section.level5.title.properties" use-attribute-sets="section.title.properties">
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+  <xsl:attribute name="font-style">italic</xsl:attribute>
+</xsl:attribute-set>
 <xsl:attribute-set name="section.level6.title.properties" use-attribute-sets="section.title.properties"/>
 <xsl:attribute-set name="refsection.title.properties" use-attribute-sets="title.properties"/>
 <xsl:attribute-set name="refsection.level1.title.properties" use-attribute-sets="refsection.title.properties"/>
