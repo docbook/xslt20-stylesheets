@@ -152,16 +152,19 @@ this is <tag>db:info/*</tag>.</para>
   <xsl:if test="not(empty($before-recto))">
     <xsl:call-template name="t:process-titlepage-content">
       <xsl:with-param name="content" select="$before-recto"/>
+      <xsl:with-param name="side">before-recto</xsl:with-param>
     </xsl:call-template>
   </xsl:if>
 
   <xsl:call-template name="t:process-titlepage-content">
     <xsl:with-param name="content" select="$recto"/>
+      <xsl:with-param name="side">recto</xsl:with-param>
   </xsl:call-template>
 
   <xsl:if test="not(empty($after-recto))">
     <xsl:call-template name="t:process-titlepage-content">
       <xsl:with-param name="content" select="$after-recto"/>
+      <xsl:with-param name="side">after-recto</xsl:with-param>
     </xsl:call-template>
   </xsl:if>
   
@@ -169,16 +172,19 @@ this is <tag>db:info/*</tag>.</para>
     <xsl:if test="not(empty($before-verso))">
       <xsl:call-template name="t:process-titlepage-content">
 	<xsl:with-param name="content" select="$before-verso"/>
+	<xsl:with-param name="side">before-verso</xsl:with-param>
       </xsl:call-template>
     </xsl:if>
 
     <xsl:call-template name="t:process-titlepage-content">
       <xsl:with-param name="content" select="$verso"/>
+      <xsl:with-param name="side">verso</xsl:with-param>
     </xsl:call-template>
 
     <xsl:if test="not(empty($after-verso))">
       <xsl:call-template name="t:process-titlepage-content">
 	<xsl:with-param name="content" select="$after-verso"/>
+	<xsl:with-param name="side">after-verso</xsl:with-param>
       </xsl:call-template>
     </xsl:if>
   </xsl:if>
@@ -228,6 +234,7 @@ this is <tag>db:info/*</tag>.</para>
                                  |$context/db:titleabbrev
                                  |$context/db:info/*" as="element()*"/>
   <xsl:param name="content"/>
+  <xsl:param name="side"/>
 
 <!--
   <xsl:message>
@@ -247,12 +254,14 @@ this is <tag>db:info/*</tag>.</para>
       <xsl:apply-templates select="$content" mode="m:titlepage-templates">
         <xsl:with-param name="node" select="$context" tunnel="yes"/>
         <xsl:with-param name="info" select="$info" tunnel="yes"/>
+        <xsl:with-param name="side" select="$side" tunnel="yes"/>
       </xsl:apply-templates>
     </xsl:when>
     <xsl:when test="$content instance of element()">
       <xsl:apply-templates select="$content/*" mode="m:titlepage-templates">
         <xsl:with-param name="node" select="$context" tunnel="yes"/>
         <xsl:with-param name="info" select="$info" tunnel="yes"/>
+        <xsl:with-param name="side" select="$side" tunnel="yes"/>
       </xsl:apply-templates>
     </xsl:when>
     <xsl:when test="fn:empty($content)">
@@ -292,6 +301,7 @@ an element that occurs in the source document.</para>
 <xsl:template match="db:*" mode="m:titlepage-templates" priority="1000">
   <xsl:param name="node" tunnel="yes"/>
   <xsl:param name="info" tunnel="yes"/>
+  <xsl:param name="side" tunnel="yes"/>
 
   <xsl:variable name="this" select="."/>
 
@@ -303,13 +313,14 @@ an element that occurs in the source document.</para>
     <xsl:value-of select="name(.)"/>
     <xsl:text> in the context of </xsl:text>
     <xsl:value-of select="name($node)"/>
+    <xsl:text> on side </xsl:text>
+    <xsl:value-of select="$side"/>    
   </xsl:message>
 
   <xsl:message>
     <xsl:copy-of select="$content"/>
   </xsl:message>
 -->
-
   <!-- Title, subtitle, and titleabbrev are special because they're sometimes optional -->
 
   <xsl:choose>
@@ -322,28 +333,54 @@ an element that occurs in the source document.</para>
                          or $node/self::db:note
                          or $node/self::db:important
                          or $node/self::db:warning
-                         or $node/self::db:caution)">
+                         or $node/self::db:caution)
+		    and ($side eq 'recto')">
       <xsl:apply-templates select="$node" mode="m:title-markup"/>
+      <xsl:if test="not(empty(f:select-style-attributes(@*)))">
+	<xsl:message>Direct styling of title in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
+      </xsl:if>
     </xsl:when>
 
-    <xsl:when test="self::db:title and $content">
+    <xsl:when test="self::db:title and $content and ($side eq 'recto')">
       <xsl:apply-templates select="$node" mode="m:title-markup"/>
+      <xsl:if test="not(empty(f:select-style-attributes(@*)))">
+	<xsl:message>Direct styling of title in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
+      </xsl:if>
     </xsl:when>
 
-    <xsl:when test="self::db:subtitle and $content">
+    <xsl:when test="self::db:subtitle and $content and ($side eq 'recto')">
       <xsl:apply-templates select="$node" mode="m:subtitle-markup"/>
+      <xsl:if test="not(empty(f:select-style-attributes(@*)))">
+	<xsl:message>Direct styling of subtitle in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
+      </xsl:if>
     </xsl:when>
 
-    <xsl:when test="self::db:titleabbrev and $content">
+    <xsl:when test="self::db:titleabbrev and $content and ($side eq 'recto')">
       <xsl:apply-templates select="$node" mode="m:titleabbrev-markup"/>
+      <xsl:if test="not(empty(f:select-style-attributes(@*)))">
+	<xsl:message>Direct styling of titleabbrev in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
+      </xsl:if>
     </xsl:when>
 
     <xsl:when test="$content">
-      <xsl:apply-templates select="$content" mode="m:titlepage-mode">
-	<xsl:with-param name="attributes" select="f:select-style-attributes(@*)"/>
-      </xsl:apply-templates>
+      <xsl:choose>
+	<xsl:when test="$side eq 'recto'">
+	  <xsl:apply-templates select="$content" mode="m:titlepage-recto-mode">
+	    <xsl:with-param name="attributes" select="f:select-style-attributes(@*)" tunnel="yes"/>
+	  </xsl:apply-templates>
+	</xsl:when>
+	<xsl:when test="$side eq 'verso'">
+	  <xsl:apply-templates select="$content" mode="m:titlepage-verso-mode">
+	    <xsl:with-param name="attributes" select="f:select-style-attributes(@*)" tunnel="yes"/>
+	  </xsl:apply-templates>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:apply-templates select="$content" mode="m:titlepage-mode">
+	    <xsl:with-param name="attributes" select="f:select-style-attributes(@*)"/>
+	  </xsl:apply-templates>
+	</xsl:otherwise>
+      </xsl:choose>
     </xsl:when>
-
     <xsl:otherwise>
       <!-- nop -->
     </xsl:otherwise>
@@ -353,6 +390,7 @@ an element that occurs in the source document.</para>
 <xsl:template match="*" mode="m:titlepage-templates">
   <xsl:param name="node" tunnel="yes"/>
   <xsl:param name="info" tunnel="yes"/>
+  <xsl:param name="side" tunnel="yes"/>
 
   <xsl:variable name="render" as="xs:boolean*">
     <xsl:choose>

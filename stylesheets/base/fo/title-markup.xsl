@@ -18,40 +18,61 @@
 </xsl:template>
 
 <!-- FIXME: make real parameters -->
-<xsl:attribute-set name="division.title.properties"/>
-<xsl:attribute-set name="partintro.title.properties"/>
-<xsl:attribute-set name="div.title.properties"/>
-<xsl:attribute-set name="qandaset.title.properties"/>
-<xsl:attribute-set name="list.title.properties"/>
-<xsl:attribute-set name="taskpart.title.properties"/>
-<xsl:attribute-set name="procedure.title.properties"/>
-<xsl:attribute-set name="step.title.properties"/>
-<xsl:attribute-set name="admonition.title.properties"/>
-<xsl:attribute-set name="section.title.properties"/>
+<xsl:attribute-set name="title.properties">
+  <xsl:attribute name="font-family" select="$title.font.family"/>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="division.title.properties" use-attribute-sets="title.properties">
+  <xsl:attribute name="font-size" select="concat($body.font.master * 2.48, 'pt')"/>
+</xsl:attribute-set>
+<xsl:attribute-set name="partintro.title.properties" use-attribute-sets="title.properties">
+  <xsl:attribute name="font-size" select="concat($body.font.master * 2.48, 'pt')"/>
+</xsl:attribute-set>
+<xsl:attribute-set name="div.title.properties" use-attribute-sets="title.properties"/>
+<xsl:attribute-set name="qandaset.title.properties" use-attribute-sets="title.properties">
+  <xsl:attribute name="font-size" select="concat($body.font.master * 2.07, 'pt')"/>
+</xsl:attribute-set>
+<xsl:attribute-set name="list.title.properties" use-attribute-sets="title.properties"/>
+<xsl:attribute-set name="taskpart.title.properties" use-attribute-sets="title.properties"/>
+<xsl:attribute-set name="procedure.title.properties" use-attribute-sets="title.properties"/>
+<xsl:attribute-set name="step.title.properties" use-attribute-sets="title.properties"/>
+<xsl:attribute-set name="admonition.title.properties" use-attribute-sets="title.properties"/>
+<xsl:attribute-set name="section.title.properties" use-attribute-sets="title.properties"/>
 <xsl:attribute-set name="section.level1.title.properties" use-attribute-sets="section.title.properties"/>
 <xsl:attribute-set name="section.level2.title.properties" use-attribute-sets="section.title.properties"/>
 <xsl:attribute-set name="section.level3.title.properties" use-attribute-sets="section.title.properties"/>
 <xsl:attribute-set name="section.level4.title.properties" use-attribute-sets="section.title.properties"/>
 <xsl:attribute-set name="section.level5.title.properties" use-attribute-sets="section.title.properties"/>
 <xsl:attribute-set name="section.level6.title.properties" use-attribute-sets="section.title.properties"/>
-<xsl:attribute-set name="refsection.title.properties"/>
+<xsl:attribute-set name="refsection.title.properties" use-attribute-sets="title.properties"/>
 <xsl:attribute-set name="refsection.level1.title.properties" use-attribute-sets="refsection.title.properties"/>
 <xsl:attribute-set name="refsection.level2.title.properties" use-attribute-sets="refsection.title.properties"/>
 <xsl:attribute-set name="refsection.level3.title.properties" use-attribute-sets="refsection.title.properties"/>
-<xsl:attribute-set name="annotation.title.properties"/>
-<xsl:attribute-set name="sidebar.title.properties"/>
+<xsl:attribute-set name="annotation.title.properties" use-attribute-sets="title.properties"/>
+<xsl:attribute-set name="sidebar.title.properties" use-attribute-sets="title.properties"/>
 
-<xsl:attribute-set name="component.subtitle.properties"/>
-<xsl:attribute-set name="division.subtitle.properties"/>
-<xsl:attribute-set name="div.subtitle.properties"/>
-<xsl:attribute-set name="section.subtitle.properties"/>
+<xsl:attribute-set name="subtitle.properties">
+  <xsl:attribute name="font-family" select="$title.font.family"/>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="component.subtitle.properties" use-attribute-sets="subtitle.properties">
+  <xsl:attribute name="font-size" select="concat($body.font.master * 1.78, 'pt')"/>
+</xsl:attribute-set>
+<xsl:attribute-set name="division.subtitle.properties" use-attribute-sets="subtitle.properties">
+  <xsl:attribute name="font-size" select="concat($body.font.master * 1.78, 'pt')"/>
+  <xsl:attribute name="space-before">1em</xsl:attribute>
+</xsl:attribute-set>
+<xsl:attribute-set name="div.subtitle.properties" use-attribute-sets="subtitle.properties"/>
+<xsl:attribute-set name="section.subtitle.properties" use-attribute-sets="subtitle.properties"/>
 <xsl:attribute-set name="section.level1.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
 <xsl:attribute-set name="section.level2.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
 <xsl:attribute-set name="section.level3.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
 <xsl:attribute-set name="section.level4.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
 <xsl:attribute-set name="section.level5.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
 <xsl:attribute-set name="section.level6.subtitle.properties" use-attribute-sets="section.subtitle.properties"/>
-<xsl:attribute-set name="refsection.subtitle.properties"/>
+<xsl:attribute-set name="refsection.subtitle.properties" use-attribute-sets="subtitle.properties"/>
 <xsl:attribute-set name="refsection.level1.subtitle.properties" use-attribute-sets="refsection.subtitle.properties"/>
 <xsl:attribute-set name="refsection.level2.subtitle.properties" use-attribute-sets="refsection.subtitle.properties"/>
 <xsl:attribute-set name="refsection.level3.subtitle.properties" use-attribute-sets="refsection.subtitle.properties"/>
@@ -218,7 +239,29 @@ for the title page.</para>
     </xsl:choose>
   </xsl:variable>
 
+  <xsl:variable name="level" select="f:section-level(.)"/>
+
+  <xsl:variable name="marker">
+    <xsl:choose>
+      <xsl:when test="$level &lt;= $marker.section.level">1</xsl:when>
+      <xsl:otherwise>0</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="marker.title">
+    <!-- FIXME: titleabbrev-markup mode has to implemented first 
+    <xsl:apply-templates select="." mode="m:titleabbrev-markup">
+      <xsl:with-param name="allow-anchors" select="false()"/>
+    </xsl:apply-templates>
+    -->
+  </xsl:variable>
+
   <xsl:variable name="content">
+    <xsl:if test="$marker != 0">
+      <fo:marker marker-class-name="section.head.marker">
+	<xsl:copy-of select="$marker.title"/>
+      </fo:marker>
+    </xsl:if> 
     <xsl:apply-templates select="." mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>

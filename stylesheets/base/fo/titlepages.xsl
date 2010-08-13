@@ -35,49 +35,54 @@
          </db:set>
 
          <db:article t:side="recto">
-            <fo:block>
+            <fo:block text-align="center" font-family="{$title.font.family}">
                <db:title/>
                <db:subtitle/>
-               <db:corpauthor/>
-               <db:authorgroup/>
-               <db:author/>
-               <db:othercredit/>
-               <db:releaseinfo/>
-               <db:copyright/>
-               <db:legalnotice/>
-               <db:pubdate/>
-               <db:revision/>
-               <db:revhistory/>
-               <db:abstract/>
+               <db:corpauthor fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:authorgroup fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:author fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:editor fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:othercredit fo:space-before="0.5em"/>
+               <db:releaseinfo fo:space-before="0.5em"/>
+               <db:copyright fo:space-before="0.5em"/>
+               <db:legalnotice fo:space-before="0.5em" fo:text-align="start" fo:margin-left="0.5in"
+                               fo:margin-right="0.5in"
+                               fo:font-family="{$body.font.family}"/>
+               <db:pubdate fo:space-before="0.5em"/>
+               <db:revision fo:space-before="0.5em"/>
+               <db:revhistory fo:space-before="0.5em"/>
+               <db:abstract fo:space-before="0.5em" fo:text-align="start" fo:margin-left="0.5in"
+                            fo:margin-right="0.5in"
+                            fo:font-family="{$body.font.family}"/>
             </fo:block>
          </db:article>
 
          <db:book t:side="recto">
-            <fo:block>
+            <fo:block text-align="center" font-family="{$title.font.family}">
                <db:title/>
                <db:subtitle/>
-               <db:corpauthor/>
-               <db:authorgroup/>
-               <db:author/>
-               <db:editor/>
+               <db:corpauthor fo:font-size="{$body.font.master * 1.728}pt" fo:space-before="2in"/>
+               <db:authorgroup fo:font-size="{$body.font.master * 1.728}pt" fo:space-before="2in"/>
+               <db:author fo:font-size="{$body.font.master * 1.728}pt" fo:space-before="2in"/>
+               <db:editor fo:font-size="{$body.font.master * 1.728}pt" fo:space-before="2in"/>
                <db:othercredit/>
-               <db:pubdate/>
+               <db:pubdate fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="2in"/>
             </fo:block>
          </db:book>
 
          <db:book t:side="verso">
-            <fo:block>
-               <db:title/>
-               <db:subtitle/>
+            <fo:block font-family="{$title.font.family}">
+               <db:title fo:font-weight="bold"/>
+               <db:subtitle fo:font-weight="bold"/>
                <db:corpauthor/>
                <db:authorgroup/>
                <db:author/>
                <db:editor/>
                <db:othercredit/>
-               <db:releaseinfo/>
+               <db:releaseinfo fo:space-before="0.5em"/>
                <db:copyright/>
-               <db:legalnotice/>
-               <db:pubdate/>
+               <db:legalnotice fo:font-size="{$body.font.master * 0.8}pt"/>
+               <db:pubdate fo:space-before="1em"/>
                <db:revision/>
                <db:revhistory/>
                <db:abstract/>
@@ -157,9 +162,10 @@
             <fo:block>
                <db:title/>
                <db:subtitle/>
-               <db:corpauthor/>
-               <db:authorgroup/>
-               <db:author/>
+               <db:corpauthor fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:authorgroup fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:author fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:editor fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
                <db:othercredit/>
                <db:releaseinfo/>
                <db:copyright/>
@@ -175,9 +181,10 @@
             <fo:block>
                <db:title/>
                <db:subtitle/>
-               <db:corpauthor/>
-               <db:authorgroup/>
-               <db:author/>
+               <db:corpauthor fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:authorgroup fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:author fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:editor fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
                <db:othercredit/>
                <db:releaseinfo/>
                <db:copyright/>
@@ -193,9 +200,10 @@
             <fo:block>
                <db:title/>
                <db:subtitle/>
-               <db:corpauthor/>
-               <db:authorgroup/>
-               <db:author/>
+               <db:corpauthor fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:authorgroup fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:author fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
+               <db:editor fo:font-size="{$body.font.master * 1.44}pt" fo:space-before="0.5em"/>
                <db:othercredit/>
                <db:releaseinfo/>
                <db:copyright/>
