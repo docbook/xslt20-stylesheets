@@ -258,11 +258,9 @@ for the title page.</para>
   </xsl:variable>
 
   <xsl:variable name="marker.title">
-    <!-- FIXME: titleabbrev-markup mode has to implemented first 
     <xsl:apply-templates select="." mode="m:titleabbrev-markup">
       <xsl:with-param name="allow-anchors" select="false()"/>
     </xsl:apply-templates>
-    -->
   </xsl:variable>
 
   <xsl:variable name="content">
@@ -526,8 +524,10 @@ for headers/footers.</para>
 </doc:mode>
 
 <xsl:template match="*" mode="m:titleabbrev-markup">
-  <!-- FIXME: implement this -->
-  <xsl:apply-templates select="." mode="m:title-markup"/>
+  <xsl:param name="allow-anchors" select="false()"/>
+  <xsl:apply-templates select="." mode="m:titleabbrev-content">
+    <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+  </xsl:apply-templates>
 </xsl:template>
 
 </xsl:stylesheet>
