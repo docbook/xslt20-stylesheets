@@ -19,7 +19,6 @@
 <xsl:attribute-set name="informalequation.properties"/>
 <xsl:attribute-set name="equation.properties"/>
 <xsl:attribute-set name="procedure.properties"/>
-<xsl:attribute-set name="formal.title..properties"/>
 
 <xsl:param name="default.float.class" select="'before'"/>
 

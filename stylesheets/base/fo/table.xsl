@@ -14,6 +14,13 @@
                 version="2.0">
 
 <xsl:param name="table.width.nominal" select="'6.5in'"/>
+<xsl:param name="table.frame.default">all</xsl:param>
+<xsl:param name="table.frame.border.style">solid</xsl:param>
+<xsl:param name="table.frame.border.thickness">2pt</xsl:param>
+<xsl:param name="table.frame.border.color">black</xsl:param>
+<xsl:param name="table.cell.border.style">solid</xsl:param>
+<xsl:param name="table.cell.border.thickness">1pt</xsl:param>
+<xsl:param name="table.cell.border.color">black</xsl:param>
 
 <xsl:include href="../common/table.xsl"/>
 
@@ -187,7 +194,11 @@
       <xsl:attribute name="width" select="'100%'"/>
     </xsl:if>
 
-    <!-- FIXME: handle frame -->
+    <xsl:call-template name="t:table-frame">
+      <xsl:with-param name="frame" select="if ($origtable/../@frame)
+					   then $origtable/../@frame
+					   else $table.frame.default"/>
+    </xsl:call-template>
     <!-- FIXME: handle table width -->
 
     <xsl:apply-templates select="db:thead" mode="m:cals">
@@ -212,6 +223,181 @@
       <xsl:with-param name="origtable" select="$origtable"/>
     </xsl:call-template>
   </fo:table-cell>
+</xsl:template>
+
+<xsl:template name="t:table-frame">
+  <xsl:param name="frame"/>
+
+  <xsl:choose>
+    <xsl:when test="$frame='all'">
+      <xsl:attribute name="border-start-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-top-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-start-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-top-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-start-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-top-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='bottom'">
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">none</xsl:attribute>
+      <xsl:attribute name="border-bottom-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='sides'">
+      <xsl:attribute name="border-start-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-top-style">none</xsl:attribute>
+      <xsl:attribute name="border-bottom-style">none</xsl:attribute>
+      <xsl:attribute name="border-start-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-start-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='lhs'">
+      <xsl:attribute name="border-start-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">none</xsl:attribute>
+      <xsl:attribute name="border-bottom-style">none</xsl:attribute>
+      <xsl:attribute name="border-start-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-start-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='rhs'">
+      <xsl:attribute name="border-end-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">none</xsl:attribute>
+      <xsl:attribute name="border-bottom-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-end-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='top'">
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-top-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='topbot'">
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-style">
+        <xsl:value-of select="$table.frame.border.style"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-top-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-width">
+        <xsl:value-of select="$table.frame.border.thickness"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-top-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+      <xsl:attribute name="border-bottom-color">
+        <xsl:value-of select="$table.frame.border.color"/>
+      </xsl:attribute>
+    </xsl:when>
+    <xsl:when test="$frame='none'">
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">none</xsl:attribute>
+      <xsl:attribute name="border-bottom-style">none</xsl:attribute>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:message>
+        <xsl:text>Impossible frame on table: </xsl:text>
+        <xsl:value-of select="$frame"/>
+      </xsl:message>
+      <xsl:attribute name="border-start-style">none</xsl:attribute>
+      <xsl:attribute name="border-end-style">none</xsl:attribute>
+      <xsl:attribute name="border-top-style">none</xsl:attribute>
+      <xsl:attribute name="border-bottom-style">none</xsl:attribute>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="t:border">
+  <xsl:param name="side" select="'start'"/>
+
+  <xsl:attribute name="border-{$side}-width">
+    <xsl:value-of select="$table.cell.border.thickness"/>
+  </xsl:attribute>
+  <xsl:attribute name="border-{$side}-style">
+    <xsl:value-of select="$table.cell.border.style"/>
+  </xsl:attribute>
+  <xsl:attribute name="border-{$side}-color">
+    <xsl:value-of select="$table.cell.border.color"/>
+  </xsl:attribute>
 </xsl:template>
 
 <!-- ============================================================ -->
@@ -258,6 +444,15 @@
 <xsl:template match="db:row" mode="m:cals">
   <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
   <fo:table-row>
+
+    <xsl:if test="@rowsep = 1 and following-sibling::db:row">
+      <xsl:attribute name="style">
+	<xsl:call-template name="t:border">
+	  <xsl:with-param name="side" select="'bottom'"/>
+	</xsl:call-template>
+      </xsl:attribute>
+    </xsl:if>
+
     <xsl:apply-templates mode="m:cals">
       <xsl:with-param name="origtable" select="$origtable"/>
     </xsl:apply-templates>
@@ -279,6 +474,18 @@
       <xsl:attribute name="number-columns-spanned" select="@ghost:width"/>
     </xsl:if>
 
+    <xsl:if test="@colsep &gt; 0 and following-sibling::*">
+      <xsl:call-template name="t:border">
+	<xsl:with-param name="side" select="'right'"/>
+      </xsl:call-template>
+    </xsl:if>
+
+    <xsl:if test="@rowsep &gt; 0 and parent::*/following-sibling::db:row">
+      <xsl:call-template name="t:border">
+	<xsl:with-param name="side" select="'bottom'"/>
+      </xsl:call-template>
+    </xsl:if>
+    
     <fo:block>
       <xsl:choose>
 	<xsl:when test="$empty.cell">
@@ -296,7 +503,18 @@
 <xsl:template match="ghost:empty" mode="m:cals">
   <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
   <!-- FIXME: what about attributes on empty cells? -->
-  <table-cell/>
+  <table-cell>
+    <xsl:if test="@colsep &gt; 0 and following-sibling::*">
+      <xsl:call-template name="t:border">
+	<xsl:with-param name="side" select="'right'"/>
+      </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="@rowsep &gt; 0 and parent::*/following-sibling::db:row">
+      <xsl:call-template name="t:border">
+	<xsl:with-param name="side" select="'bottom'"/>
+      </xsl:call-template>
+    </xsl:if>
+  </table-cell>
 </xsl:template>
 
 <xsl:template match="ghost:overlapped" mode="m:cals">
