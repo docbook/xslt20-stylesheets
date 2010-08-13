@@ -188,14 +188,14 @@
   <xsl:if test="$toc.params/@equation != 0">
     <xsl:call-template name="list-of-titles">
       <xsl:with-param name="titles" select="'equation'"/>
-      <xsl:with-param name="nodes" select=".//db:equation[title]"/>
+      <xsl:with-param name="nodes" select=".//db:equation[db:title]"/>
     </xsl:call-template>
   </xsl:if>
 
   <xsl:if test="$toc.params/@procedure != 0">
     <xsl:call-template name="list-of-titles">
       <xsl:with-param name="titles" select="'procedure'"/>
-      <xsl:with-param name="nodes" select=".//db:procedure[title]"/>
+      <xsl:with-param name="nodes" select=".//db:procedure[db:title]"/>
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
