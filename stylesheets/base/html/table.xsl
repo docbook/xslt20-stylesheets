@@ -369,7 +369,7 @@
       <xsl:attribute name="class" select="$class"/>
     </xsl:if>
 
-    <xsl:if test="@rowsep = 1 and following-sibling::db:row">
+    <xsl:if test="@rowsep = 1 and (following-sibling::db:row or ../(following-sibling::db:tbody|following-sibling::db:tfoot))">
       <xsl:attribute name="style">
 	<xsl:call-template name="border">
 	  <xsl:with-param name="side" select="'bottom'"/>
@@ -468,7 +468,7 @@ to alternate rows of the table:</para>
           <xsl:with-param name="side" select="'right'"/>
         </xsl:call-template>
       </xsl:if>
-      <xsl:if test="@rowsep &gt; 0 and parent::*/following-sibling::db:row">
+      <xsl:if test="@rowsep &gt; 0 and (parent::*/following-sibling::db:row or ../../(following-sibling::db:tbody|following-sibling::db:tfoot))">
         <xsl:call-template name="border">
           <xsl:with-param name="side" select="'bottom'"/>
         </xsl:call-template>

@@ -445,7 +445,7 @@
   <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
   <fo:table-row>
 
-    <xsl:if test="@rowsep = 1 and following-sibling::db:row">
+    <xsl:if test="@rowsep = 1 and (following-sibling::db:row or ../(following-sibling::db:tbody|following-sibling::db:tfoot))">
       <xsl:attribute name="style">
 	<xsl:call-template name="t:border">
 	  <xsl:with-param name="side" select="'bottom'"/>
@@ -480,7 +480,7 @@
       </xsl:call-template>
     </xsl:if>
 
-    <xsl:if test="@rowsep &gt; 0 and parent::*/following-sibling::db:row">
+    <xsl:if test="@rowsep &gt; 0 and (parent::*/following-sibling::db:row or ../../(following-sibling::db:tbody|following-sibling::db:tfoot))">
       <xsl:call-template name="t:border">
 	<xsl:with-param name="side" select="'bottom'"/>
       </xsl:call-template>
