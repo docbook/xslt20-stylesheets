@@ -193,6 +193,12 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="compact.list.item.spacing"/>
 
 <refentry xml:id="component.title.properties"/>
+<refentry xml:id="formal.title.properties"/>
+
+<refentry xml:id="table.properties"/>
+<refentry xml:id="informaltable.properties"/>
+<refentry xml:id="figure.properties"/>
+<refentry xml:id="example.properties"/>
 
 <refentry xml:id="use.role.as.xrefstyle"/>
 <refentry xml:id="insert.link.page.number"/>

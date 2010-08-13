@@ -17,6 +17,7 @@
 
 <xsl:include href="../common/table.xsl"/>
 
+<!-- FIXME:
 <xsl:template match="db:table">
   <fo:block>
     <xsl:call-template name="t:make.table.content"/>
@@ -28,6 +29,7 @@
     <xsl:call-template name="t:make.table.content"/>
   </fo:block>
 </xsl:template>
+-->
 
 <xsl:template name="t:make.table.content">
   <xsl:choose>
@@ -59,25 +61,9 @@
 <xsl:template name="t:table.block">
   <xsl:param name="table.layout" select="()"/>
 
-  <xsl:variable name="id">
-    <xsl:call-template name="t:id"/>
-  </xsl:variable>
+  <xsl:variable name="id" select="f:node-id(.)"/>
 
-  <xsl:variable name="param.placement"
-                select="substring-after(normalize-space(
-                   $formal.title.placement), concat(local-name(.), ' '))"/>
-
-  <xsl:variable name="placement">
-    <xsl:choose>
-      <xsl:when test="contains($param.placement, ' ')">
-        <xsl:value-of select="substring-before($param.placement, ' ')"/>
-      </xsl:when>
-      <xsl:when test="$param.placement = ''">before</xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$param.placement"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
+  <xsl:variable name="placement" select="$formal.title.placement[self::db:table]/@placement"/>
 
   <xsl:variable name="keep.together"><!--
     <xsl:call-template name="pi.dbfo_keep-together"/>
@@ -123,6 +109,36 @@
       <xsl:apply-templates select=".//db:footnote" mode="m:table.footnote.mode"/>
     </fo:block>
   </xsl:if>
+</xsl:template>
+
+<!-- ============================================================ -->
+
+<xsl:template name="t:table.container">
+  <xsl:param name="table.block"/>
+  <xsl:choose>
+    <xsl:when test="@orient='land'" >
+      <fo:block-container reference-orientation="90"
+            padding="6pt"
+            xsl:use-attribute-sets="list.block.spacing">
+	<!-- FIXME: 
+        <xsl:attribute name="width">
+          <xsl:call-template name="table.width"/>
+	</xsl:attribute> 
+	-->
+        <fo:block start-indent="0pt" end-indent="0pt">
+          <xsl:copy-of select="$table.block"/>
+        </fo:block>
+      </fo:block-container>
+    </xsl:when>
+    <xsl:when test="@pgwide = 1">
+      <fo:block xsl:use-attribute-sets="pgwide.properties">
+        <xsl:copy-of select="$table.block"/>
+      </fo:block>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:copy-of select="$table.block"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- ============================================================ -->

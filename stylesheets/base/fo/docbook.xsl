@@ -47,10 +47,8 @@
   <xsl:include href="callouts.xsl"/>
 -->
 
-<!-- PARTIALLY DONE
   <xsl:include href="table.xsl"/>
   <xsl:include href="formal.xsl"/>
--->
 
   <xsl:include href="blocks.xsl"/>
   <xsl:include href="graphics.xsl"/>
