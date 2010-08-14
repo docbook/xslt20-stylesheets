@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:db="http://docbook.org/ns/docbook"
+		xmlns:html="http://www.w3.org/1999/xhtml"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
 		xmlns:f="http://docbook.org/xslt/ns/extension"
 		xmlns:fp="http://docbook.org/xslt/ns/extension/private"
@@ -10,7 +11,7 @@
 		xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fp ghost h m u xs"
+		exclude-result-prefixes="db doc f fp ghost h m u xs html"
                 version="2.0">
 
 <doc:mode name="m:cals-phase-1" xmlns="http://docbook.org/ns/docbook">
@@ -659,7 +660,7 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
 </u:unittests>
 </doc:template>
 
-<xsl:template name="adjust-column-widths" as="element()">
+<xsl:template name="adjust-column-widths" as="element(html:colgroup)">
   <xsl:param name="table-width" as="xs:string"/>
   <xsl:param name="colgroup" as="element()"/>
   <xsl:param name="abspixels" select="0"/>
@@ -1207,5 +1208,163 @@ of a span.</para>
   <xsl:value-of select="f:colspec-colnum($spanspec/ancestor::db:tgroup[1]
 			      /db:colspec[@colname=$spanspec/@nameend])"/>
 </xsl:function>
+
+<!-- ============================================================ -->
+
+<doc:template name="generate-colgroup" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Generates an HTML <tag>colgroup</tag>.</refpurpose>
+
+<refdescription>
+<para>Generates an HTML <tag>colgroup</tag> for the CALS table.
+</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry role="required"><term>cols</term>
+<listitem>
+<para>The number of columns in the table.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>A sequence of one or more <tag>col</tag> elements.</para>
+</refreturn>
+</doc:template>
+
+<xsl:template name="generate-colgroup">
+  <xsl:param name="cols" required="yes"/>
+  <xsl:param name="count" select="1"/>
+
+  <xsl:choose>
+    <xsl:when test="$count &gt; $cols"></xsl:when>
+    <xsl:otherwise>
+      <xsl:call-template name="generate-col">
+        <xsl:with-param name="countcol" select="$count"/>
+      </xsl:call-template>
+      <xsl:call-template name="generate-colgroup">
+        <xsl:with-param name="cols" select="$cols"/>
+        <xsl:with-param name="count" select="$count+1"/>
+      </xsl:call-template>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- ============================================================ -->
+
+<doc:template name="generate-col" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Generates an HTML <tag>col</tag>.</refpurpose>
+
+<refdescription>
+<para>Generates an HTML <tag>col</tag> for a
+<tag>colgroup</tag>.
+See <function role="named-template">generate-colgroup</function>.
+</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry role="required"><term>countcol</term>
+<listitem>
+<para>The number of the column.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>A <tag>col</tag> element.</para>
+</refreturn>
+</doc:template>
+
+<xsl:template name="generate-col">
+  <xsl:param name="countcol" required="yes"/>
+  <xsl:param name="colspecs" select="./db:colspec"/>
+  <xsl:param name="count">1</xsl:param>
+  <xsl:param name="colnum">1</xsl:param>
+
+  <xsl:choose>
+    <xsl:when test="$count &gt; count($colspecs)">
+      <col/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="colspec" select="$colspecs[$count=position()]"/>
+      <xsl:variable name="colspec.colnum">
+	<xsl:choose>
+	  <xsl:when test="$colspec/@colnum">
+            <xsl:value-of select="$colspec/@colnum"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$colnum"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:choose>
+	<xsl:when test="$colspec.colnum=$countcol">
+	  <col>
+	    <xsl:if test="$colspec/@colwidth">
+	      <xsl:attribute name="width">
+		<xsl:choose>
+		  <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
+		    <xsl:value-of select="'1*'"/>
+		  </xsl:when>
+		  <xsl:otherwise>
+		    <xsl:value-of select="$colspec/@colwidth"/>
+		  </xsl:otherwise>
+		</xsl:choose>
+	      </xsl:attribute>
+	    </xsl:if>
+
+	    <xsl:choose>
+	      <xsl:when test="$colspec/@align">
+		<xsl:attribute name="align">
+		  <xsl:value-of select="$colspec/@align"/>
+		</xsl:attribute>
+	      </xsl:when>
+	      <!-- Suggested by Pavel ZAMPACH <zampach@nemcb.cz> -->
+	      <xsl:when test="$colspecs/parent::db:tgroup/@align">
+		<xsl:attribute name="align">
+                  <xsl:value-of select="$colspecs/parent::db:tgroup/@align"/>
+		</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+
+	    <xsl:if test="$colspec/@char">
+              <xsl:attribute name="char">
+                <xsl:value-of select="$colspec/@char"/>
+              </xsl:attribute>
+            </xsl:if>
+
+            <xsl:if test="$colspec/@charoff">
+              <xsl:attribute name="charoff">
+                <xsl:value-of select="$colspec/@charoff"/>
+              </xsl:attribute>
+            </xsl:if>
+	  </col>
+	</xsl:when>
+	<xsl:otherwise>
+          <xsl:call-template name="generate-col">
+            <xsl:with-param name="countcol" select="$countcol"/>
+            <xsl:with-param name="colspecs" select="$colspecs"/>
+            <xsl:with-param name="count" select="$count+1"/>
+            <xsl:with-param name="colnum">
+              <xsl:choose>
+                <xsl:when test="$colspec/@colnum">
+                  <xsl:value-of select="$colspec/@colnum + 1"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="$colnum + 1"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:with-param>
+           </xsl:call-template>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
 
 </xsl:stylesheet>

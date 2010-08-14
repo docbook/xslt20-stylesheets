@@ -180,6 +180,9 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="variablelist.max.termlength"/>
 <refentry xml:id="variablelist.term.separator"/>
 <refentry xml:id="variablelist.term.break.after"/>
+
+<!-- FIXME: these parameters should be unified -->
+<refentry xml:id="table.width.default"/>
 <refentry xml:id="default.table.width"/>
 
 <refentry xml:id="formal.object.properties"/>
