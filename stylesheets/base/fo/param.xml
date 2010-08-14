@@ -215,4 +215,9 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="footnote.mark.properties"/>
 <refentry xml:id="footnote.font.size"/>
 
+<refentry xml:id="textdata.default.encoding"/>
+
+<refentry xml:id="ignore.image.scaling"/>
+<refentry xml:id="default.image.width"/>
+
 </article>
