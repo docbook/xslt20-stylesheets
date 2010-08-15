@@ -269,10 +269,10 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template name="t:semiformal.object">
+<xsl:template name="t:semiformal-object">
   <xsl:param name="placement" select="'before'"/>
   <xsl:choose>
-    <xsl:when test="db:title">
+    <xsl:when test="db:title|db:info/db:title">
       <xsl:call-template name="t:formal.object">
         <xsl:with-param name="placement" select="$placement"/>
       </xsl:call-template>
@@ -504,13 +504,13 @@
     <xsl:choose>
       <xsl:when test="$pgwide = '1'">
         <fo:block xsl:use-attribute-sets="pgwide.properties">
-          <xsl:call-template name="t:semiformal.object">
+          <xsl:call-template name="t:semiformal-object">
             <xsl:with-param name="placement" select="$placement"/>
           </xsl:call-template>
         </fo:block>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:call-template name="t:semiformal.object">
+        <xsl:call-template name="t:semiformal-object">
           <xsl:with-param name="placement" select="$placement"/>
         </xsl:call-template>
       </xsl:otherwise>

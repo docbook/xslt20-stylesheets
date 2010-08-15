@@ -22,25 +22,16 @@
 
      ******************************************************************** -->
 
-<xsl:template name="t:fo-external-image">
-  <xsl:param name="filename"/>
-
-  <xsl:choose>
-    <xsl:when test="$fo.processor = 'fop' or $fo.processor = 'passivetex'">
-      <xsl:value-of select="$filename"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:value-of select="concat('url(', $filename, ')')"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-<xsl:template match="db:screenshot">
-  <!-- FIXME: -->
-</xsl:template>
-
 <!-- FIMXE: move to params -->
 <xsl:attribute-set name="mediaobject.properties"/>
+<xsl:attribute-set name="imageobjectco.properties"/>
+<xsl:attribute-set name="caption.properties"/>
+
+<!-- ==================================================================== -->
+
+<xsl:template match="db:screenshot">
+  <xsl:call-template name="t:semiformal-object"/>
+</xsl:template>
 
 <xsl:template match="db:mediaobject">
   <xsl:variable name="olist" select="*[not(self::db:info)]"/>
@@ -75,6 +66,18 @@
   </fo:inline>
 </xsl:template>
 
+<!-- ==================================================================== -->
+
+<xsl:template match="db:imageobjectco">
+  <!-- FIXME: -->
+  <xsl:message>Hotspots on imageobjectco are not supported in XSL-FO</xsl:message>
+  <fo:block xsl:use-attribute-sets="imageobjectco.properties">
+    <xsl:call-template name="t:id"/>
+    <xsl:apply-templates select="db:imageobject"/>
+    <xsl:apply-templates select="db:calloutlist"/>
+  </fo:block>
+</xsl:template>
+
 <xsl:template match="db:imageobject">
   <xsl:apply-templates select="db:imagedata"/>
 </xsl:template>
@@ -102,6 +105,58 @@
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
+
+<!-- ==================================================================== -->
+
+<xsl:template match="db:videoobject|db:audioobject">
+  <xsl:message>Warning: audio and video objects are ignored in XSL-FO output</xsl:message>
+</xsl:template>
+
+<!-- ==================================================================== -->
+
+<xsl:template match="db:textobject">
+  <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="db:textdata">
+  <xsl:variable name="filename">
+    <xsl:choose>
+      <xsl:when test="@entityref">
+        <xsl:value-of select="unparsed-entity-uri(@entityref)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="@fileref"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="encoding">
+    <xsl:choose>
+      <xsl:when test="@encoding">
+        <xsl:value-of select="@encoding"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$textdata.default.encoding"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:value-of select="if ($encoding = '')
+                        then unparsed-text($filename)
+                        else unparsed-text($filename, $encoding)"/>
+</xsl:template>
+
+<!-- ==================================================================== -->
+
+<xsl:template match="db:caption">
+  <fo:block xsl:use-attribute-sets="caption.properties">
+    <xsl:call-template name="t:id"/>
+    <xsl:apply-templates/>
+  </fo:block>
+</xsl:template>
+
+
+<!-- ==================================================================== -->
 
 <doc:template name="t:process-image" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Process an image</refpurpose>
@@ -361,6 +416,21 @@ vertical alignment.</para>
       </xsl:attribute>
     </xsl:if>
   </fo:external-graphic>
+</xsl:template>
+
+<!-- ==================================================================== -->
+
+<xsl:template name="t:fo-external-image">
+  <xsl:param name="filename"/>
+
+  <xsl:choose>
+    <xsl:when test="$fo.processor = 'fop' or $fo.processor = 'passivetex'">
+      <xsl:value-of select="$filename"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="concat('url(', $filename, ')')"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>
