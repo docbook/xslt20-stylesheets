@@ -123,7 +123,7 @@
 <xsl:template name="t:table.footnote.block">
   <xsl:if test=".//db:footnote">
     <fo:block keep-with-previous.within-column="always">
-      <xsl:apply-templates select=".//db:footnote" mode="m:table.footnote.mode"/>
+      <xsl:apply-templates select=".//db:footnote" mode="m:table-footnote-mode"/>
     </fo:block>
   </xsl:if>
 </xsl:template>

@@ -47,6 +47,10 @@
       </xsl:call-template>
       
       <xsl:apply-templates/>
+
+      <xsl:if test="$footnotes.as.endnotes">
+	<xsl:call-template name="t:make-endnotes"/>
+      </xsl:if>
     </fo:flow>
   </fo:page-sequence>
 </xsl:template>
