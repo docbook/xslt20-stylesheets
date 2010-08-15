@@ -767,7 +767,79 @@
 
 <!-- ==================================================================== -->
 
-<!-- FIXME: support procedure -->
+<!-- FIXME: move to params -->
+<xsl:param name="procedure.label.width">2em</xsl:param>
+
+<xsl:template match="db:procedure">
+  <xsl:variable name="numeration" select="f:procedure-step-numeration(.)"/>
+
+  <xsl:call-template name="t:semiformal-object">
+    <xsl:with-param name="placement"
+	    select="$formal.title.placement[self::db:procedure]/@placement"/>
+    <xsl:with-param name="object" as="element()">
+      <xsl:variable name="step1" select="db:step[1]"/>
+
+      <xsl:apply-templates select="node()[not(self::db:info|self::db:title) and (. &lt;&lt; $step1)]"/>
+      
+      <fo:list-block xsl:use-attribute-sets="list.block.spacing"
+		     provisional-distance-between-starts="{$procedure.label.width}">
+	<xsl:apply-templates select="$step1 | node()[. >> $step1]"/>
+      </fo:list-block>	
+    </xsl:with-param>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="db:step">
+  <xsl:variable name="keep.together">
+    <!-- FIXME:
+    <xsl:call-template name="pi.dbfo_keep-together"/>
+    -->
+  </xsl:variable>
+
+  <fo:list-item xsl:use-attribute-sets="list.item.spacing">
+    <xsl:call-template name="t:id"/>
+    <xsl:if test="$keep.together != ''">
+      <xsl:attribute name="keep-together.within-column"><xsl:value-of
+                      select="$keep.together"/></xsl:attribute>
+    </xsl:if>
+    <fo:list-item-label end-indent="label-end()">
+      <fo:block>
+        <!-- dwc: fix for one step procedures. Use a bullet if there's no step 2 -->
+        <xsl:choose>
+          <xsl:when test="count(../db:step) = 1">
+            <xsl:text>&#x2022;</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="." mode="m:number">
+              <xsl:with-param name="recursive" select="0"/>
+            </xsl:apply-templates>.
+          </xsl:otherwise>
+        </xsl:choose>
+      </fo:block>
+    </fo:list-item-label>
+    <fo:list-item-body start-indent="body-start()">
+      <fo:block>
+	<xsl:call-template name="t:titlepage"/>
+        <xsl:apply-templates select="node()[not(self::db:info|self::db:title)]"/>
+      </fo:block>
+    </fo:list-item-body>
+  </fo:list-item>
+</xsl:template>
+
+<xsl:template match="db:substeps">
+  <fo:list-block xsl:use-attribute-sets="list.block.spacing"
+                 provisional-distance-between-starts="{$procedure.label.width}">
+    <xsl:apply-templates/>
+  </fo:list-block>
+</xsl:template>
+
+<xsl:template match="db:stepalternatives">
+  <fo:list-block xsl:use-attribute-sets="list.block.spacing"
+                 provisional-distance-between-starts="{$procedure.label.width}">
+    <xsl:apply-templates select="node()[not(self::db:info)]"/>
+  </fo:list-block>
+</xsl:template>
+
 <!-- FIXME: support segmentedlist -->
 <!-- FIXME: support calloutlist -->
 
