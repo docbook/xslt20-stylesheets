@@ -461,11 +461,7 @@
         <fo:region-body margin-bottom="{$body.margin.bottom}"
                         margin-top="{$body.margin.top}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -493,11 +489,7 @@
                         column-gap="{$column.gap.titlepage}"
                         column-count="{$column.count.titlepage}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -524,11 +516,7 @@
                         column-gap="{$column.gap.titlepage}"
                         column-count="{$column.count.titlepage}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -555,11 +543,7 @@
                         column-gap="{$column.gap.titlepage}"
                         column-count="{$column.count.titlepage}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -587,11 +571,7 @@
                         column-gap="{$column.gap.lot}"
                         column-count="{$column.count.lot}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -618,11 +598,7 @@
                         column-gap="{$column.gap.lot}"
                         column-count="{$column.count.lot}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -649,11 +625,7 @@
                         column-gap="{$column.gap.lot}"
                         column-count="{$column.count.lot}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -681,11 +653,7 @@
                         column-gap="{$column.gap.front}"
                         column-count="{$column.count.front}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -712,11 +680,7 @@
                         column-gap="{$column.gap.front}"
                         column-count="{$column.count.front}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -743,11 +707,7 @@
                         column-gap="{$column.gap.front}"
                         column-count="{$column.count.front}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -775,11 +735,7 @@
                         column-gap="{$column.gap.body}"
                         column-count="{$column.count.body}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -806,11 +762,7 @@
                         column-gap="{$column.gap.body}"
                         column-count="{$column.count.body}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -837,11 +789,7 @@
                         column-gap="{$column.gap.body}"
                         column-count="{$column.count.body}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -869,11 +817,7 @@
                         column-gap="{$column.gap.back}"
                         column-count="{$column.count.back}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -900,11 +844,7 @@
                         column-gap="{$column.gap.back}"
                         column-count="{$column.count.back}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -931,11 +871,7 @@
                         column-gap="{$column.gap.back}"
                         column-count="{$column.count.back}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -963,11 +899,7 @@
                         column-gap="{$column.gap.index}"
                         column-count="{$column.count.index}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -994,11 +926,7 @@
                         column-gap="{$column.gap.index}"
                         column-count="{$column.count.index}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>
@@ -1025,11 +953,7 @@
                         column-gap="{$column.gap.index}"
                         column-count="{$column.count.index}">
           <xsl:if test="$draft.watermark.image != ''">
-            <xsl:attribute name="background-image">
-              <xsl:call-template name="t:fo-external-image">
-                <xsl:with-param name="filename" select="$draft.watermark.image"/>
-              </xsl:call-template>
-            </xsl:attribute>
+            <xsl:attribute name="background-image" select="f:fo-external-image($draft.watermark.image)"/>
             <xsl:attribute name="background-attachment">fixed</xsl:attribute>
             <xsl:attribute name="background-repeat">no-repeat</xsl:attribute>
             <xsl:attribute name="background-position-horizontal">center</xsl:attribute>

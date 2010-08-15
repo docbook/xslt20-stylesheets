@@ -316,11 +316,7 @@ vertical alignment.</para>
              'background-color')"/>
 
   <fo:external-graphic>
-    <xsl:attribute name="src">
-      <xsl:call-template name="t:fo-external-image">
-	<xsl:with-param name="filename" select="$filename"/>
-      </xsl:call-template>
-    </xsl:attribute>
+    <xsl:attribute name="src" select="f:fo-external-image($filename)"/>
     
     <xsl:attribute name="width">
       <xsl:choose>
@@ -420,7 +416,7 @@ vertical alignment.</para>
 
 <!-- ==================================================================== -->
 
-<xsl:template name="t:fo-external-image">
+<xsl:function name="f:fo-external-image">
   <xsl:param name="filename"/>
 
   <xsl:choose>
@@ -431,6 +427,6 @@ vertical alignment.</para>
       <xsl:value-of select="concat('url(', $filename, ')')"/>
     </xsl:otherwise>
   </xsl:choose>
-</xsl:template>
+</xsl:function>
 
 </xsl:stylesheet>
