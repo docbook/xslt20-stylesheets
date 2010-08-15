@@ -2,19 +2,19 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
-	  version="5.0" xml:id="admon.graphics.extension">
+	  version="5.0" xml:id="admonition.graphics.extension">
 <refmeta>
-<refentrytitle>admon.graphics.extension</refentrytitle>
+<refentrytitle>admonition.graphics.extension</refentrytitle>
 <refmiscinfo role="type">string</refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>admon.graphics.extension</refname>
+<refname>admonition.graphics.extension</refname>
 <refpurpose>Extension for admonition graphics</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
-<src:fragment xml:id='admon.graphics.extension.frag'>
-<xsl:param name="admon.graphics.extension" select="'.png'"/>
+<src:fragment xml:id='admonition.graphics.extension.frag'>
+<xsl:param name="admonition.graphics.extension" select="'.png'"/>
 </src:fragment>
 </refsynopsisdiv>
 

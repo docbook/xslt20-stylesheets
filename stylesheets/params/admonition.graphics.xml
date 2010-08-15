@@ -2,19 +2,19 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
-	  version="5.0" xml:id="admon.graphics">
+	  version="5.0" xml:id="admonition.graphics">
 <refmeta>
-<refentrytitle>admon.graphics</refentrytitle>
+<refentrytitle>admonition.graphics</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>admon.graphics</refname>
+<refname>admonition.graphics</refname>
 <refpurpose>Use graphics in admonitions?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
-<src:fragment xml:id='admon.graphics.frag'>
-<xsl:param name="admon.graphics" select="0"/>
+<src:fragment xml:id='admonition.graphics.frag'>
+<xsl:param name="admonition.graphics" select="0"/>
 </src:fragment>
 </refsynopsisdiv>
 

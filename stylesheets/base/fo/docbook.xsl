@@ -54,8 +54,8 @@
   <xsl:include href="graphics.xsl"/>
 <!--
   <xsl:include href="footnotes.xsl"/>
-  <xsl:include href="admonitions.xsl"/>
 -->
+  <xsl:include href="admonitions.xsl"/>
   <xsl:include href="verbatim.xsl"/>
 <!--
   <xsl:include href="qandaset.xsl"/>

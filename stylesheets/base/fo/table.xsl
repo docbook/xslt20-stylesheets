@@ -96,14 +96,14 @@
           </xsl:attribute>
         </xsl:if>
         <xsl:if test="$placement = 'before'">
-          <xsl:call-template name="t:formal.object.heading">
+          <xsl:call-template name="t:formal-object-heading">
             <xsl:with-param name="placement" select="$placement"/>
           </xsl:call-template>
         </xsl:if>
         <xsl:copy-of select="$table.layout"/>
         <xsl:call-template name="t:table.footnote.block"/>
         <xsl:if test="$placement != 'before'">
-          <xsl:call-template name="t:formal.object.heading">
+          <xsl:call-template name="t:formal-object-heading">
             <xsl:with-param name="placement" select="$placement"/>
           </xsl:call-template>
         </xsl:if>
