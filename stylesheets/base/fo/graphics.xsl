@@ -22,11 +22,6 @@
 
      ******************************************************************** -->
 
-<!-- FIMXE: move to params -->
-<xsl:attribute-set name="mediaobject.properties"/>
-<xsl:attribute-set name="imageobjectco.properties"/>
-<xsl:attribute-set name="caption.properties"/>
-
 <!-- ==================================================================== -->
 
 <xsl:template match="db:screenshot">

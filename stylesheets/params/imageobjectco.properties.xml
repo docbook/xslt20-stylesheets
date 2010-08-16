@@ -4,18 +4,18 @@
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           version="5.0"
-          xml:id="footnote.properties">
+          xml:id="imageobjectco.properties">
    <refmeta>
-      <refentrytitle>footnote.properties</refentrytitle>
+      <refentrytitle>imageobjectco.properties</refentrytitle>
       <refmiscinfo role="type">attribute set</refmiscinfo>
    </refmeta>
    <refnamediv>
-      <refname>footnote.properties</refname>
+      <refname>imageobjectco.properties</refname>
       <refpurpose>FIXME: TBA</refpurpose>
    </refnamediv>
    <refsynopsisdiv>
-      <src:fragment xml:id="footnote.properties.frag">
-         <xsl:attribute-set name="footnote.properties"> </xsl:attribute-set>
+      <src:fragment xml:id="imageobjectco.properties.frag">
+         <xsl:attribute-set name="imageobjectco.properties"> </xsl:attribute-set>
       </src:fragment>
    </refsynopsisdiv>
    <refsect1>

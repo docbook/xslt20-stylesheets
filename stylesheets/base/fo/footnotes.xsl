@@ -11,13 +11,6 @@
 
 <xsl:include href="../common/footnotes.xsl"/>
 
-<!-- FIXME: add to params -->
-<xsl:attribute-set name="footnote.mark.properties"/>
-<xsl:param name="footnote.mark.width">1em</xsl:param>
-<xsl:attribute-set name="footnote.properties"/>
-<xsl:attribute-set name="endnotes.properties"/>
-<xsl:param name="footnotes.as.endnotes" select="false()"/>
-
 <xsl:template name="t:format-footnote-mark">
   <xsl:param name="mark" select="'?'"/>
   <fo:inline xsl:use-attribute-sets="footnote.mark.properties">

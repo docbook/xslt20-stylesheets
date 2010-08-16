@@ -767,9 +767,6 @@
 
 <!-- ==================================================================== -->
 
-<!-- FIXME: move to params -->
-<xsl:param name="procedure.label.width">2em</xsl:param>
-
 <xsl:template match="db:procedure">
   <xsl:variable name="numeration" select="f:procedure-step-numeration(.)"/>
 

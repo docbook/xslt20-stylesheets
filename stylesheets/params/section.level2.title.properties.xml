@@ -4,18 +4,20 @@
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           version="5.0"
-          xml:id="footnote.properties">
+          xml:id="section.level2.title.properties">
    <refmeta>
-      <refentrytitle>footnote.properties</refentrytitle>
+      <refentrytitle>section.level2.title.properties</refentrytitle>
       <refmiscinfo role="type">attribute set</refmiscinfo>
    </refmeta>
    <refnamediv>
-      <refname>footnote.properties</refname>
+      <refname>section.level2.title.properties</refname>
       <refpurpose>FIXME: TBA</refpurpose>
    </refnamediv>
    <refsynopsisdiv>
-      <src:fragment xml:id="footnote.properties.frag">
-         <xsl:attribute-set name="footnote.properties"> </xsl:attribute-set>
+      <src:fragment xml:id="section.level2.title.properties.frag">
+<xsl:attribute-set name="section.level2.title.properties" use-attribute-sets="section.title.properties">
+   <xsl:attribute name="font-size" select="concat($body.font.master * 1.44, 'pt')"/>
+</xsl:attribute-set>
       </src:fragment>
    </refsynopsisdiv>
    <refsect1>

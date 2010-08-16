@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="5.0"
+          xml:id="admonition.properties">
+   <refmeta>
+      <refentrytitle>admonition.properties</refentrytitle>
+      <refmiscinfo role="type">attribute set</refmiscinfo>
+   </refmeta>
+   <refnamediv>
+      <refname>admonition.properties</refname>
+      <refpurpose>FIXME: TBA</refpurpose>
+   </refnamediv>
+   <refsynopsisdiv>
+      <src:fragment xml:id="admonition.properties.frag">
+<xsl:attribute-set name="admonition.properties">
+  <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
+</xsl:attribute-set>
+      </src:fragment>
+   </refsynopsisdiv>
+   <refsect1>
+      <title>Description</title>
+      <para>FIXME: TBA</para>
+   </refsect1>
+</refentry>

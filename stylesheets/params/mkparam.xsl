@@ -12,6 +12,9 @@
 
 <xsl:template match="/" name="mkparam">
   <xsl:if test="$name != ''">
+    <xsl:if test="doc-available(concat($name, '.xml'))">
+      <xsl:message terminate="yes">This parameter is already defined.</xsl:message>
+    </xsl:if>
     <xsl:result-document href="{$name}.xml">
 <refentry xmlns="http://docbook.org/ns/docbook"
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"

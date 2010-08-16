@@ -4,18 +4,18 @@
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           version="5.0"
-          xml:id="footnote.properties">
+          xml:id="footnote.mark.width">
    <refmeta>
-      <refentrytitle>footnote.properties</refentrytitle>
-      <refmiscinfo role="type">attribute set</refmiscinfo>
+      <refentrytitle>footnote.mark.width</refentrytitle>
+      <refmiscinfo role="type"/>
    </refmeta>
    <refnamediv>
-      <refname>footnote.properties</refname>
+      <refname>footnote.mark.width</refname>
       <refpurpose>FIXME: TBA</refpurpose>
    </refnamediv>
    <refsynopsisdiv>
-      <src:fragment xml:id="footnote.properties.frag">
-         <xsl:attribute-set name="footnote.properties"> </xsl:attribute-set>
+      <src:fragment xml:id="footnote.mark.width.frag">
+<xsl:param name="footnote.mark.width">1em</xsl:param>
       </src:fragment>
    </refsynopsisdiv>
    <refsect1>

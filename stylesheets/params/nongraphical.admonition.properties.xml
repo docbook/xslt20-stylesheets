@@ -4,18 +4,21 @@
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           version="5.0"
-          xml:id="footnote.properties">
+          xml:id="nongraphical.admonition.properties">
    <refmeta>
-      <refentrytitle>footnote.properties</refentrytitle>
+      <refentrytitle>nongraphical.admonition.properties</refentrytitle>
       <refmiscinfo role="type">attribute set</refmiscinfo>
    </refmeta>
    <refnamediv>
-      <refname>footnote.properties</refname>
+      <refname>nongraphical.admonition.properties</refname>
       <refpurpose>FIXME: TBA</refpurpose>
    </refnamediv>
    <refsynopsisdiv>
-      <src:fragment xml:id="footnote.properties.frag">
-         <xsl:attribute-set name="footnote.properties"> </xsl:attribute-set>
+      <src:fragment xml:id="nongraphical.admonition.properties.frag">
+<xsl:attribute-set name="nongraphical.admonition.properties" use-attribute-sets="admonition.properties">
+  <xsl:attribute name="margin-{$direction.align.start}">0.25in</xsl:attribute>
+  <xsl:attribute name="margin-{$direction.align.end}">0.25in</xsl:attribute>
+</xsl:attribute-set>
       </src:fragment>
    </refsynopsisdiv>
    <refsect1>

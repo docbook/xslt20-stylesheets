@@ -117,7 +117,4 @@
   </xsl:choose>
 </xsl:param>
 
-<!-- FIXME: move to params -->
-<xsl:param name="writing.mode" select="f:gentext(/*[1], 'writing-mode')"/>
-
 </xsl:stylesheet>

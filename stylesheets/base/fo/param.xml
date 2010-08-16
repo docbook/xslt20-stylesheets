@@ -40,6 +40,7 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="orderedlist.numeration.styles"/>
 <refentry xml:id="preprocess"/>
 <refentry xml:id="procedure.step.numeration.styles"/>
+<refentry xml:id="procedure.label.width"/>
 <refentry xml:id="persistent.generated.ids"/>
 <refentry xml:id="bibliography.numbered"/>
 <refentry xml:id="bibliography.collection"/>
@@ -93,6 +94,10 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="graphic.formats"/>
 <refentry xml:id="graphic.extensions"/>
 
+<refentry xml:id="mediaobject.properties"/>
+<refentry xml:id="imageobjectco.properties"/>
+<refentry xml:id="caption.properties"/>
+
 <refentry xml:id="generate.toc"/>
 
 <refentry xml:id="callout.graphics"/>
@@ -108,6 +113,11 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="footnote.number.symbols"/>
 <refentry xml:id="footnote.number.format"/>
 <refentry xml:id="footnote.sep.leader.properties"/>
+<refentry xml:id="footnote.mark.properties"/>
+<refentry xml:id="footnote.mark.width"/>
+<refentry xml:id="footnote.properties"/>
+<refentry xml:id="footnotes.as.endnotes"/>
+<refentry xml:id="endnotes.properties"/>
 
 <refentry xml:id="formal.title.placement"/>
 
@@ -165,6 +175,46 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="alignment"/>
 <refentry xml:id="line.height"/>
 
+<refentry xml:id="title.properties"/>
+<refentry xml:id="division.title.properties"/>
+<refentry xml:id="partintro.title.properties"/>
+<refentry xml:id="div.title.properties"/>
+<refentry xml:id="qandaset.title.properties"/>
+<refentry xml:id="list.title.properties"/>
+<refentry xml:id="taskpart.title.properties"/>
+<refentry xml:id="procedure.title.properties"/>
+<refentry xml:id="step.title.properties"/>
+<refentry xml:id="admonition.title.properties"/>
+<refentry xml:id="section.title.properties"/>
+<refentry xml:id="section.level1.title.properties"/>
+<refentry xml:id="section.level2.title.properties"/>
+<refentry xml:id="section.level3.title.properties"/>
+<refentry xml:id="section.level4.title.properties"/>
+<refentry xml:id="section.level5.title.properties"/>
+<refentry xml:id="section.level6.title.properties"/>
+<refentry xml:id="refsection.title.properties"/>
+<refentry xml:id="refsection.level1.title.properties"/>
+<refentry xml:id="refsection.level2.title.properties"/>
+<refentry xml:id="refsection.level3.title.properties"/>
+<refentry xml:id="annotation.title.properties"/>
+<refentry xml:id="sidebar.title.properties"/>
+
+<refentry xml:id="subtitle.properties"/>
+<refentry xml:id="component.subtitle.properties"/>
+<refentry xml:id="division.subtitle.properties"/>
+<refentry xml:id="div.subtitle.properties"/>
+<refentry xml:id="section.subtitle.properties"/>
+<refentry xml:id="section.level1.subtitle.properties"/>
+<refentry xml:id="section.level2.subtitle.properties"/>
+<refentry xml:id="section.level3.subtitle.properties"/>
+<refentry xml:id="section.level4.subtitle.properties"/>
+<refentry xml:id="section.level5.subtitle.properties"/>
+<refentry xml:id="section.level6.subtitle.properties"/>
+<refentry xml:id="refsection.subtitle.properties"/>
+<refentry xml:id="refsection.level1.subtitle.properties"/>
+<refentry xml:id="refsection.level2.subtitle.properties"/>
+<refentry xml:id="refsection.level3.subtitle.properties"/>
+
 <refentry xml:id="olink.insert.page.number"/>
 <refentry xml:id="olink.doctitle"/>
 <refentry xml:id="olink.properties"/>
@@ -219,5 +269,15 @@ It's just a bogus mess right now.</para>
 
 <refentry xml:id="ignore.image.scaling"/>
 <refentry xml:id="default.image.width"/>
+
+<refentry xml:id="admonition.properties"/>
+<refentry xml:id="nongraphical.admonition.properties"/>
+<refentry xml:id="graphical.admonition.properties"/>
+<refentry xml:id="admonition.textlabel"/>
+<refentry xml:id="admonition.graphics.extension"/>
+<refentry xml:id="admonition.graphics.path"/>
+<refentry xml:id="admonition.graphics"/>
+
+<refentry xml:id="writing.mode"/>
 
 </article>

@@ -1,29 +1,25 @@
-<refentry xmlns="http://docbook.org/ns/docbook"
-	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
-	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	  xmlns:xlink="http://www.w3.org/1999/xlink"
-	  version="5.0" xml:id="admonition.graphics">
-<refmeta>
-<refentrytitle>admonition.graphics</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
-</refmeta>
-<refnamediv>
-<refname>admonition.graphics</refname>
-<refpurpose>Use graphics in admonitions?</refpurpose>
-</refnamediv>
-
-<refsynopsisdiv>
-<src:fragment xml:id='admonition.graphics.frag'>
-<xsl:param name="admonition.graphics" select="0"/>
-</src:fragment>
-</refsynopsisdiv>
-
-<refsect1><title>Description</title>
-
-<para>If true (non-zero), admonitions are presented in an alternate
-style that uses a graphic. Default graphics are provided in the
-distribution.
-</para>
-
-</refsect1>
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="5.0"
+          xml:id="admonition.graphics">
+   <refmeta>
+      <refentrytitle>admonition.graphics</refentrytitle>
+      <refmiscinfo role="type">boolean</refmiscinfo>
+   </refmeta>
+   <refnamediv>
+      <refname>admonition.graphics</refname>
+      <refpurpose>FIXME: TBA</refpurpose>
+   </refnamediv>
+   <refsynopsisdiv>
+      <src:fragment xml:id="admonition.graphics.frag">
+<xsl:param name="admonition.graphics" select="false()"/>
+      </src:fragment>
+   </refsynopsisdiv>
+   <refsect1>
+      <title>Description</title>
+      <para>FIXME: TBA</para>
+   </refsect1>
 </refentry>

@@ -9,25 +9,6 @@
 		exclude-result-prefixes="f m fn db t"
                 version="2.0">
 
-<!-- FIXME: move to params -->
-<xsl:attribute-set name="admonition.properties">
-  <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
-  <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0.8em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
-</xsl:attribute-set>
-<xsl:attribute-set name="nongraphical.admonition.properties" use-attribute-sets="admonition.properties">
-  <xsl:attribute name="margin-{$direction.align.start}">0.25in</xsl:attribute>
-  <xsl:attribute name="margin-{$direction.align.end}">0.25in</xsl:attribute>
-</xsl:attribute-set>
-<xsl:attribute-set name="graphical.admonition.properties" use-attribute-sets="admonition.properties"/>
-<xsl:param name="admonition.textlabel" select="true()"/>
-<xsl:param name="admonition.graphics.extension">.svg</xsl:param>
-<xsl:param name="admonition.graphics.path">FIXME:/images/</xsl:param>
-<xsl:param name="admonition.graphics" select="false()"/>
-
 <xsl:template match="db:note|db:important|db:warning|db:caution|db:tip">
   <xsl:choose>
     <xsl:when test="$admonition.graphics">
