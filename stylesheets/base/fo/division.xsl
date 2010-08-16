@@ -9,7 +9,7 @@
 		exclude-result-prefixes="axf f t m db"
                 version='2.0'>
 
-<!-- restore db:set, db:part -->
+<!-- restore db:set -->
 
 <xsl:template match="db:part">
   <xsl:variable name="master-reference" select="f:select-pagemaster(.)"/>
@@ -45,11 +45,14 @@
 	  </xsl:call-template>
 	</xsl:with-param>
       </xsl:call-template>
-      
+
+      <xsl:apply-templates select="db:partintro"/>
     </fo:flow>
   </fo:page-sequence>
-  <xsl:apply-templates/>
+  <xsl:apply-templates select="node() except db:partintro"/>
 </xsl:template>
+
+<!-- FIXME: hadle partintro -->
 
 <!-- ==================================================================== -->
 
