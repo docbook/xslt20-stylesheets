@@ -63,7 +63,9 @@
 <!--
   <xsl:include href="math.xsl"/>
   <xsl:include href="html.xsl"/>
+-->
   <xsl:include href="index.xsl"/>
+<!--
   <xsl:include href="autoidx.xsl"/>
   <xsl:include href="chunker.xsl"/>
 -->
