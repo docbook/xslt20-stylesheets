@@ -301,7 +301,7 @@ an element that occurs in the source document.</para>
 <xsl:template match="db:*" mode="m:titlepage-templates" priority="1000">
   <xsl:param name="node" tunnel="yes"/>
   <xsl:param name="info" tunnel="yes"/>
-  <xsl:param name="side" tunnel="yes"/>
+  <xsl:param name="side" tunnel="yes" select="()"/>
 
   <xsl:variable name="this" select="."/>
 
@@ -334,28 +334,28 @@ an element that occurs in the source document.</para>
                          or $node/self::db:important
                          or $node/self::db:warning
                          or $node/self::db:caution)
-		    and ($side eq 'recto')">
+		    and ($side eq 'recto' or empty($side))">
       <xsl:apply-templates select="$node" mode="m:title-markup"/>
       <xsl:if test="not(empty(f:select-style-attributes(@*)))">
 	<xsl:message>Direct styling of title in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
       </xsl:if>
     </xsl:when>
 
-    <xsl:when test="self::db:title and $content and ($side eq 'recto')">
+    <xsl:when test="self::db:title and $content and ($side eq 'recto' or empty($side))">
       <xsl:apply-templates select="$node" mode="m:title-markup"/>
       <xsl:if test="not(empty(f:select-style-attributes(@*)))">
 	<xsl:message>Direct styling of title in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
       </xsl:if>
     </xsl:when>
 
-    <xsl:when test="self::db:subtitle and $content and ($side eq 'recto')">
+    <xsl:when test="self::db:subtitle and $content and ($side eq 'recto' or empty($side))">
       <xsl:apply-templates select="$node" mode="m:subtitle-markup"/>
       <xsl:if test="not(empty(f:select-style-attributes(@*)))">
 	<xsl:message>Direct styling of subtitle in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
       </xsl:if>
     </xsl:when>
 
-    <xsl:when test="self::db:titleabbrev and $content and ($side eq 'recto')">
+    <xsl:when test="self::db:titleabbrev and $content and ($side eq 'recto' or empty($side))">
       <xsl:apply-templates select="$node" mode="m:titleabbrev-markup"/>
       <xsl:if test="not(empty(f:select-style-attributes(@*)))">
 	<xsl:message>Direct styling of titleabbrev in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
