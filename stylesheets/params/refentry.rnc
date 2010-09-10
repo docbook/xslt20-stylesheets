@@ -5,7 +5,7 @@ namespace src = "http://nwalsh.com/xmlns/litprog/fragment"
 namespace html = "http://www.w3.org/1999/xhtml"
 default namespace = "http://docbook.org/ns/docbook"
 
-include "../../docbook/relaxng/docbook/docbook.rnc" {
+include "../../../docbook/relaxng/docbook/docbook.rnc" {
    db.refsynopsisdiv =
       element refsynopsisdiv {
          db.refsynopsisdiv.attlist,

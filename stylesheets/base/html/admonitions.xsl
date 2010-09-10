@@ -14,7 +14,7 @@
 
 <xsl:template match="db:note|db:important|db:warning|db:caution|db:tip">
   <xsl:choose>
-    <xsl:when test="$admon.graphics != 0">
+    <xsl:when test="$admonition.graphics">
       <xsl:apply-templates select="." mode="m:graphical-admonition"/>
     </xsl:when>
     <xsl:otherwise>
@@ -96,7 +96,7 @@ the graphical form.</para>
 	  </td>
 	  <td>
 	    <xsl:if test="db:info/db:title[not(@ghost:title)
-			                   or $admon.default.titles != 0]">
+			                   or $admonition.default.titles != 0]">
 	      <div class="admon-title-text">
 		<xsl:call-template name="titlepage">
 		  <xsl:with-param name="content" select="$titlepage"/>
@@ -141,7 +141,7 @@ kind of admonition.</para>
 
 <xsl:template name="admonition-graphic">
   <xsl:param name="node" select="."/>
-  <xsl:value-of select="$admon.graphics.path"/>
+  <xsl:value-of select="$admonition.graphics.path"/>
   <xsl:choose>
     <xsl:when test="local-name($node)='note'">note</xsl:when>
     <xsl:when test="local-name($node)='warning'">warning</xsl:when>
@@ -150,7 +150,7 @@ kind of admonition.</para>
     <xsl:when test="local-name($node)='important'">important</xsl:when>
     <xsl:otherwise>note</xsl:otherwise>
   </xsl:choose>
-  <xsl:value-of select="$admon.graphics.extension"/>
+  <xsl:value-of select="$admonition.graphics.extension"/>
 </xsl:template>
 
 </xsl:stylesheet>

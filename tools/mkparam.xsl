@@ -15,6 +15,7 @@
     <xsl:attribute name="version" select="'2.0'"/>
     <xsl:namespace name="xsl" select="'http://www.w3.org/1999/XSL/Transform'"/>
     <xsl:namespace name="db" select="'http://docbook.org/ns/docbook'"/>
+    <xsl:namespace name="f" select="'http://docbook.org/xslt/ns/extension'"/>
     <xsl:apply-templates select="//db:refentry">
       <xsl:sort select="@xml:id"/>
     </xsl:apply-templates>

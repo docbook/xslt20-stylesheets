@@ -80,11 +80,7 @@ context item.</para>
                             and (not(contains($node/@xlink:href,'&#40;'))
                             or starts-with($node/@xlink:href,
 			                   '#xpointer&#40;id&#40;'))">
-	      <xsl:variable name="idref">
-		<xsl:call-template name="xpointer-idref">
-		  <xsl:with-param name="xpointer" select="$node/@xlink:href"/>
-		</xsl:call-template>
-	      </xsl:variable>
+	      <xsl:variable name="idref" select="f:xpointer-idref($node/@xlink:href)"/>	      
 
 	      <xsl:variable name="target" select="key('id',$idref)[1]"/>
 
@@ -203,14 +199,17 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
-
+  <xsl:param name="class" select="''"/>
+  
   <fo:inline>
-    <xsl:call-template name="id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
+    <xsl:call-template name="t:id"/>
+
+<!-- FIXME: there is no title in FO. Need to use different approach -->
+<!--     <xsl:if test="db:alt"> -->
+<!--       <xsl:attribute name="title"> -->
+<!-- 	<xsl:value-of select="db:alt"/> -->
+<!--       </xsl:attribute> -->
+<!--     </xsl:if> -->
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -528,7 +527,7 @@ calling “apply templates” with the current context node.</para>
   </xsl:param>
 
   <fo:inline xsl:use-attribute-sets="superscript.properties">
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -589,7 +588,7 @@ calling “apply templates” with the current context node.</para>
   </xsl:param>
 
   <fo:inline xsl:use-attribute-sets="subscript.properties">
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -777,13 +776,13 @@ the default is “element”.</para>
       <xsl:choose>
 	<xsl:when test="@role='bold' or @role='strong'">
 	  <fo:inline font-weight="bold">
-	    <xsl:call-template name="id"/>
+	    <xsl:call-template name="t:id"/>
 	    <xsl:apply-templates/>
 	  </fo:inline>
 	</xsl:when>
 	<xsl:otherwise>
 	  <fo:inline font-style="italic">
-	    <xsl:call-template name="id"/>
+	    <xsl:call-template name="t:id"/>
 	    <xsl:apply-templates/>
 	  </fo:inline>
 	</xsl:otherwise>
@@ -796,7 +795,7 @@ the default is “element”.</para>
 
 <xsl:template match="db:foreignphrase">
   <fo:inline>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:if test="@lang or @xml:lang">
       <xsl:call-template name="lang-attribute"/>
     </xsl:if>
@@ -806,7 +805,7 @@ the default is “element”.</para>
 
 <xsl:template match="db:phrase">
   <fo:inline>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:if test="@lang or @xml:lang">
       <xsl:call-template name="lang-attribute"/>
     </xsl:if>
@@ -817,7 +816,7 @@ the default is “element”.</para>
 
 <xsl:template match="db:lineannotation">
   <fo:inline>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:call-template name="t:inline-italicseq"/>
   </fo:inline>
 </xsl:template>
@@ -861,7 +860,7 @@ and <tag>firstterm</tag> elements.</para>
   <xsl:param name="firstterm" select="0"/>
 
   <fo:inline>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:if test="@dir">
       <xsl:attribute name="direction">
         <xsl:choose>
@@ -925,7 +924,7 @@ and <tag>firstterm</tag> elements.</para>
 
 <xsl:template match="db:termdef">
   <fo:inline>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <xsl:text>[Definition: </xsl:text>
     <xsl:apply-templates/>
     <xsl:text>]</xsl:text>

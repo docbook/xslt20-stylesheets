@@ -11,20 +11,23 @@
                 version="2.0">
 
   <xsl:include href="param.xsl"/>
+  <xsl:include href="../common/control.xsl"/>
   <xsl:include href="../common/l10n.xsl"/>
   <xsl:include href="../common/spspace.xsl"/>
   <xsl:include href="../common/gentext.xsl"/>
   <xsl:include href="../common/normalize.xsl"/>
-  <xsl:include href="../common/control.xsl"/>
   <xsl:include href="../common/functions.xsl"/>
   <xsl:include href="../common/common.xsl"/>
   <xsl:include href="../common/titlepages.xsl"/>
-  <xsl:include href="../common/labels.xsl"/>
-  <xsl:include href="../common/titles.xsl"/>
+  <xsl:include href="../common/label-content.xsl"/>
+  <xsl:include href="../common/title-content.xsl"/>
   <xsl:include href="../common/inlines.xsl"/>
 <!--  <xsl:include href="../common/olink.xsl"/>-->
+  <xsl:include href="../common/preprocess.xsl"/>
   <xsl:include href="pagesetup.xsl"/>
+  <xsl:include href="titlepage.xsl"/>
   <xsl:include href="titlepages.xsl"/>
+  <xsl:include href="title-markup.xsl"/>
   <xsl:include href="autotoc.xsl"/>
   <xsl:include href="division.xsl"/>
   <xsl:include href="component.xsl"/>
@@ -44,17 +47,13 @@
   <xsl:include href="callouts.xsl"/>
 -->
 
-<!-- PARTIALLY DONE
   <xsl:include href="table.xsl"/>
   <xsl:include href="formal.xsl"/>
--->
 
   <xsl:include href="blocks.xsl"/>
   <xsl:include href="graphics.xsl"/>
-<!--
   <xsl:include href="footnotes.xsl"/>
   <xsl:include href="admonitions.xsl"/>
--->
   <xsl:include href="verbatim.xsl"/>
 <!--
   <xsl:include href="qandaset.xsl"/>
@@ -64,7 +63,9 @@
 <!--
   <xsl:include href="math.xsl"/>
   <xsl:include href="html.xsl"/>
+-->
   <xsl:include href="index.xsl"/>
+<!--
   <xsl:include href="autoidx.xsl"/>
   <xsl:include href="chunker.xsl"/>
 -->
@@ -84,11 +85,8 @@
 </xsl:param>
 
 <xsl:template match="/">
-  <xsl:variable name="normalized" as="document-node()"
-		select="f:cleanup-docbook(/)"/>
-
   <xsl:variable name="root" as="element()"
-		select="f:docbook-root-element($normalized,$rootid)"/>
+		select="f:docbook-root-element(f:preprocess(/),$rootid)"/>
 
   <xsl:if test="$verbosity &gt; 3">
     <xsl:message>Styling...</xsl:message>
@@ -163,7 +161,7 @@
 
 <xsl:template match="*">
   <fo:block>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
     <fo:inline color="red">
       <xsl:text>&lt;</xsl:text>
       <xsl:value-of select="name(.)"/>

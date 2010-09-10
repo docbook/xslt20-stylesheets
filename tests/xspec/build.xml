@@ -56,7 +56,7 @@
            style="../../tools/xspec-v0.2/format-xspec-report.xsl"/>
   </target>
 
-  <target name="fo">
+  <target name="fo" depends="clean">
     <!-- FIXME: add XSpec tests for FO -->
   </target>
 

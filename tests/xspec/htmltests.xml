@@ -10,6 +10,9 @@
 <x:param name="glossary.collection"
  select="'etc/glossary.collection.xml'"/>
 
+<x:param name="preprocess" select="'profile'"/>
+<x:param name="profile.os" select="'win'"/>  
+
 <x:scenario label="Set tests">
   <x:scenario label="set.001.xml">
     <x:context href="src/set.001.xml"/>
@@ -2660,6 +2663,17 @@
               test="//html:div[@id='article']"
               select="//html:div[@id='article']"
               href="result/co.001.html"/>
+  </x:scenario>
+</x:scenario>
+
+<x:scenario label="Profiling tests">
+  <!-- FIXME: there should be more tests, but it is not possible to specify different parameters for each scenario in XSpec -->
+  <x:scenario label="profiling.001.xml">
+    <x:context href="src/profiling.001.xml"/>
+    <x:expect label="Profiling tests"
+      test="//html:body"
+      select="//html:body"
+      href="result/profiling.001.html"/>
   </x:scenario>
 </x:scenario>
 

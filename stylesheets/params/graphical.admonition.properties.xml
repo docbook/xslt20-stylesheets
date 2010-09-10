@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="5.0"
+          xml:id="graphical.admonition.properties">
+   <refmeta>
+      <refentrytitle>graphical.admonition.properties</refentrytitle>
+      <refmiscinfo role="type">attribute set</refmiscinfo>
+   </refmeta>
+   <refnamediv>
+      <refname>graphical.admonition.properties</refname>
+      <refpurpose>FIXME: TBA</refpurpose>
+   </refnamediv>
+   <refsynopsisdiv>
+      <src:fragment xml:id="graphical.admonition.properties.frag">
+<xsl:attribute-set name="graphical.admonition.properties" use-attribute-sets="admonition.properties"/>
+      </src:fragment>
+   </refsynopsisdiv>
+   <refsect1>
+      <title>Description</title>
+      <para>FIXME: TBA</para>
+   </refsect1>
+</refentry>

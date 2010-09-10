@@ -32,7 +32,7 @@
         <xsl:with-param name="master-reference" select="$master-reference"/>
       </xsl:call-template>
 
-      <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
+      <xsl:call-template name="t:titlepage"/>
 
       <xsl:variable name="toc.params"
 		    select="f:find-toc-params(., $generate.toc)"/>
@@ -47,6 +47,10 @@
       </xsl:call-template>
       
       <xsl:apply-templates/>
+
+      <xsl:if test="$footnotes.as.endnotes">
+	<xsl:call-template name="t:make-endnotes"/>
+      </xsl:if>
     </fo:flow>
   </fo:page-sequence>
 </xsl:template>

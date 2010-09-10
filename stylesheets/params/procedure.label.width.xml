@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="5.0"
+          xml:id="procedure.label.width">
+   <refmeta>
+      <refentrytitle>procedure.label.width</refentrytitle>
+      <refmiscinfo role="type"/>
+   </refmeta>
+   <refnamediv>
+      <refname>procedure.label.width</refname>
+      <refpurpose>FIXME: TBA</refpurpose>
+   </refnamediv>
+   <refsynopsisdiv>
+      <src:fragment xml:id="procedure.label.width.frag">
+<xsl:param name="procedure.label.width">2em</xsl:param>
+      </src:fragment>
+   </refsynopsisdiv>
+   <refsect1>
+      <title>Description</title>
+      <para>FIXME: TBA</para>
+   </refsect1>
+</refentry>

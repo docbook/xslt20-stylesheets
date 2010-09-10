@@ -32,7 +32,7 @@
 
 	<xsl:otherwise>
 	  <fo:block>
-	    <xsl:call-template name="id"/>
+	    <xsl:call-template name="t:id"/>
 	    <xsl:copy-of select="$runin"/>
 	    <xsl:apply-templates/>
 	  </fo:block>
@@ -41,7 +41,7 @@
     </xsl:when>
     <xsl:otherwise>
       <fo:block xsl:use-attribute-sets="normal.para.spacing">
-	<xsl:call-template name="id"/>
+	<xsl:call-template name="t:id"/>
 	<xsl:copy-of select="$runin"/>
 	<xsl:apply-templates/>
       </fo:block>
@@ -104,7 +104,7 @@
 <xsl:template match="db:remark">
   <xsl:if test="$show.comments != 0">
     <fo:block>
-      <xsl:call-template name="id"/>
+      <xsl:call-template name="t:id"/>
       <xsl:apply-templates/>
     </fo:block>
   </xsl:if>
@@ -128,7 +128,7 @@
 
 <xsl:template match="db:sidebar">
   <fo:block>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
 
     <!-- FIXME: titlepage -->
 

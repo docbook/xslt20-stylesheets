@@ -6,10 +6,12 @@
 
   <target name="all">
     <xslt2 style="../../../tools/mkparam.xsl" in="param.xml" out="param.xsl"/>
+    <xslt2 style="../../../tools/titlepages.xsl " in="titlepages.xml" out="titlepages.xsl"/>
   </target>
 
   <target name="clean">
     <delete file="param.xsl"/>
+    <delete file="titlepages.xsl"/>
   </target>
 
 </project>

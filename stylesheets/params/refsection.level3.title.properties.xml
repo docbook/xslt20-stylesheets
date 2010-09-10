@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refentry xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="5.0"
+          xml:id="refsection.level3.title.properties">
+   <refmeta>
+      <refentrytitle>refsection.level3.title.properties</refentrytitle>
+      <refmiscinfo role="type">attribute set</refmiscinfo>
+   </refmeta>
+   <refnamediv>
+      <refname>refsection.level3.title.properties</refname>
+      <refpurpose>FIXME: TBA</refpurpose>
+   </refnamediv>
+   <refsynopsisdiv>
+      <src:fragment xml:id="refsection.level3.title.properties.frag">
+<xsl:attribute-set name="refsection.level3.title.properties" use-attribute-sets="refsection.title.properties"/>
+      </src:fragment>
+   </refsynopsisdiv>
+   <refsect1>
+      <title>Description</title>
+      <para>FIXME: TBA</para>
+   </refsect1>
+</refentry>

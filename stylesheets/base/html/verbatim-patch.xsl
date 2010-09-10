@@ -16,20 +16,6 @@
                 exclude-result-prefixes="db doc f fp ghost h m mp t tp u xs"
                 version="2.0">
 
-<xsl:param name="callout.defaultcolumn" select="60"/>
-<xsl:param name="verbatim.trim.blank.lines" select="1"/>
-
-<xsl:param name="linenumbering" as="element()*">
-<ln path="literallayout" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
-<ln path="programlisting" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
-<ln path="programlistingco" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
-<ln path="screen" everyNth="2" width="3" separator="" padchar=" " minlines="3"/>
-<ln path="synopsis" everyNth="2" width="3" separator="" padchar=" " minlines="3"/>
-<ln path="address" everyNth="0"/>
-<ln path="epigraph/literallayout" everyNth="0"/>
-</xsl:param>
-
-<!-- ============================================================ -->
 
 <xsl:template name="t:verbatim-patch-html">
   <xsl:param name="content" as="node()*"/>

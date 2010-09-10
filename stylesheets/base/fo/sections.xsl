@@ -127,9 +127,9 @@
 		select="f:find-toc-params(., $generate.toc)"/>
 
   <fo:block>
-    <xsl:call-template name="id"/>
+    <xsl:call-template name="t:id"/>
 
-    <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
+    <xsl:call-template name="t:titlepage"/>
 
     <xsl:call-template name="make-lots">
       <xsl:with-param name="toc.params" select="$toc.params"/>
