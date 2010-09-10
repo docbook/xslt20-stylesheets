@@ -30,18 +30,25 @@
       </xsl:call-template>
     </xsl:if>
 
-    <xsl:variable name="toc.params"
-		  select="f:find-toc-params(., $generate.toc)"/>
-
-    <xsl:call-template name="make-lots">
-      <xsl:with-param name="toc.params" select="$toc.params"/>
-      <xsl:with-param name="toc">
-	<xsl:call-template name="division-toc"/>
-      </xsl:with-param>
-    </xsl:call-template>
+    <xsl:if test="not(db:toc)">
+      <!-- only generate a toc automatically if there's no explicit toc -->
+      <xsl:apply-templates select="." mode="m:toc"/>
+    </xsl:if>
 
     <xsl:apply-templates/>
   </div>
+</xsl:template>
+
+<xsl:template match="db:set|db:book|db:part|db:reference" mode="m:toc">
+    <xsl:param name="toc.params"
+               select="f:find-toc-params(., $generate.toc)"/>
+
+    <xsl:call-template name="t:make-lots">
+      <xsl:with-param name="toc.params" select="$toc.params"/>
+      <xsl:with-param name="toc">
+	<xsl:call-template name="t:division-toc"/>
+      </xsl:with-param>
+    </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="db:partintro">

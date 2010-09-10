@@ -11,7 +11,11 @@
 <xsl:template match="/">
   <xxx:stylesheet version="2.0">
     <xsl:namespace name="l" select="'http://docbook.sourceforge.net/xmlns/l10n/1.0'"/>
-    <xxx:variable name="localization.data" as="element(l:i18n)">
+    <xsl:text>&#10;</xsl:text>
+    <xsl:comment> This variable must declare a document node, don't add as= </xsl:comment>
+    <xsl:text>&#10;</xsl:text>
+    <xxx:variable name="localization.data">
+      <xsl:text>&#10;</xsl:text>
       <xsl:copy-of select="/"/>
     </xxx:variable>
   </xxx:stylesheet>

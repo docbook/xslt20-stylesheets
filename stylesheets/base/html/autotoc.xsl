@@ -7,7 +7,9 @@
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:tp="http://docbook.org/xslt/ns/template/private"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		exclude-result-prefixes="db doc f fn h m t xs"
                 version="2.0">
@@ -24,7 +26,7 @@
 
 <!-- ============================================================ -->
 
-<doc:mode name="m:toc" xmlns="http://docbook.org/ns/docbook">
+<doc:mode name="mp:toc" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for processing ToC and LoTs</refpurpose>
 
 <refdescription>
@@ -50,7 +52,7 @@
 
 <!-- ============================================================ -->
 
-<doc:template name="make-toc" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="tp:make-toc" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make a ToC</refpurpose>
 
 <refdescription>
@@ -77,7 +79,7 @@
 </refreturn>
 </doc:template>
 
-<xsl:template name="make-toc">
+<xsl:template name="tp:make-toc">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="toc.title" select="true()"/>
   <xsl:param name="nodes" select="()"/>
@@ -104,7 +106,7 @@
           <xsl:copy-of select="$toc.title"/>
           <xsl:element name="{$toc.list.type}">
 	    <xsl:attribute name="class" select="'toc'"/>
-            <xsl:call-template name="manual-toc">
+            <xsl:call-template name="t:manual-toc">
               <xsl:with-param name="tocentry" select="$tocentry/*[1]"/>
             </xsl:call-template>
           </xsl:element>
@@ -117,7 +119,7 @@
           <xsl:copy-of select="$toc.title"/>
           <xsl:element name="{$toc.list.type}">
 	    <xsl:attribute name="class" select="'toc'"/>
-            <xsl:apply-templates select="$nodes" mode="m:toc">
+            <xsl:apply-templates select="$nodes" mode="mp:toc">
               <xsl:with-param name="toc-context" select="$toc-context"/>
             </xsl:apply-templates>
           </xsl:element>
@@ -129,7 +131,7 @@
 
 <!-- ============================================================ -->
 
-<doc:template name="make-lots" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:make-lots" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make LoTs</refpurpose>
 
 <refdescription>
@@ -156,7 +158,7 @@
 </refreturn>
 </doc:template>
 
-<xsl:template name="make-lots">
+<xsl:template name="t:make-lots">
   <xsl:param name="toc.params" as="element()?" select="()"/>
   <xsl:param name="toc"/>
 
@@ -165,35 +167,35 @@
   </xsl:if>
 
   <xsl:if test="$toc.params/@figure != 0">
-    <xsl:call-template name="list-of-titles">
+    <xsl:call-template name="tp:list-of-titles">
       <xsl:with-param name="titles" select="'figure'"/>
       <xsl:with-param name="nodes" select=".//db:figure"/>
     </xsl:call-template>
   </xsl:if>
 
   <xsl:if test="$toc.params/@table != 0">
-    <xsl:call-template name="list-of-titles">
+    <xsl:call-template name="tp:list-of-titles">
       <xsl:with-param name="titles" select="'table'"/>
       <xsl:with-param name="nodes" select=".//db:table"/>
     </xsl:call-template>
   </xsl:if>
 
   <xsl:if test="$toc.params/@example != 0">
-    <xsl:call-template name="list-of-titles">
+    <xsl:call-template name="tp:list-of-titles">
       <xsl:with-param name="titles" select="'example'"/>
       <xsl:with-param name="nodes" select=".//db:example"/>
     </xsl:call-template>
   </xsl:if>
 
   <xsl:if test="$toc.params/@equation != 0">
-    <xsl:call-template name="list-of-titles">
+    <xsl:call-template name="tp:list-of-titles">
       <xsl:with-param name="titles" select="'equation'"/>
       <xsl:with-param name="nodes" select=".//db:equation[db:title]"/>
     </xsl:call-template>
   </xsl:if>
 
   <xsl:if test="$toc.params/@procedure != 0">
-    <xsl:call-template name="list-of-titles">
+    <xsl:call-template name="tp:list-of-titles">
       <xsl:with-param name="titles" select="'procedure'"/>
       <xsl:with-param name="nodes" select=".//db:procedure[db:title]"/>
     </xsl:call-template>
@@ -202,42 +204,7 @@
 
 <!-- ============================================================ -->
 
-<doc:template name="set-toc" xmlns="http://docbook.org/ns/docbook">
-<refpurpose>Make ToC/LoTs for a Set</refpurpose>
-
-<refdescription>
-<para>This template formats the Table of Contents and
-Lists of Titles for a
-Set.</para>
-</refdescription>
-
-<refparameter>
-<variablelist>
-<varlistentry><term>toc-context</term>
-<listitem>
-<para>The set context.</para>
-</listitem>
-</varlistentry>
-</variablelist>
-</refparameter>
-
-<refreturn>
-<para>The formatted ToC and LoTs for the element.</para>
-</refreturn>
-</doc:template>
-
-<xsl:template name="set-toc">
-  <xsl:param name="toc-context" select="."/>
-
-  <xsl:call-template name="make-toc">
-    <xsl:with-param name="toc-context" select="$toc-context"/>
-    <xsl:with-param name="nodes" select="db:book|db:setindex"/>
-  </xsl:call-template>
-</xsl:template>
-
-<!-- ============================================================ -->
-
-<doc:template name="division-toc" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:division-toc" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make ToC/LoTs for a division</refpurpose>
 
 <refdescription>
@@ -261,10 +228,10 @@ division (book, part, etc.).</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="division-toc">
+<xsl:template name="t:division-toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="make-toc">
+  <xsl:call-template name="tp:make-toc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes"
 		    select="db:part|db:reference
@@ -279,7 +246,7 @@ division (book, part, etc.).</para>
 
 <!-- ============================================================ -->
 
-<doc:template name="component-toc" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:component-toc" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make ToC/LoTs for a component</refpurpose>
 
 <refdescription>
@@ -303,11 +270,11 @@ component (chapter, article, etc.).</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="component-toc">
+<xsl:template name="t:component-toc">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="toc.title" select="true()"/>
 
-  <xsl:call-template name="make-toc">
+  <xsl:call-template name="tp:make-toc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="toc.title" select="$toc.title"/>
     <xsl:with-param name="nodes"
@@ -323,7 +290,7 @@ component (chapter, article, etc.).</para>
 
 <!-- ============================================================ -->
 
-<doc:template name="component-toc-separator"
+<doc:template name="t:component-toc-separator"
 	      xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make a separator for component ToCs</refpurpose>
 
@@ -337,14 +304,14 @@ component (chapter, article, etc.).</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="component-toc-separator">
+<xsl:template name="t:component-toc-separator">
   <!-- Customize to output something between
        component.toc and first output -->
 </xsl:template>
 
 <!-- ============================================================ -->
 
-<doc:template name="section-toc" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:section-toc" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make ToC/LoTs for a section</refpurpose>
 
 <refdescription>
@@ -368,11 +335,11 @@ section.</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="section-toc">
+<xsl:template name="t:section-toc">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="toc.title" select="true()"/>
 
-  <xsl:call-template name="make-toc">
+  <xsl:call-template name="tp:make-toc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="toc.title" select="$toc.title"/>
     <xsl:with-param name="nodes"
@@ -386,7 +353,7 @@ section.</para>
 
 <!-- ============================================================ -->
 
-<doc:template name="section-toc-separator"
+<doc:template name="t:section-toc-separator"
 	      xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make a separator for section ToCs</refpurpose>
 
@@ -400,14 +367,14 @@ section.</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="section-toc-separator">
+<xsl:template name="t:section-toc-separator">
   <!-- Customize to output something between
        section.toc and first output -->
 </xsl:template>
 
 <!-- ============================================================ -->
 
-<doc:template name="qanda-toc" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:qanda-toc" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make ToC/LoTs for a QAndASet</refpurpose>
 
 <refdescription>
@@ -430,11 +397,11 @@ Lists of Titles for a qandaset.</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="qanda-toc">
+<xsl:template name="t:qanda-toc">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="toc.title" select="true()"/>
 
-  <xsl:call-template name="make-toc">
+  <xsl:call-template name="tp:make-toc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="toc.title" select="$toc.title"/>
     <xsl:with-param name="nodes"
@@ -444,7 +411,7 @@ Lists of Titles for a qandaset.</para>
 
 <!-- ============================================================ -->
 
-<doc:template name="qanda-toc-separator"
+<doc:template name="t:qanda-toc-separator"
 	      xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make a separator for qandaset ToCs</refpurpose>
 
@@ -458,14 +425,14 @@ Lists of Titles for a qandaset.</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="qanda-toc-separator">
+<xsl:template name="t:qanda-toc-separator">
   <!-- Customize to output something between
        component.toc and first output -->
 </xsl:template>
 
 <!-- ============================================================ -->
 
-<doc:template name="subtoc" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="tp:subtoc" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make subordinate ToC parts</refpurpose>
 
 <refdescription>
@@ -477,14 +444,14 @@ Lists of Titles for a qandaset.</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="subtoc">
+<xsl:template name="tp:subtoc">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="nodes" select="()"/>
 
   <xsl:variable name="subtoc" as="element()">
     <xsl:element name="{$toc.list.type}">
       <xsl:attribute name="class" select="'toc'"/>
-      <xsl:apply-templates mode="m:toc" select="$nodes">
+      <xsl:apply-templates mode="mp:toc" select="$nodes">
         <xsl:with-param name="toc-context" select="$toc-context"/>
       </xsl:apply-templates>
     </xsl:element>
@@ -546,7 +513,7 @@ Lists of Titles for a qandaset.</para>
 			and $toc.max.depth > $depth.from.context"/>
 
   <xsl:element name="{$toc.listitem.type}">
-    <xsl:call-template name="toc-line">
+    <xsl:call-template name="tp:toc-line">
       <xsl:with-param name="toc-context" select="$toc-context"/>
     </xsl:call-template>
 
@@ -562,7 +529,7 @@ Lists of Titles for a qandaset.</para>
 
 <!-- ============================================================ -->
 
-<doc:template name="toc-line" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="tp:toc-line" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make a line of the ToC</refpurpose>
 
 <refdescription>
@@ -574,7 +541,7 @@ Lists of Titles for a qandaset.</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="toc-line">
+<xsl:template name="tp:toc-line">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="depth" select="1"/>
   <xsl:param name="depth.from.context" select="8"/>
@@ -596,10 +563,10 @@ Lists of Titles for a qandaset.</para>
   </span>
 </xsl:template>
 
-<xsl:template match="db:book" mode="m:toc">
+<xsl:template match="db:book" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:part|db:reference
                                          |db:preface|db:chapter|db:appendix
@@ -610,21 +577,21 @@ Lists of Titles for a qandaset.</para>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:setindex" mode="m:toc">
+<xsl:template match="db:setindex" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
   <!-- If the setindex tag is not empty, it should be it in the TOC -->
   <xsl:if test="* or $generate.index != 0">
-    <xsl:call-template name="subtoc">
+    <xsl:call-template name="tp:subtoc">
       <xsl:with-param name="toc-context" select="$toc-context"/>
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="db:part|db:reference" mode="m:toc">
+<xsl:template match="db:part|db:reference" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:appendix|db:chapter|db:article
                                          |db:index|db:glossary|db:bibliography
@@ -633,10 +600,10 @@ Lists of Titles for a qandaset.</para>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:preface|db:chapter|db:appendix|db:article" mode="m:toc">
+<xsl:template match="db:preface|db:chapter|db:appendix|db:article" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:section|db:sect1|db:simplesect|db:refentry
                                          |db:glossary|db:bibliography|db:index
@@ -644,93 +611,93 @@ Lists of Titles for a qandaset.</para>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:sect1" mode="m:toc">
+<xsl:template match="db:sect1" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:sect2
                                          |db:bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:sect2" mode="m:toc">
+<xsl:template match="db:sect2" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:sect3
                                          |db:bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:sect3" mode="m:toc">
+<xsl:template match="db:sect3" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:sect4
                                          |db:bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:sect4" mode="m:toc">
+<xsl:template match="db:sect4" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:sect5
                                          |db:bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:sect5" mode="m:toc">
+<xsl:template match="db:sect5" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:section" mode="m:toc">
+<xsl:template match="db:section" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:section
                                          |db:bridgehead[$bridgehead.in.toc != 0]"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:bridgehead" mode="m:toc">
+<xsl:template match="db:bridgehead" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
   <xsl:if test="$bridgehead.in.toc != 0">
-    <xsl:call-template name="subtoc">
+    <xsl:call-template name="tp:subtoc">
       <xsl:with-param name="toc-context" select="$toc-context"/>
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="db:bibliography|db:glossary" mode="m:toc">
+<xsl:template match="db:bibliography|db:glossary" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:index" mode="m:toc">
+<xsl:template match="db:index" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
   <!-- If the index tag is not empty, it should be it in the TOC -->
   <xsl:if test="* or $generate.index != 0">
-    <xsl:call-template name="subtoc">
+    <xsl:call-template name="tp:subtoc">
       <xsl:with-param name="toc-context" select="$toc-context"/>
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="db:refentry" mode="m:toc">
+<xsl:template match="db:refentry" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
   <xsl:variable name="refmeta" select=".//db:refmeta"/>
@@ -764,16 +731,16 @@ Lists of Titles for a qandaset.</para>
   </xsl:element>
 </xsl:template>
 
-<xsl:template match="db:qandadiv|db:qandaentry" mode="m:toc">
+<xsl:template match="db:qandadiv|db:qandaentry" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:call-template name="subtoc">
+  <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:qandadiv|db:qandaentry"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:title" mode="m:toc">
+<xsl:template match="db:title" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
   <a href="{f:href(/,..)}">
@@ -783,7 +750,7 @@ Lists of Titles for a qandaset.</para>
 
 <!-- ============================================================ -->
 
-<doc:template name="manual-toc" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:manual-toc" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Handle manual ToCs (toc elements)</refpurpose>
 
 <refdescription>
@@ -795,7 +762,7 @@ Lists of Titles for a qandaset.</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="manual-toc">
+<xsl:template name="t:manual-toc">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="tocentry"/>
 
@@ -820,14 +787,14 @@ Lists of Titles for a qandaset.</para>
     <xsl:if test="$tocentry/*">
       <xsl:element name="{$toc.list.type}">
 	<xsl:attribute name="class" select="'toc'"/>
-        <xsl:call-template name="manual-toc">
+        <xsl:call-template name="t:manual-toc">
           <xsl:with-param name="tocentry" select="$tocentry/*[1]"/>
         </xsl:call-template>
       </xsl:element>
     </xsl:if>
 
     <xsl:if test="$tocentry/following-sibling::*">
-      <xsl:call-template name="manual-toc">
+      <xsl:call-template name="t:manual-toc">
         <xsl:with-param name="tocentry" select="$tocentry/following-sibling::*[1]"/>
       </xsl:call-template>
     </xsl:if>
@@ -836,7 +803,7 @@ Lists of Titles for a qandaset.</para>
 
 <!-- ============================================================ -->
 
-<doc:template name="list-of-titles" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="tp:list-of-titles" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Handles the headers for a List of Titles</refpurpose>
 
 <refdescription>
@@ -848,7 +815,7 @@ Lists of Titles for a qandaset.</para>
 </refreturn>
 </doc:template>
 
-<xsl:template name="list-of-titles">
+<xsl:template name="tp:list-of-titles">
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="titles" select="'table'"/>
   <xsl:param name="nodes" select=".//db:table"/>
@@ -874,7 +841,7 @@ Lists of Titles for a qandaset.</para>
 
       <xsl:element name="{$toc.list.type}">
 	<xsl:attribute name="class" select="'toc'"/>
-        <xsl:apply-templates select="$nodes" mode="m:toc">
+        <xsl:apply-templates select="$nodes" mode="mp:toc">
           <xsl:with-param name="toc-context" select="$toc-context"/>
         </xsl:apply-templates>
       </xsl:element>
@@ -883,7 +850,7 @@ Lists of Titles for a qandaset.</para>
 </xsl:template>
 
 <xsl:template match="db:figure|db:table|db:example|db:equation|db:procedure"
-	      mode="m:toc">
+	      mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
   <xsl:element name="{$toc.listitem.type}">

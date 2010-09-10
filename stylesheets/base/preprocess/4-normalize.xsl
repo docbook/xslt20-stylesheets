@@ -11,6 +11,11 @@
                 version="2.0">
 <xsl:import href="../common/l10n.xsl"/>
 
+<xsl:param name="l10n.gentext.default.language" select="'en'"/>
+<xsl:param name="l10n.gentext.language" select="''"/>
+<xsl:param name="l10n.gentext.use.xref.language" select="0"/>
+<xsl:param name="l10n.locale.dir">locales/</xsl:param>
+
 <xsl:param name="glossary.collection" select="''"/>
 <xsl:param name="bibliography.collection" select="''"/>
 <xsl:param name="docbook-namespace" select="'http://docbook.org/ns/docbook'"/>

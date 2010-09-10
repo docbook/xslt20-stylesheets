@@ -21,22 +21,7 @@
       <xsl:with-param name="content" select="$titlepage"/>
     </xsl:call-template>
 
-    <xsl:variable name="toc.params"
-		  select="f:find-toc-params(., $generate.toc)"/>
-
-    <xsl:variable name="toc"
-                  select="f:pi(processing-instruction('dbhtml'), 'toc')"/>
-
-    <xsl:if test="$toc != '0'">
-      <xsl:call-template name="make-lots">
-        <xsl:with-param name="toc.params" select="$toc.params"/>
-        <xsl:with-param name="toc">
-          <xsl:call-template name="qanda-toc">
-            <xsl:with-param name="toc.title" select="$toc.params/@title != 0"/>
-          </xsl:call-template>
-        </xsl:with-param>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:apply-templates select="." mode="m:toc"/>
 
     <xsl:apply-templates select="*[not(self::db:info)
                                    and not(self::db:qandaentry)]"/>
@@ -47,6 +32,25 @@
       </table>
     </xsl:if>
   </div>
+</xsl:template>
+
+<xsl:template match="db:qandaset|db:qandadiv" mode="m:toc">
+  <xsl:param name="toc.params"
+             select="f:find-toc-params(., $generate.toc)"/>
+
+  <xsl:variable name="toc"
+                select="f:pi(processing-instruction('dbhtml'), 'toc')"/>
+
+  <xsl:if test="$toc != '0'">
+    <xsl:call-template name="t:make-lots">
+      <xsl:with-param name="toc.params" select="$toc.params"/>
+      <xsl:with-param name="toc">
+        <xsl:call-template name="t:qanda-toc">
+          <xsl:with-param name="toc.title" select="$toc.params/@title != 0"/>
+        </xsl:call-template>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:qandaentry">

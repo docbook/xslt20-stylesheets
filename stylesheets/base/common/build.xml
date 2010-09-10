@@ -4,8 +4,16 @@
   <property name="dbroot.dir" value="${ant.file}/../../../.."/>
   <import file="../../../tools/build-shared.xml"/>
 
+  <!-- N.B. i18ndata.xsl contains all the locales in a single, "compiled" XSL file.
+            locales is a directory containing all the individual locale files.
+            Users are expected to use only one of these two techniques to read the
+            locale data.
+  -->
 
-  <target name="all">
+  <target name="all" depends="locales,i18ndata"/>
+
+  <target name="locales">
+    <echo>Generating locales...</echo>
     <copy todir="locales">
       <fileset dir="../../../gentext/build" includes="*.xml"/>
       <mapper>          <!-- Use only lower case letters for matching -->
@@ -41,7 +49,16 @@
     </copy>
   </target>
 
+  <target name="i18ndata">
+    <echo>Generating i18ndata.xsl...</echo>
+    <xslt2 style="../../../tools/i18nxsl.xsl "
+           in="../../../gentext/i18n.xml"
+           out="i18ndata.xsl">
+    </xslt2>
+  </target>
+
   <target name="clean">
+    <delete file="i18ndata.xsl"/>
     <delete dir="locales"/>
   </target>
 
