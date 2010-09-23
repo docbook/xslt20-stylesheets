@@ -298,6 +298,27 @@ processed in this mode should generate their label.</para>
   <!-- Is empty really the right answer? -->
 </xsl:template>
 
+<xsl:template match="db:refsection" mode="m:label-content">
+  <xsl:variable name="label" select="$autolabel.elements/db:refsection"/>
+  <xsl:variable name="format" as="xs:string">
+    <xsl:choose>
+      <xsl:when test="$label/@format">
+	<xsl:value-of select="$label/@format"/>
+      </xsl:when>
+      <xsl:otherwise>1</xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="@label">
+      <xsl:value-of select="@label"/>
+    </xsl:when>
+    <xsl:when test="$label">
+      <xsl:number format="{$format}"/>
+    </xsl:when>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template match="db:refsect1" mode="m:label-content">
   <!-- yes: it's /db:refsection in the expression below -->
   <xsl:variable name="label" select="$autolabel.elements/db:refsection"/>
@@ -641,6 +662,10 @@ processed in this mode should generate their label.</para>
 </xsl:template>
 
 <xsl:template match="db:abstract" mode="m:label-content">
+  <!-- nop -->
+</xsl:template>
+
+<xsl:template match="db:note|db:tip|db:warning|db:caution|db:important" mode="m:label-content">
   <!-- nop -->
 </xsl:template>
 
