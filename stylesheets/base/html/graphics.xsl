@@ -330,8 +330,7 @@ vertical alignment.</para>
       <xsl:when test="$width != ''">
         <xsl:variable name="width.in.points"
                       select="f:length-in-points($width,$points.per.em)"/>
-        <xsl:value-of select="round($width.in.points div 72.0
-                                    * $pixels.per.inch)"/>
+        <xsl:value-of select="round($width.in.points * ($pixels.per.inch div 72.0))"/>
       </xsl:when>
       <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
@@ -829,7 +828,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <!-- ==================================================================== -->
 
 <xsl:template match="db:mediaobject">
-  <xsl:variable name="olist" select="*[not(self::db:info)]"/>
+  <xsl:variable name="olist" select="*[not(self::db:info) and not(self::db:alt)]"/>
 
   <xsl:variable name="object.index"
                 select="f:select-mediaobject-index($olist)"/>
