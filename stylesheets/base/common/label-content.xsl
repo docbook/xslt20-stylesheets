@@ -560,6 +560,12 @@ processed in this mode should generate their label.</para>
   </xsl:if>
 </xsl:template>
 
+<xsl:template match="db:sidebar" mode="m:label-content">
+  <xsl:if test="@label">
+    <xsl:value-of select="@label"/>
+  </xsl:if>
+</xsl:template>
+
 <xsl:template match="db:figure|db:table|db:example|db:procedure"
 	      mode="m:label-content">
 
