@@ -51,7 +51,7 @@
     <xsl:apply-templates select="." mode="mp:titleabbrev-content"/>
   </xsl:variable>
 
-  <xsl:variable name="label" as="node()*">
+  <xsl:variable name="label">
     <xsl:apply-templates select="." mode="m:label-content"/>
   </xsl:variable>
 
