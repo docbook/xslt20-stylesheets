@@ -11,7 +11,8 @@
 		exclude-result-prefixes="h f m fn db t xs"
                 version="2.0">
 
-<xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5">
+<xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5"
+              name="db:section">
   <xsl:variable name="recto"
 		select="$titlepages/*[node-name(.) = node-name(current())
 			              and @t:side='recto'][1]"/>
