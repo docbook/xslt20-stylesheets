@@ -670,7 +670,7 @@ to determine which object in the list is appropriate.</para>
 </doc:template>
 
 <xsl:template name="t:select-mediaobject">
-  <xsl:variable name="olist" select="*[not(self::db:info)]"/>
+  <xsl:variable name="olist" select="*[not(self::db:info) and not(self::db:alt)]"/>
 
   <xsl:variable name="mediaobject.index"
                 select="f:select-mediaobject-index($olist)"/>
