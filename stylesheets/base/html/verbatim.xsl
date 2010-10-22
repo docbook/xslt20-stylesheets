@@ -72,9 +72,7 @@
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
-    <pre>
-      <xsl:sequence select="$formatted"/>
-    </pre>
+    <pre><xsl:sequence select="$formatted"/></pre>
   </div>
 </xsl:template>
 
