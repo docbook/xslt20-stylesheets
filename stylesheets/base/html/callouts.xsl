@@ -101,29 +101,33 @@
 </xsl:template>
 
 <xsl:template name="t:callout-bug">
-  <xsl:param name="conum" select='1' as="xs:integer"/>
+  <xsl:param name="conum" select='1'/>
+
+  <xsl:variable name="iconum"
+                select="if ($conum castable as xs:int)
+                        then xs:int($conum) else 1"/>
 
   <xsl:choose>
     <xsl:when test="$callout.graphics != 0
-                    and $conum &lt;= number($callout.graphics.number.limit)">
-      <img src="{$callout.graphics.path}{$conum}{$callout.graphics.extension}"
-           alt="{$conum}" border="0"/>
+                    and $iconum &lt;= number($callout.graphics.number.limit)">
+      <img src="{$callout.graphics.path}{$iconum}{$callout.graphics.extension}"
+           alt="{$iconum}" border="0"/>
     </xsl:when>
     <xsl:when test="$callout.unicode != 0
-                    and $conum &lt;= $callout.unicode.number.limit">
+                    and $iconum &lt;= $callout.unicode.number.limit">
       <xsl:choose>
         <xsl:when test="$callout.unicode.start.character = 10102">
           <xsl:choose>
-            <xsl:when test="$conum = 1">&#10102;</xsl:when>
-            <xsl:when test="$conum = 2">&#10103;</xsl:when>
-            <xsl:when test="$conum = 3">&#10104;</xsl:when>
-            <xsl:when test="$conum = 4">&#10105;</xsl:when>
-            <xsl:when test="$conum = 5">&#10106;</xsl:when>
-            <xsl:when test="$conum = 6">&#10107;</xsl:when>
-            <xsl:when test="$conum = 7">&#10108;</xsl:when>
-            <xsl:when test="$conum = 8">&#10109;</xsl:when>
-            <xsl:when test="$conum = 9">&#10110;</xsl:when>
-            <xsl:when test="$conum = 10">&#10111;</xsl:when>
+            <xsl:when test="$iconum = 1">&#10102;</xsl:when>
+            <xsl:when test="$iconum = 2">&#10103;</xsl:when>
+            <xsl:when test="$iconum = 3">&#10104;</xsl:when>
+            <xsl:when test="$iconum = 4">&#10105;</xsl:when>
+            <xsl:when test="$iconum = 5">&#10106;</xsl:when>
+            <xsl:when test="$iconum = 6">&#10107;</xsl:when>
+            <xsl:when test="$iconum = 7">&#10108;</xsl:when>
+            <xsl:when test="$iconum = 8">&#10109;</xsl:when>
+            <xsl:when test="$iconum = 9">&#10110;</xsl:when>
+            <xsl:when test="$iconum = 10">&#10111;</xsl:when>
           </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
@@ -133,14 +137,14 @@
             <xsl:value-of select="$callout.unicode.start.character"/>
           </xsl:message>
           <xsl:text>(</xsl:text>
-          <xsl:value-of select="$conum"/>
+          <xsl:value-of select="$iconum"/>
           <xsl:text>)</xsl:text>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
       <xsl:text>(</xsl:text>
-      <xsl:value-of select="$conum"/>
+      <xsl:value-of select="$iconum"/>
       <xsl:text>)</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
