@@ -25,11 +25,11 @@
 <xsl:template match="db:footnote">
   <xsl:variable name="name" select="f:node-id(.)"/>
   <sup class="{local-name(.)}">
-    <xsl:text>[</xsl:text>
+    <span class="osq">[</span>
     <a name="{$name}" href="{concat('#ftn.', $name)}">
       <xsl:apply-templates select="." mode="m:footnote-number"/>
     </a>
-    <xsl:text>]</xsl:text>
+    <span class="csq">]</span>
   </sup>
 </xsl:template>
 
@@ -38,11 +38,11 @@
   <xsl:variable name="href" select="concat('#ftn.', f:node-id(.))"/>
 
   <sup class="{local-name(.)}">
-    <xsl:text>[</xsl:text>
+    <span class="osq">[</span>
     <a href="{$href}">
       <xsl:apply-templates select="$footnote" mode="m:footnote-number"/>
     </a>
-    <xsl:text>]</xsl:text>
+    <span class="csq">]</span>
   </sup>
 </xsl:template>
 
@@ -86,11 +86,11 @@
 	<p>
 	  <xsl:copy-of select="$footnote.body[1]/@*"/>
 	  <sup>
-	    <xsl:text>[</xsl:text>
+            <span class="osq">[</span>
 	    <a href="#{$name}" name="{concat('ftn.', $name)}">
 	      <xsl:copy-of select="$footnote.number"/>
 	    </a>
-	    <xsl:text>]</xsl:text>
+            <span class="csq">]</span>
 	  </sup>
 	  <xsl:sequence select="$footnote.body[1]/node()"/>
 	</p>
@@ -102,11 +102,11 @@
 	  <tr>
 	    <td valign="top" align="left">
 	      <sup>
-		<xsl:text>[</xsl:text>
+                <span class="osq">[</span>
 		<a href="#{$name}" name="{concat('ftn.', $name)}">
 		  <xsl:copy-of select="$footnote.number"/>
 		</a>
-		<xsl:text>]</xsl:text>
+                <span class="csq">]</span>
 	      </sup>
 	    </td>
 	    <td valign="top" align="left">
