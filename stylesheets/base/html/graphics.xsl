@@ -161,6 +161,18 @@ vertical alignment.</para>
 </refreturn>
 </doc:template>
 
+<xsl:template name="t:image-properties" as="xs:integer*">
+  <xsl:param name="image" required="yes"/>
+
+  <xsl:sequence use-when="function-available('simg:new')
+                          and function-available('simg:properties')"
+                select="simg:properties(simg:new($filename.for.graphicsize))"/>
+
+  <xsl:sequence use-when="not(function-available('simg:new'))
+                          or not(function-available('simg:properties'))"
+                select="()"/>
+</xsl:template>
+
 <xsl:template name="t:process-image">
   <!-- When this template is called, the current node should be  -->
   <!-- a graphic, inlinegraphic, imagedata, or videodata. All    -->
@@ -261,17 +273,13 @@ vertical alignment.</para>
   </xsl:variable>
 
   <xsl:variable name="imageproperties" as="xs:integer*">
-    <xsl:sequence use-when="function-available('simg:new')
-                            and function-available('simg:properties')"
-                  select="simg:properties(simg:new($filename.for.graphicsize))"/>
-    <xsl:sequence use-when="not(function-available('simg:new'))
-                            or not(function-available('simg:properties'))"
-                  select="()"/>
+    <xsl:call-template name="t:image-properties">
+      <xsl:with-param name="image" select="$filename.for.graphicsize"/>
+    </xsl:call-template>
   </xsl:variable>
 
-  <xsl:if test="not(function-available('simg:new'))
-                or not(function-available('simg:properties'))">
-    <xsl:message>WARNING: Image properties extension function not available!</xsl:message>
+  <xsl:if test="empty($imageproperties)">
+    <xsl:message>WARNING: No image properties extension function available!</xsl:message>
   </xsl:if>
 
   <xsl:variable name="intrinsicwidth"
