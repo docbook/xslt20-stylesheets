@@ -60,11 +60,10 @@
   </xsl:variable>
 
   <!--
-  <xsl:message>
-    <NOWRAPLB>
-      <xsl:copy-of select="$pl-no-wrap-lb"/>
-    </NOWRAPLB>
-  </xsl:message>
+  <xsl:message>NOWRAPLB</xsl:message>
+  <xsl:for-each select="$pl-no-wrap-lb">
+    <xsl:message><xsl:sequence select="."/></xsl:message>
+  </xsl:for-each>
   -->
 
   <xsl:variable name="pl-lines" as="element(ghost:line)*">
@@ -416,12 +415,19 @@ an element that has content.</para>
   </xsl:message>
   -->
 
+  <xsl:variable name="mark" select="$nodes[@ghost:id][1]"/>
+
   <xsl:choose>
-    <xsl:when test="not($nodes)"/>
-    <xsl:when test="$nodes[1] instance of element()
-                    and $nodes[1]/@ghost:id">
-      <xsl:variable name="id" select="$nodes[1]/@ghost:id"/>
-      <xsl:variable name="end" select="$nodes[self::ghost:end[@idref=$id]][1]"/>
+    <xsl:when test="not($mark)">
+      <xsl:sequence select="$nodes"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:sequence select="($mark/preceding-sibling::node())"/>
+
+      <xsl:variable name="rest" select="($mark, $mark/following-sibling::node())"/>
+
+      <xsl:variable name="id" select="$mark/@ghost:id"/>
+      <xsl:variable name="end" select="$rest[self::ghost:end[@idref=$id]][1]"/>
 
       <!--
       <xsl:message>
@@ -433,25 +439,19 @@ an element that has content.</para>
       -->
 
       <xsl:variable name="endpos"
-		    select="f:find-node-in-sequence($nodes, $end, 2)"/>
+		    select="f:find-node-in-sequence($rest, $end, 2)"/>
 
-      <xsl:element name="{name($nodes[1])}"
-		   namespace="{namespace-uri($nodes[1])}">
-	<xsl:copy-of select="$nodes[1]/@*"/>
+      <xsl:element name="{name($mark)}"
+		   namespace="{namespace-uri($mark)}">
+	<xsl:copy-of select="$mark/@*"/>
 	<xsl:call-template name="t:restore-content">
 	  <xsl:with-param name="nodes"
-			  select="subsequence($nodes, 2, $endpos - 2)"/>
+			  select="subsequence($rest, 2, $endpos - 2)"/>
 	</xsl:call-template>
       </xsl:element>
       <xsl:call-template name="t:restore-content">
 	<xsl:with-param name="nodes"
-			select="subsequence($nodes, $endpos+1)"/>
-      </xsl:call-template>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:copy-of select="$nodes[1]"/>
-      <xsl:call-template name="t:restore-content">
-	<xsl:with-param name="nodes" select="$nodes[position() &gt; 1]"/>
+			select="subsequence($rest, $endpos+1)"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -755,26 +755,56 @@ that it had been nested within.</para>
 
 <!-- ============================================================ -->
 
-<xsl:template match="*" mode="mp:pl-no-lb">
+<xsl:template match="*" mode="mp:pl-no-lb" as="node()*">
   <xsl:copy>
     <xsl:copy-of select="@*"/>
     <xsl:apply-templates mode="mp:pl-no-lb"/>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="text()"
+<xsl:template match="text()" as="node()*"
 	      mode="mp:pl-no-lb">
-  <xsl:analyze-string select="." regex="\n">
-    <xsl:matching-substring>
-      <ghost:br/>
-    </xsl:matching-substring>
-    <xsl:non-matching-substring>
-      <xsl:value-of select="."/>
-    </xsl:non-matching-substring>
-  </xsl:analyze-string>
+
+  <!-- Ok, there's a bug in MarkLogic server that coalesces the nodes returned by
+       xsl:analyze-string into a single node. Let's work around that for now. -->
+
+  <xsl:choose>
+    <xsl:when test="system-property('xsl:vendor') = 'MarkLogic Corporation'">
+      <xsl:variable name="parts" as="item()*">
+        <xsl:analyze-string select="." regex="\n">
+          <xsl:matching-substring>
+            <ghost:br/>
+          </xsl:matching-substring>
+          <xsl:non-matching-substring>
+            <ghost:x><xsl:value-of select="."/></ghost:x>
+          </xsl:non-matching-substring>
+        </xsl:analyze-string>
+      </xsl:variable>
+      <xsl:for-each select="$parts/node()">
+        <xsl:choose>
+          <xsl:when test="self::ghost:br">
+            <xsl:sequence select="."/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:sequence select="./node()"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:analyze-string select="." regex="\n">
+        <xsl:matching-substring>
+          <ghost:br/>
+        </xsl:matching-substring>
+        <xsl:non-matching-substring>
+          <xsl:value-of select="."/>
+        </xsl:non-matching-substring>
+      </xsl:analyze-string>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
-<xsl:template match="comment()|processing-instruction()"
+<xsl:template match="comment()|processing-instruction()" as="node()*"
 	      mode="mp:pl-no-lb">
   <xsl:copy/>
 </xsl:template>
