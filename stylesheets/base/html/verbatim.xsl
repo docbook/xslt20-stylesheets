@@ -141,21 +141,49 @@
 </xsl:template>
 
 <xsl:template match="text()" mode="mp:literallayout">
-  <xsl:analyze-string select="." regex="&#10;">
-    <xsl:matching-substring>
-      <br/><xsl:text>&#10;</xsl:text>
-    </xsl:matching-substring>
-    <xsl:non-matching-substring>
-      <xsl:analyze-string select="." regex="[\s]">
-	<xsl:matching-substring>
-	  <xsl:text>&#160;</xsl:text>
-	</xsl:matching-substring>
-	<xsl:non-matching-substring>
-	  <xsl:copy/>
-	</xsl:non-matching-substring>
+  <xsl:choose>
+    <xsl:when test="system-property('xsl:vendor') = 'MarkLogic Corporation'">
+      <xsl:variable name="parts" as="item()*">
+        <xsl:analyze-string select="." regex="&#10;">
+          <xsl:matching-substring>
+            <wrap><br/><xsl:text>&#10;</xsl:text></wrap>
+          </xsl:matching-substring>
+          <xsl:non-matching-substring>
+            <xsl:analyze-string select="." regex="[\s]">
+              <xsl:matching-substring>
+                <wrap><xsl:text>&#160;</xsl:text></wrap>
+              </xsl:matching-substring>
+              <xsl:non-matching-substring>
+                <wrap><xsl:copy/></wrap>
+              </xsl:non-matching-substring>
+            </xsl:analyze-string>
+          </xsl:non-matching-substring>
+        </xsl:analyze-string>
+      </xsl:variable>
+      <xsl:for-each select="$parts/node()">
+        <xsl:sequence select="./node()"/>
+      </xsl:for-each>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:analyze-string select="." regex="&#10;">
+        <xsl:matching-substring>
+          <br/><xsl:text>&#10;</xsl:text>
+        </xsl:matching-substring>
+        <xsl:non-matching-substring>
+          <xsl:analyze-string select="." regex="[\s]">
+            <xsl:matching-substring>
+              <xsl:text>&#160;</xsl:text>
+            </xsl:matching-substring>
+            <xsl:non-matching-substring>
+              <xsl:copy/>
+            </xsl:non-matching-substring>
+          </xsl:analyze-string>
+        </xsl:non-matching-substring>
       </xsl:analyze-string>
-    </xsl:non-matching-substring>
-  </xsl:analyze-string>
+    </xsl:otherwise>
+  </xsl:choose>
+
+
 </xsl:template>
 
 </xsl:stylesheet>
