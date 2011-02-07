@@ -53,34 +53,57 @@ oreder.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:for-each select="$steps">
-	<xsl:if test="not(. = ('db4to5', 'transclude', 'preprofile', 'profile', 'postprofile', 'schemaext', 'normalize'))">
-	  <xsl:message>Warning: Preprocessing step "<xsl:value-of select="."/>" is not supported. Ignoring.</xsl:message>
-	</xsl:if>
+        <xsl:if test="not(. = ('db4to5', 'transclude', 'preprofile', 'profile', 'postprofile',
+                               'schemaext', 'normalize'))">
+          <xsl:message>
+            <xsl:text>Warning: Preprocessing step "</xsl:text>
+            <xsl:value-of select="."/>
+            <xsl:text>" is not supported. Ignoring.</xsl:text>
+          </xsl:message>
+        </xsl:if>
       </xsl:for-each>
 
       <!-- We must always perform this step in order to retain base URI -->
       <xsl:variable name="logstruct" select="f:explicit-logical-structure($root)"/>
 
-      <xsl:variable name="db4to5" select="if (index-of($steps, 'db4to5')) then f:convert-to-docbook5($logstruct) else $logstruct"/>
+      <xsl:variable name="db4to5"
+                    select="if (index-of($steps, 'db4to5'))
+                            then f:convert-to-docbook5($logstruct)
+                            else $logstruct"/>
 
-      <xsl:variable name="transclude" select="if (index-of($steps, 'transclude')) then f:transclude-and-adjust-idrefs($db4to5) else $db4to5"/>
+      <xsl:variable name="transclude"
+                    select="if (index-of($steps, 'transclude'))
+                            then f:transclude-and-adjust-idrefs($db4to5)
+                            else $db4to5"/>
 
-      <xsl:variable name="preprofile" select="if (index-of($steps, 'preprofile')) then f:preprofile($transclude) else $transclude"/>
+      <xsl:variable name="preprofile"
+                    select="if (index-of($steps, 'preprofile'))
+                            then f:preprofile($transclude)
+                            else $transclude"/>
 
-      <xsl:variable name="profile" select="if (index-of($steps, 'profile')) 
-					   then f:profile($preprofile, $profile.separator, $profile.arch, $profile.condition,
-					             $profile.conformance,
-						     $profile.lang, $profile.os, $profile.revision,
-						     $profile.revisionflag,
-						     $profile.role, $profile.security, $profile.userlevel,
-						     $profile.vendor)
-					   else $preprofile"/>
+      <xsl:variable name="profile"
+                    select="if (index-of($steps, 'profile'))
+			    then f:profile($preprofile, $profile.separator, $profile.arch,
+                                           $profile.condition, $profile.conformance,
+                                           $profile.lang, $profile.os, $profile.revision,
+                                           $profile.revisionflag, $profile.role,
+                                           $profile.security, $profile.userlevel, $profile.vendor)
+                            else $preprofile"/>
 
-      <xsl:variable name="postprofile" select="if (index-of($steps, 'postprofile')) then f:postprofile($profile) else $profile"/>
+      <xsl:variable name="postprofile"
+                    select="if (index-of($steps, 'postprofile'))
+                            then f:postprofile($profile)
+                            else $profile"/>
 
-      <xsl:variable name="schemaext" select="if (index-of($steps, 'schemaext')) then f:resolve-schema-extensions($postprofile) else $postprofile"/>
+      <xsl:variable name="schemaext"
+                    select="if (index-of($steps, 'schemaext'))
+                            then f:resolve-schema-extensions($postprofile)
+                            else $postprofile"/>
 
-      <xsl:variable name="normalize" select="if (index-of($steps, 'normalize')) then f:normalize($schemaext) else $schemaext"/>
+      <xsl:variable name="normalize"
+                    select="if (index-of($steps, 'normalize'))
+                            then f:normalize($schemaext)
+                            else $schemaext"/>
 
       <xsl:sequence select="$normalize"/>
     </xsl:otherwise>
