@@ -765,11 +765,11 @@ that it had been nested within.</para>
 <xsl:template match="text()" as="node()*"
 	      mode="mp:pl-no-lb">
 
-  <!-- Ok, there's a bug in MarkLogic server that coalesces the nodes returned by
-       xsl:analyze-string into a single node. Let's work around that for now. -->
-
+  <!-- Ok, there's a bug in MarkLogic server V4.2-1 that coalesces the nodes returned
+       by xsl:analyze-string into a single node. Let's work around that. -->
   <xsl:choose>
-    <xsl:when test="system-property('xsl:vendor') = 'MarkLogic Corporation'">
+    <xsl:when test="system-property('xsl:vendor') = 'MarkLogic Corporation'
+                    and system-property('xsl:product-version') = '4.2-1'">
       <xsl:variable name="parts" as="item()*">
         <xsl:analyze-string select="." regex="\n">
           <xsl:matching-substring>
