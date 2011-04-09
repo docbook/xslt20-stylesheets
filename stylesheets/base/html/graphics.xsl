@@ -166,7 +166,7 @@ vertical alignment.</para>
 
   <xsl:sequence use-when="function-available('simg:new')
                           and function-available('simg:properties')"
-                select="simg:properties(simg:new($filename.for.graphicsize))"/>
+                select="simg:properties(simg:new($image))"/>
 
   <xsl:sequence use-when="not(function-available('simg:new'))
                           or not(function-available('simg:properties'))"
