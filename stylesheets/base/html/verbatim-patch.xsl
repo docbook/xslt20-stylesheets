@@ -407,36 +407,43 @@ an element that has content.</para>
 <xsl:template name="t:restore-content">
   <xsl:param name="nodes" select="node()"/>
 
-  <!--
+<!--
   <xsl:message>
     <XXX>
       <xsl:copy-of select="$nodes"/>
     </XXX>
   </xsl:message>
-  -->
+-->
 
   <xsl:variable name="mark" select="$nodes[@ghost:id][1]"/>
+
+  <!-- FIXME: I totally do not understand why straight-up node comparisons fail here.
+       So I'm stepping back to comparing sequences of atomic values created
+       with generate-id(). -->
 
   <xsl:choose>
     <xsl:when test="not($mark)">
       <xsl:sequence select="$nodes"/>
     </xsl:when>
+
     <xsl:otherwise>
-      <xsl:sequence select="($mark/preceding-sibling::node())"/>
+      <xsl:variable name="precmarkids" select="for $node in $mark/preceding-sibling::node() return generate-id($node)"/>
+
+      <xsl:sequence select="$nodes[generate-id(.) = $precmarkids]"/>
 
       <xsl:variable name="rest" select="($mark, $mark/following-sibling::node())"/>
 
       <xsl:variable name="id" select="$mark/@ghost:id"/>
       <xsl:variable name="end" select="$rest[self::ghost:end[@idref=$id]][1]"/>
 
-      <!--
+<!--
       <xsl:message>
 	<xsl:text>Restore </xsl:text>
 	<xsl:value-of select="$id"/>
 	<xsl:text>, </xsl:text>
 	<xsl:value-of select="count($end)"/>
       </xsl:message>
-      -->
+-->
 
       <xsl:variable name="endpos"
 		    select="f:find-node-in-sequence($rest, $end, 2)"/>
