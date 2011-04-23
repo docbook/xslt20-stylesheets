@@ -847,7 +847,8 @@ the English locale value will be used as the default.</para>
 
 <xsl:function name="f:check-locale" as="xs:boolean">
   <xsl:param name="lang" as="xs:string"/>
-  <xsl:sequence select="doc-available(resolve-uri(concat($lang,'.xml'), $l10n.locale.dir))"/>
+  <xsl:variable name="dir" select="resolve-uri($l10n.locale.dir)"/>
+  <xsl:sequence select="doc-available(resolve-uri(concat($lang,'.xml'), $dir))"/>
 </xsl:function>
 
 <!-- ============================================================ -->
@@ -913,8 +914,9 @@ the English locale value will be used as the default.</para>
 
 <xsl:function name="f:load-locale" as="element(l:l10n)">
   <xsl:param name="lang" as="xs:string"/>
+  <xsl:variable name="dir" select="resolve-uri($l10n.locale.dir)"/>
   <xsl:variable name="locale-file"
-                select="resolve-uri(concat($lang,'.xml'), $l10n.locale.dir)"/>
+                select="resolve-uri(concat($lang,'.xml'), $dir)"/>
   <xsl:sequence select="doc($locale-file)/l:l10n"/>
 </xsl:function>
   
