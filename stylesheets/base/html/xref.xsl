@@ -81,9 +81,12 @@ identified.</entry>
 	</xsl:when>
 	<xsl:otherwise>
           <xsl:if test="not(f:findid(@linkend,.))">
-            <xsl:message>Attempt to link to undefined ID: <xsl:value-of select="@linkend"/></xsl:message>
+            <xsl:message>
+              <xsl:text>Attempt to link to undefined ID: </xsl:text>
+              <xsl:value-of select="@linkend"/>
+            </xsl:message>
           </xsl:if>
-	  <a href="{f:href(/,f:findid(@linkend,.)[1])}">
+	  <a class="brokenlink" href="#{@linkend}">
 	    <xsl:call-template name="class"/>
 	    <xsl:if test="$title != ''">
 	      <xsl:attribute name="title" select="$title"/>
