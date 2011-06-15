@@ -11,7 +11,7 @@
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:tp="http://docbook.org/xslt/ns/template/private"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fn h m t xs"
+		exclude-result-prefixes="db doc f fn h m mp t tp xs"
                 version="2.0">
 
 <!-- ********************************************************************
