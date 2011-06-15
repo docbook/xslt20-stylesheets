@@ -386,10 +386,11 @@
     <xsl:otherwise>
       <xsl:variable name="zone" select="$zones"/>
       <xsl:variable name="target" select="key('sections', $zone)[&scope;]"/>
-
-      <a href="{f:href(/,$target[1])}">
-        <xsl:apply-templates select="$target[1]" mode="m:index-title-content"/>
-      </a>
+      <xsl:if test="$target">
+        <a href="{f:href(/,$target[1])}">
+          <xsl:apply-templates select="$target[1]" mode="m:index-title-content"/>
+        </a>
+      </xsl:if>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
