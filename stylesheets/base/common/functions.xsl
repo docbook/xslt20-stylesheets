@@ -651,27 +651,22 @@ such attribute can be found.</para>
   <xsl:param name="pis" as="processing-instruction()*"/>
   <xsl:param name="attribute" as="xs:string"/>
 
-  <xsl:choose>
-    <xsl:when test="empty($pis)"></xsl:when>
-    <xsl:otherwise>
+  <xsl:variable name="values" as="xs:string*">
+    <xsl:for-each select="$pis">
       <xsl:variable name="pivalue">
-	<xsl:value-of select="concat(' ', normalize-space($pis[1]))"/>
+        <xsl:value-of select="concat(' ', normalize-space(.))"/>
       </xsl:variable>
 
-      <xsl:choose>
-	<xsl:when test="contains($pivalue,concat(' ', $attribute, '='))">
-	  <xsl:variable name="rest"
-			select="substring-after($pivalue,
-				                concat(' ', $attribute,'='))"/>
-	  <xsl:variable name="quote" select="substring($rest,1,1)"/>
-	  <xsl:value-of select="substring-before(substring($rest,2),$quote)"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="f:pi($pis[position() &gt; 1], $attribute)"/>
-	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:otherwise>
-  </xsl:choose>
+      <xsl:if test="contains($pivalue,concat(' ', $attribute, '='))">
+        <xsl:variable name="rest"
+                      select="substring-after($pivalue, concat(' ', $attribute,'='))"/>
+        <xsl:variable name="quote" select="substring($rest,1,1)"/>
+        <xsl:value-of select="substring-before(substring($rest,2),$quote)"/>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:variable>
+
+  <xsl:sequence select="$values[1]"/>
 </xsl:function>
 
 <!-- ============================================================ -->
