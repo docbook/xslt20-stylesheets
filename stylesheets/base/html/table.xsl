@@ -281,7 +281,7 @@
       <tbody class="footnotes">
         <tr>
 	  <td colspan="{@cols}">
-	    <xsl:apply-templates select=".//db:footnote"
+	    <xsl:apply-templates select="$origtable//db:footnote"
 				 mode="m:table-footnote-mode"/>
 	  </td>
 	</tr>
