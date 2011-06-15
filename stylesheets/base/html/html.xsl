@@ -466,20 +466,18 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
   <xsl:param name="node" select="."/>
 </xsl:template>
 
-<xsl:template name="t:user-header-navigation">
-  <xsl:param name="node" select="."/>
-</xsl:template>
-
 <xsl:template name="t:user-header-content">
   <xsl:param name="node" select="."/>
+  <xsl:param name="next" select="()"/>
+  <xsl:param name="prev" select="()"/>
+  <xsl:param name="up" select="()"/>
 </xsl:template>
 
 <xsl:template name="t:user-footer-content">
   <xsl:param name="node" select="."/>
-</xsl:template>
-
-<xsl:template name="t:user-footer-navigation">
-  <xsl:param name="node" select="."/>
+  <xsl:param name="next" select="()"/>
+  <xsl:param name="prev" select="()"/>
+  <xsl:param name="up" select="()"/>
 </xsl:template>
 
 <xsl:template name="t:head-content">
