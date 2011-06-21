@@ -665,7 +665,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
           <xsl:when test="$units = 'calspair'">
             <xsl:variable name="coords"
                           select="tokenize(normalize-space(@coords),
-                                           '[\s,]')"/>
+                                           '[\s,]+')"/>
 
             <xsl:variable name="x1p" select="xs:decimal($coords[1]) div 100.0"/>
             <xsl:variable name="y1p" select="xs:decimal($coords[2]) div 100.0"/>
@@ -683,7 +683,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                   <xsl:variable name="target"
                                 select="key('id', tokenize($idrefs, '[\s]'))
                                   [1]"/>
-                
+
                   <xsl:if test="$target">
                     <xsl:attribute name="href"
                                    select="f:href(/,$target)"/>
