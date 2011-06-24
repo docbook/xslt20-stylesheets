@@ -66,7 +66,19 @@
   <xsl:variable name="chunks" as="element()*">
     <xsl:variable name="root" select="/"/>
     <xsl:for-each select="$chunk-tree//h:chunk">
-      <xsl:sequence select="key('genid', @xml:id, $root)"/>
+      <xsl:variable name="src-elem" select="key('genid', @xml:id, $root)"/>
+      <xsl:choose>
+        <xsl:when test="$rootid = ''">
+          <xsl:sequence select="$src-elem"/>
+        </xsl:when>
+        <xsl:when test="$src-elem/@xml:id = $rootid">
+          <xsl:message>Selecting root element: <xsl:value-of select="local-name($src-elem)"/></xsl:message>
+          <xsl:sequence select="$src-elem"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <!-- skip it -->
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:for-each>
   </xsl:variable>
 
@@ -175,6 +187,16 @@
       </xsl:when>
       <xsl:when test="$node-chunk = $node">
         <xsl:value-of select="f:chunk-filename($node-chunk)"/>
+      </xsl:when>
+      <xsl:when test="empty($node-chunk)">
+        <xsl:if test="$rootid = ''">
+          <xsl:message>
+            <xsl:text>Warning: link to </xsl:text>
+            <xsl:value-of select="f:node-id($node)"/>
+            <xsl:text> does not appear in output.</xsl:text>
+          </xsl:message>
+        </xsl:if>
+        <xsl:value-of select="concat('#',f:node-id($node))"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="concat(f:chunk-filename($node-chunk),'#',f:node-id($node))"/>
