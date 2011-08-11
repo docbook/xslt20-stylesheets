@@ -1885,20 +1885,12 @@ not have a title, it returns “???”.</para>
 <xsl:function name="f:title" as="xs:string">
   <xsl:param name="node" as="node()"/>
 
+  <xsl:variable name="title">
+    <xsl:apply-templates select="$node" mode="m:title-content"/>
+  </xsl:variable>
+
   <xsl:choose>
-    <xsl:when test="$node/db:title">
-      <xsl:value-of select="$node/db:title"/>
-    </xsl:when>
-    <xsl:when test="$node/db:info/db:title">
-      <xsl:value-of select="$node/db:info/db:title"/>
-    </xsl:when>
-    <xsl:when test="$node/db:refmeta/db:refentrytitle">
-      <xsl:value-of select="$node/db:refmeta/db:refentrytitle"/>
-    </xsl:when>
-    <xsl:when test="$node/db:refmeta/db:refnamediv/db:refname">
-      <xsl:value-of select="$node/db:refmeta/db:refnamediv/db:refname"/>
-    </xsl:when>
-    <xsl:otherwise>
+    <xsl:when test="string($title) = ''">
       <xsl:text>???</xsl:text>
       <xsl:if test="$verbosity &gt; 0">
 	<xsl:message>
@@ -1906,6 +1898,9 @@ not have a title, it returns “???”.</para>
 	  <xsl:value-of select="local-name($node)"/>
 	</xsl:message>
       </xsl:if>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$title"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
