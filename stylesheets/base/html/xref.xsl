@@ -18,7 +18,7 @@
 
 <!-- ==================================================================== -->
 
-<xsl:template match="anchor">
+<xsl:template match="db:anchor">
   <span>
     <xsl:call-template name="t:id"/>
   </span>
