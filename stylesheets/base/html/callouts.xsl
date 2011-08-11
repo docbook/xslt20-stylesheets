@@ -104,8 +104,8 @@
   <xsl:param name="conum" select='1'/>
 
   <xsl:variable name="iconum"
-                select="if ($conum castable as xs:int)
-                        then xs:int($conum) else 1"/>
+                select="if ($conum castable as xs:decimal)
+                        then xs:decimal($conum) else 1"/>
 
   <xsl:choose>
     <xsl:when test="$callout.graphics != 0
