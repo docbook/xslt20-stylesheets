@@ -93,6 +93,7 @@
       </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t:id"/>
+    <xsl:call-template name="class"/>
     <xsl:apply-templates/>
   </li>
 </xsl:template>
@@ -163,6 +164,7 @@
       </xsl:attribute>
     </xsl:if>
     <xsl:call-template name="t:id"/>
+    <xsl:call-template name="class"/>
     <xsl:apply-templates/>
   </li>
 </xsl:template>
@@ -220,6 +222,7 @@
 <xsl:template match="db:varlistentry/db:listitem">
   <dd>
     <xsl:call-template name="t:id"/>
+    <xsl:call-template name="class"/>
     <xsl:apply-templates/>
   </dd>
 </xsl:template>
