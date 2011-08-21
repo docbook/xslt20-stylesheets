@@ -12,6 +12,9 @@
 		exclude-result-prefixes="h f m fn db doc t xs"
                 version="2.0">
 
+<xsl:param name="variablelist.term.separator" select="', '"/>
+<xsl:param name="variablelist.term.break.after" select="0"/>
+
 <xsl:template match="db:itemizedlist
 		     |db:orderedlist
 		     |db:variablelist"
@@ -194,16 +197,20 @@
 </xsl:template>
 
 <xsl:template match="db:varlistentry">
-  <xsl:apply-templates/>
+  <dt>
+    <xsl:apply-templates select="db:term"/>
+  </dt>
+  <xsl:apply-templates select="db:listitem"/>
 </xsl:template>
 
 <xsl:template match="db:varlistentry/db:term">
-  <dt>
-    <!-- If the first term doesn't have an ID, but the varlistentry does,
-         output an ID for the varlistentry... -->
+  <!-- If the first term doesn't have an ID, but the varlistentry does,
+       output an ID for the varlistentry... -->
+  <span class="term">
     <xsl:choose>
-      <xsl:when test="not(@xml:id) and ../@xml:id
-                      and not(preceding-sibling::db:term)">
+      <xsl:when test="not(preceding-sibling::db:term)
+                      and not(@xml:id)
+                      and ../@xml:id">
         <xsl:call-template name="t:id">
           <xsl:with-param name="node" select="parent::db:varlistentry"/>
         </xsl:call-template>
@@ -216,7 +223,17 @@
     </xsl:choose>
     <xsl:call-template name="class"/>
     <xsl:call-template name="t:simple-xlink"/>
-  </dt>
+  </span>
+
+  <xsl:if test="following-sibling::db:term">
+    <!-- * if we have multiple terms in the same varlistentry, generate -->
+    <!-- * a separator (", " by default) and/or an additional line -->
+    <!-- * break after each one except the last -->
+    <xsl:value-of select="$variablelist.term.separator"/>
+    <xsl:if test="string($variablelist.term.break.after) != '0'">
+      <br/>
+    </xsl:if>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:varlistentry/db:listitem">

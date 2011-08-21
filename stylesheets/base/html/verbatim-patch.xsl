@@ -571,7 +571,12 @@ an element that has content.</para>
 
   <xsl:variable name="wrapnodes" as="node()*">
     <xsl:choose>
-      <xsl:when test="$verbatim.trim.blank.lines = 0">
+      <!-- FIXME: this is where f:verbatim-trim-blink-lines() should be called,
+           but sometimes there's no context item. -->
+      <xsl:when test="string($verbatim.trim.blank.lines) != '0'">
+	<xsl:sequence select="fp:trim-trailing-br($nodes)"/>
+      </xsl:when>
+      <xsl:otherwise>
 	<xsl:choose>
 	  <xsl:when test="$nodes[last()][self::ghost:br]">
 	    <!-- because group-by will not form a group after the last one -->
@@ -581,9 +586,6 @@ an element that has content.</para>
 	    <xsl:sequence select="$nodes"/>
 	  </xsl:otherwise>
 	</xsl:choose>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:sequence select="fp:trim-trailing-br($nodes)"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>

@@ -41,7 +41,7 @@
   <xsl:variable name="toc"
                 select="f:pi(processing-instruction('dbhtml'), 'toc')"/>
 
-  <xsl:if test="$toc != '0'">
+  <xsl:if test="string($toc) != '0'">
     <xsl:call-template name="t:make-lots">
       <xsl:with-param name="toc.params" select="$toc.params"/>
       <xsl:with-param name="toc">

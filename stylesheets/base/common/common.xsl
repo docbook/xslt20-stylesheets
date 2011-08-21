@@ -8,9 +8,9 @@
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                exclude-result-prefixes="db doc f fp m t xs"
+                xmlns:ext="http://docbook.org/extensions/xslt20"
+                exclude-result-prefixes="db doc f fp m t xs ext"
                 version="2.0">
-
 
 <xsl:param name="use.role.for.mediaobject" select="1"/>
 <xsl:param name="preferred.mediaobject.role" select="''"/>
@@ -967,16 +967,53 @@ object is recognized as a graphic.</para>
   </xsl:choose>
 </xsl:function>
 
+<xsl:function name="f:mediaobject-href" as="xs:string">
+  <xsl:param name="filename" as="xs:string"/>
+
+  <xsl:variable name="outdir" as="xs:string">
+    <xsl:choose>
+      <xsl:when test="function-available('ext:cwd') and $output.dir = ''">
+        <xsl:value-of use-when="function-available('ext:cwd')" select="ext:cwd()"/>
+        <xsl:value-of use-when="not(function-available('ext:cwd'))" select="$output.dir"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$output.dir"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <!--
+  <xsl:message>
+    <xsl:text>mediaobject-href: </xsl:text>
+    <xsl:value-of select="$filename"/>
+    <xsl:text>&#10;</xsl:text>
+    <xsl:text>against base uri: </xsl:text>
+    <xsl:value-of select="$outdir"/>
+  </xsl:message>
+  -->
+
+  <xsl:choose>
+    <xsl:when test="$outdir != ''">
+      <xsl:value-of select="f:relative-uri($filename, $outdir)"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$filename"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
+
 <!-- ============================================================ -->
 
-<xsl:template name="t:relative-uri">
-  <xsl:param name="filename" select="."/>
-  <xsl:param name="destdir" select="''"/>
+<xsl:function name="f:relative-uri" as="xs:string">
+  <xsl:param name="absuri" as="xs:string"/>
+  <xsl:param name="destdir" as="xs:string"/>
 
   <xsl:variable name="srcurl">
     <xsl:call-template name="t:strippath">
       <xsl:with-param name="filename"
-                      select="resolve-uri($filename, base-uri($filename))"/>
+                      select="if (starts-with($absuri, 'file:/'))
+                              then substring-after($absuri, 'file:')
+                              else $absuri"/>
     </xsl:call-template>
   </xsl:variable>
 
@@ -989,16 +1026,20 @@ object is recognized as a graphic.</para>
   <xsl:variable name="depth"
                 select="count(tokenize($destdir.trimmed, '/')[. ne ''])"/>
 
-  <xsl:if test="$srcurl ne $srcurl.trimmed">
-    <!-- common start of URLs was trimmed we have to 
-         use ../ to reach proper level in directory structure -->
-    <xsl:for-each select="(1 to $depth)">
-      <xsl:value-of select="'../'"/>
-    </xsl:for-each>
-  </xsl:if>
+  <xsl:variable name="prefix" as="xs:string*">
+    <xsl:if test="$srcurl ne $srcurl.trimmed">
+      <!-- common start of URLs was trimmed we have to 
+           use ../ to reach proper level in directory structure -->
+      <xsl:for-each select="(1 to $depth)">
+        <xsl:value-of select="'../'"/>
+      </xsl:for-each>
+    </xsl:if>
+  </xsl:variable>
 
-  <xsl:value-of select="$srcurl.trimmed"/>
-</xsl:template>
+  <xsl:variable name="reluri" select="string-join(($prefix, $srcurl.trimmed), '')"/>
+
+  <xsl:value-of select="$reluri"/>
+</xsl:function>
 
 <xsl:template name="t:xml-base-dirs">
   <xsl:param name="base.elem" select="()"/>

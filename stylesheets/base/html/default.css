@@ -44,13 +44,19 @@ span.linenumber       { white-space: pre;
                       }
 span.linenumber-separator { white-space: pre; }
 
+hr.footnotes-divider {
+    margin-top: 0.5in;
+}
+
 div.footnote p { margin-top: 0px;
                  padding-top: 1px;
                  margin-bottom: 0px;
                  padding-bottom: 1px;
                }
 
-div.title { font-weight: bold; }
+div.title { font-weight: bold;
+            margin-top: 1em;
+          }
 
 div.float-right    { float: right; }
 div.float-left     { float: left; }
@@ -96,6 +102,10 @@ div.informaltable-wrapper { padding: 0px;
                      border-width: 1px;
                      border-style: solid;
                    }
+
+div.centerimg {
+    text-align: center;
+}
 
 div.informaltable  { padding-left: 3px;
                      padding-right: 3px;

@@ -9,7 +9,8 @@
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="h f m fn db doc t xs"
+                xmlns:mml="http://www.w3.org/1998/Math/MathML"
+		exclude-result-prefixes="h f m fn db doc t xs mml"
                 version="2.0">
 
 <xsl:template match="db:equation">
@@ -52,6 +53,13 @@
     <xsl:call-template name="class"/>
     <xsl:apply-templates/>
   </span>
+</xsl:template>
+
+<xsl:template match="mml:*">
+  <xsl:element name="{local-name(.)}" namespace="http://www.w3.org/1998/Math/MathML">
+    <xsl:copy-of select="@*"/>
+    <xsl:apply-templates/>
+  </xsl:element>
 </xsl:template>
 
 </xsl:stylesheet>

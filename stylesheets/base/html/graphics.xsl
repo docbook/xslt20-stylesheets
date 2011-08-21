@@ -11,9 +11,11 @@
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:simg="java:net.sf.docbook.saxon.ImageIntrinsics"
-                exclude-result-prefixes="db doc f ghost h m t u xlink xs simg"
+                xmlns:ext="http://docbook.org/extensions/xslt20"
+                exclude-result-prefixes="db doc f ghost h m t u xlink xs ext"
                 version="2.0">
+
+<xsl:param name="output.dir" select="''"/>
 
 <!-- ==================================================================== -->
 
@@ -162,14 +164,18 @@ vertical alignment.</para>
 </doc:template>
 
 <xsl:template name="t:image-properties" as="xs:integer*">
-  <xsl:param name="image" required="yes"/>
+  <xsl:param name="image" as="xs:string" required="yes"/>
 
-  <xsl:sequence use-when="function-available('simg:new')
-                          and function-available('simg:properties')"
-                select="simg:properties(simg:new($image))"/>
+  <xsl:sequence use-when="function-available('ext:image-properties')"
+                select="ext:image-properties($image)"/>
 
-  <xsl:sequence use-when="not(function-available('simg:new'))
-                          or not(function-available('simg:properties'))"
+  <xsl:message use-when="not(function-available('ext:image-properties'))">
+    <xsl:text>Cannot read image properties for </xsl:text>
+    <xsl:value-of select="$image"/>
+    <xsl:text>. (No extension)</xsl:text>
+  </xsl:message>
+
+  <xsl:sequence use-when="not(function-available('ext:image-properties'))"
                 select="()"/>
 </xsl:template>
 
@@ -256,31 +262,11 @@ vertical alignment.</para>
   <!-- imagedata, videodata, audiodata -->
   <xsl:variable name="filename" select="f:mediaobject-filename(..)"/>
 
-  <xsl:variable name="filename.for.graphicsize">
-    <xsl:choose>
-      <xsl:when test="$img.src.path != '' and
-                      $graphicsize.use.img.src.path != 0 and
-                      $tag = 'img' and
-                      not(starts-with($filename, '/')) and
-                      not(contains($filename, ':/'))">
-        <xsl:value-of select="resolve-uri(concat($img.src.path, $filename),
-                                          base-uri(.))"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="resolve-uri($filename, base-uri(.))"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
   <xsl:variable name="imageproperties" as="xs:integer*">
     <xsl:call-template name="t:image-properties">
-      <xsl:with-param name="image" select="$filename.for.graphicsize"/>
+      <xsl:with-param name="image" select="$filename"/>
     </xsl:call-template>
   </xsl:variable>
-
-  <xsl:if test="empty($imageproperties)">
-    <xsl:message>WARNING: No image properties extension function available!</xsl:message>
-  </xsl:if>
 
   <xsl:variable name="intrinsicwidth"
                 select="if (exists($imageproperties))
@@ -452,11 +438,14 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                 select="@width|@depth|@contentwidth|@contentdepth
                         |@scale|@scalefit"/>
 
+  <xsl:variable name="href"
+                select="f:mediaobject-href($filename)"/>
+
   <xsl:variable name="img">
     <xsl:choose>
       <!-- attempt to handle audio data -->
       <xsl:when test="self::db:audiodata">
-        <object data="{$filename}">
+        <object data="{$href}">
           <!-- this is a complete hack; DocBook needs more markup -->
           <xsl:if test="@condition = 'hidden'">
             <param name="hidden" value="true"/>
@@ -473,7 +462,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
       </xsl:when>
 
       <xsl:when test="lower-case($format) = 'svg'">
-        <object data="{$filename}" type="image/svg+xml">
+        <object data="{$href}" type="image/svg+xml">
           <xsl:call-template name="t:process-image-attributes">
             <xsl:with-param name="alt" select="$alt"/>
             <xsl:with-param name="html.depth" select="$html.depth"/>
@@ -487,18 +476,11 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                             select="$scaled.contentwidth"/>
             <xsl:with-param name="viewport" select="$viewport"/>
           </xsl:call-template>
-          <xsl:if test="@align">
-            <xsl:attribute name="align">
-                <xsl:choose>
-                  <xsl:when test="@align = 'center'">middle</xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="@align"/>
-                  </xsl:otherwise>
-                </xsl:choose>
-            </xsl:attribute>
+          <xsl:if test="@align and @align != 'center'">
+            <xsl:attribute name="align" select="@align"/>
           </xsl:if>
           <xsl:if test="$use.embed.for.svg != 0">
-            <embed src="{$filename}" type="image/svg+xml">
+            <embed src="{$href}" type="image/svg+xml">
               <xsl:call-template name="t:process-image-attributes">
                 <xsl:with-param name="alt" select="$alt"/>
                 <xsl:with-param name="html.depth" select="$html.depth"/>
@@ -538,23 +520,13 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
               <xsl:otherwise>
                 <xsl:attribute name="border">0</xsl:attribute>
                 <xsl:attribute name="usemap">
-                  <xsl:value-of select="generate-id(ancestor::db:imageobjectco)"/>
+                  <xsl:value-of select="concat('#',generate-id(ancestor::db:imageobjectco))"/>
                 </xsl:attribute>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:if>
 
-          <xsl:attribute name="src">
-            <xsl:choose>
-              <xsl:when test="$img.src.path != '' and
-                              $tag = 'img' and
-                              not(starts-with($filename, '/')) and
-                              not(contains($filename, ':/'))">
-                <xsl:value-of select="$img.src.path"/>
-              </xsl:when>
-            </xsl:choose>
-            <xsl:value-of select="$filename"/>
-          </xsl:attribute>
+          <xsl:attribute name="src" select="$href"/>
 
           <xsl:if test="@align">
             <xsl:attribute name="align">
@@ -680,6 +652,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                                 select="if (@linkends)
                                         then normalize-space(@linkends)
                                         else normalize-space(../@linkends)"/>
+
                   <xsl:variable name="target"
                                 select="key('id', tokenize($idrefs, '[\s]'))
                                   [1]"/>
@@ -843,6 +816,9 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 
   <xsl:variable name="object" select="$olist[position() = $object.index]"/>
 
+  <xsl:variable name="center"
+                select="if ($object/*/@align = 'center') then 'centerimg' else ()"/>
+
   <!-- hack -->
   <xsl:choose>
     <xsl:when test="$object/self::db:audioobject
@@ -851,9 +827,9 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
       <xsl:apply-templates select="$object"/>
     </xsl:when>
     <xsl:otherwise>
-      <div class="{local-name(.)}">
+      <div>
         <xsl:call-template name="t:id"/>
-        <xsl:call-template name="class"/>
+        <xsl:attribute name="class" select="string-join((local-name(.), @role, $center), ' ')"/>
         <xsl:if test="$html.longdesc != 0 and $html.longdesc.link != 0">
           <xsl:call-template name="t:longdesc-link">
             <xsl:with-param name="textobject"
@@ -1029,27 +1005,24 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 
 <!-- Resolve xml:base attributes -->
 <xsl:template match="@fileref">
-  <xsl:variable name="basedir"
-                select="replace(base-uri(root(.)/*[1]),'/[^/]+$','/')"/>
-
   <xsl:choose>
-    <xsl:when test="contains(., ':') and not(starts-with(.,'file:'))">
-      <!-- it has a uri scheme so it is an absolute uri -->
-      <xsl:value-of select="."/>
-    </xsl:when>
     <xsl:when test="starts-with(., '/')">
-      <!-- it's absolute, leave it alone -->
+      <!-- special case: if it's absolute w/o a scheme, leave it alone -->
       <xsl:value-of select="."/>
-    </xsl:when>
-    <xsl:when test="starts-with(.,$basedir)">
-      <xsl:value-of select="substring-after(.,$basedir)"/>
     </xsl:when>
     <xsl:otherwise>
-      <!-- its a relative uri -->
-      <xsl:call-template name="t:relative-uri">
-        <xsl:with-param name="filename" select="."/>
-        <xsl:with-param name="destdir" select="$basedir"/>
-      </xsl:call-template>
+      <xsl:variable name="absuri" select="resolve-uri(.,base-uri(.))"/>
+      <xsl:choose>
+        <xsl:when test="starts-with($absuri, 'file://')">
+          <xsl:value-of select="substring-after($absuri, 'file:/')"/>
+        </xsl:when>
+        <xsl:when test="starts-with($absuri, 'file:/')">
+          <xsl:value-of select="substring-after($absuri, 'file:')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$absuri"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

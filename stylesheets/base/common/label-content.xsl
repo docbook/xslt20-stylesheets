@@ -51,11 +51,16 @@ processed in this mode should generate their label.</para>
 
 <xsl:template match="*" mode="m:label-content">
   <xsl:param name="verbose" select="1"/>
-  <xsl:if test="$verbose">
-    <xsl:message>
-      <xsl:text>Request for label of unexpected element: </xsl:text>
-      <xsl:value-of select="name(.)"/>
-    </xsl:message>
+
+  <xsl:variable name="context" select="."/>
+
+  <xsl:if test="$autolabel.elements/*[node-name(.) = node-name($context)]">
+    <xsl:if test="$verbose">
+      <xsl:message>
+        <xsl:text>Request for label of unexpected element: </xsl:text>
+        <xsl:value-of select="name(.)"/>
+      </xsl:message>
+    </xsl:if>
   </xsl:if>
 </xsl:template>
 
@@ -423,6 +428,10 @@ processed in this mode should generate their label.</para>
       </xsl:when>
     </xsl:choose>
   </xsl:if>
+</xsl:template>
+
+<xsl:template match="db:qandaset" mode="m:label-content">
+  <!-- what would the label be? -->
 </xsl:template>
 
 <xsl:template match="db:qandadiv" mode="m:label-content">

@@ -617,6 +617,49 @@ or <tag>steps</tag>.</para>
 
 <!-- ============================================================ -->
 
+<doc:function name="f:in-scope-pis" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Returns the processing-instructions that are in scope</refpurpose>
+
+<refdescription>
+<para>Processing instructions can be used to control some of the behavior of
+the DocBook stylesheets. This function returns the ones that are “in scope” for
+any given element.</para>
+
+<para>The general rules is that processing instructions that are the children
+of the context node are in scope, as are processing instructions that appear
+<emphasis>before</emphasis> the root node of the document.</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry><term>context</term>
+<listitem>
+<para>The context node</para>
+</listitem>
+</varlistentry>
+<varlistentry><term>target</term>
+<listitem>
+<para>The PI target that is to be returned</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>The sequence of in-scope PIs.</para>
+</refreturn>
+</doc:function>
+
+<xsl:function name="f:in-scope-pis" as="processing-instruction()*">
+  <xsl:param name="context" as="node()"/>
+  <xsl:param name="target" as="xs:string"/>
+
+  <xsl:sequence select="($context/processing-instruction()[local-name(.) = $target],
+                         root($context)/processing-instruction()[local-name(.) = $target])"/>
+</xsl:function>
+
+<!-- ============================================================ -->
+
 <doc:function name="f:pi" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the value of the first matching pseudo-attribute</refpurpose>
 
@@ -2067,6 +2110,48 @@ the empty string.</para>
   <xsl:param name="context" as="node()"/>
 
   <xsl:sequence select="key('id', $id, root($context))"/>
+</xsl:function>
+
+<!-- ============================================================ -->
+
+<doc:function name="f:verbatim-trim-blank-lines"
+	      xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Return true if blank lines should be trimmed off the end of the verbatim element</refpurpose>
+
+<refdescription>
+<para>The <function>verbatim-trim-blank-lines</function> tests to see if trailing blank
+lines should be removed from the specified verbatim environment.</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry><term>verbatim</term>
+<listitem>
+<para>The verbatim environment.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>True if they should, false otherwise</para>
+</refreturn>
+</doc:function>
+
+<xsl:function name="f:verbatim-trim-blank-lines" as="xs:boolean">
+  <xsl:param name="verbatim" as="element()"/>
+
+  <xsl:variable name="trim"
+		select="f:pi(f:in-scope-pis($verbatim, 'dbhtml'), 'trim-verbatim')"/>
+
+  <xsl:choose>
+    <xsl:when test="empty($trim)">
+      <xsl:value-of select="string($verbatim.trim.blank.lines) != '0'"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="string($trim[last()]) != '0'"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:function>
 
 </xsl:stylesheet>

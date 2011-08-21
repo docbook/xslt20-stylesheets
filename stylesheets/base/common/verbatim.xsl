@@ -23,8 +23,8 @@
 <ln path="literallayout" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
 <ln path="programlisting" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
 <ln path="programlistingco" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
-<ln path="screen" everyNth="2" width="3" separator="" padchar=" " minlines="3"/>
-<ln path="synopsis" everyNth="2" width="3" separator="" padchar=" " minlines="3"/>
+<ln path="screen" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
+<ln path="synopsis" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
 <ln path="address" everyNth="0"/>
 <ln path="epigraph/literallayout" everyNth="0"/>
 </xsl:param>

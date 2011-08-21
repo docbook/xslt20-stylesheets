@@ -401,12 +401,14 @@ Lists of Titles for a qandaset.</para>
   <xsl:param name="toc-context" select="."/>
   <xsl:param name="toc.title" select="true()"/>
 
-  <xsl:call-template name="tp:make-toc">
-    <xsl:with-param name="toc-context" select="$toc-context"/>
-    <xsl:with-param name="toc.title" select="$toc.title"/>
-    <xsl:with-param name="nodes"
-		    select="db:qandadiv|db:qandaentry"/>
-  </xsl:call-template>
+  <xsl:if test="count(db:qandadiv) &gt; 1 or count(db:qandaentry) &gt; 1">
+    <xsl:call-template name="tp:make-toc">
+      <xsl:with-param name="toc-context" select="$toc-context"/>
+      <xsl:with-param name="toc.title" select="$toc.title"/>
+      <xsl:with-param name="nodes"
+                      select="db:qandadiv|db:qandaentry"/>
+    </xsl:call-template>
+  </xsl:if>
 </xsl:template>
 
 <!-- ============================================================ -->
