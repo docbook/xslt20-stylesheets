@@ -20,7 +20,7 @@
           ?><inlinemediaobject>
       <imageobject>
         <imagedata format="linespecific"
-                   fileref="/sourceforge/docbook/xsl2/base/xspec/src/codesample.txt"/>
+                   fileref="codesample.txt"/>
       </imageobject>
       </inlinemediaobject></programlisting>
     </programlistingco>
@@ -42,7 +42,7 @@
       <programlisting linenumbering="numbered"><inlinemediaobject>
       <imageobject>
       <imagedata format="linespecific"
-                 fileref="/sourceforge/docbook/xsl2/base/xspec/src/codesample.txt"/>
+                 fileref="codesample.txt"/>
       </imageobject></inlinemediaobject></programlisting>
     </programlistingco>
   </section>
@@ -62,7 +62,7 @@
       </areaspec>
       <programlisting linenumbering="unnumbered"><textobject>
       <textdata format="linespecific"
-                fileref="/sourceforge/docbook/xsl2/base/xspec/src/codesample.txt"/>
+                fileref="codesample.txt"/>
       </textobject></programlisting>
     </programlistingco>
   </section>

@@ -7,7 +7,7 @@
     <imageobject>
       <imagedata
         align="center"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.eps"
+        fileref="../graphics/duck-small.eps"
         format="EPS">
         <info>
           <othercredit>
@@ -19,7 +19,7 @@
     <imageobject>
       <imagedata
         align="center"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.png"
+        fileref="../graphics/duck-small.png"
         format="PNG">
         <info>
           <othercredit>
@@ -31,7 +31,7 @@
     <imageobject>
       <imagedata
         align="center"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.gif"
+        fileref="../graphics/duck-small.gif"
         format="GIF">
         <info>
           <othercredit>
@@ -43,7 +43,7 @@
     <imageobject>
       <imagedata
         align="center"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.bmp"
+        fileref="../graphics/duck-small.bmp"
         format="BMP">
         <info>
           <othercredit>

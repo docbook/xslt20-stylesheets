@@ -13,133 +13,6 @@
 <x:param name="preprocess" select="'profile'"/>
 <x:param name="profile.os" select="'win'"/>  
 
-<x:scenario label="Set tests">
-  <x:scenario label="set.001.xml">
-    <x:context href="src/set.001.xml"/>
-    <x:expect label="Set test"
-              test="//html:div[@class='set']"
-              select="//html:div[@class='set']"
-              href="result/set.001.html"/>
-  </x:scenario>
-</x:scenario>
-
-<x:scenario label="Book tests">
-  <x:scenario label="book.001.xml">
-    <x:context href="src/book.001.xml"/>
-    <x:expect label="Book test"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
-              href="result/book.001.html"/>
-  </x:scenario>
-  <x:scenario label="book.002.xml">
-    <x:context href="src/book.002.xml"/>
-    <x:expect label="Book of articles"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
-              href="result/book.002.html"/>
-  </x:scenario>
-  <x:scenario label="book.003.xml">
-    <x:context href="src/book.003.xml"/>
-    <x:expect label="Lists of figures/tables, figure enumeration"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
-              href="result/book.003.html"/>
-  </x:scenario>
-  <x:scenario label="book.004.xml">
-    <x:context href="src/book.004.xml"/>
-    <x:expect label="Inline title markup"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
-              href="result/book.004.html"/>
-  </x:scenario>
-  <x:scenario label="book.005.xml">
-    <x:context href="src/book.005.xml"/>
-    <x:expect label="book with parts"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
-              href="result/book.005.html"/>
-  </x:scenario>
-  <x:scenario label="book.006.xml">
-    <x:context href="src/book.006.xml"/>
-    <x:expect label="book with lots of info"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
-              href="result/book.006.html"/>
-  </x:scenario>
-  <x:scenario label="info.001.xml">
-    <x:context href="src/info.001.xml"/>
-    <x:expect label="more info testing"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
-              href="result/info.001.html"/>
-  </x:scenario>
-</x:scenario>
-
-<x:scenario label="Part tests">
-  <x:scenario label="part.001.xml">
-    <x:context href="src/part.001.xml"/>
-    <x:expect label="Normal part"
-              test="//html:div[@class='part']"
-              select="//html:div[@class='part']"
-              href="result/part.001.html"/>
-  </x:scenario>
-</x:scenario>
-
-<x:scenario label="Chapter tests">
-  <x:scenario label="chapter.001.xml">
-    <x:context href="src/chapter.001.xml"/>
-    <x:expect label="Normal chapter"
-              test="//html:div[@class='chapter']"
-              select="//html:div[@class='chapter']"
-              href="result/chapter.001.html"/>
-  </x:scenario>
-  <x:scenario label="chapter.002.xml">
-    <x:context href="src/chapter.002.xml"/>
-    <x:expect label="Localized chapter xref"
-              test="//html:div[@class='chapter']"
-              select="//html:div[@class='chapter']"
-              href="result/chapter.002.html"/>
-  </x:scenario>
-</x:scenario>
-
-<x:scenario label="Article tests">
-  <x:scenario label="article.001.xml">
-    <x:context href="src/article.001.xml"/>
-    <x:expect label="Normal article"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
-              href="result/article.001.html"/>
-  </x:scenario>
-  <x:scenario label="article.002.xml">
-    <x:context href="src/article.002.xml"/>
-    <x:expect label="Status=draft"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
-              href="result/article.002.html"/>
-  </x:scenario>
-  <x:scenario label="article.003.xml">
-    <x:context href="src/article.003.xml"/>
-    <x:expect label="Sections"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
-              href="result/article.003.html"/>
-  </x:scenario>
-  <x:scenario label="article.004.xml">
-    <x:context href="src/article.004.xml"/>
-    <x:expect label="More info metadata"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
-              href="result/article.004.html"/>
-  </x:scenario>
-  <x:scenario label="article.005.xml">
-    <x:context href="src/article.005.xml"/>
-    <x:expect label="Numbered sections and titleabbrev"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
-              href="result/article.005.html"/>
-  </x:scenario>
-</x:scenario>
-
 <x:scenario label="Section tests">
   <x:scenario label="sect1.001.xml">
     <x:context href="src/sect1.001.xml"/>
@@ -1553,15 +1426,15 @@
   <x:scenario label="mediaobject.002.xml">
     <x:context href="src/mediaobject.002.xml"/>
     <x:expect label="Ordinary image"
-              test="//html:div[@class='mediaobject']"
-              select="//html:div[@class='mediaobject']"
+              test="//html:div[contains(@class,'mediaobject')]"
+              select="//html:div[contains(@class,'mediaobject')]"
               href="result/mediaobject.002.html"/>
   </x:scenario>
   <x:scenario label="mediaobject.001.xml">
     <x:context href="src/mediaobject.001.xml"/>
     <x:expect label="Scaled image"
-              test="//html:div[@class='mediaobject']"
-              select="//html:div[@class='mediaobject']"
+              test="//html:div[contains(@class,'mediaobject')]"
+              select="//html:div[contains(@class,'mediaobject')]"
               href="result/mediaobject.001.html"/>
   </x:scenario>
   <x:pending label="Svg tests">
@@ -1598,116 +1471,116 @@
   <x:scenario label="stamp.001.xml">
     <x:context href="src/stamp.001.xml"/>
     <x:expect label="Ordinary image"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.001.html"/>
   </x:scenario>
   <x:scenario label="stamp.002.xml">
     <x:context href="src/stamp.002.xml"/>
     <x:expect label="Width/depth/contentdepth/alignment"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.002.html"/>
   </x:scenario>
   <x:scenario label="stamp.003.xml">
     <x:context href="src/stamp.003.xml"/>
     <x:expect label="Width/depth/contentwidt/contentdepth"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.003.html"/>
   </x:scenario>
   <x:scenario label="stamp.004.xml">
     <x:context href="src/stamp.004.xml"/>
     <x:expect label="Width/depth/scale/alignment"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.004.html"/>
   </x:scenario>
   <x:scenario label="stamp.005.xml">
     <x:context href="src/stamp.005.xml"/>
     <x:expect label="Width/depth/scalefit (default)"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.005.html"/>
     <x:expect label="Width/depth/scalefit=1 (explicit)"
-              test="//html:div[@class='mediaobject'][3]"
-              select="//html:div[@class='mediaobject'][3]"
+              test="//html:div[contains(@class,'mediaobject')][3]"
+              select="//html:div[contains(@class,'mediaobject')][3]"
               href="result/stamp.005.html"/>
   </x:scenario>
   <x:scenario label="stamp.006.xml">
     <x:context href="src/stamp.006.xml"/>
     <x:expect label="Width/depth/scalefit=0"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.006.html"/>
   </x:scenario>
   <x:scenario label="stamp.007.xml">
     <x:context href="src/stamp.007.xml"/>
     <x:expect label="Width/depth/scale"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.007.html"/>
   </x:scenario>
   <x:scenario label="stamp.008.xml">
     <x:context href="src/stamp.008.xml"/>
     <x:expect label="Contentwidth"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.008.html"/>
   </x:scenario>
   <x:scenario label="stamp.009.xml">
     <x:context href="src/stamp.009.xml"/>
     <x:expect label="Contentwidth/scale"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.009.html"/>
   </x:scenario>
   <x:scenario label="stamp.010.xml">
     <x:context href="src/stamp.010.xml"/>
     <x:expect label="Contentwidth/contentdepth"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.010.html"/>
   </x:scenario>
   <x:scenario label="stamp.011.xml">
     <x:context href="src/stamp.011.xml"/>
     <x:expect label="Width/depth/scalefit/alignment"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.011.html"/>
   </x:scenario>
   <x:scenario label="stamp.012.xml">
     <x:context href="src/stamp.012.xml"/>
     <x:expect label="Width/scalefit"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.012.html"/>
     <x:expect label="Depth/scalefit"
-              test="//html:div[@class='mediaobject'][3]"
-              select="//html:div[@class='mediaobject'][3]"
+              test="//html:div[contains(@class,'mediaobject')][3]"
+              select="//html:div[contains(@class,'mediaobject')][3]"
               href="result/stamp.012.html"/>
   </x:scenario>
   <x:scenario label="stamp.013.xml">
     <x:context href="src/stamp.013.xml"/>
     <x:expect label="width/depth/scale"
-              test="//html:div[@class='mediaobject'][2]"
-              select="//html:div[@class='mediaobject'][2]"
+              test="//html:div[contains(@class,'mediaobject')][2]"
+              select="//html:div[contains(@class,'mediaobject')][2]"
               href="result/stamp.013.html"/>
     <x:expect label="width/depth/contentwidth/contentdepth/alignment"
-              test="//html:div[@class='mediaobject'][3]"
-              select="//html:div[@class='mediaobject'][3]"
+              test="//html:div[contains(@class,'mediaobject')][3]"
+              select="//html:div[contains(@class,'mediaobject')][3]"
               href="result/stamp.013.html"/>
     <x:expect label="width/depth/contentwidth/contentdepth/alignment"
-              test="//html:div[@class='mediaobject'][4]"
-              select="//html:div[@class='mediaobject'][4]"
+              test="//html:div[contains(@class,'mediaobject')][4]"
+              select="//html:div[contains(@class,'mediaobject')][4]"
               href="result/stamp.013.html"/>
     <x:expect label="depth/contentwidth/contentdepth/alignment"
-              test="//html:div[@class='mediaobject'][5]"
-              select="//html:div[@class='mediaobject'][5]"
+              test="//html:div[contains(@class,'mediaobject')][5]"
+              select="//html:div[contains(@class,'mediaobject')][5]"
               href="result/stamp.013.html"/>
     <x:expect label="contentwidth/contentdepth/alignment"
-              test="//html:div[@class='mediaobject'][6]"
-              select="//html:div[@class='mediaobject'][6]"
+              test="//html:div[contains(@class,'mediaobject')][6]"
+              select="//html:div[contains(@class,'mediaobject')][6]"
               href="result/stamp.013.html"/>
   </x:scenario>
 </x:scenario>
@@ -1716,28 +1589,28 @@
   <x:scenario label="stamp.050.xml">
     <x:context href="src/stamp.050.xml"/>
     <x:expect label="Relative URL starting with ./"
-      test="//html:div[@class='mediaobject'][1]"
-      select="//html:div[@class='mediaobject'][1]"
+      test="//html:div[contains(@class,'mediaobject')][1]"
+      select="//html:div[contains(@class,'mediaobject')][1]"
       href="result/stamp.050.html"/>
     <x:expect label="Relative URL starting with multiple ../"
-      test="//html:div[@class='mediaobject'][2]"
-      select="//html:div[@class='mediaobject'][2]"
+      test="//html:div[contains(@class,'mediaobject')][2]"
+      select="//html:div[contains(@class,'mediaobject')][2]"
       href="result/stamp.050.html"/>
     <x:expect label="Relative URL starting with multiple ../"
-      test="//html:div[@class='mediaobject'][3]"
-      select="//html:div[@class='mediaobject'][3]"
+      test="//html:div[contains(@class,'mediaobject')][3]"
+      select="//html:div[contains(@class,'mediaobject')][3]"
       href="result/stamp.050.html"/>
     <x:expect label="Relative URL with /dummy/../ in the middle"
-      test="//html:div[@class='mediaobject'][4]"
-      select="//html:div[@class='mediaobject'][4]"
+      test="//html:div[contains(@class,'mediaobject')][4]"
+      select="//html:div[contains(@class,'mediaobject')][4]"
       href="result/stamp.050.html"/>
     <x:expect label="Relative URL with /./ in the middle"
-      test="//html:div[@class='mediaobject'][5]"
-      select="//html:div[@class='mediaobject'][5]"
+      test="//html:div[contains(@class,'mediaobject')][5]"
+      select="//html:div[contains(@class,'mediaobject')][5]"
       href="result/stamp.050.html"/>
     <x:expect label="Relative URL with just filename"
-      test="//html:div[@class='mediaobject'][6]"
-      select="//html:div[@class='mediaobject'][6]"
+      test="//html:div[contains(@class,'mediaobject')][6]"
+      select="//html:div[contains(@class,'mediaobject')][6]"
       href="result/stamp.050.html"/>
   </x:scenario>
 </x:scenario>
@@ -1746,32 +1619,32 @@
   <x:scenario label="stamp.051.xml">
     <x:context href="src/stamp.051.xml"/>
     <x:expect label="Relative URI + relative xml:base"
-      test="//html:div[@class='mediaobject'][1]"
-      select="//html:div[@class='mediaobject'][1]"
+      test="//html:div[contains(@class,'mediaobject')][1]"
+      select="//html:div[contains(@class,'mediaobject')][1]"
       href="result/stamp.051.html"/>
     <x:expect label="Relative URI + relative xml:base w/trailing slash"
-      test="//html:div[@class='mediaobject'][2]"
-      select="//html:div[@class='mediaobject'][2]"
+      test="//html:div[contains(@class,'mediaobject')][2]"
+      select="//html:div[contains(@class,'mediaobject')][2]"
       href="result/stamp.051.html"/>
     <x:expect label="Relative URI w/. + relative xml:base w/trailing slash"
-      test="//html:div[@class='mediaobject'][3]"
-      select="//html:div[@class='mediaobject'][3]"
+      test="//html:div[contains(@class,'mediaobject')][3]"
+      select="//html:div[contains(@class,'mediaobject')][3]"
       href="result/stamp.051.html"/>
     <x:expect label="Relative URI w/. + relative xml:base"
-      test="//html:div[@class='mediaobject'][4]"
-      select="//html:div[@class='mediaobject'][4]"
+      test="//html:div[contains(@class,'mediaobject')][4]"
+      select="//html:div[contains(@class,'mediaobject')][4]"
       href="result/stamp.051.html"/>
     <x:expect label="Two level relative xml:base"
-      test="//html:div[@class='mediaobject'][5]"
-      select="//html:div[@class='mediaobject'][5]"
+      test="//html:div[contains(@class,'mediaobject')][5]"
+      select="//html:div[contains(@class,'mediaobject')][5]"
       href="result/stamp.051.html"/>
     <x:expect label="Absolute xml:base + relative URI"
-      test="//html:div[@class='mediaobject'][6]"
-      select="//html:div[@class='mediaobject'][6]"
+      test="//html:div[contains(@class,'mediaobject')][6]"
+      select="//html:div[contains(@class,'mediaobject')][6]"
       href="result/stamp.051.html"/>
     <x:expect label="Absolute xml:base + absolute URI"
-      test="//html:div[@class='mediaobject'][7]"
-      select="//html:div[@class='mediaobject'][7]"
+      test="//html:div[contains(@class,'mediaobject')][7]"
+      select="//html:div[contains(@class,'mediaobject')][7]"
       href="result/stamp.051.html"/>
   </x:scenario>
 </x:scenario>
@@ -2663,6 +2536,133 @@
               test="//html:div[@id='article']"
               select="//html:div[@id='article']"
               href="result/co.001.html"/>
+  </x:scenario>
+</x:scenario>
+
+<x:scenario label="Article tests">
+  <x:scenario label="article.001.xml">
+    <x:context href="src/article.001.xml"/>
+    <x:expect label="Normal article"
+              test="//html:div[@class='article']"
+              select="//html:div[@class='article']"
+              href="result/article.001.html"/>
+  </x:scenario>
+  <x:scenario label="article.002.xml">
+    <x:context href="src/article.002.xml"/>
+    <x:expect label="Status=draft"
+              test="//html:div[@class='article']"
+              select="//html:div[@class='article']"
+              href="result/article.002.html"/>
+  </x:scenario>
+  <x:scenario label="article.003.xml">
+    <x:context href="src/article.003.xml"/>
+    <x:expect label="Sections"
+              test="//html:div[@class='article']"
+              select="//html:div[@class='article']"
+              href="result/article.003.html"/>
+  </x:scenario>
+  <x:scenario label="article.004.xml">
+    <x:context href="src/article.004.xml"/>
+    <x:expect label="More info metadata"
+              test="//html:div[@class='article']"
+              select="//html:div[@class='article']"
+              href="result/article.004.html"/>
+  </x:scenario>
+  <x:scenario label="article.005.xml">
+    <x:context href="src/article.005.xml"/>
+    <x:expect label="Numbered sections and titleabbrev"
+              test="//html:div[@class='article']"
+              select="//html:div[@class='article']"
+              href="result/article.005.html"/>
+  </x:scenario>
+</x:scenario>
+
+<x:scenario label="Part tests">
+  <x:scenario label="part.001.xml">
+    <x:context href="src/part.001.xml"/>
+    <x:expect label="Normal part"
+              test="//html:div[@class='part']"
+              select="//html:div[@class='part']"
+              href="result/part.001.html"/>
+  </x:scenario>
+</x:scenario>
+
+<x:scenario label="Chapter tests">
+  <x:scenario label="chapter.001.xml">
+    <x:context href="src/chapter.001.xml"/>
+    <x:expect label="Normal chapter"
+              test="//html:div[@class='chapter']"
+              select="//html:div[@class='chapter']"
+              href="result/chapter.001.html"/>
+  </x:scenario>
+  <x:scenario label="chapter.002.xml">
+    <x:context href="src/chapter.002.xml"/>
+    <x:expect label="Localized chapter xref"
+              test="//html:div[@class='chapter']"
+              select="//html:div[@class='chapter']"
+              href="result/chapter.002.html"/>
+  </x:scenario>
+</x:scenario>
+
+<x:scenario label="Book tests">
+  <x:scenario label="book.001.xml">
+    <x:context href="src/book.001.xml"/>
+    <x:expect label="Book test"
+              test="//html:div[@class='book']"
+              select="//html:div[@class='book']"
+              href="result/book.001.html"/>
+  </x:scenario>
+  <x:scenario label="book.002.xml">
+    <x:context href="src/book.002.xml"/>
+    <x:expect label="Book of articles"
+              test="//html:div[@class='book']"
+              select="//html:div[@class='book']"
+              href="result/book.002.html"/>
+  </x:scenario>
+  <x:scenario label="book.003.xml">
+    <x:context href="src/book.003.xml"/>
+    <x:expect label="Lists of figures/tables, figure enumeration"
+              test="//html:div[@class='book']"
+              select="//html:div[@class='book']"
+              href="result/book.003.html"/>
+  </x:scenario>
+  <x:scenario label="book.004.xml">
+    <x:context href="src/book.004.xml"/>
+    <x:expect label="Inline title markup"
+              test="//html:div[@class='book']"
+              select="//html:div[@class='book']"
+              href="result/book.004.html"/>
+  </x:scenario>
+  <x:scenario label="book.005.xml">
+    <x:context href="src/book.005.xml"/>
+    <x:expect label="book with parts"
+              test="//html:div[@class='book']"
+              select="//html:div[@class='book']"
+              href="result/book.005.html"/>
+  </x:scenario>
+  <x:scenario label="book.006.xml">
+    <x:context href="src/book.006.xml"/>
+    <x:expect label="book with lots of info"
+              test="//html:div[@class='book']"
+              select="//html:div[@class='book']"
+              href="result/book.006.html"/>
+  </x:scenario>
+  <x:scenario label="info.001.xml">
+    <x:context href="src/info.001.xml"/>
+    <x:expect label="more info testing"
+              test="//html:div[@class='book']"
+              select="//html:div[@class='book']"
+              href="result/info.001.html"/>
+  </x:scenario>
+</x:scenario>
+
+<x:scenario label="Set tests">
+  <x:scenario label="set.001.xml">
+    <x:context href="src/set.001.xml"/>
+    <x:expect label="Set test"
+              test="//html:div[@class='set']"
+              select="//html:div[@class='set']"
+              href="result/set.001.html"/>
   </x:scenario>
 </x:scenario>
 

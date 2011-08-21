@@ -5,7 +5,7 @@
 <tag>textobject</tag> is correctly handled.</para>
 
 <programlisting><textobject>
-<textdata fileref="/sourceforge/docbook/xsl2/base/xspec/src/programlisting.006.xml"/>
+<textdata fileref="programlisting.006.xml"/>
 </textobject></programlisting>
 
 </article>

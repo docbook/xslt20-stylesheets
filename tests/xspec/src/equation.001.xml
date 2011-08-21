@@ -4,7 +4,7 @@
 <equation><title>First Equation</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="/sourceforge/docbook/xsl2/base/xspec/src/emc2.png"/>
+<imagedata fileref="../graphics/emc2.png"/>
 </imageobject>
 <textobject>
 <phrase>E=mc^2</phrase>
@@ -17,7 +17,7 @@
 <informalequation>
 <mediaobject>
 <imageobject>
-<imagedata fileref="/sourceforge/docbook/xsl2/base/xspec/src/emc2.png"/>
+<imagedata fileref="../graphics/emc2.png"/>
 </imageobject>
 <textobject>
 <phrase>E=mc^2</phrase>

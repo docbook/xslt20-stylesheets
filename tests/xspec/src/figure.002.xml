@@ -10,7 +10,7 @@ floatstyle="float".</para>
     <imageobject>
       <imagedata
         align="center"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.png"
+        fileref="../graphics/duck-small.png"
         format="PNG">
         <info>
           <othercredit>
@@ -32,7 +32,7 @@ floatstyle="right".</para>
     <imageobject>
       <imagedata
         align="center"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.png"
+        fileref="../graphics/duck-small.png"
         format="PNG">
         <info>
           <othercredit>

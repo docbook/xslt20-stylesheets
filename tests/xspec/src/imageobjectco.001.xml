@@ -11,7 +11,7 @@
       </areaspec>
       <imageobject>
 	<imagedata
-	    fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.png"
+	    fileref="../graphics/duck-small.png"
 	    format="PNG">
           <info>
             <othercredit>
@@ -35,7 +35,7 @@
       </areaspec>
       <imageobject>
 	<imagedata
-	    fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-co.png"
+	    fileref="../graphics/duck-co.png"
 	    format="PNG">
           <info>
             <othercredit>

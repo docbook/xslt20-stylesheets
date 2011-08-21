@@ -6,7 +6,7 @@
       <imagedata
         align="right"
         width="6in"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.png"
+        fileref="../graphics/duck-small.png"
         format="PNG">
         <info>
           <othercredit>
@@ -19,7 +19,7 @@
       <imagedata
         align="right"
         width="6in"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck-small.gif">
+        fileref="../graphics/duck-small.gif">
         <info>
           <othercredit>
             <orgname>O'Reilly &amp; Associates/Dover Archives</orgname>

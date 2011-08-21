@@ -2,7 +2,8 @@
 <title>Article wrapper</title>
 
 <qandaset>
-    <title>QandA Title</title>
+  <?dbhtml toc='0'?>
+  <title>QandA Title</title>
 <para>Some introductory preamble. Some introductory preamble.
 Some introductory preamble. Some introductory preamble.
 Some introductory preamble. Some introductory preamble.
@@ -11,7 +12,8 @@ Some introductory preamble. Some introductory preamble.</para>
 Some introductory preamble. Some introductory preamble.
 Some introductory preamble. Some introductory preamble.
 Some introductory preamble. Some introductory preamble.</para>
-    <qandadiv><title>Division 1</title>
+    <qandadiv>
+      <title>Division 1</title>
          <qandaentry>
            <question>
              <para>Blah blah blah.</para>
@@ -28,7 +30,9 @@ Some introductory preamble. Some introductory preamble.</para>
 	  </answer>
          </qandaentry>
     </qandadiv>
-    <qandadiv><title>Division 2</title>
+    <qandadiv>
+      <?dbhtml toc='0'?>
+<title>Division 2</title>
 <para>Some introductory preamble. Some introductory preamble.
 Some introductory preamble. Some introductory preamble.
 Some introductory preamble. Some introductory preamble.
@@ -37,7 +41,8 @@ Some introductory preamble. Some introductory preamble.</para>
 Some introductory preamble. Some introductory preamble.
 Some introductory preamble. Some introductory preamble.
 Some introductory preamble. Some introductory preamble.</para>
-    <qandadiv><title>Division 2.1</title>
+    <qandadiv>
+      <title>Division 2.1</title>
          <qandaentry>
            <question>
              <para>Blah blah blah.</para>

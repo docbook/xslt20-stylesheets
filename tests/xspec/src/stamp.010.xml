@@ -6,7 +6,7 @@
 <mediaobject>
   <imageobject>
     <imagedata
-      fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/stamp.png"/>
+      fileref="../graphics/stamp.png"/>
   </imageobject>
 </mediaobject>
 
@@ -18,7 +18,7 @@
     <imagedata
       contentwidth="50%"
       contentdepth="50%"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/stamp.png"/>
+      fileref="../graphics/stamp.png"/>
   </imageobject>
   <textobject><phrase>The DocBook Stamp</phrase></textobject>
 </mediaobject>

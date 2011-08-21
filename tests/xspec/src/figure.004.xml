@@ -7,7 +7,7 @@
     <imageobject>
       <imagedata
         align="center"
-        fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/duck.png">
+        fileref="../graphics/duck.png">
         <info>
           <othercredit>
             <orgname>O'Reilly &amp; Associates/Dover Archives</orgname>

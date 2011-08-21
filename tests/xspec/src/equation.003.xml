@@ -9,7 +9,7 @@
 <equation><title>First Equation</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="/sourceforge/docbook/xsl2/base/xspec/src/emc2.png"/>
+<imagedata fileref="../graphics/emc2.png"/>
 </imageobject>
 <textobject>
 <phrase>e=mc^2</phrase>
@@ -22,7 +22,7 @@
 <equation><!-- equation with no title: don't do this; use informalequation -->
 <mediaobject>
 <imageobject>
-<imagedata fileref="/sourceforge/docbook/xsl2/base/xspec/src/emc2.png"/>
+<imagedata fileref="../graphics/emc2.png"/>
 </imageobject>
 <textobject>
 <phrase>e=mc^2</phrase>
@@ -35,7 +35,7 @@
 <equation xml:id="eq2"><title>Second Equation</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="/sourceforge/docbook/xsl2/base/xspec/src/emc2.png"/>
+<imagedata fileref="../graphics/emc2.png"/>
 </imageobject>
 <textobject>
 <phrase>e=mc^2</phrase>
@@ -46,7 +46,7 @@
 <figure xml:id="fig1"><title>A Figure</title>
 <mediaobject>
 <imageobject>
-<imagedata fileref="/sourceforge/docbook/xsl2/base/xspec/src/emc2.png"/>
+<imagedata fileref="../graphics/emc2.png"/>
 </imageobject>
 <textobject>
 <phrase>e=mc^2</phrase>

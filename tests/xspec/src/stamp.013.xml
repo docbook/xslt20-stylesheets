@@ -6,7 +6,7 @@
 <mediaobject>
   <imageobject>
     <imagedata
-      fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/stamp.png"/>
+      fileref="../graphics/stamp.png"/>
   </imageobject>
 </mediaobject>
 
@@ -20,7 +20,7 @@
       depth="7.12cm"
       scale="125"
       align="center"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/stamp.png"/>
+      fileref="../graphics/stamp.png"/>
   </imageobject>
   <textobject><phrase>The DocBook Stamp</phrase></textobject>
 </mediaobject>
@@ -36,7 +36,7 @@
       contentwidth="50%"
       contentdepth="30%"
       align="center"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/stamp.png"/>
+      fileref="../graphics/stamp.png"/>
   </imageobject>
   <textobject><phrase>The DocBook Stamp</phrase></textobject>
 </mediaobject>
@@ -53,7 +53,7 @@
       contentdepth="300"
       align="left"
       valign="top"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/stamp.png"/>
+      fileref="../graphics/stamp.png"/>
   </imageobject>
   <textobject><phrase>The DocBook Stamp</phrase></textobject>
 </mediaobject>
@@ -69,7 +69,7 @@
       contentdepth="300"
       align="left"
       valign="top"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/stamp.png"/>
+      fileref="../graphics/stamp.png"/>
   </imageobject>
   <textobject><phrase>The DocBook Stamp</phrase></textobject>
 </mediaobject>
@@ -84,7 +84,7 @@
       contentdepth="300"
       align="left"
       valign="top"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/graphics/stamp.png"/>
+      fileref="../graphics/stamp.png"/>
   </imageobject>
   <textobject><phrase>The DocBook Stamp</phrase></textobject>
 </mediaobject>

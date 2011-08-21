@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Article wrapper</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css" /></head><body><div class="article" id="R.1"><div class="article-titlepage"><h2>Article wrapper</h2></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span><a href="#R.1.2">1. imagedata/@fileref + numbering + sep.</a></span></dt><dt><span><a href="#R.1.3">2. inlinegraphic/@fileref + numbering</a></span></dt><dt><span><a href="#R.1.4">3. textdata/@fileref w/o numbering or sep</a></span></dt></dl></div><div class="section"><div class="section-titlepage"><h3>1. imagedata/@fileref + numbering + sep.</h3></div><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> &gt;</span>@rem = '--*-Perl-*--                                       <a name="prologue1"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/1.png" alt="1" border="0" />
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Article wrapper</title><link rel="stylesheet" type="text/css" href="/projects/docbook/xslt20/stylesheets/base/html/default.css" /></head><body><div class="article" id="R.1"><div class="article-titlepage"><h2>Article wrapper</h2></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span><a href="#R.1.2">1. imagedata/@fileref + numbering + sep.</a></span></dt><dt><span><a href="#R.1.3">2. inlinegraphic/@fileref + numbering</a></span></dt><dt><span><a href="#R.1.4">3. textdata/@fileref w/o numbering or sep</a></span></dt></dl></div><div class="section"><div class="section-titlepage"><h3>1. imagedata/@fileref + numbering + sep.</h3></div><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> &gt;</span>@rem = '--*-Perl-*--                                       <a name="prologue1"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/1.png" alt="1" border="0" />
 <span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>@echo off
 <span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>perl.exe %_batchname %$
 <span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>goto endofperl                                             <a name="skipeof1"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/2.png" alt="2" border="0" />
@@ -28,8 +28,7 @@
 <span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>    }
 <span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>}
 <span class="linenumber"> 30</span><span class="linenumber-separator"> &gt;</span>
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>exit;
-</pre></div></div><div class="section"><div class="section-titlepage"><h3>2. inlinegraphic/@fileref + numbering</h3></div><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>@rem = '--*-Perl-*--                                       <a name="prologue2"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/1.png" alt="1" border="0" />
+<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>exit;</pre></div></div><div class="section"><div class="section-titlepage"><h3>2. inlinegraphic/@fileref + numbering</h3></div><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>@rem = '--*-Perl-*--                                       <a name="prologue2"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/1.png" alt="1" border="0" />
 <span class="linenumber">  2</span><span class="linenumber-separator"> </span>@echo off
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>perl.exe %_batchname %$
 <span class="linenumber">  4</span><span class="linenumber-separator"> </span>goto endofperl                                             <a name="skipeof2"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/2.png" alt="2" border="0" />
@@ -59,8 +58,7 @@
 <span class="linenumber"> 28</span><span class="linenumber-separator"> </span>    }
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>}
 <span class="linenumber"> 30</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>exit;
-</pre></div></div><div class="section"><div class="section-titlepage"><h3>3. textdata/@fileref w/o numbering or sep</h3></div><div class="programlisting"><pre>@rem = '--*-Perl-*--                                       <a name="prologue3"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/1.png" alt="1" border="0" />
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>exit;</pre></div></div><div class="section"><div class="section-titlepage"><h3>3. textdata/@fileref w/o numbering or sep</h3></div><div class="programlisting"><pre>@rem = '--*-Perl-*--                                       <a name="prologue3"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/1.png" alt="1" border="0" />
 @echo off
 perl.exe %_batchname %$
 goto endofperl                                             <a name="skipeof3"></a><img src="http://docbook.sf.net/release/xsl/current/images/callouts/2.png" alt="2" border="0" />
@@ -90,5 +88,4 @@ while (@DIRS) {
     }
 }
 
-exit;
-</pre></div></div></div></body></html>
+exit;</pre></div></div></div></body></html>

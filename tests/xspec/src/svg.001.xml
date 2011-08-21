@@ -8,12 +8,12 @@
     <imagedata
       align="center"
       format="SVG"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/src/svg-001.svg"/>
+      fileref="../graphics/svg-001.svg"/>
   </imageobject>
   <imageobject>
     <imagedata
       align="center"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/src/svg-001-fallback.png"/>
+      fileref="../graphics/svg-001-fallback.png"/>
   </imageobject>
   <textobject><phrase>Example SVG polygons</phrase></textobject>
   <caption><para>Polygons (with fallback)</para></caption>
@@ -24,7 +24,7 @@
     <imagedata
       align="center"
       format="SVG"
-      fileref="/sourceforge/docbook/xsl2/base/xspec/src/svg-001.svg"/>
+      fileref="../graphics/svg-001.svg"/>
   </imageobject>
   <textobject><phrase>Example SVG polygons</phrase></textobject>
   <caption><para>Polygons (without fallback)</para></caption>
