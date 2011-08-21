@@ -28,14 +28,19 @@
 
   <target name="classes.saxon" depends="prepare"
           description="Build Saxon extension classes">
-    <javac srcdir="${src.saxon}" destdir="${build.classes}" includeantruntime="false"/>
+    <javac srcdir="${src.saxon}" destdir="${build.classes}" includeantruntime="false">
+      <classpath>
+        <pathelement location="/share/java/saxonhe-9.3.0.5j/saxon9he.jar"/>
+      </classpath>
+    </javac>
   </target>
 
   <target name="jar.saxon" depends="classes.saxon"
           description="Build the Saxon extension jar">
     <jar destfile="${build.lib}/${name}-saxon.jar"
-         basedir="${build.classes}"
-         includes="net/sf/docbook/saxon/*">
+         basedir="${build.classes}">
+      <include name="net/sf/docbook/saxon/*"/>
+      <include name="org/docbook/extensions/xslt20/*"/>
     </jar>
   </target>
 
@@ -50,9 +55,15 @@
             windowtitle="${name}-saxon JavaDoc"
             package="true"
             author="true"
-            version="true"
-            packagenames="net.sf.docbook.saxon.*"
-    />
+            version="true">
+      <classpath>
+        <pathelement location="/share/java/saxonhe-9.3.0.5j/saxon9he.jar"/>
+      </classpath>
+      <packageset dir="saxon/src">
+        <include name="net/sf/docbook/saxon/*"/>
+        <include name="org/docbook/extensions/xslt20/*"/>
+      </packageset>
+    </javadoc>
   </target>
 
   <target name="javadocs" depends="javadoc.saxon"
