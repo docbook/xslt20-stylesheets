@@ -5,6 +5,7 @@
 
   <mediaobject>
     <imageobjectco>
+      <?dbhtml mapid="wholeduckmap"?>
       <areaspec>
 	<area xml:id="wholeduck" coords="0,0 10000,10000" units="calspair"
 	      linkends="p1"/>
@@ -27,6 +28,7 @@
 
   <mediaobject>
     <imageobjectco>
+      <?dbhtml mapid="duckmapco"?>
       <areaspec>
 	<area xml:id="p1" coords="240,9049 497,8786" units="calspair" linkends="c1"/>
 	<area xml:id="p2" coords="2905,1360 3162,1098" linkends="c2"/>

@@ -11,7 +11,7 @@
  select="'etc/glossary.collection.xml'"/>
 
 <x:param name="preprocess" select="'profile'"/>
-<x:param name="profile.os" select="'win'"/>  
+<x:param name="profile.os" select="'win'"/>
 
 <x:scenario label="Section tests">
   <x:scenario label="sect1.001.xml">
@@ -1437,34 +1437,27 @@
               select="//html:div[contains(@class,'mediaobject')]"
               href="result/mediaobject.001.html"/>
   </x:scenario>
-  <x:pending label="Svg tests">
+  <x:scenario label="Svg tests">
     <x:context href="src/svg.001.xml"/>
     <x:expect label="Svg tests"
               test="/*"
               select="/*"
               href="result/svg.001.html"/>
-  </x:pending>
-  <x:pending label="Normal mediaobjectco">
+  </x:scenario>
+  <x:scenario label="Normal mediaobjectco">
     <x:context href="src/mediaobjectco.001.xml"/>
     <x:expect label="Normal mediaobjectco"
-              test="/*"
-              select="/*"
+              test="/html:html/html:body"
+              select="/html:html/html:body"
               href="result/mediaobjectco.001.html"/>
-  </x:pending>
-  <x:pending label="Scaled mediaobjectco">
-    <x:context href="src/mediaobjectco.002.xml"/>
-    <x:expect label="Scaled mediaobjectco"
-              test="/*"
-              select="/*"
-              href="result/mediaobjectco.002.html"/>
-  </x:pending>
-  <x:pending label="Client side imagemaps">
+  </x:scenario>
+  <x:scenario label="Client side imagemaps">
     <x:context href="src/imageobjectco.001.xml"/>
     <x:expect label="Scaled "
               test="//html:div[@class='article']"
               select="//html:div[@class='article']"
-              href="result/mediaobjectco.001.html"/>
-  </x:pending>
+              href="result/imageobjectco.001.html"/>
+  </x:scenario>
 </x:scenario>
 
 <x:scenario label="Image scaling tests">
@@ -1614,7 +1607,7 @@
       href="result/stamp.050.html"/>
   </x:scenario>
 </x:scenario>
-  
+
 <x:scenario label="Image path calculating tests with xml:base">
   <x:scenario label="stamp.051.xml">
     <x:context href="src/stamp.051.xml"/>
@@ -1648,7 +1641,7 @@
       href="result/stamp.051.html"/>
   </x:scenario>
 </x:scenario>
-  
+
 <x:scenario label="Admonition tests">
   <x:scenario label="admonitions.001.xml">
     <x:context href="src/admonitions.001.xml"/>
@@ -2506,23 +2499,22 @@
               select="//html:div[@id='book']"
               href="result/link.002.html"/>
   </x:scenario>
-  <!-- FIXME: removed because it breaks XSpec -->
-  <!--
-    <x:scenario label="link.003.xml">
+
+  <x:scenario label="link.003.xml">
     <x:context href="src/link.003.xml"/>
     <x:expect label="Xreflabels"
               test="//html:div[@id='article']"
               select="//html:div[@id='article']"
               href="result/link.003.html"/>
   </x:scenario>
-  -->
-  <x:pending label="xrefstyle.001.xml">
+
+  <x:scenario label="xrefstyle.001.xml">
     <x:context href="src/xrefstyle.001.xml"/>
     <x:expect label="Xref styles"
               test="//html:div[@id='article']"
               select="//html:div[@id='article']"
               href="result/xrefstyle.001.html"/>
-  </x:pending>
+  </x:scenario>
   <x:scenario label="changebars.001.xml">
     <x:context href="src/changebars.001.xml"/>
     <x:expect label="Revisionflag markup"

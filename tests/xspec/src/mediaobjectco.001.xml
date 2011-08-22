@@ -3,6 +3,7 @@
 
   <mediaobject>
     <imageobjectco>
+      <?dbhtml mapid="duckmap"?>
       <areaspec>
         <area xml:id="a1" units="calspair" coords="0,5000 5000,10000" linkends="va1"/>
         <area xml:id="a2" units="calspair" coords="5000,5000 10000,10000" linkends="va2"/>
