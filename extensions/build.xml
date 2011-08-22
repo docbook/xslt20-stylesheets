@@ -41,6 +41,7 @@
          basedir="${build.classes}">
       <include name="net/sf/docbook/saxon/*"/>
       <include name="org/docbook/extensions/xslt20/*"/>
+      <include name="docbook/*"/>
     </jar>
   </target>
 
@@ -62,6 +63,7 @@
       <packageset dir="saxon/src">
         <include name="net/sf/docbook/saxon/*"/>
         <include name="org/docbook/extensions/xslt20/*"/>
+        <include name="docbook/*"/>
       </packageset>
     </javadoc>
   </target>
