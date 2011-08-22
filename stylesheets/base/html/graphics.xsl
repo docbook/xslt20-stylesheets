@@ -263,9 +263,11 @@ vertical alignment.</para>
   <xsl:variable name="filename" select="f:mediaobject-filename(..)"/>
 
   <xsl:variable name="imageproperties" as="xs:integer*">
-    <xsl:call-template name="t:image-properties">
-      <xsl:with-param name="image" select="$filename"/>
-    </xsl:call-template>
+    <xsl:if test="$filename != ''">
+      <xsl:call-template name="t:image-properties">
+        <xsl:with-param name="image" select="$filename"/>
+      </xsl:call-template>
+    </xsl:if>
   </xsl:variable>
 
   <xsl:variable name="intrinsicwidth"
@@ -458,7 +460,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 
       <xsl:when xmlns:svg="http://www.w3.org/2000/svg"
                 test="$format = 'svg' and svg:*">
-        <xsl:sequence select="node()"/>
+        <xsl:apply-templates/>
       </xsl:when>
 
       <xsl:when test="lower-case($format) = 'svg'">
@@ -518,10 +520,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                 </xsl:message>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:attribute name="border">0</xsl:attribute>
-                <xsl:attribute name="usemap">
-                  <xsl:value-of select="concat('#',generate-id(ancestor::db:imageobjectco))"/>
-                </xsl:attribute>
+                <xsl:attribute name="border" select="0"/>
+                <xsl:attribute name="usemap" select="concat('#',f:imagemap-name(ancestor::db:imageobjectco))"/>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:if>
@@ -626,7 +626,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                 and ancestor::db:imageobjectco
                 and not($scaled)
                 and exists($imageproperties)">
-    <map name="{generate-id(ancestor::db:imageobjectco)}">
+    <map name="{f:imagemap-name(ancestor::db:imageobjectco)}">
       <xsl:for-each select="ancestor::db:imageobjectco/db:areaspec//db:area">
         <xsl:variable name="units" as="xs:string"
                       select="if (@units) then @units
@@ -691,6 +691,22 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
     </map>
   </xsl:if>
 </xsl:template>
+
+<xsl:function name="f:imagemap-name" as="xs:string">
+  <xsl:param name="ioco" as="element(db:imageobjectco)"/>
+
+  <!-- this whole test for mapid exists almost exclusively to make the xspec tests
+       pass. It's probably overkill, but it might come in useful I suppose -->
+  <xsl:choose>
+    <xsl:when test="exists(f:pi($ioco/processing-instruction('dbhtml'), 'mapid'))">
+      <xsl:value-of
+          select="f:pi($ioco/processing-instruction('dbhtml'), 'mapid')"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="generate-id($ioco)"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
 
 <xsl:template name="t:process-image-attributes">
   <xsl:param name="alt"/>
@@ -997,10 +1013,10 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <!-- "Support" for SVG -->
 
 <xsl:template match="svg:*" xmlns:svg="http://www.w3.org/2000/svg">
-  <xsl:copy>
+  <xsl:element name="{local-name(.)}" namespace="http://www.w3.org/2000/svg">
     <xsl:copy-of select="@*"/>
     <xsl:apply-templates/>
-  </xsl:copy>
+  </xsl:element>
 </xsl:template>
 
 <!-- Resolve xml:base attributes -->
