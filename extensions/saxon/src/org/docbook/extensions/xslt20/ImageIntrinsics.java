@@ -91,16 +91,23 @@ public class ImageIntrinsics extends ExtensionFunctionDefinition {
         public SequenceIterator call(SequenceIterator[] arguments, XPathContext context) throws XPathException {
             String imageFn = ((StringValue) arguments[0].next()).getPrimitiveStringValue();
 
+            imageLoaded = false;
+            imageFailed = false;
+            image = null;
+            width = -1;
+            depth = -1;
+
             System.setProperty("java.awt.headless","true");
 
             try {
                 URL url = new URL(imageFn);
-                image = Toolkit.getDefaultToolkit().createImage (url);
+                image = Toolkit.getDefaultToolkit().getImage (url);
             } catch (MalformedURLException mue) {
-                image = Toolkit.getDefaultToolkit().createImage (imageFn);
+                image = Toolkit.getDefaultToolkit().getImage (imageFn);
             }
 
             width = image.getWidth(this);
+            depth = image.getHeight(this);
 
             while (!imageFailed && (width == -1 || depth == -1)) {
                 try {
@@ -111,6 +118,8 @@ public class ImageIntrinsics extends ExtensionFunctionDefinition {
                 width = image.getWidth(this);
                 depth = image.getHeight(this);
             }
+
+            image.flush();
 
             if (imageFailed) {
                 // Maybe it's an EPS or PDF?
@@ -194,7 +203,8 @@ public class ImageIntrinsics extends ExtensionFunctionDefinition {
 
         public boolean imageUpdate(Image img, int infoflags,
                                    int x, int y, int width, int height) {
-            if ((infoflags & ImageObserver.ERROR) == ImageObserver.ERROR) {
+            if (((infoflags & ImageObserver.ERROR) == ImageObserver.ERROR)
+                || ((infoflags & ImageObserver.ABORT) == ImageObserver.ABORT)) {
                 imageFailed = true;
                 return false;
             }
@@ -202,8 +212,7 @@ public class ImageIntrinsics extends ExtensionFunctionDefinition {
             // I really only care about the width and height, but if I return false as
             // soon as those are available, the BufferedInputStream behind the loader
             // gets closed too early.
-            int flags = ImageObserver.ALLBITS;
-            if ((infoflags & flags) == flags) {
+            if ((infoflags & ImageObserver.ALLBITS) == ImageObserver.ALLBITS) {
                 return false;
             } else {
                 return true;
