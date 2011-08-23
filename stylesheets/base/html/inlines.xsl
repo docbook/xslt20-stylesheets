@@ -24,131 +24,6 @@
 
 <!-- ============================================================ -->
 
-<doc:template name="t:simple-xlink" xmlns="http://docbook.org/ns/docbook">
-<refpurpose>Handle xlink:href attributes on inlines</refpurpose>
-
-<refdescription>
-<para>This template generates XHTML anchors for inline elements that
-have xlink:href attributes.</para>
-
-<note>
-<para>Nested anchors can occur this way and this code does not, at
-present, “unwrap” them as it should.</para>
-</note>
-</refdescription>
-
-<refparameter>
-<variablelist>
-<varlistentry><term>node</term>
-<listitem>
-<para>The node for which markup is being generated; the one that might
-have the xlink:href attribute.</para>
-</listitem>
-</varlistentry>
-<varlistentry><term>content</term>
-<listitem>
-<para>The content of the link. This defaults to the result of
-calling “apply templates” with <parameter>node</parameter> as the
-context item.</para>
-</listitem>
-</varlistentry>
-</variablelist>
-</refparameter>
-
-<refreturn>
-<para>The result tree markup for the node.</para>
-</refreturn>
-</doc:template>
-
-<xsl:template name="t:simple-xlink">
-  <xsl:param name="node" select="."/>
-  <xsl:param name="content">
-    <xsl:apply-templates/>
-  </xsl:param>
-
-  <xsl:variable name="link">
-    <xsl:choose>
-      <xsl:when test="$node/@xlink:href
-		      and (not($node/@xlink:type)
-		           or $node/@xlink:type='simple')">
-	<a>
-	  <xsl:if test="$node/@xlink.title">
-	    <xsl:attribute name="title" select="$node/@xlink:title"/>
-	  </xsl:if>
-
-	  <xsl:attribute name="href">
-	    <xsl:choose>
-	      <!-- if the href starts with # and does not contain an "(" -->
-              <!-- or if the href starts with #xpointer(id(, it's just an ID -->
-              <xsl:when test="starts-with($node/@xlink:href,'#')
-                              and (not(contains($node/@xlink:href,'&#40;'))
-                              or starts-with($node/@xlink:href,
-			                     '#xpointer&#40;id&#40;'))">
-                <xsl:variable name="idref" select="f:xpointer-idref($node/@xlink:href)"/>
-                <xsl:variable name="target" select="key('id',$idref)[1]"/>
-
-                <xsl:choose>
-                  <xsl:when test="not($target)">
-		    <xsl:message>
-		      <xsl:text>XLink to nonexistent id: </xsl:text>
-		      <xsl:value-of select="$idref"/>
-		    </xsl:message>
-                    <xsl:text>???</xsl:text>
-                  </xsl:when>
-		  <xsl:otherwise>
-		    <xsl:attribute name="href" select="f:href(/,$target)"/>
-		  </xsl:otherwise>
-		</xsl:choose>
-              </xsl:when>
-
-              <!-- otherwise it's a URI -->
-              <xsl:otherwise>
-		<xsl:value-of select="$node/@xlink:href"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-          <xsl:copy-of select="$content"/>
-        </a>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:copy-of select="$content"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <xsl:copy-of select="$link"/>
-
-  <xsl:variable name="inline" select="."/>
-  <xsl:variable name="id" select="@xml:id"/>
-
-  <xsl:variable name="annotations" as="element()*">
-    <xsl:sequence select="if (@annotations)
-                          then key('id',tokenize(@annotations,'\s'))
-			  else ()"/>
-    <xsl:sequence select="if ($id)
-			  then //db:annotation[tokenize(@annotates,'\s')=$id]
-			  else ()"/>
-  </xsl:variable>
-
-  <xsl:for-each select="$annotations">
-    <xsl:variable name="id"
-		    select="concat(f:node-id(.),'-',generate-id($inline))"/>
-    <a style="display: inline" onclick="show_annotation('{$id}')"
-	  id="annot-{$id}-on">
-      <img border="0" src="{$annotation.graphic.open}" alt="[A+]"/>
-    </a>
-    <a style="display: none" onclick="hide_annotation('{$id}')"
-	  id="annot-{$id}-off">
-      <img border="0" src="{$annotation.graphic.close}" alt="[A-]"/>
-    </a>
-    <div style="display: none" id="annot-{$id}">
-      <xsl:apply-templates select="." mode="m:annotation"/>
-    </div>
-  </xsl:for-each>
-</xsl:template>
-
-<!-- ============================================================ -->
-
 <doc:template name="t:inline-charseq" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Handles simple inline elements</refpurpose>
 
@@ -195,7 +70,7 @@ calling “apply templates” with the current context node.</para>
 
 <xsl:template name="t:inline-charseq">
   <xsl:param name="content">
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </xsl:param>
   <xsl:param name="class" select="''"/>
 
@@ -251,7 +126,7 @@ calling “apply templates” with the current context node.</para>
 
 <xsl:template name="t:inline-monoseq">
   <xsl:param name="content">
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </xsl:param>
   <xsl:param name="class" select="''"/>
 
@@ -307,7 +182,7 @@ calling “apply templates” with the current context node.</para>
 
 <xsl:template name="t:inline-boldseq">
   <xsl:param name="content">
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </xsl:param>
 
   <strong class="{local-name(.)}">
@@ -361,7 +236,7 @@ calling “apply templates” with the current context node.</para>
 
 <xsl:template name="t:inline-italicseq">
   <xsl:param name="content">
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </xsl:param>
 
   <em class="{local-name(.)}">
@@ -420,7 +295,7 @@ calling “apply templates” with the current context node.</para>
 
 <xsl:template name="t:inline-boldmonoseq">
   <xsl:param name="content">
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </xsl:param>
 
   <strong class="{local-name(.)}">
@@ -481,7 +356,7 @@ calling “apply templates” with the current context node.</para>
 
 <xsl:template name="t:inline-italicmonoseq">
   <xsl:param name="content">
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </xsl:param>
 
   <em class="{local-name(.)}">
@@ -538,7 +413,7 @@ calling “apply templates” with the current context node.</para>
 
 <xsl:template name="t:inline-superscriptseq">
   <xsl:param name="content">
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </xsl:param>
 
   <sup>
@@ -593,7 +468,7 @@ calling “apply templates” with the current context node.</para>
 
 <xsl:template name="t:inline-subscriptseq">
   <xsl:param name="content">
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </xsl:param>
 
   <sub>
@@ -741,29 +616,25 @@ the default is “element”.</para>
 </u:unittests>
 
 <xsl:template match="db:emphasis">
-  <xsl:call-template name="t:simple-xlink">
-    <xsl:with-param name="content">
-      <xsl:choose>
-	<xsl:when test="@role='bold' or @role='strong'">
-	  <strong class="{local-name(.)}">
-	    <xsl:call-template name="t:id"/>
-	    <xsl:apply-templates/>
-	  </strong>
-	</xsl:when>
-	<xsl:otherwise>
-	  <em>
-	    <xsl:call-template name="t:id"/>
-	    <xsl:if test="@role">
-	      <xsl:attribute name="class">
-		<xsl:value-of select="@role"/>
-	      </xsl:attribute>
-	    </xsl:if>
-	    <xsl:apply-templates/>
-	  </em>
-	</xsl:otherwise>
-      </xsl:choose>
-    </xsl:with-param>
-  </xsl:call-template>
+  <xsl:choose>
+    <xsl:when test="@role='bold' or @role='strong'">
+      <strong class="{local-name(.)}">
+        <xsl:call-template name="t:id"/>
+        <xsl:call-template name="t:xlink"/>
+      </strong>
+    </xsl:when>
+    <xsl:otherwise>
+      <em>
+        <xsl:call-template name="t:id"/>
+        <xsl:if test="@role">
+          <xsl:attribute name="class">
+            <xsl:value-of select="@role"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:call-template name="t:xlink"/>
+      </em>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- ============================================================ -->
@@ -795,7 +666,7 @@ the default is “element”.</para>
     <xsl:apply-templates select="." mode="m:html-attributes">
       <xsl:with-param name="suppress-local-name-class" select="true()"/>
     </xsl:apply-templates>
-    <xsl:call-template name="t:simple-xlink"/>
+    <xsl:call-template name="t:xlink"/>
   </span>
 </xsl:template>
 

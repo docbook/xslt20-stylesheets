@@ -8,9 +8,10 @@
                 xmlns:m="http://docbook.org/xslt/ns/mode"
 		xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
+                xmlns:xlink='http://www.w3.org/1999/xlink'
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns="http://www.w3.org/1999/xhtml"
-                exclude-result-prefixes="db doc f fn h m t u xs"
+                exclude-result-prefixes="db doc f fn h m t u xlink xs"
                 version="2.0">
 
 <xsl:param name="html.stylesheet" select="''"/>
@@ -180,7 +181,7 @@ and a CSS style is specified.</para>
 
 <!-- ====================================================================== -->
 
-<doc:template name="css-style" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:css-style" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Template for inserting CSS stylesheet</refpurpose>
 
 <refdescription>
@@ -191,7 +192,7 @@ of the stylesheet is inserted directly.</para>
 </refdescription>
 </doc:template>
 
-<xsl:template name="css-style">
+<xsl:template name="t:css-style">
   <xsl:choose>
     <xsl:when test="$docbook.css.inline = 0">
       <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
@@ -206,7 +207,7 @@ of the stylesheet is inserted directly.</para>
 
 <!-- ====================================================================== -->
 
-<doc:template name="javascript" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:javascript" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Template for inserting Javascript</refpurpose>
 
 <refdescription>
@@ -214,9 +215,19 @@ of the stylesheet is inserted directly.</para>
 </refdescription>
 </doc:template>
 
-<xsl:template name="javascript">
+<xsl:template name="t:javascript">
   <xsl:if test="//db:annotation">
-    <script type="text/javascript" src="{$annotation.js}"/>
+    <script type="text/javascript" src="http://docbook.github.com/latest/js/AnchorPosition.js"/>
+    <script type="text/javascript" src="http://docbook.github.com/latest/js/PopupWindow.js"/>
+    <script type="text/javascript" src="http://docbook.github.com/latest/js/annotation.js"/>
+  </xsl:if>
+
+  <xsl:if test="//*[@xlink:type='extended']">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
+    <link type="text/css" rel="stylesheet"
+          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"/>
+    <script type="text/javascript" src="http://docbook.github.com/latest/js/nhrefs.js"/>
   </xsl:if>
 </xsl:template>
 
@@ -243,8 +254,8 @@ primary result document.</para>
     <xsl:call-template name="t:system-head-content"/>
     <xsl:call-template name="t:head-meta"/>
     <xsl:call-template name="t:head-links"/>
-    <xsl:call-template name="css-style"/>
-    <xsl:call-template name="javascript"/>
+    <xsl:call-template name="t:css-style"/>
+    <xsl:call-template name="t:javascript"/>
     <xsl:call-template name="t:user-head-content"/>
   </head>
 </xsl:template>

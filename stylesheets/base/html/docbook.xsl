@@ -53,6 +53,7 @@
   <xsl:include href="qandaset.xsl"/>
   <xsl:include href="inlines.xsl"/>
   <xsl:include href="xref.xsl"/>
+  <xsl:include href="xlink.xsl"/>
   <xsl:include href="math.xsl"/>
   <xsl:include href="html.xsl"/>
   <xsl:include href="index.xsl"/>
