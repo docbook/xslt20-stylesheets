@@ -121,7 +121,7 @@ public class ImageIntrinsics extends ExtensionFunctionDefinition {
 
             image.flush();
 
-            if (imageFailed) {
+            if ((width == -1 || depth == -1) && imageFailed) {
                 // Maybe it's an EPS or PDF?
                 // FIXME: this code is crude
                 BufferedReader ir = null;
