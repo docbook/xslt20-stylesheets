@@ -485,13 +485,14 @@
               select="//html:div[@class='task-wrapper'][3]"
               href="result/task.001.html"/>
   </x:scenario>
-  <x:pending label="annotations.001.xml">
+  <!-- FIXME: crude tests -->
+  <x:scenario label="annotations.001.xml">
     <x:context href="src/annotations.001.xml"/>
     <x:expect label="Annotation testing"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="count(//html:a[@onclick])"
+              select="count(//html:a[@onclick])"
               href="result/annotations.001.html"/>
-  </x:pending>
+  </x:scenario>
 </x:scenario>
 
 <x:scenario label="Footnote tests">
@@ -1440,8 +1441,8 @@
   <x:scenario label="Svg tests">
     <x:context href="src/svg.001.xml"/>
     <x:expect label="Svg tests"
-              test="/*"
-              select="/*"
+              test="/html:html/html:body"
+              select="/html:html/html:body"
               href="result/svg.001.html"/>
   </x:scenario>
   <x:scenario label="Normal mediaobjectco">
@@ -2528,6 +2529,16 @@
               test="//html:div[@id='article']"
               select="//html:div[@id='article']"
               href="result/co.001.html"/>
+  </x:scenario>
+
+  <x:scenario label="XLink tests">
+    <x:scenario label="xlink.001.xml">
+      <x:context href="src/xlink.001.xml"/>
+      <x:expect label="inline extended link"
+                test="//html:span[@class='nhrefs']"
+                select="//html:span[@class='nhrefs']"
+                href="result/xlink.001.html"/>
+    </x:scenario>
   </x:scenario>
 </x:scenario>
 
