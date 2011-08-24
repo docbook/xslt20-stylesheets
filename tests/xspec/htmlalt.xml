@@ -1,0 +1,40 @@
+<?oxygen RNGSchema="../../tools/xspec-v0.2/xspec.rnc" type="compact"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+               xmlns:db="http://docbook.org/ns/docbook"
+               xmlns:html="http://www.w3.org/1999/xhtml"
+               xmlns="http://www.w3.org/1999/xhtml"
+               stylesheet="../../stylesheets/base/html/docbook.xsl">
+
+<x:param name="html.stylesheets" select="'a.css b.css c.css'"/>
+<x:param name="link.madeby.uri" select="'mailto:john.doe@example.com'"/>
+<x:param name="html.base" select="'http://www.example.com/'"/>
+<x:param name="generate.meta.abstract" select="1"/>
+<x:param name="inherit.keywords" select="1"/>
+
+<x:scenario label="Meta tests">
+  <x:scenario label="meta.001.xml">
+    <x:context href="src/meta.001.xml"/>
+    <x:expect label="HTML stylesheets"
+              test="/html:html/html:head/html:link[@rel='stylesheet']"
+              select="/html:html/html:head/html:link[@rel='stylesheet']"
+              href="result/meta.001.html"/>
+    <x:expect label="HTML keywords"
+              test="/html:html/html:head/html:meta[@name='keywords']"
+              select="/html:html/html:head/html:meta[@name='keywords']"
+              href="result/meta.001.html"/>
+    <x:expect label="HTML base"
+              test="/html:html/html:head/html:base"
+              select="/html:html/html:head/html:base"
+              href="result/meta.001.html"/>
+    <x:expect label="HTML made link"
+              test="/html:html/html:head/html:link[@rev='made']"
+              select="/html:html/html:head/html:link[@rev='made']"
+              href="result/meta.001.html"/>
+    <x:expect label="HTML abstract"
+              test="/html:html/html:head/html:meta[@name='description']"
+              select="/html:html/html:head/html:meta[@name='description']"
+              href="result/meta.001.html"/>
+  </x:scenario>
+</x:scenario>
+
+</x:description>

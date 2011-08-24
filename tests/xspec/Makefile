@@ -1,8 +1,11 @@
-all: html
-
 COVERAGE=
 
-.PHONY: html
+.PHONY: htmlbase htmlalt
 
-html: htmltests.xml
+all: htmlbase htmlalt
+
+htmlbase: htmlbase.xml
+	xspec $< $(COVERAGE)
+
+htmlalt: htmlalt.xml
 	xspec $< $(COVERAGE)
