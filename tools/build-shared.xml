@@ -4,7 +4,6 @@
   <property name="dbroot.dir" value="${ant.file}/.."/>
   <property name="libs" value="${dbroot.dir}/tools/lib"/>
   <property name="saxon.jar" value="${libs}/saxon9he.jar"/>
-  <property name="saxonee.jar" value="${libs}/saxon9ee.jar"/>
   <property name="saxon-ant.jar" value="${libs}/saxon9-ant.jar"/>
   <property name="jing.jar" value="${libs}/jing.jar"/>
   <property name="ant-contrib.jar" value="${libs}/ant-contrib-1.0b3.jar"/>
@@ -12,25 +11,19 @@
   <property name="extensions.jar"
             value="${dbroot.dir}/extensions/build/lib/docbook-xsl2-saxon.jar"/>
 
-  <!--
-  <Taskdef resource="net/sf/antcontrib/antlib.xml"
-           classpath="${ant-contrib.jar}"
-           uri="antlib:net.sf.antcontrib">
-  </taskdef>
-  -->
-
   <taskdef name="jing"
            classname="com.thaiopensource.relaxng.util.JingTask"
            classpath="${jing.jar}"/>
 
+  <path id="saxon.classpath">
+    <pathelement location="${saxon.jar}"/>
+    <pathelement location="${saxon-ant.jar}"/>
+    <pathelement location="${extensions.jar}"/>
+  </path>
+
   <taskdef name="xslt2"
            classname="net.sf.saxon.ant.AntTransform">
-    <classpath>
-      <pathelement location="${saxonee.jar}"/>
-      <pathelement location="${saxon.jar}"/>
-      <pathelement location="${saxon-ant.jar}"/>
-      <pathelement location="${extensions.jar}"/>
-    </classpath>
+    <classpath refid="saxon.classpath"/>
   </taskdef>
 
 </project>

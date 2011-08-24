@@ -17,13 +17,13 @@
     <ant dir="extensions" target="clean"/>
     <ant dir="stylesheets/base" target="clean"/>
   </target>
-  
+
   <target name="tests">
     <ant dir="tests/xspec"/>
   </target>
-  
+
   <target name="dist" depends="clean, build">
-    <tstamp/>    
+    <tstamp/>
     <zip zipfile="docbook-xslt20-stylesheets-${DSTAMP}.zip">
       <zipfileset dir="." prefix="docbook-xsl2">
         <exclude name=".git"/>
@@ -31,7 +31,7 @@
         <exclude name="*.zip"/>
         <exclude name="*.xpr"/>
       </zipfileset>
-    </zip>    
+    </zip>
   </target>
 
 </project>
