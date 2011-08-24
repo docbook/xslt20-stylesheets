@@ -1,0 +1,29 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="inherit.keywords">
+<refmeta>
+<refentrytitle>inherit.keywords</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>inherit.keywords</refname>
+<refpurpose>Inherit keywords?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="inherit.keywords.frag">
+<xsl:param name="inherit.keywords" select="0"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>When generating <tag>html</tag> <tag>meta</tag> keywords, should the keywords
+of ancestor elements be inherited? If true (non-0), for example, when generating keywords
+for a chapter, the keywords for the parent book will be included.</para>
+
+</refsect1>
+</refentry>

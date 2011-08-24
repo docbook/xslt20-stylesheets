@@ -1,0 +1,90 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="linenumbering">
+<refmeta>
+<refentrytitle>linenumbering</refentrytitle>
+<refmiscinfo role="type">element(ln)*</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>linenumbering</refname>
+<refpurpose>Specifies the characteristics of line numbering for verbatim environments</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="linenumbering.frag">
+<xsl:param name="linenumbering" as="element()*">
+<ln path="literallayout" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
+<ln path="programlisting" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
+<ln path="programlistingco" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
+<ln path="screen" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
+<ln path="synopsis" everyNth="2" width="3" separator=" " padchar=" " minlines="3"/>
+<ln path="address" everyNth="0"/>
+<ln path="epigraph/literallayout" everyNth="0"/>
+</xsl:param>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>There are several characteristics associated with line numbering. These characteristics
+can vary across the different line numbering environments. You might, for example, want
+<tag>programlisting</tag>s to be numbered differently from <tag>address</tag>es (which you
+might not want numbered at all).</para>
+
+<para>Attributes on the <tag>ln</tag> elements in the
+<parameter>$linenumbering</parameter> parameter establish the
+characteristics for each environment:</para>
+
+<variablelist>
+<varlistentry><term><tag class="attribute">path</tag></term>
+<listitem>
+<para>Identifies the verbatim element. You must specify the name of the element. You can also
+specify a list of ancestors. This <emphasis>is not</emphasis> a full XPath expression, just a list
+of ancestors.</para>
+<para>If you need finer control, each of these characteristics can be controlled on a per-element
+basis with a processing instruction.</para>
+</listitem>
+</varlistentry>
+<varlistentry><term><tag class="attribute">everyNth</tag></term>
+<listitem>
+<para>Specifies which lines should be numbered. The first line is
+always numbered, then <tag class="attribute">everyNth</tag>. So, for
+example, if 3 is specified, lines 1, 3, 6, 9, etc. will be numbered.
+If 2 is specified, lines 1, 2, 4, 6, etc.</para>
+</listitem>
+</varlistentry>
+<varlistentry><term><tag class="attribute">width</tag></term>
+<listitem>
+<para>Specifies the width reserved for line numbers.</para>
+</listitem>
+</varlistentry>
+<varlistentry><term><tag class="attribute">separator</tag></term>
+<listitem>
+<para>Specifies the separator to place between line numbers and the line.</para>
+</listitem>
+</varlistentry>
+<varlistentry><term><tag class="attribute">padchar</tag></term>
+<listitem>
+<para>Specifies the padding character to use if the line number is less than the reserved
+width.</para>
+</listitem>
+</varlistentry>
+<varlistentry><term><tag class="attribute">minlines</tag></term>
+<listitem>
+<para>Specifies the minimum number of lines that must be present in the verbatim environment
+before line numbering will be enabled.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>In the HTML output, the line number will be enclosed in a <tag>span</tag> with
+the “<tag class="attvalue">linenumber</tag> class and the separator will be enclosed
+in a <tag>span</tag> with
+the “<tag class="attvalue">linenumber-separator</tag> class. This provides the opportunity
+for additional styling.</para>
+
+</refsect1>
+</refentry>

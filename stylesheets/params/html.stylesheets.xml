@@ -1,0 +1,31 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="html.stylesheets">
+<refmeta>
+<refentrytitle>html.stylesheets</refentrytitle>
+<refmiscinfo role="type">string*</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>html.stylesheets</refname>
+<refpurpose>A list of stylesheets to include in the generated HTML</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="html.stylesheets.frag">
+<xsl:param name="html.stylesheets" select="''"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>The <parameter>$html.stylesheets</parameter> parameter is a whitespace separated
+list of (CSS) stylesheets. These will be included after <parameter>$docbook.css</parameter> (if
+present) so that they can override default behavior.
+</para>
+
+</refsect1>
+</refentry>
+

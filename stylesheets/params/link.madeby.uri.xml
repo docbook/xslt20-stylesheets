@@ -1,0 +1,29 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="link.madeby.uri">
+<refmeta>
+<refentrytitle>link.madeby.uri</refentrytitle>
+<refmiscinfo role="type">URI</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>link.madeby.uri</refname>
+<refpurpose>Specify the HTML “made” link URI</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="link.madeby.uri.frag">
+<xsl:param name="link.madeby.uri" select="''"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If <parameter>$link.madeby.uri</parameter> is not the empty string, each HTML file
+generated will include a <tag>link</tag> element with <code>rel="made"</code> pointing
+to this URI.</para>
+
+</refsect1>
+</refentry>

@@ -15,7 +15,7 @@
 <refsynopsisdiv>
 <src:fragment xml:id='callout.graphics.path.frag'>
 <xsl:param name="callout.graphics.path"
-	   select="'http://docbook.sf.net/release/xsl/current/images/callouts/'"/>
+	   select="'http://docbook.github.com/latest/img/'"/>
 </src:fragment>
 </refsynopsisdiv>
 
