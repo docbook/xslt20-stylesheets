@@ -6,7 +6,7 @@
 
   <target name="all">
     <xslt2 style="../../../tools/mkparam.xsl" in="param.xml" out="param.xsl"/>
-    <xslt2 style="../../../tools/titlepages.xsl " in="titlepages.xml" out="titlepages.xsl"/>
+    <xslt2 style="../../../tools/titlepages.xsl" in="titlepages.xml" out="titlepages.xsl"/>
   </target>
 
   <target name="clean">
