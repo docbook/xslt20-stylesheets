@@ -179,6 +179,17 @@ vertical alignment.</para>
                 select="()"/>
 </xsl:template>
 
+<xsl:function use-when="function-available('magick:wand')"
+              name="ext:image-properties"
+              xmlns:magick="http://marklogic.com/magick"
+              as="xs:unsignedLong*">
+  <xsl:param name="image" as="xs:string"/>
+
+  <xsl:variable name="wand"       select="magick:wand()"/>
+  <xsl:variable name="image-wand" select="magick:read-image($wand,doc($image))"/>
+  <xsl:sequence select="(magick:get-image-width($image-wand), magick:get-image-height($image-wand))"/>
+</xsl:function>
+
 <xsl:template name="t:process-image">
   <!-- When this template is called, the current node should be  -->
   <!-- a graphic, inlinegraphic, imagedata, or videodata. All    -->
