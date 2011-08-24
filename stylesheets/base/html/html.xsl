@@ -14,16 +14,6 @@
                 exclude-result-prefixes="db doc f fn h m t u xlink xs"
                 version="2.0">
 
-<xsl:param name="html.stylesheet" select="''"/>
-<xsl:param name="html.stylesheet.type" select="''"/>
-<xsl:param name="link.mailto.url" select="''"/>
-<xsl:param name="html.base" select="''"/>
-<xsl:param name="VERSION" select="'0.0.1'"/>
-<xsl:param name="generate.meta.abstract" select="0"/>
-<xsl:param name="draft.mode" select="'maybe'"/>
-<xsl:param name="draft.watermark.image" select="''"/>
-<xsl:param name="inherit.keywords" select="0"/>
-
 <!-- ============================================================ -->
 
 <xsl:param name="body.fontset">
@@ -181,32 +171,6 @@ and a CSS style is specified.</para>
 
 <!-- ====================================================================== -->
 
-<doc:template name="t:css-style" xmlns="http://docbook.org/ns/docbook">
-<refpurpose>Template for inserting CSS stylesheet</refpurpose>
-
-<refdescription>
-<para>This template is used to insert the CSS stylesheet associated
-with the result document. If <parameter>docbook.css.inline</parameter> is
-false (0), a link is inserted to the stylesheet, otherwise, the text
-of the stylesheet is inserted directly.</para>
-</refdescription>
-</doc:template>
-
-<xsl:template name="t:css-style">
-  <xsl:choose>
-    <xsl:when test="$docbook.css.inline = 0">
-      <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <style type="text/css">
-	<xsl:copy-of select="unparsed-text($docbook.css, 'us-ascii')"/>
-      </style>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-<!-- ====================================================================== -->
-
 <doc:template name="t:javascript" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Template for inserting Javascript</refpurpose>
 
@@ -216,6 +180,8 @@ of the stylesheet is inserted directly.</para>
 </doc:template>
 
 <xsl:template name="t:javascript">
+  <xsl:param name="node" select="."/>
+
   <xsl:if test="//db:annotation">
     <script type="text/javascript" src="http://docbook.github.com/latest/js/AnchorPosition.js"/>
     <script type="text/javascript" src="http://docbook.github.com/latest/js/PopupWindow.js"/>
@@ -243,20 +209,66 @@ primary result document.</para>
 </doc:template>
 
 <xsl:template name="t:head">
-  <xsl:param name="root" as="element()"
-	     select="if ($rootid != '')
-                     then key('id',$rootid)[1]
-		     else /*[1]"/>
+  <xsl:param name="node" select="."/>
+
   <head>
     <title>
-      <xsl:value-of select="f:title($root)"/>
+      <xsl:value-of select="f:title($node)"/>
     </title>
-    <xsl:call-template name="t:system-head-content"/>
-    <xsl:call-template name="t:head-meta"/>
-    <xsl:call-template name="t:head-links"/>
-    <xsl:call-template name="t:css-style"/>
-    <xsl:call-template name="t:javascript"/>
-    <xsl:call-template name="t:user-head-content"/>
+
+    <xsl:if test="$html.base != ''">
+      <base href="{$html.base}"/>
+    </xsl:if>
+
+    <xsl:call-template name="t:system-head-content">
+      <xsl:with-param name="node" select="$node"/>
+    </xsl:call-template>
+
+    <xsl:call-template name="t:head-meta">
+      <xsl:with-param name="node" select="$node"/>
+    </xsl:call-template>
+
+    <xsl:call-template name="t:head-links">
+      <xsl:with-param name="node" select="$node"/>
+    </xsl:call-template>
+
+    <xsl:if test="($draft.mode = 'yes'
+                   or ($draft.mode = 'maybe' and
+		       $node/ancestor-or-self::*[@status][1]/@status = 'draft'))
+                  and $draft.watermark.image != ''">
+      <style type="text/css">
+body { background-image: url('<xsl:value-of select="$draft.watermark.image"/>');
+       background-repeat: no-repeat;
+       background-position: center center;
+       /* The following property make the watermark "fixed" on the page. */
+       /* I think that's just a bit too distracting for the reader... */
+       /* background-attachment: fixed; */
+     }
+</style>
+    </xsl:if>
+
+    <xsl:if test="$html.stylesheets != ''">
+      <xsl:for-each select="tokenize($html.stylesheets, '\s+')">
+        <link rel="stylesheet" href="{.}">
+          <xsl:choose>
+            <xsl:when test="ends-with(.,'.css')">
+              <xsl:attribute name="type" select="'text/css'"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <!-- ??? what type is this ??? -->
+            </xsl:otherwise>
+          </xsl:choose>
+        </link>
+      </xsl:for-each>
+    </xsl:if>
+
+    <xsl:call-template name="t:javascript">
+      <xsl:with-param name="node" select="$node"/>
+    </xsl:call-template>
+
+    <xsl:call-template name="t:user-head-content">
+      <xsl:with-param name="node" select="$node"/>
+    </xsl:call-template>
   </head>
 </xsl:template>
 
@@ -267,13 +279,30 @@ primary result document.</para>
 
 <refdescription>
 <para>This template is called in the HTML <tag>head</tag> to insert
-HTML <tag>meta</tag> elements. The standard version does nothing;
-customizers must override this template if they wish to insert
-metadata.</para>
+HTML <tag>meta</tag> elements.</para>
 </refdescription>
 </doc:template>
 
-<xsl:template name="t:head-meta"/>
+<xsl:template name="t:head-meta">
+  <xsl:param name="node" select="."/>
+
+  <meta name="generator" content="DocBook XSL 2.0 Stylesheets V{$VERSION}"/>
+
+  <xsl:if test="$generate.meta.abstract != 0 and $node/db:info/db:abstract">
+    <meta name="description">
+      <xsl:attribute name="content">
+        <xsl:for-each select="$node/db:info/db:abstract[1]/*">
+          <xsl:value-of select="."/>
+          <xsl:if test="position() &lt; last()">
+            <xsl:text> </xsl:text>
+	  </xsl:if>
+        </xsl:for-each>
+      </xsl:attribute>
+    </meta>
+  </xsl:if>
+
+  <xsl:apply-templates select="$node" mode="m:head-keywords-content"/>
+</xsl:template>
 
 <!-- ====================================================================== -->
 
@@ -282,13 +311,33 @@ metadata.</para>
 
 <refdescription>
 <para>This template is called in the HTML <tag>head</tag> to insert
-HTML <tag>link</tag> elements. The standard version does nothing;
-customizers must override this template if they wish to insert
-links.</para>
+HTML <tag>link</tag> elements.
+</para>
 </refdescription>
 </doc:template>
 
-<xsl:template name="t:head-links"/>
+<xsl:template name="t:head-links">
+  <xsl:param name="node" select="."/>
+
+  <xsl:choose>
+    <xsl:when test="string($docbook.css) = ''">
+      <!-- nop -->
+    </xsl:when>
+    <xsl:when test="$docbook.css.inline = 0">
+      <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <style type="text/css">
+        <xsl:copy-of select="unparsed-text($docbook.css, 'utf-8')"/>
+      </style>
+    </xsl:otherwise>
+  </xsl:choose>
+
+  <xsl:if test="$link.madeby.uri != ''">
+    <link rev="made"
+          href="{$link.madeby.uri}"/>
+  </xsl:if>
+</xsl:template>
 
 <!-- ====================================================================== -->
 
@@ -491,77 +540,17 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
   <xsl:param name="up" select="()"/>
 </xsl:template>
 
-<xsl:template name="t:head-content">
-  <xsl:param name="node" select="."/>
-  <xsl:param name="title">
-    <xsl:apply-templates select="$node" mode="m:object-title-markup"/>
-  </xsl:param>
-
-  <title>
-    <xsl:value-of select="$title"/>
-  </title>
-
-  <xsl:if test="$html.stylesheet != ''">
-    <xsl:for-each select="tokenize($html.stylesheet, '\s+')">
-      <link rel="stylesheet" href="{.}">
-	<xsl:if test="$html.stylesheet.type != ''">
-	  <xsl:attribute name="type">
-	    <xsl:value-of select="$html.stylesheet.type"/>
-	  </xsl:attribute>
-	</xsl:if>
-      </link>
-    </xsl:for-each>
-  </xsl:if>
-
-  <xsl:if test="$link.mailto.url != ''">
-    <link rev="made"
-          href="{$link.mailto.url}"/>
-  </xsl:if>
-
-  <xsl:if test="$html.base != ''">
-    <base href="{$html.base}"/>
-  </xsl:if>
-
-  <meta name="generator" content="DocBook XSL 2.0 Stylesheets V{$VERSION}"/>
-
-  <xsl:if test="$generate.meta.abstract != 0 and db:info/db:abstract">
-    <meta name="description">
-      <xsl:attribute name="content">
-	<xsl:for-each select="db:info/db:abstract[1]/*">
-	  <xsl:value-of select="."/>
-	  <xsl:if test="position() &lt; last()">
-	    <xsl:text> </xsl:text>
-	  </xsl:if>
-	</xsl:for-each>
-      </xsl:attribute>
-    </meta>
-  </xsl:if>
-
-  <xsl:if test="($draft.mode = 'yes'
-		 or ($draft.mode = 'maybe' and
-		     ancestor-or-self::*[@status][1]/@status = 'draft'))
-		and $draft.watermark.image != ''">
-    <style type="text/css"><xsl:text>
-body { background-image: url('</xsl:text>
-<xsl:value-of select="$draft.watermark.image"/><xsl:text>');
-       background-repeat: no-repeat;
-       background-position: top left;
-       /* The following properties make the watermark "fixed" on the page. */
-       /* I think that's just a bit too distracting for the reader... */
-       /* background-attachment: fixed; */
-       /* background-position: center center; */
-     }</xsl:text>
-    </style>
-  </xsl:if>
-
-  <xsl:apply-templates select="." mode="m:head-keywords-content"/>
-</xsl:template>
+<!-- ====================================================================== -->
 
 <xsl:template match="*" mode="m:head-keywords-content">
-  <xsl:apply-templates select="db:info/db:keywordset" mode="m:html-header"/>
+  <xsl:apply-templates select="db:info/db:keywordset" mode="m:head-keywords-content"/>
   <xsl:if test="$inherit.keywords != 0 and parent::*">
     <xsl:apply-templates select="parent::*" mode="m:head-keywords-content"/>
   </xsl:if>
+</xsl:template>
+
+<xsl:template match="db:keywordset" mode="m:head-keywords-content">
+  <meta name="keywords" content="{string-join(db:keyword, ', ')}"/>
 </xsl:template>
 
 <!-- ====================================================================== -->

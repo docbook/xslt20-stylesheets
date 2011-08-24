@@ -12,7 +12,6 @@
 		exclude-result-prefixes="doc h f m mp fn db t"
                 version="2.0">
 
-<xsl:include href="../common/verbatim.xsl"/>
 <xsl:include href="verbatim-patch.xsl"/>
 
 <xsl:template match="db:programlistingco">

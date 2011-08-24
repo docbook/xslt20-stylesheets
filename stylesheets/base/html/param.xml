@@ -4,6 +4,15 @@
 <para>This should be expanded to do a better job of documentation.
 It's just a bogus mess right now.</para>
 
+<refentry xml:id="draft.watermark.image"/>
+<refentry xml:id="draft.mode"/>
+
+<refentry xml:id="html.stylesheets"/>
+<refentry xml:id="link.madeby.uri"/>
+<refentry xml:id="html.base"/>
+<refentry xml:id="generate.meta.abstract"/>
+<refentry xml:id="inherit.keywords"/>
+
 <refentry xml:id="root.filename"/>
 <refentry xml:id="verbosity"/>
 <refentry xml:id="html.ext"/>
@@ -14,7 +23,6 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="gYear-format"/>
 <refentry xml:id="docbook.css"/>
 <refentry xml:id="docbook.css.inline"/>
-<refentry xml:id="annotation.js"/>
 <refentry xml:id="annotation.graphic.open"/>
 <refentry xml:id="annotation.graphic.close"/>
 <refentry xml:id="toc.list.type"/>
@@ -101,6 +109,10 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="admonition.graphics.path"/>
 <refentry xml:id="admonition.graphics.extension"/>
 <refentry xml:id="admonition.default.titles"/>
+
+<refentry xml:id="linenumbering"/>
+<refentry xml:id="callout.defaultcolumn"/>
+<refentry xml:id="verbatim.trim.blank.lines"/>
 
 <refentry xml:id="html.longdesc"/>
 <refentry xml:id="html.longdesc.link"/>

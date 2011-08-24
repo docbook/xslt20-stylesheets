@@ -1100,13 +1100,9 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
     <xsl:result-document href="{$filename}" method="xhtml">
       <xsl:call-template name="t:user-preroot"/>
       <html>
-        <head>
-          <xsl:call-template name="t:system-head-content"/>
-          <xsl:call-template name="t:head-content">
-            <xsl:with-param name="title" select="'Long Description'"/>
-          </xsl:call-template>
-          <xsl:call-template name="t:user-head-content"/>
-        </head>
+        <xsl:call-template name="t:head">
+          <xsl:with-param name="node" select="."/>
+        </xsl:call-template>
         <body>
           <xsl:for-each select="$mediaobject/db:textobject[not(db:phrase)]">
             <xsl:apply-templates select="*"/>
