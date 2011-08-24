@@ -27,6 +27,7 @@
     <zip zipfile="docbook-xslt20-stylesheets-${DSTAMP}.zip">
       <zipfileset dir="." prefix="docbook-xsl2">
         <exclude name=".git"/>
+        <exclude name=".gitignore"/>
         <exclude name=".git/**"/>
         <exclude name="*.zip"/>
         <exclude name="*.xpr"/>
