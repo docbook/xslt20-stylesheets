@@ -3,7 +3,7 @@
                xmlns:db="http://docbook.org/ns/docbook"
                xmlns:html="http://www.w3.org/1999/xhtml"
                xmlns="http://www.w3.org/1999/xhtml"
-               stylesheet="../../stylesheets/base/html/docbook.xsl">
+               stylesheet="../../xslt/base/html/docbook.xsl">
 
 <x:param name="html.stylesheets" select="'a.css b.css c.css'"/>
 <x:param name="link.madeby.uri" select="'mailto:john.doe@example.com'"/>

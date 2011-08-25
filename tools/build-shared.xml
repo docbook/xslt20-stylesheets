@@ -9,7 +9,7 @@
   <property name="ant-contrib.jar" value="${libs}/ant-contrib-1.0b3.jar"/>
 
   <property name="extensions.jar"
-            value="${dbroot.dir}/extensions/build/lib/docbook-xsl2-saxon.jar"/>
+            value="${dbroot.dir}/ext/build/lib/docbook-xsl2-saxon.jar"/>
 
   <taskdef name="jing"
            classname="com.thaiopensource.relaxng.util.JingTask"
