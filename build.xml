@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="DocBook XSLT 2.0 stylesheets" default="all">
 
+  <property name="version" value="2.0.0"/>
+
   <property name="dbroot.dir" value="${ant.file}/.."/>
   <import file="tools/build-shared.xml"/>
 
@@ -8,31 +10,95 @@
 
   <target name="build">
     <ant dir="gentext"/>
-    <ant dir="extensions"/>
-    <ant dir="stylesheets/base"/>
+    <ant dir="ext"/>
+    <ant dir="xslt/base"/>
   </target>
 
   <target name="clean">
     <ant dir="gentext" target="clean"/>
-    <ant dir="extensions" target="clean"/>
-    <ant dir="stylesheets/base" target="clean"/>
+    <ant dir="ext" target="clean"/>
+    <ant dir="xslt/base" target="clean"/>
   </target>
 
   <target name="tests">
     <ant dir="tests/xspec"/>
   </target>
 
-  <target name="dist" depends="clean, build">
-    <tstamp/>
-    <zip zipfile="docbook-xslt20-stylesheets-${DSTAMP}.zip">
-      <zipfileset dir="." prefix="docbook-xsl2">
+  <target name="dist" depends="clean, build, build-dist, smoketest, zip"/>
+
+  <target name="build-dist" depends="build">
+    <delete dir="dist"/>
+    <mkdir dir="dist"/>
+    <mkdir dir="dist/xspec-results-${version}"/>
+    <mkdir dir="dist/docbook-xslt2-${version}"/>
+    <mkdir dir="dist/docbook-xslt2-${version}/lib"/>
+    <mkdir dir="dist/docbook-xslt2-${version}-src"/>
+    <mkdir dir="dist/docbook-xslt2-${version}-src/lib"/>
+
+    <copy todir="dist/xspec-results-${version}">
+      <fileset dir="tests/xspec/xspec">
+        <exclude name="**/*.xml"/>
+        <exclude name="**/*.xsl"/>
+      </fileset>
+    </copy>
+
+    <copy todir="dist/docbook-xslt2-${version}">
+      <fileset dir=".">
         <exclude name=".git"/>
         <exclude name=".gitignore"/>
         <exclude name=".git/**"/>
-        <exclude name="*.zip"/>
-        <exclude name="*.xpr"/>
-      </zipfileset>
-    </zip>
+        <exclude name="dist/**"/>
+        <exclude name="tools/**"/>
+        <exclude name="tests/**"/>
+        <exclude name="schemas/**"/>
+        <exclude name="gentext/**"/>
+        <exclude name="ext/**"/>
+        <exclude name="xslt/params/**"/>
+        <exclude name="**/build.xml"/>
+      </fileset>
+    </copy>
+
+    <copy todir="dist/docbook-xslt2-${version}-src">
+      <fileset dir=".">
+        <exclude name=".git"/>
+        <exclude name=".gitignore"/>
+        <exclude name=".git/**"/>
+        <exclude name="dist/**"/>
+      </fileset>
+    </copy>
+
+    <copy todir="dist/docbook-xslt2-${version}/lib">
+      <fileset dir="ext/build/lib"/>
+    </copy>
+  </target>
+
+  <target name="smoketest">
+    <delete file="tests/smoketest.html"/>
+    <java fork="true" classname="net.sf.saxon.Transform">
+      <classpath>
+        <pathelement location="tools/lib/saxon9he.jar"/>
+        <pathelement location="dist/docbook-xslt2-${version}/lib/docbook-xsl2-saxon.jar"/>
+      </classpath>
+      <arg value="-init:docbook.Initializer"/>
+      <arg value="-o:tests/smoketest.html"/>
+      <arg value="-s:tests/smoketest.xml"/>
+      <arg value="-xsl:dist/docbook-xslt2-${version}/xslt/base/html/docbook.xsl"/>
+      <arg value="generate.meta.generator=0"/>
+    </java>
+    <exec executable="diff" failonerror="true">
+      <arg value="--brief"/>
+      <arg value="tests/result/smoketest.html"/>
+      <arg value="tests/smoketest.html"/>
+    </exec>
+  </target>
+
+  <target name="zip">
+    <delete file="dist/docbook-xslt2-${version}.zip"/>
+    <delete file="dist/docbook-xslt2-${version}-src.zip"/>
+    <zip destfile="dist/docbook-xslt2-${version}.zip" basedir="dist/docbook-xslt2-${version}"/>
+    <zip destfile="dist/docbook-xslt2-${version}-src.zip" basedir="dist/docbook-xslt2-${version}-src"/>
+    <delete dir="dist/docbook-xslt2-${version}"/>
+    <delete dir="dist/docbook-xslt2-${version}-src"/>
   </target>
 
 </project>

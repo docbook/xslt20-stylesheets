@@ -1,0 +1,14 @@
+<article xmlns="http://docbook.org/ns/docbook"
+         version="5.0" xml:id="book">
+<info>
+<title>Smoke test</title>
+</info>
+
+<mediaobject>
+<alt>The “1” callout scaled 325%</alt>
+<imageobject>
+<imagedata scale="325" fileref="http://docbook.github.com/latest/img/1.png"/>
+</imageobject>
+</mediaobject>
+
+</article>
