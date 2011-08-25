@@ -1,0 +1,31 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="generate.meta.generator">
+<refmeta>
+<refentrytitle>generate.meta.generator</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>generate.meta.generator</refname>
+<refpurpose>Generate a “generator” meta element in the HTML head?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="generate.meta.generator.frag">
+<xsl:param name="generate.meta.generator" select="1"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If true, the stylesheets will add:</para>
+
+<programlisting>&lt;meta name="generator" content="DocBook XSL 2.0 Stylesheets V<replaceable>version</replaceable>" /&gt;</programlisting>
+
+<para>to the <tag>head</tag> of each HTML document generated.</para>
+
+</refsect1>
+</refentry>

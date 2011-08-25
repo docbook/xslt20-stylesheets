@@ -286,7 +286,9 @@ HTML <tag>meta</tag> elements.</para>
 <xsl:template name="t:head-meta">
   <xsl:param name="node" select="."/>
 
-  <meta name="generator" content="DocBook XSL 2.0 Stylesheets V{$VERSION}"/>
+  <xsl:if test="$generate.meta.generator != 0">
+    <meta name="generator" content="DocBook XSL 2.0 Stylesheets V{$VERSION}"/>
+  </xsl:if>
 
   <xsl:if test="$generate.meta.abstract != 0 and $node/db:info/db:abstract">
     <meta name="description">

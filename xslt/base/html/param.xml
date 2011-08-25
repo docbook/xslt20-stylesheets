@@ -11,6 +11,7 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="link.madeby.uri"/>
 <refentry xml:id="html.base"/>
 <refentry xml:id="generate.meta.abstract"/>
+<refentry xml:id="generate.meta.generator"/>
 <refentry xml:id="inherit.keywords"/>
 
 <refentry xml:id="root.filename"/>
