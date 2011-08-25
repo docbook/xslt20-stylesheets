@@ -1,19 +1,18 @@
-This is an experiment. It's not official. It may all get merged back
-into the proper trunk at http://sourceforge.net/projects/docbook/
+Welcome to the DocBook XSLT 2.0 stylesheets.
 
-That's where you want to be now. Go on, off you go, I don't mind.
+These stylesheets represent a different line of development from the
+XSLT 1.0 stylesheets maintained at
 
-Still here?
+http://sourceforge.net/projects/docbook/
 
-Ok, right now, the "docbook" projects at GitHub are being worked on
-by Norman Walsh, ndw@nwalsh.com.
+That said, they are clearly derived from that work, so tip o' the hat
+to everyone who's helped over there. And a special nod to Jirka Kosek
+who did a lot of work on the XSLT 2.0 FO stylesheets.
 
-I'm experimenting with Git and with a fairly radical redesign of some
-parts of the DocBook XSL stylesheets to better support dynamic styling
-from environments like XML databases.
+Although I've been using the 2.0 stylesheets almost exclusively for
+more than a year, they have only very recently had any sort of public
+release. There are probably bugs.
 
-It's not clear if this is a good idea or not. It's not clear if doing
-this at github is a good idea or not. Not much is clear.
+Releases are maintained at docbook.github.com.
 
-But I wanted a place to do this and I wanted to try git and so here I
-am.
+Share and enjoy
