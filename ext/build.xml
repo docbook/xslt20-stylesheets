@@ -12,6 +12,7 @@
   <property name="build.classes" value="${build}/classes"/>
   <property name="build.doc.saxon" value="${build}/api/saxon"/>
   <property name="build.lib" value="${build}/lib"/>
+  <property name="dbroot.dir" value="${ant.file}/../.."/>
 
   <!-- Targets -->
 
@@ -30,7 +31,7 @@
           description="Build Saxon extension classes">
     <javac srcdir="${src.saxon}" destdir="${build.classes}" includeantruntime="false">
       <classpath>
-        <pathelement location="/share/java/saxonhe-9.3.0.5j/saxon9he.jar"/>
+        <pathelement location="${dbroot.dir}/tools/lib/saxon9he.jar"/>
       </classpath>
     </javac>
   </target>
@@ -58,7 +59,7 @@
             author="true"
             version="true">
       <classpath>
-        <pathelement location="/share/java/saxonhe-9.3.0.5j/saxon9he.jar"/>
+        <pathelement location="${dbroot.dir}/tools/lib/saxon9he.jar"/>
       </classpath>
       <packageset dir="saxon/src">
         <include name="net/sf/docbook/saxon/*"/>
