@@ -128,10 +128,9 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:xlink"/>
   </xsl:param>
-  <xsl:param name="class" select="''"/>
+  <xsl:param name="class" select="@role"/>
 
-  <tt class="{local-name(.)}{if ($class != '')
-                             then concat(' ',local-name(.),'-', $class) else ''}">
+  <code class="{local-name(.)}{if ($class != '') then concat(' ',$class) else ''}">
     <xsl:call-template name="t:id"/>
     <xsl:if test="db:alt">
       <xsl:attribute name="title">
@@ -144,7 +143,7 @@ calling “apply templates” with the current context node.</para>
       </xsl:attribute>
     </xsl:if>
     <xsl:copy-of select="$content"/>
-  </tt>
+  </code>
 </xsl:template>
 
 <!-- ============================================================ -->
