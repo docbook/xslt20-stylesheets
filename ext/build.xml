@@ -8,6 +8,8 @@
 
   <property name="name" value="docbook-xsl2"/>
   <property name="src.saxon" value="saxon/src"/>
+  <property name="src.jython" value="jython/src"/>
+  <property name="py.jython" value="jython"/>
   <property name="build" value="build"/>
   <property name="build.classes" value="${build}/classes"/>
   <property name="build.doc.saxon" value="${build}/api/saxon"/>
@@ -36,13 +38,33 @@
     </javac>
   </target>
 
-  <target name="jar.saxon" depends="classes.saxon"
+  <target name="classes.jython" depends="prepare"
+          description="Build Jython extension classes">
+    <javac srcdir="${src.jython}" destdir="${build.classes}" includeantruntime="false">
+      <classpath>
+        <pathelement location="${dbroot.dir}/tools/lib/jython.jar"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="pyscripts.jython" depends="classes.jython"
+          description="Copy Jython .py files">
+    <copy todir="${build.classes}">
+      <fileset dir="${py.jython}">
+        <include name="*.py"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="jar.saxon" depends="classes.saxon,classes.jython,pyscripts.jython"
           description="Build the Saxon extension jar">
     <jar destfile="${build.lib}/${name}-saxon.jar"
          basedir="${build.classes}">
       <include name="net/sf/docbook/saxon/*"/>
       <include name="org/docbook/extensions/xslt20/*"/>
+      <include name="org/docbook/extensions/xslt20/jython/*"/>
       <include name="docbook/*"/>
+      <include name="*.py"/>
     </jar>
   </target>
 

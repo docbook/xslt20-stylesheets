@@ -23,6 +23,7 @@ import net.sf.saxon.Configuration;
 import net.sf.saxon.trans.XPathException;
 import org.docbook.extensions.xslt20.Cwd;
 import org.docbook.extensions.xslt20.ImageIntrinsics;
+import org.docbook.extensions.xslt20.Pygmenter;
 
 public class Initializer implements net.sf.saxon.lib.Initializer {
 
@@ -30,6 +31,13 @@ public class Initializer implements net.sf.saxon.lib.Initializer {
         try {
             config.registerExtensionFunction(new Cwd());
             config.registerExtensionFunction(new ImageIntrinsics());
+
+            try {
+                config.registerExtensionFunction(new Pygmenter());
+            } catch (NoClassDefFoundError ncdfe) {
+                // Jython must not be on the classpath.
+                // That's ok, just ignore this extension function.
+            }
         } catch (XPathException xe) {
             System.err.println("Failed to register DocBook extension functions:");
             xe.printStackTrace();

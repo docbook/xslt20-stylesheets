@@ -15,7 +15,7 @@
     <xsl:sequence use-when="function-available('ext:image-properties')"
                   select="ext:image-properties($imagefn)"/>
     <xsl:sequence use-when="not(function-available('ext:image-properties'))"
-		  select="()"/>
+                  select="()"/>
   </xsl:variable>
 
   <xsl:value-of select="$imagefn"/>
@@ -36,6 +36,39 @@
       <xsl:text>&#10;</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
+
+  <xsl:variable name="code1" select="'print &quot;Hello world!&quot;'"/>
+  <xsl:variable name="pp1" as="node()+">
+    <xsl:sequence use-when="function-available('ext:pretty-print')"
+                  select="ext:pretty-print($code1,'python')"/>
+    <xsl:value-of use-when="not(function-available('ext:pretty-print'))">
+      <xsl:value-of select="$code1"/>
+    </xsl:value-of>
+  </xsl:variable>
+
+  <xsl:text>Pretty print of </xsl:text>
+  <xsl:value-of select="$code1"/>
+  <xsl:text>: </xsl:text>
+  <xsl:value-of select="count($pp1//node())"/>
+  <xsl:text> nodes</xsl:text>
+  <xsl:text>&#10;</xsl:text>
+
+  <xsl:variable name="code2" select="'$_ =~ s/a/b/g;'"/>
+  <xsl:variable name="pp2" as="node()+">
+    <xsl:sequence use-when="function-available('ext:pretty-print')"
+                  select="ext:pretty-print($code2,'perl')"/>
+    <xsl:value-of use-when="not(function-available('ext:pretty-print'))">
+      <xsl:value-of select="$code2"/>
+    </xsl:value-of>
+  </xsl:variable>
+
+  <xsl:text>Pretty print of </xsl:text>
+  <xsl:value-of select="$code2"/>
+  <xsl:text>: </xsl:text>
+  <xsl:value-of select="count($pp2//node())"/>
+  <xsl:text> nodes</xsl:text>
+  <xsl:text>&#10;</xsl:text>
+
 </xsl:template>
 
 </xsl:stylesheet>
