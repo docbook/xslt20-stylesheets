@@ -2,6 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+                xmlns:ext="http://docbook.org/extensions/xslt20"
 		xmlns:h="http://www.w3.org/1999/xhtml"
 		xmlns:f="http://docbook.org/xslt/ns/extension"
 		xmlns:m="http://docbook.org/xslt/ns/mode"
@@ -9,7 +10,7 @@
 		xmlns:t="http://docbook.org/xslt/ns/template"
 		xmlns:fn="http://www.w3.org/2005/xpath-functions"
 		xmlns:db="http://docbook.org/ns/docbook"
-		exclude-result-prefixes="doc h f m mp fn db t"
+		exclude-result-prefixes="doc h f m mp fn db t ext"
                 version="2.0">
 
 <xsl:include href="verbatim-patch.xsl"/>
@@ -58,7 +59,18 @@
   <xsl:param name="areas" select="()"/>
 
   <xsl:variable name="verbatim" as="node()*">
-    <xsl:apply-templates/>
+    <xsl:choose>
+      <xsl:when test="contains(@role,'nopygments')">
+        <xsl:apply-templates/>
+      </xsl:when>
+      <xsl:when use-when="function-available('ext:pretty-print')"
+                test="not(self::db:literallayout) and not(*)">
+        <xsl:sequence select="ext:pretty-print(string(.), string(@language))"/>
+      </xsl:when>
+      <xsl:when test="true()">
+        <xsl:apply-templates/>
+      </xsl:when>
+    </xsl:choose>
   </xsl:variable>
 
   <xsl:variable name="formatted" as="node()*">
@@ -68,7 +80,14 @@
     </xsl:call-template>
   </xsl:variable>
 
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:attribute name="class">
+      <xsl:value-of select="local-name(.)"/>
+      <xsl:if use-when="function-available('ext:pretty-print')"
+              test="not(self::db:literallayout) and not(*)">
+        <xsl:value-of select="' highlight'"/>
+      </xsl:if>
+    </xsl:attribute>
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
     <pre><xsl:sequence select="$formatted"/></pre>
