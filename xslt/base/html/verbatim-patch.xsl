@@ -33,7 +33,7 @@
 
   <!--
   <xsl:message>
-    <EMPTY>
+    <EMPTY xmlns:ghost="http://docbook.org/ns/docbook/ephemeral" ghost:foo='bar'>
       <xsl:copy-of select="$pl-empty-tags"/>
     </EMPTY>
   </xsl:message>
@@ -46,7 +46,7 @@
 
   <!--
   <xsl:message>
-    <NOLB>
+    <NOLB xmlns:ghost="http://docbook.org/ns/docbook/ephemeral" ghost:foo='bar'>
       <xsl:copy-of select="$pl-no-lb"/>
     </NOLB>
   </xsl:message>
@@ -770,9 +770,9 @@ that it had been nested within.</para>
 <xsl:template match="text()" as="node()*"
 	      mode="mp:pl-no-lb">
 
-  <!-- Ok, there's a bug in MarkLogic server V4.2-1 that coalesces the nodes returned
-       by xsl:analyze-string into a single node. Let's work around that. -->
   <xsl:choose>
+    <!-- There's a bug in MarkLogic server V4.2-1 that coalesces the nodes returned
+         by xsl:analyze-string into a single node. Let's work around that. -->
     <xsl:when test="system-property('xsl:vendor') = 'MarkLogic Corporation'
                     and system-property('xsl:product-version') = '4.2-1'">
       <xsl:variable name="parts" as="item()*">
@@ -792,6 +792,34 @@ that it had been nested within.</para>
           </xsl:when>
           <xsl:otherwise>
             <xsl:sequence select="./node()"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
+    </xsl:when>
+
+    <!-- In later versions of 4.2 (starting I don't know when, but at least in 4.2-6)
+         the bug is different. -->
+    <xsl:when test="system-property('xsl:vendor') = 'MarkLogic Corporation'
+                    and starts-with(system-property('xsl:product-version'), '4.2')">
+      <xsl:variable name="parts" as="item()*">
+        <xsl:analyze-string select="." regex="\n">
+          <xsl:matching-substring>
+            <ghost:br/>
+          </xsl:matching-substring>
+          <xsl:non-matching-substring>
+            <ghost:x><xsl:value-of select="."/></ghost:x>
+          </xsl:non-matching-substring>
+        </xsl:analyze-string>
+      </xsl:variable>
+      <xsl:for-each select="$parts">
+        <xsl:choose>
+          <xsl:when test="self::ghost:br">
+            <xsl:sequence select="."/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of>
+              <xsl:value-of select="."/>
+            </xsl:value-of>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
