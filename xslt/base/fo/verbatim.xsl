@@ -12,8 +12,6 @@
 		exclude-result-prefixes="doc f m mp fn db ghost t"
                 version="2.0">
 
-<xsl:include href="../common/verbatim.xsl"/>
-
 <xsl:param name="shade.verbatim" select="0"/>
 <xsl:param name="monospace.font.family">monospace</xsl:param>
 
