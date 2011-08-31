@@ -9,7 +9,7 @@
   <target name="all" depends="html, fo">
   </target>
 
-  <target name="html" depends="htmlalt,htmlbase"/>
+  <target name="html" depends="htmlalt,htmlbase,fobase"/>
 
   <macrodef name="runxspec">
     <attribute name="filename"/>
@@ -49,6 +49,10 @@
 
   <target name="htmlalt">
     <runxspec filename="htmlalt"/>
+  </target>
+
+  <target name="fobase">
+    <runxspec filename="fobase"/>
   </target>
 
   <target name="fo">

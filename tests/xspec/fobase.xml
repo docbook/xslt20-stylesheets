@@ -1,0 +1,26 @@
+<?oxygen RNGSchema="../../tools/xspec-v0.2/xspec.rnc" type="compact"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+               xmlns:db="http://docbook.org/ns/docbook"
+               xmlns:fo="http://www.w3.org/1999/XSL/Format"
+               xmlns="http://www.w3.org/1999/XSL/Format"
+               stylesheet="../../xslt/base/fo/docbook.xsl">
+
+<x:param name="bibliography.collection"
+ select="'etc/bibliography.collection.xml'"/>
+<x:param name="glossary.collection"
+ select="'etc/glossary.collection.xml'"/>
+
+<x:param name="preprocess" select="'profile'"/>
+<x:param name="profile.os" select="'win'"/>
+
+<x:scenario label="Article tests">
+  <x:scenario label="article.001.xml">
+    <x:context href="src/article.001.xml"/>
+    <x:expect label="Normal article"
+              test="/fo:root/fo:page-sequence/fo:flow"
+              select="/fo:root/fo:page-sequence/fo:flow"
+              href="result/article.001.fo"/>
+  </x:scenario>
+</x:scenario>
+
+</x:description>
