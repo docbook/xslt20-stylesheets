@@ -3,6 +3,7 @@
 		xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:ext="http://docbook.org/extensions/xslt20"
+                xmlns:xdmp="http://marklogic.com/xdmp"
 		xmlns:h="http://www.w3.org/1999/xhtml"
 		xmlns:f="http://docbook.org/xslt/ns/extension"
 		xmlns:m="http://docbook.org/xslt/ns/mode"
@@ -10,10 +11,12 @@
 		xmlns:t="http://docbook.org/xslt/ns/template"
 		xmlns:fn="http://www.w3.org/2005/xpath-functions"
 		xmlns:db="http://docbook.org/ns/docbook"
-		exclude-result-prefixes="doc h f m mp fn db t ext"
+		exclude-result-prefixes="doc h f m mp fn db t ext xdmp"
                 version="2.0">
 
 <xsl:include href="verbatim-patch.xsl"/>
+
+<xsl:param name="pygmenter-uri" select="''"/>
 
 <xsl:template match="db:programlistingco">
   <xsl:variable name="areas-unsorted" as="element()*">
@@ -62,6 +65,10 @@
     <xsl:choose>
       <xsl:when test="contains(@role,'nopygments')">
         <xsl:apply-templates/>
+      </xsl:when>
+      <xsl:when use-when="function-available('xdmp:http-post')"
+                test="$pygmenter-uri != ''">
+        <xsl:sequence select="ext:pretty-print(string(.), string(@language))"/>
       </xsl:when>
       <xsl:when use-when="function-available('ext:pretty-print')"
                 test="not(self::db:literallayout) and not(*)">
@@ -200,8 +207,23 @@
       </xsl:analyze-string>
     </xsl:otherwise>
   </xsl:choose>
-
-
 </xsl:template>
+
+<!-- This is a pretty-print implementation that works on MarkLogic server.
+     It relies on a web service to perform the actual highlighting. -->
+<xsl:function use-when="function-available('xdmp:http-post')"
+              name="ext:pretty-print" as="node()*">
+  <xsl:param name="code"/>
+  <xsl:param name="language"/>
+
+  <xsl:variable name="code-node" as="text()">
+    <xsl:value-of select="$code"/>
+  </xsl:variable>
+
+  <xsl:variable name="highlighted"
+                select="xdmp:http-post(concat($pygmenter-uri,'?language=',$language),(),$code-node)"/>
+
+  <xsl:sequence select="$highlighted[2]//h:pre/node()"/>
+</xsl:function>
 
 </xsl:stylesheet>
