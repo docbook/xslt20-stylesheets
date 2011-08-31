@@ -64,21 +64,21 @@
   <xsl:variable name="verbatim" as="node()*">
     <!-- n.b. look below where the class attribute is computed -->
     <xsl:choose>
-      <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000">
+      <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000
+                      or self::db:literallayout or exists(*)">
         <xsl:apply-templates/>
       </xsl:when>
       <xsl:when use-when="function-available('xdmp:http-post')"
-                test="$pygmenter-uri != ''
-                      and not(self::db:literallayout) and not(*)">
+                test="$pygmenter-uri != ''">
         <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
       </xsl:when>
       <xsl:when use-when="function-available('ext:highlight')"
-                test="not(self::db:literallayout) and not(*)">
+                test="true()">
         <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
       </xsl:when>
-      <xsl:when test="true()">
+      <xsl:otherwise>
         <xsl:apply-templates/>
-      </xsl:when>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
@@ -94,14 +94,14 @@
       <xsl:value-of select="local-name(.)"/>
       <!-- n.b. look above where $verbatim is computed -->
       <xsl:choose>
-        <xsl:when test="contains(@role,'nopygments')"/>
+        <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000
+                        or self::db:literallayout or exists(*)"/>
         <xsl:when use-when="function-available('xdmp:http-post')"
-                  test="$pygmenter-uri != ''
-                        and not(self::db:literallayout) and not(*)">
+                  test="$pygmenter-uri != ''">
           <xsl:value-of select="' highlight'"/>
         </xsl:when>
         <xsl:when use-when="function-available('ext:highlight')"
-                  test="not(self::db:literallayout) and not(*)">
+                  test="true()">
           <xsl:value-of select="' highlight'"/>
         </xsl:when>
         <xsl:otherwise/>
