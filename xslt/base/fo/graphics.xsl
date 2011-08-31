@@ -12,6 +12,8 @@
                 exclude-result-prefixes="db doc f fn m t u xlink"
                 version="2.0">
 
+<xsl:param name="output.dir" select="''"/>
+
 <!-- ********************************************************************
      $Id: graphics.xsl 7914 2008-03-12 11:47:38Z nwalsh $
      ********************************************************************
