@@ -68,11 +68,11 @@
       </xsl:when>
       <xsl:when use-when="function-available('xdmp:http-post')"
                 test="$pygmenter-uri != ''">
-        <xsl:sequence select="ext:pretty-print(string(.), string(@language))"/>
+        <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
       </xsl:when>
-      <xsl:when use-when="function-available('ext:pretty-print')"
+      <xsl:when use-when="function-available('ext:highlight')"
                 test="not(self::db:literallayout) and not(*)">
-        <xsl:sequence select="ext:pretty-print(string(.), string(@language))"/>
+        <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
       </xsl:when>
       <xsl:when test="true()">
         <xsl:apply-templates/>
@@ -90,7 +90,7 @@
   <div>
     <xsl:attribute name="class">
       <xsl:value-of select="local-name(.)"/>
-      <xsl:if use-when="function-available('ext:pretty-print')"
+      <xsl:if use-when="function-available('ext:highlight')"
               test="not(self::db:literallayout) and not(*)">
         <xsl:value-of select="' highlight'"/>
       </xsl:if>
@@ -209,10 +209,10 @@
   </xsl:choose>
 </xsl:template>
 
-<!-- This is a pretty-print implementation that works on MarkLogic server.
+<!-- This is a highligh implementation that works on MarkLogic server.
      It relies on a web service to perform the actual highlighting. -->
 <xsl:function use-when="function-available('xdmp:http-post')"
-              name="ext:pretty-print" as="node()*">
+              name="ext:highlight" as="node()*">
   <xsl:param name="code"/>
   <xsl:param name="language"/>
 

@@ -39,14 +39,14 @@
 
   <xsl:variable name="code1" select="'print &quot;Hello world!&quot;'"/>
   <xsl:variable name="pp1" as="node()+">
-    <xsl:sequence use-when="function-available('ext:pretty-print')"
-                  select="ext:pretty-print($code1,'python')"/>
-    <xsl:value-of use-when="not(function-available('ext:pretty-print'))">
+    <xsl:sequence use-when="function-available('ext:highlight')"
+                  select="ext:highlight($code1,'python')"/>
+    <xsl:value-of use-when="not(function-available('ext:highlight'))">
       <xsl:value-of select="$code1"/>
     </xsl:value-of>
   </xsl:variable>
 
-  <xsl:text>Pretty print of </xsl:text>
+  <xsl:text>Highlight of </xsl:text>
   <xsl:value-of select="$code1"/>
   <xsl:text>: </xsl:text>
   <xsl:value-of select="count($pp1//node())"/>
@@ -55,14 +55,14 @@
 
   <xsl:variable name="code2" select="'$_ =~ s/a/b/g;'"/>
   <xsl:variable name="pp2" as="node()+">
-    <xsl:sequence use-when="function-available('ext:pretty-print')"
-                  select="ext:pretty-print($code2,'perl')"/>
-    <xsl:value-of use-when="not(function-available('ext:pretty-print'))">
+    <xsl:sequence use-when="function-available('ext:highlight')"
+                  select="ext:highlight($code2,'perl')"/>
+    <xsl:value-of use-when="not(function-available('ext:highlight'))">
       <xsl:value-of select="$code2"/>
     </xsl:value-of>
   </xsl:variable>
 
-  <xsl:text>Pretty print of </xsl:text>
+  <xsl:text>Highlight of </xsl:text>
   <xsl:value-of select="$code2"/>
   <xsl:text>: </xsl:text>
   <xsl:value-of select="count($pp2//node())"/>

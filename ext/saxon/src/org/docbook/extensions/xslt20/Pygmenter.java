@@ -1,13 +1,13 @@
 package org.docbook.extensions.xslt20;
 
 /**
- * Saxon extension to call the Jython DocBook pretty printer.
+ * Saxon extension to call the Jython highlighter.
  *
  * <p>Copyright (C) 2011 Norman Walsh.</p>
  *
  * <p>This class provides a
  * <a href="http://saxon.sourceforge.net/">Saxon</a>
- * extension to prettyprint source code listings.
+ * extension to highlight source code listings.
  *
  * <p><b>Change Log:</b></p>
  * <dl>
@@ -54,7 +54,7 @@ import org.docbook.extensions.xslt20.jython.PygmenterType;
 
 public class Pygmenter extends ExtensionFunctionDefinition {
     private static final StructuredQName qName =
-        new StructuredQName("", "http://docbook.org/extensions/xslt20", "pretty-print");
+        new StructuredQName("", "http://docbook.org/extensions/xslt20", "highlight");
     private static final QName h_pre =
         new QName("", "http://www.w3.org/1999/xhtml", "pre");
 
@@ -87,10 +87,10 @@ public class Pygmenter extends ExtensionFunctionDefinition {
     }
 
     public ExtensionFunctionCall makeCallExpression() {
-        return new PrettyCall();
+        return new HighlightCall();
     }
 
-    private class PrettyCall extends ExtensionFunctionCall {
+    private class HighlightCall extends ExtensionFunctionCall {
         protected StaticContext staticContext = null;
 
         public void supplyStaticContext(StaticContext context, int locationId,
@@ -99,7 +99,7 @@ public class Pygmenter extends ExtensionFunctionDefinition {
         }
 
         public void copyLocalData(ExtensionFunctionCall dest) {
-            ((PrettyCall) dest).staticContext = staticContext;
+            ((HighlightCall) dest).staticContext = staticContext;
         }
 
         public SequenceIterator call(SequenceIterator[] arguments, XPathContext context) throws XPathException {

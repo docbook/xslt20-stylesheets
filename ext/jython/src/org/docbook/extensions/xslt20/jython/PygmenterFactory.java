@@ -14,7 +14,7 @@ public class PygmenterFactory {
     }
 
     public PygmenterType create() {
-        PyObject prettyObj = jyPygmenterClass.__call__();
-        return (PygmenterType) prettyObj.__tojava__(PygmenterType.class);
+        PyObject highlightObj = jyPygmenterClass.__call__();
+        return (PygmenterType) highlightObj.__tojava__(PygmenterType.class);
     }
 }
