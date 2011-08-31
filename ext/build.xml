@@ -82,11 +82,15 @@
             version="true">
       <classpath>
         <pathelement location="${dbroot.dir}/tools/lib/saxon9he.jar"/>
+        <pathelement location="${dbroot.dir}/tools/lib/jython.jar"/>
       </classpath>
       <packageset dir="saxon/src">
         <include name="net/sf/docbook/saxon/*"/>
         <include name="org/docbook/extensions/xslt20/*"/>
         <include name="docbook/*"/>
+      </packageset>
+      <packageset dir="jython/src">
+        <include name="org/docbook/extensions/xslt20/*"/>
       </packageset>
     </javadoc>
   </target>
