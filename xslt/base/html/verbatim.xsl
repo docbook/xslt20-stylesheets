@@ -64,7 +64,7 @@
   <xsl:variable name="verbatim" as="node()*">
     <!-- n.b. look below where the class attribute is computed -->
     <xsl:choose>
-      <xsl:when test="contains(@role,'nopygments')">
+      <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000">
         <xsl:apply-templates/>
       </xsl:when>
       <xsl:when use-when="function-available('xdmp:http-post')"
