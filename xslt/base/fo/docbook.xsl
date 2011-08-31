@@ -95,16 +95,7 @@
 
   <xsl:variable name="title" select="f:title($root)"/>
 
-  <xsl:result-document>
-    <!-- Include all id values in XEP output -->
-    <!--
-      <xsl:if test="$fo.processor = 'xep'">
-	<xsl:processing-instruction name="xep-pdf-drop-unused-destinations"
-				    select="'false'"/>
-      </xsl:if>
-    -->
-
-    <fo:root xsl:use-attribute-sets="root.properties">
+  <fo:root xsl:use-attribute-sets="root.properties">
       <!--
 	<xsl:attribute name="language">
 	  <xsl:call-template name="l10n.language">
@@ -156,8 +147,7 @@
       -->
 
       <xsl:apply-templates select="$root"/>
-    </fo:root>
-  </xsl:result-document>
+  </fo:root>
 </xsl:template>
 
 <xsl:template match="*">
