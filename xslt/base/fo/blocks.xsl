@@ -138,4 +138,13 @@
   </fo:block>
 </xsl:template>
 
+<!-- ==================================================================== -->
+
+<!-- FIXME: this can't be right... -->
+<xsl:template match="db:acknowledgements">
+  <fo:block>
+    <xsl:apply-templates/>
+  </fo:block>
+</xsl:template>
+
 </xsl:stylesheet>
