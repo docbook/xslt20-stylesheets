@@ -62,12 +62,14 @@
   <xsl:param name="areas" select="()"/>
 
   <xsl:variable name="verbatim" as="node()*">
+    <!-- n.b. look below where the class attribute is computed -->
     <xsl:choose>
       <xsl:when test="contains(@role,'nopygments')">
         <xsl:apply-templates/>
       </xsl:when>
       <xsl:when use-when="function-available('xdmp:http-post')"
-                test="$pygmenter-uri != ''">
+                test="$pygmenter-uri != ''
+                      and not(self::db:literallayout) and not(*)">
         <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
       </xsl:when>
       <xsl:when use-when="function-available('ext:highlight')"
@@ -90,10 +92,20 @@
   <div>
     <xsl:attribute name="class">
       <xsl:value-of select="local-name(.)"/>
-      <xsl:if use-when="function-available('ext:highlight')"
-              test="not(self::db:literallayout) and not(*)">
-        <xsl:value-of select="' highlight'"/>
-      </xsl:if>
+      <!-- n.b. look above where $verbatim is computed -->
+      <xsl:choose>
+        <xsl:when test="contains(@role,'nopygments')"/>
+        <xsl:when use-when="function-available('xdmp:http-post')"
+                  test="$pygmenter-uri != ''
+                        and not(self::db:literallayout) and not(*)">
+          <xsl:value-of select="' highlight'"/>
+        </xsl:when>
+        <xsl:when use-when="function-available('ext:highlight')"
+                  test="not(self::db:literallayout) and not(*)">
+          <xsl:value-of select="' highlight'"/>
+        </xsl:when>
+        <xsl:otherwise/>
+      </xsl:choose>
     </xsl:attribute>
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
