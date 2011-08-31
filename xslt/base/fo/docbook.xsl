@@ -10,6 +10,7 @@
 		exclude-result-prefixes="f m fn db t xs"
                 version="2.0">
 
+  <xsl:include href="../VERSION.xsl"/>
   <xsl:include href="param.xsl"/>
   <xsl:include href="../common/control.xsl"/>
   <xsl:include href="../common/l10n.xsl"/>

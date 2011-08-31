@@ -11,7 +11,7 @@
 		exclude-result-prefixes="h f m fn db t ghost"
                 version="2.0">
 
-  <xsl:include href="../../../VERSION"/>
+  <xsl:include href="../VERSION.xsl"/>
   <xsl:include href="param.xsl"/>
   <xsl:include href="../common/control.xsl"/>
   <xsl:include href="../common/l10n.xsl"/>

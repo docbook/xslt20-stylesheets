@@ -8,7 +8,7 @@
 
   <target name="all" depends="build, tests"/>
 
-  <target name="build">
+  <target name="build" depends="version">
     <ant dir="gentext"/>
     <ant dir="ext"/>
     <ant dir="xslt/base"/>
@@ -18,6 +18,16 @@
     <ant dir="gentext" target="clean"/>
     <ant dir="ext" target="clean"/>
     <ant dir="xslt/base" target="clean"/>
+  </target>
+
+  <target name="version">
+    <java fork="true" classname="net.sf.saxon.Transform">
+      <classpath refid="saxon.classpath"/>
+      <arg value="-it:main"/>
+      <arg value="-o:xslt/base/VERSION.xsl"/>
+      <arg value="-xsl:tools/version.xsl"/>
+      <arg value="version=${version}"/>
+    </java>
   </target>
 
   <target name="tests">
