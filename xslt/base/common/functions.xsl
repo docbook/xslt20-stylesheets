@@ -1824,60 +1824,55 @@ expects “/” to be the component separator.</para>
   <xsl:variable name="params"
 		select="f:find-toc-params($context, $linenumbering)"/>
 
+  <xsl:variable name="cfgval"
+                select="if ($params/@*[local-name(.) = $name])
+                        then $params/@*[local-name(.) = $name]
+                        else ''"
+                as="xs:string?"/>
+
+  <xsl:variable name="pival"
+                select="f:pi($pis, concat('linenumbering.', $name))"
+                as="xs:string?"/>
+
+  <xsl:variable name="value" as="xs:string?">
+    <xsl:choose>
+      <xsl:when test="empty($pival) or $pival = ''">
+        <xsl:sequence select="$cfgval"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:sequence select="$pival"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
   <!-- everyNth is a special case... -->
   <xsl:choose>
-    <xsl:when test="$name = 'everyNth'
-                    and $context/@linenumbering = 'unnumbered'">
+    <xsl:when test="$name = 'everyNth' and $context/@linenumbering = 'unnumbered'">
       <xsl:value-of select="0"/>
     </xsl:when>
+    <xsl:when test="$name = 'everyNth' and $value castable as xs:integer">
+      <xsl:value-of select="xs:integer($value)"/>
+    </xsl:when>
+    <xsl:when test="$name = 'everyNth'">
+      <xsl:value-of select="0"/>
+    </xsl:when>
+
+    <xsl:when test="$name = 'width' and $value castable as xs:integer">
+      <xsl:value-of select="xs:integer($value)"/>
+    </xsl:when>
+    <xsl:when test="$name = 'width'">
+      <xsl:value-of select="0"/>
+    </xsl:when>
+
+    <xsl:when test="$name = 'minlines' and $value castable as xs:integer">
+      <xsl:value-of select="xs:integer($value)"/>
+    </xsl:when>
+    <xsl:when test="$name = 'minlines'">
+      <xsl:value-of select="0"/>
+    </xsl:when>
+
     <xsl:otherwise>
-      <xsl:variable name="cfgval"
-                    select="if ($params/@*[local-name(.) = $name])
-                            then $params/@*[local-name(.) = $name]
-                            else ''"/>
-      <xsl:variable name="pival"
-                    select="f:pi($pis, concat('linenumbering.', $name))"
-                    as="xs:string?"/>
-
-      <!-- FIXME: why doesn't f:pi return a proper empty sequence!?
-      <xsl:message>
-        <xsl:text>pi? </xsl:text>
-        <xsl:value-of select="empty($pival)"/>
-        <xsl:text>:</xsl:text>
-        <xsl:value-of select="count($pival)"/>
-        <xsl:text>:</xsl:text>
-        <xsl:value-of select="not($pival)"/>
-        <xsl:text>:</xsl:text>
-        <xsl:value-of select="$pival = ''"/>
-        <xsl:text>:</xsl:text>
-        <xsl:value-of select="empty(f:pi($pis, $name))"/>
-      </xsl:message>
-      -->
-
-      <xsl:choose>
-        <xsl:when test="empty($pival) or $pival = ''">
-          <!--
-          <xsl:message>
-            <xsl:value-of select="$name"/>
-            <xsl:text>=</xsl:text>
-            <xsl:value-of select="$cfgval"/>
-            <xsl:text> (cfg)</xsl:text>
-          </xsl:message>
-          -->
-          <xsl:value-of select="$cfgval"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <!--
-          <xsl:message>
-            <xsl:value-of select="$name"/>
-            <xsl:text>=</xsl:text>
-            <xsl:value-of select="$pival"/>
-            <xsl:text> (pi)</xsl:text>
-          </xsl:message>
-          -->
-          <xsl:value-of select="$pival"/>
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:value-of select="$value"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>

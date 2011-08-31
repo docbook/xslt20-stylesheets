@@ -21,11 +21,11 @@
   <xsl:param name="content" as="node()*"/>
   <xsl:param name="areas" as="node()*"/>
 
-  <xsl:variable name="everyNth"  select="f:lineNumbering(.,'everyNth')"/>
-  <xsl:variable name="width"     select="f:lineNumbering(.,'width')"/>
+  <xsl:variable name="everyNth"  select="f:lineNumbering(.,'everyNth')" as="xs:integer?"/>
+  <xsl:variable name="width"     select="f:lineNumbering(.,'width')" as="xs:integer?"/>
   <xsl:variable name="padchar"   select="f:lineNumbering(.,'padchar')"/>
   <xsl:variable name="separator" select="f:lineNumbering(.,'separator')"/>
-  <xsl:variable name="minlines"  select="f:lineNumbering(.,'minlines')"/>
+  <xsl:variable name="minlines"  select="f:lineNumbering(.,'minlines')" as="xs:integer?"/>
 
   <xsl:variable name="pl-empty-tags" as="node()*">
     <xsl:apply-templates select="$content" mode="m:patch-empty-elements"/>
