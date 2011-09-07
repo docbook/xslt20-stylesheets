@@ -4,6 +4,8 @@
 <para>This should be expanded to do a better job of documentation.
 It's just a bogus mess right now.</para>
 
+<refentry xml:id="writing.mode"/>
+
 <refentry xml:id="draft.watermark.image"/>
 <refentry xml:id="draft.mode"/>
 

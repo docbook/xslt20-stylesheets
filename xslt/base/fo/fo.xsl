@@ -6,7 +6,8 @@
 		xmlns:fn="http://www.w3.org/2005/xpath-functions"
 		xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="f m fn db t"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		exclude-result-prefixes="f m fn db t xs"
                 version="2.0">
 
 <xsl:template name="dingbat">
@@ -116,5 +117,18 @@
     <xsl:otherwise>lr-tb</xsl:otherwise>
   </xsl:choose>
 </xsl:param>
+
+<xsl:function name="f:hsize" as="xs:decimal">
+  <xsl:param name="size" as="xs:integer"/>
+
+  <xsl:choose>
+    <xsl:when test="$size &lt;= 0">
+      <xsl:value-of select="$body.font.master"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="f:hsize($size - 1) * 1.2"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
 
 </xsl:stylesheet>

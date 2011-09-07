@@ -23,24 +23,16 @@
 <xsl:template match="db:abstract">
   <fo:block>
     <xsl:call-template name="t:id"/>
-
-    <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
-
-    <fo:block>
-      <xsl:apply-templates select="*[not(self::db:info)]"/>
-    </fo:block>
+    <xsl:call-template name="t:titlepage"/>
+    <xsl:apply-templates/>
   </fo:block>
 </xsl:template>
 
 <xsl:template match="db:legalnotice">
   <fo:block>
     <xsl:call-template name="t:id"/>
-
-    <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
-
-    <fo:block>
-      <xsl:apply-templates select="*[not(self::db:info)]"/>
-    </fo:block>
+    <xsl:call-template name="t:titlepage"/>
+    <xsl:apply-templates/>
   </fo:block>
 </xsl:template>
 

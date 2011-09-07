@@ -123,6 +123,11 @@ that should be used to generate its subtitle.</para>
 </refdescription>
 </doc:mode>
 
+<xsl:template match="db:itemizedlist
+                     |db:orderedlist" mode="m:object-subtitle-template">
+  <!-- nop, itemizedlists don't have subtitles -->
+</xsl:template>
+
 <xsl:template match="*" mode="m:object-subtitle-template">
   <xsl:call-template name="gentext-template">
     <xsl:with-param name="context" select="'subtitle'"/>
@@ -313,7 +318,6 @@ rendition of its subtitle.</para>
   <xsl:variable name="template">
     <xsl:apply-templates select="." mode="m:object-subtitle-template"/>
   </xsl:variable>
-
   <xsl:call-template name="substitute-markup">
     <xsl:with-param name="template" select="$template"/>
   </xsl:call-template>
@@ -617,7 +621,7 @@ a cross-reference.</para>
                   <xsl:copy-of select="$subtitle"/>
                 </xsl:when>
                 <xsl:otherwise>
-                  <xsl:apply-templates select="." mode="m:subtitle.markup">
+                  <xsl:apply-templates select="." mode="m:subtitle-content">
                     <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
                   </xsl:apply-templates>
                 </xsl:otherwise>

@@ -70,7 +70,7 @@
 <xsl:template match="db:bibliodiv">
   <fo:block>
     <xsl:call-template name="t:id"/>
-    <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
+    <xsl:call-template name="t:titlepage"/>
     <xsl:apply-templates/>
   </fo:block>
 </xsl:template>
@@ -82,7 +82,7 @@
             space-before.optimum="1.5em"
             space-before.maximum="2em">
     <xsl:call-template name="t:id"/>
-    <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
+    <xsl:call-template name="t:titlepage"/>
     <xsl:apply-templates/>
   </fo:block>
 </xsl:template>

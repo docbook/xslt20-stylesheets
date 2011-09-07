@@ -98,7 +98,7 @@ but for elements that have optional titles, it may be a computed string.
 </xsl:template>
 
 <xsl:template match="db:bibliography|db:glossary|db:index|db:setindex
-                     |db:dedication|db:colophone"
+                     |db:dedication|db:colophon"
               mode="mp:title-content"
               as="node()*">
   <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
@@ -120,6 +120,27 @@ but for elements that have optional titles, it may be a computed string.
 </xsl:template>
 
 <xsl:template match="db:tip|db:note|db:important|db:warning|db:caution"
+              mode="mp:title-content"
+              as="node()*">
+  <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
+
+  <xsl:variable name="title" select="(db:title,db:info/db:title)[1]"/>
+
+  <xsl:choose>
+    <xsl:when test="$title">
+      <xsl:apply-templates select="$title" mode="mp:title-content">
+        <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:call-template name="gentext">
+        <xsl:with-param name="key" select="local-name(.)"/>
+      </xsl:call-template>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="db:abstract"
               mode="mp:title-content"
               as="node()*">
   <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>

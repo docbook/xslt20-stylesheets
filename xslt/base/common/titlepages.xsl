@@ -148,7 +148,7 @@ this is <tag>db:info/*</tag>.</para>
   <xsl:variable name="after-verso"
 		select="$titlepages/*[node-name(.) = node-name(current())
 			              and @t:side='after-verso'][1]"/>
-  
+
   <xsl:if test="not(empty($before-recto))">
     <xsl:call-template name="t:process-titlepage-content">
       <xsl:with-param name="content" select="$before-recto"/>
@@ -167,7 +167,7 @@ this is <tag>db:info/*</tag>.</para>
       <xsl:with-param name="side">after-recto</xsl:with-param>
     </xsl:call-template>
   </xsl:if>
-  
+
   <xsl:if test="not(empty($verso))">
     <xsl:if test="not(empty($before-verso))">
       <xsl:call-template name="t:process-titlepage-content">
@@ -314,15 +314,18 @@ an element that occurs in the source document.</para>
     <xsl:text> in the context of </xsl:text>
     <xsl:value-of select="name($node)"/>
     <xsl:text> on side </xsl:text>
-    <xsl:value-of select="$side"/>    
+    <xsl:value-of select="$side"/>
   </xsl:message>
+-->
 
+  <!--
   <xsl:message>
     <xsl:copy-of select="$content"/>
   </xsl:message>
--->
-  <!-- Title, subtitle, and titleabbrev are special because they're sometimes optional -->
+  -->
 
+
+  <!-- Title, subtitle, and titleabbrev are special because they're sometimes optional -->
   <xsl:choose>
     <xsl:when test="self::db:title
                     and ($node/self::db:bibliography
@@ -525,7 +528,7 @@ document element.</para>
 <para>See also: <function>f:user-node-matches</function>.</para>
 
 <para>This function is a hook to customize
-<function>f:node-matches</function>. 
+<function>f:node-matches</function>.
 Customizers can make the node matching algorithm more selective by redefining
 <function>f:user-node-matches</function>, which will be called for every
 matching element. If <function>f:user-node-matches</function> returns

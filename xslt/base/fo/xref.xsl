@@ -905,13 +905,19 @@
                     or $target/self::db:setindex
                     or $target/self::db:colophon">
       <xsl:call-template name="gentext-startquote"/>
+      <xsl:text>FIXME:</xsl:text>
+      <!--
       <xsl:apply-templates select="$target" mode="m:title-markup"/>
+      -->
       <xsl:call-template name="gentext-endquote"/>
     </xsl:when>
     <xsl:otherwise>
+      <xsl:text>FIXME:</xsl:text>
+      <!--
       <fo:inline font-style="italic">
         <xsl:apply-templates select="$target" mode="m:title-markup"/>
       </fo:inline>
+      -->
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -985,7 +991,10 @@ in this mode should generate its title.</para>
 
   <xsl:choose>
     <xsl:when test="$purpose = 'xref' and db:info/db:titleabbrev">
+      <xsl:text>FIXME:</xsl:text>
+      <!--
       <xsl:apply-templates select="." mode="m:titleabbrev-markup"/>
+      -->
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy-of select="$title"/>

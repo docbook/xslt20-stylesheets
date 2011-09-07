@@ -19,10 +19,10 @@
      This file contains localization templates (for internationalization)
      ******************************************************************** -->
 
-<xsl:key name="l10n-gentext" match="l:l10n/l:gentext" use="concat(../@language, '#', @key)"/>  
-<xsl:key name="l10n-context" match="l:l10n/l:context" use="concat(../@language, '#', @name)"/>  
-<xsl:key name="l10n-dingbat" match="l:l10n/l:dingbat" use="concat(../@language, '#', @key)"/>  
-  
+<xsl:key name="l10n-gentext" match="l:l10n/l:gentext" use="concat(../@language, '#', @key)"/>
+<xsl:key name="l10n-context" match="l:l10n/l:context" use="concat(../@language, '#', @name)"/>
+<xsl:key name="l10n-dingbat" match="l:l10n/l:dingbat" use="concat(../@language, '#', @key)"/>
+
 <xsl:variable name="localization">
   <xsl:call-template name="t:user-localization-data"/>
 </xsl:variable>
@@ -173,6 +173,11 @@ target.</para>
       <xsl:value-of select="$l10n.gentext.default.language"/>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:function>
+
+<xsl:function name="f:lang" as="xs:string">
+  <xsl:param name="target" as="element()"/>
+  <xsl:value-of select="f:l10n-language($target,false())"/>
 </xsl:function>
 
 <!-- ============================================================ -->
@@ -825,11 +830,11 @@ the English locale value will be used as the default.</para>
 
 <doc:function name="f:check-locale" xmlns="http://docbook.org/ns/docbook">
   <refpurpose>Test whether there is localization file for specified languahe</refpurpose>
-  
+
   <refdescription>
     <para>This function returns true/false.</para>
   </refdescription>
-  
+
   <refparameter>
     <variablelist>
       <varlistentry><term>lang</term>
@@ -839,7 +844,7 @@ the English locale value will be used as the default.</para>
       </varlistentry>
     </variablelist>
   </refparameter>
-  
+
   <refreturn>
     <para>true/false</para>
   </refreturn>
@@ -855,11 +860,11 @@ the English locale value will be used as the default.</para>
 
 <doc:function name="f:get-locale" xmlns="http://docbook.org/ns/docbook">
   <refpurpose>Returns localization data for the specified language</refpurpose>
-  
+
   <refdescription>
     <para>This function returns localization data for specified language.</para>
   </refdescription>
-  
+
   <refparameter>
     <variablelist>
       <varlistentry><term>lang</term>
@@ -869,7 +874,7 @@ the English locale value will be used as the default.</para>
       </varlistentry>
     </variablelist>
   </refparameter>
-  
+
   <refreturn>
     <para>Document node of localization document for specified language.</para>
   </refreturn>
@@ -887,16 +892,16 @@ the English locale value will be used as the default.</para>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
-  
+
 <!-- ============================================================ -->
 
 <doc:function name="f:load-locale" xmlns="http://docbook.org/ns/docbook">
   <refpurpose>Loads localization file for the specified language</refpurpose>
-  
+
   <refdescription>
     <para>This function returns localization data for specified language.</para>
   </refdescription>
-  
+
   <refparameter>
     <variablelist>
       <varlistentry><term>lang</term>
@@ -906,7 +911,7 @@ the English locale value will be used as the default.</para>
       </varlistentry>
     </variablelist>
   </refparameter>
-  
+
   <refreturn>
     <para>Document node of localization document for specified language.</para>
   </refreturn>
@@ -919,6 +924,6 @@ the English locale value will be used as the default.</para>
                 select="resolve-uri(concat($lang,'.xml'), $dir)"/>
   <xsl:sequence select="doc($locale-file)/l:l10n"/>
 </xsl:function>
-  
+
 </xsl:stylesheet>
 

@@ -1573,7 +1573,10 @@
                                   retrieve-boundary="page-sequence"/>
             </xsl:when>
             <xsl:otherwise>
+              <xsl:text>FIXME:</xsl:text>
+              <!--
               <xsl:apply-templates select="." mode="m:titleabbrev-markup"/>
+              -->
             </xsl:otherwise>
           </xsl:choose>
         </xsl:if>

@@ -2149,4 +2149,48 @@ lines should be removed from the specified verbatim environment.</para>
   </xsl:choose>
 </xsl:function>
 
+<!-- ============================================================ -->
+
+<doc:function name="f:dir"
+	      xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Return the writing direction of a particular element</refpurpose>
+
+<refdescription>
+<para>The <function>dir</function> function returns the value of the nearest
+<tag class="attribute">dir</tag> attribute or the <parameter>$writing-mode</parameter>
+parameter if no such attribute can be found.
+</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry><term>element</term>
+<listitem>
+<para>The element for which writing direction is desired.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>The writing direction.</para>
+</refreturn>
+</doc:function>
+
+<xsl:function name="f:dir" as="xs:string">
+  <xsl:param name="element" as="element()"/>
+
+  <xsl:variable name="dir" select="$element/ancestor-or-self::*[@dir][1]"/>
+  <xsl:choose>
+    <xsl:when test="$dir">
+      <xsl:value-of select="$dir/@dir"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$writing.mode"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
+
+<!-- ============================================================ -->
+
 </xsl:stylesheet>

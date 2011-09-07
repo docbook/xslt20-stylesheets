@@ -39,16 +39,16 @@
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
+  <xsl:call-template name="t:titlepage"/>
 
   <!-- Preserve order of PIs and comments -->
-  <xsl:apply-templates 
+  <xsl:apply-templates
       select="*[not(self::db:listitem)]
               |comment()[not(preceding-sibling::listitem)]
               |processing-instruction()[not(preceding-sibling::listitem)]"/>
 
   <xsl:variable name="content">
-    <xsl:apply-templates 
+    <xsl:apply-templates
           select="db:listitem
                   |comment()[preceding-sibling::listitem]
                   |processing-instruction()[preceding-sibling::listitem]"/>
@@ -137,7 +137,7 @@
     <xsl:when test="$itemsymbol='whitebullet'">&#x25E6;</xsl:when>
     <xsl:when test="$itemsymbol='triangle'">&#x2023;</xsl:when>
     <xsl:when test="$itemsymbol='point'">&#x203A;</xsl:when>
-    <xsl:when test="$itemsymbol='hand'"><fo:inline 
+    <xsl:when test="$itemsymbol='hand'"><fo:inline
                          font-family="Wingdings 2">A</fo:inline></xsl:when>
     -->
     <xsl:otherwise>&#x2022;</xsl:otherwise>
@@ -211,17 +211,17 @@
 
 <!-- FIXME: can we do better? -->
 <!--
-<xsl:template match="listitem/*[1][local-name()='para' or 
-                                   local-name()='simpara' or 
+<xsl:template match="listitem/*[1][local-name()='para' or
+                                   local-name()='simpara' or
                                    local-name()='formalpara']
-                     |glossdef/*[1][local-name()='para' or 
-                                   local-name()='simpara' or 
+                     |glossdef/*[1][local-name()='para' or
+                                   local-name()='simpara' or
                                    local-name()='formalpara']
-                     |step/*[1][local-name()='para' or 
-                                   local-name()='simpara' or 
+                     |step/*[1][local-name()='para' or
+                                   local-name()='simpara' or
                                    local-name()='formalpara']
-                     |callout/*[1][local-name()='para' or 
-                                   local-name()='simpara' or 
+                     |callout/*[1][local-name()='para' or
+                                   local-name()='simpara' or
                                    local-name()='formalpara']"
               priority="2">
   <fo:block>
@@ -323,10 +323,10 @@
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
+  <xsl:call-template name="t:titlepage"/>
 
   <!-- Preserve order of PIs and comments -->
-  <xsl:apply-templates 
+  <xsl:apply-templates
     select="*[not(self::db:varlistentry)]
             |comment()[not(preceding-sibling::varlistentry)]
             |processing-instruction()[not(preceding-sibling::varlistentry)]"/>
@@ -379,7 +379,7 @@
     </xsl:when>
     <xsl:when test="string-length($term.text) &gt; $longest">
       <xsl:call-template name="t:longest-term">
-        <xsl:with-param name="longest" 
+        <xsl:with-param name="longest"
             select="string-length($term.text)"/>
         <xsl:with-param name="maxlength" select="$maxlength"/>
         <xsl:with-param name="terms" select="$terms[position() &gt; 1]"/>
@@ -431,10 +431,10 @@
 
   <!-- termlength is irrelevant -->
 
-  <xsl:apply-templates select="db:info" mode="m:titlepage-mode"/>
+  <xsl:call-template name="t:titlepage"/>
 
   <!-- Preserve order of PIs and comments -->
-  <xsl:apply-templates 
+  <xsl:apply-templates
     select="*[not(self::varlistentry)]
             |comment()[not(preceding-sibling::varlistentry)]
             |processing-instruction()[not(preceding-sibling::varlistentry)]"/>
@@ -465,8 +465,8 @@
   <xsl:variable name="id" select="f:node-id(.)"/>
 
   <fo:block id="{$id}"
-	    xsl:use-attribute-sets="list.item.spacing"  
-	    keep-together.within-column="always" 
+	    xsl:use-attribute-sets="list.item.spacing"
+	    keep-together.within-column="always"
 	    keep-with-next.within-column="always">
     <xsl:apply-templates select="db:term"/>
   </fo:block>
@@ -777,11 +777,11 @@
       <xsl:variable name="step1" select="db:step[1]"/>
 
       <xsl:apply-templates select="node()[not(self::db:info|self::db:title) and (. &lt;&lt; $step1)]"/>
-      
+
       <fo:list-block xsl:use-attribute-sets="list.block.spacing"
 		     provisional-distance-between-starts="{$procedure.label.width}">
 	<xsl:apply-templates select="$step1 | node()[. >> $step1]"/>
-      </fo:list-block>	
+      </fo:list-block>
     </xsl:with-param>
   </xsl:call-template>
 </xsl:template>
