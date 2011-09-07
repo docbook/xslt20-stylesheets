@@ -538,7 +538,11 @@
 </context>
 
 <context name="datetime">
-<template name="format">m/d/Y</template>
+<template name="format">[D01] [MNn,*-3] [Y0001]</template>
+</context>
+
+<context name="date">
+<template name="format">[D01] [MNn,*-3] [Y0001]</template>
 </context>
 
 <context name="termdef">
