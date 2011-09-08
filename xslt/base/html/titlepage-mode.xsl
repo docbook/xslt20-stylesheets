@@ -13,7 +13,7 @@
 <!-- Verso templates -->
 
 <xsl:template match="db:authorgroup" mode="m:titlepage-verso-mode">
-  <div>
+  <div class="{local-name(.)}">
     <xsl:call-template name="gentext">
       <xsl:with-param name="key" select="'by'"/>
     </xsl:call-template>
@@ -87,6 +87,17 @@
 </xsl:template>
 
 <xsl:template match="db:setindex/db:title|db:setindex/db:info/db:title" mode="m:titlepage-mode">
+  <xsl:variable name="context"
+                select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
+  <h2>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+  </h2>
+</xsl:template>
+
+<xsl:template match="db:prefix/db:title|db:prefix/db:info/db:title
+                     |db:chapter/db:title|db:chapter/db:info/db:title
+                     |db:appendix/db:title|db:appendix/db:info/db:title"
+              mode="m:titlepage-mode">
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
   <h2>
@@ -305,26 +316,32 @@
 </xsl:template>
 
 <xsl:template match="db:authorgroup" mode="m:titlepage-mode">
-  <xsl:apply-templates mode="m:titlepage-mode"/>
+  <div class="{local-name(.)}">
+    <xsl:apply-templates mode="m:titlepage-mode"/>
+  </div>
 </xsl:template>
 
 <xsl:template match="db:author" mode="m:titlepage-mode">
-  <xsl:choose>
-    <xsl:when test="db:orgname">
-      <div>
+  <xsl:variable name="content" as="node()*">
+    <xsl:choose>
+      <xsl:when test="db:orgname">
         <xsl:apply-templates select="db:orgname"/>
-      </div>
-    </xsl:when>
-    <xsl:otherwise>
-      <div>
+      </xsl:when>
+      <xsl:otherwise>
         <xsl:apply-templates select="db:personname"/>
         <xsl:if test="db:email">
           <xsl:text>&#160;</xsl:text>
           <xsl:apply-templates select="db:email"/>
         </xsl:if>
-      </div>
-    </xsl:otherwise>
-  </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <div class="{local-name(.)}">
+    <h3>
+      <xsl:sequence select="$content"/>
+    </h3>
+  </div>
 </xsl:template>
 
 <xsl:template match="db:editor" mode="m:titlepage-mode">
@@ -350,38 +367,9 @@
 </xsl:template>
 
 <xsl:template match="db:copyright" mode="m:titlepage-mode">
-  <div>
-    <xsl:call-template name="gentext">
-      <xsl:with-param name="key" select="'Copyright'"/>
-    </xsl:call-template>
-    <xsl:text>&#160;©&#160;</xsl:text>
-    <xsl:call-template name="t:copyright-years">
-      <xsl:with-param name="years" select="db:year"/>
-      <xsl:with-param name="print.ranges" select="$make.year.ranges"/>
-      <xsl:with-param name="single.year.ranges"
-		      select="$make.single.year.ranges"/>
-    </xsl:call-template>
-    <xsl:apply-templates select="db:holder" mode="m:titlepage-mode"/>
-  </div>
-</xsl:template>
-
-<xsl:template match="db:year" mode="m:titlepage-mode">
-  <span>
-    <xsl:call-template name="t:id"/>
-    <xsl:apply-templates/>
-  </span>
-  <xsl:if test="following-sibling::db:year">, </xsl:if>
-</xsl:template>
-
-<xsl:template match="db:holder" mode="m:titlepage-mode">
-  <xsl:text> </xsl:text>
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:apply-templates/>
-  </span>
-  <xsl:if test="following-sibling::db:holder">
-    <xsl:text>,</xsl:text>
-  </xsl:if>
+  <xsl:apply-templates select=".">
+    <xsl:with-param name="wrapper" select="'div'"/>
+  </xsl:apply-templates>
 </xsl:template>
 
 <xsl:template match="db:abstract" mode="m:titlepage-mode">
@@ -399,8 +387,15 @@
   </div>
 </xsl:template>
 
+<xsl:template match="db:releaseinfo" mode="m:titlepage-mode">
+  <p class="{(@role,local-name(.))[1]}">
+    <xsl:apply-templates/>
+  </p>
+</xsl:template>
+
 <xsl:template match="*" mode="m:titlepage-mode">
-  <xsl:apply-templates/>
+  <xsl:message>No m:titlepage-mode template for <xsl:value-of select="node-name(.)"/></xsl:message>
+  <xsl:apply-templates select="."/>
 </xsl:template>
 
 <xsl:template match="text()|comment()|processing-instruction()" mode="m:titlepage-mode">

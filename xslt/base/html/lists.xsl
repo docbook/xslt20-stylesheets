@@ -15,28 +15,6 @@
 <xsl:param name="variablelist.term.separator" select="', '"/>
 <xsl:param name="variablelist.term.break.after" select="0"/>
 
-<xsl:template match="db:itemizedlist
-		     |db:orderedlist
-		     |db:variablelist"
-	      mode="m:title-markup" as="node()*">
-  <div class="title">
-    <xsl:apply-templates select="." mode="m:title-content">
-      <xsl:with-param name="allow-anchors" select="true()"/>
-    </xsl:apply-templates>
-  </div>
-</xsl:template>
-
-<xsl:template match="db:segmentedlist"
-	      mode="m:title-markup" as="node()*">
-  <div class="title">
-    <strong>
-      <xsl:apply-templates select="." mode="m:title-content">
-        <xsl:with-param name="allow-anchors" select="true()"/>
-      </xsl:apply-templates>
-    </strong>
-  </div>
-</xsl:template>
-
 <!-- ============================================================ -->
 
 <xsl:template match="db:itemizedlist">

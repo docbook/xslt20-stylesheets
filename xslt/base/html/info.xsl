@@ -25,9 +25,10 @@
 </xsl:template>
 
 <xsl:template match="db:copyright">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <xsl:param name="wrapper" select="'span'"/>
+
+  <xsl:element name="{$wrapper}" namespace="http://www.w3.org/1999/xhtml">
+    <xsl:apply-templates select="." mode="m:html-attributes"/>
 
     <xsl:call-template name="gentext">
       <xsl:with-param name="key" select="'Copyright'"/>
@@ -47,9 +48,27 @@
     <xsl:text>&#160;</xsl:text>
 
     <span class="holders">
-      <xsl:apply-templates select="db:holder" mode="m:titlepage-mode"/>
+      <xsl:apply-templates select="db:holder"/>
     </span>
+  </xsl:element>
+</xsl:template>
+
+<xsl:template match="db:holder">
+  <span class="{local-name(.)}">
+    <xsl:call-template name="t:id"/>
+    <xsl:apply-templates/>
   </span>
+  <xsl:if test="following-sibling::db:holder">
+    <xsl:text>, </xsl:text>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="db:year">
+  <span>
+    <xsl:call-template name="t:id"/>
+    <xsl:apply-templates/>
+  </span>
+  <xsl:if test="following-sibling::db:year">, </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:revhistory">

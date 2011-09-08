@@ -28,6 +28,27 @@
   <!-- Don't change these, define your own in t:user-titlepage-templates -->
   <tmpl:templates-list>
 
+    <tmpl:templates name="set book">
+      <tmpl:titlepage>
+        <div>
+          <db:title/>
+          <db:subtitle/>
+          <db:corpauthor/>
+          <db:authorgroup/>
+          <db:author/>
+          <db:editor/>
+          <db:othercredit/>
+          <db:releaseinfo/>
+          <db:copyright/>
+          <db:legalnotice/>
+          <db:pubdate/>
+          <db:revision/>
+          <db:revhistory/>
+          <db:abstract/>
+        </div>
+      </tmpl:titlepage>
+    </tmpl:templates>
+
     <tmpl:templates name="article">
       <tmpl:titlepage>
         <div class="article-titlepage">
@@ -39,10 +60,25 @@
       </tmpl:titlepage>
     </tmpl:templates>
 
-    <tmpl:templates name="abstract itemizedlist orderedlist variablelist">
+    <tmpl:templates name="prefix chapter appendix">
       <tmpl:titlepage>
         <div>
           <db:title/>
+          <db:subtitle/>
+          <db:authorgroup/>
+          <db:author/>
+          <db:releaseinfo/>
+          <db:abstract/>
+          <db:revhistory/>
+        </div>
+      </tmpl:titlepage>
+    </tmpl:templates>
+
+    <tmpl:templates name="dedication colophon">
+      <tmpl:titlepage>
+        <div>
+          <db:title/>
+          <db:subtitle/>
         </div>
       </tmpl:titlepage>
     </tmpl:templates>
@@ -57,6 +93,15 @@
       </tmpl:titlepage>
     </tmpl:templates>
 
+    <tmpl:templates name="refsection refsect1 refsect2 refsect3">
+      <tmpl:titlepage>
+        <div class="refsection-titlepage">
+          <db:title/>
+          <db:subtitle/>
+        </div>
+      </tmpl:titlepage>
+    </tmpl:templates>
+
     <tmpl:templates name="bibliography bibliodiv glossary glossdiv index indexdiv">
       <tmpl:titlepage>
         <div>
@@ -65,13 +110,15 @@
       </tmpl:titlepage>
     </tmpl:templates>
 
-    <tmpl:templates name="bibliolist">
+    <tmpl:templates name="abstract itemizedlist orderedlist variablelist sidebar">
       <tmpl:titlepage>
-        <db:title/>
+        <div>
+          <db:title/>
+        </div>
       </tmpl:titlepage>
     </tmpl:templates>
 
-    <tmpl:templates name="glosslist">
+    <tmpl:templates name="bibliolist glosslist">
       <tmpl:titlepage>
         <db:title/>
       </tmpl:titlepage>

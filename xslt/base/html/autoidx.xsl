@@ -432,7 +432,7 @@
 
 <xsl:template match="db:*" mode="m:index-title-content">
   <xsl:variable name="title">
-    <xsl:apply-templates select="&section;" mode="m:title-markup"/>
+    <xsl:apply-templates select="&section;" mode="m:object-title-markup"/>
   </xsl:variable>
 
   <xsl:value-of select="$title"/>
