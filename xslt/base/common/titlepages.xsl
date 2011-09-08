@@ -340,28 +340,28 @@ an element that occurs in the source document.</para>
 		    and ($side eq 'recto' or empty($side))">
       <xsl:apply-templates select="$node" mode="m:title-markup"/>
       <xsl:if test="not(empty(f:select-style-attributes(@*)))">
-	<xsl:message>Direct styling of title in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
+	<xsl:message>Direct styling of title in titlepage template is not supported. Customize appropriate attribute set instead.</xsl:message>
       </xsl:if>
     </xsl:when>
 
     <xsl:when test="self::db:title and $content and ($side eq 'recto' or empty($side))">
       <xsl:apply-templates select="$node" mode="m:title-markup"/>
       <xsl:if test="not(empty(f:select-style-attributes(@*)))">
-	<xsl:message>Direct styling of title in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
+	<xsl:message>Direct styling of title in titlepage template is not supported. Customize appropriate attribute set instead.</xsl:message>
       </xsl:if>
     </xsl:when>
 
     <xsl:when test="self::db:subtitle and $content and ($side eq 'recto' or empty($side))">
       <xsl:apply-templates select="$node" mode="m:subtitle-markup"/>
       <xsl:if test="not(empty(f:select-style-attributes(@*)))">
-	<xsl:message>Direct styling of subtitle in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
+	<xsl:message>Direct styling of subtitle in titlepage template is not supported. Customize appropriate attribute set instead.</xsl:message>
       </xsl:if>
     </xsl:when>
 
     <xsl:when test="self::db:titleabbrev and $content and ($side eq 'recto' or empty($side))">
       <xsl:apply-templates select="$node" mode="m:titleabbrev-markup"/>
       <xsl:if test="not(empty(f:select-style-attributes(@*)))">
-	<xsl:message>Direct styling of titleabbrev in titlepage template is not supported. Customize approapriate attribute set instead.</xsl:message>
+	<xsl:message>Direct styling of titleabbrev in titlepage template is not supported. Customize appropriate attribute set instead.</xsl:message>
       </xsl:if>
     </xsl:when>
 
