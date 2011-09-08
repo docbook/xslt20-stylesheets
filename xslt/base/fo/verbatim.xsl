@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:ext="http://docbook.org/extensions/xslt20"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:db="http://docbook.org/ns/docbook"
-		exclude-result-prefixes="doc f m mp fn db ghost t"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:xdmp="http://marklogic.com/xdmp"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		exclude-result-prefixes="doc f m mp fn db ghost t ext xdmp xs"
                 version="2.0">
 
 <xsl:param name="shade.verbatim" select="0"/>
 <xsl:param name="monospace.font.family">monospace</xsl:param>
+
+<xsl:param name="pygments-default" select="0"/>
+<xsl:param name="pygmenter-uri" select="''"/>
+
+<xsl:include href="pygments.xsl"/>
 
 <xsl:attribute-set name="verbatim.properties">
   <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
@@ -53,8 +61,7 @@
   <xsl:apply-templates select="db:calloutlist"/>
 </xsl:template>
 
-<xsl:template
-    match="db:programlisting|db:address|db:screen|db:synopsis|db:literallayout">
+<xsl:template match="db:programlisting|db:address|db:screen|db:synopsis|db:literallayout">
   <xsl:apply-templates select="." mode="m:verbatim"/>
 </xsl:template>
 
@@ -74,18 +81,49 @@
   <xsl:param name="suppress-numbers" select="'0'"/>
   <xsl:variable name="id" select="f:node-id(.)"/>
 
+  <xsl:variable name="pygments-pi" as="xs:string?"
+                select="f:pi(/processing-instruction('dbhtml'), 'pygments')"/>
+
+  <xsl:variable name="use-pygments" as="xs:boolean"
+                select="$pygments-pi = 'true' or $pygments-pi = 'yes' or $pygments-pi = '1'
+                        or (contains(@role,'pygments') and not(contains(@role,'nopygments')))"/>
+
+  <xsl:variable name="verbatim" as="node()*">
+    <!-- n.b. look below where the class attribute is computed -->
+    <xsl:choose>
+      <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000
+                      or self::db:literallayout or exists(*)">
+        <xsl:sequence select="node()"/>
+      </xsl:when>
+      <xsl:when test="$pygments-default = 0 and not($use-pygments)">
+        <xsl:sequence select="node()"/>
+      </xsl:when>
+      <xsl:when use-when="function-available('xdmp:http-post')"
+                test="$pygmenter-uri != ''">
+        <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
+      </xsl:when>
+      <xsl:when use-when="function-available('ext:highlight')"
+                test="true()">
+        <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:sequence select="node()"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
   <xsl:choose>
     <xsl:when test="$shade.verbatim != 0">
       <fo:block id="{$id}"
 		xsl:use-attribute-sets="monospace.verbatim.properties
 					shade.verbatim.style">
-	<xsl:apply-templates mode="m:verbatim"/>
+	<xsl:apply-templates select="$verbatim" mode="m:verbatim"/>
       </fo:block>
     </xsl:when>
     <xsl:otherwise>
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="monospace.verbatim.properties">
-	<xsl:apply-templates mode="m:verbatim"/>
+	<xsl:apply-templates select="$verbatim" mode="m:verbatim"/>
       </fo:block>
     </xsl:otherwise>
   </xsl:choose>
