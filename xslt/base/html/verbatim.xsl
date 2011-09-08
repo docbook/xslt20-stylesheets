@@ -11,11 +11,13 @@
 		xmlns:t="http://docbook.org/xslt/ns/template"
 		xmlns:fn="http://www.w3.org/2005/xpath-functions"
 		xmlns:db="http://docbook.org/ns/docbook"
-		exclude-result-prefixes="doc h f m mp fn db t ext xdmp"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		exclude-result-prefixes="doc h f m mp fn db t ext xdmp xs"
                 version="2.0">
 
 <xsl:include href="verbatim-patch.xsl"/>
 
+<xsl:param name="pygments-default" select="0"/>
 <xsl:param name="pygmenter-uri" select="''"/>
 
 <xsl:template match="db:programlistingco">
@@ -61,11 +63,21 @@
 	      mode="m:verbatim">
   <xsl:param name="areas" select="()"/>
 
+  <xsl:variable name="pygments-pi" as="xs:string?"
+                select="f:pi(/processing-instruction('dbhtml'), 'pygments')"/>
+
+  <xsl:variable name="use-pygments" as="xs:boolean"
+                select="$pygments-pi = 'true' or $pygments-pi = 'yes' or $pygments-pi = '1'
+                        or (contains(@role,'pygments') and not(contains(@role,'nopygments')))"/>
+
   <xsl:variable name="verbatim" as="node()*">
     <!-- n.b. look below where the class attribute is computed -->
     <xsl:choose>
       <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000
                       or self::db:literallayout or exists(*)">
+        <xsl:apply-templates/>
+      </xsl:when>
+      <xsl:when test="$pygments-default = 0 and not($use-pygments)">
         <xsl:apply-templates/>
       </xsl:when>
       <xsl:when use-when="function-available('xdmp:http-post')"
@@ -96,6 +108,7 @@
       <xsl:choose>
         <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000
                         or self::db:literallayout or exists(*)"/>
+        <xsl:when test="$pygments-default = 0 and not($use-pygments)"/>
         <xsl:when use-when="function-available('xdmp:http-post')"
                   test="$pygmenter-uri != ''">
           <xsl:value-of select="' highlight'"/>
