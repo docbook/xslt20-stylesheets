@@ -94,7 +94,9 @@
 
     <!-- Copy SVG/MathML/... content -->
     <xsl:when test="* except db:info">
-      <xsl:copy-of select="node()[not(self::db:info)]"/>
+      <fo:instream-foreign-object>
+        <xsl:copy-of select="node()[not(self::db:info)]"/>
+      </fo:instream-foreign-object>
     </xsl:when>
 
     <xsl:otherwise>
