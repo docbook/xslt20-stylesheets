@@ -44,7 +44,7 @@
 <!-- Titlepage templates (also used for recto) -->
 
 <xsl:template match="db:title" mode="m:titlepage-mode">
-  <fo:block font-weight="bold" font-family="{$title.fontset}">
+  <fo:block font-family="{$title.fontset}">
     <xsl:choose>
       <xsl:when test="not(parent::*)">
         <xsl:apply-templates mode="m:titlepage-mode"/>
