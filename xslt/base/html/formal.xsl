@@ -29,14 +29,9 @@ title.</para>
   <xsl:param name="class" select="local-name($context)"/>
   <xsl:param name="object" as="element()*" required="yes"/>
 
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name($context)][1]"/>
-
   <xsl:variable name="title">
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="context" select="$context"/>
-      <xsl:with-param name="content" select="$titlepage"/>
+    <xsl:call-template name="t:titlepage">
+      <xsl:with-param name="node" select="$context"/>
     </xsl:call-template>
     <xsl:call-template name="t:longdesc-link">
       <xsl:with-param name="textobject" select="$longdesc[1]"/>

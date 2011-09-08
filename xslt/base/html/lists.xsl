@@ -40,20 +40,13 @@
 <!-- ============================================================ -->
 
 <xsl:template match="db:itemizedlist">
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name(current())][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
 
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$titlepage"/>
-    </xsl:call-template>
+    <xsl:call-template name="t:titlepage"/>
 
-    <xsl:apply-templates select="*[not(self::db:info)
-				   and not(self::db:listitem)]"/>
+    <xsl:apply-templates select="node()[not(self::db:listitem)]"/>
 
     <ul>
       <xsl:apply-templates select="db:listitem"/>
@@ -104,10 +97,6 @@
 <!-- ============================================================ -->
 
 <xsl:template match="db:orderedlist">
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name(current())][1]"/>
-
   <xsl:variable name="starting.number"
 		select="f:orderedlist-starting-number(.)"/>
 
@@ -117,18 +106,15 @@
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
 
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$titlepage"/>
-    </xsl:call-template>
+    <xsl:call-template name="t:titlepage"/>
 
-    <xsl:apply-templates select="*[not(self::db:info)
-				   and not(self::db:listitem)]"/>
+    <xsl:apply-templates select="node()[not(self::db:listitem)]"/>
 
     <ol>
       <xsl:if test="$starting.number != 1">
 	<xsl:attribute name="start" select="$starting.number"/>
       </xsl:if>
-      
+
       <!-- If there's no inline style attribute, force the class -->
       <!-- to contain the numeration so that external CSS can work -->
       <!-- otherwise, leave the class whatever it was -->
@@ -175,20 +161,13 @@
 <!-- ============================================================ -->
 
 <xsl:template match="db:variablelist">
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name(current())][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
 
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$titlepage"/>
-    </xsl:call-template>
+    <xsl:call-template name="t:titlepage"/>
 
-    <xsl:apply-templates select="*[not(self::db:info)
-				   and not(self::db:varlistentry)]"/>
+    <xsl:apply-templates select="node()[not(self::db:varlistentry)]"/>
 
     <dl>
       <xsl:apply-templates select="db:varlistentry"/>
@@ -499,20 +478,13 @@
 </xsl:template>
 
 <xsl:template match="db:step">
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name(current())][1]"/>
-
   <li>
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
 
     <div class="{local-name(.)}">
-      <xsl:call-template name="titlepage">
-	<xsl:with-param name="content" select="$titlepage"/>
-      </xsl:call-template>
-
-      <xsl:apply-templates select="node()[not(self::db:info)]"/>
+      <xsl:call-template name="t:titlepage"/>
+      <xsl:apply-templates/>
     </div>
   </li>
 </xsl:template>
@@ -553,17 +525,11 @@
 		select="f:pi(processing-instruction('dbhtml'),
 			     'list-presentation')"/>
 
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name(current())][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
 
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$titlepage"/>
-    </xsl:call-template>
+    <xsl:call-template name="t:titlepage"/>
 
     <xsl:choose>
       <xsl:when test="$presentation = 'table'">

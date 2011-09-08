@@ -11,26 +11,12 @@
                 version="2.0">
 
 <xsl:template match="db:index|db:setindex">
-  <xsl:variable name="recto"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='recto'][1]"/>
-  <xsl:variable name="verso"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='verso'][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id">
       <xsl:with-param name="force" select="1"/>
     </xsl:call-template>
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$recto"/>
-    </xsl:call-template>
 
-    <xsl:if test="not(empty($verso))">
-      <xsl:call-template name="titlepage">
-	<xsl:with-param name="content" select="$verso"/>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:call-template name="t:titlepage"/>
 
     <xsl:apply-templates select="*[not(self::db:indexdiv)
                                    and not(self::db:indexentry)]"/>
@@ -65,18 +51,13 @@
 </xsl:template>
 
 <xsl:template match="db:indexdiv">
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name(current())][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$titlepage"/>
-    </xsl:call-template>
 
-    <xsl:apply-templates select="*[not(self::db:indexentry)]"/>
+    <xsl:call-template name="t:titlepage"/>
+
+    <xsl:apply-templates select="node()[not(self::db:indexentry)]"/>
 
     <dl>
       <xsl:apply-templates select="db:indexentry"/>
