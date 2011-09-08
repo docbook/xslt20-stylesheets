@@ -286,7 +286,7 @@
 </xsl:template>
 
 <xsl:template match="*" mode="m:titlepage-mode">
-  <xsl:apply-templates/>
+  <xsl:apply-templates select="."/>
 </xsl:template>
 
 <xsl:template match="text()|comment()|processing-instruction()" mode="m:titlepage-mode">
