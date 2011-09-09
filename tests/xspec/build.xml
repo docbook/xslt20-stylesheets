@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="DocBook XSLT 2.0 stylesheets - XSpec" default="all">
+<project name="DocBook XSLT 2.0 stylesheets - XSpec" default="use-xproc">
 
   <property name="dbroot.dir" value="${ant.file}/../../.."/>
   <import file="../../tools/build-shared.xml"/>
@@ -9,7 +9,8 @@
   <target name="all" depends="html, fo">
   </target>
 
-  <target name="html" depends="htmlalt,htmlbase,fobase"/>
+  <target name="html" depends="htmlalt,htmlbase"/>
+  <target name="fo" depends="fobase"/>
 
   <macrodef name="runxspec">
     <attribute name="filename"/>
@@ -55,12 +56,16 @@
     <runxspec filename="fobase"/>
   </target>
 
-  <target name="fo">
-    <!-- FIXME: add XSpec tests for FO -->
-  </target>
-
   <target name="clean">
     <delete dir="${xspec.test.dir}"/>
+  </target>
+
+  <target name="use-xproc">
+    <java fork="true" classname="com.xmlcalabash.drivers.Main">
+      <classpath refid="calabash.classpath"/>
+      <arg value="-oresult=xspec/xspec-report.html"/>
+      <arg value="run-xspecs.xpl"/>
+    </java>
   </target>
 
 </project>

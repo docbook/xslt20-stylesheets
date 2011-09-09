@@ -5,13 +5,10 @@
                xmlns="http://www.w3.org/1999/xhtml"
                stylesheet="../../xslt/base/html/docbook.xsl">
 
-<x:param name="bibliography.collection"
- select="'etc/bibliography.collection.xml'"/>
-<x:param name="glossary.collection"
- select="'etc/glossary.collection.xml'"/>
-
-<x:param name="preprocess" select="'profile'"/>
-<x:param name="profile.os" select="'win'"/>
+<!--
+    N.B. If you run these tests w/o using XProc, you will get some differences
+    unless you establish the same parameters that the XProc pipeline uses.
+-->
 
 <x:scenario label="Section tests">
   <x:scenario label="sect1.001.xml">
