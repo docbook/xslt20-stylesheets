@@ -12,18 +12,6 @@
 		exclude-result-prefixes="h f m fn db doc t xs"
                 version="2.0">
 
-<!--
-<xsl:template match="db:task
-		     |db:tasksummary
-		     |db:taskprerequisites
-		     |db:taskrelated"
-	      mode="m:title-markup">
-  <xsl:apply-templates select="../.." mode="m:object-title-markup">
-    <xsl:with-param name="allow-anchors" select="true()"/>
-  </xsl:apply-templates>
-</xsl:template>
--->
-
 <xsl:template match="db:task|db:tasksummary|db:taskprerequisites|db:taskrelated">
   <xsl:call-template name="t:semiformal-object">
     <xsl:with-param name="object" as="element()">

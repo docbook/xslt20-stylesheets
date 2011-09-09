@@ -73,7 +73,7 @@
 </xsl:template>
 
 <xsl:template match="db:refsection/db:title|db:refsection/db:info/db:title" mode="m:titlepage-mode">
-  <xsl:variable name="depth" select="min((count(ancestor::db:section), 3))"/>
+  <xsl:variable name="depth" select="min((count(ancestor::db:refsection), 3))"/>
 
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
@@ -286,7 +286,7 @@
 </xsl:template>
 
 <xsl:template match="*" mode="m:titlepage-mode">
-  <xsl:apply-templates/>
+  <xsl:apply-templates select="."/>
 </xsl:template>
 
 <xsl:template match="text()|comment()|processing-instruction()" mode="m:titlepage-mode">

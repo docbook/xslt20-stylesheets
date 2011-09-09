@@ -151,21 +151,15 @@
 </xsl:template>
 
 <xsl:template match="db:calloutlist">
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name(current())][1]"/>
-
   <div>
     <xsl:apply-templates select="." mode="m:html-attributes"/>
 
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$titlepage"/>
-    </xsl:call-template>
+    <xsl:call-template name="t:titlepage"/>
 
     <xsl:apply-templates select="*[not(self::db:info)
 				   and not(self::db:callout)]"/>
 
-    <!-- If you can get CSS to do this layout right, pleaes tell me how -->
+    <!-- If you can get CSS to do this layout right, please tell me how -->
     <table border="0" summary="Callout list">
       <xsl:apply-templates select="db:callout"/>
     </table>

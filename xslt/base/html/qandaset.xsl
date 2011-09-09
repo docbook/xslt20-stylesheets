@@ -10,21 +10,15 @@
                 version="2.0">
 
 <xsl:template match="db:qandaset|db:qandadiv">
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)=node-name(current())][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
     <xsl:call-template name="class"/>
 
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$titlepage"/>
-    </xsl:call-template>
+    <xsl:call-template name="t:titlepage"/>
 
     <xsl:apply-templates select="." mode="m:toc"/>
 
-    <xsl:apply-templates select="*[not(self::db:info)
-                                   and not(self::db:qandaentry)]"/>
+    <xsl:apply-templates select="node()[not(self::db:qandaentry)]"/>
 
     <xsl:if test="db:qandaentry">
       <table class="qandaentries" border="0" summary="Q&amp;A Set">

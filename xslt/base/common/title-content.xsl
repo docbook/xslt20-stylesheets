@@ -28,20 +28,11 @@
     <xsl:apply-templates select="." mode="m:object-title-template"/>
   </xsl:param>
 
-<!--
-<xsl:message>NODE: <xsl:value-of select="local-name(.)"/></xsl:message>
-<xsl:message>TEMPLATE: <xsl:value-of select="$template"/></xsl:message>
--->
-
   <xsl:variable name="title" as="node()*">
     <xsl:apply-templates select="." mode="mp:title-content">
       <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
     </xsl:apply-templates>
   </xsl:variable>
-
-<!--
-<xsl:message>TITLE: [[<xsl:sequence select="$title"/>]]</xsl:message>
--->
 
   <xsl:variable name="subtitle" as="node()*">
     <xsl:apply-templates select="." mode="mp:subtitle-content"/>

@@ -13,26 +13,12 @@
 <xsl:template match="db:dedication
 		     |db:preface|db:chapter|db:appendix
 		     |db:colophon|db:article">
-  <xsl:variable name="recto"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='recto'][1]"/>
-  <xsl:variable name="verso"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='verso'][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id">
       <xsl:with-param name="force" select="1"/>
     </xsl:call-template>
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$recto"/>
-    </xsl:call-template>
 
-    <xsl:if test="not(empty($verso))">
-      <xsl:call-template name="titlepage">
-	<xsl:with-param name="content" select="$verso"/>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:call-template name="t:titlepage"/>
 
     <xsl:if test="not(db:toc)">
       <!-- only generate a toc automatically if there's no explicit toc -->

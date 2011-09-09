@@ -29,14 +29,9 @@ title.</para>
   <xsl:param name="class" select="local-name($context)"/>
   <xsl:param name="object" as="element()*" required="yes"/>
 
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name($context)][1]"/>
-
   <xsl:variable name="title">
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="context" select="$context"/>
-      <xsl:with-param name="content" select="$titlepage"/>
+    <xsl:call-template name="t:titlepage">
+      <xsl:with-param name="node" select="$context"/>
     </xsl:call-template>
     <xsl:call-template name="t:longdesc-link">
       <xsl:with-param name="textobject" select="$longdesc[1]"/>
@@ -187,15 +182,6 @@ formal, sometimes informal, by calling the appropriate template.
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:figure|db:table|db:example|db:equation"
-	      mode="m:title-markup">
-  <div class="title">
-    <xsl:apply-templates select="." mode="m:title-content">
-      <xsl:with-param name="allow-anchors" select="true()"/>
-    </xsl:apply-templates>
-  </div>
-</xsl:template>
-
 <xsl:template match="db:informalfigure">
   <xsl:call-template name="t:informal-object">
     <xsl:with-param name="class" select="local-name(.)"/>
@@ -242,17 +228,13 @@ formal, sometimes informal, by calling the appropriate template.
     <xsl:apply-templates select="db:indexterm"/>
     <xsl:apply-templates select="db:para">
       <xsl:with-param name="runin" as="node()*" tunnel="yes">
-        <xsl:apply-templates select="." mode="m:title-markup"/>
+        <b>
+          <xsl:apply-templates select="." mode="m:title-content"/>
+        </b>
+        <xsl:text>&#160;&#160;</xsl:text>
       </xsl:with-param>
     </xsl:apply-templates>
   </div>
-</xsl:template>
-
-<xsl:template match="db:formalpara" mode="m:title-markup">
-  <b>
-    <xsl:apply-templates select="." mode="m:title-content"/>
-  </b>
-  <xsl:text>&#160;&#160;</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>

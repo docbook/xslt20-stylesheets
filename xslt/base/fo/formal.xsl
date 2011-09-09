@@ -118,12 +118,9 @@
         <xsl:attribute name="keep-with-previous.within-column" select="'always'"/>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:text>FIXME:</xsl:text>
-<!--
     <xsl:apply-templates select="$object" mode="m:title-content">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>
--->
   </fo:block>
 </xsl:template>
 

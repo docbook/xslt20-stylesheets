@@ -8,8 +8,9 @@
                 xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
 		xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="h f m fn db doc xs ghost"
+		exclude-result-prefixes="h f m fn db doc xs t ghost"
                 version="2.0">
 
 <xsl:template match="db:note|db:important|db:warning|db:caution|db:tip">
@@ -18,17 +19,12 @@
       <xsl:apply-templates select="." mode="m:graphical-admonition"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:variable name="titlepage"
-		    select="$titlepages/*[node-name(.)
-			                  = node-name(current())][1]"/>
       <div>
         <xsl:apply-templates select="." mode="m:html-attributes">
           <xsl:with-param name="class" select="'admonition'"/>
         </xsl:apply-templates>
 
-        <xsl:call-template name="titlepage">
-          <xsl:with-param name="content" select="$titlepage"/>
-        </xsl:call-template>
+        <xsl:call-template name="t:titlepage"/>
 
 	<xsl:apply-templates/>
       </div>
@@ -50,10 +46,6 @@ the graphical form.</para>
 
 <xsl:template match="db:note|db:important|db:warning|db:caution|db:tip"
 	      mode="m:graphical-admonition">
-  <xsl:variable name="titlepage"
-		select="$titlepages/*[node-name(.)
-			              = node-name(current())][1]"/>
-
   <xsl:variable name="admon.type">
     <xsl:choose>
       <xsl:when test="self::db:note">Note</xsl:when>
@@ -98,9 +90,7 @@ the graphical form.</para>
 	    <xsl:if test="db:info/db:title[not(@ghost:title)
 			                   or $admonition.default.titles != 0]">
 	      <div class="admon-title-text">
-		<xsl:call-template name="titlepage">
-		  <xsl:with-param name="content" select="$titlepage"/>
-		</xsl:call-template>
+		<xsl:call-template name="t:titlepage"/>
 	      </div>
 	    </xsl:if>
 	    <div class="admon-text">

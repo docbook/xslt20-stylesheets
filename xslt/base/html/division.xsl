@@ -11,24 +11,10 @@
                 version="2.0">
 
 <xsl:template match="db:set|db:book|db:part|db:reference">
-  <xsl:variable name="recto"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='recto'][1]"/>
-  <xsl:variable name="verso"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='verso'][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$recto"/>
-    </xsl:call-template>
 
-    <xsl:if test="not(empty($verso))">
-      <xsl:call-template name="titlepage">
-	<xsl:with-param name="content" select="$verso"/>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:call-template name="t:titlepage"/>
 
     <xsl:if test="not(db:toc)">
       <!-- only generate a toc automatically if there's no explicit toc -->
@@ -52,24 +38,10 @@
 </xsl:template>
 
 <xsl:template match="db:partintro">
-  <xsl:variable name="recto"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='recto'][1]"/>
-  <xsl:variable name="verso"
-		select="$titlepages/*[node-name(.) = node-name(current())
-			              and @t:side='verso'][1]"/>
-
   <div class="{local-name(.)}">
     <xsl:call-template name="t:id"/>
-    <xsl:call-template name="titlepage">
-      <xsl:with-param name="content" select="$recto"/>
-    </xsl:call-template>
 
-    <xsl:if test="not(empty($verso))">
-      <xsl:call-template name="titlepage">
-	<xsl:with-param name="content" select="$verso"/>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:call-template name="t:titlepage"/>
 
     <xsl:apply-templates/>
 
