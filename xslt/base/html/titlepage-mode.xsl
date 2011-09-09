@@ -10,6 +10,69 @@
                 exclude-result-prefixes="db f m t xs h">
 
 <!-- ============================================================ -->
+<!-- Recto templates -->
+
+<xsl:template match="db:authorgroup" mode="m:titlepage-recto-mode">
+  <div class="{local-name(.)}">
+    <xsl:apply-templates mode="m:titlepage-recto-mode"/>
+  </div>
+</xsl:template>
+
+<xsl:template match="db:author" mode="m:titlepage-recto-mode">
+  <div class="{local-name(.)}">
+    <xsl:call-template name="t:id"/>
+    <h3>
+      <xsl:choose>
+        <xsl:when test="db:orgname">
+          <xsl:apply-templates select="db:orgname"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="db:personname"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </h3>
+  </div>
+</xsl:template>
+
+<xsl:template match="db:editor" mode="m:titlepage-recto-mode">
+  <div class="{local-name(.)}">
+    <h4 class="editedby">
+      <xsl:call-template name="gentext">
+        <xsl:with-param name="key" select="'editedby'"/>
+      </xsl:call-template>
+    </h4>
+    <h3>
+      <xsl:choose>
+        <xsl:when test="db:orgname">
+          <xsl:apply-templates select="db:orgname"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="db:personname"/>
+          <xsl:if test="db:email">
+            <xsl:text>&#160;</xsl:text>
+            <xsl:apply-templates select="db:email"/>
+          </xsl:if>
+        </xsl:otherwise>
+      </xsl:choose>
+    </h3>
+  </div>
+</xsl:template>
+
+<xsl:template match="db:pubdate" mode="m:titlepage-recto-mode">
+  <div>
+    <p>
+      <xsl:apply-templates select="." mode="m:titlepage-mode"/>
+    </p>
+  </div>
+</xsl:template>
+
+<xsl:template match="db:abstract" mode="m:titlepage-recto-mode">
+  <div class="{local-name(.)}">
+    <xsl:apply-templates/>
+  </div>
+</xsl:template>
+
+<!-- ============================================================ -->
 <!-- Verso templates -->
 
 <xsl:template match="db:authorgroup" mode="m:titlepage-verso-mode">
@@ -54,6 +117,8 @@
     <xsl:when test="$context/self::db:bibliography
                     or $context/self::db:preface
                     or $context/self::db:dedication
+                    or $context/self::db:colophon
+                    or $context/self::db:dedication
                     or $context/self::db:glossary
                     or $context/self::db:setindex
                     or $context/self::db:index">
@@ -69,6 +134,20 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
+    <xsl:when test="$context/self::db:warning
+                    or $context/self::db:caution
+                    or $context/self::db:tip
+                    or $context/self::db:note
+                    or $context/self::db:important">
+      <h3>
+        <xsl:apply-templates/>
+      </h3>
+    </xsl:when>
+    <xsl:when test="$context/self::db:abstract">
+      <div class="title">
+        <xsl:apply-templates/>
+      </div>
+    </xsl:when>
     <xsl:otherwise>
       <div class="title">
         <xsl:apply-templates/>
@@ -78,11 +157,15 @@
 </xsl:template>
 
 <xsl:template match="db:set/db:title|db:set/db:info/db:title
-                     |db:book/db:title|db:book/db:info/db:title" mode="m:titlepage-mode">
+                     |db:book/db:title|db:book/db:info/db:title
+                     |db:part/db:title|db:part/db:info/db:title
+                     |db:reference/db:title|db:reference/db:info/db:title" mode="m:titlepage-mode">
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
   <h1>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h1>
 </xsl:template>
 
@@ -90,18 +173,24 @@
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
   <h2>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h2>
 </xsl:template>
 
-<xsl:template match="db:prefix/db:title|db:prefix/db:info/db:title
+<xsl:template match="db:preface/db:title|db:prefac/db:info/db:title
                      |db:chapter/db:title|db:chapter/db:info/db:title
-                     |db:appendix/db:title|db:appendix/db:info/db:title"
+                     |db:appendix/db:title|db:appendix/db:info/db:title
+                     |db:dedication/db:title|db:dedication/db:info/db:title
+                     |db:colophon/db:title|db:colophon/db:info/db:title"
               mode="m:titlepage-mode">
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
   <h2>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h2>
 </xsl:template>
 
@@ -114,12 +203,16 @@
   <xsl:choose>
     <xsl:when test="ancestor::db:article">
       <h3>
-        <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+        <xsl:apply-templates select="$context" mode="m:object-title-markup">
+          <xsl:with-param name="allow-anchors" select="true()"/>
+        </xsl:apply-templates>
       </h3>
     </xsl:when>
     <xsl:otherwise>
       <h2>
-        <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+        <xsl:apply-templates select="$context" mode="m:object-title-markup">
+          <xsl:with-param name="allow-anchors" select="true()"/>
+        </xsl:apply-templates>
       </h2>
     </xsl:otherwise>
   </xsl:choose>
@@ -134,12 +227,16 @@
   <xsl:choose>
     <xsl:when test="ancestor::db:article">
       <h4>
-        <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+        <xsl:apply-templates select="$context" mode="m:object-title-markup">
+          <xsl:with-param name="allow-anchors" select="true()"/>
+        </xsl:apply-templates>
       </h4>
     </xsl:when>
     <xsl:otherwise>
       <h3>
-        <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+        <xsl:apply-templates select="$context" mode="m:object-title-markup">
+          <xsl:with-param name="allow-anchors" select="true()"/>
+        </xsl:apply-templates>
       </h3>
     </xsl:otherwise>
   </xsl:choose>
@@ -153,7 +250,9 @@
 
   <!-- lazy -->
   <h3>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h3>
 </xsl:template>
 
@@ -162,7 +261,9 @@
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
   <h2>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h2>
 </xsl:template>
 
@@ -173,18 +274,26 @@
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
   <xsl:element name="h{$depth + 2}" namespace="http://www.w3.org/1999/xhtml">
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </xsl:element>
 </xsl:template>
 
 <xsl:template match="db:refsection/db:title|db:refsection/db:info/db:title" mode="m:titlepage-mode">
-  <xsl:variable name="depth" select="min((count(ancestor::db:section), 3))"/>
+  <xsl:variable name="depth" select="min((count(ancestor::db:refsection), 4))"/>
+
+  <xsl:variable name="delta" select="if (ancestor::db:article) then 2 else 1"/>
+
+  <xsl:message>depth: <xsl:value-of select="$depth"/>, delta: <xsl:value-of select="$delta"/></xsl:message>
 
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
-  <xsl:element name="h{$depth + 1}" namespace="http://www.w3.org/1999/xhtml">
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+  <xsl:element name="h{$depth + $delta}" namespace="http://www.w3.org/1999/xhtml">
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </xsl:element>
 </xsl:template>
 
@@ -194,7 +303,9 @@
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
   <h2>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h2>
 </xsl:template>
 
@@ -204,7 +315,9 @@
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
   <h3>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h3>
 </xsl:template>
 
@@ -214,7 +327,9 @@
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
   <h4>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h4>
 </xsl:template>
 
@@ -223,7 +338,9 @@
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
   <h5>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h5>
 </xsl:template>
 
@@ -232,7 +349,9 @@
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
   <h6>
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </h6>
 </xsl:template>
 
@@ -254,9 +373,106 @@
   </xsl:variable>
 
   <xsl:element name="h{$depth}" namespace="http://www.w3.org/1999/xhtml">
-    <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
   </xsl:element>
 </xsl:template>
+
+<xsl:template match="db:figure/db:title|db:figure/db:info/db:title
+                     |db:example/db:title|db:example/db:info/db:title
+                     |db:table/db:title|db:table/db:info/db:title
+                     |db:equation/db:title|db:equation/db:info/db:title
+                     |db:procedure/db:title|db:procedure/db:info/db:title"
+              mode="m:titlepage-mode">
+  <xsl:variable name="context"
+                select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
+
+  <div class="title">
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
+  </div>
+</xsl:template>
+
+<xsl:template match="db:warning/db:title|db:warning/db:info/db:title
+                     |db:note/db:title|db:note/db:info/db:title
+                     |db:caution/db:title|db:caution/db:info/db:title
+                     |db:important/db:title|db:important/db:info/db:title
+                     |db:tip/db:title|db:tip/db:info/db:title
+                     |db:sidebar/db:title|db:sidebar/db:info/db:title
+                     |db:task/db:title|db:task/db:info/db:title"
+              mode="m:titlepage-mode">
+  <xsl:variable name="context"
+                select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
+  <h3>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
+  </h3>
+</xsl:template>
+
+<xsl:template match="db:tasksummary/db:title|db:tasksummary/db:info/db:title
+                     |db:taskprerequisites/db:title|db:taskprerequisites/db:info/db:title
+                     |db:taskrelated/db:title|db:taskrelated/db:info/db:title
+                     |db:task/db:procedure/db:title|db:task/db:procedure/db:info/db:title"
+              mode="m:titlepage-mode">
+  <xsl:variable name="context"
+                select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
+  <h4>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
+  </h4>
+</xsl:template>
+
+<xsl:template match="db:segmentedlist/db:title|db:segmentedlist/db:info/db:title"
+              mode="m:titlepage-mode">
+  <xsl:variable name="context"
+                select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
+  <div class="title">
+    <strong>
+      <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
+    </strong>
+  </div>
+</xsl:template>
+
+<xsl:template match="db:step/db:title|db:step/db:info/db:title"
+              mode="m:titlepage-mode">
+  <xsl:variable name="context"
+                select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
+  <h4>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
+  </h4>
+</xsl:template>
+
+<xsl:template match="db:qandaset/db:title|db:qandaset/db:info/db:title"
+              mode="m:titlepage-mode">
+  <xsl:variable name="context"
+                select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
+  <h2>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
+  </h2>
+</xsl:template>
+
+<xsl:template match="db:qandadiv/db:title|db:qandadiv/db:info/db:title"
+              mode="m:titlepage-mode">
+  <xsl:variable name="context"
+                select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
+  <h3>
+    <xsl:apply-templates select="$context" mode="m:object-title-markup">
+      <xsl:with-param name="allow-anchors" select="true()"/>
+    </xsl:apply-templates>
+  </h3>
+</xsl:template>
+
+<!-- ============================================================ -->
 
 <xsl:template match="db:subtitle" mode="m:titlepage-mode">
   <xsl:variable name="context"
@@ -271,6 +487,7 @@
       <xsl:when test="ancestor::db:section">
         <xsl:value-of select="min((count(ancestor::db:section), 3)) + 3"/>
       </xsl:when>
+      <xsl:when test="ancestor::db:article">3</xsl:when>
       <xsl:otherwise>2</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -345,7 +562,7 @@
 </xsl:template>
 
 <xsl:template match="db:editor" mode="m:titlepage-mode">
-  <div>
+  <div class="{local-name(.)}">
     <xsl:call-template name="gentext">
       <xsl:with-param name="key" select="'editedby'"/>
     </xsl:call-template>
@@ -374,10 +591,17 @@
 
 <xsl:template match="db:abstract" mode="m:titlepage-mode">
   <div class="{local-name(.)}">
-    <xsl:call-template name="t:titlepage"/>
-    <div>
-      <xsl:apply-templates/>
-    </div>
+    <xsl:choose>
+      <xsl:when test="true() or parent::db:article or parent::db:info/parent::db:article">
+        <xsl:apply-templates/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="t:titlepage"/>
+        <div>
+          <xsl:apply-templates/>
+        </div>
+      </xsl:otherwise>
+    </xsl:choose>
   </div>
 </xsl:template>
 

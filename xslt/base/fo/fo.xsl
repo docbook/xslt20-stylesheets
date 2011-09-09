@@ -131,4 +131,19 @@
   </xsl:choose>
 </xsl:function>
 
+<!-- ====================================================================== -->
+
+<xsl:function name="f:keep-titlepage-fragment" as="xs:boolean">
+  <xsl:param name="fragment" as="node()*"/>
+
+  <xsl:value-of select="string($fragment) != ''
+                        or count($fragment//fo:block) != count($fragment//*)"/>
+</xsl:function>
+
+<xsl:template name="t:default-titlepage-template" as="element()">
+  <fo:block>
+    <db:title/>
+  </fo:block>
+</xsl:template>
+
 </xsl:stylesheet>

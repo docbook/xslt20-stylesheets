@@ -477,6 +477,21 @@ for the specified node.</para>
 
 <!-- ====================================================================== -->
 
+<xsl:function name="f:keep-titlepage-fragment" as="xs:boolean">
+  <xsl:param name="fragment" as="node()*"/>
+
+  <xsl:value-of select="string($fragment) != ''
+                        or count($fragment//h:div) != count($fragment//*)"/>
+</xsl:function>
+
+<xsl:template name="t:default-titlepage-template" as="element()">
+  <div>
+    <db:title/>
+  </div>
+</xsl:template>
+
+<!-- ====================================================================== -->
+
 <doc:mode name="m:strip-anchors" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for stripping anchors from XHTML</refpurpose>
 

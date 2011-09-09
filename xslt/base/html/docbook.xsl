@@ -20,15 +20,12 @@
   <xsl:include href="../common/normalize.xsl"/>
   <xsl:include href="../common/functions.xsl"/>
   <xsl:include href="../common/common.xsl"/>
-  <!-- del: <xsl:include href="../common/titlepages.xsl"/> -->
   <xsl:include href="../common/label-content.xsl"/>
   <xsl:include href="../common/title-content.xsl"/>
   <xsl:include href="../common/inlines.xsl"/>
   <xsl:include href="../common/olink.xsl"/>
   <xsl:include href="../common/preprocess.xsl"/>
-  <!-- del: <xsl:include href="titlepages.xsl"/> -->
-  <!-- del: <xsl:include href="titlepage.xsl"/> -->
-  <!-- del: <xsl:include href="title-markup.xsl"/> -->
+  <xsl:include href="../common/titlepages.xsl"/>
   <xsl:include href="titlepage-templates.xsl"/>
   <xsl:include href="titlepage-mode.xsl"/>
   <xsl:include href="autotoc.xsl"/>
