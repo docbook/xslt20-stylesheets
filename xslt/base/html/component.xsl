@@ -13,11 +13,8 @@
 <xsl:template match="db:dedication
 		     |db:preface|db:chapter|db:appendix
 		     |db:colophon|db:article">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id">
-      <xsl:with-param name="force" select="1"/>
-    </xsl:call-template>
-
+  <div>
+    <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
 
     <xsl:if test="not(db:toc)">
@@ -36,17 +33,17 @@
 <xsl:template match="db:dedication
 		     |db:preface|db:chapter|db:appendix
 		     |db:colophon|db:article" mode="m:toc">
-    <xsl:param name="toc.params"
-               select="f:find-toc-params(., $generate.toc)"/>
+  <xsl:param name="toc.params"
+             select="f:find-toc-params(., $generate.toc)"/>
 
-    <xsl:call-template name="t:make-lots">
-      <xsl:with-param name="toc.params" select="$toc.params"/>
-      <xsl:with-param name="toc">
-	<xsl:call-template name="t:component-toc">
-	  <xsl:with-param name="toc.title" select="$toc.params/@title != 0"/>
-	</xsl:call-template>
+  <xsl:call-template name="t:make-lots">
+    <xsl:with-param name="toc.params" select="$toc.params"/>
+    <xsl:with-param name="toc">
+      <xsl:call-template name="t:component-toc">
+        <xsl:with-param name="toc.title" select="$toc.params/@title != 0"/>
+      </xsl:call-template>
       </xsl:with-param>
-    </xsl:call-template>
+  </xsl:call-template>
 </xsl:template>
 
 </xsl:stylesheet>

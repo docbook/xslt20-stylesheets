@@ -23,9 +23,8 @@
   <xsl:call-template name="t:semiformal-object">
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-        <xsl:call-template name="t:id"/>
-        <xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-attributes(.)"/>
         <xsl:apply-templates/>
       </div>
     </xsl:with-param>
@@ -855,8 +854,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
     </xsl:when>
     <xsl:otherwise>
       <div>
-        <xsl:call-template name="t:id"/>
-        <xsl:attribute name="class" select="string-join((local-name(.), @role, $center), ' ')"/>
+        <xsl:sequence select="f:html-attributes(., f:node-id(.), local-name(.), (@role,$center), @h:*)"/>
         <xsl:if test="$html.longdesc != 0 and $html.longdesc.link != 0">
           <xsl:call-template name="t:longdesc-link">
             <xsl:with-param name="textobject"
@@ -871,9 +869,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 </xsl:template>
 
 <xsl:template match="db:inlinemediaobject">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:call-template name="t:select-mediaobject"/>
   </span>
 </xsl:template>
@@ -887,9 +884,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <!-- ==================================================================== -->
 
 <xsl:template match="db:imageobjectco">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates select="db:imageobject"/>
     <xsl:apply-templates select="db:calloutlist"/>
   </div>
@@ -1013,9 +1009,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <!-- ==================================================================== -->
 
 <xsl:template match="db:caption">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>

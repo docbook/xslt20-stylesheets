@@ -614,4 +614,75 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
   </xsl:if>
 </xsl:template>
 
+<!-- ============================================================ -->
+
+<xsl:function name="f:html-class" as="attribute()*">
+  <xsl:param name="node" as="element()"/>
+  <xsl:param name="class" as="xs:string?"/>
+  <xsl:param name="extra-classes" as="xs:string*"/>
+
+  <xsl:if test="exists($class) or exists($extra-classes)">
+    <xsl:attribute name="class"
+                   select="normalize-space(string-join(($class,$extra-classes), ' '))"/>
+  </xsl:if>
+</xsl:function>
+
+<xsl:function name="f:html-attributes" as="attribute()*">
+  <xsl:param name="node" as="element()"/>
+  <xsl:sequence select="f:html-attributes($node, $node/@xml:id, local-name($node), $node/@role, $node/@h:*)"/>
+</xsl:function>
+
+<xsl:function name="f:html-attributes" as="attribute()*">
+  <xsl:param name="node" as="element()"/>
+  <xsl:param name="id" as="xs:string?"/>
+  <xsl:sequence select="f:html-attributes($node, $id, local-name($node), $node/@role, $node/@h:*)"/>
+</xsl:function>
+
+<xsl:function name="f:html-attributes" as="attribute()*">
+  <xsl:param name="node" as="element()"/>
+  <xsl:param name="id" as="xs:string?"/>
+  <xsl:param name="class" as="xs:string?"/>
+  <xsl:sequence select="f:html-attributes($node, $id, $class, $node/@role, $node/@h:*)"/>
+</xsl:function>
+
+<xsl:function name="f:html-attributes" as="attribute()*">
+  <xsl:param name="node" as="element()"/>
+  <xsl:param name="id" as="xs:string?"/>
+  <xsl:param name="class" as="xs:string?"/>
+  <xsl:param name="extra-classes" as="xs:string*"/>
+  <xsl:sequence select="f:html-attributes($node, $id, $class, $extra-classes, $node/@h:*)"/>
+</xsl:function>
+
+<xsl:function name="f:html-attributes" as="attribute()*">
+  <xsl:param name="node" as="element()"/>
+  <xsl:param name="id" as="xs:string?"/>
+  <xsl:param name="class" as="xs:string?"/>
+  <xsl:param name="extra-classes" as="xs:string*"/>
+  <xsl:param name="extra-attrs" as="attribute()*"/>
+
+  <xsl:if test="exists($id)">
+    <xsl:attribute name="id" select="($id,$node/@xml:id)[1]"/>
+  </xsl:if>
+
+  <xsl:if test="$node/@dir">
+    <xsl:copy-of select="$node/@dir"/>
+  </xsl:if>
+
+  <xsl:if test="$node/@xml:lang">
+    <xsl:call-template name="lang-attribute">
+      <xsl:with-param name="node" select="$node"/>
+    </xsl:call-template>
+  </xsl:if>
+
+  <xsl:if test="$node/db:alt">
+    <xsl:attribute name="title" select="string($node/db:alt[1])"/>
+  </xsl:if>
+
+  <xsl:sequence select="f:html-class($node, $class, $extra-classes)"/>
+
+  <xsl:for-each select="$extra-attrs">
+    <xsl:attribute name="{local-name(.)}" select="string(.)"/>
+  </xsl:for-each>
+</xsl:function>
+
 </xsl:stylesheet>

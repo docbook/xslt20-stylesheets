@@ -18,8 +18,8 @@
 	    select="$formal.title.placement[self::db:msgset]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
         <xsl:apply-templates/>
       </div>
     </xsl:with-param>
@@ -40,8 +40,8 @@
 	    select="$formal.title.placement[self::db:msgentry]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
         <xsl:apply-templates/>
       </div>
     </xsl:with-param>
@@ -57,9 +57,8 @@
 </xsl:template>
 
 <xsl:template match="db:simplemsgentry">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -70,8 +69,8 @@
 	    select="$formal.title.placement[self::db:msg]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
         <xsl:apply-templates/>
       </div>
     </xsl:with-param>
@@ -115,9 +114,8 @@
 </xsl:template>
 
 <xsl:template match="db:msginfo">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -164,8 +162,8 @@
 	    select="$formal.title.placement[self::db:msgexplan]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
         <xsl:apply-templates/>
       </div>
     </xsl:with-param>

@@ -549,8 +549,6 @@ Lists of Titles for a qandaset.</para>
   <xsl:param name="depth.from.context" select="8"/>
 
   <span>
-    <xsl:call-template name="class"/>
-
     <a href="{f:href(/,.)}">
       <xsl:variable name="label">
 	<xsl:apply-templates select="." mode="m:label-content"/>

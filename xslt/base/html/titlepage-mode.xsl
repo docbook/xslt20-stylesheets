@@ -13,14 +13,15 @@
 <!-- Recto templates -->
 
 <xsl:template match="db:authorgroup" mode="m:titlepage-recto-mode">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:titlepage-recto-mode"/>
   </div>
 </xsl:template>
 
 <xsl:template match="db:author" mode="m:titlepage-recto-mode">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <h3>
       <xsl:choose>
         <xsl:when test="db:orgname">
@@ -35,7 +36,8 @@
 </xsl:template>
 
 <xsl:template match="db:editor" mode="m:titlepage-recto-mode">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <h4 class="editedby">
       <xsl:call-template name="gentext">
         <xsl:with-param name="key" select="'editedby'"/>
@@ -67,7 +69,8 @@
 </xsl:template>
 
 <xsl:template match="db:abstract" mode="m:titlepage-recto-mode">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -76,7 +79,8 @@
 <!-- Verso templates -->
 
 <xsl:template match="db:authorgroup" mode="m:titlepage-verso-mode">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:call-template name="gentext">
       <xsl:with-param name="key" select="'by'"/>
     </xsl:call-template>
@@ -243,7 +247,8 @@
 </xsl:template>
 
 <xsl:template match="db:bibliolist/db:title|db:bibliolist/db:info/db:title
-                     |db:glosslist/db:title|db:glosslist/db:info/db:title"
+                     |db:glosslist/db:title|db:glosslist/db:info/db:title
+                     |db:blockquote/db:title|db:blockquote/db:info/db:title"
               mode="m:titlepage-mode">
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
@@ -533,7 +538,8 @@
 </xsl:template>
 
 <xsl:template match="db:authorgroup" mode="m:titlepage-mode">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:titlepage-mode"/>
   </div>
 </xsl:template>
@@ -554,7 +560,8 @@
     </xsl:choose>
   </xsl:variable>
 
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <h3>
       <xsl:sequence select="$content"/>
     </h3>
@@ -562,7 +569,8 @@
 </xsl:template>
 
 <xsl:template match="db:editor" mode="m:titlepage-mode">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:call-template name="gentext">
       <xsl:with-param name="key" select="'editedby'"/>
     </xsl:call-template>
@@ -590,7 +598,8 @@
 </xsl:template>
 
 <xsl:template match="db:abstract" mode="m:titlepage-mode">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:choose>
       <xsl:when test="true() or parent::db:article or parent::db:info/parent::db:article">
         <xsl:apply-templates/>
@@ -606,7 +615,8 @@
 </xsl:template>
 
 <xsl:template match="db:legalnotice" mode="m:titlepage-mode">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>

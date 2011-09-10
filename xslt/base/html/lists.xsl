@@ -18,9 +18,8 @@
 <!-- ============================================================ -->
 
 <xsl:template match="db:itemizedlist">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -60,14 +59,13 @@
   </xsl:variable>
 
   <li>
+    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
     <xsl:if test="$cssmark != ''">
       <xsl:attribute name="style">
 	<xsl:text>list-style-type: </xsl:text>
 	<xsl:value-of select="$cssmark"/>
       </xsl:attribute>
     </xsl:if>
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
     <xsl:apply-templates/>
   </li>
 </xsl:template>
@@ -81,8 +79,8 @@
   <xsl:variable name="numeration"
 		select="f:orderedlist-numeration(.)"/>
 
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -96,9 +94,8 @@
       <!-- If there's no inline style attribute, force the class -->
       <!-- to contain the numeration so that external CSS can work -->
       <!-- otherwise, leave the class whatever it was -->
-      <xsl:call-template name="class"/>
       <xsl:if test="$inline.style.attribute = 0">
-	<xsl:attribute name="class" select="$numeration"/>
+        <xsl:attribute name="class" select="$numeration"/>
       </xsl:if>
 
       <xsl:call-template name="style">
@@ -125,13 +122,12 @@
 
 <xsl:template match="db:orderedlist/db:listitem">
   <li>
+    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
     <xsl:if test="@override">
       <xsl:attribute name="value">
         <xsl:value-of select="@override"/>
       </xsl:attribute>
     </xsl:if>
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
     <xsl:apply-templates/>
   </li>
 </xsl:template>
@@ -139,9 +135,8 @@
 <!-- ============================================================ -->
 
 <xsl:template match="db:variablelist">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -155,30 +150,15 @@
 
 <xsl:template match="db:varlistentry">
   <dt>
+    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
     <xsl:apply-templates select="db:term"/>
   </dt>
   <xsl:apply-templates select="db:listitem"/>
 </xsl:template>
 
 <xsl:template match="db:varlistentry/db:term">
-  <!-- If the first term doesn't have an ID, but the varlistentry does,
-       output an ID for the varlistentry... -->
-  <span class="term">
-    <xsl:choose>
-      <xsl:when test="not(preceding-sibling::db:term)
-                      and not(@xml:id)
-                      and ../@xml:id">
-        <xsl:call-template name="t:id">
-          <xsl:with-param name="node" select="parent::db:varlistentry"/>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="t:id">
-          <xsl:with-param name="force" select="1"/>
-        </xsl:call-template>
-      </xsl:otherwise>
-    </xsl:choose>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
     <xsl:call-template name="t:simple-xlink"/>
   </span>
 
@@ -195,8 +175,7 @@
 
 <xsl:template match="db:varlistentry/db:listitem">
   <dd>
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
     <xsl:apply-templates/>
   </dd>
 </xsl:template>
@@ -204,9 +183,8 @@
 <!-- ============================================================ -->
 
 <xsl:template match="db:simplelist[not(@type) or @type='vert']">
-  <table class="{local-name(.)}" border="0" summary="Simple list">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <table border="0" summary="Simple list">
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="simplelist-vert">
       <xsl:with-param name="cols" select="if (@columns) then @columns else 1"/>
@@ -215,9 +193,8 @@
 </xsl:template>
 
 <xsl:template match="db:simplelist[@type='horiz']">
-  <table class="{local-name(.)}" border="0" summary="Simple list">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <table border="0" summary="Simple list">
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="simplelist-horiz">
       <xsl:with-param name="cols" select="if (@columns) then @columns else 1"/>
@@ -226,9 +203,8 @@
 </xsl:template>
 
 <xsl:template match="db:simplelist[@type='inline']">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
 </xsl:template>
@@ -394,17 +370,15 @@
 </xsl:template>
 
 <xsl:template match="db:member">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:simplelist[@type='inline']/db:member">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:member">, </xsl:if>
@@ -420,8 +394,8 @@
 	    select="$formal.title.placement[self::db:procedure]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
 
 	<xsl:apply-templates
 	    select="(db:step[1]/preceding-sibling::node())[not(self::db:info)]"/>
@@ -457,10 +431,8 @@
 
 <xsl:template match="db:step">
   <li>
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
-
-    <div class="{local-name(.)}">
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <div>
       <xsl:call-template name="t:titlepage"/>
       <xsl:apply-templates/>
     </div>
@@ -470,29 +442,31 @@
 <xsl:template match="db:substeps">
   <xsl:variable name="numeration" select="f:procedure-step-numeration(.)"/>
 
-  <ol>
-    <xsl:attribute name="type">
-      <xsl:choose>
-	<xsl:when test="$numeration = 'arabic'">1</xsl:when>
-	<xsl:when test="$numeration = 'loweralpha'">a</xsl:when>
-	<xsl:when test="$numeration = 'upperalpha'">A</xsl:when>
-	<xsl:when test="$numeration = 'lowerroman'">i</xsl:when>
-	<xsl:when test="$numeration = 'upperroman'">I</xsl:when>
-	<xsl:otherwise>1</xsl:otherwise>
-      </xsl:choose>
-    </xsl:attribute>
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
-    <xsl:apply-templates/>
-  </ol>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <ol>
+      <xsl:attribute name="type">
+        <xsl:choose>
+          <xsl:when test="$numeration = 'arabic'">1</xsl:when>
+          <xsl:when test="$numeration = 'loweralpha'">a</xsl:when>
+          <xsl:when test="$numeration = 'upperalpha'">A</xsl:when>
+          <xsl:when test="$numeration = 'lowerroman'">i</xsl:when>
+          <xsl:when test="$numeration = 'upperroman'">I</xsl:when>
+          <xsl:otherwise>1</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+      <xsl:apply-templates/>
+    </ol>
+  </div>
 </xsl:template>
 
 <xsl:template match="db:stepalternatives">
-  <ul>
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
-    <xsl:apply-templates/>
-  </ul>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <ul>
+      <xsl:apply-templates/>
+    </ul>
+  </div>
 </xsl:template>
 
 
@@ -503,9 +477,8 @@
 		select="f:pi(processing-instruction('dbhtml'),
 			     'list-presentation')"/>
 
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -533,9 +506,8 @@
 </xsl:template>
 
 <xsl:template match="db:seglistitem">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -551,7 +523,8 @@
      you'll get something odd...maybe an error
   -->
 
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <strong>
       <span class="segtitle">
         <xsl:apply-templates select="$segtitles[$segnum=position()]"
@@ -572,8 +545,6 @@
 		select="f:pi(processing-instruction('dbhtml'),
 			     'list-width')"/>
 
-  <xsl:apply-templates select="db:info"/>
-
   <table border="0">
     <xsl:if test="$list-width != ''">
       <xsl:attribute name="width">
@@ -585,14 +556,8 @@
         <xsl:value-of select="$table-summary"/>
       </xsl:attribute>
     </xsl:if>
-    <thead>
-      <tr class="segtitle">
-	<!--
-        <xsl:call-template name="tr.attributes">
-          <xsl:with-param name="row" select="segtitle[1]"/>
-          <xsl:with-param name="rownum" select="1"/>
-        </xsl:call-template>
-	-->
+    <thead class="segtitles">
+      <tr>
         <xsl:apply-templates select="db:segtitle" mode="m:seglist-table"/>
       </tr>
     </thead>
@@ -603,7 +568,10 @@
 </xsl:template>
 
 <xsl:template match="db:segtitle" mode="m:seglist-table">
-  <th><xsl:apply-templates/></th>
+  <th>
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:apply-templates/>
+  </th>
 </xsl:template>
 
 <xsl:template match="db:seglistitem" mode="m:seglist-table">
@@ -611,25 +579,15 @@
     <xsl:number from="db:segmentedlist" count="db:seglistitem"/>
   </xsl:variable>
 
-  <tr class="{local-name(.)}">
-    <!--
-    <xsl:call-template name="tr.attributes">
-      <xsl:with-param name="rownum" select="$seglinum + 1"/>
-    </xsl:call-template>
-    -->
+  <tr>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:seglist-table"/>
   </tr>
 </xsl:template>
 
 <xsl:template match="db:seg" mode="m:seglist-table">
-  <td class="{local-name(.)}"><xsl:apply-templates/></td>
-</xsl:template>
-
-<xsl:template match="db:seg[1]" mode="m:seglist-table">
-  <td class="{local-name(.)}">
-    <xsl:call-template name="t:id">
-      <xsl:with-param name="node" select="ancestor::db:seglistitem"/>
-    </xsl:call-template>
+  <td>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </td>
 </xsl:template>

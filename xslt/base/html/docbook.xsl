@@ -97,7 +97,7 @@
 
 <xsl:template match="*">
   <div class="unknowntag">
-    <xsl:call-template name="t:id"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <font color="red">
       <xsl:text>&lt;</xsl:text>
       <xsl:value-of select="name(.)"/>

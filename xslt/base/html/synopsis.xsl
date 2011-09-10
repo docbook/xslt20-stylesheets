@@ -14,9 +14,8 @@
 <xsl:include href="oosynopsis.xsl"/>
 
 <xsl:template match="db:refsynopsis">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -42,9 +41,8 @@
 <xsl:variable name="cmdsynopsis.margin.top">1em</xsl:variable>
 
 <xsl:template match="db:cmdsynopsis">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:attribute name="style">
       <xsl:text>margin-top: </xsl:text>
       <xsl:value-of select="$cmdsynopsis.margin.top"/>
@@ -151,7 +149,8 @@
     <xsl:apply-templates select="$target" mode="m:synopfragment.number"/>
   </xsl:variable>
 
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <a href="#{@linkend}">
       <xsl:text>(</xsl:text>
       <xsl:value-of select="$snum"/>
@@ -167,8 +166,8 @@
 </xsl:template>
 
 <xsl:template match="db:synopfragment">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:attribute name="style">
       <xsl:text>margin-top: </xsl:text>
       <xsl:value-of select="$cmdsynopsis.margin.top"/>
@@ -189,15 +188,15 @@
 <xsl:param name="funcsynopsis.tabular.threshold" select="40"/>
 
 <xsl:template match="db:funcsynopsis">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
 
 <xsl:template match="db:funcsynopsisinfo">
-  <pre class="{local-name(.)}">
+  <pre>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </pre>
 </xsl:template>
@@ -276,7 +275,8 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:template>
 
 <xsl:template match="db:funcdef" mode="m:kr-nontabular">
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:kr-nontabular"/>
     <xsl:text>(</xsl:text>
   </code>
@@ -360,9 +360,10 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <!-- funcprototype: kr, tabular -->
 
 <xsl:template match="db:funcprototype" mode="m:kr-tabular">
-  <table class="{local-name(.)}" border="0" summary="Function synopsis"
+  <table border="0" summary="Function synopsis"
 	 cellspacing="0" cellpadding="0"
          style="padding-bottom: 1em">
+    <xsl:sequence select="f:html-attributes(.)"/>
     <tr>
       <td>
         <xsl:apply-templates select="db:funcdef" mode="m:kr-tabular"/>
@@ -379,9 +380,10 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   </table>
 
   <xsl:if test="db:paramdef">
-    <table class="{local-name(.)}" border="0"
+    <table border="0"
 	   summary="Function argument synopsis"
            cellspacing="0" cellpadding="0">
+      <xsl:sequence select="f:html-attributes(.)"/>
       <!--
       <xsl:if test="following-sibling::db:funcprototype">
         <xsl:attribute name="style">padding-bottom: 1em</xsl:attribute>
@@ -394,7 +396,8 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:template>
 
 <xsl:template match="db:funcdef" mode="m:kr-tabular">
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:kr-tabular"/>
     <xsl:text>(</xsl:text>
   </code>
@@ -525,7 +528,8 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:template>
 
 <xsl:template match="db:funcdef" mode="m:ansi-nontabular">
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:ansi-nontabular"/>
     <xsl:text>(</xsl:text>
   </code>
@@ -589,9 +593,10 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <!-- funcprototype: ansi, tabular -->
 
 <xsl:template match="db:funcprototype" mode="m:ansi-tabular">
-  <table class="{local-name(.)}" border="0"
+  <table border="0"
 	 summary="Function synopsis"
 	 cellspacing="0" cellpadding="0">
+    <xsl:sequence select="f:html-attributes(.)"/>
     <!--
     <xsl:if test="following-sibling::db:funcprototype">
       <xsl:attribute name="style">padding-bottom: 1em</xsl:attribute>
@@ -614,7 +619,8 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:template>
 
 <xsl:template match="db:funcdef" mode="m:ansi-tabular">
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:ansi-tabular"/>
     <xsl:text>(</xsl:text>
   </code>
@@ -731,17 +737,15 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:template>
 
 <xsl:template match="db:function" mode="m:funcprototype-xslt2-function">
-  <strong class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <strong>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:funcprototype-xslt2-function"/>
   </strong>
 </xsl:template>
 
 <xsl:template match="db:type" mode="m:funcprototype-xslt2-function">
-  <em class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <em>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:funcprototype-xslt2-function"/>
   </em>
 </xsl:template>
@@ -759,9 +763,8 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:template>
 
 <xsl:template match="db:parameter" mode="m:funcprototype-xslt2-function">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:funcprototype-xslt2-function"/>
   </span>
 </xsl:template>
@@ -778,8 +781,8 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </doc:mode>
 
 <xsl:template match="db:funcprototype" mode="m:funcprototype-xslt2-template">
-  <pre class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <pre>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:text>&lt;xsl:call-template name="</xsl:text>
     <xsl:value-of select="db:funcdef/db:function"/>

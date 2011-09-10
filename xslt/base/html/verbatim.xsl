@@ -102,6 +102,7 @@
   </xsl:variable>
 
   <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:attribute name="class">
       <xsl:value-of select="local-name(.)"/>
       <!-- n.b. look above where $verbatim is computed -->
@@ -120,9 +121,12 @@
         <xsl:otherwise/>
       </xsl:choose>
     </xsl:attribute>
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
-    <pre><xsl:sequence select="$formatted"/></pre>
+    <pre>
+      <xsl:if test="@language">
+        <xsl:attribute name="class" select="@language"/>
+      </xsl:if>
+      <xsl:sequence select="$formatted"/>
+    </pre>
   </div>
 </xsl:template>
 
@@ -145,9 +149,8 @@
   <xsl:message>FORM: <xsl:sequence select="$formatted"/></xsl:message>
   -->
 
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates select="$formatted" mode="mp:literallayout"/>
   </div>
 </xsl:template>
@@ -171,9 +174,8 @@
   <xsl:message>FORM: <xsl:sequence select="$formatted"/></xsl:message>
   -->
 
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates select="$formatted" mode="mp:literallayout"/>
   </div>
 </xsl:template>

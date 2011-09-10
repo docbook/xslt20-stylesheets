@@ -13,7 +13,7 @@
 
 <xsl:template match="db:para|db:simpara">
   <xsl:param name="runin" select="()" tunnel="yes"/>
-  <xsl:param name="class" select="''" tunnel="yes"/>
+  <xsl:param name="class" select="()" tunnel="yes"/>
 
   <xsl:variable name="para" select="."/>
 
@@ -69,16 +69,7 @@
 
         <xsl:otherwise>
           <p>
-            <xsl:call-template name="t:id"/>
-            <xsl:choose>
-              <xsl:when test="$class = ''">
-                <xsl:call-template name="class"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:attribute name="class" select="$class"/>
-              </xsl:otherwise>
-            </xsl:choose>
-
+            <xsl:sequence select="f:html-attributes(., @xml:id, $class)"/>
             <xsl:copy-of select="$runin"/>
             <xsl:apply-templates/>
             <xsl:copy-of select="$annotmarkup"/>
@@ -88,11 +79,7 @@
     </xsl:when>
     <xsl:otherwise>
       <p>
-        <xsl:apply-templates select="." mode="m:html-attributes">
-          <xsl:with-param name="suppress-local-name-class" select="true()"/>
-          <xsl:with-param name="class" select="$class"/>
-        </xsl:apply-templates>
-
+        <xsl:sequence select="f:html-attributes(., @xml:id, $class)"/>
         <xsl:copy-of select="$runin"/>
         <xsl:apply-templates/>
         <xsl:copy-of select="$annotmarkup"/>
@@ -112,32 +99,33 @@
 </xsl:template>
 
 <xsl:template match="db:epigraph">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates select="*[not(self::db:attribution)]"/>
     <xsl:apply-templates select="db:attribution"/>
   </div>
 </xsl:template>
 
 <xsl:template match="db:attribution">
-  <div class="{local-name(.)}">
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <span class="mdash">—</span>
     <xsl:apply-templates/>
   </div>
 </xsl:template>
 
 <xsl:template match="db:ackno">
-  <div class="{local-name(.)}"><xsl:apply-templates/></div>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:apply-templates/>
+  </div>
 </xsl:template>
 
 <xsl:template match="db:blockquote">
   <blockquote>
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:title | db:info/db:title">
-      <h3>
-        <xsl:apply-templates select="." mode="m:title-content"/>
-      </h3>
-    </xsl:if>
-    <xsl:apply-templates select="* except (db:title|db:titleabbrev|db:info|db:attribution)"/>
+    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
+    <xsl:call-template name="t:titlepage"/>
+    <xsl:apply-templates select="* except db:attribution"/>
     <xsl:apply-templates select="db:attribution"/>
   </blockquote>
 </xsl:template>
@@ -146,9 +134,8 @@
 
 <xsl:template match="db:remark">
   <xsl:if test="$show.comments != 0">
-    <div class="{local-name(.)}">
-      <xsl:call-template name="t:id"/>
-      <xsl:call-template name="class"/>
+    <div>
+      <xsl:sequence select="f:html-attributes(.)"/>
       <xsl:apply-templates/>
     </div>
   </xsl:if>
@@ -157,14 +144,11 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:sidebar">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
-
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:call-template name="t:titlepage"/>
-
     <div class="sidebar-content">
-      <xsl:apply-templates select="*[not(self::db:info)]"/>
+      <xsl:apply-templates/>
     </div>
   </div>
 </xsl:template>
@@ -172,14 +156,11 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:annotation" mode="m:annotation">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
-
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:call-template name="t:titlepage"/>
-
     <div class="annotation-content">
-      <xsl:apply-templates select="*[not(self::db:info)]"/>
+      <xsl:apply-templates/>
     </div>
   </div>
 </xsl:template>

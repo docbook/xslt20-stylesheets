@@ -74,7 +74,8 @@
 <!-- ===== Java ======================================================== -->
 
 <xsl:template match="db:classsynopsis" mode="java">
-  <pre class="{local-name(.)}">
+  <pre>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates select="db:ooclass[1]" mode="java"/>
     <xsl:if test="db:ooclass[position() &gt; 1]">
       <xsl:text> extends</xsl:text>
@@ -120,13 +121,15 @@
       <xsl:text>class </xsl:text>
     </xsl:otherwise>
   </xsl:choose>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:modifier" mode="java">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
     <xsl:text>&#160;</xsl:text>
   </span>
@@ -136,7 +139,8 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:classname">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -145,7 +149,8 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:interfacename">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -154,13 +159,15 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:exceptionname">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:fieldsynopsis" mode="java">
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:if test="parent::db:classsynopsis">
       <xsl:text>&#160;&#160;</xsl:text>
     </xsl:if>
@@ -171,34 +178,39 @@
 </xsl:template>
 
 <xsl:template match="db:type" mode="java">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
     <xsl:text>&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:varname" mode="java">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
     <xsl:text>&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:initializer" mode="java">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>=&#160;</xsl:text>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:void" mode="java">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>void&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:methodname" mode="java">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -210,13 +222,15 @@
     <br/>
     <xsl:value-of select="string-join(for $count in (1 to $indent) return '&#160;','')"/>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:parameter" mode="java">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="java"/>
   </span>
 </xsl:template>
@@ -239,7 +253,8 @@
     <xsl:apply-templates select="db:methodname" mode="java"/>
   </xsl:variable>
 
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:copy-of select="$decl"/>
     <xsl:text>(</xsl:text>
     <xsl:apply-templates select="db:methodparam" mode="java">
@@ -260,7 +275,8 @@
 <!-- ===== C++ ========================================================= -->
 
 <xsl:template match="db:classsynopsis" mode="cpp">
-  <pre class="{local-name(.)}">
+  <pre>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates select="db:ooclass[1]" mode="cpp"/>
     <xsl:if test="db:ooclass[position() &gt; 1]">
       <xsl:text>: </xsl:text>
@@ -301,13 +317,15 @@
   <xsl:if test="position() &gt; 1">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:modifier" mode="cpp">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
     <xsl:text>&#160;</xsl:text>
   </span>
@@ -317,7 +335,8 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:classname">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -326,7 +345,8 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:interfacename">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -335,13 +355,15 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:exceptionname">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:fieldsynopsis" mode="cpp">
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:if test="parent::db:classsynopsis">
       <xsl:text>&#160;&#160;</xsl:text>
     </xsl:if>
@@ -352,34 +374,39 @@
 </xsl:template>
 
 <xsl:template match="db:type" mode="cpp">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
     <xsl:text>&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:varname" mode="cpp">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
     <xsl:text>&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:initializer" mode="cpp">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>=&#160;</xsl:text>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:void" mode="cpp">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>void&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:methodname" mode="cpp">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -388,13 +415,15 @@
   <xsl:if test="position() &gt; 1">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:parameter" mode="cpp">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="cpp"/>
   </span>
 </xsl:template>
@@ -404,7 +433,8 @@
   <xsl:variable name="modifiers" select="db:modifier"/>
   <xsl:variable name="notmod" select="*[not(self::db:modifier)]"/>
 
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:if test="parent::db:classsynopsis">
       <xsl:text>&#160;&#160;</xsl:text>
     </xsl:if>
@@ -433,7 +463,8 @@
 <!-- ===== IDL ========================================================= -->
 
 <xsl:template match="db:classsynopsis" mode="idl">
-  <pre class="{local-name(.)}">
+  <pre>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>interface </xsl:text>
     <xsl:apply-templates select="db:ooclass[1]" mode="idl"/>
     <xsl:if test="db:ooclass[position() &gt; 1]">
@@ -475,13 +506,15 @@
   <xsl:if test="position() &gt; 1">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:modifier" mode="idl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
     <xsl:text>&#160;</xsl:text>
   </span>
@@ -491,7 +524,8 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:classname">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -500,7 +534,8 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:interfacename">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -509,13 +544,15 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:exceptionname">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:fieldsynopsis" mode="idl">
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:if test="parent::db:classsynopsis">
       <xsl:text>&#160;&#160;</xsl:text>
     </xsl:if>
@@ -526,34 +563,39 @@
 </xsl:template>
 
 <xsl:template match="db:type" mode="idl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
     <xsl:text>&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:varname" mode="idl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
     <xsl:text>&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:initializer" mode="idl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>=&#160;</xsl:text>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:void" mode="idl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>void&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:methodname" mode="idl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -562,13 +604,15 @@
   <xsl:if test="position() &gt; 1">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:parameter" mode="idl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="idl"/>
   </span>
 </xsl:template>
@@ -578,7 +622,8 @@
   <xsl:variable name="modifiers" select="db:modifier"/>
   <xsl:variable name="notmod" select="*[not(self::db:modifier)]"/>
 
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:if test="parent::db:classsynopsis">
       <xsl:text>&#160;&#160;</xsl:text>
     </xsl:if>
@@ -608,7 +653,8 @@
 <!-- ===== Perl ======================================================== -->
 
 <xsl:template match="db:classsynopsis" mode="perl">
-  <pre class="{local-name(.)}">
+  <pre>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>package </xsl:text>
     <xsl:apply-templates select="db:ooclass[1]" mode="perl"/>
     <xsl:text>;</xsl:text>
@@ -637,13 +683,15 @@
   <xsl:if test="position() &gt; 1">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:modifier" mode="perl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
     <xsl:text>&#160;</xsl:text>
   </span>
@@ -653,7 +701,8 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:classname">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -662,7 +711,8 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:interfacename">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -671,13 +721,15 @@
   <xsl:if test="preceding-sibling::*[1]/self::db:exceptionname">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:fieldsynopsis" mode="perl">
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:if test="parent::db:classsynopsis">
       <xsl:text>&#160;&#160;</xsl:text>
     </xsl:if>
@@ -688,34 +740,39 @@
 </xsl:template>
 
 <xsl:template match="db:type" mode="perl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
     <xsl:text>&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:varname" mode="perl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
     <xsl:text>&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:initializer" mode="perl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>=&#160;</xsl:text>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:void" mode="perl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>void&#160;</xsl:text>
   </span>
 </xsl:template>
 
 <xsl:template match="db:methodname" mode="perl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -724,13 +781,15 @@
   <xsl:if test="position() &gt; 1">
     <xsl:text>, </xsl:text>
   </xsl:if>
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:parameter" mode="perl">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="perl"/>
   </span>
 </xsl:template>
@@ -740,7 +799,8 @@
   <xsl:variable name="modifiers" select="db:modifier"/>
   <xsl:variable name="notmod" select="*[not(self::db:modifier)]"/>
 
-  <code class="{local-name(.)}">
+  <code>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:text>sub </xsl:text>
 
     <xsl:apply-templates select="db:methodname" mode="perl"/>

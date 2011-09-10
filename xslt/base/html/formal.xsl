@@ -39,10 +39,8 @@ title.</para>
   </xsl:variable>
 
   <xsl:variable name="wrapper">
-    <div class="{$class}-wrapper">
-      <xsl:call-template name="t:id">
-	<xsl:with-param name="node" select="$context"/>
-      </xsl:call-template>
+    <div>
+      <xsl:sequence select="f:html-attributes($context, f:node-id($context), concat($class,'-wrapper'))"/>
       <xsl:choose>
 	<xsl:when test="$placement = 'before'">
 	  <xsl:sequence select="$title"/>
@@ -110,10 +108,8 @@ title.</para>
   <xsl:param name="object" as="element()*" required="yes"/>
 
   <xsl:variable name="wrapper">
-    <div class="{$class}-wrapper">
-      <xsl:call-template name="t:id">
-	<xsl:with-param name="node" select="$context"/>
-      </xsl:call-template>
+    <div>
+      <xsl:sequence select="f:html-attributes($context, f:node-id($context), concat($class,'-wrapper'))"/>
       <xsl:sequence select="$object"/>
       <xsl:apply-templates select="$context/db:caption"/>
     </div>
@@ -174,8 +170,8 @@ formal, sometimes informal, by calling the appropriate template.
 	    select="$formal.title.placement[self::db:figure]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-attributes(., ())"/>
 	<xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
@@ -186,8 +182,8 @@ formal, sometimes informal, by calling the appropriate template.
   <xsl:call-template name="t:informal-object">
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-attributes(., ())"/>
 	<xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
@@ -200,8 +196,8 @@ formal, sometimes informal, by calling the appropriate template.
 	    select="$formal.title.placement[self::db:example]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-attributes(., ())"/>
 	<xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
@@ -212,8 +208,8 @@ formal, sometimes informal, by calling the appropriate template.
   <xsl:call-template name="t:informal-object">
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-attributes(., ())"/>
 	<xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
@@ -223,8 +219,8 @@ formal, sometimes informal, by calling the appropriate template.
 <!-- ============================================================ -->
 
 <xsl:template match="db:formalpara">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates select="db:indexterm"/>
     <xsl:apply-templates select="db:para">
       <xsl:with-param name="runin" as="node()*" tunnel="yes">

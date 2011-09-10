@@ -19,8 +19,8 @@
 	    select="$formal.title.placement[self::db:equation]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
 	<xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
@@ -31,8 +31,8 @@
   <xsl:call-template name="t:informal-object">
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
 	<xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
@@ -40,17 +40,15 @@
 </xsl:template>
 
 <xsl:template match="db:inlineequation">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
 </xsl:template>
 
 <xsl:template match="db:mathphrase">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
 </xsl:template>

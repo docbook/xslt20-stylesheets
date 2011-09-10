@@ -22,9 +22,8 @@
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="longdesc" select="db:textobject[not(db:phrase)]"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<!-- don't put the ID here, it'll be generated on the table -->
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
 
 	<xsl:choose>
 	  <xsl:when test="db:tgroup|db:mediaobject">
@@ -44,9 +43,8 @@
   <xsl:call-template name="t:informal-object">
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<!-- don't put the ID here, it'll be generated on the table -->
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
 
 	<xsl:choose>
 	  <xsl:when test="db:tgroup|db:mediaobject">
@@ -350,7 +348,8 @@
 		select="f:pi(processing-instruction('dbhtml'),'class')"/>
 
   <tr>
-    <xsl:call-template name="t:id"/>
+    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
+
     <xsl:call-template name="tr-attributes">
       <xsl:with-param name="rownum">
         <xsl:number count="db:row"/>
@@ -453,8 +452,7 @@ to alternate rows of the table:</para>
 		select="f:pi(processing-instruction('dbhtml'),'bgcolor')"/>
 
   <xsl:element name="{$cellgi}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
 
     <xsl:if test="$bgcolor != ''">
       <xsl:attribute name="bgcolor" select="$bgcolor"/>

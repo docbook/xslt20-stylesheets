@@ -10,9 +10,8 @@
                 version="2.0">
 
 <xsl:template match="db:qandaset|db:qandadiv">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -64,18 +63,11 @@
     </xsl:choose>
   </xsl:variable>
 
-  <tr class="{local-name(.)}">
-    <xsl:call-template name="t:id">
-      <xsl:with-param name="node" select=".."/>
-      <xsl:with-param name="force" select="1"/>
-    </xsl:call-template>
-    <xsl:call-template name="class"/>
+  <tr>
+    <xsl:sequence select="f:html-attributes(.., f:node-id(..))"/>
 
-    <td class="question-label" align="left" valign="top">
-      <xsl:call-template name="t:id">
-	<xsl:with-param name="force" select="1"/>
-      </xsl:call-template>
-      <xsl:call-template name="class"/>
+    <td align="left" valign="top">
+      <xsl:sequence select="f:html-attributes(., f:node-id(.), 'question-label')"/>
 
       <xsl:apply-templates select="." mode="m:label-content"/>
       <xsl:if test="$deflabel = 'number' and not(label)">
@@ -112,18 +104,11 @@
     </xsl:choose>
   </xsl:variable>
 
-  <tr class="{local-name(.)}">
-    <xsl:call-template name="t:id">
-      <xsl:with-param name="node" select=".."/>
-      <xsl:with-param name="force" select="1"/>
-    </xsl:call-template>
-    <xsl:call-template name="class"/>
+  <tr>
+    <xsl:sequence select="f:html-attributes(.., f:node-id(..))"/>
 
-    <td class="answer-label" align="left" valign="top">
-      <xsl:call-template name="t:id">
-	<xsl:with-param name="force" select="1"/>
-      </xsl:call-template>
-      <xsl:call-template name="class"/>
+    <td align="left" valign="top">
+      <xsl:sequence select="f:html-attributes(., f:node-id(.), 'answer-label')"/>
 
       <xsl:variable name="label">
 	<xsl:apply-templates select="." mode="m:label-content"/>

@@ -13,21 +13,17 @@
 
 <xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5"
               name="db:section">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-
+  <div>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
-
     <xsl:apply-templates/>
   </div>
 </xsl:template>
 
 <xsl:template match="db:simplesect">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-
+  <div>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
-
     <xsl:apply-templates/>
   </div>
 </xsl:template>
@@ -62,7 +58,7 @@
 		select="if ($depth &lt; 5) then $depth else 4"/>
 
   <xsl:element name="h{$hlevel+1}" namespace="http://www.w3.org/1999/xhtml">
-    <xsl:attribute name="class" select="'bridgehead'"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </xsl:element>
 </xsl:template>

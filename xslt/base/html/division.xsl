@@ -11,9 +11,8 @@
                 version="2.0">
 
 <xsl:template match="db:set|db:book|db:part|db:reference">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-
+  <div>
+    <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
 
     <xsl:if test="not(db:toc)">
@@ -26,25 +25,22 @@
 </xsl:template>
 
 <xsl:template match="db:set|db:book|db:part|db:reference" mode="m:toc">
-    <xsl:param name="toc.params"
-               select="f:find-toc-params(., $generate.toc)"/>
+  <xsl:param name="toc.params"
+             select="f:find-toc-params(., $generate.toc)"/>
 
-    <xsl:call-template name="t:make-lots">
-      <xsl:with-param name="toc.params" select="$toc.params"/>
-      <xsl:with-param name="toc">
-	<xsl:call-template name="t:division-toc"/>
-      </xsl:with-param>
-    </xsl:call-template>
+  <xsl:call-template name="t:make-lots">
+    <xsl:with-param name="toc.params" select="$toc.params"/>
+    <xsl:with-param name="toc">
+      <xsl:call-template name="t:division-toc"/>
+    </xsl:with-param>
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="db:partintro">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-
+  <div>
+    <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
-
     <xsl:apply-templates/>
-
     <xsl:call-template name="t:process-footnotes"/>
   </div>
 </xsl:template>

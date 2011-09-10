@@ -132,7 +132,7 @@
     <tmpl:templates name="figure example table equation procedure step
                           bibliolist glosslist qandaset qandadiv
                           itemizedlist orderedlist variablelist segmentedlist
-                          warning caution note tip important">
+                          warning caution note tip important blockquote">
       <tmpl:titlepage>
         <db:title/>
       </tmpl:titlepage>

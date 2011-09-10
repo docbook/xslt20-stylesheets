@@ -11,10 +11,8 @@
                 version="2.0">
 
 <xsl:template match="db:refentry">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id">
-      <xsl:with-param name="force" select="1"/>
-    </xsl:call-template>
+  <div>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:if test="$refentry.separator != 0 and preceding-sibling::db:refentry">
       <div class="refentry-separator">
@@ -31,8 +29,8 @@
 </xsl:template>
 
 <xsl:template match="db:refnamediv">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:choose>
       <xsl:when test="$refentry.generate.name != 0">
@@ -69,7 +67,8 @@
 </xsl:template>
 
 <xsl:template match="db:refname">
-  <span class="{local-name(.)}">
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:refname">
@@ -78,9 +77,18 @@
 </xsl:template>
 
 <xsl:template match="db:refpurpose">
-  <xsl:text>&#160;—&#160;</xsl:text>
-  <xsl:apply-templates/>
-  <xsl:text>.</xsl:text>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <span class="refpurpose-sep">
+      <xsl:text>&#160;—&#160;</xsl:text>
+    </span>
+    <span class="refpurpose-text">
+      <xsl:apply-templates/>
+    </span>
+    <span class="refpurpose-punc">
+      <xsl:text>.</xsl:text>
+    </span>
+  </span>
 </xsl:template>
 
 <xsl:template match="db:refdescriptor">
@@ -88,9 +96,8 @@
 </xsl:template>
 
 <xsl:template match="db:refsynopsisdiv">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <h2>
       <xsl:choose>
@@ -110,8 +117,8 @@
 </xsl:template>
 
 <xsl:template match="db:refsection|db:refsect1|db:refsect2|db:refsect3">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 

@@ -72,21 +72,10 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:xlink"/>
   </xsl:param>
-  <xsl:param name="class" select="''"/>
+  <xsl:param name="class" select="()"/>
 
-  <span class="{local-name(.)}{if ($class != '')
-                               then concat(' ',local-name(.),'-', $class) else ''}">
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@dir">
-      <xsl:attribute name="dir">
-	<xsl:value-of select="@dir"/>
-      </xsl:attribute>
-    </xsl:if>
+  <span>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), ($class,@role))"/>
     <xsl:copy-of select="$content"/>
   </span>
 </xsl:template>
@@ -128,20 +117,10 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:xlink"/>
   </xsl:param>
-  <xsl:param name="class" select="@role"/>
+  <xsl:param name="class" select="()"/>
 
-  <code class="{local-name(.)}{if ($class != '') then concat(' ',$class) else ''}">
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@dir">
-      <xsl:attribute name="dir">
-	<xsl:value-of select="@dir"/>
-      </xsl:attribute>
-    </xsl:if>
+  <code>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), ($class,@role))"/>
     <xsl:copy-of select="$content"/>
   </code>
 </xsl:template>
@@ -183,19 +162,10 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="()"/>
 
-  <strong class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@dir">
-      <xsl:attribute name="dir">
-	<xsl:value-of select="@dir"/>
-      </xsl:attribute>
-    </xsl:if>
+  <strong>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), ($class,@role))"/>
     <xsl:copy-of select="$content"/>
   </strong>
 </xsl:template>
@@ -237,19 +207,10 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="()"/>
 
-  <em class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@dir">
-      <xsl:attribute name="dir">
-	<xsl:value-of select="@dir"/>
-      </xsl:attribute>
-    </xsl:if>
+  <em>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), ($class,@role))"/>
     <xsl:copy-of select="$content"/>
   </em>
 </xsl:template>
@@ -296,22 +257,13 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="()"/>
 
-  <strong class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <tt class="{local-name(.)}">
-      <xsl:if test="@dir">
-	<xsl:attribute name="dir">
-	  <xsl:value-of select="@dir"/>
-	</xsl:attribute>
-      </xsl:if>
+  <strong>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), ($class,@role))"/>
+    <code>
       <xsl:copy-of select="$content"/>
-    </tt>
+    </code>
   </strong>
 </xsl:template>
 
@@ -357,22 +309,13 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="()"/>
 
-  <em class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <tt class="{local-name(.)}">
-      <xsl:if test="@dir">
-	<xsl:attribute name="dir">
-	  <xsl:value-of select="@dir"/>
-	</xsl:attribute>
-      </xsl:if>
+  <em>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), ($class,@role))"/>
+    <code>
       <xsl:copy-of select="$content"/>
-    </tt>
+    </code>
   </em>
 </xsl:template>
 
@@ -416,17 +359,7 @@ calling “apply templates” with the current context node.</para>
   </xsl:param>
 
   <sup>
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@dir">
-      <xsl:attribute name="dir">
-        <xsl:value-of select="@dir"/>
-      </xsl:attribute>
-    </xsl:if>
+    <xsl:sequence select="f:html-attributes(., @xml:id, if (self::db:superscript) then () else local-name(.))"/>
     <xsl:copy-of select="$content"/>
   </sup>
 </xsl:template>
@@ -471,17 +404,7 @@ calling “apply templates” with the current context node.</para>
   </xsl:param>
 
   <sub>
-    <xsl:call-template name="t:id"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@dir">
-      <xsl:attribute name="dir">
-        <xsl:value-of select="@dir"/>
-      </xsl:attribute>
-    </xsl:if>
+    <xsl:sequence select="f:html-attributes(., @xml:id, if (self::db:subscript) then () else local-name(.))"/>
     <xsl:copy-of select="$content"/>
   </sub>
 </xsl:template>
@@ -530,8 +453,8 @@ the default is “element”.</para>
     </xsl:choose>
   </xsl:param>
 
-  <tt class="tag-{$class}">
-    <xsl:call-template name="t:id"/>
+  <code>
+    <xsl:sequence select="f:html-attributes(., @xml:id, concat(local-name(.),'-',$class))"/>
     <xsl:choose>
       <xsl:when test="$class='attribute'">
         <xsl:apply-templates/>
@@ -591,7 +514,7 @@ the default is “element”.</para>
         <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
-  </tt>
+  </code>
 </xsl:template>
 
 <u:unittests match="db:emphasis">
@@ -615,21 +538,18 @@ the default is “element”.</para>
 </u:unittests>
 
 <xsl:template match="db:emphasis">
+  <xsl:variable name="classes" select="tokenize(@role, '\s+')"/>
   <xsl:choose>
-    <xsl:when test="@role='bold' or @role='strong'">
-      <strong class="{local-name(.)}">
-        <xsl:call-template name="t:id"/>
+    <xsl:when test="$classes = 'bold' or $classes = 'strong'">
+      <strong>
+        <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
+                                                $classes[(. != 'bold') and (. != 'strong')])"/>
         <xsl:call-template name="t:xlink"/>
       </strong>
     </xsl:when>
     <xsl:otherwise>
       <em>
-        <xsl:call-template name="t:id"/>
-        <xsl:if test="@role">
-          <xsl:attribute name="class">
-            <xsl:value-of select="@role"/>
-          </xsl:attribute>
-        </xsl:if>
+        <xsl:sequence select="f:html-attributes(., @xml:id, (), $classes)"/>
         <xsl:call-template name="t:xlink"/>
       </em>
     </xsl:otherwise>
@@ -675,16 +595,18 @@ the default is “element”.</para>
       <xsl:apply-templates/>
       <xsl:choose>
 	<xsl:when test="@class = 'copyright'">
-          <sup>&#x00A9;</sup>
+          <sup>©</sup>
         </xsl:when>
 	<xsl:when test="@class = 'registered'">
-          <sup>&#x00AE;</sup>
+          <sup>®</sup>
         </xsl:when>
 	<xsl:when test="@class = 'service'">
-	  <sup>SM</sup>
+	  <sup>℠</sup>
 	</xsl:when>
-	<xsl:when test="@class = 'trade'">&#x2122;</xsl:when>
-	<xsl:otherwise>
+	<xsl:when test="@class = 'trade'">
+          <sup>™</sup>
+        </xsl:when>
+        <xsl:otherwise>
 	  <!-- nop -->
 	</xsl:otherwise>
       </xsl:choose>
@@ -693,8 +615,7 @@ the default is “element”.</para>
 </xsl:template>
 
 <xsl:template match="db:lineannotation">
-  <em class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <em>
     <xsl:call-template name="t:inline-charseq"/>
   </em>
 </xsl:template>
@@ -739,19 +660,11 @@ and <tag>firstterm</tag> elements.</para>
 <xsl:template match="db:glossterm" name="db:glossterm">
   <xsl:param name="firstterm" select="0"/>
 
-  <em class="{if ($firstterm != 0) then 'firstterm' else 'glossterm'}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
-    <xsl:if test="db:alt">
-      <xsl:attribute name="title">
-	<xsl:value-of select="db:alt"/>
-      </xsl:attribute>
-    </xsl:if>
-    <xsl:if test="@dir">
-      <xsl:attribute name="dir">
-	<xsl:value-of select="@dir"/>
-      </xsl:attribute>
-    </xsl:if>
+  <xsl:variable name="extra-class"
+                select="if (self::db:firstterm or $firstterm = 0) then () else 'firstterm'"/>
+
+  <em>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), $extra-class)"/>
 
     <xsl:choose>
       <xsl:when test="($firstterm.only.link = 0 or $firstterm = 1) and @linkend">
@@ -809,12 +722,17 @@ and <tag>firstterm</tag> elements.</para>
 </xsl:template>
 
 <xsl:template match="db:termdef">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
-    <xsl:text>[Definition: </xsl:text>
+  <span>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
+    <xsl:call-template name="gentext-template">
+      <xsl:with-param name="context" select="'termdef'"/>
+      <xsl:with-param name="name" select="'prefix'"/>
+    </xsl:call-template>
     <xsl:apply-templates/>
-    <xsl:text>]</xsl:text>
+    <xsl:call-template name="gentext-template">
+      <xsl:with-param name="context" select="'termdef'"/>
+      <xsl:with-param name="name" select="'suffix'"/>
+    </xsl:call-template>
   </span>
 </xsl:template>
 

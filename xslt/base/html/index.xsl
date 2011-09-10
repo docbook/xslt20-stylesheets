@@ -11,10 +11,8 @@
                 version="2.0">
 
 <xsl:template match="db:index|db:setindex">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id">
-      <xsl:with-param name="force" select="1"/>
-    </xsl:call-template>
+  <div>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -51,9 +49,8 @@
 </xsl:template>
 
 <xsl:template match="db:indexdiv">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:call-template name="t:titlepage"/>
 

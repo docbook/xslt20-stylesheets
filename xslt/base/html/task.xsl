@@ -15,9 +15,8 @@
 <xsl:template match="db:task|db:tasksummary|db:taskprerequisites|db:taskrelated">
   <xsl:call-template name="t:semiformal-object">
     <xsl:with-param name="object" as="element()">
-      <div class="{local-name(.)}">
-	<xsl:call-template name="t:id"/>
-	<xsl:call-template name="class"/>
+      <div>
+        <xsl:sequence select="f:html-attributes(.)"/>
 	<xsl:apply-templates/>
       </div>
     </xsl:with-param>

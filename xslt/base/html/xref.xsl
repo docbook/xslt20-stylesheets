@@ -20,7 +20,7 @@
 
 <xsl:template match="db:anchor">
   <span>
-    <xsl:call-template name="t:id"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
   </span>
 </xsl:template>
 
@@ -72,7 +72,7 @@ identified.</entry>
       <xsl:choose>
 	<xsl:when test="$href != ''">
 	  <a href="{$href}">
-	    <xsl:call-template name="class"/>
+            <xsl:sequence select="f:html-class(., (), @role)"/>
 	    <xsl:if test="$title != ''">
 	      <xsl:attribute name="title" select="$title"/>
 	    </xsl:if>
@@ -87,7 +87,7 @@ identified.</entry>
             </xsl:message>
           </xsl:if>
 	  <a class="brokenlink" href="#{@linkend}">
-	    <xsl:call-template name="class"/>
+            <xsl:sequence select="f:html-class(., (), @role)"/>
 	    <xsl:if test="$title != ''">
 	      <xsl:attribute name="title" select="$title"/>
 	    </xsl:if>
@@ -100,7 +100,7 @@ identified.</entry>
       <xsl:choose>
 	<xsl:when test="$href != ''">
 	  <a href="{$href}">
-	    <xsl:call-template name="class"/>
+            <xsl:sequence select="f:html-class(., (), @role)"/>
 	    <xsl:value-of select="$href"/>
 	  </a>
 	</xsl:when>
@@ -149,7 +149,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
         <xsl:value-of select="$linkend"/>
       </xsl:message>
       <span class="formatting-error">
-	<xsl:call-template name="t:id"/>
+        <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
 	<xsl:text>???</xsl:text>
       </span>
     </xsl:when>
@@ -172,7 +172,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
 	    <xsl:value-of select="@endterm"/>
           </xsl:message>
 	  <a href="{f:href(/,$target)}">
-	    <xsl:call-template name="t:id"/>
+            <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
 	    <span class="formatting-error">
 	      <xsl:text>???</xsl:text>
 	    </span>
@@ -180,7 +180,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
         </xsl:when>
         <xsl:otherwise>
 	  <a href="{f:href(/,$target)}">
-	    <xsl:call-template name="t:id"/>
+            <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
 	    <xsl:apply-templates select="$etarget" mode="m:endterm"/>
 	  </a>
 	</xsl:otherwise>

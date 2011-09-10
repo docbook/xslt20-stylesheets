@@ -17,9 +17,8 @@
                      |db:confdates|db:conftitle|db:confnum
                      |db:confsponsor|db:contractnum|db:contractsponsor
                      |db:volumenum|db:issuenum|db:seriesvolnums">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
 </xsl:template>
@@ -28,7 +27,7 @@
   <xsl:param name="wrapper" select="'span'"/>
 
   <xsl:element name="{$wrapper}" namespace="http://www.w3.org/1999/xhtml">
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="gentext">
       <xsl:with-param name="key" select="'Copyright'"/>
@@ -54,8 +53,8 @@
 </xsl:template>
 
 <xsl:template match="db:holder">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:holder">
@@ -65,7 +64,7 @@
 
 <xsl:template match="db:year">
   <span>
-    <xsl:call-template name="t:id"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:year">, </xsl:if>
@@ -88,60 +87,67 @@
 
   <xsl:variable name="cols" select="sum($colspec)"/>
 
-  <table class="{local-name(.)}" border="0" summary="Revision History">
-    <tr>
-      <td colspan="{$cols}">
-        <span class="title">
-          <xsl:value-of select="f:gentext(.)"/>
-        </span>
-      </td>
-    </tr>
-    <xsl:for-each select="db:revision">
-      <tr class="{local-name}">
-	<xsl:if test="$has-revnumber">
-	  <td class="revnumber">
-	    <xsl:apply-templates select="db:revnumber"/>
-	    <xsl:if test="not(db:revnumber)">&#160;</xsl:if>
-	  </td>
-	</xsl:if>
-	<xsl:if test="$has-date">
-	  <td class="date">
-	    <xsl:apply-templates select="db:date"/>
-	    <xsl:if test="not(db:date)">&#160;</xsl:if>
-	  </td>
-	</xsl:if>
-	<xsl:if test="$has-author">
-	  <td class="author">
-	    <xsl:apply-templates select="db:author|db:authorinitials"/>
-	    <xsl:if test="not(db:author|db:authorinitials)">&#160;</xsl:if>
-	  </td>
-	</xsl:if>
-	<xsl:if test="$has-remark">
-	  <td class="remark">
-	    <xsl:apply-templates select="db:revremark"/>
-	    <xsl:if test="not(db:revremark)">&#160;</xsl:if>
-	  </td>
-	</xsl:if>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <table border="0" summary="Revision History">
+      <tr>
+        <td colspan="{$cols}">
+          <span class="title">
+            <xsl:value-of select="f:gentext(.)"/>
+          </span>
+        </td>
       </tr>
-      <xsl:if test="$has-desc and db:revdescription">
-	<tr class="revdescription">
-	  <xsl:if test="$cols &gt; 1">
-	    <td>&#160;</td>
-	  </xsl:if>
-	  <td class="revdescription">
-	    <xsl:if test="$cols &gt; 1">
-	      <xsl:attribute name="colspan" select="$cols - 1"/>
-	    </xsl:if>
-	    <xsl:apply-templates select="db:revdescription"/>
-	  </td>
-	</tr>
-      </xsl:if>
-    </xsl:for-each>
-  </table>
+      <xsl:for-each select="db:revision">
+        <tr>
+          <xsl:sequence select="f:html-attributes(.)"/>
+          <xsl:if test="$has-revnumber">
+            <td class="revnumber">
+              <xsl:apply-templates select="db:revnumber"/>
+              <xsl:if test="not(db:revnumber)">&#160;</xsl:if>
+            </td>
+          </xsl:if>
+          <xsl:if test="$has-date">
+            <td class="date">
+              <xsl:apply-templates select="db:date"/>
+              <xsl:if test="not(db:date)">&#160;</xsl:if>
+            </td>
+          </xsl:if>
+          <xsl:if test="$has-author">
+            <td class="author">
+              <xsl:apply-templates select="db:author|db:authorinitials"/>
+              <xsl:if test="not(db:author|db:authorinitials)">&#160;</xsl:if>
+            </td>
+          </xsl:if>
+          <xsl:if test="$has-remark">
+            <td class="remark">
+              <xsl:apply-templates select="db:revremark"/>
+              <xsl:if test="not(db:revremark)">&#160;</xsl:if>
+            </td>
+          </xsl:if>
+        </tr>
+        <xsl:if test="$has-desc and db:revdescription">
+          <tr class="revdescription">
+            <xsl:if test="$cols &gt; 1">
+              <td>&#160;</td>
+            </xsl:if>
+            <td class="revdescription">
+              <xsl:if test="$cols &gt; 1">
+                <xsl:attribute name="colspan" select="$cols - 1"/>
+              </xsl:if>
+              <xsl:apply-templates select="db:revdescription"/>
+            </td>
+          </tr>
+        </xsl:if>
+      </xsl:for-each>
+    </table>
+  </div>
 </xsl:template>
 
 <xsl:template match="db:revdescription">
-  <xsl:apply-templates/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:apply-templates/>
+  </span>
 </xsl:template>
 
 </xsl:stylesheet>

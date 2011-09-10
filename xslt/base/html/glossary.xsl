@@ -15,8 +15,8 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:glossary">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -40,8 +40,8 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:glossdiv">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -54,9 +54,8 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:glosslist">
-  <div class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
-    <xsl:call-template name="class"/>
+  <div>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -133,11 +132,8 @@ GlossEntry ::=
 
 <xsl:template match="db:glossentry">
   <dt>
-    <xsl:call-template name="t:id">
-      <xsl:with-param name="force" select="$glossterm.auto.link"/>
-    </xsl:call-template>
-    <xsl:call-template name="class"/>
-    
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
+
     <xsl:choose>
       <xsl:when test="$glossentry.show.acronym = 'primary'">
 	<xsl:choose>
@@ -171,18 +167,16 @@ GlossEntry ::=
 </xsl:template>
 
 <xsl:template match="db:glossentry/db:glossterm">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id">
-      <xsl:with-param name="force" select="$glossterm.auto.link"/>
-    </xsl:call-template>
+  <span>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:glossterm">, </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:glossentry/db:acronym">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:acronym
@@ -190,8 +184,8 @@ GlossEntry ::=
 </xsl:template>
 
 <xsl:template match="db:glossentry/db:abbrev">
-  <span class="{local-name(.)}">
-    <xsl:call-template name="t:id"/>
+  <span>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:acronym
@@ -202,6 +196,7 @@ GlossEntry ::=
   <xsl:variable name="target" select="key('id', @otherterm)[1]"/>
 
   <dd>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <p>
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'glossary'"/>
@@ -232,6 +227,7 @@ GlossEntry ::=
 
 <xsl:template match="db:glossentry/db:glossdef">
   <dd>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates select="*[not(self::db:glossseealso)]"/>
     <xsl:for-each select="db:glossseealso">
       <p>
