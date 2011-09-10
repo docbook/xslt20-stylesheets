@@ -18,6 +18,7 @@
               select="//html:div[@class='sect1']"
               href="result/sect1.001.html"/>
   </x:scenario>
+
   <x:scenario label="sect1.002.xml">
     <x:context href="src/sect1.002.xml"/>
     <x:expect label="Numbered sections (sect1-n)"
@@ -482,7 +483,6 @@
               select="//html:div[@class='task-wrapper'][3]"
               href="result/task.001.html"/>
   </x:scenario>
-  <!-- FIXME: crude tests -->
   <x:scenario label="annotations.001.xml">
     <x:context href="src/annotations.001.xml"/>
     <x:expect label="Annotation testing"
@@ -768,6 +768,7 @@
               select="//html:div[@class='programlisting']"
               href="result/programlisting.001.html"/>
   </x:scenario>
+
   <!-- FIXME: temporatily removed because path related problems -->
   <!--
   <x:scenario label="programlisting.002.xml">
@@ -778,6 +779,7 @@
               href="result/programlisting.002.html"/>
   </x:scenario>
   -->
+
   <x:scenario label="programlisting.003.xml">
     <x:context href="src/programlisting.003.xml"/>
     <x:expect label="Explicit linenumbering"
@@ -806,6 +808,7 @@
               select="//html:div[@class='programlisting']"
               href="result/programlisting.006.html"/>
   </x:scenario>
+
   <!-- FIXME: temporatily removed because path related problems -->
   <!--
     <x:scenario label="programlisting.007.xml">
@@ -816,6 +819,7 @@
               href="result/programlisting.007.html"/>
   </x:scenario>
   -->
+
   <x:scenario label="programlisting.008.xml">
     <x:context href="src/programlisting.008.xml"/>
     <x:expect label="linenumbering PIs"
@@ -841,6 +845,7 @@
               select="//html:div[@class='programlistingco']"
               href="result/programlistingco.001.html"/>
   </x:scenario>
+
   <!-- FIXME: temporatily removed because path related problems -->
   <!--
     <x:scenario label="programlistingco.002.xml">
@@ -859,6 +864,7 @@
               href="result/programlistingco.002.html"/>
   </x:scenario>
   -->
+
   <x:scenario label="screen.001.xml">
     <x:context href="src/screen.001.xml"/>
     <x:expect label="screen"
@@ -2442,6 +2448,7 @@
               select="//html:div[@id='book-titlepage']"
               href="result/author.001.html"/>
   </x:scenario>
+
   <!-- FIXME: removed because it breaks XSpec -->
   <!--
   <x:scenario label="author.002.xml">
@@ -2452,6 +2459,7 @@
               href="result/author.002.html"/>
   </x:scenario>
   -->
+
   <x:scenario label="dir.001.xml">
     <x:context href="src/dir.001.xml"/>
     <x:expect label="writing direction"
@@ -2667,7 +2675,6 @@
 </x:scenario>
 
 <x:scenario label="Profiling tests">
-  <!-- FIXME: there should be more tests, but it is not possible to specify different parameters for each scenario in XSpec -->
   <x:scenario label="profiling.001.xml">
     <x:context href="src/profiling.001.xml"/>
     <x:expect label="Profiling tests"
