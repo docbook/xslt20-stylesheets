@@ -8,7 +8,7 @@
 		exclude-result-prefixes="xs h x test"
                 version="2.0">
 
-<xsl:import href="xspec-v0.2/format-xspec-report.xsl"/>
+<xsl:import href="xspec/src/reporter/format-xspec-report.xsl"/>
 
 <xsl:template match="/">
   <xsl:message>
@@ -27,8 +27,7 @@
          </xsl:call-template>
          <xsl:text>)</xsl:text>
       </title>
-      <link rel="stylesheet" type="text/css"
-            href="{resolve-uri('xspec-v0.2/test-report.css', static-base-uri())}" />
+      <link rel="stylesheet" type="text/css" href="{ $report-css-uri }"/>
       <xsl:call-template name="x:html-head-callback"/>
     </head>
     <body>

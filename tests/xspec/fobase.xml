@@ -1,4 +1,4 @@
-<?oxygen RNGSchema="../../tools/xspec-v0.2/xspec.rnc" type="compact"?>
+<?oxygen RNGSchema="../../tools/xspec/src/schemas/xspec.rnc" type="compact"?>
 <x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
                xmlns:db="http://docbook.org/ns/docbook"
                xmlns:fo="http://www.w3.org/1999/XSL/Format"

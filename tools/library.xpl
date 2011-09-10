@@ -11,7 +11,7 @@
 <p:pipeline type="ex:xspec" name="main">
   <p:xslt>
     <p:input port="stylesheet">
-      <p:document href="xspec-v0.2/generate-xspec-tests.xsl"/>
+      <p:document href="xspec/src/compiler/generate-xspec-tests.xsl"/>
     </p:input>
     <p:input port="parameters">
       <p:empty/>
