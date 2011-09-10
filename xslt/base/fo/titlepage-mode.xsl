@@ -221,42 +221,9 @@
 </xsl:template>
 
 <xsl:template match="db:copyright" mode="m:titlepage-mode">
-  <fo:block>
-    <xsl:call-template name="gentext">
-      <xsl:with-param name="key" select="'Copyright'"/>
-    </xsl:call-template>
-    <xsl:call-template name="gentext-space"/>
-    <xsl:call-template name="dingbat">
-      <xsl:with-param name="dingbat">copyright</xsl:with-param>
-    </xsl:call-template>
-    <xsl:call-template name="gentext-space"/>
-    <xsl:call-template name="t:copyright-years">
-      <xsl:with-param name="years" select="db:year"/>
-      <xsl:with-param name="print.ranges" select="$make.year.ranges"/>
-      <xsl:with-param name="single.year.ranges"
-		      select="$make.single.year.ranges"/>
-    </xsl:call-template>
-    <xsl:apply-templates select="db:holder" mode="m:titlepage-mode"/>
-  </fo:block>
-</xsl:template>
-
-<xsl:template match="db:year" mode="m:titlepage-mode">
-  <fo:inline>
-    <xsl:call-template name="t:id"/>
-    <xsl:apply-templates/>
-  </fo:inline>
-  <xsl:if test="following-sibling::db:year">, </xsl:if>
-</xsl:template>
-
-<xsl:template match="db:holder" mode="m:titlepage-mode">
-  <xsl:text> </xsl:text>
-  <fo:inline>
-    <xsl:call-template name="t:id"/>
-    <xsl:apply-templates/>
-  </fo:inline>
-  <xsl:if test="following-sibling::db:holder">
-    <xsl:text>,</xsl:text>
-  </xsl:if>
+  <xsl:apply-templates select=".">
+    <xsl:with-param name="wrapper" select="'block'"/>
+  </xsl:apply-templates>
 </xsl:template>
 
 <xsl:template match="db:abstract" mode="m:titlepage-mode">
