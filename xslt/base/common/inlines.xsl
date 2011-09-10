@@ -114,7 +114,8 @@
 
 <xsl:template match="db:citebiblioid">
   <xsl:call-template name="t:inline-charseq">
-    <xsl:with-param name="class" select="@class"/>
+    <xsl:with-param name="class"
+                    select="if (@class) then concat(local-name(.),'-',@class) else ()"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -285,7 +286,9 @@
 </xsl:template>
 
 <xsl:template match="db:parameter">
-  <xsl:call-template name="t:inline-italicmonoseq"/>
+  <xsl:call-template name="t:inline-italicmonoseq">
+    <xsl:with-param name="class" select="@class"/>
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="db:property">
@@ -443,11 +446,11 @@
   <xsl:call-template name="t:inline-subscriptseq"/>
 </xsl:template>
 
-<xsl:template match="db:sgmltag|db:tag">
+<xsl:template match="db:tag">
   <xsl:choose>
     <!-- It's not legal for them to nest, but reformatting a verbatim environment
          sometimes causes it to happen, so suppress any extra markup. -->
-    <xsl:when test="parent::db:sgmltag or parent::db:tag">
+    <xsl:when test="parent::db:tag">
       <xsl:apply-templates/>
     </xsl:when>
     <xsl:otherwise>
