@@ -1,4 +1,5 @@
 <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" version="1.0"
+                xmlns:cx="http://xmlcalabash.com/ns/extensions"
                 xmlns:ex="http://docbook.org/xproc/step"
                 xmlns:x="http://www.jenitennison.com/xslt/xspec"
                 name="main">
@@ -6,7 +7,7 @@
 <p:output port="result"/>
 <p:serialization port="result" method="xhtml"/>
 
-<p:import href="../../tools/xspec.xpl"/>
+<p:import href="../../tools/library.xpl"/>
 
 <ex:xspec name="htmlalt">
   <p:input port="source">
@@ -30,6 +31,15 @@
     <p:pipe step="htmlbase" port="result"/>
   </p:input>
 </p:wrap-sequence>
+
+<p:choose>
+  <p:when test="p:step-available('cx:pretty-print')">
+    <cx:pretty-print/>
+  </p:when>
+  <p:otherwise>
+    <p:identity/>
+  </p:otherwise>
+</p:choose>
 
 <p:xslt>
   <p:input port="stylesheet">
