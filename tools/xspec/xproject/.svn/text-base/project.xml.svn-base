@@ -1,0 +1,8 @@
+<project xmlns="http://expath.org/ns/project"
+         name="http://www.jenitennison.com/xslt/xspec"
+         abbrev="xspec"
+         version="0.3.0dev">
+
+   <title>XSpec</title>
+
+</project>

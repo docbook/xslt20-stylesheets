@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/210/trunk/src/compiler
+END
+generate-query-helper.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/210/trunk/src/compiler/generate-query-helper.xsl
+END
+generate-xspec-tests.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/210/trunk/src/compiler/generate-xspec-tests.xsl
+END
+generate-query-tests.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/210/trunk/src/compiler/generate-query-tests.xsl
+END
+generate-common-tests.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/210/trunk/src/compiler/generate-common-tests.xsl
+END
+generate-tests-helper.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/210/trunk/src/compiler/generate-tests-helper.xsl
+END
+generate-tests-utils.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/210/trunk/src/compiler/generate-tests-utils.xsl
+END
+generate-query-utils.xql
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/210/trunk/src/compiler/generate-query-utils.xql
+END

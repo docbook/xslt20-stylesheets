@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 28
+/svn/!svn/ver/191/trunk/test
+END
+xspec-focus-2.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/191/trunk/test/xspec-focus-2.xspec
+END
+xspec-imported.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/191/trunk/test/xspec-imported.xspec
+END
+xspec-pending.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/191/trunk/test/xspec-pending.xspec
+END
+xspec-variable.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/191/trunk/test/xspec-variable.xspec
+END
+xspec-function.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/191/trunk/test/xspec-function.xspec
+END
+generate-xspec-tests.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/191/trunk/test/generate-xspec-tests.xspec
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/94/trunk/test/README
+END
+xspec-variable.xml
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/115/trunk/test/xspec-variable.xml
+END
+xspec-rule.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/191/trunk/test/xspec-rule.xspec
+END
+generate-tests-utils.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/191/trunk/test/generate-tests-utils.xspec
+END
+xspec-tested.xql
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/112/trunk/test/xspec-tested.xql
+END
+xspec-import.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/191/trunk/test/xspec-import.xspec
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/185/trunk/test/Makefile
+END
+xspec-tested.xsl
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/123/trunk/test/xspec-tested.xsl
+END
+xspec-focus-1.xspec
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/191/trunk/test/xspec-focus-1.xspec
+END

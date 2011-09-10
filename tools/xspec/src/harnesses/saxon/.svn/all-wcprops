@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/211/trunk/src/harnesses/saxon
+END
+saxon-xslt-harness.xproc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/211/trunk/src/harnesses/saxon/saxon-xslt-harness.xproc
+END
+saxon-xquery-harness.xproc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/211/trunk/src/harnesses/saxon/saxon-xquery-harness.xproc
+END
