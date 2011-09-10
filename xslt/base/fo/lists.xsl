@@ -79,24 +79,16 @@
   <xsl:variable name="item.contents">
     <fo:list-item-label end-indent="label-end()"
 			xsl:use-attribute-sets="itemizedlist.label.properties">
-      <fo:block>
+      <fo:block font-size="{f:font-size(.)}">
         <xsl:call-template name="itemizedlist.label.markup">
           <xsl:with-param name="itemsymbol" select="f:itemizedlist-symbol(parent::db:itemizedlist)"/>
         </xsl:call-template>
       </fo:block>
     </fo:list-item-label>
-    <fo:list-item-body start-indent="body-start()">
-      <xsl:choose>
-        <!-- * work around broken passivetex list-item-body rendering -->
-	<xsl:when test="$fo.processor = 'passivetex'">
-          <xsl:apply-templates/>
-        </xsl:when>
-        <xsl:otherwise>
-          <fo:block>
-            <xsl:apply-templates/>
-          </fo:block>
-        </xsl:otherwise>
-      </xsl:choose>
+    <fo:list-item-body start-indent="body-start()" font-size="{f:font-size(.)}">
+      <fo:block>
+        <xsl:apply-templates/>
+      </fo:block>
     </fo:list-item-body>
   </xsl:variable>
 
@@ -184,11 +176,11 @@
   <xsl:variable name="item.contents">
     <fo:list-item-label end-indent="label-end()"
 			xsl:use-attribute-sets="orderedlist.label.properties">
-      <fo:block>
+      <fo:block font-size="{f:font-size(.)}">
         <xsl:apply-templates select="." mode="m:listitem-number"/>
       </fo:block>
     </fo:list-item-label>
-    <fo:list-item-body start-indent="body-start()">
+    <fo:list-item-body start-indent="body-start()" font-size="{f:font-size(.)}">
       <fo:block>
         <xsl:apply-templates/>
       </fo:block>
@@ -400,12 +392,12 @@
 
   <xsl:variable name="item.contents">
     <fo:list-item-label end-indent="label-end()" text-align="start">
-      <fo:block>
+      <fo:block font-size="{f:font-size(.)}">
         <xsl:apply-templates select="db:term"/>
       </fo:block>
     </fo:list-item-label>
     <fo:list-item-body start-indent="body-start()">
-      <fo:block>
+      <fo:block font-size="{f:font-size(.)}">
         <xsl:apply-templates select="db:listitem"/>
       </fo:block>
     </fo:list-item-body>
@@ -839,5 +831,10 @@
 
 <!-- FIXME: support segmentedlist -->
 <!-- FIXME: support calloutlist -->
+
+<xsl:function name="f:font-size" as="xs:string">
+  <xsl:param name="context" as="element()"/>
+  <xsl:value-of select="'inherit'"/>
+</xsl:function>
 
 </xsl:stylesheet>
