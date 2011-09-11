@@ -200,7 +200,7 @@ calling “apply templates” with the current context node.</para>
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
   <xsl:param name="class" select="''"/>
-  
+
   <fo:inline>
     <xsl:call-template name="t:id"/>
 
@@ -259,6 +259,7 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="''"/>
 
   <fo:inline xsl:use-attribute-sets="monospace.properties">
     <xsl:if test="@dir">
@@ -310,6 +311,7 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="''"/>
 
   <fo:inline font-weight="bold">
     <xsl:if test="@dir">
@@ -361,6 +363,7 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="''"/>
 
   <fo:inline font-style="italic">
     <xsl:if test="@dir">
@@ -417,6 +420,7 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="''"/>
 
   <fo:inline font-weight="bold" xsl:use-attribute-sets="monospace.properties">
     <xsl:if test="@dir">
@@ -473,6 +477,7 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="''"/>
 
   <fo:inline font-style="italic" xsl:use-attribute-sets="monospace.properties">
     <xsl:if test="@dir">
@@ -525,6 +530,7 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="''"/>
 
   <fo:inline xsl:use-attribute-sets="superscript.properties">
     <xsl:call-template name="t:id"/>
@@ -586,6 +592,7 @@ calling “apply templates” with the current context node.</para>
   <xsl:param name="content">
     <xsl:call-template name="t:simple-xlink"/>
   </xsl:param>
+  <xsl:param name="class" select="''"/>
 
   <fo:inline xsl:use-attribute-sets="subscript.properties">
     <xsl:call-template name="t:id"/>
