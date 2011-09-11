@@ -41,12 +41,10 @@
   </p:otherwise>
 </p:choose>
 
-<!--
 <p:xslt>
   <p:input port="stylesheet">
     <p:document href="../../tools/format-xspec-report-set.xsl"/>
   </p:input>
 </p:xslt>
--->
 
 </p:declare-step>
