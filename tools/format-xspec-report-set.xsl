@@ -10,6 +10,8 @@
 
 <xsl:import href="xspec/src/reporter/format-xspec-report.xsl"/>
 
+<xsl:param name="report-css-uri" select="'http://docbook.github.com/latest/css/xspec-test-report.css'"/>
+
 <xsl:template match="/">
   <xsl:message>
     <xsl:call-template name="x:totals">
