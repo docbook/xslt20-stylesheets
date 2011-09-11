@@ -1,0 +1,186 @@
+<slides xml:lang="en"
+        xmlns="http://docbook.org/ns/docbook"
+        xmlns:h="http://www.w3.org/1999/xhtml"
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+<info>
+  <title>Presentation title</title>
+  <author>
+    <personname>
+      <firstname>Wile E.</firstname>
+      <surname>Coyote</surname>
+    </personname>
+    <affiliation>
+      <jobtitle>Senior V.P. of Road Runner Control</jobtitle>
+      <orgname>Acme Corporation</orgname>
+    </affiliation>
+    <email>wile.e.coyote@example.com</email>
+  </author>
+  <releaseinfo role="version">Version 1.0</releaseinfo>
+  <pubdate>2011-09-05</pubdate>
+  <copyright>
+    <year>2011</year>
+    <holder>Acme Corporation</holder>
+  </copyright>
+</info>
+
+<foil>
+<title>Agenda</title>
+<itemizedlist>
+<listitem>
+<para>This</para>
+</listitem>
+<listitem>
+<para>That</para>
+</listitem>
+<listitem>
+<para>The Other</para>
+</listitem>
+</itemizedlist>
+</foil>
+
+<foil>
+<title>This</title>
+
+<para>This slide has a progressive reveal.</para>
+
+<itemizedlist role="reveal">
+<listitem>
+<para>Point one</para>
+</listitem>
+<listitem>
+<para>Point two</para>
+</listitem>
+<listitem>
+<para>Point three</para>
+</listitem>
+</itemizedlist>
+</foil>
+
+<foil>
+<title>That</title>
+
+<para>This slide has a progressive reveal.</para>
+
+<itemizedlist>
+<listitem>
+<para>Point one</para>
+</listitem>
+<listitem>
+<para>Point two</para>
+</listitem>
+<listitem role="reveal1">
+<para>Point three, first attempt</para>
+</listitem>
+<listitem role="reveal1">
+<para><phrase role="dstrike">Point three, first attempt</phrase></para>
+</listitem>
+<listitem role="reveal1">
+<para>Point three, second attempt</para>
+</listitem>
+<listitem role="reveal1">
+<para><phrase role="dstrike">Point three, second attempt</phrase></para>
+</listitem>
+<listitem role="reveal1">
+<para>Point three</para>
+</listitem>
+</itemizedlist>
+</foil>
+
+
+<foilgroup>
+<title>The Other</title>
+
+<para>This is a transition slide.</para>
+
+<foil>
+<title>One More Slide</title>
+<itemizedlist>
+<listitem>
+<para>Point one</para>
+</listitem>
+<listitem>
+<para>Point two</para>
+</listitem>
+<listitem>
+<para>Point three</para>
+</listitem>
+<listitem>
+<para>Point four</para>
+</listitem>
+<listitem>
+<para>Point five</para>
+</listitem>
+<listitem>
+<para>Point six</para>
+</listitem>
+<listitem>
+<para>Point seven</para>
+</listitem>
+<listitem>
+<para>Point eight</para>
+</listitem>
+<listitem>
+<para>Point nine</para>
+</listitem>
+<listitem>
+<para>Point ten</para>
+</listitem>
+<listitem>
+<para>Point eleven</para>
+</listitem>
+<listitem>
+<para>Point twelve</para>
+</listitem>
+<listitem>
+<para>Point thirteen</para>
+</listitem>
+<listitem>
+<para>Point fourteen</para>
+</listitem>
+<listitem>
+<para>Point fifteen</para>
+</listitem>
+<listitem>
+<para>Point sixteen</para>
+</listitem>
+<listitem>
+<para>Point seventeen</para>
+</listitem>
+<listitem>
+<para>Point eighteen</para>
+</listitem>
+<listitem>
+<para>Point ninteen</para>
+</listitem>
+<listitem>
+<para>Point twenty</para>
+</listitem>
+</itemizedlist>
+</foil>
+
+<foil>
+<title>One Last Slide</title>
+<itemizedlist>
+<listitem>
+<para>Point one</para>
+</listitem>
+<listitem>
+<para>Point two</para>
+</listitem>
+<listitem>
+<para>Point three</para>
+</listitem>
+</itemizedlist>
+</foil>
+</foilgroup>
+
+<foil>
+<title>Q&amp;A</title>
+
+<address>Wile E. Coyote
+Senior V.P. of Road Runner Control
+Acme Corporation
+wile.e.coyote@example.com</address>
+</foil>
+</slides>
