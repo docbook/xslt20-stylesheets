@@ -61,6 +61,7 @@
   </target>
 
   <target name="use-xproc">
+    <mkdir dir="${xspec.test.dir}"/>
     <java fork="true" classname="com.xmlcalabash.drivers.Main">
       <classpath refid="calabash.classpath"/>
       <arg value="-oresult=xspec/xspec-report.html"/>
