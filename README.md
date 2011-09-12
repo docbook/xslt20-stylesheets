@@ -1,7 +1,8 @@
-Welcome to the DocBook XSLT 2.0 stylesheets.
+# DocBook XSLT 2.0 Stylesheets
 
-These stylesheets represent a different line of development from the
-XSLT 1.0 stylesheets maintained at
+These are the XSLT 2.0 stylesheets for DocBook. These stylesheets
+represent a different line of development from the XSLT 1.0
+stylesheets maintained at
 
 http://sourceforge.net/projects/docbook/
 
