@@ -83,6 +83,9 @@
     <xsl:text>Tested: </xsl:text>
     <xsl:value-of select="format-dateTime(@date, '[D] [MNn] [Y] at [H01]:[m01]')" />
   </p>
+
+  <xsl:apply-templates select="x:preamble"/>
+
   <h2>Contents</h2>
   <table class="xspec">
     <col width="85%" />
@@ -122,6 +125,10 @@
   <xsl:for-each select="x:scenario[not(@pending)]">
     <xsl:call-template name="x:format-top-level-scenario"/>
   </xsl:for-each>
+</xsl:template>
+
+<xsl:template match="x:preamble">
+  <xsl:copy-of select="node()"/>
 </xsl:template>
 
 </xsl:stylesheet>
