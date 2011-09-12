@@ -10,7 +10,6 @@
 
   <target name="clean">
     <delete file="param.xsl"/>
-    <delete file="titlepages.xsl"/>
   </target>
 
 </project>
