@@ -290,8 +290,6 @@
 
   <xsl:variable name="delta" select="if (ancestor::db:article) then 2 else 1"/>
 
-  <xsl:message>depth: <xsl:value-of select="$depth"/>, delta: <xsl:value-of select="$delta"/></xsl:message>
-
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
@@ -421,7 +419,8 @@
                      |db:taskprerequisites/db:title|db:taskprerequisites/db:info/db:title
                      |db:taskrelated/db:title|db:taskrelated/db:info/db:title
                      |db:task/db:procedure/db:title|db:task/db:procedure/db:info/db:title"
-              mode="m:titlepage-mode">
+              mode="m:titlepage-mode" priority="100">
+  <!-- explicit priority to disambiguate db:procedure matching -->
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
   <h4>
@@ -544,7 +543,8 @@
   </div>
 </xsl:template>
 
-<xsl:template match="db:author" mode="m:titlepage-mode">
+<!-- FIXME: othercredit deserves its own template, with gentext more like db:editor -->
+<xsl:template match="db:author|db:othercredit" mode="m:titlepage-mode">
   <xsl:variable name="content" as="node()*">
     <xsl:choose>
       <xsl:when test="db:orgname">
@@ -595,6 +595,10 @@
   <xsl:apply-templates select=".">
     <xsl:with-param name="wrapper" select="'div'"/>
   </xsl:apply-templates>
+</xsl:template>
+
+<xsl:template match="db:revhistory" mode="m:titlepage-mode">
+  <xsl:apply-templates select="."/>
 </xsl:template>
 
 <xsl:template match="db:abstract" mode="m:titlepage-mode">
