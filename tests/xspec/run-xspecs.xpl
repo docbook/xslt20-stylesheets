@@ -55,11 +55,9 @@
   <p:input port="source">
     <p:pipe step="htmlalt" port="result"/>
     <p:pipe step="htmlbase" port="result"/>
-<!--
     <p:pipe step="htmlprof1" port="result"/>
     <p:pipe step="htmlprof2" port="result"/>
     <p:pipe step="htmlprof3" port="result"/>
--->
   </p:input>
 </p:wrap-sequence>
 
