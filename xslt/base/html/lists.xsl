@@ -158,7 +158,7 @@
 
 <xsl:template match="db:varlistentry/db:term">
   <span>
-    <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
+    <xsl:sequence select="f:html-attributes(., @xml:id)"/>
     <xsl:call-template name="t:simple-xlink"/>
   </span>
 
