@@ -28,7 +28,7 @@
   <!-- Don't change these, define your own in t:user-titlepage-templates -->
   <tmpl:templates-list>
 
-    <tmpl:templates name="set part reference article">
+    <tmpl:templates name="set part reference article setindex">
       <tmpl:recto>
         <div tmpl:class="titlepage">
           <db:title/>
