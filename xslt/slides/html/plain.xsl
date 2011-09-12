@@ -114,8 +114,8 @@
     </div>
     <div class="body">
       <div class="shownav">
-        <img src="{$resource-root}img/prev.png" alt="[Prev]"/>
-        <img src="{$resource-root}img/next.png" alt="[Next]"/>
+        <img src="{$resource-root}img/prev.gif" alt="[Prev]"/>
+        <img src="{$resource-root}img/next.gif" alt="[Next]"/>
       </div>
       <xsl:call-template name="t:clicknav">
         <xsl:with-param name="next" select="'#toc'"/>
