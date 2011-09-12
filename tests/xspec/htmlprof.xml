@@ -1,0 +1,23 @@
+<?oxygen RNGSchema="../../tools/xspec/src/schemas/xspec.rnc" type="compact"?>
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+               xmlns:db="http://docbook.org/ns/docbook"
+               xmlns:html="http://www.w3.org/1999/xhtml"
+               xmlns="http://www.w3.org/1999/xhtml"
+               stylesheet="../../xslt/base/html/docbook.xsl">
+
+<!--
+    N.B. If you run these tests w/o using XProc, you will get some differences
+    unless you establish the same parameters that the XProc pipeline uses.
+-->
+
+<x:scenario label="Profiling tests">
+  <x:scenario label="profiling.001.xml">
+    <x:context href="src/profiling.001.xml"/>
+    <x:expect label="Profiling tests"
+      test="//html:body"
+      select="//html:body"
+      href="[RESULT]/profiling.001.html"/>
+  </x:scenario>
+</x:scenario>
+
+</x:description>
