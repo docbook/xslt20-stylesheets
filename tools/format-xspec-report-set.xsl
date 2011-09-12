@@ -21,6 +21,8 @@
   </xsl:message>
   <html>
     <head>
+      <!-- oh bother. just assume we're going to output utf-8 -->
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <title>
          <xsl:text>XSpec Test Report </xsl:text>
          <xsl:text> (</xsl:text>
