@@ -25,10 +25,41 @@
   <p:with-param name="glossary.collection" select="'etc/glossary.collection.xml'"/>
 </ex:xspec>
 
+<ex:xspec name="htmlprof1">
+  <p:input port="source">
+    <p:document href="htmlprof.xml"/>
+  </p:input>
+  <p:with-option name="result" select="'result/prof1'"/>
+</ex:xspec>
+
+<ex:xspec name="htmlprof2">
+  <p:input port="source">
+    <p:document href="htmlprof.xml"/>
+  </p:input>
+  <p:with-option name="result" select="'result/prof2'"/>
+  <p:with-param name="preprocess" select="'profile'"/>
+  <p:with-param name="profile.os" select="'win'"/>
+</ex:xspec>
+
+<ex:xspec name="htmlprof3">
+  <p:input port="source">
+    <p:document href="htmlprof.xml"/>
+  </p:input>
+  <p:with-option name="result" select="'result/prof3'"/>
+  <p:with-param name="preprocess" select="'profile'"/>
+  <p:with-param name="profile.os" select="'linux'"/>
+  <p:log port="result" href="/tmp/out.xml"/>
+</ex:xspec>
+
 <p:wrap-sequence wrapper="x:report-set">
   <p:input port="source">
     <p:pipe step="htmlalt" port="result"/>
     <p:pipe step="htmlbase" port="result"/>
+<!--
+    <p:pipe step="htmlprof1" port="result"/>
+    <p:pipe step="htmlprof2" port="result"/>
+    <p:pipe step="htmlprof3" port="result"/>
+-->
   </p:input>
 </p:wrap-sequence>
 
