@@ -29,11 +29,12 @@
     <delete dir="${build}"/>
   </target>
 
-  <target name="classes.saxon" depends="prepare"
+  <target name="classes.saxon" depends="prepare,classes.jython"
           description="Build Saxon extension classes">
     <javac srcdir="${src.saxon}" destdir="${build.classes}" includeantruntime="false">
       <classpath>
         <pathelement location="${dbroot.dir}/tools/lib/saxon9he.jar"/>
+        <pathelement location="${build.classes}"/>
       </classpath>
     </javac>
   </target>
