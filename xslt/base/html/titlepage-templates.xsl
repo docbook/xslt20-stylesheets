@@ -71,7 +71,7 @@
       </tmpl:recto>
     </tmpl:templates>
 
-    <tmpl:templates name="preface chapter appendix">
+    <tmpl:templates name="preface chapter appendix partintro">
       <tmpl:titlepage>
         <div tmpl:class="titlepage">
           <db:title/>
@@ -131,9 +131,9 @@
 
     <tmpl:templates name="figure example table equation procedure step
                           bibliolist glosslist qandaset qandadiv
-                          itemizedlist orderedlist variablelist segmentedlist
+                          itemizedlist orderedlist variablelist segmentedlist calloutlist
                           warning caution note tip important blockquote
-                          annotation">
+                          annotation revhistory msgset">
       <tmpl:titlepage>
         <db:title/>
       </tmpl:titlepage>
@@ -143,6 +143,11 @@
       <tmpl:titlepage>
         <db:title/>
       </tmpl:titlepage>
+    </tmpl:templates>
+
+    <!-- refentry elements are special, they don't really get a titlepage -->
+    <tmpl:templates name="refentry">
+      <tmpl:titlepage/>
     </tmpl:templates>
   </tmpl:templates-list>
 </xsl:template>
