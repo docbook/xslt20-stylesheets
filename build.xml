@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="DocBook XSLT 2.0 stylesheets" default="all">
 
-  <property name="version" value="2.0.0"/>
+  <property name="version" value="2.0.1"/>
 
   <property name="dbroot.dir" value="${ant.file}/.."/>
   <import file="tools/build-shared.xml"/>
@@ -74,6 +74,8 @@
         <exclude name=".gitignore"/>
         <exclude name=".git/**"/>
         <exclude name="dist/**"/>
+        <exclude name="tests/xspec/pdf/**"/>
+        <exclude name="tools/lib/cachedir/**"/>
       </fileset>
     </copy>
 
