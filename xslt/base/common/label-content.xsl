@@ -575,9 +575,63 @@ processed in this mode should generate their label.</para>
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="db:figure|db:table|db:example|db:procedure"
-	      mode="m:label-content">
+<xsl:template match="db:table" mode="m:label-content">
+  <!-- tables have to be handled specially because HTML tables with captions don't count -->
+  <xsl:variable name="pchap"
+                select="(ancestor::db:chapter
+                         |ancestor::db:appendix
+                         |ancestor::db:article[ancestor::db:book])[last()]"/>
 
+  <xsl:choose>
+    <xsl:when test="@label">
+      <xsl:value-of select="@label"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:choose>
+        <xsl:when test="$pchap">
+	  <xsl:variable name="prefix">
+	    <xsl:apply-templates select="$pchap" mode="m:label-content"/>
+	  </xsl:variable>
+
+	  <xsl:if test="$prefix != ''">
+	    <xsl:copy-of select="$prefix"/>
+	    <xsl:apply-templates select="$pchap"
+				 mode="m:intralabel-punctuation"/>
+	  </xsl:if>
+
+          <xsl:variable name="count" as="xs:string*">
+            <xsl:for-each select="$pchap//db:table intersect preceding::db:table">
+              <xsl:if test="db:info/db:title|db:title">1</xsl:if>
+            </xsl:for-each>
+          </xsl:variable>
+
+          <xsl:number format="1" value="count($count) + 1"/>
+        </xsl:when>
+	<xsl:when test="ancestor::db:book|ancestor::db:article">
+          <xsl:variable name="anc" select="(ancestor::db:book|ancestor::db:article)[last()]"/>
+          <xsl:variable name="count" as="xs:string*">
+            <xsl:for-each select="$anc//db:table intersect preceding::db:table">
+              <xsl:if test="db:info/db:title|db:title">1</xsl:if>
+            </xsl:for-each>
+          </xsl:variable>
+
+          <xsl:number format="1" value="count($count) + 1"/>
+	</xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="count" as="xs:string*">
+            <xsl:for-each select="preceding::db:table">
+              <xsl:if test="db:info/db:title|db:title">1</xsl:if>
+            </xsl:for-each>
+          </xsl:variable>
+
+          <xsl:number format="1" value="count($count) + 1"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="db:figure|db:example|db:procedure" mode="m:label-content">
   <xsl:variable name="pchap"
                 select="ancestor::db:chapter
                         |ancestor::db:appendix
