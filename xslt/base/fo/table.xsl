@@ -34,20 +34,6 @@
 
 <xsl:include href="../common/table.xsl"/>
 
-<!-- FIXME:
-<xsl:template match="db:table">
-  <fo:block>
-    <xsl:call-template name="t:make.table.content"/>
-  </fo:block>
-</xsl:template>
-
-<xsl:template match="db:informaltable">
-  <fo:block>
-    <xsl:call-template name="t:make.table.content"/>
-  </fo:block>
-</xsl:template>
--->
-
 <xsl:template name="t:make.table.content">
   <xsl:choose>
     <xsl:when test="db:tgroup|db:mediaobject">
@@ -87,7 +73,7 @@
   --></xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="self::db:table">
+    <xsl:when test="self::db:table and (db:info/db:title or db:title)">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="table.properties">
         <xsl:if test="$keep.together != ''">
@@ -627,7 +613,7 @@
 <xsl:template match="ghost:empty" mode="m:cals">
   <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
   <!-- FIXME: what about attributes on empty cells? -->
-  <table-cell>
+  <fo:table-cell>
     <xsl:if test="@colsep &gt; 0 and following-sibling::*">
       <xsl:call-template name="t:border">
 	<xsl:with-param name="side" select="'right'"/>
@@ -638,7 +624,7 @@
 	<xsl:with-param name="side" select="'bottom'"/>
       </xsl:call-template>
     </xsl:if>
-  </table-cell>
+  </fo:table-cell>
 </xsl:template>
 
 <xsl:template match="ghost:overlapped" mode="m:cals">
@@ -675,14 +661,100 @@
 </refdescription>
 </doc:mode>
 
-<xsl:template match="db:table|db:caption|db:col|db:colgroup
-                     |db:thead|db:tfoot|db:tbody|db:tr
-		     |db:th|db:td" mode="m:html">
-  <xsl:message terminate="yes">HTML tables not supported yet.</xsl:message>
+<xsl:template match="db:table|db:informaltable" mode="m:html">
+  <xsl:variable name="body">
+    <xsl:choose>
+      <xsl:when test="db:tbody">
+        <xsl:apply-templates select="db:colgroup|db:col|db:thead|db:tfoot|db:tbody" mode="m:html"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="db:colgroup|db:col" mode="m:html"/>
+        <fo:table-body>
+          <xsl:apply-templates select="db:tr" mode="m:html"/>
+        </fo:table-body>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="db:caption">
+      <fo:table-and-caption>
+        <xsl:apply-templates select="db:caption" mode="m:html"/>
+        <fo:table width="100%">
+          <xsl:copy-of select="$body"/>
+        </fo:table>
+      </fo:table-and-caption>
+    </xsl:when>
+    <xsl:otherwise>
+      <fo:table width="100%">
+        <xsl:copy-of select="$body"/>
+      </fo:table>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
-<xsl:template match="db:informaltable" mode="m:html">
-  <xsl:message terminate="yes">HTML tables not supported yet.</xsl:message>
+<xsl:template match="db:caption" mode="m:html">
+  <fo:table-caption>
+    <fo:block>
+      <xsl:apply-templates/>
+    </fo:block>
+  </fo:table-caption>
+</xsl:template>
+
+<xsl:template match="db:colgroup" mode="m:html">
+  <xsl:apply-templates mode="m:html"/>
+</xsl:template>
+
+<xsl:template match="db:col" mode="m:html">
+  <fo:table-column>
+    <xsl:copy-of select="@width"/>
+    <xsl:if test="@span">
+      <xsl:attribute name="number-columns-spanned">
+        <xsl:value-of select="@span"/>
+      </xsl:attribute>
+    </xsl:if>
+  </fo:table-column>
+</xsl:template>
+
+<xsl:template match="db:thead" mode="m:html">
+  <fo:table-header>
+    <xsl:apply-templates mode="m:html"/>
+  </fo:table-header>
+</xsl:template>
+
+<xsl:template match="db:tbody" mode="m:html">
+  <fo:table-body>
+    <xsl:apply-templates mode="m:html"/>
+  </fo:table-body>
+</xsl:template>
+
+<xsl:template match="db:tfoot" mode="m:html">
+  <fo:table-footer>
+    <xsl:apply-templates mode="m:html"/>
+  </fo:table-footer>
+</xsl:template>
+
+<xsl:template match="db:tr" mode="m:html">
+  <fo:table-row>
+    <xsl:apply-templates mode="m:html"/>
+  </fo:table-row>
+</xsl:template>
+
+<xsl:template match="db:th|db:td" mode="m:html">
+  <fo:table-cell border-style="solid" border-color="black" border-width="1pt" padding="2pt">
+    <xsl:if test="self::db:th">
+      <xsl:attribute name="font-weight" select="'bold'"/>
+    </xsl:if>
+    <xsl:if test="@rowspan">
+      <xsl:attribute name="number-rows-spanned" select="@rowspan"/>
+    </xsl:if>
+    <xsl:if test="@colspan">
+      <xsl:attribute name="number-columns-spanned" select="@colspan"/>
+    </xsl:if>
+    <fo:block>
+      <xsl:apply-templates/>
+    </fo:block>
+  </fo:table-cell>
 </xsl:template>
 
 <!-- ============================================================ -->
