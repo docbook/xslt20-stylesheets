@@ -505,7 +505,7 @@
 
 <xsl:template match="db:equation">
   <xsl:variable name="param.placement"
-              select="substring-after(normalize-space($formal.title.placement),
+              select="substring-after(normalize-space($formal.title.placement[self::db:equation]/@placement),
                                       concat(local-name(.), ' '))"/>
 
   <xsl:variable name="placement">
