@@ -1009,9 +1009,9 @@ in this mode should generate its title.</para>
 
   <xsl:choose>
     <xsl:when test="$purpose = 'xref'">
-      <i>
+      <fo:inline font-style="italic">
         <xsl:copy-of select="$title"/>
-      </i>
+      </fo:inline>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy-of select="$title"/>
