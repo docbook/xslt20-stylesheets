@@ -30,11 +30,11 @@
                         master-reference="{$master-reference}">
 	<xsl:call-template name="t:page-sequence-attributes"/>
 
-	<xsl:apply-templates select="." mode="running.head.mode">
+	<xsl:apply-templates select="." mode="m:running-head-mode">
           <xsl:with-param name="master-reference" select="$master-reference"/>
         </xsl:apply-templates>
 
-        <xsl:apply-templates select="." mode="running.foot.mode">
+        <xsl:apply-templates select="." mode="m:running-foot-mode">
           <xsl:with-param name="master-reference" select="$master-reference"/>
         </xsl:apply-templates>
 
