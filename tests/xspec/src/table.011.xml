@@ -4,6 +4,8 @@
 <para>Simple cell spacing test. The following single-column table
 should show both cell contents starting at the same place.</para>
 
+<para>CALS:</para>
+
   <informaltable frame="all">
     <tgroup cols="1">
       <tbody>
@@ -17,4 +19,19 @@ Second entry.</entry>
       </tbody>
     </tgroup>
   </informaltable>
+
+<para>HTML:</para>
+
+  <informaltable border="1">
+    <tbody>
+        <tr>
+          <td>First entry.</td>
+        </tr>
+        <tr>
+          <td>
+Second entry.</td>
+        </tr>
+      </tbody>
+  </informaltable>
+
 </article>

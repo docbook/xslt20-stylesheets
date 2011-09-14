@@ -3,6 +3,8 @@
 
 <para>Nested table test.</para>
 
+<para>CALS:</para>
+
 <informaltable frame="all">
 <tgroup cols="3">
 <tbody>
@@ -83,6 +85,88 @@
 </row>
 </tbody>
 </tgroup>
+</informaltable>
+
+<para>HTML:</para>
+
+<informaltable border="1">
+<tbody>
+<tr>
+<td>a foo</td>
+<td>a bar</td>
+<td>a baz</td>
+</tr>
+<tr>
+<td>b foo</td>
+<td>
+<informaltable width="300">
+  <tbody>
+    <tr>
+      <td>a' foo</td>
+      <td>a' bar</td>
+      <td>a' baz</td>
+    </tr>
+    <tr>
+      <td>b' foo</td>
+      <td>b' bar</td>
+      <td rowspan="2">b' and c' baz</td>
+    </tr>
+    <tr>
+      <td>c' foo</td>
+      <td>c' bar</td>
+    </tr>
+  </tbody>
+</informaltable>
+</td>
+<td>b baz</td>
+</tr>
+<tr>
+<td>c foo</td>
+<td>c bar</td>
+<td>c baz</td>
+</tr>
+</tbody>
+</informaltable>
+
+<para>Nested table test.</para>
+
+<informaltable>
+<tbody>
+<tr>
+<td>a foo</td>
+<td>a bar</td>
+<td>a baz</td>
+</tr>
+<tr>
+<td>b foo</td>
+<td>
+<informaltable width="200">
+  <tbody>
+    <tr>
+      <td>a' foo</td>
+      <td>a' bar</td>
+      <td>a' baz</td>
+    </tr>
+    <tr>
+      <td>b' foo</td>
+      <td>b' bar</td>
+      <td rowspan="2">b' and c' baz</td>
+    </tr>
+    <tr>
+      <td>c' foo</td>
+      <td>c' bar</td>
+    </tr>
+  </tbody>
+</informaltable>
+</td>
+<td>b baz</td>
+</tr>
+<tr>
+<td>c foo</td>
+<td>c bar</td>
+<td>c baz</td>
+</tr>
+</tbody>
 </informaltable>
 
 </article>

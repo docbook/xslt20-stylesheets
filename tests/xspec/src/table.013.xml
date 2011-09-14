@@ -3,6 +3,8 @@
 
 <para>Test for entrytbl, bug #677564.</para>
 
+<para>CALS:</para>
+
 <informaltable frame="none">
   <tgroup cols="3">
     <tbody>
@@ -19,6 +21,26 @@
       </row>
     </tbody>
   </tgroup>
+</informaltable>
+
+<para>HTML:</para>
+
+<informaltable>
+  <tbody>
+    <tr>
+      <td>one</td>
+      <td>
+        <informaltable>
+          <tbody>
+            <tr>
+              <td>Du texte dans une cellule.</td>
+            </tr>
+          </tbody>
+        </informaltable>
+      </td>
+      <td>three</td>
+    </tr>
+  </tbody>
 </informaltable>
 
 </article>

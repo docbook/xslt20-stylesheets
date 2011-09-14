@@ -1,6 +1,8 @@
 <article xmlns="http://docbook.org/ns/docbook" version="5.0">
 <title>Article wrapper</title>
 
+<para>CALS.</para>
+
 <table xml:id="width-test-1" frame="all">
 <title>Width Test 1</title>
 <tgroup cols="4" align="left">
@@ -25,4 +27,29 @@
 </tgroup>
 </table>
 
+<para>HTML. Note that HTML has much less sophisticated width control.</para>
+
+<table xml:id="width-test-2" border="1">
+<caption>Width Test 1</caption>
+<colgroup>
+<col span="1" width="11%"/>
+<col span="1" width="11%"/>
+<col span="1" width="58%"/>
+<col span="1" width="20%"/>
+</colgroup>
+<tbody>
+<tr>
+<td>11%</td>
+<td>11%</td>
+<td>58%</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>some words to make the thing wrap around to test the width</td>
+<td>some words to make the thing wrap around to test the width</td>
+<td>some words to make the thing wrap around to test the width</td>
+<td>some words to make the thing wrap around to test the width</td>
+</tr>
+</tbody>
+</table>
 </article>

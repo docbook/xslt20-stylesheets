@@ -3,6 +3,8 @@
 
 <para>Table style test.</para>
 
+<para>CALS:</para>
+
 <informaltable frame="all">
 <tgroup cols="3">
 <colspec colname="c2" colnum="2" colsep="1"/>
@@ -36,6 +38,38 @@
 </row>
 </tbody>
 </tgroup>
+</informaltable>
+
+<para>HTML:</para>
+
+<informaltable border="1">
+<tbody>
+<tr>
+<td>a foo</td>
+<td style="background-color: red">a bar</td>
+<td>a baz</td>
+</tr>
+<tr>
+<td>b foo</td>
+<td>&#160;</td>
+<td>b baz</td>
+</tr>
+<tr>
+<td>c foo</td>
+<td>c foo</td>
+<td>c baz</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td>a bar</td>
+<td>a baz</td>
+</tr>
+<tr>
+<td>c foo</td>
+<td>c foo</td>
+</tr>
+</tbody>
 </informaltable>
 
 </article>

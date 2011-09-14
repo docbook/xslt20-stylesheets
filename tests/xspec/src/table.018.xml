@@ -3,6 +3,8 @@
 
 <para>This test is a table with a long description.</para>
 
+<para>CALS:</para>
+
 <table frame="all">
 <title>A table with a title</title>
 <textobject>
@@ -47,5 +49,7 @@
 </tbody>
 </tgroup>
 </table>
+
+<para>HTML tables don't have long descriptions.</para>
 
 </article>
