@@ -11,7 +11,8 @@
 		xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f ghost h m t u xs html"
+                xmlns:css="https://github.com/docbook/css-rules"
+		exclude-result-prefixes="db doc f ghost h m t u xs html css"
                 version="2.0">
 
 <xsl:param name="table.width.nominal" select="'6.5in'"/>
@@ -32,7 +33,59 @@
   <xsl:attribute name="font-weight">bold</xsl:attribute>
 </xsl:attribute-set>
 
+<xsl:attribute-set name="table.body.properties"/>
+<xsl:attribute-set name="table.foot.properties"/>
+
 <xsl:include href="../common/table.xsl"/>
+
+<xsl:key name="css-table-class" match="css:table-class" use="@name"/>
+
+<xsl:variable name="css-rules" as="element(css:rules)">
+  <xsl:variable name="system-rules" as="element(css:rules)?">
+    <xsl:call-template name="t:system-css-rules"/>
+  </xsl:variable>
+  <xsl:variable name="user-rules" as="element(css:rules)?">
+    <xsl:call-template name="t:user-css-rules"/>
+  </xsl:variable>
+  <css:rules>
+    <xsl:sequence select="$user-rules/*"/>
+    <xsl:sequence select="$system-rules/*"/>
+  </css:rules>
+</xsl:variable>
+
+<xsl:template name="t:system-css-rules" as="element(css:rules)?">
+  <!-- none by default -->
+</xsl:template>
+
+<xsl:template name="t:user-css-rules" as="element(css:rules)?">
+  <!-- none by default -->
+</xsl:template>
+
+<xsl:param name="css-property-maps" as="element(css:property-map)*">
+  <css:property-map css="background-color" fo="background-color"/>
+  <css:property-map css="border"/>
+  <css:property-map css="border-bottom"/>
+  <css:property-map css="border-bottom-color"/>
+  <css:property-map css="border-bottom-style"/>
+  <css:property-map css="border-bottom-width"/>
+  <css:property-map css="border-collapse"/>
+  <css:property-map css="border-left"/>
+  <css:property-map css="border-left-color"/>
+  <css:property-map css="border-left-style"/>
+  <css:property-map css="border-left-width"/>
+  <css:property-map css="border-right"/>
+  <css:property-map css="border-right-color"/>
+  <css:property-map css="border-right-style"/>
+  <css:property-map css="border-right-width"/>
+  <css:property-map css="border-top"/>
+  <css:property-map css="border-top-color"/>
+  <css:property-map css="border-top-style"/>
+  <css:property-map css="border-top-width"/>
+  <css:property-map css="font-family"/>
+  <css:property-map css="font-style"/>
+  <css:property-map css="font-weight"/>
+  <css:property-map css="text-align"/>
+</xsl:param>
 
 <xsl:template name="t:make.table.content">
   <xsl:choose>
@@ -108,7 +161,7 @@
 <!-- Output a table's footnotes in a block -->
 <xsl:template name="t:table.footnote.block">
   <xsl:if test=".//db:footnote">
-    <fo:block keep-with-previous.within-column="always">
+    <fo:block keep-with-previous.within-column="always" margin-top="0.5em">
       <xsl:apply-templates select=".//db:footnote" mode="m:table-footnote-mode"/>
     </fo:block>
   </xsl:if>
@@ -508,11 +561,9 @@
     </xsl:if>
 
     <xsl:if test="@rowsep = 1 and (following-sibling::db:row or ../(following-sibling::db:tbody|following-sibling::db:tfoot))">
-      <xsl:attribute name="style">
-	<xsl:call-template name="t:border">
-	  <xsl:with-param name="side" select="'bottom'"/>
-	</xsl:call-template>
-      </xsl:attribute>
+      <xsl:call-template name="t:border">
+        <xsl:with-param name="side" select="'bottom'"/>
+      </xsl:call-template>
     </xsl:if>
 
     <!-- Keep header row with next row -->
@@ -662,35 +713,76 @@
 </doc:mode>
 
 <xsl:template match="db:table|db:informaltable" mode="m:html">
+  <xsl:variable name="cols" as="element(db:col)*">
+    <xsl:apply-templates select="db:colgroup|db:col" mode="m:html-cols"/>
+  </xsl:variable>
+
   <xsl:variable name="body">
+    <!-- fixme: what about column spans here? -->
+    <xsl:for-each select="$cols">
+      <fo:table-column>
+        <xsl:if test="@width">
+          <xsl:attribute name="column-width" select="@width"/>
+        </xsl:if>
+      </fo:table-column>
+    </xsl:for-each>
+
     <xsl:choose>
       <xsl:when test="db:tbody">
-        <xsl:apply-templates select="db:colgroup|db:col|db:thead|db:tfoot|db:tbody" mode="m:html"/>
+        <xsl:apply-templates select="db:thead|db:tfoot|db:tbody" mode="m:html">
+          <xsl:with-param name="cols" select="$cols"/>
+        </xsl:apply-templates>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:apply-templates select="db:colgroup|db:col" mode="m:html"/>
-        <fo:table-body>
-          <xsl:apply-templates select="db:tr" mode="m:html"/>
+        <fo:table-body xsl:use-attribute-sets="table.body.properties">
+          <xsl:call-template name="t:process-html-rows">
+            <xsl:with-param name="cols" select="$cols"/>
+            <xsl:with-param name="rows" select="db:tr"/>
+          </xsl:call-template>
         </fo:table-body>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:choose>
-    <xsl:when test="db:caption">
-      <fo:table-and-caption>
-        <xsl:apply-templates select="db:caption" mode="m:html"/>
-        <fo:table width="100%">
+  <fo:block xsl:use-attribute-sets="table.properties">
+    <xsl:choose>
+      <xsl:when test="db:caption">
+        <fo:table-and-caption>
+          <xsl:apply-templates select="db:caption" mode="m:html"/>
+          <fo:table>
+            <xsl:if test="@border = '1'">
+              <xsl:call-template name="t:table-frame">
+                <xsl:with-param name="frame" select="'all'"/>
+              </xsl:call-template>
+            </xsl:if>
+            <xsl:if test="empty(db:colgroup/db:col[@width]|db:col[@width])">
+              <xsl:attribute name="width" select="'100%'"/>
+            </xsl:if>
+            <xsl:call-template name="t:parse-css">
+              <xsl:with-param name="style" select="@style"/>
+            </xsl:call-template>
+            <xsl:copy-of select="$body"/>
+          </fo:table>
+        </fo:table-and-caption>
+      </xsl:when>
+      <xsl:otherwise>
+        <fo:table>
+          <xsl:if test="@border = '1'">
+            <xsl:call-template name="t:table-frame">
+              <xsl:with-param name="frame" select="'all'"/>
+            </xsl:call-template>
+          </xsl:if>
+          <xsl:if test="empty(db:colgroup/db:col[@width]|db:col[@width])">
+            <xsl:attribute name="width" select="'100%'"/>
+          </xsl:if>
+          <xsl:call-template name="t:parse-css">
+            <xsl:with-param name="style" select="@style"/>
+          </xsl:call-template>
           <xsl:copy-of select="$body"/>
         </fo:table>
-      </fo:table-and-caption>
-    </xsl:when>
-    <xsl:otherwise>
-      <fo:table width="100%">
-        <xsl:copy-of select="$body"/>
-      </fo:table>
-    </xsl:otherwise>
-  </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </fo:block>
 </xsl:template>
 
 <xsl:template match="db:caption" mode="m:html">
@@ -702,46 +794,124 @@
 </xsl:template>
 
 <xsl:template match="db:colgroup" mode="m:html">
-  <xsl:apply-templates mode="m:html"/>
+  <xsl:message terminate="yes">Error: db:colgroup should never be processed in m:html mode</xsl:message>
 </xsl:template>
 
 <xsl:template match="db:col" mode="m:html">
-  <fo:table-column>
-    <xsl:copy-of select="@width"/>
-    <xsl:if test="@span">
-      <xsl:attribute name="number-columns-spanned">
-        <xsl:value-of select="@span"/>
-      </xsl:attribute>
-    </xsl:if>
-  </fo:table-column>
+  <xsl:message terminate="yes">Error: db:col should never be processed in m:html mode</xsl:message>
 </xsl:template>
 
 <xsl:template match="db:thead" mode="m:html">
-  <fo:table-header>
-    <xsl:apply-templates mode="m:html"/>
+  <xsl:param name="cols" as="element(db:col)*"/>
+
+  <fo:table-header xsl:use-attribute-sets="table.head.properties">
+    <xsl:call-template name="t:parse-css">
+      <xsl:with-param name="style" select="@style"/>
+    </xsl:call-template>
+    <xsl:call-template name="t:process-html-rows">
+      <xsl:with-param name="cols" select="$cols"/>
+      <xsl:with-param name="rows" select="db:tr"/>
+    </xsl:call-template>
   </fo:table-header>
 </xsl:template>
 
 <xsl:template match="db:tbody" mode="m:html">
-  <fo:table-body>
-    <xsl:apply-templates mode="m:html"/>
+  <xsl:param name="cols" as="element(db:col)*"/>
+
+  <fo:table-body xsl:use-attribute-sets="table.body.properties">
+    <xsl:call-template name="t:parse-css">
+      <xsl:with-param name="style" select="@style"/>
+    </xsl:call-template>
+    <xsl:call-template name="t:process-html-rows">
+      <xsl:with-param name="cols" select="$cols"/>
+      <xsl:with-param name="rows" select="db:tr"/>
+    </xsl:call-template>
   </fo:table-body>
 </xsl:template>
 
 <xsl:template match="db:tfoot" mode="m:html">
-  <fo:table-footer>
-    <xsl:apply-templates mode="m:html"/>
+  <xsl:param name="cols" as="element(db:col)*"/>
+
+  <fo:table-footer xsl:use-attribute-sets="table.foot.properties">
+    <xsl:call-template name="t:parse-css">
+      <xsl:with-param name="style" select="@style"/>
+    </xsl:call-template>
+    <xsl:call-template name="t:process-html-rows">
+      <xsl:with-param name="cols" select="$cols"/>
+      <xsl:with-param name="rows" select="db:tr"/>
+    </xsl:call-template>
   </fo:table-footer>
 </xsl:template>
 
 <xsl:template match="db:tr" mode="m:html">
+  <xsl:param name="cells" as="element()*"/>
+
   <fo:table-row>
-    <xsl:apply-templates mode="m:html"/>
+    <xsl:call-template name="t:parse-css">
+      <xsl:with-param name="style" select="@style"/>
+    </xsl:call-template>
+    <xsl:copy-of select="$cells"/>
   </fo:table-row>
 </xsl:template>
 
 <xsl:template match="db:th|db:td" mode="m:html">
-  <fo:table-cell border-style="solid" border-color="black" border-width="1pt" padding="2pt">
+  <xsl:param name="col" select="()"/>
+
+  <xsl:variable name="cell" select="."/>
+  <xsl:variable name="table" select="(ancestor::db:table|ancestor::db:informaltable)[last()]"/>
+
+  <fo:table-cell xsl:use-attribute-sets="table.cell.properties">
+    <xsl:if test="$table/@border = 1">
+      <xsl:call-template name="t:border">
+        <xsl:with-param name="side" select="'bottom'"/>
+      </xsl:call-template>
+      <xsl:call-template name="t:border">
+        <xsl:with-param name="side" select="'right'"/>
+      </xsl:call-template>
+    </xsl:if>
+
+    <xsl:for-each select="tokenize(normalize-space(concat($col/@class,' ',$cell/@class)), '\s+')">
+      <xsl:call-template name="t:apply-css-rules">
+        <xsl:with-param name="node" select="$cell"/>
+        <xsl:with-param name="class" select="."/>
+      </xsl:call-template>
+    </xsl:for-each>
+
+    <xsl:for-each select="($col/@style, $cell/@style)">
+      <xsl:call-template name="t:parse-css">
+        <xsl:with-param name="node" select="$cell"/>
+        <xsl:with-param name="style" select="."/>
+      </xsl:call-template>
+    </xsl:for-each>
+
+    <xsl:if test="@valign or $col/@valign">
+      <xsl:variable name="valign" select="(@valign,$col/@valign)[1]"/>
+      <xsl:attribute name="display-align">
+        <xsl:choose>
+          <xsl:when test="$valign = 'top'">before</xsl:when>
+          <xsl:when test="$valign = 'middle'">center</xsl:when>
+          <xsl:when test="$valign = 'bottom'">after</xsl:when>
+          <xsl:otherwise>auto</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
+
+    <xsl:if test="@align or $col/@align">
+      <xsl:variable name="align" select="(@align,$col/@align)[1]"/>
+      <xsl:attribute name="text-align">
+        <xsl:choose>
+          <xsl:when test="$align = 'left'">left</xsl:when>
+          <xsl:when test="$align = 'center'">center</xsl:when>
+          <xsl:when test="$align = 'right'">right</xsl:when>
+          <xsl:when test="$align = 'justify'">justify</xsl:when>
+          <xsl:when test="$align = 'char'">
+            <xsl:value-of select="(@char,$col/@char)[1]"/>
+          </xsl:when>
+          <xsl:otherwise>auto</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
+
     <xsl:if test="self::db:th">
       <xsl:attribute name="font-weight" select="'bold'"/>
     </xsl:if>
@@ -758,6 +928,120 @@
 </xsl:template>
 
 <!-- ============================================================ -->
+
+<xsl:template name="t:process-html-rows">
+  <xsl:param name="cols" as="element(db:col)*"/>
+  <xsl:param name="rows" as="element(db:tr)*"/>
+  <xsl:param name="overhang" as="xs:integer*"/>
+
+  <xsl:variable name="rowdata" as="item()*">
+    <xsl:call-template name="t:process-row">
+      <xsl:with-param name="overhang" select="$overhang"/>
+      <xsl:with-param name="cells" select="$rows[1]/(db:td|db:th)"/>
+      <xsl:with-param name="cols" select="$cols"/>
+    </xsl:call-template>
+  </xsl:variable>
+
+  <xsl:variable name="newhang" as="xs:integer*">
+    <xsl:for-each select="$rowdata[position() mod 2 = 0]">
+      <xsl:value-of select="."/>
+    </xsl:for-each>
+  </xsl:variable>
+
+  <xsl:apply-templates select="$rows[1]" mode="m:html">
+    <xsl:with-param name="cells"
+                    select="$rowdata[(position() mod 2 = 1)
+                                     and (namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral')]"/>
+  </xsl:apply-templates>
+
+  <xsl:if test="count($rows) &gt; 1">
+    <xsl:call-template name="t:process-html-rows">
+      <xsl:with-param name="cols" select="$cols"/>
+      <xsl:with-param name="rows" select="$rows[position() &gt; 1]"/>
+      <xsl:with-param name="overhang" select="$newhang"/>
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="t:process-row">
+  <xsl:param name="overhang" as="xs:integer*"/>
+  <xsl:param name="cells" as="element()*"/>
+  <xsl:param name="cols" as="element(db:col)*"/>
+  <xsl:param name="curcol" as="xs:integer" select="1"/>
+
+  <xsl:choose>
+    <xsl:when test="exists($overhang) and $overhang[1] &gt; 0">
+      <ghost:overlap/>
+      <ghost:overhang><xsl:value-of select="$overhang[1] - 1"/></ghost:overhang>
+      <xsl:call-template name="t:process-row">
+        <xsl:with-param name="overhang" select="$overhang[position() &gt; 1]"/>
+        <xsl:with-param name="cells" select="$cells"/>
+        <xsl:with-param name="cols" select="$cols"/>
+        <xsl:with-param name="curcol" select="$curcol + 1"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:when test="exists($cells)">
+      <xsl:apply-templates select="$cells[1]" mode="m:html">
+        <xsl:with-param name="col" select="$cols[$curcol]"/>
+      </xsl:apply-templates>
+
+      <xsl:variable name="rowspan" select="if ($cells[1]/@rowspan) then xs:integer($cells[1]/@rowspan) else 1"/>
+      <xsl:variable name="colspan" select="if ($cells[1]/@colspan) then xs:integer($cells[1]/@colspan) else 1"/>
+
+      <xsl:for-each select="1 to xs:integer($colspan)">
+        <xsl:if test=". &gt; 1"><ghost:overlap/></xsl:if>
+        <ghost:overhang>
+          <xsl:value-of select="$rowspan - 1"/>
+        </ghost:overhang>
+      </xsl:for-each>
+
+      <xsl:call-template name="t:process-row">
+        <xsl:with-param name="overhang" select="$overhang[position() &gt; 1]"/>
+        <xsl:with-param name="cells" select="$cells[position() &gt; 1]"/>
+        <xsl:with-param name="cols" select="$cols"/>
+        <xsl:with-param name="curcol" select="$curcol + $colspan"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- nop -->
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="db:colgroup" mode="m:html-cols">
+  <xsl:variable name="colgroup" select="."/>
+  <xsl:choose>
+    <xsl:when test="@span">
+      <xsl:for-each select="1 to xs:integer(@span)">
+        <db:col>
+          <xsl:copy-of select="$colgroup/@* except $colgroup/@span"/>
+        </db:col>
+      </xsl:for-each>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="db:col" mode="m:html-cols"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="db:col" mode="m:html-cols">
+  <xsl:variable name="col" select="."/>
+  <xsl:choose>
+    <xsl:when test="@span">
+      <xsl:for-each select="1 to xs:integer(@span)">
+        <db:col>
+          <xsl:copy-of select="$col/@* except $col/@span"/>
+        </db:col>
+      </xsl:for-each>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:sequence select="."/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- ============================================================ -->
+
 <xsl:template name="t:colgroup-to-fo">
   <xsl:param name="colgroup" as="element(html:colgroup)"/>
 
@@ -765,5 +1049,38 @@
     <fo:table-column column-width="{@width}"/>
   </xsl:for-each>
 </xsl:template>
+
+<!-- ============================================================ -->
+
+<xsl:template name="t:apply-css-rules">
+  <xsl:param name="node" as="element()"/>
+  <xsl:param name="class" as="xs:string"/>
+
+  <xsl:variable name="style-rules" select="$css-rules/css:table-class[@name=$class]"/>
+  <xsl:variable name="doc-rules" select="key('css-table-class', $class, root($node))"/>
+
+  <xsl:for-each select="($style-rules/css:property, $doc-rules/css:property)">
+    <xsl:if test="exists(@name) and exists(@value)">
+      <xsl:attribute name="{@name}" select="@value"/>
+    </xsl:if>
+  </xsl:for-each>
+</xsl:template>
+
+<xsl:template name="t:parse-css">
+  <xsl:param name="node" as="element()" select="."/>
+  <xsl:param name="style" as="xs:string?"/>
+
+  <xsl:for-each select="tokenize($style, '\s*;\s*')">
+    <xsl:variable name="property" select="normalize-space(substring-before(., ':'))"/>
+    <xsl:variable name="value" select="normalize-space(substring-after(., ':'))"/>
+    <xsl:variable name="map" select="$css-property-maps[@css = $property][last()]"/>
+    <xsl:if test="$property != '' and $value != '' and exists($map)">
+      <xsl:attribute name="{if ($map/@fo) then $map/@fo else $property}"
+                     select="$value"/>
+    </xsl:if>
+  </xsl:for-each>
+</xsl:template>
+
+<!-- ============================================================ -->
 
 </xsl:stylesheet>
