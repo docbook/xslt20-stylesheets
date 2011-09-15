@@ -4,6 +4,7 @@
 <para>This should be expanded to do a better job of documentation.
 It's just a bogus mess right now.</para>
 
+<refentry xml:id="resource.root"/>
 <refentry xml:id="linenumbering"/>
 <refentry xml:id="verbatim.trim.blank.lines"/>
 <refentry xml:id="dateTime-format"/>
@@ -115,9 +116,12 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="footnote.number.format"/>
 <refentry xml:id="footnote.sep.leader.properties"/>
 <refentry xml:id="footnote.mark.properties"/>
+<refentry xml:id="footnote.block.properties"/>
 <refentry xml:id="footnote.mark.width"/>
 <refentry xml:id="footnote.properties"/>
 <refentry xml:id="footnotes.as.endnotes"/>
+<refentry xml:id="footnote.mark.properties"/>
+<refentry xml:id="footnote.font.size"/>
 <refentry xml:id="endnotes.properties"/>
 
 <refentry xml:id="formal.title.placement"/>
@@ -262,9 +266,6 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="ulink.show"/>
 
 <refentry xml:id="xref.properties"/>
-<refentry xml:id="footnote.properties"/>
-<refentry xml:id="footnote.mark.properties"/>
-<refentry xml:id="footnote.font.size"/>
 
 <refentry xml:id="textdata.default.encoding"/>
 
