@@ -176,9 +176,8 @@ The CALS default is rowsep=1/colsep=1; HTML has no equivalent default.)</para>
 
 <para>HTML:</para>
 
-<para>(N.B. This comes out wrong in the HTML case, because the browsers don't seem
-to do the right thing with border styles specified on rows. That's a browser bug,
-yes?)</para>
+<para>(N.B. This case will only succeed if the CSS border-collapse property is set to
+collapse. The default CSS stylesheet for DocBook output does this.</para>
 
 <informaltable style="border-top: 0.4pt black solid">
 <tbody>
@@ -228,7 +227,7 @@ yes?)</para>
 
 <para>HTML:</para>
 
-<informaltable style="border-left: 0.4pt black solid">
+<informaltable style="border-left: 0.4pt black solid;">
 <col style="border-right: 0.4pt black solid"/>
 <col style="border-right: 0.4pt black solid"/>
 <col style="border-right: 0.4pt black solid"/>
@@ -279,9 +278,8 @@ yes?)</para>
 
 <para>HTML:</para>
 
-<para>(N.B. This comes out wrong in the HTML case, because the browsers don't seem
-to do the right thing with border styles specified on rows. That's a browser bug,
-yes?)</para>
+<para>(N.B. This case will only succeed if the CSS border-collapse property is set to
+collapse. The default CSS stylesheet for DocBook output does this.</para>
 
 <informaltable>
 <col style="border-right: 0.4pt black solid"/>
