@@ -52,7 +52,10 @@
       <xsl:otherwise>
         <xsl:variable name="context"
                       select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
-        <xsl:apply-templates select="$context" mode="m:object-title-markup"/>
+
+        <xsl:apply-templates select="$context" mode="m:object-title-markup">
+          <xsl:with-param name="allow-anchors" select="true()"/>
+        </xsl:apply-templates>
       </xsl:otherwise>
     </xsl:choose>
   </fo:block>
