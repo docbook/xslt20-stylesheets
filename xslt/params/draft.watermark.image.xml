@@ -16,7 +16,7 @@
 <refsynopsisdiv>
 <src:fragment xml:id="draft.watermark.image.frag">
 <xsl:param name="draft.watermark.image"
-	   select="'http://docbook.github.com/latest/img/draft.svg'"/>
+	   select="concat($resource.root, 'img/draft.svg')"/>
 </src:fragment>
 </refsynopsisdiv>
 

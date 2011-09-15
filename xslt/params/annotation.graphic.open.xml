@@ -14,7 +14,8 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="annotation.graphic.open.frag">
-<xsl:param name="annotation.graphic.open" select="'http://docbook.github.com/latest/img/annot-open.png'"/>
+<xsl:param name="annotation.graphic.open"
+           select="concat($resource.root, 'img/annot-open.png')"/>
 </src:fragment>
 </refsynopsisdiv>
 

@@ -16,7 +16,7 @@
 <refsynopsisdiv>
 <src:fragment xml:id="docbook.css.frag">
 <xsl:param name="docbook.css"
-	   select="'http://docbook.github.com/latest/css/default.css'"/>
+	   select="concat($resource.root, 'css/default.css')"/>
 </src:fragment>
 </refsynopsisdiv>
 

@@ -1,0 +1,34 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="resource.root">
+<refmeta>
+<refentrytitle>resource.root</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>resource.root</refname>
+<refpurpose>Base URI for DocBook resources (images, CSS, etc.)</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='resource.root.frag'>
+<xsl:param name="resource.root"
+	   select="'/projects/docbook/resources/base/'"/>
+<!--
+<xsl:param name="resource.root"
+	   select="'http://docbook.github.com/latest/'"/>
+-->
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>Sets the base URI against which other resources are resolved. Other resources
+in this case includes images in the case of XSL FO output and CSS, JavaScript, and
+images in the case of HTML output.
+</para>
+
+</refsect1>
+</refentry>
