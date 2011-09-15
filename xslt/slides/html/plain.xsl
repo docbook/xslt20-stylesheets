@@ -72,7 +72,11 @@
   <div class="foil">
     <div class="page">
       <div class="header">
-        <h1>Table of contents</h1>
+        <h1>
+          <xsl:call-template name="gentext">
+            <xsl:with-param name="key" select="'tableofcontents'"/>
+          </xsl:call-template>
+        </h1>
       </div>
       <div class="body">
         <xsl:call-template name="t:clicknav">
@@ -187,6 +191,13 @@
                           select="if (following::db:foil) then concat('#', f:slideno(.)+1) else ()"/>
         </xsl:call-template>
         <xsl:apply-templates select="*[not(self::db:title)]"/>
+
+        <xsl:if test=".//db:footnote">
+          <div class="footnote">
+            <sup>*</sup>
+            <xsl:apply-templates select=".//db:footnote/db:para/node()"/>
+          </div>
+        </xsl:if>
       </div>
     </div>
     <div class="footer">
