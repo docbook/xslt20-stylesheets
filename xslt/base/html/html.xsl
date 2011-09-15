@@ -183,9 +183,9 @@ and a CSS style is specified.</para>
   <xsl:param name="node" select="."/>
 
   <xsl:if test="//db:annotation">
-    <script type="text/javascript" src="http://docbook.github.com/latest/js/AnchorPosition.js"/>
-    <script type="text/javascript" src="http://docbook.github.com/latest/js/PopupWindow.js"/>
-    <script type="text/javascript" src="http://docbook.github.com/latest/js/annotation.js"/>
+    <script type="text/javascript" src="concat($resource.root, 'js/AnchorPosition.js')"/>
+    <script type="text/javascript" src="concat($resource.root, 'js/PopupWindow.js)"/>
+    <script type="text/javascript" src="concat($resource.root, 'js/annotation.js)"/>
   </xsl:if>
 
   <xsl:if test="//*[@xlink:type='extended']">
@@ -193,7 +193,7 @@ and a CSS style is specified.</para>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
     <link type="text/css" rel="stylesheet"
           href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"/>
-    <script type="text/javascript" src="http://docbook.github.com/latest/js/nhrefs.js"/>
+    <script type="text/javascript" src="concat($resource.root, 'js/nhrefs.js')"/>
   </xsl:if>
 </xsl:template>
 
