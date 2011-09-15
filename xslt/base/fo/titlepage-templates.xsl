@@ -156,8 +156,7 @@
         <fo:block space-before="1.5em">
           <fo:block font-size="{f:hsize(4)}pt"
                     margin-left="{$title.margin.left}"
-                    font-family="{$title.fontset}"
-                    font-weight="bold">
+                    font-family="{$title.fontset}">
             <db:title/>
           </fo:block>
           <fo:block font-family="{$title.fontset}">
