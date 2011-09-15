@@ -6,8 +6,10 @@
                 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:xlink='http://www.w3.org/1999/xlink'
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                exclude-result-prefixes="db doc f l m mp xs"
+                exclude-result-prefixes="db doc f l m mp t xlink xs"
                 version="2.0">
 
 <!-- ********************************************************************
@@ -237,7 +239,14 @@ but for elements that have optional titles, it may be a computed string.
 <xsl:template match="db:title" mode="mp:title-content" as="node()*">
   <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
 
-  <xsl:apply-templates/>
+  <xsl:choose>
+    <xsl:when test="$allow-anchors">
+      <xsl:apply-templates/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates mode="mp:no-anchors"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="db:refentrytitle|db:refname" mode="mp:title-content" as="node()*">
@@ -406,5 +415,142 @@ but for elements that have optional titles, it may be a computed string.
   <xsl:apply-templates/>
 </xsl:template>
 
-</xsl:stylesheet>
+<!-- ============================================================ -->
 
+<xsl:template match="*" mode="mp:no-anchors">
+  <!-- Switch to normal mode if no links -->
+  <xsl:choose>
+    <xsl:when test="descendant-or-self::db:footnote or
+                    descendant-or-self::db:anchor or
+                    descendant-or-self::db:link or
+                    descendant-or-self::db:olink or
+                    descendant-or-self::db:xref or
+                    descendant-or-self::db:indexterm or
+		    (ancestor::db:title and @xml:id)">
+      <xsl:apply-templates mode="mp:no-anchors"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="."/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="db:footnote" mode="mp:no-anchors">
+  <!-- nop, suppressed -->
+</xsl:template>
+
+<xsl:template match="db:anchor" mode="mp:no-anchors">
+  <!-- nop, suppressed -->
+</xsl:template>
+
+<xsl:template match="db:link" mode="mp:no-anchors">
+  <xsl:choose>
+    <xsl:when test="exists(node())">
+      <!-- If it has content, use it -->
+      <xsl:apply-templates/>
+    </xsl:when>
+    <xsl:when test="@endterm">
+      <!-- look for an endterm -->
+      <xsl:variable name="etargets" select="key('id',@endterm)"/>
+      <xsl:variable name="etarget" select="$etargets[1]"/>
+      <xsl:choose>
+        <xsl:when test="count($etarget) = 0">
+          <xsl:message>
+            <xsl:value-of select="count($etargets)"/>
+            <xsl:text>Endterm points to nonexistent ID: </xsl:text>
+            <xsl:value-of select="@endterm"/>
+          </xsl:message>
+          <xsl:text>???</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="$etarget" mode="m:endterm"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="db:olink" mode="mp:no-anchors">
+  <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="db:indexterm" mode="mp:no-anchors">
+  <!-- nop, suppressed -->
+</xsl:template>
+
+<xsl:template match="db:xref" mode="mp:no-anchors">
+  <xsl:variable name="targets" select="key('id',@linkend)|key('id',substring-after(@xlink:href,'#'))"/>
+  <xsl:variable name="target" select="$targets[1]"/>
+  <xsl:variable name="refelem" select="local-name($target)"/>
+
+  <xsl:call-template name="t:check-id-unique">
+    <xsl:with-param name="linkend" select="@linkend"/>
+  </xsl:call-template>
+
+  <xsl:choose>
+    <xsl:when test="count($target) = 0">
+      <xsl:message>
+        <xsl:text>XRef to nonexistent id: </xsl:text>
+        <xsl:value-of select="@linkend"/> 
+        <xsl:value-of select="@xlink:href"/>
+      </xsl:message>
+      <xsl:text>???</xsl:text>
+    </xsl:when>
+
+    <xsl:when test="@endterm">
+      <xsl:variable name="etargets" select="key('id',@endterm)"/>
+      <xsl:variable name="etarget" select="$etargets[1]"/>
+      <xsl:choose>
+        <xsl:when test="count($etarget) = 0">
+          <xsl:message>
+            <xsl:value-of select="count($etargets)"/>
+            <xsl:text>Endterm points to nonexistent ID: </xsl:text>
+            <xsl:value-of select="@endterm"/>
+          </xsl:message>
+          <xsl:text>???</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="$etarget" mode="m:endterm"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+
+    <xsl:when test="$target/@xreflabel">
+      <xsl:call-template name="t:xref-xreflabel">
+        <xsl:with-param name="target" select="$target"/>
+      </xsl:call-template>
+    </xsl:when>
+
+    <xsl:otherwise>
+      <xsl:choose>
+	<!-- Watch out for the case when there is a xref or link inside
+	     a title. See bugs #1811721 and #1838136. -->
+	<xsl:when test="not(ancestor::*[@xml:id = $target/@xml:id])">
+	  <xsl:apply-templates select="$target" mode="m:xref-to-prefix"/>
+	  <xsl:apply-templates select="$target" mode="m:xref-to">
+            <xsl:with-param name="referrer" select="."/>
+	    <xsl:with-param name="xrefstyle">
+	      <xsl:choose>
+		<xsl:when test="@role and not(@xrefstyle) and $use.role.as.xrefstyle != 0">
+		  <xsl:value-of select="@role"/>
+		</xsl:when>
+		<xsl:otherwise>
+		  <xsl:value-of select="@xrefstyle"/>
+		</xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:with-param>
+	  </xsl:apply-templates>
+	  <xsl:apply-templates select="$target" mode="m:xref-to-suffix"/>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:apply-templates/>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+</xsl:stylesheet>
