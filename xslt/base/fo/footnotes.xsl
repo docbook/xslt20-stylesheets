@@ -29,7 +29,8 @@
 <xsl:template name="t:format-footnote-body">
   <xsl:param name="id" select="f:node-id(.)"/>
 
-  <fo:list-block provisional-distance-between-starts="{$footnote.mark.width}" id="ftn.{$id}">
+  <fo:list-block provisional-distance-between-starts="{$footnote.mark.width}" id="ftn.{$id}"
+                 xsl:use-attribute-sets="footnote.block.properties">
     <fo:list-item>
       <fo:list-item-label end-indent="label-end()">
 	<fo:block>
