@@ -21,6 +21,16 @@
 <xsl:param name="foil.title.master">28</xsl:param>
 <xsl:param name="body.font.size">24pt</xsl:param>
 
+<xsl:param name="footnote.number.symbols" select="'*†'"/>
+
+<xsl:attribute-set name="footnote.properties">
+  <xsl:attribute name="font-size" select="'10pt'"/>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="footnote.block.properties">
+  <xsl:attribute name="margin-left" select="'0.5in'"/>
+</xsl:attribute-set>
+
 <!-- Inconsistant use of point size? -->
 <xsl:param name="foil.title.size">
   <xsl:value-of select="$foil.title.master"/><xsl:text>pt</xsl:text>
@@ -334,6 +344,8 @@
       </fo:block>
     </fo:block>
   </fo:static-content>
+
+  <xsl:call-template name="t:footnote-separator"/>
 </xsl:template>
 
 <xsl:template match="*" mode="m:running-foot-mode">
@@ -370,7 +382,8 @@
   <xsl:variable name="master-reference" select="'slides-titlepage'"/>
 
   <fo:page-sequence hyphenate="{$hyphenate}"
-                    master-reference="{$master-reference}">
+                    master-reference="{$master-reference}"
+                    force-page-count="no-force">
     <xsl:attribute name="language" select="f:l10n-language(.)"/>
 
     <fo:static-content flow-name="xsl-region-after-foil">
@@ -619,5 +632,42 @@
 </xsl:template>
 
 <!-- ============================================================ -->
- 
+
+<xsl:template match="db:footnote" mode="m:footnote-number">
+  <xsl:choose>
+    <xsl:when test="ancestor::db:table|ancestor::db:informaltable">
+      <xsl:next-match/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="relevant" as="element(db:footnote)+">
+        <xsl:choose>
+          <xsl:when test="ancestor::db:foil">
+            <xsl:sequence select="ancestor::db:foil[1]//db:footnote"/>
+          </xsl:when>
+          <xsl:when test="ancestor::db:foilgroup">
+            <xsl:sequence select="ancestor::db:foilgroup[1]//db:footnote"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:sequence select="//db:footnote"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:variable name="pfoot" select="preceding::db:footnote[not(@label)] intersect $relevant"/>
+      <xsl:variable name="ptfoot" select="(preceding::db:tgroup//db:footnote
+                                          |preceding::db:tr//db:footnote) intersect $relevant"/>
+      <xsl:variable name="fnum" select="count($pfoot) - count($ptfoot) + 1"/>
+
+      <xsl:choose>
+	<xsl:when test="string-length($footnote.number.symbols) &gt;= $fnum">
+	  <xsl:value-of select="substring($footnote.number.symbols, $fnum, 1)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:number value="$fnum" format="{$footnote.number.format}"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 </xsl:stylesheet>
