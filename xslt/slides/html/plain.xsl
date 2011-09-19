@@ -14,7 +14,7 @@
 
 <xsl:param name="group-toc" select="0"/>
 
-<xsl:param name="resource-root" select="'http://docbook.github.com/latest/slides/'"/>
+<xsl:param name="slides.css" select="concat($resource.root, '../slides/css/slides.css')"/>
 
 <xsl:param name="root.elements">
   <db:slides/>
@@ -30,24 +30,19 @@
       <!-- assume we're going to serialize as utf-8 -->
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <title>
-        <xsl:value-of select="db:info/db:title"/>
+        <xsl:value-of select="db:info/db:title/node() except db:info/db:title/db:footnote"/>
       </title>
 
-      <script type="text/javascript" language="javascript"
-              src="http://code.jquery.com/jquery-1.6.3.min.js"/>
-      <script type="text/javascript" language="javascript"
-              src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"/>
-      <link type="text/css" rel="stylesheet"
-            href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"/>
+      <xsl:call-template name="t:jQuerySetup"/>
 
       <script type="text/javascript" language="javascript"
-              src="{$resource-root}js/jquery-timers-1.2.js" />
+              src="{$resource.root}js/jquery-timers-1.2.js" />
       <script type="text/javascript" language="javascript"
-              src="{$resource-root}js/jquery.ba-hashchange.min.js" />
+              src="{$resource.root}js/jquery.ba-hashchange.min.js" />
       <script type="text/javascript" language="javascript"
-              src="{$resource-root}js/slides.js" />
+              src="{$resource.root}../slides/js/slides.js" />
       <link type="text/css" rel="stylesheet"
-            href="{$resource-root}css/slides.css"/>
+            href="{$slides.css}"/>
 
       <xsl:apply-templates select="db:info/h:*"/>
     </head>
@@ -66,6 +61,15 @@
       <xsl:apply-templates select="db:foil|db:foilgroup"/>
     </body>
   </html>
+</xsl:template>
+
+<xsl:template name="t:jQuerySetup">
+  <script type="text/javascript" language="javascript"
+          src="http://code.jquery.com/jquery-1.6.3.min.js"/>
+  <script type="text/javascript" language="javascript"
+          src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"/>
+  <link type="text/css" rel="stylesheet"
+        href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"/>
 </xsl:template>
 
 <xsl:template name="toc">
@@ -118,8 +122,8 @@
     </div>
     <div class="body">
       <div class="shownav">
-        <img src="{$resource-root}img/prev.gif" alt="[Prev]"/>
-        <img src="{$resource-root}img/next.gif" alt="[Next]"/>
+        <img src="{$resource.root}img/prev.gif" alt="[Prev]"/>
+        <img src="{$resource.root}img/next.gif" alt="[Next]"/>
       </div>
       <xsl:call-template name="t:clicknav">
         <xsl:with-param name="next" select="'#toc'"/>
@@ -317,21 +321,21 @@
     <xsl:choose>
       <xsl:when test="exists($prev)">
         <a href="javascript:clicknav('prev')">
-          <img src="{$resource-root}img/transparent.gif" alt="[Prev]"/>
+          <img src="{$resource.root}../slides/img/transparent.gif" alt="[Prev]"/>
         </a>
       </xsl:when>
       <xsl:otherwise>
-        <img src="{$resource-root}img/transparent.gif" alt="[Prev]"/>
+        <img src="{$resource.root}../slides/img/transparent.gif" alt="[Prev]"/>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:choose>
       <xsl:when test="exists($next)">
         <a href="javascript:clicknav('next')">
-          <img src="{$resource-root}img/transparent.gif" alt="[Next]"/>
+          <img src="{$resource.root}../slides/img/transparent.gif" alt="[Next]"/>
         </a>
       </xsl:when>
       <xsl:otherwise>
-        <img src="{$resource-root}img/transparent.gif" alt="[Next]"/>
+        <img src="{$resource.root}../slides/img/transparent.gif" alt="[Next]"/>
       </xsl:otherwise>
     </xsl:choose>
   </div>
