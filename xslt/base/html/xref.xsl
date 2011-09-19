@@ -189,7 +189,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
 
     <xsl:when test="$target/@xreflabel">
       <a href="{f:href(/,$target)}">
-	<xsl:call-template name="xreflabel">
+	<xsl:call-template name="t:xref-xreflabel">
 	  <xsl:with-param name="target" select="$target"/>
 	</xsl:call-template>
       </a>
@@ -230,7 +230,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
 
 <!-- ============================================================ -->
 
-<doc:template name="xreflabel" xmlns="http://docbook.org/ns/docbook">
+<doc:template name="t:xref-xreflabel" xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Template for processing xreflabels</refpurpose>
 
 <refdescription>
@@ -255,7 +255,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
 
 </doc:template>
 
-<xsl:template name="xreflabel" as="xs:string">
+<xsl:template name="t:xref-xreflabel" as="xs:string">
   <!-- called to process an xreflabel...you might use this to make  -->
   <!-- xreflabels come out in the right font for different targets, -->
   <!-- for example. -->
