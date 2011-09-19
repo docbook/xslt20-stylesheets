@@ -14,8 +14,6 @@
 
 <xsl:param name="group-toc" select="0"/>
 
-<xsl:param name="resource-root" select="'http://docbook.github.com/latest/slides/'"/>
-
 <xsl:param name="slide.font.family">sans-serif</xsl:param>
 <xsl:param name="slide.title.font.family">sans-serif</xsl:param>
 <xsl:param name="foil.title.master">28</xsl:param>
@@ -213,7 +211,7 @@
     <fo:region-body margin-bottom="0pt"
                     margin-top="0pt"
                     column-count="{$column.count.body}"
-                    background-image="url({$resource-root}img/print/title.png)"
+                    background-image="url({$resource.root}img/print/title.png)"
                     background-attachment="fixed"
                     background-repeat="no-repeat"
                     background-position-horizontal="left"
@@ -238,7 +236,7 @@
     <fo:region-before region-name="xsl-region-before-foil"
                       extent="1.5in"
                       display-align="before"
-                      background-image="url({$resource-root}img/print/foil.png)"
+                      background-image="url({$resource.root}img/print/foil.png)"
                       background-attachment="fixed"
                       background-repeat="no-repeat"
                       background-position-horizontal="left"
@@ -262,7 +260,7 @@
     <fo:region-before region-name="xsl-region-before-foil-continued"
                       extent="1.5in"
                       display-align="before"
-                      background-image="url({$resource-root}img/print/foil.png)"
+                      background-image="url({$resource.root}img/print/foil.png)"
                       background-attachment="fixed"
                       background-repeat="no-repeat"
                       background-position-horizontal="left"
@@ -282,7 +280,7 @@
     <fo:region-body margin-bottom="0pt"
                     margin-top="0pt"
                     column-count="{$column.count.body}"
-                    background-image="url({$resource-root}img/print/group.png)"
+                    background-image="url({$resource.root}img/print/group.png)"
                     background-attachment="fixed"
                     background-repeat="no-repeat"
                     background-position-horizontal="left"
@@ -354,7 +352,7 @@
   <xsl:variable name="content">
     <fo:block>
       <fo:block-container height="0.75in"
-                          background-image="url({$resource-root}img/print/footer.png)"
+                          background-image="url({$resource.root}img/print/footer.png)"
                           background-attachment="fixed"
                           background-repeat="no-repeat"
                           background-position-horizontal="left"
