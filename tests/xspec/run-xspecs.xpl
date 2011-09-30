@@ -9,10 +9,14 @@
 
 <p:import href="../../tools/library.xpl"/>
 
+<!-- N.B. The resource.root is set explicitly because it varies from release to release
+     and generates spurious differences. -->
+
 <ex:xspec name="htmlalt">
   <p:input port="source">
     <p:document href="htmlalt.xml"/>
   </p:input>
+  <p:with-param name="resource.root" select="'http://docbook.github.com/latest/'"/>
 </ex:xspec>
 
 <ex:xspec name="htmlbase">
@@ -23,6 +27,7 @@
   <p:with-param name="profile.os" select="'win'"/>
   <p:with-param name="bibliography.collection" select="'etc/bibliography.collection.xml'"/>
   <p:with-param name="glossary.collection" select="'etc/glossary.collection.xml'"/>
+  <p:with-param name="resource.root" select="'http://docbook.github.com/latest/'"/>
 </ex:xspec>
 
 <ex:xspec name="htmlprof1">
