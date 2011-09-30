@@ -12,13 +12,28 @@
 
 <xsl:import href="../../base/html/docbook.xsl"/>
 
-<xsl:param name="group-toc" select="0"/>
+<xsl:param name="speaker.notes" select="0"/>
+<xsl:param name="localStorage.key" select="'slideno'"/>
+<xsl:param name="group.toc" select="0"/>
 
-<xsl:param name="slides.css" select="concat($resource.root, '../slides/css/slides.css')"/>
+<xsl:param name="cdn.jquery"
+           select="'http://code.jquery.com/jquery-1.6.3.min.js'"/>
+<xsl:param name="cdn.jqueryui"
+           select="'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'"/>
+<xsl:param name="cdn.jqueryui.css"
+           select="'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css'"/>
 
 <xsl:param name="root.elements">
   <db:slides/>
 </xsl:param>
+
+<xsl:template name="t:user-localization-data">
+  <i18n xmlns="http://docbook.sourceforge.net/xmlns/l10n/1.0">
+    <l:l10n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0" language="en">
+      <l:gentext key="tableofcontents" text="Agenda"/>
+    </l:l10n>
+  </i18n>
+</xsl:template>
 
 <xsl:template match="/">
   <xsl:apply-templates/>
@@ -29,31 +44,20 @@
     <head>
       <!-- assume we're going to serialize as utf-8 -->
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="localStorage.key" content="{$localStorage.key}"/>
       <title>
         <xsl:value-of select="db:info/db:title/node() except db:info/db:title/db:footnote"/>
       </title>
 
-      <xsl:call-template name="t:jQuerySetup"/>
-
-      <script type="text/javascript" language="javascript"
-              src="{$resource.root}js/jquery-timers-1.2.js" />
-      <script type="text/javascript" language="javascript"
-              src="{$resource.root}js/jquery.ba-hashchange.min.js" />
-      <script type="text/javascript" language="javascript"
-              src="{$resource.root}../slides/js/slides.js" />
-      <link type="text/css" rel="stylesheet"
-            href="{$slides.css}"/>
+      <xsl:call-template name="t:slides.javascript"/>
+      <xsl:call-template name="t:slides.css"/>
 
       <xsl:apply-templates select="db:info/h:*"/>
     </head>
     <body>
       <div class="foil titlefoil">
         <xsl:apply-templates select="db:info"/>
-        <div class="footer">
-          <div class="content">
-            <xsl:apply-templates select="/db:slides/db:info/db:copyright"/>
-          </div>
-        </div>
+        <xsl:call-template name="t:title-footer"/>
       </div>
 
       <xsl:call-template name="toc"/>
@@ -63,13 +67,46 @@
   </html>
 </xsl:template>
 
-<xsl:template name="t:jQuerySetup">
+<xsl:template name="t:title-footer">
+  <div class="footer">
+    <div class="content">
+      <xsl:apply-templates select="/db:slides/db:info/db:copyright"/>
+    </div>
+  </div>
+</xsl:template>
+
+<xsl:template name="t:slide-footer">
+  <div class="footer">
+    <div class="content">
+      <span class="foilnumber">
+        <xsl:text>Slide </xsl:text>
+        <xsl:value-of select="f:slideno(.)"/>
+      </span>
+      <xsl:text>&#160;&#160;</xsl:text>
+      <xsl:apply-templates select="/db:slides/db:info/db:copyright"/>
+    </div>
+  </div>
+</xsl:template>
+
+<xsl:template name="t:slides.javascript">
   <script type="text/javascript" language="javascript"
-          src="http://code.jquery.com/jquery-1.6.3.min.js"/>
+          src="{$cdn.jquery}"/>
   <script type="text/javascript" language="javascript"
-          src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"/>
+          src="{$cdn.jqueryui}"/>
+
+  <script type="text/javascript" language="javascript"
+          src="{$resource.root}js/jquery-timers-1.2.js" />
+  <script type="text/javascript" language="javascript"
+          src="{$resource.root}js/jquery.ba-hashchange.min.js" />
+  <script type="text/javascript" language="javascript"
+          src="{$resource.root}../slides/js/slides.js" />
+</xsl:template>
+
+<xsl:template name="t:slides.css">
   <link type="text/css" rel="stylesheet"
-        href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"/>
+        href="{$cdn.jqueryui.css}"/>
+  <link type="text/css" rel="stylesheet"
+        href="{$resource.root}../slides/css/slides.css"/>
 </xsl:template>
 
 <xsl:template name="toc">
@@ -98,11 +135,7 @@
         </ul>
       </div>
     </div>
-    <div class="footer">
-      <div class="content">
-        <xsl:apply-templates select="/db:slides/db:info/db:copyright"/>
-      </div>
-    </div>
+    <xsl:call-template name="t:title-footer"/>
   </div>
 </xsl:template>
 
@@ -138,7 +171,7 @@
 </xsl:template>
 
 <xsl:template match="db:foilgroup">
-  <div class="foil foilgroup">
+  <div class="foil titlefoil foilgroup">
     <div class="page">
       <div class="header">
         <h1>
@@ -152,7 +185,7 @@
         </xsl:call-template>
         <xsl:apply-templates select="*[not(self::db:title) and not(self::db:foil)]"/>
 
-        <xsl:if test="$group-toc != 0">
+        <xsl:if test="$group.toc != 0">
           <ul class="toc">
             <xsl:for-each select="db:foil|db:foilgroup">
               <li>
@@ -165,16 +198,7 @@
         </xsl:if>
       </div>
     </div>
-    <div class="footer">
-      <div class="content">
-        <span class="foilnumber">
-          <xsl:text>Slide </xsl:text>
-          <xsl:value-of select="f:slideno(.)"/>
-        </span>
-        <xsl:text>&#160;&#160;</xsl:text>
-        <xsl:apply-templates select="/db:slides/db:info/db:copyright"/>
-      </div>
-    </div>
+    <xsl:call-template name="t:slide-footer"/>
   </div>
 
   <xsl:apply-templates select="db:foil"/>
@@ -194,115 +218,40 @@
           <xsl:with-param name="next"
                           select="if (following::db:foil) then concat('#', f:slideno(.)+1) else ()"/>
         </xsl:call-template>
-        <xsl:apply-templates select="*[not(self::db:title)]"/>
 
-        <xsl:if test=".//db:footnote">
-          <div class="footnote">
-            <sup>*</sup>
-            <xsl:apply-templates select=".//db:footnote/db:para/node()"/>
-          </div>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="string($speaker.notes) = '0'">
+            <xsl:apply-templates select="*[not(self::db:title) and not(self::db:speakernotes)]"/>
+            <xsl:if test=".//db:footnote">
+              <div class="footnote">
+                <sup>*</sup>
+                <xsl:apply-templates select=".//db:footnote/db:para/node()"/>
+              </div>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="db:speakernotes">
+            <div class="foilinset">
+              <xsl:apply-templates select="*[not(self::db:title) and not(self::db:speakernotes)]"/>
+            </div>
+            <xsl:apply-templates select="db:speakernotes"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <div class="foilinset">
+              <xsl:apply-templates select="*[not(self::db:title) and not(self::db:speakernotes)]"/>
+            </div>
+            <p>No speaker notes for this foil.</p>
+          </xsl:otherwise>
+        </xsl:choose>
       </div>
     </div>
-    <div class="footer">
-      <div class="content">
-        <span class="foilnumber">
-          <xsl:text>Slide </xsl:text>
-          <xsl:value-of select="f:slideno(.)"/>
-        </span>
-        <xsl:text>&#160;&#160;</xsl:text>
-        <xsl:apply-templates select="/db:slides/db:info/db:copyright"/>
-      </div>
-    </div>
+    <xsl:call-template name="t:slide-footer"/>
   </div>
 </xsl:template>
 
-<xsl:template match="db:tag[@class='xmlpi']">
-  <span class="pi">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:text>&lt;?</xsl:text>
+<xsl:template match="db:speakernotes">
+  <div class="speakernotes">
     <xsl:apply-templates/>
-    <xsl:text>?&gt;</xsl:text>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:tag[@class='starttag']">
-  <!-- hack -->
-  <span class="{if (starts-with(., 'xsl:')) then 'xslt' else 'el'}">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:text>&lt;</xsl:text>
-    <xsl:apply-templates/>
-    <xsl:text>&gt;</xsl:text>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:tag[@class='emptytag']">
-  <span class="{if (starts-with(., 'xsl:')) then 'xslt' else 'el'}">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:text>&lt;</xsl:text>
-    <xsl:apply-templates/>
-    <xsl:text>/&gt;</xsl:text>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:tag[@class='endtag']">
-  <span class="{if (starts-with(., 'xsl:')) then 'xslt' else 'el'}">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:text>&lt;/</xsl:text>
-    <xsl:apply-templates/>
-    <xsl:text>&gt;</xsl:text>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:tag[@class='attribute']">
-  <span class="att">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:apply-templates/>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:tag[@class='attvalue']">
-  <span class="attval">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:apply-templates/>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:tag[@class='genentity']">
-  <span class="ent">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:text>&amp;</xsl:text>
-    <xsl:apply-templates/>
-    <xsl:text>;</xsl:text>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:methodname">
-  <span class="func">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:apply-templates/>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:varname">
-  <span class="var">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:apply-templates/>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:parameter">
-  <span class="param">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:apply-templates/>
-  </span>
-</xsl:template>
-
-<xsl:template match="db:constant">
-  <span class="const">
-    <xsl:if test="@xml:id"><xml:attribute name="id" select="@xml:id"/></xsl:if>
-    <xsl:apply-templates/>
-  </span>
+  </div>
 </xsl:template>
 
 <xsl:template match="h:*">
