@@ -37,6 +37,10 @@
 <para>The Other</para>
 </listitem>
 </itemizedlist>
+
+<speakernotes>
+<para>Remember to be precise.</para>
+</speakernotes>
 </foil>
 
 <foil>
@@ -55,6 +59,17 @@
 <para>Point three</para>
 </listitem>
 </itemizedlist>
+
+<speakernotes>
+<itemizedlist>
+<listitem>
+<para>Remember the reveal</para>
+</listitem>
+<listitem>
+<para>It has three items.</para>
+</listitem>
+</itemizedlist>
+</speakernotes>
 </foil>
 
 <foil>
