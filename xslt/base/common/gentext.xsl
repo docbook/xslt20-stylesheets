@@ -5,8 +5,9 @@
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
 		xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                exclude-result-prefixes="db doc f l m xs"
+                exclude-result-prefixes="db doc f l m xs ghost"
                 version='2.0'>
 
 <!-- ********************************************************************
@@ -567,10 +568,16 @@ a cross-reference.</para>
 </refreturn>
 </doc:template>
 
+<!-- I have to be able to distinguish between the case where no title has been
+     provided and the case where it has been provided but is the empty sequence
+     (because someone specified <title/>). I'm not sure this is perfect, but
+     it does fix the bug: https://github.com/docbook/xslt20-stylesheets/issues/2 -->
+<xsl:variable name="ghost:marker" as="element(ghost:marker)"><ghost:marker/></xsl:variable>
+
 <xsl:template name="substitute-markup">
   <xsl:param name="template" select="''"/>
   <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
-  <xsl:param name="title" select="''"/>
+  <xsl:param name="title" select="$ghost:marker"/>
   <xsl:param name="subtitle" select="''"/>
   <xsl:param name="docname" select="''"/>
   <xsl:param name="label" select="''"/>
@@ -597,15 +604,15 @@ a cross-reference.</para>
             <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
             <xsl:with-param name="title">
               <xsl:choose>
-                <xsl:when test="$title != ''">
-                  <xsl:copy-of select="$title"/>
-                </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="$title = $ghost:marker">
                   <xsl:apply-templates select="." mode="m:title-content">
 		    <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
 		    <xsl:with-param name="verbose" select="$verbose"/>
                     <xsl:with-param name="template" select="'%t'"/>
                   </xsl:apply-templates>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:sequence select="$title"/>
                 </xsl:otherwise>
               </xsl:choose>
             </xsl:with-param>
