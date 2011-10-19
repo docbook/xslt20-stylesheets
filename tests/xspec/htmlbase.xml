@@ -2662,6 +2662,13 @@
               select="//html:div[@class='book']"
               href="result/info.001.html"/>
   </x:scenario>
+  <x:scenario label="the title is empty">
+    <x:context href="src/emptytitle.xml"/>
+    <x:expect label="an empty title"
+              test="/html:html/html:body"
+              select="html:html/html:body"
+              href="result/emptytitle.html"/>
+  </x:scenario>
 </x:scenario>
 
 <x:scenario label="Set tests">
