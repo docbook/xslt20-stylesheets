@@ -62,7 +62,7 @@
 
 <!-- ============================================================ -->
 
-<xsl:output method="xhtml" encoding="utf-8" indent="no"/>
+<xsl:output method="xhtml" encoding="utf-8" indent="no" doctype-system="about:legacy-compat"/>
 <xsl:output name="xml" method="xml" encoding="utf-8" indent="no"/>
 <xsl:output name="final" method="xhtml" encoding="utf-8" indent="no"/>
 
