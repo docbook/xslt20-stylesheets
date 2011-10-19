@@ -172,7 +172,7 @@ and a CSS style is specified.</para>
 <!-- ====================================================================== -->
 
 <doc:template name="t:javascript" xmlns="http://docbook.org/ns/docbook">
-<refpurpose>Template for inserting Javascript</refpurpose>
+<refpurpose>Template for inserting JavaScript</refpurpose>
 
 <refdescription>
 <para>T.B.D.</para>
@@ -183,18 +183,47 @@ and a CSS style is specified.</para>
   <xsl:param name="node" select="."/>
 
   <xsl:if test="//db:annotation">
-    <script type="text/javascript" src="concat($resource.root, 'js/AnchorPosition.js')"/>
-    <script type="text/javascript" src="concat($resource.root, 'js/PopupWindow.js)"/>
-    <script type="text/javascript" src="concat($resource.root, 'js/annotation.js)"/>
+    <script type="text/javascript" src="{concat($resource.root, 'js/AnchorPosition.js')}"/>
+    <script type="text/javascript" src="{concat($resource.root, 'js/PopupWindow.js')}"/>
+    <script type="text/javascript" src="{concat($resource.root, 'js/annotation.js')}"/>
   </xsl:if>
+
+  <script type="text/javascript" src="{concat($resource.root, 'js/dbmodnizr.js')}"/>
 
   <xsl:if test="//*[@xlink:type='extended']">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"/>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
     <link type="text/css" rel="stylesheet"
           href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"/>
-    <script type="text/javascript" src="concat($resource.root, 'js/nhrefs.js')"/>
+    <script type="text/javascript" src="{concat($resource.root, 'js/nhrefs.js')}"/>
   </xsl:if>
+</xsl:template>
+
+<!-- ====================================================================== -->
+
+<doc:template name="t:css" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Template for inserting CSS</refpurpose>
+
+<refdescription>
+<para>T.B.D.</para>
+</refdescription>
+</doc:template>
+
+<xsl:template name="t:css">
+  <xsl:param name="node" select="."/>
+  <xsl:choose>
+    <xsl:when test="string($docbook.css) = ''">
+      <!-- nop -->
+    </xsl:when>
+    <xsl:when test="$docbook.css.inline = 0">
+      <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <style type="text/css">
+        <xsl:copy-of select="unparsed-text($docbook.css, 'utf-8')"/>
+      </style>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- ====================================================================== -->
@@ -321,19 +350,7 @@ HTML <tag>link</tag> elements.
 <xsl:template name="t:head-links">
   <xsl:param name="node" select="."/>
 
-  <xsl:choose>
-    <xsl:when test="string($docbook.css) = ''">
-      <!-- nop -->
-    </xsl:when>
-    <xsl:when test="$docbook.css.inline = 0">
-      <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <style type="text/css">
-        <xsl:copy-of select="unparsed-text($docbook.css, 'utf-8')"/>
-      </style>
-    </xsl:otherwise>
-  </xsl:choose>
+  <xsl:call-template name="t:css"/>
 
   <xsl:if test="$link.madeby.uri != ''">
     <link rev="made"
@@ -532,11 +549,17 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
 
 <xsl:template name="t:system-head-content">
   <xsl:param name="node" select="."/>
-
   <!-- system.head.content is like user.head.content, except that
        it is called before head.content. This is important because it
        means, for example, that <style> elements output by system-head-content
        have a lower CSS precedence than the users stylesheet. -->
+
+  <!-- See http://remysharp.com/2009/01/07/html5-enabling-script/ -->
+  <!--
+  <xsl:comment>[if lt IE 9]>
+&lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js">&lt;/script>
+&lt;![endif]</xsl:comment>
+  -->
 </xsl:template>
 
 <xsl:template name="t:user-head-content">
