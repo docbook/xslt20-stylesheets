@@ -86,7 +86,7 @@ identified.</entry>
               <xsl:value-of select="@linkend"/>
             </xsl:message>
           </xsl:if>
-	  <a class="brokenlink" href="#{@linkend}">
+	  <a href="{f:href(., f:findid(@linkend,.))}">
             <xsl:sequence select="f:html-class(., (), @role)"/>
 	    <xsl:if test="$title != ''">
 	      <xsl:attribute name="title" select="$title"/>
