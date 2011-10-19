@@ -205,7 +205,9 @@
 </xsl:template>
 
 <xsl:template match="db:foil">
-  <div class="{ if (following::db:foil or parent::db:foilgroup) then 'foil' else 'foil foilgroup' }">
+  <div class="{ if (parent::db:slides and preceding-sibling::db:foilgroup)
+                then 'foil titlefoil foilgroup'
+                else 'foil' }">
     <div class="page">
       <div class="header">
         <h1>
