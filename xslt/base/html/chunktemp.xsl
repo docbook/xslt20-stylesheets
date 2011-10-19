@@ -63,19 +63,7 @@
   <xsl:variable name="chunks" as="element()*">
     <xsl:variable name="root" select="/"/>
     <xsl:for-each select="$chunk-tree//h:chunk">
-      <xsl:variable name="src-elem" select="key('genid', @xml:id, $root)"/>
-      <xsl:choose>
-        <xsl:when test="$rootid = ''">
-          <xsl:sequence select="$src-elem"/>
-        </xsl:when>
-        <xsl:when test="$src-elem/@xml:id = $rootid">
-          <xsl:message>Selecting root element: <xsl:value-of select="local-name($src-elem)"/></xsl:message>
-          <xsl:sequence select="$src-elem"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <!-- skip it -->
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:sequence select="key('genid', @xml:id, $root)"/>
     </xsl:for-each>
   </xsl:variable>
 
@@ -86,7 +74,20 @@
   <!-- ====================================================================== -->
 
   <xsl:template match="/">
-    <xsl:apply-templates select="$chunks" mode="m:chunk"/>
+    <xsl:choose>
+      <xsl:when test="$rootid = ''">
+        <xsl:apply-templates select="$chunks" mode="m:chunk"/>
+      </xsl:when>
+      <xsl:when test="$chunks[@xml:id = $rootid]">
+        <xsl:apply-templates select="$chunks[@xml:id = $rootid]" mode="m:chunk"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:message terminate="yes">
+          <xsl:text>There is no chunk with the ID: </xsl:text>
+          <xsl:value-of select="$rootid"/>
+        </xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="*" mode="m:chunk">
@@ -100,12 +101,14 @@
     <xsl:variable name="pchunk" select="($chunk/preceding::h:chunk|$chunk/parent::h:chunk)[last()]"/>
     <xsl:variable name="uchunk" select="$chunk/ancestor::h:chunk[1]"/>
 
+    <!--
     <xsl:message>Creating chunk: <xsl:value-of select="concat($base.dir,$chunkfn)"/></xsl:message>
+    -->
 
     <xsl:result-document href="{$base.dir}{$chunkfn}" method="xhtml" indent="no">
       <html>
         <xsl:call-template name="t:head">
-          <xsl:with-param name="root" select="."/>
+          <xsl:with-param name="node" select="."/>
         </xsl:call-template>
         <body>
           <div class="page">
