@@ -96,6 +96,7 @@
       <arg value="-s:tests/smoketest.xml"/>
       <arg value="-xsl:dist/docbook-xslt2-${version}/xslt/base/html/docbook.xsl"/>
       <arg value="generate.meta.generator=0"/>
+      <arg value="resource.root=http://docbook.github.com/latest/"/>
     </java>
     <exec executable="diff" failonerror="true">
       <arg value="--brief"/>
