@@ -154,6 +154,32 @@ but for elements that have optional titles, it may be a computed string.
   </xsl:choose>
 </xsl:template>
 
+<xsl:template match="db:table" mode="mp:title-content" as="node()*">
+  <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
+
+  <xsl:variable name="title" select="(db:title,db:info/db:title,db:caption)[1]"/>
+
+  <xsl:choose>
+    <xsl:when test="$title">
+      <xsl:apply-templates select="$title" mode="mp:title-content">
+        <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+      </xsl:apply-templates>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:message>
+        <xsl:text>Request for title of table with no title or caption: </xsl:text>
+        <xsl:value-of select="name(.)"/>
+        <xsl:if test="@id|@xml:id">
+          <xsl:text> (id="</xsl:text>
+          <xsl:value-of select="(@id|@xml:id)[1]"/>
+          <xsl:text>")</xsl:text>
+        </xsl:if>
+      </xsl:message>
+      <xsl:text>???TITLE???</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 <xsl:template match="*" mode="mp:title-content" as="node()*">
   <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
 
@@ -236,7 +262,7 @@ but for elements that have optional titles, it may be a computed string.
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="db:title" mode="mp:title-content" as="node()*">
+<xsl:template match="db:title|db:caption" mode="mp:title-content" as="node()*">
   <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
 
   <xsl:choose>
