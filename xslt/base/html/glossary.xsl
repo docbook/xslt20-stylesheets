@@ -15,7 +15,7 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:glossary">
-  <div>
+  <article>
     <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
@@ -34,7 +34,7 @@
     <xsl:if test="not(parent::db:article)">
       <xsl:call-template name="t:process-footnotes"/>
     </xsl:if>
-  </div>
+  </article>
 </xsl:template>
 
 <!-- ==================================================================== -->

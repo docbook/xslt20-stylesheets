@@ -39,7 +39,7 @@ title.</para>
   </xsl:variable>
 
   <xsl:variable name="wrapper">
-    <div>
+    <figure>
       <xsl:sequence select="f:html-attributes($context, f:node-id($context), concat($class,'-wrapper'))"/>
       <xsl:choose>
 	<xsl:when test="$placement = 'before'">
@@ -53,7 +53,7 @@ title.</para>
 	  <xsl:sequence select="$title"/>
 	</xsl:otherwise>
       </xsl:choose>
-    </div>
+    </figure>
   </xsl:variable>
 
   <xsl:choose>
@@ -108,11 +108,11 @@ title.</para>
   <xsl:param name="object" as="element()*" required="yes"/>
 
   <xsl:variable name="wrapper">
-    <div>
+    <figure>
       <xsl:sequence select="f:html-attributes($context, f:node-id($context), concat($class,'-wrapper'))"/>
       <xsl:sequence select="$object"/>
       <xsl:apply-templates select="$context/db:caption"/>
-    </div>
+    </figure>
   </xsl:variable>
 
   <xsl:choose>

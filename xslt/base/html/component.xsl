@@ -13,7 +13,7 @@
 <xsl:template match="db:dedication
 		     |db:preface|db:chapter|db:appendix
 		     |db:colophon|db:article">
-  <div>
+  <article>
     <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
 
@@ -27,7 +27,7 @@
     <xsl:if test="not(parent::db:article)">
       <xsl:call-template name="t:process-footnotes"/>
     </xsl:if>
-  </div>
+  </article>
 </xsl:template>
 
 <xsl:template match="db:dedication

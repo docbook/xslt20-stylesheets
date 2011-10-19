@@ -11,7 +11,7 @@
                 version="2.0">
 
 <xsl:template match="db:set|db:book|db:part|db:reference">
-  <div>
+  <article>
     <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
 
@@ -21,7 +21,7 @@
     </xsl:if>
 
     <xsl:apply-templates/>
-  </div>
+  </article>
 </xsl:template>
 
 <xsl:template match="db:set|db:book|db:part|db:reference" mode="m:toc">
@@ -37,12 +37,12 @@
 </xsl:template>
 
 <xsl:template match="db:partintro">
-  <div>
+  <section>
     <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
     <xsl:apply-templates/>
     <xsl:call-template name="t:process-footnotes"/>
-  </div>
+  </section>
 </xsl:template>
 
 </xsl:stylesheet>

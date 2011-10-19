@@ -11,7 +11,7 @@
                 version="2.0">
 
 <xsl:template match="db:index|db:setindex">
-  <div>
+  <article>
     <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:call-template name="t:titlepage"/>
@@ -38,7 +38,7 @@
 	<xsl:apply-templates select="db:indexdiv"/>
       </xsl:otherwise>
     </xsl:choose>
-  </div>
+  </article>
 </xsl:template>
 
 <xsl:template match="db:indexterm">

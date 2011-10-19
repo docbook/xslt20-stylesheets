@@ -30,7 +30,7 @@
 
     <tmpl:templates name="set part reference article setindex">
       <tmpl:recto>
-        <div tmpl:class="titlepage">
+        <header tmpl:class="titlepage">
           <db:title/>
           <db:subtitle/>
           <db:corpauthor/>
@@ -45,13 +45,13 @@
           <db:revision/>
           <db:revhistory/>
           <db:abstract/>
-        </div>
+        </header>
       </tmpl:recto>
     </tmpl:templates>
 
     <tmpl:templates name="book">
       <tmpl:recto>
-        <div tmpl:class="titlepage">
+        <header tmpl:class="titlepage">
           <db:title/>
           <db:subtitle/>
           <db:corpauthor/>
@@ -66,14 +66,14 @@
           <db:revision/>
           <db:revhistory/>
           <db:abstract/>
-        </div>
+        </header>
         <hr tmpl:keep="true"/>
       </tmpl:recto>
     </tmpl:templates>
 
     <tmpl:templates name="preface chapter appendix partintro">
       <tmpl:titlepage>
-        <div tmpl:class="titlepage">
+        <header tmpl:class="titlepage">
           <db:title/>
           <db:subtitle/>
           <db:authorgroup/>
@@ -81,16 +81,16 @@
           <db:releaseinfo/>
           <db:abstract/>
           <db:revhistory/>
-        </div>
+        </header>
       </tmpl:titlepage>
     </tmpl:templates>
 
     <tmpl:templates name="dedication colophon">
       <tmpl:titlepage>
-        <div tmpl:class="titlepage">
+        <header tmpl:class="titlepage">
           <db:title/>
           <db:subtitle/>
-        </div>
+        </header>
       </tmpl:titlepage>
     </tmpl:templates>
 
@@ -115,17 +115,17 @@
 
     <tmpl:templates name="bibliography bibliodiv glossary glossdiv index indexdiv">
       <tmpl:titlepage>
-        <div tmpl:class="titlepage">
+        <header tmpl:class="titlepage">
           <db:title/>
-        </div>
+        </header>
       </tmpl:titlepage>
     </tmpl:templates>
 
     <tmpl:templates name="abstract sidebar task">
       <tmpl:titlepage>
-        <div tmpl:class="titlepage">
+        <header tmpl:class="titlepage">
           <db:title/>
-        </div>
+        </header>
       </tmpl:titlepage>
     </tmpl:templates>
 

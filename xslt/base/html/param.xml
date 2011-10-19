@@ -29,7 +29,6 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="docbook.css.inline"/>
 <refentry xml:id="annotation.graphic.open"/>
 <refentry xml:id="annotation.graphic.close"/>
-<refentry xml:id="toc.list.type"/>
 <refentry xml:id="manual.toc"/>
 <refentry xml:id="bridgehead.in.toc"/>
 <refentry xml:id="toc.section.depth"/>

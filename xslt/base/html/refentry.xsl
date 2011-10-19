@@ -11,7 +11,7 @@
                 version="2.0">
 
 <xsl:template match="db:refentry">
-  <div>
+  <article>
     <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:if test="$refentry.separator != 0 and preceding-sibling::db:refentry">
@@ -25,7 +25,7 @@
     <xsl:apply-templates/>
 
     <xsl:call-template name="t:process-footnotes"/>
-  </div>
+  </article>
 </xsl:template>
 
 <xsl:template match="db:refnamediv">

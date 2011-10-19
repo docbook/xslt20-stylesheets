@@ -13,19 +13,19 @@
 
 <xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5"
               name="db:section">
-  <div>
+  <section>
     <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
     <xsl:apply-templates/>
-  </div>
+  </section>
 </xsl:template>
 
 <xsl:template match="db:simplesect">
-  <div>
+  <section>
     <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
     <xsl:apply-templates/>
-  </div>
+  </section>
 </xsl:template>
 
 <xsl:template match="db:bridgehead">

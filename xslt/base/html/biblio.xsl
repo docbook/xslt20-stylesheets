@@ -12,13 +12,13 @@
                 version="2.0">
 
 <xsl:template match="db:bibliography">
-  <div>
+  <article>
     <xsl:apply-templates select="." mode="m:html-attributes"/>
 
     <xsl:call-template name="t:titlepage"/>
 
     <xsl:apply-templates/>
-  </div>
+  </article>
 </xsl:template>
 
 <xsl:template match="db:bibliodiv">
