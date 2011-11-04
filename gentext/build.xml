@@ -20,26 +20,12 @@
       <param name="en.locale.file" expression="en.xml"/>
       <mapper type="identity"/>
     </xslt2>
-
-    <!-- FIXME: remove after we will switch to new locale mechanism -->
-    <echo>Generating i18n.xml...</echo>
-
-    <pathconvert pathsep=" " property="locales" refid="l10n-files">
-      <mapper type="flatten" />
-    </pathconvert>
-
-    <xslt2 style="../tools/build-l10n.xsl" in="build/en.xml"
-          out="i18n.xml" initialTemplate="join">
-      <param name="locales" expression="${locales}"/>
-    </xslt2>
-
   </target>
 
   <target name="clean">
     <delete>
       <fileset dir=".">
         <include name="build/*.xml"/>
-        <include name="i18n.xml"/>
       </fileset>
     </delete>
   </target>
