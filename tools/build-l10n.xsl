@@ -10,17 +10,17 @@
 <xsl:strip-space elements="localization locale context"/>
 
 <!-- Load the language file passed as a parameter into a variable -->
-<xsl:param name="locale.file" select="''"/>
+<xsl:param name="locale.file" select="substring-after(base-uri(/), 'gentext/src/')"/>
 <xsl:param name="locale" select="/"/>
 <xsl:param name="en.locale.file" select="''"/>
 <xsl:param name="en.locale" select="document($en.locale.file, /)"/>
 <xsl:param name="locales" select="''"/>
 
 <xsl:template match="db:*"/>
-  
+
 <xsl:template match="/">
   <xsl:apply-templates select="$en.locale/node()"/>
-</xsl:template>  
+</xsl:template>
 
 <xsl:template match="locale">
   <l:l10n>
@@ -124,8 +124,8 @@
   <!-- Use localized text if available -->
   <!-- otherwise use english -->
   <xsl:variable name="localnode"
-      select="$locale/locale/context[@name = $context]/template[@name = $key 
-                and (($styleatt = '' and not(@style)) 
+      select="$locale/locale/context[@name = $context]/template[@name = $key
+                and (($styleatt = '' and not(@style))
                       or @style = $styleatt) ]"/>
    <xsl:if test="count($localnode) &gt; 1">
      <xsl:message>Warning: more than one localized template
@@ -198,11 +198,11 @@
   <xsl:variable name="key" select="local-name(.)"/>
   <!-- Use localized text if available -->
   <!-- otherwise use english -->
-  <xsl:variable name="gentext" 
+  <xsl:variable name="gentext"
                 select="$locale//gentext[@key = $key]
                       | $locale//dingbat[@key = $key]"/>
 
-  <xsl:variable name="en-gentext" 
+  <xsl:variable name="en-gentext"
                 select="$en-locale//gentext[@key=$key]
                        |$en-locale//dingbat[@key=$key]"/>
   <xsl:choose>

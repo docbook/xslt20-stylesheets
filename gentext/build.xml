@@ -16,9 +16,14 @@
 
     <echo>Adding missing translations from English master localization...</echo>
     <xslt2 style="../tools/build-l10n.xsl" destdir="build" basedir="src" includes="*.xml">
-      <!-- FIXME: Pass current locale filename into locale.file parameter -->
       <param name="en.locale.file" expression="en.xml"/>
       <mapper type="identity"/>
+    </xslt2>
+  </target>
+
+  <target name="plugins" depends="all">
+    <xslt2 style="../tools/build-plugins.xsl" destdir="build/docbook" basedir="build" includes="*.xml">
+      <mapper type="glob" from="*.xml" to="*.xqy"/>
     </xslt2>
   </target>
 
