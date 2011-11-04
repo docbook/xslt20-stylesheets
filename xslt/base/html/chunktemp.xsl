@@ -117,30 +117,32 @@
               <xsl:attribute name="class" select="@status"/>
             </xsl:if>
 
+            <div class="content">
+              <xsl:if test="$pinav = 'true'">
+                <xsl:call-template name="t:user-header-content">
+                  <xsl:with-param name="node" select="."/>
+                  <xsl:with-param name="next" select="key('genid', $nchunk/@xml:id)"/>
+                  <xsl:with-param name="prev" select="key('genid', $pchunk/@xml:id)"/>
+                  <xsl:with-param name="up" select="key('genid', $uchunk/@xml:id)"/>
+                </xsl:call-template>
+              </xsl:if>
+
+              <div class="body">
+                <xsl:apply-templates select=".">
+                  <xsl:with-param name="override-chunk" select="true()"/>
+                </xsl:apply-templates>
+              </div>
+            </div>
+
             <xsl:if test="$pinav = 'true'">
-              <xsl:call-template name="t:user-header-content">
+              <xsl:call-template name="t:user-footer-content">
                 <xsl:with-param name="node" select="."/>
                 <xsl:with-param name="next" select="key('genid', $nchunk/@xml:id)"/>
                 <xsl:with-param name="prev" select="key('genid', $pchunk/@xml:id)"/>
                 <xsl:with-param name="up" select="key('genid', $uchunk/@xml:id)"/>
               </xsl:call-template>
             </xsl:if>
-
-            <div class="body">
-              <xsl:apply-templates select=".">
-                <xsl:with-param name="override-chunk" select="true()"/>
-              </xsl:apply-templates>
-            </div>
           </div>
-
-          <xsl:if test="$pinav = 'true'">
-            <xsl:call-template name="t:user-footer-content">
-              <xsl:with-param name="node" select="."/>
-              <xsl:with-param name="next" select="key('genid', $nchunk/@xml:id)"/>
-              <xsl:with-param name="prev" select="key('genid', $pchunk/@xml:id)"/>
-              <xsl:with-param name="up" select="key('genid', $uchunk/@xml:id)"/>
-            </xsl:call-template>
-          </xsl:if>
         </body>
       </html>
     </xsl:result-document>
