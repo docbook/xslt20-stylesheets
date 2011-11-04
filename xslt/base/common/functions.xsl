@@ -892,6 +892,10 @@ and the <function>section-level</function> of this section is less than
   <xsl:param name="section" as="element()"/>
 
   <xsl:choose>
+    <xsl:when test="empty($autolabel.elements/*[node-name(.) = node-name($section)])">
+      <!-- If sections aren't being auto-labelled, then the answer is always false. -->
+      <xsl:value-of select="false()"/>
+    </xsl:when>
     <xsl:when test="f:section-level($section)
 		    &lt;= $section.autolabel.max.depth">
       <xsl:value-of select="not(empty($autolabel.elements/db:section))"/>
