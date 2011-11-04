@@ -5,7 +5,10 @@
                 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
 		xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                exclude-result-prefixes="doc f l t xs"
+                xmlns:xdmp="http://marklogic.com/xdmp"
+                xmlns:mldb="http://docbook.github.com/ns/marklogic"
+                exclude-result-prefixes="doc f l t xs xdmp mldb"
+                extension-element-prefixes="xdmp"
                 version='2.0'>
 
 <!-- ********************************************************************
@@ -18,6 +21,12 @@
 
      This file contains localization templates (for internationalization)
      ******************************************************************** -->
+
+<!-- Pending resolution of bug 15636, this href has to be absolute. If you install
+     the stylesheets in /Modules/DocBook, it'll work fine. If you install them
+     elsewhere, update this path. -->
+<xdmp:import-module namespace="http://docbook.github.com/ns/marklogic"
+                    href="/DocBook/base/common/marklogic.xqy"/>
 
 <xsl:key name="l10n-gentext" match="l:l10n/l:gentext" use="concat(../@language, '#', @key)"/>
 <xsl:key name="l10n-context" match="l:l10n/l:context" use="concat(../@language, '#', @name)"/>
@@ -852,8 +861,19 @@ the English locale value will be used as the default.</para>
 
 <xsl:function name="f:check-locale" as="xs:boolean">
   <xsl:param name="lang" as="xs:string"/>
-  <xsl:variable name="dir" select="resolve-uri($l10n.locale.dir)"/>
-  <xsl:sequence select="doc-available(resolve-uri(concat($lang,'.xml'), $dir))"/>
+
+  <xsl:choose>
+    <xsl:when test="function-available('mldb:check-locale')">
+      <xsl:sequence use-when="function-available('mldb:check-locale')"
+                    select="mldb:check-locale($lang)"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="dir" select="resolve-uri($l10n.locale.dir)"/>
+      <xsl:sequence select="doc-available(resolve-uri(concat($lang,'.xml'), $dir))"/>
+    </xsl:otherwise>
+  </xsl:choose>
+
+
 </xsl:function>
 
 <!-- ============================================================ -->
@@ -919,10 +939,19 @@ the English locale value will be used as the default.</para>
 
 <xsl:function name="f:load-locale" as="element(l:l10n)">
   <xsl:param name="lang" as="xs:string"/>
-  <xsl:variable name="dir" select="resolve-uri($l10n.locale.dir)"/>
-  <xsl:variable name="locale-file"
-                select="resolve-uri(concat($lang,'.xml'), $dir)"/>
-  <xsl:sequence select="doc($locale-file)/l:l10n"/>
+
+  <xsl:choose>
+    <xsl:when test="function-available('mldb:load-locale')">
+      <xsl:sequence use-when="function-available('mldb:load-locale')"
+                    select="mldb:load-locale($lang)"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="dir" select="resolve-uri($l10n.locale.dir)"/>
+      <xsl:variable name="locale-file"
+                    select="resolve-uri(concat($lang,'.xml'), $dir)"/>
+      <xsl:sequence select="doc($locale-file)/l:l10n"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:function>
 
 </xsl:stylesheet>
