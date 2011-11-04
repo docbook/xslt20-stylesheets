@@ -65,7 +65,7 @@
 
   <xsl:function name="f:find-chunk" as="element()?">
     <xsl:param name="node" as="node()"/>
-    <xsl:sequence select="$node/ancestor-or-self::*[. = $chunks][1]"/>
+    <xsl:sequence select="$node/ancestor-or-self::*[. intersect $chunks][1]"/>
   </xsl:function>
 
 </xsl:stylesheet>
