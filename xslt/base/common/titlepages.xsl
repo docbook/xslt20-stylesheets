@@ -382,6 +382,7 @@
   <xsl:param name="mode" as="xs:string" required="yes"/>
 
   <xsl:call-template name="tp:dispatch-without-content">
+    <xsl:with-param name="context" select="$context"/>
     <xsl:with-param name="node" select="."/>
     <xsl:with-param name="mode" select="$mode"/>
   </xsl:call-template>
@@ -393,6 +394,7 @@
   <xsl:param name="mode" as="xs:string" required="yes"/>
 
   <xsl:call-template name="tp:dispatch-without-content">
+    <xsl:with-param name="context" select="$context"/>
     <xsl:with-param name="node" select="."/>
     <xsl:with-param name="mode" select="$mode"/>
   </xsl:call-template>
@@ -404,6 +406,7 @@
   <xsl:param name="mode" as="xs:string" required="yes"/>
 
   <xsl:call-template name="tp:dispatch-without-content">
+    <xsl:with-param name="context" select="$context"/>
     <xsl:with-param name="node" select="."/>
     <xsl:with-param name="mode" select="$mode"/>
   </xsl:call-template>
@@ -415,6 +418,7 @@
   <xsl:param name="mode" as="xs:string" required="yes"/>
 
   <xsl:call-template name="tp:dispatch-without-content">
+    <xsl:with-param name="context" select="$context"/>
     <xsl:with-param name="node" select="."/>
     <xsl:with-param name="mode" select="$mode"/>
   </xsl:call-template>
