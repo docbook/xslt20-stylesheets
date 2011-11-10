@@ -14,58 +14,58 @@
   <x:scenario label="sect1.001.xml">
     <x:context href="src/sect1.001.xml"/>
     <x:expect label="Numbered sections (sect1-n)"
-              test="//html:div[@class='sect1']"
-              select="//html:div[@class='sect1']"
+              test="//html:section[@class='sect1']"
+              select="//html:section[@class='sect1']"
               href="result/sect1.001.html"/>
   </x:scenario>
 
   <x:scenario label="sect1.002.xml">
     <x:context href="src/sect1.002.xml"/>
     <x:expect label="Numbered sections (sect1-n)"
-              test="//html:div[@class='sect1']"
-              select="//html:div[@class='sect1']"
+              test="//html:section[@class='sect1']"
+              select="//html:section[@class='sect1']"
               href="result/sect1.002.html"/>
   </x:scenario>
   <x:scenario label="section.001.xml">
     <x:context href="src/section.001.xml"/>
     <x:expect label="Recursive sections"
-              test="//html:div[@class='article']/html:div[@class='section']"
-              select="//html:div[@class='article']/html:div[@class='section']"
+              test="/html:html/html:body/html:article/html:section"
+              select="/html:html/html:body/html:article/html:section"
               href="result/section.001.html"/>
   </x:scenario>
   <x:scenario label="section.002.xml">
     <x:context href="src/section.002.xml"/>
     <x:expect label="Recursive sections"
-              test="//html:div[@class='article']/html:div[@class='section']"
-              select="//html:div[@class='article']/html:div[@class='section']"
+              test="/html:html/html:body/html:article/html:section"
+              select="/html:html/html:body/html:article/html:section"
               href="result/section.002.html"/>
   </x:scenario>
   <x:scenario label="section.003.xml">
     <x:context href="src/section.003.xml"/>
     <x:expect label="Very long section title"
-              test="//html:div[@class='article']/html:div[@class='section']"
-              select="//html:div[@class='article']/html:div[@class='section']"
+              test="/html:html/html:body/html:article/html:section"
+              select="/html:html/html:body/html:article/html:section"
               href="result/section.003.html"/>
   </x:scenario>
   <x:scenario label="section.004.xml">
     <x:context href="src/section.004.xml"/>
     <x:expect label="Chapter wrapper"
-              test="//html:div[@class='chapter']/html:div[@class='section']"
-              select="//html:div[@class='chapter']/html:div[@class='section']"
+              test="/html:html/html:body/html:article/html:section"
+              select="/html:html/html:body/html:article/html:section"
               href="result/section.004.html"/>
   </x:scenario>
   <x:scenario label="section.005.xml">
     <x:context href="src/section.005.xml"/>
     <x:expect label="Deeply nested with subtitles"
-              test="//html:div[@class='article']/html:div[@class='section']"
-              select="//html:div[@class='article']/html:div[@class='section']"
+              test="/html:html/html:body/html:article/html:section"
+              select="/html:html/html:body/html:article/html:section"
               href="result/section.005.html"/>
   </x:scenario>
   <x:scenario label="simplesect.001.xml">
     <x:context href="src/simplesect.001.xml"/>
     <x:expect label="Simplesect"
-              test="//html:div[@class='chapter']/html:div[@class='section']"
-              select="//html:div[@class='chapter']/html:div[@class='section']"
+              test="/html:html/html:body/html:article/html:section"
+              select="/html:html/html:body/html:article/html:section"
               href="result/simplesect.001.html"/>
   </x:scenario>
   <x:scenario label="bridgehead.001.xml">
@@ -75,8 +75,8 @@
               select="//html:p[3]"
               href="result/bridgehead.001.html"/>
     <x:expect label="Bridgeheads"
-              test="//html:div[@class='sect1']"
-              select="//html:div[@class='sect1']"
+              test="//html:section[@class='sect1']"
+              select="//html:section[@class='sect1']"
               href="result/bridgehead.001.html"/>
   </x:scenario>
 </x:scenario>
@@ -85,15 +85,15 @@
   <x:scenario label="bibliography.001.xml">
     <x:context href="src/bibliography.001.xml"/>
     <x:expect label="Full biblioentry"
-              test="//html:div[@class='bibliography']"
-              select="//html:div[@class='bibliography']"
+              test="//html:article[@class='bibliography']"
+              select="//html:article[@class='bibliography']"
               href="result/bibliography.001.html"/>
   </x:scenario>
   <x:scenario label="bibliography.002.xml">
     <x:context href="src/bibliography.002.xml"/>
     <x:expect label="biblioentry"
-              test="//html:div[@class='bibliodiv'][1]"
-              select="//html:div[@class='bibliodiv'][1]"
+              test="//html:section[@class='bibliodiv'][1]"
+              select="//html:section[@class='bibliodiv'][1]"
               href="result/bibliography.002.html"/>
     <x:expect label="bibliomixed"
               test="//html:div[@class='bibliodiv'][2]"
@@ -103,8 +103,8 @@
   <x:scenario label="bibliography.003.xml">
     <x:context href="src/bibliography.003.xml"/>
     <x:expect label="$bibliograpy.collection"
-              test="//html:div[@class='bibliography']"
-              select="//html:div[@class='bibliography']"
+              test="//html:article[@class='bibliography']"
+              select="//html:article[@class='bibliography']"
               href="result/bibliography.003.html"/>
   </x:scenario>
   <x:scenario label="bibliography.004.xml">
@@ -121,23 +121,23 @@
   <x:scenario label="bibliography.005.xml">
     <x:context href="src/bibliography.005.xml"/>
     <x:expect label="bibliography in section"
-              test="//html:div[@class='bibliography'][1]"
-              select="//html:div[@class='bibliography'][1]"
+              test="//html:article[@class='bibliography'][1]"
+              select="//html:article[@class='bibliography'][1]"
               href="result/bibliography.005.html"/>
     <x:expect label="bibliography in subsection"
-              test="//html:div[@class='bibliography'][2]"
-              select="//html:div[@class='bibliography'][2]"
+              test="//html:article[@class='bibliography'][2]"
+              select="//html:article[@class='bibliography'][2]"
               href="result/bibliography.005.html"/>
     <x:expect label="bibliography in chapter"
-              test="//html:div[@class='bibliography'][3]"
-              select="//html:div[@class='bibliography'][3]"
+              test="//html:article[@class='bibliography'][3]"
+              select="//html:article[@class='bibliography'][3]"
               href="result/bibliography.005.html"/>
   </x:scenario>
   <x:scenario label="bibliography.006.xml">
     <x:context href="src/bibliography.006.xml"/>
     <x:expect label="bibliography"
-              test="//html:div[@class='bibliography']"
-              select="//html:div[@class='bibliography']"
+              test="//html:article[@class='bibliography']"
+              select="//html:article[@class='bibliography']"
               href="result/bibliography.006.html"/>
   </x:scenario>
   <x:scenario label="bibliolist.001.xml">
@@ -153,15 +153,15 @@
   <x:scenario label="glossary.001.xml">
     <x:context href="src/glossary.001.xml"/>
     <x:expect label="Jargon file"
-              test="//html:div[@class='glossary']"
-              select="//html:div[@class='glossary']"
+              test="//html:article[@class='glossary']"
+              select="//html:article[@class='glossary']"
               href="result/glossary.001.html"/>
   </x:scenario>
   <x:scenario label="glossary.002xml">
     <x:context href="src/glossary.002.xml"/>
     <x:expect label="$glossary.collection"
-              test="//html:div[@class='glossary']"
-              select="//html:div[@class='glossary']"
+              test="//html:article[@class='glossary']"
+              select="//html:article[@class='glossary']"
               href="result/glossary.002.html"/>
   </x:scenario>
   <x:scenario label="glossary.003.xml">
@@ -171,8 +171,8 @@
               select="//html:p[2]"
               href="result/glossary.003.html"/>
     <x:expect label="Glossary"
-              test="//html:div[@class='glossary']"
-              select="//html:div[@class='glossary']"
+              test="//html:article[@class='glossary']"
+              select="//html:article[@class='glossary']"
               href="result/glossary.003.html"/>
   </x:scenario>
   <x:scenario label="glosslist.001.xml">
@@ -192,84 +192,84 @@
   <x:scenario label="index.001.xml">
     <x:context href="src/index.001.xml"/>
     <x:expect label="setindex"
-              test="//html:div[@class='setindex']"
-              select="//html:div[@class='setindex']"
+              test="//html:article[@class='setindex']"
+              select="//html:article[@class='setindex']"
               href="result/index.001.html"/>
   </x:scenario>
   <x:scenario label="index.002.xml">
     <x:context href="src/index.002.xml"/>
     <x:expect label="Index in part I"
-              test="//html:div[@class='part'][1]/html:div[@class='index']"
-              select="//html:div[@class='part'][1]/html:div[@class='index']"
+              test="//html:article[@class='part'][1]/html:article[@class='index']"
+              select="//html:article[@class='part'][1]/html:article[@class='index']"
               href="result/index.002.html"/>
     <x:expect label="Index in part II"
-              test="//html:div[@class='part'][2]/html:div[@class='index']"
-              select="//html:div[@class='part'][2]/html:div[@class='index']"
+              test="//html:article[@class='part'][2]/html:article[@class='index']"
+              select="//html:article[@class='part'][2]/html:article[@class='index']"
               href="result/index.002.html"/>
     <x:expect label="Index in part III"
-              test="//html:div[@class='part'][3]/html:div[@class='index']"
-              select="//html:div[@class='part'][3]/html:div[@class='index']"
+              test="//html:article[@class='part'][3]/html:article[@class='index']"
+              select="//html:article[@class='part'][3]/html:article[@class='index']"
               href="result/index.002.html"/>
     <x:expect label="Index in book"
-              test="//html:div[@class='book'][1]/html:div[@class='index']"
-              select="//html:div[@class='book'][1]/html:div[@class='index']"
+              test="//html:article[@class='book'][1]/html:article[@class='index']"
+              select="//html:article[@class='book'][1]/html:article[@class='index']"
               href="result/index.002.html"/>
   </x:scenario>
   <x:scenario label="index.003.xml">
     <x:context href="src/index.003.xml"/>
     <x:expect label="indexentry"
-              test="//html:div[@class='index']"
-              select="//html:div[@class='index']"
+              test="//html:article[@class='index']"
+              select="//html:article[@class='index']"
               href="result/index.003.html"/>
   </x:scenario>
   <x:scenario label="indexterm.001.xml">
     <x:context href="src/indexterm.001.xml"/>
     <x:expect label="Index"
-              test="//html:div[@id='idx']"
-              select="//html:div[@id='idx']"
+              test="//html:article[@id='idx']"
+              select="//html:article[@id='idx']"
               href="result/indexterm.001.html"/>
     <x:expect label="Foo index"
-              test="//html:div[@id='foo-idx']"
-              select="//html:div[@id='foo-idx']"
+              test="//html:article[@id='foo-idx']"
+              select="//html:article[@id='foo-idx']"
               href="result/indexterm.001.html"/>
     <x:expect label="Bar index"
-              test="//html:div[@id='bar-idx']"
-              select="//html:div[@id='bar-idx']"
+              test="//html:article[@id='bar-idx']"
+              select="//html:article[@id='bar-idx']"
               href="result/indexterm.001.html"/>
   </x:scenario>
   <x:scenario label="indexterm.002.xml">
     <x:context href="src/indexterm.002.xml"/>
     <x:expect label="Large number of terms"
-              test="//html:div[@class='index']"
-              select="//html:div[@class='index']"
+              test="//html:article[@class='index']"
+              select="//html:article[@class='index']"
               href="result/indexterm.002.html"/>
   </x:scenario>
   <x:scenario label="indexterm.003.xml">
     <x:context href="src/indexterm.003.xml"/>
     <x:expect label="Spanning term"
-              test="//html:div[@class='index']"
-              select="//html:div[@class='index']"
+              test="//html:article[@class='index']"
+              select="//html:article[@class='index']"
               href="result/indexterm.003.html"/>
   </x:scenario>
   <x:scenario label="indexterm.004.xml">
     <x:context href="src/indexterm.004.xml"/>
     <x:expect label="Different seealso values"
-              test="//html:div[@class='index']"
-              select="//html:div[@class='index']"
+              test="//html:article[@class='index']"
+              select="//html:article[@class='index']"
               href="result/indexterm.004.html"/>
   </x:scenario>
   <x:scenario label="indexterm.005.xml">
     <x:context href="src/indexterm.005.xml"/>
     <x:expect label="Symbols in indexterm"
-              test="//html:div[@class='index']"
-              select="//html:div[@class='index']"
+              test="//html:article[@class='index']"
+              select="//html:article[@class='index']"
               href="result/indexterm.005.html"/>
   </x:scenario>
   <x:scenario label="indexterm.006.xml">
     <x:context href="src/indexterm.006.xml"/>
     <x:expect label="Non-English index"
-              test="//html:div[@class='index']"
-              select="//html:div[@class='index']"
+              test="//html:article[@class='index']"
+              select="//html:article[@class='index']"
               href="result/indexterm.006.html"/>
   </x:scenario>
 </x:scenario>
@@ -278,75 +278,75 @@
   <x:scenario label="refentry.001.xml">
     <x:context href="src/refentry.001.xml"/>
     <x:expect label="Minimal refentry"
-              test="//html:div[@class='refentry']"
-              select="//html:div[@class='refentry']"
+              test="//html:article[@class='refentry']"
+              select="//html:article[@class='refentry']"
               href="result/refentry.001.html"/>
   </x:scenario>
   <x:scenario label="refentry.002.xml">
     <x:context href="src/refentry.002.xml"/>
     <x:expect label="Nested sections"
-              test="//html:div[@class='refentry']"
-              select="//html:div[@class='refentry']"
+              test="//html:article[@class='refentry']"
+              select="//html:article[@class='refentry']"
               href="result/refentry.002.html"/>
   </x:scenario>
   <x:scenario label="refentry.003.xml">
     <x:context href="src/refentry.003.xml"/>
     <x:expect label="Less minimal refentry"
-              test="//html:div[@class='refentry']"
-              select="//html:div[@class='refentry']"
+              test="//html:article[@class='refentry']"
+              select="//html:article[@class='refentry']"
               href="result/refentry.003.html"/>
   </x:scenario>
   <x:scenario label="refentry.004.xml">
     <x:context href="src/refentry.004.xml"/>
     <x:expect label="Less minimal refentry"
-              test="//html:div[@class='refentry']"
-              select="//html:div[@class='refentry']"
+              test="//html:article[@class='refentry']"
+              select="//html:article[@class='refentry']"
               href="result/refentry.004.html"/>
     <x:expect label="Cross reference"
-              test="//html:div[@class='article']/html:p"
-              select="//html:div[@class='article']/html:p"
+              test="//html:article[@class='article']/html:p"
+              select="//html:article[@class='article']/html:p"
               href="result/refentry.004.html"/>
   </x:scenario>
   <x:scenario label="refentry.006.xml">
     <x:context href="src/refentry.006.xml"/>
     <x:expect label="Numbered sections (refsect1-3)"
-              test="//html:div[@class='refentry']"
-              select="//html:div[@class='refentry']"
+              test="//html:article[@class='refentry']"
+              select="//html:article[@class='refentry']"
               href="result/refentry.006.html"/>
   </x:scenario>
   <x:scenario label="refentry.007.xml">
     <x:context href="src/refentry.007.xml"/>
     <x:expect label="Reference in book"
-              test="//html:div[@class='reference']"
-              select="//html:div[@class='reference']"
+              test="//html:article[@class='reference']"
+              select="//html:article[@class='reference']"
               href="result/refentry.007.html"/>
   </x:scenario>
   <x:scenario label="refentry.009.xml">
     <x:context href="src/refentry.009.xml"/>
     <x:expect label="More complex synopsis"
-              test="//html:div[@class='refentry']"
-              select="//html:div[@class='refentry']"
+              test="//html:article[@class='refentry']"
+              select="//html:article[@class='refentry']"
               href="result/refentry.009.html"/>
   </x:scenario>
   <x:scenario label="refentry.010.xml">
     <x:context href="src/refentry.010.xml"/>
     <x:expect label="Refmeta"
-              test="//html:div[@class='refentry']"
-              select="//html:div[@class='refentry']"
+              test="//html:article[@class='refentry']"
+              select="//html:article[@class='refentry']"
               href="result/refentry.010.html"/>
   </x:scenario>
   <x:scenario label="reference.001.xml">
     <x:context href="src/reference.001.xml"/>
     <x:expect label="Reference"
-              test="//html:div[@class='reference']"
-              select="//html:div[@class='reference']"
+              test="//html:article[@class='reference']"
+              select="//html:article[@class='reference']"
               href="result/reference.001.html"/>
   </x:scenario>
   <x:scenario label="reference.002.xml">
     <x:context href="src/reference.002.xml"/>
     <x:expect label="Reference"
-              test="//html:div[@class='reference']"
-              select="//html:div[@class='reference']"
+              test="//html:article[@class='reference']"
+              select="//html:article[@class='reference']"
               href="result/reference.002.html"/>
   </x:scenario>
 </x:scenario>
@@ -450,15 +450,15 @@
   <x:scenario label="blockinfo.001.xml">
     <x:context href="src/blockinfo.001.xml"/>
     <x:expect label="'block' info"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/blockinfo.001.html"/>
   </x:scenario>
   <x:scenario label="blockinfo.002.xml">
     <x:context href="src/blockinfo.002.xml"/>
     <x:expect label="'block' info"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/blockinfo.002.html"/>
   </x:scenario>
   <x:scenario label="remark.001.xml">
@@ -471,16 +471,16 @@
   <x:scenario label="task.001.xml">
     <x:context href="src/task.001.xml"/>
     <x:expect label="No titles"
-              test="//html:div[@class='task-wrapper'][1]"
-              select="//html:div[@class='task-wrapper'][1]"
+              test="//html:figure[@class='task-wrapper'][1]"
+              select="//html:figure[@class='task-wrapper'][1]"
               href="result/task.001.html"/>
     <x:expect label="Task title"
-              test="//html:div[@class='task-wrapper'][2]"
-              select="//html:div[@class='task-wrapper'][2]"
+              test="//html:figure[@class='task-wrapper'][2]"
+              select="//html:figure[@class='task-wrapper'][2]"
               href="result/task.001.html"/>
     <x:expect label="All titles"
-              test="//html:div[@class='task-wrapper'][3]"
-              select="//html:div[@class='task-wrapper'][3]"
+              test="//html:figure[@class='task-wrapper'][3]"
+              select="//html:figure[@class='task-wrapper'][3]"
               href="result/task.001.html"/>
   </x:scenario>
   <x:scenario label="annotations.001.xml">
@@ -496,22 +496,22 @@
   <x:scenario label="footnote.001.xml">
     <x:context href="src/footnote.001.xml"/>
     <x:expect label="Footnote tests"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/footnote.001.html"/>
   </x:scenario>
   <x:scenario label="footnote.002.xml">
     <x:context href="src/footnote.002.xml"/>
     <x:expect label="Footnote tests (tables and line spacing)"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/footnote.002.html"/>
   </x:scenario>
   <x:scenario label="footnote.003.xml">
     <x:context href="src/footnote.003.xml"/>
     <x:expect label="Footnote tests (tables)"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/footnote.003.html"/>
   </x:scenario>
 </x:scenario>
@@ -691,33 +691,33 @@
   <x:scenario label="procedure.001.xml">
     <x:context href="src/procedure.001.xml"/>
     <x:expect label="Normal procedure"
-              test="//html:div[@class='procedure-wrapper'][1]"
-              select="//html:div[@class='procedure-wrapper'][1]"
+              test="//html:figure[@class='procedure-wrapper'][1]"
+              select="//html:figure[@class='procedure-wrapper'][1]"
               href="result/procedure.001.html"/>
     <x:expect label="Procedure with title"
-              test="//html:div[@class='procedure-wrapper'][1]"
-              select="//html:div[@class='procedure-wrapper'][1]"
+              test="//html:figure[@class='procedure-wrapper'][1]"
+              select="//html:figure[@class='procedure-wrapper'][1]"
               href="result/procedure.001.html"/>
   </x:scenario>
   <x:scenario label="procedure.002.xml">
     <x:context href="src/procedure.002.xml"/>
     <x:expect label="Step with title"
-              test="//html:div[@class='procedure-wrapper']"
-              select="//html:div[@class='procedure-wrapper']"
+              test="//html:figure[@class='procedure-wrapper']"
+              select="//html:figure[@class='procedure-wrapper']"
               href="result/procedure.002.html"/>
   </x:scenario>
   <x:scenario label="procedure.003.xml">
     <x:context href="src/procedure.003.xml"/>
     <x:expect label="Procedure with a single step"
-              test="//html:div[@class='procedure-wrapper']"
-              select="//html:div[@class='procedure-wrapper']"
+              test="//html:figure[@class='procedure-wrapper']"
+              select="//html:figure[@class='procedure-wrapper']"
               href="result/procedure.003.html"/>
   </x:scenario>
   <x:scenario label="stepalternatives.001.xml">
     <x:context href="src/stepalternatives.001.xml"/>
     <x:expect label="Step alternatives"
-              test="//html:div[@class='procedure-wrapper']"
-              select="//html:div[@class='procedure-wrapper']"
+              test="//html:figure[@class='procedure-wrapper']"
+              select="//html:figure[@class='procedure-wrapper']"
               href="result/stepalternatives.001.html"/>
   </x:scenario>
 </x:scenario>
@@ -797,8 +797,8 @@
   <x:scenario label="programlisting.005.xml">
     <x:context href="src/programlisting.005.xml"/>
     <x:expect label="Programlisting in table"
-              test="//html:div[@class='table-wrapper']"
-              select="//html:div[@class='table-wrapper']"
+              test="//html:figure[@class='table-wrapper']"
+              select="//html:figure[@class='table-wrapper']"
               href="result/programlisting.005.html"/>
   </x:scenario>
   <x:scenario label="programlisting.006.xml">
@@ -1020,8 +1020,8 @@
   <x:scenario label="figure.001.xml">
     <x:context href="src/figure.001.xml"/>
     <x:expect label="Normal figure"
-              test="//html:div[@class='figure-wrapper']"
-              select="//html:div[@class='figure-wrapper']"
+              test="//html:figure[@class='figure-wrapper']"
+              select="//html:figure[@class='figure-wrapper']"
               href="result/figure.001.html"/>
   </x:scenario>
   <x:scenario label="figure.002.xml">
@@ -1038,26 +1038,26 @@
   <x:scenario label="figure.003.xml">
     <x:context href="src/figure.003.xml"/>
     <x:expect label="Centered figure"
-              test="//html:div[@class='figure-wrapper'][1]"
-              select="//html:div[@class='figure-wrapper'][1]"
+              test="//html:figure[@class='figure-wrapper'][1]"
+              select="//html:figure[@class='figure-wrapper'][1]"
               href="result/figure.003.html"/>
     <x:expect label="Centered screenshot"
-              test="//html:div[@class='figure-wrapper'][2]"
-              select="//html:div[@class='figure-wrapper'][2]"
+              test="//html:figure[@class='figure-wrapper'][2]"
+              select="//html:figure[@class='figure-wrapper'][2]"
               href="result/figure.003.html"/>
   </x:scenario>
   <x:scenario label="figure.004.xml">
     <x:context href="src/figure.004.xml"/>
     <x:expect label="Long description"
-              test="//html:div[@class='figure-wrapper']"
-              select="//html:div[@class='figure-wrapper']"
+              test="//html:figure[@class='figure-wrapper']"
+              select="//html:figure[@class='figure-wrapper']"
               href="result/figure.004.html"/>
   </x:scenario>
   <x:scenario label="informalfigure.001.xml">
     <x:context href="src/informalfigure.001.xml"/>
     <x:expect label="Normal informalfigure"
-              test="//html:div[@class='informalfigure-wrapper']"
-              select="//html:div[@class='informalfigure-wrapper']"
+              test="//html:figure[@class='informalfigure-wrapper']"
+              select="//html:figure[@class='informalfigure-wrapper']"
               href="result/informalfigure.001.html"/>
   </x:scenario>
 </x:scenario>
@@ -1066,15 +1066,15 @@
   <x:scenario label="example.001.xml">
     <x:context href="src/example.001.xml"/>
     <x:expect label="Normal example"
-              test="//html:div[@class='example-wrapper']"
-              select="//html:div[@class='example-wrapper']"
+              test="//html:figure[@class='example-wrapper']"
+              select="//html:figure[@class='example-wrapper']"
               href="result/example.001.html"/>
   </x:scenario>
   <x:scenario label="informalexample.001.xml">
     <x:context href="src/informalexample.001.xml"/>
     <x:expect label="Normal informalexample"
-              test="//html:div[@class='informalexample-wrapper']"
-              select="//html:div[@class='informalexample-wrapper']"
+              test="//html:figure[@class='informalexample-wrapper']"
+              select="//html:figure[@class='informalexample-wrapper']"
               href="result/informalexample.001.html"/>
   </x:scenario>
 </x:scenario>
@@ -1083,12 +1083,12 @@
   <x:scenario label="equation.001.xml">
     <x:context href="src/equation.001.xml"/>
     <x:expect label="Normal equation"
-              test="//html:div[@class='equation-wrapper']"
-              select="//html:div[@class='equation-wrapper']"
+              test="//html:figure[@class='equation-wrapper']"
+              select="//html:figure[@class='equation-wrapper']"
               href="result/equation.001.html"/>
     <x:expect label="Informal equation"
-              test="//html:div[@class='informalequation-wrapper']"
-              select="//html:div[@class='informalequation-wrapper']"
+              test="//html:figure[@class='informalequation-wrapper']"
+              select="//html:figure[@class='informalequation-wrapper']"
               href="result/equation.001.html"/>
     <x:expect label="Inline equation"
               test="//html:p[2]"
@@ -1098,31 +1098,31 @@
   <x:scenario label="equation.002.xml">
     <x:context href="src/equation.002.xml"/>
     <x:expect label="Equation with xml:id"
-              test="//html:div[@class='equation-wrapper']"
-              select="//html:div[@class='equation-wrapper']"
+              test="//html:figure[@class='equation-wrapper']"
+              select="//html:figure[@class='equation-wrapper']"
               href="result/equation.002.html"/>
     <x:expect label="Informal equation with xml:id"
-              test="//html:div[@class='informalequation-wrapper']"
-              select="//html:div[@class='informalequation-wrapper']"
+              test="//html:figure[@class='informalequation-wrapper']"
+              select="//html:figure[@class='informalequation-wrapper']"
               href="result/equation.002.html"/>
   </x:scenario>
   <x:scenario label="equation.003.xml">
     <x:context href="src/equation.003.xml"/>
     <x:expect label="Normal equation"
-              test="//html:div[@class='equation-wrapper'][1]"
-              select="//html:div[@class='equation-wrapper'][1]"
+              test="//html:figure[@class='equation-wrapper'][1]"
+              select="//html:figure[@class='equation-wrapper'][1]"
               href="result/equation.003.html"/>
     <x:expect label="Equation without title"
-              test="//html:div[@class='equation-wrapper'][2]"
-              select="//html:div[@class='equation-wrapper'][2]"
+              test="//html:figure[@class='equation-wrapper'][2]"
+              select="//html:figure[@class='equation-wrapper'][2]"
               href="result/equation.003.html"/>
     <x:expect label="Equation with xml:id"
-              test="//html:div[@class='equation-wrapper'][3]"
-              select="//html:div[@class='equation-wrapper'][3]"
+              test="//html:figure[@class='equation-wrapper'][3]"
+              select="//html:figure[@class='equation-wrapper'][3]"
               href="result/equation.003.html"/>
     <x:expect label="Figure instead of equation"
-              test="//html:div[@class='figure-wrapper']"
-              select="//html:div[@class='figure-wrapper']"
+              test="//html:figure[@class='figure-wrapper']"
+              select="//html:figure[@class='figure-wrapper']"
               href="result/equation.003.html"/>
   </x:scenario>
 </x:scenario>
@@ -1131,297 +1131,297 @@
   <x:scenario label="table.001.xml">
     <x:context href="src/table.001.xml"/>
     <x:expect label="TFoot test"
-              test="//html:div[@class='table-wrapper']"
-              select="//html:div[@class='table-wrapper']"
+              test="//html:figure[@class='table-wrapper']"
+              select="//html:figure[@class='table-wrapper']"
               href="result/table.001.html"/>
   </x:scenario>
   <x:scenario label="table.002.xml">
     <x:context href="src/table.002.xml"/>
     <x:expect label="Column width test"
-              test="//html:div[@class='table-wrapper']"
-              select="//html:div[@class='table-wrapper']"
+              test="//html:figure[@class='table-wrapper']"
+              select="//html:figure[@class='table-wrapper']"
               href="result/table.002.html"/>
   </x:scenario>
   <x:scenario label="table.003.xml">
     <x:context href="src/table.003.xml"/>
     <x:expect label="Footnote test"
-              test="//html:div[@class='table-wrapper']"
-              select="//html:div[@class='table-wrapper']"
+              test="//html:figure[@class='table-wrapper']"
+              select="//html:figure[@class='table-wrapper']"
               href="result/table.003.html"/>
   </x:scenario>
   <x:scenario label="table.004.xml">
     <x:context href="src/table.004.xml"/>
     <x:expect label="Colspec rowsep test"
-              test="//html:div[@class='table-wrapper']"
-              select="//html:div[@class='table-wrapper']"
+              test="//html:figure[@class='table-wrapper']"
+              select="//html:figure[@class='table-wrapper']"
               href="result/table.004.html"/>
   </x:scenario>
   <x:scenario label="table.005.xml">
     <x:context href="src/table.005.xml"/>
     <x:expect label="Landscape test"
-              test="//html:div[@class='table-wrapper']"
-              select="//html:div[@class='table-wrapper']"
+              test="//html:figure[@class='table-wrapper']"
+              select="//html:figure[@class='table-wrapper']"
               href="result/table.005.html"/>
   </x:scenario>
   <x:scenario label="table.006.xml">
     <x:context href="src/table.006.xml"/>
     <x:expect label="All"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.006.html"/>
     <x:expect label="None"
-              test="//html:div[@class='informaltable-wrapper'][2]"
-              select="//html:div[@class='informaltable-wrapper'][2]"
+              test="//html:figure[@class='informaltable-wrapper'][2]"
+              select="//html:figure[@class='informaltable-wrapper'][2]"
               href="result/table.006.html"/>
     <x:expect label="Outer edge"
-              test="//html:div[@class='informaltable-wrapper'][3]"
-              select="//html:div[@class='informaltable-wrapper'][3]"
+              test="//html:figure[@class='informaltable-wrapper'][3]"
+              select="//html:figure[@class='informaltable-wrapper'][3]"
               href="result/table.006.html"/>
     <x:expect label="Rows"
-              test="//html:div[@class='informaltable-wrapper'][4]"
-              select="//html:div[@class='informaltable-wrapper'][4]"
+              test="//html:figure[@class='informaltable-wrapper'][4]"
+              select="//html:figure[@class='informaltable-wrapper'][4]"
               href="result/table.006.html"/>
     <x:expect label="Columns"
-              test="//html:div[@class='informaltable-wrapper'][5]"
-              select="//html:div[@class='informaltable-wrapper'][5]"
+              test="//html:figure[@class='informaltable-wrapper'][5]"
+              select="//html:figure[@class='informaltable-wrapper'][5]"
               href="result/table.006.html"/>
     <x:expect label="Tic tac toe"
-              test="//html:div[@class='informaltable-wrapper'][6]"
-              select="//html:div[@class='informaltable-wrapper'][6]"
+              test="//html:figure[@class='informaltable-wrapper'][6]"
+              select="//html:figure[@class='informaltable-wrapper'][6]"
               href="result/table.006.html"/>
     <x:expect label="Tic tac toe (perverse)"
-              test="//html:div[@class='informaltable-wrapper'][7]"
-              select="//html:div[@class='informaltable-wrapper'][7]"
+              test="//html:figure[@class='informaltable-wrapper'][7]"
+              select="//html:figure[@class='informaltable-wrapper'][7]"
               href="result/table.006.html"/>
     <x:expect label="Box in the middle"
-              test="//html:div[@class='informaltable-wrapper'][8]"
-              select="//html:div[@class='informaltable-wrapper'][8]"
+              test="//html:figure[@class='informaltable-wrapper'][8]"
+              select="//html:figure[@class='informaltable-wrapper'][8]"
               href="result/table.006.html"/>
     <x:expect label="Jigsaw"
-              test="//html:div[@class='informaltable-wrapper'][9]"
-              select="//html:div[@class='informaltable-wrapper'][9]"
+              test="//html:figure[@class='informaltable-wrapper'][9]"
+              select="//html:figure[@class='informaltable-wrapper'][9]"
               href="result/table.006.html"/>
   </x:scenario>
   <x:scenario label="table.007.xml">
     <x:context href="src/table.007.xml"/>
     <x:expect label="Landscape test"
-              test="//html:div[@class='informaltable-wrapper']"
-              select="//html:div[@class='informaltable-wrapper']"
+              test="//html:figure[@class='informaltable-wrapper']"
+              select="//html:figure[@class='informaltable-wrapper']"
               href="result/table.007.html"/>
   </x:scenario>
   <x:scenario label="table.008.xml">
     <x:context href="src/table.008.xml"/>
     <x:expect label="With a style"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.008.html"/>
     <x:expect label="Without a style"
-              test="//html:div[@class='informaltable-wrapper'][2]"
-              select="//html:div[@class='informaltable-wrapper'][2]"
+              test="//html:figure[@class='informaltable-wrapper'][2]"
+              select="//html:figure[@class='informaltable-wrapper'][2]"
               href="result/table.008.html"/>
   </x:scenario>
   <x:scenario label="table.009.xml">
     <x:context href="src/table.009.xml"/>
     <x:expect label="Frame all"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.009.html"/>
     <x:expect label="Frame none"
-              test="//html:div[@class='informaltable-wrapper'][2]"
-              select="//html:div[@class='informaltable-wrapper'][2]"
+              test="//html:figure[@class='informaltable-wrapper'][2]"
+              select="//html:figure[@class='informaltable-wrapper'][2]"
               href="result/table.009.html"/>
   </x:scenario>
   <x:scenario label="table.010.xml">
     <x:context href="src/table.010.xml"/>
     <x:expect label="Literallayout test"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.010.html"/>
   </x:scenario>
   <x:scenario label="table.011.xml">
     <x:context href="src/table.011.xml"/>
     <x:expect label="Cell spacing"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.011.html"/>
   </x:scenario>
   <x:scenario label="table.012.xml">
     <x:context href="src/table.012.xml"/>
     <x:expect label="Background color PI"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.012.html"/>
   </x:scenario>
   <x:scenario label="table.013.xml">
     <x:context href="src/table.013.xml"/>
     <x:expect label="bug #677564"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.013.html"/>
   </x:scenario>
   <x:scenario label="table.014.xml">
     <x:context href="src/table.014.xml"/>
     <x:expect label="Multiple TGroups"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.014.html"/>
   </x:scenario>
   <x:scenario label="table.015.xml">
     <x:context href="src/table.015.xml"/>
     <x:expect label="Multipage table"
-              test="//html:div[@class='table-wrapper'][1]"
-              select="//html:div[@class='table-wrapper'][1]"
+              test="//html:figure[@class='table-wrapper'][1]"
+              select="//html:figure[@class='table-wrapper'][1]"
               href="result/table.015.html"/>
   </x:scenario>
   <x:scenario label="table.016.xml">
     <x:context href="src/table.016.xml"/>
     <x:expect label="Nested HTML tables"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.016.html"/>
   </x:scenario>
   <x:scenario label="table.017.xml">
     <x:context href="src/table.017.xml"/>
     <x:expect label="Hard spanning cases"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/table.017.html"/>
   </x:scenario>
   <x:scenario label="table.018.xml">
     <x:context href="src/table.018.xml"/>
     <x:expect label="Long description"
-              test="//html:div[@class='table-wrapper'][1]"
-              select="//html:div[@class='table-wrapper'][1]"
+              test="//html:figure[@class='table-wrapper'][1]"
+              select="//html:figure[@class='table-wrapper'][1]"
               href="result/table.018.html"/>
   </x:scenario>
   <x:scenario label="informaltable.001.xml">
     <x:context href="src/informaltable.001.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.001.html"/>
   </x:scenario>
   <x:scenario label="informaltable.002.xml">
     <x:context href="src/informaltable.002.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.002.html"/>
   </x:scenario>
   <x:scenario label="informaltable.003.xml">
     <x:context href="src/informaltable.003.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.003.html"/>
   </x:scenario>
   <x:scenario label="informaltable.004.xml">
     <x:context href="src/informaltable.004.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.004.html"/>
   </x:scenario>
   <x:scenario label="informaltable.005.xml">
     <x:context href="src/informaltable.005.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.005.html"/>
   </x:scenario>
   <x:scenario label="informaltable.006.xml">
     <x:context href="src/informaltable.006.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.006.html"/>
   </x:scenario>
   <x:scenario label="informaltable.007.xml">
     <x:context href="src/informaltable.007.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.007.html"/>
   </x:scenario>
   <x:scenario label="informaltable.008.xml">
     <x:context href="src/informaltable.008.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.008.html"/>
   </x:scenario>
   <x:scenario label="informaltable.009.xml">
     <x:context href="src/informaltable.009.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.009.html"/>
   </x:scenario>
   <x:scenario label="informaltable.010.xml">
     <x:context href="src/informaltable.010.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.010.html"/>
   </x:scenario>
   <x:scenario label="informaltable.011.xml">
     <x:context href="src/informaltable.011.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.011.html"/>
   </x:scenario>
   <x:scenario label="informaltable.012.xml">
     <x:context href="src/informaltable.012.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.012.html"/>
   </x:scenario>
   <x:scenario label="informaltable.013.xml">
     <x:context href="src/informaltable.013.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.013.html"/>
   </x:scenario>
   <x:scenario label="informaltable.014.xml">
     <x:context href="src/informaltable.014.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.014.html"/>
   </x:scenario>
   <x:scenario label="informaltable.015.xml">
     <x:context href="src/informaltable.015.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.015.html"/>
   </x:scenario>
   <x:scenario label="informaltable.016.xml">
     <x:context href="src/informaltable.016.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.016.html"/>
   </x:scenario>
   <x:scenario label="informaltable.017.xml">
     <x:context href="src/informaltable.017.xml"/>
     <x:expect label="Row valign test"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.017.html"/>
     <x:expect label="Row valign test on tbody"
-              test="//html:div[@class='informaltable-wrapper'][2]"
-              select="//html:div[@class='informaltable-wrapper'][2]"
+              test="//html:figure[@class='informaltable-wrapper'][2]"
+              select="//html:figure[@class='informaltable-wrapper'][2]"
               href="result/informaltable.017.html"/>
   </x:scenario>
   <x:scenario label="informaltable.018.xml">
     <x:context href="src/informaltable.018.xml"/>
     <x:expect label="Alignment and empty cell tests"
-              test="//html:div[@class='informaltable-wrapper'][1]"
-              select="//html:div[@class='informaltable-wrapper'][1]"
+              test="//html:figure[@class='informaltable-wrapper'][1]"
+              select="//html:figure[@class='informaltable-wrapper'][1]"
               href="result/informaltable.018.html"/>
   </x:scenario>
 </x:scenario>
@@ -1458,8 +1458,8 @@
   <x:scenario label="Client side imagemaps">
     <x:context href="src/imageobjectco.001.xml"/>
     <x:expect label="Scaled "
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/imageobjectco.001.html"/>
   </x:scenario>
 </x:scenario>
@@ -2077,24 +2077,24 @@
   <x:scenario label="emphasis.001.xml">
     <x:context href="src/emphasis.001.xml"/>
     <x:expect label="Normal emphasis"
-              test="//html:div[@class='article']//html:em[1]"
-              select="//html:div[@class='article']//html:em[1]"
+              test="//html:article[@class='article']//html:em[1]"
+              select="//html:article[@class='article']//html:em[1]"
               href="result/emphasis.001.html"/>
     <x:expect label="Bold emphasis"
-              test="//html:div[@class='article']//html:strong[1]"
-              select="//html:div[@class='article']//html:strong[1]"
+              test="//html:article[@class='article']//html:strong[1]"
+              select="//html:article[@class='article']//html:strong[1]"
               href="result/emphasis.001.html"/>
     <x:expect label="Strikethrough emphasis"
-              test="//html:div[@class='article']//html:em[2]"
-              select="//html:div[@class='article']//html:em[2]"
+              test="//html:article[@class='article']//html:em[2]"
+              select="//html:article[@class='article']//html:em[2]"
               href="result/emphasis.001.html"/>
     <x:expect label="Underline emphasis"
-              test="//html:div[@class='article']//html:em[3]"
-              select="//html:div[@class='article']//html:em[3]"
+              test="//html:article[@class='article']//html:em[3]"
+              select="//html:article[@class='article']//html:em[3]"
               href="result/emphasis.001.html"/>
     <x:expect label="Nested emphasis"
-              test="//html:div[@class='article']//html:em[4]"
-              select="//html:div[@class='article']//html:em[4]"
+              test="//html:article[@class='article']//html:em[4]"
+              select="//html:article[@class='article']//html:em[4]"
               href="result/emphasis.001.html"/>
   </x:scenario>
   <x:scenario label="filename.001.xml">
@@ -2487,8 +2487,8 @@
   <x:scenario label="xref.003.xml">
     <x:context href="src/xref.003.xml"/>
     <x:expect label="Xref tests"
-              test="//html:div[@id='xreftests']"
-              select="//html:div[@id='xreftests']"
+              test="//html:section[@id='xreftests']"
+              select="//html:section[@id='xreftests']"
               href="result/xref.003.html"/>
   </x:scenario>
   <x:scenario label="link.001.xml">
@@ -2551,36 +2551,36 @@
   <x:scenario label="article.001.xml">
     <x:context href="src/article.001.xml"/>
     <x:expect label="Normal article"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/article.001.html"/>
   </x:scenario>
   <x:scenario label="article.002.xml">
     <x:context href="src/article.002.xml"/>
     <x:expect label="Status=draft"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/article.002.html"/>
   </x:scenario>
   <x:scenario label="article.003.xml">
     <x:context href="src/article.003.xml"/>
     <x:expect label="Sections"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/article.003.html"/>
   </x:scenario>
   <x:scenario label="article.004.xml">
     <x:context href="src/article.004.xml"/>
     <x:expect label="More info metadata"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/article.004.html"/>
   </x:scenario>
   <x:scenario label="article.005.xml">
     <x:context href="src/article.005.xml"/>
     <x:expect label="Numbered sections and titleabbrev"
-              test="//html:div[@class='article']"
-              select="//html:div[@class='article']"
+              test="//html:article[@class='article']"
+              select="//html:article[@class='article']"
               href="result/article.005.html"/>
   </x:scenario>
 </x:scenario>
@@ -2589,8 +2589,8 @@
   <x:scenario label="part.001.xml">
     <x:context href="src/part.001.xml"/>
     <x:expect label="Normal part"
-              test="//html:div[@class='part']"
-              select="//html:div[@class='part']"
+              test="//html:article[@class='part']"
+              select="//html:article[@class='part']"
               href="result/part.001.html"/>
   </x:scenario>
 </x:scenario>
@@ -2599,15 +2599,15 @@
   <x:scenario label="chapter.001.xml">
     <x:context href="src/chapter.001.xml"/>
     <x:expect label="Normal chapter"
-              test="//html:div[@class='chapter']"
-              select="//html:div[@class='chapter']"
+              test="//html:article[@class='chapter']"
+              select="//html:article[@class='chapter']"
               href="result/chapter.001.html"/>
   </x:scenario>
   <x:scenario label="chapter.002.xml">
     <x:context href="src/chapter.002.xml"/>
     <x:expect label="Localized chapter xref"
-              test="//html:div[@class='chapter']"
-              select="//html:div[@class='chapter']"
+              test="//html:article[@class='chapter']"
+              select="//html:article[@class='chapter']"
               href="result/chapter.002.html"/>
   </x:scenario>
 </x:scenario>
@@ -2616,50 +2616,50 @@
   <x:scenario label="book.001.xml">
     <x:context href="src/book.001.xml"/>
     <x:expect label="Book test"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
+              test="//html:article[@class='book']"
+              select="//html:article[@class='book']"
               href="result/book.001.html"/>
   </x:scenario>
   <x:scenario label="book.002.xml">
     <x:context href="src/book.002.xml"/>
     <x:expect label="Book of articles"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
+              test="//html:article[@class='book']"
+              select="//html:article[@class='book']"
               href="result/book.002.html"/>
   </x:scenario>
   <x:scenario label="book.003.xml">
     <x:context href="src/book.003.xml"/>
     <x:expect label="Lists of figures/tables, figure enumeration"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
+              test="//html:article[@class='book']"
+              select="//html:article[@class='book']"
               href="result/book.003.html"/>
   </x:scenario>
   <x:scenario label="book.004.xml">
     <x:context href="src/book.004.xml"/>
     <x:expect label="Inline title markup"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
+              test="//html:article[@class='book']"
+              select="//html:article[@class='book']"
               href="result/book.004.html"/>
   </x:scenario>
   <x:scenario label="book.005.xml">
     <x:context href="src/book.005.xml"/>
     <x:expect label="book with parts"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
+              test="//html:article[@class='book']"
+              select="//html:article[@class='book']"
               href="result/book.005.html"/>
   </x:scenario>
   <x:scenario label="book.006.xml">
     <x:context href="src/book.006.xml"/>
     <x:expect label="book with lots of info"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
+              test="//html:article[@class='book']"
+              select="//html:article[@class='book']"
               href="result/book.006.html"/>
   </x:scenario>
   <x:scenario label="info.001.xml">
     <x:context href="src/info.001.xml"/>
     <x:expect label="more info testing"
-              test="//html:div[@class='book']"
-              select="//html:div[@class='book']"
+              test="//html:article[@class='book']"
+              select="//html:article[@class='book']"
               href="result/info.001.html"/>
   </x:scenario>
   <x:scenario label="the title is empty">
@@ -2675,8 +2675,8 @@
   <x:scenario label="set.001.xml">
     <x:context href="src/set.001.xml"/>
     <x:expect label="Set test"
-              test="//html:div[@class='set']"
-              select="//html:div[@class='set']"
+              test="//html:article[@class='set']"
+              select="//html:article[@class='set']"
               href="result/set.001.html"/>
   </x:scenario>
 </x:scenario>
