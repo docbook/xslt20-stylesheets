@@ -1,0 +1,32 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+          xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          version="5.0" xml:id="default.table.column.widths">
+<refmeta>
+<refentrytitle>default.table.column.widths</refentrytitle>
+<refmiscinfo class="other" otherclass="datatype">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>default.table.column.widths</refname>
+<refpurpose>Compute default table column widths for CALS tables</refpurpose>
+</refnamediv>
+<refsynopsisdiv>
+<src:fragment xml:id="default.table.column.widths.frag">
+<xsl:param name="default.table.column.widths" select="1"></xsl:param>
+</src:fragment>
+</refsynopsisdiv>
+<refsection><info><title>Description</title></info>
+<para>If non-zero, CALS tables will have a computed width for every column, even if
+the table doesn't specify any widths. By default, CALS table columns are all of equal
+width in the absense of any width specification.</para>
+
+<para>If this feature is disabled, no computed width will be specified, leaving the
+layout at the discretion of the rendering engine. In HTML, the rendering can be influenced
+by CSS rules.</para>
+
+<para>If the table specifies any table column widths, this parameter is ignored and
+computed widths will be provided for every column.</para>
+</refsection>
+</refentry>

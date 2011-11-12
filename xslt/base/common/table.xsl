@@ -665,6 +665,9 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
   <xsl:param name="colgroup" as="element()"/>
   <xsl:param name="abspixels" select="0"/>
 
+  <xsl:variable name="specify-widths"
+                select="$default.table.column.widths != 0 or exists($colgroup/h:col/@width)"/>
+
   <xsl:variable name="parsedcols" as="element()*">
     <xsl:for-each select="$colgroup/*">
       <xsl:choose>
@@ -700,32 +703,36 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
     <xsl:choose>
       <xsl:when test="sum($parsedcols/@ghost:rel) = 0">
 	<xsl:for-each select="$parsedcols">
-	  <col>
+	  <col class="tcol{position()}">
 	    <xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
-	    <xsl:attribute name="width">
-	      <xsl:choose>
-		<xsl:when test="$abspixels = 0">
-		  <xsl:value-of select="format-number(@ghost:abs div $pixels.per.inch,
-					              '0.00')"/>
-		  <xsl:text>in</xsl:text>
-		</xsl:when>
-		<xsl:otherwise>
-		  <xsl:value-of select="@ghost:abs"/>
-		</xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:attribute>
-	  </col>
+            <xsl:if test="$specify-widths">
+              <xsl:attribute name="width">
+                <xsl:choose>
+                  <xsl:when test="$abspixels = 0">
+                    <xsl:value-of select="format-number(@ghost:abs div $pixels.per.inch,
+                                                        '0.00')"/>
+                    <xsl:text>in</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="@ghost:abs"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:attribute>
+            </xsl:if>
+          </col>
 	</xsl:for-each>
       </xsl:when>
       <xsl:when test="sum($parsedcols/@ghost:abs) = 0">
 	<xsl:variable name="relTotal" select="sum($parsedcols/@ghost:rel)"/>
 	<xsl:for-each select="$parsedcols">
-	  <col>
+	  <col class="tcol{position()}">
 	    <xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
-	    <xsl:attribute name="width">
-	      <xsl:value-of select="round(@ghost:rel div $relTotal * 100)"/>
-	      <xsl:text>%</xsl:text>
-	    </xsl:attribute>
+            <xsl:if test="$specify-widths">
+              <xsl:attribute name="width">
+                <xsl:value-of select="round(@ghost:rel div $relTotal * 100)"/>
+                <xsl:text>%</xsl:text>
+              </xsl:attribute>
+            </xsl:if>
 	  </col>
 	</xsl:for-each>
       </xsl:when>
@@ -757,7 +764,7 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
 	    </xsl:message>
             -->
 
-	    <col>
+	    <col class="tcol{position()}">
 	      <xsl:copy-of select="@*"/>
 	      <xsl:attribute name="ghost:rel"
 			     select="(@ghost:rel div $relTotal * $relwidth)
@@ -781,34 +788,37 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
 	<xsl:choose>
 	  <xsl:when test="contains($table-width, '%')">
 	    <xsl:for-each select="$convcols">
-	      <col>
+	      <col class="tcol{position()}">
 		<xsl:copy-of select="@*[namespace-uri(.)
 			        != 'http://docbook.org/ns/docbook/ephemeral']"/>
-		<xsl:attribute name="width">
-		  <xsl:value-of select="format-number(@ghost:rel div $absTotal * 100,
-					              '0.00')"/>
-		  <xsl:text>%</xsl:text>
-		</xsl:attribute>
+                <xsl:if test="$specify-widths">
+                  <xsl:attribute name="width">
+                    <xsl:value-of select="format-number(@ghost:rel div $absTotal * 100,
+                                                        '0.00')"/>
+                    <xsl:text>%</xsl:text>
+                  </xsl:attribute>
+                </xsl:if>
 	      </col>
 	    </xsl:for-each>
 	  </xsl:when>
 	  <xsl:otherwise>
 	    <xsl:for-each select="$convcols">
-	      <col>
+	      <col class="tcol{position()}">
 		<xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
-		<xsl:attribute name="width">
-		  <xsl:choose>
-		    <xsl:when test="$abspixels = 0">
-		      <xsl:value-of select="format-number(@ghost:rel
-					                  div $pixels.per.inch,
-					    '0.00')"/>
-		      <xsl:text>in</xsl:text>
-		    </xsl:when>
-		    <xsl:otherwise>
-		      <xsl:value-of select="round(@ghost:rel)"/>
-		    </xsl:otherwise>
-		  </xsl:choose>
-		</xsl:attribute>
+                <xsl:if test="$specify-widths">
+                  <xsl:attribute name="width">
+                    <xsl:choose>
+                      <xsl:when test="$abspixels = 0">
+                        <xsl:value-of select="format-number(@ghost:rel div $pixels.per.inch,
+					                    '0.00')"/>
+                        <xsl:text>in</xsl:text>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="round(@ghost:rel)"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:attribute>
+                </xsl:if>
 	      </col>
 	    </xsl:for-each>
 	  </xsl:otherwise>
