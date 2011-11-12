@@ -31,6 +31,18 @@
     </xsl:for-each>
   </xsl:variable>
 
+  <xsl:variable name="descendant-annotations" as="element()*">
+    <xsl:for-each select=".//*">
+      <xsl:variable name="id" select="@xml:id"/>
+      <xsl:sequence select="if (@annotations)
+                            then key('id',tokenize(@annotations,'\s'))
+                            else ()"/>
+      <xsl:sequence select="if ($id)
+                            then //db:annotation[tokenize(@annotates,'\s')=$id]
+                            else ()"/>
+    </xsl:for-each>
+  </xsl:variable>
+
   <xsl:variable name="annotmarkup">
     <xsl:for-each select="$annotations">
       <xsl:variable name="id"
@@ -44,7 +56,7 @@
         <img border="0" src="{$annotation.graphic.close}" alt="[A-]"/>
       </a>
     </xsl:for-each>
-    <xsl:for-each select="$annotations">
+    <xsl:for-each select="($annotations, $descendant-annotations)">
       <xsl:variable name="id"
                     select="concat(f:node-id(.),'-',generate-id($para))"/>
       <div style="display: none" id="annot-{$id}">
