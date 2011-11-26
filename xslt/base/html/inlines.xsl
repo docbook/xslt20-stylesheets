@@ -616,6 +616,7 @@ the default is “element”.</para>
 
 <xsl:template match="db:lineannotation">
   <em>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
     <xsl:call-template name="t:inline-charseq"/>
   </em>
 </xsl:template>
