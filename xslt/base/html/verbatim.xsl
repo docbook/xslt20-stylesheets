@@ -236,7 +236,7 @@
   </xsl:choose>
 </xsl:template>
 
-<!-- This is a highligh implementation that works on MarkLogic server.
+<!-- This is a highlight implementation that works on MarkLogic server.
      It relies on a web service to perform the actual highlighting. -->
 <xsl:function use-when="function-available('xdmp:http-post')"
               name="ext:highlight" as="node()*">
