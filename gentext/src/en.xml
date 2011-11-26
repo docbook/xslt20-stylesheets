@@ -226,6 +226,7 @@
 <template name="answer">%t</template>
 <template name="appendix"><Appendix/>&#160;%n.&#160;%t</template>
 <template name="article">%t</template>
+<template name="annotation">%t</template>
 <template name="authorblurb">%t</template>
 <template name="bibliodiv">%t</template>
 <template name="biblioentry">%t</template>
