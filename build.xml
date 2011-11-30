@@ -18,6 +18,7 @@
     <ant dir="gentext" target="clean"/>
     <ant dir="ext" target="clean"/>
     <ant dir="xslt/base" target="clean"/>
+    <delete dir="dist"/>
   </target>
 
   <target name="version">
@@ -34,7 +35,7 @@
     <ant dir="tests/xspec"/>
   </target>
 
-  <target name="dist" depends="clean, build, build-dist, smoketest, zip"/>
+  <target name="dist" depends="clean, build, build-dist, relnotes, smoketest, zip"/>
 
   <target name="build-dist" depends="build">
     <delete dir="dist"/>
@@ -51,6 +52,8 @@
         <exclude name="**/*.xsl"/>
       </fileset>
     </copy>
+
+    <copy file="docs/RELEASENOTES.html" todir="dist"/>
 
     <copy todir="dist/docbook-xslt2-${version}">
       <fileset dir=".">
@@ -82,6 +85,21 @@
     <copy todir="dist/docbook-xslt2-${version}/lib">
       <fileset dir="ext/build/lib"/>
     </copy>
+  </target>
+
+  <target name="relnotes">
+    <delete file="docs/RELEASENOTES.html"/>
+    <java fork="true" classname="net.sf.saxon.Transform">
+      <classpath>
+        <pathelement location="tools/lib/saxon9he.jar"/>
+        <pathelement location="dist/docbook-xslt2-${version}/lib/docbook-xsl2-saxon.jar"/>
+      </classpath>
+      <arg value="-init:docbook.Initializer"/>
+      <arg value="-o:docs/RELEASENOTES.html"/>
+      <arg value="-s:docs/RELEASENOTES.xml"/>
+      <arg value="-xsl:dist/docbook-xslt2-${version}/xslt/base/html/docbook.xsl"/>
+      <arg value="resource.root=http://docbook.github.com/latest/"/>
+    </java>
   </target>
 
   <target name="smoketest">

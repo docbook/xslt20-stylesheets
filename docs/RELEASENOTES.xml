@@ -1,0 +1,111 @@
+<article xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         version="5.0">
+<title>Release Notes</title>
+
+<para>This document summarizes the significant changes since the 2.0.2
+release. There's nothing significant about the order in which they're listed.</para>
+
+<para>That said: the big one is first.</para>
+
+<orderedlist>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/872c7d5759c00426bac4823af02c684c9e9102d2">Converted</link>
+a number of div elements into more semantic HTML5 elements (<tag>article</tag>,
+<tag>section</tag>, etc.).
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/efe2d0d00869897c912f5c1ab0a1051483201654">Fixed</link> <tag>lineannotation</tag> formatting.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/dfb8e5e73f8c3aee8a9e915971368dc723ef6908">Added</link> localization template for annotation titles.
+<link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/9bdbef3a045136eb24b02acb21482642bf516c70">Fixed</link>
+bugs in annotation support.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/8cb7c7d35defa38b01018ed2a408b4b5311efbe8">Added</link>
+a <parameter>default.table.column.widths</parameter>
+parameter to allow a user to suppress default column widths when none
+are specified in the DocBook (CALS) table.
+In an effort to make it easier to control table style with CSS,
+added
+a “<literal>tcol<replaceable>n</replaceable></literal>” class to each table
+column.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/3597d4debb738ac412d13304b4c25780f033feea">Added</link>
+support for plugins (and other mechanisms) to load localization data in MarkLogic server.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/9bad461dab742ae1182f098f8922399bdf03d4c4">Fiddled</link>
+with nesting of divs in chunks to better support CSS styling of the footer.
+</para>
+</listitem>
+<listitem>
+<para><emphasis>Greatly</emphasis> <link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/133c77e8446dc22f2b03aacb40cd57f9ad69aa6b">improved</link> chunking
+performance.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/fad3697720071e9b1eaf682440ab2c0ac6b6eed9">Fixed</link> bug where sections would sometimes be labelled even
+if they didn't appear in <parameter>autolabel.elements</parameter>.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/c06af84537a96d9b67cdbe5ef8e54449e93bae04">Removed</link> massive
+<filename>i18n.xml</filename> and <filename>i18ndata.xsl</filename> files; dynamically
+load individual locales when needed.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/4bd9aa609b5b7aa5adc75de599bca390a5c1f7fa">Removed</link>
+<uri>about:legacy-compat</uri> doctype as it borks XML parsers.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/3ef5877b2c91961d79ca20ab2a292c8374920fb4">Fixed</link>
+github
+<link xlink:href="https://github.com/docbook/xslt20-stylesheets/issues/2">issue 2</link>,
+empty title causes infinite loop.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/e638282a449229dba107df64a90fc5df3aeb08b7">Fixed</link> <tag>link</tag> processing.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/c0fa67804bc29ea21e8ef0e6aa1aa5656df83283">Tinkered</link> with
+with CSS/JS templates for customizing; added <filename>html5.js</filename> for IE.
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/de529aede9289b8e2b1931abeaad1299956d5f1e">Rearranged</link>
+the way chunks are handled so that the whole document is available for
+cross references even when only the selected chunk (<parameter>rootid</parameter>) is
+processed
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/30cd17ed3ce36fd9e824d553ef8c0c578514ed31">Changed</link>
+condition for title foil slides to accomodate new content model in slides:
+<literal>(foil|foilgroup)+</literal>.
+</para>
+</listitem>
+<listitem>
+<para>Always <link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/85d74a9e37f5197374692f3b0d7502366bbfd69f">use
+<tag>ul</tag> for tables of contents</link>, <tag>dl</tag>s without any <tag>dd</tag>
+are not valid in HTML5
+</para>
+</listitem>
+<listitem>
+<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/2e22775ef4ad6e6a5c0fb082a10b3190dcca302f">Treat</link>
+HTML table caption as title for the purposes of cross references.
+</para>
+</listitem>
+</orderedlist>
+</article>

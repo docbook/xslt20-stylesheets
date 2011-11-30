@@ -2,3 +2,4 @@
 dist
 tests/smoketest.html
 tools/lib/cachedir/
+docs/RELEASENOTES.html
