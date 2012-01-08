@@ -44,7 +44,7 @@
 </xsl:template>
 
 <xsl:template match="db:definitions[@definitionfile]" mode="mp:expand-definitions">
-  <xsl:copy-of select="f:expand-definitions(doc(@definitionfile))"/>
+  <xsl:copy-of select="f:expand-definitions(doc(resolve-uri(@definitionfile, base-uri(.)))))"/>
   <xsl:copy>
     <xsl:copy-of select="@* except @definitionfile"/>
     <xsl:apply-templates mode="mp:expand-definitions"/>
