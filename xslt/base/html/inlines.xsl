@@ -764,6 +764,48 @@ and <tag>firstterm</tag> elements.</para>
 
 <!-- ==================================================================== -->
 
+<doc:template name="db:guilabel" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>The text of a label in a GUI</refpurpose>
+<refdescription>
+<para>The guilabel template is used to process <tag>guilabel</tag> elements.</para>
+</refdescription>
+</doc:template>
+<xsl:template match="db:guilabel">
+  <xsl:call-template name="t:inline-charseq"/>
+</xsl:template>
+
+<doc:template name="db:guimenu" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>The name of a menu in a GUI</refpurpose>
+<refdescription>
+<para>The guimenu template is used to process <tag>guimenu</tag> elements.</para>
+</refdescription>
+</doc:template>
+<xsl:template match="db:guimenu">
+  <xsl:call-template name="t:inline-charseq"/>
+</xsl:template>
+
+<doc:template name="db:guimenuitem" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>The name of a terminal menu item in a GUI</refpurpose>
+<refdescription>
+<para>The guimenuitem template is used to process <tag>guimenuitem</tag> elements.</para>
+</refdescription>
+</doc:template>
+<xsl:template match="db:guimenuitem">
+  <xsl:call-template name="t:inline-charseq"/>
+</xsl:template>
+
+<doc:template name="db:guisubmenu" xmlns="http://docbook.org/ns/docbook">
+<refpurpose>The name of a submenu in a GUI</refpurpose>
+<refdescription>
+<para>The guisubmenu template is used to process <tag>guisubmenu</tag> elements.</para>
+</refdescription>
+</doc:template>
+<xsl:template match="db:guisubmenu">
+  <xsl:call-template name="t:inline-charseq"/>
+</xsl:template>
+
+<!-- Missing menuchoice -->
+
 </xsl:stylesheet>
 
 
