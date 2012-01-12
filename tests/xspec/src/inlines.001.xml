@@ -92,9 +92,6 @@
       <para><mousebutton xml:id="mousebutton">mousebutton</mousebutton></para>
    </listitem>
    <listitem>
-      <para><keycap xml:id="keycap">keycap</keycap></para>
-   </listitem>
-   <listitem>
       <para><keycode xml:id="keycode">keycode</keycode></para>
    </listitem>
    <listitem>

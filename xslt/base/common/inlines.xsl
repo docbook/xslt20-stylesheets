@@ -238,7 +238,24 @@
 </xsl:template>
 
 <xsl:template match="db:keycap">
-  <xsl:call-template name="t:inline-boldseq"/>
+  <xsl:variable name="node">
+    <xsl:apply-templates/>
+  </xsl:variable>
+  <xsl:call-template name="t:inline-boldseq">
+    <xsl:with-param name="content">
+      <xsl:choose>
+        <xsl:when test="@function and string(normalize-space($node))= ''">
+          <xsl:call-template name="gentext-template">
+          <xsl:with-param name="context" select="'keycap'"/>
+          <xsl:with-param name="name" select="@function"/>
+        </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="$node"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:with-param>
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="db:keycode">
