@@ -1811,10 +1811,6 @@
               test="//html:*[@id='mousebutton']"
               select="//html:*[@id='mousebutton']"
               href="result/inlines.001.html"/>
-    <x:expect label="keycap"
-              test="//html:*[@id='keycap']"
-              select="//html:*[@id='keycap']"
-              href="result/inlines.001.html"/>
     <x:expect label="keycode"
               test="//html:*[@id='keycode']"
               select="//html:*[@id='keycode']"
@@ -2131,6 +2127,105 @@
               test="//html:li[8]/html:p/*[1]"
               select="//html:li[8]/html:p/*[1]"
               href="result/filename.001.html"/>
+  </x:scenario>
+  <x:scenario label="keycap.001.xml">
+    <x:context href="src/keycap.001.xml"/>
+    <x:expect label="Normal keycap"
+              test="//html:li[1]/html:p/*[1]"
+              select="//html:li[1]/html:p/*[1]"
+              href="result/keycap.001.html"/>
+    <x:expect label="keycap with content and @function"
+              test="//html:*[@id='keycap-with-function']"
+              select="//html:*[@id='keycap-with-function']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='alt' with empty keycap"
+              test="//html:*[@id='alt']"
+              select="//html:*[@id='alt']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='backspace' with empty keycap"
+              test="//html:*[@id='backspace']"
+              select="//html:*[@id='backspace']"
+              href="result/keycap.001.html"/>
+    <!--<x:expect label="function='command' with empty keycap"
+              test="//html:*[@id='command']"
+              select="//html:*[@id='command']"
+              href="result/keycap.001.html"/>-->
+    <x:expect label="function='control' with empty keycap"
+              test="//html:*[@id='control']"
+              select="//html:*[@id='control']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='delete' with empty keycap"
+              test="//html:*[@id='delete']"
+              select="//html:*[@id='delete']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='down' with empty keycap"
+              test="//html:*[@id='down']"
+              select="//html:*[@id='down']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='end' with empty keycap"
+              test="//html:*[@id='end']"
+              select="//html:*[@id='end']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='enter' with empty keycap"
+              test="//html:*[@id='enter']"
+              select="//html:*[@id='enter']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='escape' with empty keycap"
+              test="//html:*[@id='escape']"
+              select="//html:*[@id='escape']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='home' with empty keycap"
+              test="//html:*[@id='home']"
+              select="//html:*[@id='home']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='insert' with empty keycap"
+              test="//html:*[@id='insert']"
+              select="//html:*[@id='insert']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='left' with empty keycap"
+              test="//html:*[@id='left']"
+              select="//html:*[@id='left']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='meta' with empty keycap"
+              test="//html:*[@id='meta']"
+              select="//html:*[@id='meta']"
+              href="result/keycap.001.html"/>
+    <!--<x:expect label="function='option' with empty keycap"
+              test="//html:*[@id='option']"
+              select="//html:*[@id='option']"
+              href="result/keycap.001.html"/>-->
+    <!--<x:expect label="function='other' with empty keycap"
+              test="//html:*[@id='other']"
+              select="//html:*[@id='other']"
+              href="result/keycap.001.html"/>-->
+    <x:expect label="function='pagedown' with empty keycap"
+              test="//html:*[@id='pagedown']"
+              select="//html:*[@id='pagedown']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='pageup' with empty keycap"
+              test="//html:*[@id='pageup']"
+              select="//html:*[@id='pageup']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='right' with empty keycap"
+              test="//html:*[@id='right']"
+              select="//html:*[@id='right']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='shift' with empty keycap"
+              test="//html:*[@id='shift']"
+              select="//html:*[@id='shift']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='space' with empty keycap"
+              test="//html:*[@id='space']"
+              select="//html:*[@id='space']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='tab' with empty keycap"
+              test="//html:*[@id='tab']"
+              select="//html:*[@id='tab']"
+              href="result/keycap.001.html"/>
+    <x:expect label="function='up' with empty keycap"
+              test="//html:*[@id='up']"
+              select="//html:*[@id='up']"
+              href="result/keycap.001.html"/>    
   </x:scenario>
   <x:scenario label="orgname.001.xml">
     <x:context href="src/orgname.001.xml"/>

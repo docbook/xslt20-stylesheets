@@ -599,6 +599,30 @@
 <template name="langcode">0x0409 English (UNITED STATES)</template>
 </context>
 
+<context name="keycap">
+<template name="alt">Alt</template>
+<template name="backspace">&#x2906;</template>
+<!-- <template name="command"></template> FIXME -->
+<template name="control">Ctrl</template>
+<template name="delete">Delete</template>
+<template name="down">&#x2193;</template>
+<template name="end">End</template>
+<template name="enter">Enter</template>
+<template name="escape">Esc</template>
+<template name="home">Home</template>
+<template name="insert">Insert</template>
+<template name="left">&#x2190;</template>
+ <template name="meta">Meta</template> FIXME 
+<!-- <template name="option"></template> FIXME -->
+<template name="pagedown">Page Down</template>
+<template name="pageup">Page Up</template>
+<template name="right">&#x2192;</template>
+<template name="shift">Shift</template>
+<template name="space">Spacebar</template>
+<template name="tab">Tab</template> <!-- Alternative: &#x27fc; -->
+<template name="up">&#x2191;</template>
+</context>
+
 <context name="index">
 <template name="term-separator">, </template>
 <template name="number-separator">, </template>
