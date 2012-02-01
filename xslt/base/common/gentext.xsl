@@ -662,7 +662,7 @@ a cross-reference.</para>
                   <xsl:copy-of select="$pagenumber"/>
                 </xsl:when>
                 <xsl:otherwise>
-                  <xsl:apply-templates select="." mode="m:pagenumber.markup"/>
+                  <xsl:apply-templates select="." mode="m:pagenumber-markup"/>
                 </xsl:otherwise>
               </xsl:choose>
             </xsl:with-param>
