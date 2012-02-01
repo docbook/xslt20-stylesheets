@@ -418,7 +418,7 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="variablelist" mode="m:vl.as.blocks">
+<xsl:template match="db:variablelist" mode="m:vl.as.blocks">
   <xsl:variable name="id" select="f:node-id(.)"/>
 
   <!-- termlength is irrelevant -->
