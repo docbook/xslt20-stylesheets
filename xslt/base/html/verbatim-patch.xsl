@@ -798,7 +798,7 @@ that it had been nested within.</para>
     </xsl:when>
 
     <!-- In later versions of 4.2 (starting I don't know when, but at least in 4.2-6)
-         the bug is different. Dang it, it's not fixed in 5.0 either. -->
+         there's a different bug. Not fixed in 5.0-1 either. -->
     <xsl:when test="system-property('xsl:vendor') = 'MarkLogic Corporation'
                     and (starts-with(system-property('xsl:product-version'), '4.2')
                          or starts-with(system-property('xsl:product-version'), '5'))">
@@ -825,6 +825,7 @@ that it had been nested within.</para>
         </xsl:choose>
       </xsl:for-each>
     </xsl:when>
+
     <xsl:otherwise>
       <xsl:analyze-string select="." regex="\n">
         <xsl:matching-substring>
