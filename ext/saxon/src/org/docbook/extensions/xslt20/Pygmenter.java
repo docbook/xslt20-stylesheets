@@ -103,11 +103,11 @@ public class Pygmenter extends ExtensionFunctionDefinition {
         }
 
         public SequenceIterator call(SequenceIterator[] arguments, XPathContext context) throws XPathException {
-            String code = ((StringValue) arguments[0].next()).getPrimitiveStringValue();
+            String code = ((StringValue) arguments[0].next()).getStringValue();
             String language = "";
 
             if (arguments.length > 1) {
-                language = ((StringValue) arguments[1].next()).getPrimitiveStringValue();
+                language = ((StringValue) arguments[1].next()).getStringValue();
             }
 
             if (processor == null) {

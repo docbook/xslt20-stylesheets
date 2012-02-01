@@ -89,7 +89,7 @@ public class ImageIntrinsics extends ExtensionFunctionDefinition {
         int depth = -1;
 
         public SequenceIterator call(SequenceIterator[] arguments, XPathContext context) throws XPathException {
-            String imageFn = ((StringValue) arguments[0].next()).getPrimitiveStringValue();
+            String imageFn = ((StringValue) arguments[0].next()).getStringValue();
 
             imageLoaded = false;
             imageFailed = false;

@@ -38,7 +38,8 @@ public class Initializer implements net.sf.saxon.lib.Initializer {
                 // Jython must not be on the classpath.
                 // That's ok, just ignore this extension function.
             }
-        } catch (XPathException xe) {
+            // Exception instead of XPathException because Saxon 9.4 changed the API
+        } catch (Exception xe) {
             System.err.println("Failed to register DocBook extension functions:");
             xe.printStackTrace();
         }
