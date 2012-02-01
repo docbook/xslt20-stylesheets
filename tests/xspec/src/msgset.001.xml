@@ -4,7 +4,7 @@
 </info>
 
 <msgset>
-<simplemsgentry level="user" origin="parser">
+<simplemsgentry msglevel="user" msgorig="parser">
   <msgtext>
     <para>XML document structures must start and end within the same
     entity.</para>
@@ -20,7 +20,7 @@ is included would be balanced.</para>
 
 <msgset>
 <title>Title of msgset</title>
-<simplemsgentry level="user" origin="parser">
+<simplemsgentry msglevel="user" msgorig="parser">
   <msgtext>
     <para>XML document structures must start and end within the same
     entity.</para>

@@ -4,7 +4,7 @@
 <para>Three column table, but entries only in one column. Last column
 should expand to fill entire horizontal space.</para>
 
-<informaltable id="informaltable" pgwide="1">
+<informaltable xml:id="informaltable" pgwide="1">
   <tgroup cols="3" colsep="1" rowsep="1" align="left">
       <colspec colname="cat" colwidth="2in"/>
       <colspec colname="issue" colwidth="2in"/>

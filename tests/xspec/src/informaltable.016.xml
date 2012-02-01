@@ -16,7 +16,7 @@
 <para>Spanspec test.  Cell "F" should be right aligned and spanning
 the last 3 columns.</para>
 
-<informaltable frame="all" id="informaltable">
+<informaltable frame="all" xml:id="informaltable">
       <tgroup cols="4" colsep="1" rowsep="1" align="center">
         <colspec colname="one" align="center"/>
         <colspec colname="two" align="center"/>

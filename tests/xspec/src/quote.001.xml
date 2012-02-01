@@ -5,15 +5,14 @@
 
 <itemizedlist>
    <listitem>
-      <para><quote xml:id="quote">quote</quote></para>
+      <para><quote xml:id="quote-1">quote</quote></para>
    </listitem>
    <listitem>
-      <para><quote xml:id="quote">quote <quote>nested quote</quote></quote></para>
+      <para><quote xml:id="quote-2">quote <quote>nested quote</quote></quote></para>
    </listitem>
    <listitem>
-      <para><quote xml:id="quote">quote <quote>nested quote <quote>nested quote</quote></quote></quote></para>
+      <para><quote xml:id="quote-3">quote <quote>nested quote <quote>nested quote</quote></quote></quote></para>
    </listitem>
 </itemizedlist>
 
 </article>
-
