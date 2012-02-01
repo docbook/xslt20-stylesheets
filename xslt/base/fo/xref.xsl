@@ -970,7 +970,7 @@
 </xsl:template>
 
 <xsl:template match="*" mode="m:pagenumber-markup">
-  <fo:page-number-citation ref-id="f:node-id(.)"/>
+  <fo:page-number-citation ref-id="{f:node-id(.)}"/>
 </xsl:template>
 
 <!-- ============================================================ -->
