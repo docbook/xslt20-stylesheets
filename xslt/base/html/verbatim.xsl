@@ -20,7 +20,7 @@
 <xsl:param name="pygments-default" select="0"/>
 <xsl:param name="pygmenter-uri" select="''"/>
 
-<xsl:template match="db:programlistingco">
+<xsl:template match="db:programlistingco|db:screenco">
   <xsl:variable name="areas-unsorted" as="element()*">
     <xsl:apply-templates select="db:areaspec"/>
   </xsl:variable>
@@ -37,7 +37,7 @@
     </xsl:for-each>
   </xsl:variable>
 
-  <xsl:apply-templates select="db:programlisting" mode="m:verbatim">
+  <xsl:apply-templates select="db:programlisting|db:screen" mode="m:verbatim">
     <xsl:with-param name="areas" select="$areas"/>
   </xsl:apply-templates>
 
@@ -121,12 +121,11 @@
         <xsl:otherwise/>
       </xsl:choose>
     </xsl:attribute>
-    <pre>
-      <xsl:if test="@language">
-        <xsl:attribute name="class" select="@language"/>
-      </xsl:if>
-      <xsl:sequence select="$formatted"/>
-    </pre>
+    <!-- Removed spaces before xsl:attribute so that if <pre> is schema validated
+         and magically grows an xml:space="preserve" attribute, the processor
+         doesn't fall over because we've added an attribute after a text node.
+         Maybe this only happens in MarkLogic. Maybe it's a bug. For now: whatever. -->
+    <pre><xsl:if test="@language"><xsl:attribute name="class" select="@language"/></xsl:if><xsl:sequence select="$formatted"/></pre>
   </div>
 </xsl:template>
 
