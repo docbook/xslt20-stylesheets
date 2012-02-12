@@ -55,7 +55,7 @@
        I'm not absolutely convinced that convenient == best. -->
   <!-- This annotation stuff only works if we're in a para. That's a bug. -->
   <xsl:if test="ancestor::db:para">
-    <xsl:variable name="para" select="ancestor::db:para"/>
+    <xsl:variable name="para" select="ancestor::db:para[1]"/>
     <xsl:variable name="annotations" as="element()*">
       <xsl:variable name="id" select="@xml:id"/>
       <xsl:sequence select="if (@annotations)
