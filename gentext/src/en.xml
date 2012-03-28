@@ -612,7 +612,7 @@
 <template name="home">Home</template>
 <template name="insert">Insert</template>
 <template name="left">&#x2190;</template>
- <template name="meta">Meta</template> FIXME 
+<template name="meta">Meta</template>
 <!-- <template name="option"></template> FIXME -->
 <template name="pagedown">Page Down</template>
 <template name="pageup">Page Up</template>
@@ -630,8 +630,6 @@
 </context>
 
 <context name="iso690">
-  
-  
   <template name="lastfirst.sep">, </template> 
   <template name="alt.person.two.sep"> &#8211; </template>
   <template name="alt.person.last.sep"> &#8211; </template> 
@@ -639,9 +637,6 @@
   <template name="primary.editor"> (ed.)</template> 
   <template name="primary.many">, et al.</template> 
   <template name="primary.sep">. </template> 
-  
-  
-  
   <template name="submaintitle.sep">: </template> 
   <template name="title.sep">. </template> 
   <template name="othertitle.sep">, </template> 
