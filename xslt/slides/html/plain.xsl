@@ -126,11 +126,14 @@
         </xsl:call-template>
         <ul class="toc">
           <xsl:for-each select="db:foil|db:foilgroup">
-            <li>
-              <a href="#{f:slideno(.)}">
-                <xsl:value-of select="db:info/db:title|db:title"/>
-              </a>
-            </li>
+            <xsl:if test="f:include-in-toc(.)">
+              <li>
+                <a href="#{f:slideno(.)}">
+                  <xsl:value-of select="(db:info/db:titleabbrev,db:titleabbrev,
+                                         db:info/db:title|db:title)[1]"/>
+                </a>
+              </li>
+            </xsl:if>
           </xsl:for-each>
         </ul>
       </div>
@@ -146,6 +149,21 @@
                         + count($foil/preceding::db:foilgroup)
                         + count($foil/parent::db:foilgroup)
                         + 1"/>
+</xsl:function>
+
+<xsl:function name="f:include-in-toc" as="xs:boolean">
+  <xsl:param name="foil"/>
+  <xsl:variable name="pfoil" select="($foil/preceding-sibling::db:foil[1]
+                                      |$foil/preceding-sibling::db:foilgroup[1])[1]"/>
+
+  <xsl:variable name="title"
+                select="string(($foil/db:titleabbrev,$foil/db:info/db:titleabbrev,
+                                $foil/db:title,$foil/db:info/db:title)[1])"/>
+  <xsl:variable name="ptitle"
+                select="string(($pfoil/db:titleabbrev,$pfoil/db:info/db:titleabbrev,
+                                $pfoil/db:title,$pfoil/db:info/db:title)[1])"/>
+
+  <xsl:value-of select="$title != $ptitle"/>
 </xsl:function>
 
 <xsl:template match="db:slides/db:info">
