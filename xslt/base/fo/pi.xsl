@@ -80,47 +80,47 @@
       <!-- Doesn't work in fop -->
     </xsl:when>
     <xsl:when test="$pi-before != '' and
-      not(following-sibling::listitem) and
-      not(following-sibling::step)">
+      not(following-sibling::db:listitem) and
+      not(following-sibling::db:step)">
       <fo:block space-after="0pt" space-before="{$pi-before}">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="following-sibling::para">
+    <xsl:when test="following-sibling::db:para">
       <fo:block space-after="0pt" 
         xsl:use-attribute-sets="normal.para.spacing">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="following-sibling::table or
-      following-sibling::figure or
-      following-sibling::example or
-      following-sibling::equation">
+    <xsl:when test="following-sibling::db:table or
+      following-sibling::db:figure or
+      following-sibling::db:example or
+      following-sibling::db:equation">
       <fo:block space-after="0pt" 
         xsl:use-attribute-sets="formal.object.properties">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="following-sibling::informaltable or
-      following-sibling::informalfigure or
-      following-sibling::informalexample or
-      following-sibling::informalequation">
+    <xsl:when test="following-sibling::db:informaltable or
+      following-sibling::db:informalfigure or
+      following-sibling::db:informalexample or
+      following-sibling::db:informalequation">
       <fo:block space-after="0pt" 
         xsl:use-attribute-sets="informal.object.properties">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="following-sibling::itemizedlist or
-      following-sibling::orderedlist or
-      following-sibling::variablelist or
-      following-sibling::simplelist">
+    <xsl:when test="following-sibling::db:itemizedlist or
+      following-sibling::db:orderedlist or
+      following-sibling::db:variablelist or
+      following-sibling::db:simplelist">
       <fo:block space-after="0pt" 
         xsl:use-attribute-sets="informal.object.properties">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
     </xsl:when>
-    <xsl:when test="following-sibling::listitem or
-      following-sibling::step">
+    <xsl:when test="following-sibling::db:listitem or
+      following-sibling::db:step">
       <fo:list-item space-after="0pt" 
         xsl:use-attribute-sets="informal.object.properties">
         <fo:list-item-label/>
@@ -129,12 +129,12 @@
         </fo:list-item-body>
       </fo:list-item>
     </xsl:when>
-    <xsl:when test="following-sibling::sect1 or
-      following-sibling::sect2 or
-      following-sibling::sect3 or
-      following-sibling::sect4 or
-      following-sibling::sect5 or
-      following-sibling::section">
+    <xsl:when test="following-sibling::db:sect1 or
+      following-sibling::db:sect2 or
+      following-sibling::db:sect3 or
+      following-sibling::db:sect4 or
+      following-sibling::db:sect5 or
+      following-sibling::db:section">
       <fo:block space-after="0pt" 
         xsl:use-attribute-sets="section.title.properties">
         <xsl:copy-of select="$spacer"/>
@@ -151,8 +151,8 @@
     <xsl:when test="$fo.processor = 'fop'">
       <!-- Doesn't work in fop -->
     </xsl:when>
-    <xsl:when test="following-sibling::listitem or
-      following-sibling::step">
+    <xsl:when test="following-sibling::db:listitem or
+      following-sibling::db:step">
       <fo:list-item space-before.precedence="force"
         space-before="-{$height}"
         space-after="0pt"
