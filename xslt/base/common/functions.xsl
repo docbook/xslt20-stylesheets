@@ -2197,4 +2197,90 @@ parameter if no such attribute can be found.
 
 <!-- ============================================================ -->
 
+<doc:function name="f:resolve-path"
+	      xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Resolves a relative URI against an absolute path</refpurpose>
+
+<refdescription>
+<para>The <function>resolve-path</function> resolves the <parameter>uri</parameter>
+against the <parameter>abspath</parameter> and returns the resulting path.
+This function avoids the problem that <function>fn:resolve-uri</function> requires
+an absolute URI (including a scheme!).</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry><term>uri</term>
+<listitem>
+<para>The relative URI to be resolved.</para>
+</listitem>
+</varlistentry>
+<varlistentry><term>abspath</term>
+<listitem>
+<para>The base URI (or absolute path) against which to resolve <parameter>uri</parameter>.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>The resolved path.</para>
+</refreturn>
+</doc:function>
+
+<xsl:function name="f:resolve-path" as="xs:string">
+  <xsl:param name="uri" as="xs:string"/>
+  <xsl:param name="abspath" as="xs:string"/>
+
+  <xsl:choose>
+    <xsl:when test="matches($abspath, '^[-a-zA-Z0-9]+:')">
+      <!-- $abspath is an absolute URI -->
+      <xsl:value-of select="resolve-uri($uri, $abspath)"/>
+    </xsl:when>
+    <xsl:when test="matches(static-base-uri(), '^[-a-zA-Z0-9]+:')">
+      <!-- the static base uri is an absolute URI -->
+      <xsl:value-of select="resolve-uri($uri, resolve-uri($abspath))"/>
+    </xsl:when>
+    <xsl:when test="matches($uri, '^[-a-zA-Z0-9]+:') or starts-with($uri, '/')">
+      <!-- $uri is already absolute -->
+      <xsl:value-of select="$uri"/>
+    </xsl:when>
+    <xsl:when test="not(starts-with($abspath, '/'))">
+      <!-- if the $abspath isn't absolute, we lose -->
+      <xsl:value-of select="error((), '$abspath in f:resolve-path is not absolute')"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- otherwise, resolve them together -->
+      <xsl:variable name="base" select="replace($abspath, '^(.*)/[^/]*$', '$1')"/>
+
+      <xsl:variable name="allsegs" select="(tokenize(substring-after($base, '/'), '/'),
+                                         tokenize($uri, '/'))"/>
+      <xsl:variable name="segs" select="$allsegs[. != '.']"/>
+      <xsl:variable name="path" select="fp:resolve-dotdots($segs)"/>
+      <xsl:value-of select="concat('/', string-join($path, '/'))"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
+
+<xsl:function name="fp:resolve-dotdots" as="xs:string*">
+  <xsl:param name="segs" as="xs:string*"/>
+  <xsl:variable name="pos" select="index-of($segs, '..')"/>
+  <xsl:choose>
+    <xsl:when test="empty($pos)">
+      <xsl:sequence select="$segs"/>
+    </xsl:when>
+    <xsl:when test="$pos[1] = 1">
+      <xsl:sequence select="fp:resolve-dotdots(subsequence($segs, 2))"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:sequence select="fp:resolve-dotdots(
+                            (subsequence($segs, 1, $pos[1] - 2),
+                             subsequence($segs, $pos[1] + 1)))"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
+
+<!-- ============================================================ -->
+
 </xsl:stylesheet>

@@ -179,7 +179,7 @@
 </xsl:function>
 
 <xsl:template match="db:ref[@parse eq 'text']" mode="mp:transclude">
-  <xsl:variable name="baseuri" select="resolve-uri(@fileref, base-uri(.))"/>
+  <xsl:variable name="baseuri" select="f:resolve-path(@fileref, base-uri(.))"/>
 
   <xsl:choose>
     <xsl:when test="@encoding">
@@ -193,7 +193,7 @@
 
 
 <xsl:template match="db:ref[@fileref and (@parse eq 'xml' or not(@parse))]" mode="mp:transclude">
-  <xsl:variable name="baseuri" select="resolve-uri(@fileref, base-uri(.))"/>
+  <xsl:variable name="baseuri" select="f:resolve-path(@fileref, base-uri(.))"/>
 
   <xsl:variable name="doc">
     <xsl:choose>

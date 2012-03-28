@@ -868,8 +868,8 @@ the English locale value will be used as the default.</para>
                     select="mldb:check-locale($lang)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:variable name="dir" select="resolve-uri($l10n.locale.dir)"/>
-      <xsl:sequence select="doc-available(resolve-uri(concat($lang,'.xml'), $dir))"/>
+      <xsl:sequence
+          select="doc-available(f:resolve-path(concat($lang,'.xml'), $l10n.locale.dir))"/>
     </xsl:otherwise>
   </xsl:choose>
 
@@ -946,9 +946,8 @@ the English locale value will be used as the default.</para>
                     select="mldb:load-locale($lang)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:variable name="dir" select="resolve-uri($l10n.locale.dir)"/>
       <xsl:variable name="locale-file"
-                    select="resolve-uri(concat($lang,'.xml'), $dir)"/>
+                    select="f:resolve-path(concat($lang,'.xml'), $l10n.locale.dir)"/>
       <xsl:sequence select="doc($locale-file)/l:l10n"/>
     </xsl:otherwise>
   </xsl:choose>

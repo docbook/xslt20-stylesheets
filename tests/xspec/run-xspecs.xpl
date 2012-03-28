@@ -12,6 +12,13 @@
 <!-- N.B. The resource.root is set explicitly because it varies from release to release
      and generates spurious differences. -->
 
+<ex:xspec name="functions">
+  <p:input port="source">
+    <p:document href="functions.xml"/>
+  </p:input>
+  <p:with-param name="resource.root" select="'http://docbook.github.com/latest/'"/>
+</ex:xspec>
+
 <ex:xspec name="htmlalt">
   <p:input port="source">
     <p:document href="htmlalt.xml"/>
@@ -58,6 +65,7 @@
 
 <p:wrap-sequence wrapper="x:report-set">
   <p:input port="source">
+    <p:pipe step="functions" port="result"/>
     <p:pipe step="htmlalt" port="result"/>
     <p:pipe step="htmlbase" port="result"/>
     <p:pipe step="htmlprof1" port="result"/>

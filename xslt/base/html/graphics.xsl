@@ -1033,7 +1033,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
       <xsl:value-of select="."/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:variable name="absuri" select="resolve-uri(.,base-uri(.))"/>
+      <xsl:variable name="absuri" select="f:resolve-path(.,base-uri(.))"/>
       <xsl:choose>
         <xsl:when test="starts-with($absuri, 'file://')">
           <xsl:value-of select="substring-after($absuri, 'file:/')"/>
