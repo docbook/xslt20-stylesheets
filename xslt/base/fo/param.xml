@@ -240,6 +240,8 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="table.width.default"/>
 <refentry xml:id="default.table.width"/>
 
+<refentry xml:id="default.table.column.widths"/>
+
 <refentry xml:id="formal.object.properties"/>
 <refentry xml:id="informal.object.properties"/>
 <refentry xml:id="itemizedlist.properties"/>
