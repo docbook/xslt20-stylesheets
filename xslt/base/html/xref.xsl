@@ -129,7 +129,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
 </doc:template>
 
 <xsl:template match="db:xref" name="db:xref">
-  <xsl:param name="linkend" select="@linkend"/>
+  <xsl:param name="linkend" select="(@linkend, if (starts-with(@xlink:href, '#')) then substring-after(@xlink:href, '#') else ())[1]"/>
 
   <xsl:variable name="target" select="f:findid($linkend,.)[1]"/>
   <xsl:variable name="refelem" select="node-name($target)"/>
