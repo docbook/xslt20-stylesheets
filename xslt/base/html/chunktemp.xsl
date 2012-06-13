@@ -56,6 +56,19 @@
     </chunk>
   </xsl:template>
 
+  <xsl:template match="db:section" mode="m:identify-chunks">
+    <xsl:choose>
+      <xsl:when test="$chunk.section.depth &gt;= count(ancestor::db:section)+1">
+	<chunk xml:id="{generate-id()}">
+	  <xsl:apply-templates select="*" mode="m:identify-chunks"/>
+	</chunk>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:apply-templates select="*" mode="m:identify-chunks"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template match="*" mode="m:identify-chunks">
     <xsl:apply-templates select="*" mode="m:identify-chunks"/>
   </xsl:template>
