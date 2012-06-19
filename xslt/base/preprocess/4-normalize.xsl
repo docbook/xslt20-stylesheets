@@ -28,7 +28,9 @@
 
 <xsl:function name="f:normalize" as="document-node()">
   <xsl:param name="root" as="document-node()"/>
-  <xsl:apply-templates select="$root" mode="m:normalize"/>
+  <xsl:document>
+    <xsl:apply-templates select="$root" mode="m:normalize"/>
+  </xsl:document>
 </xsl:function>
 
 <!-- ============================================================ -->
