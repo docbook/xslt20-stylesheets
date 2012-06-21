@@ -517,6 +517,14 @@ if appropriate</refpurpose>
   <xsl:apply-templates select="$normalized" mode="m:verbatim-phase-1"/>
 </xsl:template>
 
+<!-- HACK: m:verbatim-phase-1 was not implemented. This is a temporary noop implementation that at least 
+     does not strip verbatim elements. -->
+<xsl:template match="@*|node()" mode="m:verbatim-phase-1" xmlns:m="http://docbook.org/xslt/ns/mode">
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()" mode="m:verbatim-phase-1"/>
+  </xsl:copy>
+</xsl:template>
+
 <xsl:template match="*" mode="m:normalize">
   <xsl:choose>
     <xsl:when test="db:title|db:subtitle|db:titleabbrev|db:info/db:title">
