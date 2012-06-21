@@ -388,6 +388,9 @@ necessary.</para>
 <xsl:template match="db:info" mode="m:normalize">
   <xsl:copy>
     <xsl:copy-of select="@*"/>
+    <xsl:if test="not(db:title)">
+      <xsl:copy-of select="preceding-sibling::db:title"/>
+    </xsl:if>
     <xsl:call-template name="n:normalize-dbinfo"/>
   </xsl:copy>
 </xsl:template>
