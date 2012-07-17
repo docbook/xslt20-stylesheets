@@ -334,16 +334,14 @@
   <xsl:choose>
     <xsl:when test="ancestor::db:listitem">
       <fo:list-block id="{$id}"
-                     provisional-distance-between-starts=
-                        "{$distance-between-starts}"
+                     provisional-distance-between-starts="{$distance-between-starts}"
                      provisional-label-separation="{$label-separation}">
         <xsl:copy-of select="$content"/>
       </fo:list-block>
     </xsl:when>
     <xsl:otherwise>
       <fo:list-block id="{$id}"
-                     provisional-distance-between-starts=
-                        "{$distance-between-starts}"
+                     provisional-distance-between-starts="{$distance-between-starts}"
                      provisional-label-separation="{$label-separation}"
                      xsl:use-attribute-sets="list.block.spacing">
         <xsl:copy-of select="$content"/>
