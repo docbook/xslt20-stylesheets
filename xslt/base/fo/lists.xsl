@@ -320,14 +320,14 @@
   <!-- Preserve order of PIs and comments -->
   <xsl:apply-templates
     select="*[not(self::db:varlistentry)]
-            |comment()[not(preceding-sibling::varlistentry)]
-            |processing-instruction()[not(preceding-sibling::varlistentry)]"/>
+            |comment()[not(preceding-sibling::db:varlistentry)]
+            |processing-instruction()[not(preceding-sibling::db:varlistentry)]"/>
 
   <xsl:variable name="content">
     <xsl:apply-templates mode="mp:vl.as.list"
-      select="varlistentry
-              |comment()[preceding-sibling::varlistentry]
-              |processing-instruction()[preceding-sibling::varlistentry]"/>
+      select="db:varlistentry
+              |comment()[preceding-sibling::db:varlistentry]
+              |processing-instruction()[preceding-sibling::db:varlistentry]"/>
   </xsl:variable>
 
   <!-- nested lists don't add extra list-block spacing -->
@@ -427,20 +427,20 @@
 
   <!-- Preserve order of PIs and comments -->
   <xsl:apply-templates
-    select="*[not(self::varlistentry)]
-            |comment()[not(preceding-sibling::varlistentry)]
-            |processing-instruction()[not(preceding-sibling::varlistentry)]"/>
+    select="*[not(self::db:varlistentry)]
+            |comment()[not(preceding-sibling::db:varlistentry)]
+            |processing-instruction()[not(preceding-sibling::db:varlistentry)]"/>
 
   <xsl:variable name="content">
     <xsl:apply-templates mode="mp:vl.as.blocks"
-      select="varlistentry
-              |comment()[preceding-sibling::varlistentry]
-              |processing-instruction()[preceding-sibling::varlistentry]"/>
+      select="db:varlistentry
+              |comment()[preceding-sibling::db:varlistentry]
+              |processing-instruction()[preceding-sibling::db:varlistentry]"/>
   </xsl:variable>
 
   <!-- nested lists don't add extra list-block spacing -->
   <xsl:choose>
-    <xsl:when test="ancestor::listitem">
+    <xsl:when test="ancestor::db:listitem">
       <fo:block id="{$id}">
         <xsl:sequence select="$content"/>
       </fo:block>
