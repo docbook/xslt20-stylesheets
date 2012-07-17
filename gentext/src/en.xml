@@ -602,7 +602,7 @@
 <context name="keycap">
 <template name="alt">Alt</template>
 <template name="backspace">&#x2906;</template>
-<!-- <template name="command"></template> FIXME -->
+<template name="command">&#x2318;</template><!-- Apple key -->
 <template name="control">Ctrl</template>
 <template name="delete">Delete</template>
 <template name="down">&#x2193;</template>
