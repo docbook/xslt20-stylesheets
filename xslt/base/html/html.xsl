@@ -179,7 +179,7 @@ and a CSS style is specified.</para>
 </refdescription>
 </doc:template>
 
-<xsl:template name="t:javascript">
+<xsl:template name="t:system-javascript">
   <xsl:param name="node" select="."/>
 
   <xsl:if test="//db:annotation">
@@ -197,6 +197,20 @@ and a CSS style is specified.</para>
           href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"/>
     <script type="text/javascript" src="{concat($resource.root, 'js/nhrefs.js')}"/>
   </xsl:if>
+</xsl:template>
+
+<xsl:template name="t:user-javascript">
+  <xsl:param name="node" select="."/>
+</xsl:template>
+
+<xsl:template name="t:javascript">
+  <xsl:param name="node" select="."/>
+  <xsl:call-template name="t:system-javascript">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
+  <xsl:call-template name="t:user-javascript">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
 </xsl:template>
 
 <!-- ====================================================================== -->
