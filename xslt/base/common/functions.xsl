@@ -1849,7 +1849,7 @@ expects “/” to be the component separator.</para>
     </xsl:choose>
   </xsl:variable>
 
-  <!-- everyNth is a special case... -->
+  <!-- special cases... -->
   <xsl:choose>
     <xsl:when test="$name = 'everyNth' and $context/@linenumbering = 'unnumbered'">
       <xsl:value-of select="0"/>
@@ -1873,6 +1873,14 @@ expects “/” to be the component separator.</para>
     </xsl:when>
     <xsl:when test="$name = 'minlines'">
       <xsl:value-of select="0"/>
+    </xsl:when>
+
+    <xsl:when test="$name = 'asTable' and $value castable as xs:boolean">
+      <xsl:value-of select="xs:boolean($value)"/>
+    </xsl:when>
+
+    <xsl:when test="$name = 'asTable'">
+      <xsl:value-of select="false()"/>
     </xsl:when>
 
     <xsl:otherwise>

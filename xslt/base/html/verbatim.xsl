@@ -9,10 +9,11 @@
 		xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
 		xmlns:t="http://docbook.org/xslt/ns/template"
+		xmlns:tp="http://docbook.org/xslt/ns/template/private"
 		xmlns:fn="http://www.w3.org/2005/xpath-functions"
 		xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="doc h f m mp fn db t ext xdmp xs"
+		exclude-result-prefixes="doc h f m mp fn db t ext xdmp xs tp"
                 version="2.0">
 
 <xsl:include href="verbatim-patch.xsl"/>
@@ -61,6 +62,34 @@
 <xsl:template match="db:programlisting|db:screen|db:synopsis
 		     |db:literallayout[@class='monospaced']"
 	      mode="m:verbatim">
+  <xsl:call-template name="tp:format-as-verbatim"/>
+</xsl:template>
+
+<xsl:template match="db:literallayout|db:address"
+	      mode="m:verbatim">
+  <xsl:variable name="asTable" select="f:lineNumbering(.,'asTable')" as="xs:boolean"/>
+  <xsl:choose>
+    <xsl:when test="$asTable">
+      <xsl:call-template name="tp:format-as-verbatim"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="verbatim" as="node()*">
+        <xsl:apply-templates/>
+      </xsl:variable>
+      <xsl:variable name="formatted" as="node()*">
+        <xsl:call-template name="t:verbatim-patch-html">
+          <xsl:with-param name="content" select="$verbatim"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <div>
+        <xsl:sequence select="f:html-attributes(.)"/>
+        <xsl:apply-templates select="$formatted" mode="mp:literallayout"/>
+      </div>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="tp:format-as-verbatim">
   <xsl:param name="areas" select="()"/>
 
   <xsl:variable name="pygments-pi" as="xs:string?"
@@ -121,61 +150,80 @@
         <xsl:otherwise/>
       </xsl:choose>
     </xsl:attribute>
-    <!-- Removed spaces before xsl:attribute so that if <pre> is schema validated
-         and magically grows an xml:space="preserve" attribute, the processor
-         doesn't fall over because we've added an attribute after a text node.
-         Maybe this only happens in MarkLogic. Maybe it's a bug. For now: whatever. -->
-    <pre><xsl:if test="@language"><xsl:attribute name="class" select="@language"/></xsl:if><xsl:sequence select="$formatted"/></pre>
-  </div>
-</xsl:template>
 
-<xsl:template match="db:literallayout" mode="m:verbatim">
-  <xsl:variable name="verbatim" as="node()*">
-    <xsl:apply-templates/>
-  </xsl:variable>
+    <xsl:variable name="asTable" select="f:lineNumbering(.,'asTable')" as="xs:boolean"/>
 
-  <!--
-  <xsl:message>VERB: <xsl:sequence select="$verbatim"/></xsl:message>
-  -->
+    <xsl:choose>
+      <xsl:when test="$asTable">
+        <xsl:variable name="startnum" as="xs:decimal">
+          <xsl:choose>
+            <xsl:when test="not(@continuation) or @continuation != 'continues'">
+              <xsl:value-of select="0"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:variable name="prev"
+                            select="preceding::*[node-name(.)=node-name(.)][1]"/>
+              <xsl:choose>
+                <xsl:when test="empty($prev)">
+                  <xsl:value-of select="0"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="f:lastLineNumber($prev)"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
 
-  <xsl:variable name="formatted" as="node()*">
-    <xsl:call-template name="t:verbatim-patch-html">
-      <xsl:with-param name="content" select="$verbatim"/>
-    </xsl:call-template>
-  </xsl:variable>
+        <xsl:variable name="everyNth" select="f:lineNumbering(.,'everyNth')" as="xs:integer"/>
+        <xsl:variable name="minlines" select="f:lineNumbering(.,'minlines')" as="xs:integer"/>
 
-  <!--
-  <xsl:message>FORM: <xsl:sequence select="$formatted"/></xsl:message>
-  -->
+        <xsl:variable name="lines" select="tokenize(string-join($formatted, ' '), '&#10;')"/>
 
-  <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
-    <xsl:apply-templates select="$formatted" mode="mp:literallayout"/>
-  </div>
-</xsl:template>
+        <xsl:variable name="wrapper"
+                      select="if ((self::db:literallayout and not(@class='monospaced'))
+                                   or self::db:address)
+                              then 'div'
+                              else 'pre'"/>
 
-<xsl:template match="db:address" mode="m:verbatim">
-  <xsl:variable name="verbatim" as="node()*">
-    <xsl:apply-templates/>
-  </xsl:variable>
-
-  <!--
-  <xsl:message>VERB: <xsl:sequence select="$verbatim"/></xsl:message>
-  -->
-
-  <xsl:variable name="formatted" as="node()*">
-    <xsl:call-template name="t:verbatim-patch-html">
-      <xsl:with-param name="content" select="$verbatim"/>
-    </xsl:call-template>
-  </xsl:variable>
-
-  <!--
-  <xsl:message>FORM: <xsl:sequence select="$formatted"/></xsl:message>
-  -->
-
-  <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
-    <xsl:apply-templates select="$formatted" mode="mp:literallayout"/>
+        <table class="verbatimlined" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td valign="top" align="right" class="verbatimlinenumbers">
+              <xsl:element name="{$wrapper}">
+                <xsl:for-each select="$lines">
+                  <xsl:variable name="linenumber" select="position() + $startnum"/>
+                  <div class="verbatimline verbatimlinenumber {
+                              if (position() mod 2 = 0) then 'verbatimeven' else 'verbatimodd'
+                              }">
+                    <div class="vlcontent">
+                      <xsl:if test="position() = 1 or ($everyNth = 0) or ($linenumber mod $everyNth = 0)">
+                        <xsl:value-of select="$linenumber"/>
+                      </xsl:if>
+                      <xsl:text>&#10;</xsl:text>
+                    </div>
+                  </div>
+                </xsl:for-each>
+              </xsl:element>
+            </td>
+            <td valign="top" align="left" class="verbatimlines">
+              <xsl:element name="{$wrapper}">
+                <xsl:if test="@language">
+                  <xsl:attribute name="class" select="@language"/>
+                </xsl:if>
+                <xsl:sequence select="$formatted"/>
+              </xsl:element>
+            </td>
+          </tr>
+        </table>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- Removed spaces before xsl:attribute so that if <pre> is schema validated
+             and magically grows an xml:space="preserve" attribute, the processor
+             doesn't fall over because we've added an attribute after a text node.
+             Maybe this only happens in MarkLogic. Maybe it's a bug. For now: whatever. -->
+        <pre><xsl:if test="@language"><xsl:attribute name="class" select="@language"/></xsl:if><xsl:sequence select="$formatted"/></pre>
+      </xsl:otherwise>
+    </xsl:choose>
   </div>
 </xsl:template>
 
