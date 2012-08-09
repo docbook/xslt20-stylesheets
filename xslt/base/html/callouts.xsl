@@ -114,7 +114,7 @@
            alt="{$iconum}" border="0"/>
     </xsl:when>
     <xsl:when test="$callout.unicode != 0
-                    and $iconum &lt;= $callout.unicode.number.limit">
+                    and $iconum &lt;= number($callout.unicode.number.limit)">
       <xsl:choose>
         <xsl:when test="$callout.unicode.start.character = 10102">
           <xsl:choose>
