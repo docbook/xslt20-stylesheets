@@ -154,7 +154,7 @@
 <xsl:function name="f:include-in-toc" as="xs:boolean">
   <xsl:param name="foil"/>
   <xsl:variable name="pfoil" select="($foil/preceding-sibling::db:foil[1]
-                                      |$foil/preceding-sibling::db:foilgroup[1])[1]"/>
+                                      |$foil/preceding-sibling::db:foilgroup[1])[last()]"/>
 
   <xsl:variable name="title"
                 select="string(($foil/db:titleabbrev,$foil/db:info/db:titleabbrev,
