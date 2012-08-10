@@ -23,12 +23,15 @@
     <xsl:variable name="pifn" select="f:pi($chunk/processing-instruction('dbhtml'), 'filename')"/>
 
     <xsl:choose>
-      <xsl:when test="string($pifn) = ''">
-        <xsl:value-of select="concat('chunk-', local-name($chunk),
-                                     '-', generate-id($chunk), $html.ext)"/>
+      <xsl:when test="string($pifn) != ''">
+	<xsl:value-of select="$pifn"/>
+      </xsl:when>
+      <xsl:when test="$chunk/@xml:id and $use.id.as.filename != '0'">
+	<xsl:value-of select="concat($chunk/@xml:id,$html.ext)"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$pifn"/>
+        <xsl:value-of select="concat('chunk-', local-name($chunk),
+                                     '-', generate-id($chunk), $html.ext)"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:function>
