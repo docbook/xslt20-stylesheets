@@ -133,7 +133,7 @@
   <div>
     <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:attribute name="class">
-      <xsl:value-of select="local-name(.)"/>
+      <xsl:value-of select="string-join((local-name(.), @role), ' ')"/>
       <!-- n.b. look above where $verbatim is computed -->
       <xsl:choose>
         <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000
