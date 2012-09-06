@@ -32,6 +32,8 @@ import java.lang.Thread;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import net.sf.saxon.expr.XPathContext;
 import net.sf.saxon.expr.StaticProperty;
@@ -51,6 +53,8 @@ import net.sf.saxon.type.BuiltInAtomicType;
 public class ImageIntrinsics extends ExtensionFunctionDefinition {
     private static final StructuredQName qName =
         new StructuredQName("", "http://docbook.org/extensions/xslt20", "image-properties");
+
+    private static final Pattern dimPatn = Pattern.compile("^(\\d+(\\.\\d*)?)(.*)$");
 
     @Override
     public StructuredQName getFunctionQName() {
@@ -159,12 +163,41 @@ public class ImageIntrinsics extends ExtensionFunctionDefinition {
                             }
                             line = ir.readLine();
                         }
+                    } else if (line != null
+                               && (line.startsWith("<?xml")
+                                   || line.startsWith("<!DOCTYPE")
+                                   || line.startsWith("<svg"))) {
+                        // We've got an SVG!
+                        while (lineLimit > 0 && line != null) {
+                            lineLimit--;
+                            if (line.contains("width=") && width == -1) {
+                                int pos = line.indexOf("width=");
+                                String ex = line.substring(pos+7);
+                                int sqpos = ex.indexOf("'");
+                                int dqpos = ex.indexOf("\"");
+                                pos = sqpos < dqpos && sqpos >= 0 ? sqpos : dqpos;
+                                width = convertUnits(ex.substring(0, pos));
+                            }
+                            if (line.contains("height=") && depth == -1) {
+                                int pos = line.indexOf("height=");
+                                String ex = line.substring(pos+8);
+                                int sqpos = ex.indexOf("'");
+                                int dqpos = ex.indexOf("\"");
+                                pos = sqpos < dqpos && sqpos >= 0 ? sqpos : dqpos;
+                                depth = convertUnits(ex.substring(0, pos));
+                            }
+                            if (width >= 0 && depth >= 0) {
+                                lineLimit = 0;
+                            }
+                            line = ir.readLine();
+                        }
                     } else {
                         System.err.println("Failed to interpret image: " + imageFn);
                     }
                 } catch (Exception e) {
                     System.err.println("Failed to load image: " + imageFn);
-                    // nop;
+                    width = -1;
+                    depth = -1;
                 }
 
                 if (ir != null) {
@@ -216,6 +249,42 @@ public class ImageIntrinsics extends ExtensionFunctionDefinition {
                 return false;
             } else {
                 return true;
+            }
+        }
+
+        public int convertUnits(String dim) {
+            Matcher matcher = dimPatn.matcher(dim);
+
+            if (matcher.matches()) {
+                String magnitude = matcher.group(1);
+                String units = matcher.group(3);
+                Double d = Double.parseDouble(magnitude);
+                d = d * unitsScale(units);
+                return d.intValue();
+            } else {
+                if (dim.matches("^\\d+(\\.\\d*)?$")) {
+                    Double d = Double.parseDouble(dim);
+                    return d.intValue();
+                } else {
+                    throw new UnsupportedOperationException("Cannot parse " + dim + " as a dimension");
+                }
+            }
+        }
+
+        public double unitsScale(String units) {
+            // N.B. The actual numbers aren't that important because SVG can scale
+            if ("pt".equals(units)) {
+                return 96.0 / 72.0;
+            } else if ("in".equals(units)) {
+                return 96.0;
+            } else if ("cm".equals(units)) {
+                return 96.0 / 2.54;
+            } else if ("mm".equals(units)) {
+                return 96.0 / 25.4;
+            } else if ("px".equals(units)) {
+                return 1;
+            } else {
+                return 1;
             }
         }
     }
