@@ -85,6 +85,7 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="profile.security"/>
 <refentry xml:id="profile.userlevel"/>
 <refentry xml:id="profile.vendor"/>
+<refentry xml:id="profile.audience"/>
 <refentry xml:id="profile.attribute"/>
 <refentry xml:id="profile.value"/>
 <refentry xml:id="profile.separator"/>
