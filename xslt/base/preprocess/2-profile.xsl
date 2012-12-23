@@ -41,7 +41,7 @@
                                   $profile.condition,
                                   $profile.conformance,
                                   $profile.os,
-                                  $profile.outputformat
+                                  $profile.outputformat,
                                   $profile.revision,
                                   $profile.security,
                                   $profile.userlevel,
