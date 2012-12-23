@@ -9,7 +9,7 @@
 </refmeta>
 <refnamediv>
 <refname>use.embed.for.svg</refname>
-<refpurpose>Use HTML <sgmltag>embed</sgmltag> for SVG?</refpurpose>
+<refpurpose>Use HTML <tag>embed</tag> for SVG?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -20,11 +20,11 @@
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, an <sgmltag>embed</sgmltag> element will be created
-for SVG figures. An <sgmltag>object</sgmltag> is
+<para>If non-zero, an <tag>embed</tag> element will be created
+for SVG figures. An <tag>object</tag> is
 <emphasis>always</emphasis> created, this parameter merely controls
-whether or not an additional <sgmltag>embed</sgmltag> is generated
-inside the <sgmltag>object</sgmltag>.</para>
+whether or not an additional <tag>embed</tag> is generated
+inside the <tag>object</tag>.</para>
 
 <para>On the plus side, this may be more portable among browsers and
 plug-ins. On the minus side, it isn't valid HTML.</para>

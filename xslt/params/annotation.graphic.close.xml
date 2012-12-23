@@ -22,7 +22,7 @@
 <refsect1><title>Description</title>
 
 <para>If <property>annotation.support</property> is enabled and the
-document contains <sgmltag>annotation</sgmltag>s, then the graphic identified
+document contains <tag>annotation</tag>s, then the graphic identified
 by this parameter will be used to indicate where the reader should “click”
 to hide the annotation.</para>
 

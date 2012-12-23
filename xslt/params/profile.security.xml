@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.security</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">security</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">security</tag>
 attribute</refpurpose>
 </refnamediv>
 

@@ -17,10 +17,10 @@
 <refsect1><title>Description</title>
 
 <para>If <parameter>label.from.part</parameter> is non-zero, components
-(<sgmltag>chapter</sgmltag>s, <sgmltag>appendixe</sgmltag>s, etc.)
-will be numbered from 1 in each <sgmltag>part</sgmltag>. Otherwise,
+(<tag>chapter</tag>s, <sgmltag>appendixe</sgmltag>s, etc.)
+will be numbered from 1 in each <tag>part</tag>. Otherwise,
 they will be numbered monotonically throughout each
-<sgmltag>book</sgmltag>.
+<tag>book</tag>.
 </para>
 
 </refsect1>

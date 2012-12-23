@@ -20,8 +20,8 @@
 to glossentry for that glossary term. This is usefull when your
 glossterm names are consistent and you don't want to add links
 manually.</para>
-<para>If there is <sgmltag class="attribute">linkend</sgmltag> on
-<sgmltag>glossterm</sgmltag> then is used instead of autogeneration of
+<para>If there is <tag class="attribute">linkend</tag> on
+<tag>glossterm</tag> then is used instead of autogeneration of
 link.</para>
 
 </refsect1>

@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.vendor</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">vendor</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">vendor</tag>
 attribute</refpurpose>
 </refnamediv>
 

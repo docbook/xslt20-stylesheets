@@ -112,10 +112,10 @@ into your document. Unlike bibliography entries, which can be empty, creating
 <quote>placeholder</quote> glossary entries would be very tedious. So instead,
 support for <parameter>glossary.collection</parameter> relies on implicit linking.</para>
 
-<para>In your source document, simply use <sgmltag>firstterm</sgmltag> and
-<sgmltag>glossterm</sgmltag> to identify the terms you wish to have included
+<para>In your source document, simply use <tag>firstterm</tag> and
+<tag>glossterm</tag> to identify the terms you wish to have included
 in the glossary. The stylesheets assume that you will either set the
-<sgmltag class="attribute">baseform</sgmltag> attribute correctly, or that the
+<tag class="attribute">baseform</tag> attribute correctly, or that the
 content of the element exactly matches a term in your glossary.</para>
 
 <para>If you're using a <parameter>glossary.collection</parameter>, don't
@@ -132,7 +132,7 @@ religious issue.&lt;/para&gt;</programlisting>
 </informalexample>
 
 <para>If you set the <parameter>firstterm.only.link</parameter> parameter,
-only the terms marked with <sgmltag>firstterm</sgmltag> will be links.
+only the terms marked with <tag>firstterm</tag> will be links.
 Otherwise, all the terms will be linked.</para>
 
 </refsect2>
@@ -140,16 +140,16 @@ Otherwise, all the terms will be linked.</para>
 <refsect2><title>Marking Up the Glossary</title>
 
 <para>The glossary itself has to be identified for the stylesheets. For lack
-of a better choice, the <sgmltag class="attribute">role</sgmltag> is used.
+of a better choice, the <tag class="attribute">role</tag> is used.
 To identify the glossary as the target for automatic processing, set
 the role to <quote><literal>auto</literal></quote>. The title of this
-glossary (and any other information from the <sgmltag>glossaryinfo</sgmltag>
+glossary (and any other information from the <tag>glossaryinfo</tag>
 that's rendered by your stylesheet) will be displayed, but the entries will
 come from the database.
 </para>
 
 <para>Unfortunately, the glossary can't be empty, so you must put in
-at least one <sgmltag>glossentry</sgmltag>. The content of this entry
+at least one <tag>glossentry</tag>. The content of this entry
 is irrelevant, it will not be rendered:</para>
 
 <informalexample>
@@ -166,8 +166,8 @@ the &lt;parameter&gt;glossary.collection&lt;/parameter&gt; parameter.&lt;/para&g
 
 <para>What about glossary divisions? If your glossary database has glossary
 divisions <emphasis>and</emphasis> your automatic glossary contains at least
-one <sgmltag>glossdiv</sgmltag>, the automic glossary will have divisions.
-If the <sgmltag>glossdiv</sgmltag> is missing from either location, no divisions
+one <tag>glossdiv</tag>, the automic glossary will have divisions.
+If the <tag>glossdiv</tag> is missing from either location, no divisions
 will be rendered.</para>
 
 <para>Glossary entries (and divisions, if appropriate) in the glossary will
@@ -209,7 +209,7 @@ glossaries</computeroutput>.</para>
 
 <orderedlist>
 <listitem>
-<para>Markup your glossary using <sgmltag>glossseealso</sgmltag>:</para>
+<para>Markup your glossary using <tag>glossseealso</tag>:</para>
 
 <informalexample>
 <programlisting>&lt;glossentry&gt;
@@ -222,9 +222,9 @@ glossaries</computeroutput>.</para>
 </listitem>
 
 <listitem>
-<para>Make sure there is at least one <sgmltag>glossterm</sgmltag> reference to
+<para>Make sure there is at least one <tag>glossterm</tag> reference to
 <glossterm>gloss-2</glossterm> <emphasis>in your document</emphasis>. The
-easiest way to do that is probably within a <sgmltag>remark</sgmltag> in your
+easiest way to do that is probably within a <tag>remark</tag> in your
 automatic glossary:</para>
 
 <informalexample>

@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>author.othername.in.middle</refname>
-<refpurpose>Is <sgmltag>othername</sgmltag> in <sgmltag>author</sgmltag> a
+<refpurpose>Is <tag>othername</tag> in <sgmltag>author</sgmltag> a
 middle name?</refpurpose>
 </refnamediv>
 
@@ -17,9 +17,9 @@ middle name?</refpurpose>
 
 <refsect1><title>Description</title>
 
-<para>If true (non-zero), the <sgmltag>othername</sgmltag> of an <sgmltag>author</sgmltag>
-appears between the <sgmltag>firstname</sgmltag> and
-<sgmltag>surname</sgmltag>.  Otherwise, <sgmltag>othername</sgmltag>
+<para>If true (non-zero), the <tag>othername</tag> of an <sgmltag>author</sgmltag>
+appears between the <tag>firstname</tag> and
+<tag>surname</tag>.  Otherwise, <sgmltag>othername</sgmltag>
 is suppressed.
 </para>
 

@@ -27,7 +27,7 @@ bibliography <quote>database</quote>, follow these steps:</para>
 
 <para>First, create a stand-alone bibliography document that contains all of
 the documents that you wish to reference. Make sure that each bibliography
-entry (whether you use <sgmltag>biblioentry</sgmltag> or <sgmltag>bibliomixed</sgmltag>)
+entry (whether you use <tag>biblioentry</tag> or <sgmltag>bibliomixed</sgmltag>)
 has an ID.</para>
 
 <para>My global bibliography, <filename>~/bibliography.xml</filename> begins
@@ -60,7 +60,7 @@ World Wide Web Consortium, 1999.
 </informalexample>
 
 <para>When you create a bibliography in your document, simply
-provide <emphasis>empty</emphasis> <sgmltag>bibliomixed</sgmltag>
+provide <emphasis>empty</emphasis> <tag>bibliomixed</tag>
 entries for each document that you wish to cite. Make sure that these
 elements have the same ID as the corresponding <quote>real</quote>
 entry in your global bibliography.</para>
@@ -83,7 +83,7 @@ Typesetting: Volume B, TeX: The Program&lt;/citetitle&gt;. Addison-Wesley,
 
 <para>Note that it's perfectly acceptable to mix entries from your
 global bibliography with <quote>normal</quote> entries. You can use
-<sgmltag>xref</sgmltag> or other elements to cross-reference your
+<tag>xref</tag> or other elements to cross-reference your
 bibliography entries in exactly the same way you do now.</para>
 
 <para>Finally, when you are ready to format your document, simply set the

@@ -21,9 +21,9 @@
 <refsect1><title>Description</title>
 
 <para>Add a path prefix to each HTML
-<sgmltag class="element">img</sgmltag> or FO 
-<sgmltag class="element">fo:external-graphics</sgmltag> element's
-<sgmltag class="attribute">src</sgmltag> attribute.
+<tag class="element">img</tag> or FO 
+<tag class="element">fo:external-graphics</tag> element's
+<tag class="attribute">src</tag> attribute.
 This path could relative to the directory where the HTML/FO
 files are created, or it could be an absolute URI.
 The default value is empty.

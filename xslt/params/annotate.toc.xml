@@ -17,7 +17,7 @@
 <refsect1><title>Description</title>
 
 <para>If true, TOCs will be annotated. At present, this just means
-that the <sgmltag>RefPurpose</sgmltag> of <sgmltag>RefEntry</sgmltag>
+that the <tag>RefPurpose</tag> of <sgmltag>RefEntry</sgmltag>
 TOC entries will be displayed.
 </para>
 

@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.revision</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">revision</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">revision</tag>
 attribute</refpurpose>
 </refnamediv>
 

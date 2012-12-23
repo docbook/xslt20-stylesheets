@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.lang</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">lang</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">lang</tag>
 attribute</refpurpose>
 </refnamediv>
 

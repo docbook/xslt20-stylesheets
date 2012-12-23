@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.userlevel</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">userlevel</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">userlevel</tag>
 attribute</refpurpose>
 </refnamediv>
 

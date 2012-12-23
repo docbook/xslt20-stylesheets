@@ -20,9 +20,9 @@
 This parameter allows you to control the punctuation of certain
 types of generated cross reference text.
 When cross reference text is generated for an 
-<sgmltag class="element">xref</sgmltag> or 
-<sgmltag class="element">olink</sgmltag> element
-using an <sgmltag class="attribute">xrefstyle</sgmltag> attribute
+<tag class="element">xref</tag> or 
+<tag class="element">olink</tag> element
+using an <tag class="attribute">xrefstyle</tag> attribute
 that makes use of the <literal>select:</literal> feature,
 and the selected components include both title and page number,
 then the value of this parameter is inserted between

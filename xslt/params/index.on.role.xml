@@ -18,23 +18,23 @@
 
 <para>
 If non-zero, 
-then an <sgmltag>index</sgmltag> element that has a
-<sgmltag>role</sgmltag> attribute
-value will contain only those <sgmltag>indexterm</sgmltag>
+then an <tag>index</tag> element that has a
+<tag>role</tag> attribute
+value will contain only those <tag>indexterm</tag>
 elements with a matching role value.
-If an <sgmltag>index</sgmltag> has no <sgmltag>role</sgmltag>
+If an <tag>index</tag> has no <sgmltag>role</sgmltag>
 attribute or it is blank, then the index will contain
-all <sgmltag>indexterm</sgmltag>s in the current scope.
+all <tag>indexterm</tag>s in the current scope.
 </para>
 <para>
 If <literal>index.on.role</literal> is zero, then the
-<sgmltag>role</sgmltag> attribute has no effect
+<tag>role</tag> attribute has no effect
 on selecting indexterms for an index.
 </para>
 
 <para>If you are using DocBook version 4.3 or later, you should
-use the <sgmltag>type</sgmltag> attribute instead of <sgmltag>role</sgmltag>
-on <sgmltag>indexterm</sgmltag> and <sgmltag>index</sgmltag>,
+use the <tag>type</tag> attribute instead of <sgmltag>role</sgmltag>
+on <tag>indexterm</tag> and <sgmltag>index</sgmltag>,
 and set the <parameter>index.on.type</parameter> to a nonzero
 value.
 </para>

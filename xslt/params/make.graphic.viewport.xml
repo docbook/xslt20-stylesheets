@@ -20,7 +20,7 @@
 
 <refsect1><title>Description</title>
 
-<para>The HTML <sgmltag>img</sgmltag> element only supports the notion
+<para>The HTML <tag>img</tag> element only supports the notion
 of content-area scaling; it doesn't support the distinction between a
 content-area and a viewport-area, so we have to make some
 compromises.</para>

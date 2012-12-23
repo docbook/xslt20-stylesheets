@@ -56,17 +56,17 @@ generated.</para>
 
 <screen>book toc,figure</screen>
 
-<para>This indicates that whenever a <sgmltag>book</sgmltag> is
+<para>This indicates that whenever a <tag>book</tag> is
 formatted, a Table Of Contents and a List of Figures should be
 generated. Similarly,</para>
 
 <screen>/chapter toc</screen>
 
 <para>indicates that whenever a document <emphasis>that has a root
-of</emphasis> <sgmltag>chapter</sgmltag> is formatted, a Table of
+of</emphasis> <tag>chapter</tag> is formatted, a Table of
 Contents should be generated. The entry <literal>chapter</literal>
 would match all chapters, but <literal>/chapter</literal> matches only
-<sgmltag>chapter</sgmltag> document elements.</para>
+<tag>chapter</tag> document elements.</para>
 
 <para>Generally, the longest match wins. So, for example, if you want
 to distinguish articles in books from articles in parts, you could use

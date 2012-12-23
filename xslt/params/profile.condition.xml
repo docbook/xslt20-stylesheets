@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.condition</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">condition</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">condition</tag>
 attribute</refpurpose>
 </refnamediv>
 

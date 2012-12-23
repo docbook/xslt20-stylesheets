@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.role</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">role</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">role</tag>
 attribute</refpurpose>
 </refnamediv>
 
@@ -30,19 +30,19 @@ ones (<filename>docbook.xsl</filename>,
 <filename>chunk.xsl</filename>, …).</para>
 
 <warning>
-<para>Note that <sgmltag class="attribute">role</sgmltag> is often
+<para>Note that <tag class="attribute">role</tag> is often
 used for other purposes than profiling. For example it is commonly
 used to get emphasize in bold font:</para>
 
 <programlisting>&lt;emphasis role="bold"&gt;very important&lt;/emphasis&gt;</programlisting>
 
-<para>If you are using <sgmltag class="attribute">role</sgmltag> for
+<para>If you are using <tag class="attribute">role</tag> for
 these purposes do not forget to add values like <literal>bold</literal> to
 value of this parameter. If you forgot you will get document with
 small pieces missing which are very hard to track.</para>
 
-<para>For this reason it is not recommended to use <sgmltag class="attribute">role</sgmltag> attribute for profiling. You should
-rather use profiling specific attributes like <sgmltag class="attribute">userlevel</sgmltag>, <sgmltag class="attribute">os</sgmltag>, <sgmltag class="attribute">arch</sgmltag>, <sgmltag class="attribute">condition</sgmltag>, etc.</para>
+<para>For this reason it is not recommended to use <tag class="attribute">role</tag> attribute for profiling. You should
+rather use profiling specific attributes like <tag class="attribute">userlevel</tag>, <sgmltag class="attribute">os</sgmltag>, <sgmltag class="attribute">arch</sgmltag>, <sgmltag class="attribute">condition</sgmltag>, etc.</para>
 </warning>
 
 </refsect1>

@@ -16,7 +16,7 @@
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, <sgmltag>segmentedlist</sgmltag>s will be formatted as
+<para>If non-zero, <tag>segmentedlist</tag>s will be formatted as
 tables.</para>
 
 </refsect1>

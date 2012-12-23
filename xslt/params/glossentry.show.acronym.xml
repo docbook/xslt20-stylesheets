@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>glossentry.show.acronym</refname>
-<refpurpose>Display <sgmltag>glossentry</sgmltag> acronyms?</refpurpose>
+<refpurpose>Display <tag>glossentry</tag> acronyms?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -21,8 +21,8 @@
 then they are shown as the primary text for the entry.</para>
 
 <note>
-<para>This setting controls both <sgmltag>acronym</sgmltag> and
-<sgmltag>abbrev</sgmltag> elements in the <sgmltag>glossentry</sgmltag>.</para>
+<para>This setting controls both <tag>acronym</tag> and
+<tag>abbrev</tag> elements in the <sgmltag>glossentry</sgmltag>.</para>
 </note>
 
 </refsect1>

@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.conformance</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">conformance</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">conformance</tag>
 attribute</refpurpose>
 </refnamediv>
 

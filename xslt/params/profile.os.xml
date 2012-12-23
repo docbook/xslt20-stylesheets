@@ -5,7 +5,7 @@
 </refmeta>
 <refnamediv>
 <refname>profile.os</refname>
-<refpurpose>Target profile for <sgmltag class="attribute">os</sgmltag>
+<refpurpose>Target profile for <tag class="attribute">os</tag>
 attribute</refpurpose>
 </refnamediv>
 
