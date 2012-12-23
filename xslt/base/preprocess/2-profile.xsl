@@ -28,6 +28,7 @@
   <xsl:param name="profile.security" select="''"/>
   <xsl:param name="profile.userlevel" select="''"/>
   <xsl:param name="profile.vendor" select="''"/>
+  <xsl:param name="profile.audience" select="''"/>
 
   <xsl:sequence select="f:profile(/,
                                   $profile.separator, $profile.arch, $profile.condition,
@@ -35,7 +36,7 @@
                                   $profile.lang, $profile.os, $profile.revision,
                                   $profile.revisionflag,
                                   $profile.role, $profile.security, $profile.userlevel,
-                                  $profile.vendor)"/>
+                                  $profile.vendor, $profile.audience)"/>
 </xsl:template>
 
 <xsl:function name="f:profile" as="document-node()">
@@ -52,6 +53,7 @@
   <xsl:param name="profile.security"/>
   <xsl:param name="profile.userlevel"/>
   <xsl:param name="profile.vendor"/>
+  <xsl:param name="profile.audience"/>
 
   <xsl:apply-templates select="$root" mode="mp:profile">
     <xsl:with-param name="profile.separator" select="$profile.separator"/>
@@ -66,6 +68,7 @@
     <xsl:with-param name="profile.security" select="$profile.security"/>
     <xsl:with-param name="profile.userlevel" select="$profile.userlevel"/>
     <xsl:with-param name="profile.vendor" select="$profile.vendor"/>
+    <xsl:with-param name="profile.audience" select="$profile.audience"/>
   </xsl:apply-templates>
 </xsl:function>
 
@@ -82,6 +85,7 @@
   <xsl:param name="profile.security" select="''"/>
   <xsl:param name="profile.userlevel" select="''"/>
   <xsl:param name="profile.vendor" select="''"/>
+  <xsl:param name="profile.audience" select="''"/>
 
   <xsl:copy>
     <xsl:apply-templates mode="mp:profile">
@@ -97,6 +101,7 @@
       <xsl:with-param name="profile.security" select="$profile.security"/>
       <xsl:with-param name="profile.userlevel" select="$profile.userlevel"/>
       <xsl:with-param name="profile.vendor" select="$profile.vendor"/>
+      <xsl:with-param name="profile.audience" select="$profile.audience"/>
     </xsl:apply-templates>
   </xsl:copy>
 </xsl:template>
@@ -114,6 +119,7 @@
   <xsl:param name="profile.security" select="''"/>
   <xsl:param name="profile.userlevel" select="''"/>
   <xsl:param name="profile.vendor" select="''"/>
+  <xsl:param name="profile.audience" select="''"/>
 
   <xsl:if test="fp:profile-ok(@arch, $profile.arch, $profile.separator)
                 and fp:profile-ok(@condition, $profile.condition, $profile.separator)
@@ -125,7 +131,8 @@
                 and fp:profile-ok(@role, $profile.role, $profile.separator)
                 and fp:profile-ok(@security, $profile.security, $profile.separator)
                 and fp:profile-ok(@userlevel, $profile.userlevel, $profile.separator)
-                and fp:profile-ok(@vendor, $profile.vendor, $profile.separator)">
+                and fp:profile-ok(@vendor, $profile.vendor, $profile.separator)
+		        and fp:profile-ok(@audience, $profile.audience, $profile.separator)">
     <xsl:copy>
       <xsl:copy-of select="@*"/>
       <xsl:apply-templates mode="mp:profile">
@@ -141,6 +148,7 @@
         <xsl:with-param name="profile.security" select="$profile.security"/>
         <xsl:with-param name="profile.userlevel" select="$profile.userlevel"/>
         <xsl:with-param name="profile.vendor" select="$profile.vendor"/>
+        <xsl:with-param name="profile.audience" select="$profile.audience"/>
       </xsl:apply-templates>
     </xsl:copy>
   </xsl:if>

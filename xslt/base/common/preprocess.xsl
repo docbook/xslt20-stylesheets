@@ -87,7 +87,7 @@ oreder.</para>
                                            $profile.condition, $profile.conformance,
                                            $profile.lang, $profile.os, $profile.revision,
                                            $profile.revisionflag, $profile.role,
-                                           $profile.security, $profile.userlevel, $profile.vendor)
+                                           $profile.security, $profile.userlevel, $profile.vendor, $profile.audience)
                             else $preprofile"/>
 
       <xsl:variable name="postprofile"
