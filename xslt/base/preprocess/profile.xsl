@@ -21,6 +21,7 @@
 <xsl:param name="profile.security" select="''"/>
 <xsl:param name="profile.userlevel" select="''"/>
 <xsl:param name="profile.vendor" select="''"/>
+<xsl:param name="profile.audience" select="''"/>
 
 <xsl:template match="/">
   <xsl:apply-templates select="/" mode="m:profile">
@@ -36,6 +37,7 @@
     <xsl:with-param name="profile.security" select="$profile.security"/>
     <xsl:with-param name="profile.userlevel" select="$profile.userlevel"/>
     <xsl:with-param name="profile.vendor" select="$profile.vendor"/>
+    <xsl:with-param name="profile.audience" select="$profile.audience"/>
   </xsl:apply-templates>
 </xsl:template>
 
