@@ -60,7 +60,9 @@
         <xsl:call-template name="t:title-footer"/>
       </div>
 
-      <xsl:call-template name="toc"/>
+      <xsl:if test="not(f:pi(/processing-instruction('dbhtml'), 'toc') = 'false')">
+        <xsl:call-template name="toc"/>
+      </xsl:if>
 
       <xsl:apply-templates select="db:foil|db:foilgroup"/>
     </body>
