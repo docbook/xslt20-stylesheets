@@ -34,6 +34,7 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="manual.toc"/>
 <refentry xml:id="bridgehead.in.toc"/>
 <refentry xml:id="toc.section.depth"/>
+<refentry xml:id="chunk.section.depth"/>
 <refentry xml:id="toc.max.depth"/>
 <refentry xml:id="autotoc.label.separator"/>
 <refentry xml:id="annotate.toc"/>
