@@ -83,11 +83,20 @@ oreder.</para>
 
       <xsl:variable name="profile"
                     select="if (index-of($steps, 'profile'))
-			    then f:profile($preprofile, $profile.separator, $profile.arch,
-                                           $profile.condition, $profile.conformance,
-                                           $profile.lang, $profile.os, $profile.revision,
+			    then f:profile($preprofile, $profile.separator, $profile.lang,
                                            $profile.revisionflag, $profile.role,
-                                           $profile.security, $profile.userlevel, $profile.vendor, $profile.audience)
+                                           $profile.arch,
+                                           $profile.audience,
+                                           $profile.condition,
+                                           $profile.conformance,
+                                           $profile.os,
+                                           $profile.outputformat,
+                                           $profile.revision,
+                                           $profile.security,
+                                           $profile.userlevel,
+                                           $profile.vendor,
+                                           $profile.wordsize
+                                          )
                             else $preprofile"/>
 
       <xsl:variable name="postprofile"

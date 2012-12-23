@@ -1,17 +1,17 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="profile.audience">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="profile.wordsize">
 <refmeta>
-<refentrytitle>profile.audience</refentrytitle>
+<refentrytitle>profile.wordsize</refentrytitle>
 <refmiscinfo role="type">string</refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>profile.audience</refname>
-<refpurpose>Target profile for <tag class="attribute">audience</tag>
+<refname>profile.wordsize</refname>
+<refpurpose>Target profile for <tag class="attribute">wordsize</tag>
 attribute</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
-<src:fragment xml:id="profile.audience.frag">
-<xsl:param name="profile.audience" select="''"/>
+<src:fragment xml:id="profile.wordsize.frag">
+<xsl:param name="profile.wordsize" select="''"/>
 </src:fragment>
 </refsynopsisdiv>
 
