@@ -2248,7 +2248,19 @@ an absolute URI (including a scheme!).</para>
     </xsl:when>
     <xsl:when test="matches(static-base-uri(), '^[-a-zA-Z0-9]+:')">
       <!-- the static base uri is an absolute URI -->
-      <xsl:value-of select="resolve-uri($uri, resolve-uri($abspath))"/>
+      <xsl:variable name="resolved" select="resolve-uri($uri, resolve-uri($abspath))"/>
+      <!-- strip off the leading file: -->
+      <xsl:choose>
+        <xsl:when test="starts-with($resolved, 'file://')">
+          <xsl:value-of select="substring-after($resolved, 'file:/')"/>
+        </xsl:when>
+        <xsl:when test="starts-with($resolved, 'file:/')">
+          <xsl:value-of select="substring-after($resolved, 'file:')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$resolved"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:when>
     <xsl:when test="matches($uri, '^[-a-zA-Z0-9]+:') or starts-with($uri, '/')">
       <!-- $uri is already absolute -->
