@@ -206,6 +206,11 @@ calling “apply templates”.</para>
 <refdescription>
 <para>This template generates XHTML anchors for inline elements that
 are XLink extended links.</para>
+
+<para>FIXME: does not support extended links where the <emphasis>target</emphasis>
+is the local resource, only extended links where the source is the local
+resource.</para>
+
 </refdescription>
 
 <refreturn>

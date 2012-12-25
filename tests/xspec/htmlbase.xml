@@ -2639,6 +2639,13 @@
                 select="//html:span[@class='nhrefs']"
                 href="result/xlink.001.html"/>
     </x:scenario>
+    <x:scenario label="xlink.002.xml">
+      <x:context href="src/xlink.002.xml"/>
+      <x:expect label="inline extended link"
+                test="//html:span[@class='nhrefs']"
+                select="//html:span[@class='nhrefs']"
+                href="result/xlink.002.html"/>
+    </x:scenario>
   </x:scenario>
 </x:scenario>
 

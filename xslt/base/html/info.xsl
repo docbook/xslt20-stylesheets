@@ -19,7 +19,7 @@
                      |db:volumenum|db:issuenum|db:seriesvolnums">
   <span>
     <xsl:sequence select="f:html-attributes(.)"/>
-    <xsl:apply-templates/>
+    <xsl:call-template name="t:xlink"/>
   </span>
 </xsl:template>
 
