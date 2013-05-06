@@ -512,6 +512,14 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
       </xsl:when>
       <xsl:otherwise>
         <xsl:element name="{$tag}">
+          <xsl:if test="@role or ../@role">
+            <xsl:variable name="values"
+                          select="tokenize(concat(@role, ' ', ../@role), '\s+')"/>
+            <xsl:attribute name="class">
+              <xsl:value-of select="normalize-space(string-join($values, ' '))"/>
+            </xsl:attribute>
+          </xsl:if>
+
           <xsl:copy-of select="$tag-attributes"/>
           <xsl:if test="$tag = 'img' and ancestor::db:imageobjectco">
             <xsl:choose>
