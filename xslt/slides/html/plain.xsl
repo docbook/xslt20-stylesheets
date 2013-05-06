@@ -106,7 +106,7 @@
 
 <xsl:template name="t:slides.css">
   <link type="text/css" rel="stylesheet"
-        href="{$cdn.jqueryui.css}"/>
+        href="{$cdn.jqueryui.css}" media="screen"/>
   <link type="text/css" rel="stylesheet"
         href="{$resource.root}../slides/css/slides.css"/>
 </xsl:template>
@@ -115,11 +115,13 @@
   <div class="foil">
     <div class="page">
       <div class="header">
-        <h1>
-          <xsl:call-template name="gentext">
-            <xsl:with-param name="key" select="'tableofcontents'"/>
-          </xsl:call-template>
-        </h1>
+        <div class="header-content">
+          <h1>
+            <xsl:call-template name="gentext">
+              <xsl:with-param name="key" select="'tableofcontents'"/>
+            </xsl:call-template>
+          </h1>
+        </div>
       </div>
       <div class="body">
         <xsl:call-template name="t:clicknav">
@@ -171,7 +173,9 @@
 <xsl:template match="db:slides/db:info">
   <div class="page">
     <div class="header">
-      <h1><xsl:apply-templates select="db:info/db:title/node()|db:title/node()"/></h1>
+      <div class="header-content">
+        <h1><xsl:apply-templates select="db:info/db:title/node()|db:title/node()"/></h1>
+      </div>
     </div>
     <div class="body">
       <div class="shownav">
@@ -192,11 +196,16 @@
 
 <xsl:template match="db:foilgroup">
   <div class="foil titlefoil foilgroup">
+    <xsl:if test="@xml:id">
+      <xsl:attribute name="id" select="@xml:id"/>
+    </xsl:if>
     <div class="page">
       <div class="header">
-        <h1>
-          <xsl:apply-templates select="db:info/db:title/node()|db:title/node()"/>
-        </h1>
+        <div class="header-content">
+          <h1>
+            <xsl:apply-templates select="db:info/db:title/node()|db:title/node()"/>
+          </h1>
+        </div>
       </div>
       <div class="body">
         <xsl:call-template name="t:clicknav">
@@ -225,14 +234,25 @@
 </xsl:template>
 
 <xsl:template match="db:foil">
-  <div class="{ if (parent::db:slides and preceding-sibling::db:foilgroup)
-                then 'foil titlefoil foilgroup'
-                else 'foil' }">
+  <xsl:variable name="classes" as="xs:string*">
+    <xsl:text>foil </xsl:text>
+    <xsl:value-of select="@role"/>
+    <xsl:if test="parent::db:slides and preceding-sibling::db:foilgroup">
+      <xsl:text>titlefoil foilgroup </xsl:text>
+    </xsl:if>
+  </xsl:variable>
+
+  <div class="{normalize-space(string-join($classes, ' '))}">
+    <xsl:if test="@xml:id">
+      <xsl:attribute name="id" select="@xml:id"/>
+    </xsl:if>
     <div class="page">
       <div class="header">
-        <h1>
-          <xsl:apply-templates select="db:info/db:title/node()|db:title/node()"/>
-        </h1>
+        <div class="header-content">
+          <h1>
+            <xsl:apply-templates select="db:info/db:title/node()|db:title/node()"/>
+          </h1>
+        </div>
       </div>
       <div class="body">
         <xsl:call-template name="t:clicknav">
