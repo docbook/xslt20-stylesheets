@@ -10,13 +10,11 @@
 
   <target name="build" depends="version">
     <ant dir="gentext"/>
-    <ant dir="ext"/>
     <ant dir="xslt/base"/>
   </target>
 
   <target name="clean">
     <ant dir="gentext" target="clean"/>
-    <ant dir="ext" target="clean"/>
     <ant dir="xslt/base" target="clean"/>
     <delete dir="dist"/>
   </target>
@@ -65,7 +63,6 @@
         <exclude name="tests/**"/>
         <exclude name="schemas/**"/>
         <exclude name="gentext/**"/>
-        <exclude name="ext/**"/>
         <exclude name="xslt/params/**"/>
         <exclude name="**/build.xml"/>
       </fileset>
@@ -80,10 +77,6 @@
         <exclude name="tests/xspec/pdf/**"/>
         <exclude name="tools/lib/cachedir/**"/>
       </fileset>
-    </copy>
-
-    <copy todir="dist/docbook-xslt2-${version}/lib">
-      <fileset dir="ext/build/lib"/>
     </copy>
   </target>
 
