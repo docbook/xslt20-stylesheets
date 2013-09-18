@@ -587,7 +587,11 @@ an element that has content.</para>
 </xsl:template>
 
 <xsl:template match="db:area" mode="mp:insert-callout">
-  <ghost:co number="{@ghost:number}" xml:id="{@xml:id}"/>
+  <ghost:co number="{@ghost:number}">
+    <xsl:attribute name="xml:id">
+      <xsl:value-of select="generate-id()"/>    
+    </xsl:attribute>
+  </ghost:co>
 </xsl:template>
 
 <!-- ============================================================ -->
