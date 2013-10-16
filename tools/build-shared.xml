@@ -9,7 +9,7 @@
   <property name="ant-contrib.jar" value="${libs}/ant-contrib-1.0b3.jar"/>
 
   <property name="extensions.jar"
-            value="${dbroot.dir}/ext/build/lib/docbook-xsl2-saxon.jar"/>
+            value="${dbroot.dir}/../java/build/lib/docbook-xsl-java-saxon.jar"/>
 
   <taskdef name="jing"
            classname="com.thaiopensource.relaxng.util.JingTask"
@@ -31,10 +31,5 @@
     <pathelement location="${libs}/commons-httpclient-3.1.jar"/>
     <pathelement location="${libs}/commons-logging-1.1.1.jar"/>
   </path>
-
-  <taskdef name="xslt2"
-           classname="net.sf.saxon.ant.AntTransform">
-    <classpath refid="saxon.classpath"/>
-  </taskdef>
 
 </project>

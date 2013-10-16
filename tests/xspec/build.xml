@@ -18,17 +18,16 @@
       <mkdir dir="${xspec.test.dir}"/>
 
       <echo>Creating test stylesheet...</echo>
-      <xslt2 in="@{filename}.xml" out="${xspec.test.dir}/@{filename}.xsl"
-             style="../../tools/xspec-v0.2/generate-xspec-tests.xsl"/>
+
+      <java fork="true" classname="net.sf.saxon.Transform">
+        <classpath refid="saxon.classpath"/>
+        <arg value="-o:${xspec.test.dir}/@{filename}.xsl"/>
+        <arg value="-s:@{filename}.xml"/>
+        <arg value="-xsl:../../tools/xspec-0.3.0/src/compiler/generate-xspec-tests.xsl"/>
+      </java>
 
       <echo>Running tests...</echo>
-      <!-- Using <java instead of <xslt2 in order to support the -init command line option -->
-      <!--
-          <xslt2 in="@{filename}.xml
-                 out="${xspec.test.dir}/@{filename}-result.xml"
-                 style="${xspec.test.dir}/@{filename}.xsl"
-                 initialTemplate="{http://www.jenitennison.com/xslt/xspec}main"/>
-      -->
+
       <java fork="true" classname="net.sf.saxon.Transform">
         <classpath refid="saxon.classpath"/>
         <arg value="-init:docbook.Initializer"/>
@@ -39,8 +38,13 @@
       </java>
 
       <echo>Formatting report...</echo>
-      <xslt2 in="${xspec.test.dir}/@{filename}-result.xml" out="${xspec.test.dir}/@{filename}-result.html"
-             style="../../tools/xspec-v0.2/format-xspec-report.xsl"/>
+
+      <java fork="true" classname="net.sf.saxon.Transform">
+        <classpath refid="saxon.classpath"/>
+        <arg value="-o:${xspec.test.dir}/@{filename}-result.html"/>
+        <arg value="-s:${xspec.test.dir}/@{filename}-result.xml"/>
+        <arg value="-xsl:../../tools/xspec-0.3.0/src/reporter/format-xspec-report.xsl"/>
+      </java>
     </sequential>
   </macrodef>
 
