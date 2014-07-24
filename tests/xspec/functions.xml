@@ -93,17 +93,45 @@
               select="'/somewhere'"/>
   </x:scenario>
 
-<!--
-  <x:scenario label="When running f:resolve-path('file.xml', '')">
+  <x:scenario label="When running f:resolve-path('file.xml', 'relative-path/', 'file://abs-path/')">
     <x:call function="f:resolve-path">
-      <x:param select="'"/>
-      <x:param select="''"/>
+      <x:param select="'file.xml'"/>
+      <x:param select="'relative-path/'"/>
+      <x:param select="'file://abs-path/'"/>
     </x:call>
-    <x:expect label="expect "
-              select="''"/>
+    <x:expect label="expect /abs-path/relative-path/file.xml"
+              select="'/abs-path/relative-path/file.xml'"/>
   </x:scenario>
--->
 
+  <x:scenario label="When running f:resolve-path('file.xml', 'relative-path/', 'file:///abs-path/')">
+    <x:call function="f:resolve-path">
+      <x:param select="'file.xml'"/>
+      <x:param select="'relative-path/'"/>
+      <x:param select="'file:///abs-path/'"/>
+    </x:call>
+    <x:expect label="expect /abs-path/relative-path/file.xml"
+              select="'/abs-path/relative-path/file.xml'"/>
+  </x:scenario>
+
+  <x:scenario label="When running f:resolve-path('file.xml', 'relative-path/', 'file:/d:/abs-path/')">
+    <x:call function="f:resolve-path">
+      <x:param select="'file.xml'"/>
+      <x:param select="'relative-path/'"/>
+      <x:param select="'file:/d:/abs-path/'"/>
+    </x:call>
+    <x:expect label="expect d:/abs-path/relative-path/file.xml"
+              select="'d:/abs-path/relative-path/file.xml'"/>
+  </x:scenario>
+
+  <x:scenario label="When running f:resolve-path('file.xml', 'relative-path/', 'file://d:/abs-path/')">
+    <x:call function="f:resolve-path">
+      <x:param select="'file.xml'"/>
+      <x:param select="'relative-path/'"/>
+      <x:param select="'file://d:/abs-path/'"/>
+    </x:call>
+    <x:expect label="expect /d/abs-path/relative-path/file.xml (???)"
+              select="'/d/abs-path/relative-path/file.xml'"/>
+  </x:scenario>
 
 </x:scenario>
 
