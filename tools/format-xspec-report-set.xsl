@@ -8,7 +8,7 @@
 		exclude-result-prefixes="xs h x test"
                 version="2.0">
 
-<xsl:import href="xspec/src/reporter/format-xspec-report.xsl"/>
+<xsl:import href="xspec-0.3.0/src/reporter/format-xspec-report.xsl"/>
 
 <xsl:param name="report-css-uri" select="'http://docbook.github.com/latest/css/xspec-test-report.css'"/>
 

@@ -28,8 +28,10 @@
     <pathelement location="${libs}/calabash.jar"/>
     <pathelement location="${libs}/xmlresolver.jar"/>
     <pathelement location="${libs}/commons-codec-1.3.jar"/>
-    <pathelement location="${libs}/commons-httpclient-3.1.jar"/>
     <pathelement location="${libs}/commons-logging-1.1.1.jar"/>
+    <pathelement location="${libs}/httpclient-4.2.5.jar"/>
+    <pathelement location="${libs}/httpcore-4.2.4.jar"/>
+    <pathelement location="${libs}/httpmime-4.2.5.jar"/>
   </path>
 
 </project>

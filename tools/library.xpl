@@ -32,9 +32,9 @@
     </p:otherwise>
   </p:choose>
 
-  <p:xslt>
+  <p:xslt name="stylesheet">
     <p:input port="stylesheet">
-      <p:document href="xspec/src/compiler/generate-xspec-tests.xsl"/>
+      <p:document href="xspec-0.3.0/src/compiler/generate-xspec-tests.xsl"/>
     </p:input>
     <p:input port="parameters">
       <p:empty/>
@@ -44,6 +44,9 @@
   <p:xslt name="report" template-name="x:main">
     <p:input port="source">
       <p:pipe step="main" port="source"/>
+    </p:input>
+    <p:input port="stylesheet">
+      <p:pipe step="stylesheet" port="result"/>
     </p:input>
   </p:xslt>
 
