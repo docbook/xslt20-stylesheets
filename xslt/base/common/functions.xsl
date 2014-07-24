@@ -2241,16 +2241,41 @@ an absolute URI (including a scheme!).</para>
   <xsl:param name="uri" as="xs:string"/>
   <xsl:param name="abspath" as="xs:string"/>
 
+  <xsl:value-of select="f:resolve-path($uri, $abspath, static-base-uri())"/>
+</xsl:function>
+
+<!-- this three-argument form really only exists for testing -->
+<xsl:function name="f:resolve-path" as="xs:string">
+  <xsl:param name="uri" as="xs:string"/>
+  <xsl:param name="abspath" as="xs:string"/>
+  <xsl:param name="static-base-uri" as="xs:string"/>
+
   <xsl:choose>
     <xsl:when test="matches($abspath, '^[-a-zA-Z0-9]+:')">
       <!-- $abspath is an absolute URI -->
       <xsl:value-of select="resolve-uri($uri, $abspath)"/>
     </xsl:when>
-    <xsl:when test="matches(static-base-uri(), '^[-a-zA-Z0-9]+:')">
+    <xsl:when test="matches($static-base-uri, '^[-a-zA-Z0-9]+:')">
       <!-- the static base uri is an absolute URI -->
-      <xsl:variable name="resolved" select="resolve-uri($uri, resolve-uri($abspath))"/>
+
+      <!-- we have to make $abspath absolute (per the finicky def in XSLT 2.0) -->
+      <!-- but if the static base uri is a file:// uri, we want to pull the -->
+      <!-- file:// bit back off the front. -->
+
+      <xsl:variable name="resolved-abs" select="resolve-uri($abspath, $static-base-uri)"/>
+      <xsl:variable name="resolved" select="resolve-uri($uri, $resolved-abs)"/>
+
       <!-- strip off the leading file: -->
+      <!-- this is complicated by two things, first it's not clear when we get
+           file:///path and when we get file://path; second, on a Windows system
+           if we get file://D:/path we have to remove both slashes -->
       <xsl:choose>
+        <xsl:when test="matches($resolved, '^file://.:')">
+          <xsl:value-of select="substring-after($resolved, 'file://')"/>
+        </xsl:when>
+        <xsl:when test="matches($resolved, '^file:/.:')">
+          <xsl:value-of select="substring-after($resolved, 'file:/')"/>
+        </xsl:when>
         <xsl:when test="starts-with($resolved, 'file://')">
           <xsl:value-of select="substring-after($resolved, 'file:/')"/>
         </xsl:when>
