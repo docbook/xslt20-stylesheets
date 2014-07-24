@@ -20,12 +20,8 @@
     </xsl:when>
     <xsl:otherwise>
       <div>
-        <xsl:apply-templates select="." mode="m:html-attributes">
-          <xsl:with-param name="class" select="'admonition'"/>
-        </xsl:apply-templates>
-
+        <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), 'admonition')"/>
         <xsl:call-template name="t:titlepage"/>
-
 	<xsl:apply-templates/>
       </div>
     </xsl:otherwise>

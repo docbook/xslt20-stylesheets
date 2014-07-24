@@ -582,9 +582,7 @@ the default is “element”.</para>
 
 <xsl:template match="db:phrase">
   <span>
-    <xsl:apply-templates select="." mode="m:html-attributes">
-      <xsl:with-param name="suppress-local-name-class" select="true()"/>
-    </xsl:apply-templates>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:call-template name="t:xlink"/>
   </span>
 </xsl:template>

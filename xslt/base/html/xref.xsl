@@ -72,7 +72,7 @@ identified.</entry>
       <xsl:choose>
 	<xsl:when test="$href != ''">
 	  <a href="{$href}">
-            <xsl:sequence select="f:html-class(., (), @role)"/>
+            <xsl:sequence select="f:html-attributes(.)"/>
 	    <xsl:if test="$title != ''">
 	      <xsl:attribute name="title" select="$title"/>
 	    </xsl:if>
@@ -87,7 +87,7 @@ identified.</entry>
             </xsl:message>
           </xsl:if>
 	  <a href="{f:href(., f:findid(@linkend,.))}">
-            <xsl:sequence select="f:html-class(., (), @role)"/>
+            <xsl:sequence select="f:html-attributes(.)"/>
 	    <xsl:if test="$title != ''">
 	      <xsl:attribute name="title" select="$title"/>
 	    </xsl:if>
@@ -100,7 +100,7 @@ identified.</entry>
       <xsl:choose>
 	<xsl:when test="$href != ''">
 	  <a href="{$href}">
-            <xsl:sequence select="f:html-class(., (), @role)"/>
+            <xsl:sequence select="f:html-attributes(.)"/>
 	    <xsl:value-of select="$href"/>
 	  </a>
 	</xsl:when>

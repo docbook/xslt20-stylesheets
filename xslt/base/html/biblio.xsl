@@ -13,7 +13,7 @@
 
 <xsl:template match="db:bibliography">
   <article>
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -23,7 +23,7 @@
 
 <xsl:template match="db:bibliodiv">
   <div>
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -33,7 +33,7 @@
 
 <xsl:template match="db:bibliolist">
   <div>
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -78,7 +78,7 @@
   <!-- during *normalization*, not here... -->
 
   <div>
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <p>
       <xsl:text>[</xsl:text>
@@ -217,7 +217,7 @@ for the content of a bibliography entry.</para>
 		     |db:volumenum"
 	      mode="m:bibliomixed">
   <span>
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:bibliomixed"/>
   </span>
 </xsl:template>
@@ -246,7 +246,7 @@ for the content of a bibliography entry.</para>
 
 <xsl:template match="db:biblioset" mode="m:biblioentry">
   <span>
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:biblioentry"/>
   </span>
 </xsl:template>
@@ -315,7 +315,7 @@ for the content of a bibliography entry.</para>
   </xsl:variable>
 
   <span>
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
     <!-- Now $addr is a div containing lines with BRs -->
     <xsl:for-each select="$addr/node()">
       <xsl:variable name="node" select="."/>

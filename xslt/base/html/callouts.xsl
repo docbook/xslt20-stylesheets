@@ -33,7 +33,7 @@
   <xsl:choose>
     <xsl:when test="$target">
       <a href="{f:href(/,$target)}">
-        <xsl:apply-templates select="." mode="m:html-attributes"/>
+        <xsl:sequence select="f:html-attributes(.)"/>
         <xsl:apply-templates select="." mode="m:callout-bug"/>
       </a>
     </xsl:when>
@@ -152,7 +152,7 @@
 
 <xsl:template match="db:calloutlist">
   <div>
-    <xsl:apply-templates select="." mode="m:html-attributes"/>
+    <xsl:sequence select="f:html-attributes(.)"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -172,7 +172,7 @@
   <tr class="callout-row">
     <td class="callout-bug" valign="baseline" align="left">
       <p>
-        <xsl:apply-templates select="." mode="m:html-attributes"/>
+        <xsl:sequence select="f:html-attributes(.)"/>
 
 	<xsl:for-each select="tokenize(@arearefs,'\s')">
 	  <xsl:variable name="target" select="key('id',.,$doc)[1]"/>
