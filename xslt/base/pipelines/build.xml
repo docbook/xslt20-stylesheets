@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Ant pipeline for DocBook" default="docbook">
+
+  <property name="SOURCE" value="."/>
+  <property name="RESULT" value="."/>
+  <property name="print" value="0"/>
+
+  <property name="dbroot.dir" value="${ant.file}/../../../.."/>
+  <import file="../../../tools/build-shared.xml"/>
+
+  <tempfile property="logical-structure.temp" suffix=".xml" deleteonexit="true"/>
+  <tempfile property="db4to5.temp" suffix=".xml" deleteonexit="true"/>
+  <tempfile property="transclude.temp" suffix=".xml" deleteonexit="true"/>
+  <tempfile property="profile.temp" suffix=".xml" deleteonexit="true"/>
+  <tempfile property="schemaext.temp" suffix=".xml" deleteonexit="true"/>
+  <tempfile property="verbatim.temp" suffix=".xml" deleteonexit="true"/>
+  <tempfile property="normalize.temp" suffix=".xml" deleteonexit="true"/>
+  <tempfile property="expand-linkbases.temp" suffix=".xml" deleteonexit="true"/>
+  <tempfile property="inline-xlinks.temp" suffix=".xsl" deleteonexit="true"/>
+  <tempfile property="preproc.temp" suffix=".xsl" deleteonexit="true"/>
+
+  <condition property="no-source">
+    <equals arg1="${SOURCE}" arg2="."/>
+  </condition>
+
+  <condition property="no-result">
+    <equals arg1="${RESULT}" arg2="."/>
+  </condition>
+
+  <condition property="do-html">
+    <equals arg1="${print}" arg2="0"/>
+  </condition>
+
+  <condition property="syntax-highlighter" value="1" else="0">
+    <isset property="do-html"/>
+  </condition>
+
+  <condition property="do-verbatim">
+    <equals arg1="${syntax-highlighter}" arg2="0"/>
+  </condition>
+
+  <target name="check-connections" depends="check-source,check-result"/>
+
+  <target name="check-source" if="no-source">
+    <fail message="You must specify the the SOURCE property."/>
+  </target>
+
+  <target name="check-result" if="no-result">
+    <fail message="You must specify the the RESULT property."/>
+  </target>
+
+  <target name="docbook" depends="preproc,docbook-print,docbook-html"/>
+
+  <!-- I can't work out any way to pass arbitrary parameters; so I've
+       made a few explicit. You will have to extend this list if you
+       want Ant properties to be parameters.
+  -->
+
+  <target name="docbook-print" unless="do-html">
+    <xslt in="${preproc.temp}" out="${RESULT}"
+          style="../print/docbook.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+      <param name="syntax-highlighter" expression="${syntax-highlighter}"/>
+      <param name="resource.root" expression="${resource.root}"
+             if="resource.root"/>
+    </xslt>
+  </target>
+
+  <target name="docbook-html" if="do-html">
+    <xslt in="${preproc.temp}" out="${RESULT}"
+          style="../html/docbook.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+      <param name="syntax-highlighter" expression="${syntax-highlighter}"/>
+      <param name="resource.root" expression="${resource.root}"
+             if="resource.root"/>
+    </xslt>
+  </target>
+
+  <target name="preproc" depends="inline-xlinks">
+    <xslt in="${expand-linkbases.temp}" out="${preproc.temp}"
+          style="${inline-xlinks.temp}">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+  <target name="inline-xlinks" depends="expand-linkbases">
+    <xslt in="${expand-linkbases.temp}" out="${inline-xlinks.temp}"
+          style="../xlink/xlinkex.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+  <target name="expand-linkbases" depends="normalize">
+    <xslt in="${normalize.temp}" out="${expand-linkbases.temp}"
+          style="../xlink/xlinklb.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+  <target name="normalize" depends="verbatim-yes,verbatim-no">
+    <xslt in="${profile.temp}" out="${normalize.temp}"
+          style="../preprocess/40-schemaext.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+  <target name="verbatim-yes" depends="schemaext" if="do-verbatim">
+    <xslt in="${schemaext.temp}" out="${verbatim.temp}"
+          style="../preprocess/45-verbatim.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+  <target name="verbatim-no" depends="schemaext" unless="do-verbatim">
+    <copy file="${schemaext.temp}" tofile="${verbatim.temp}"/>
+  </target>
+
+  <target name="schemaext" depends="profile">
+    <xslt in="${profile.temp}" out="${schemaext.temp}"
+          style="../preprocess/40-schemaext.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+  <target name="profile" depends="transclude">
+    <xslt in="${transclude.temp}" out="${profile.temp}"
+          style="../preprocess/30-profile.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+      <param name="profile.separator" expression="${profile.separator}"
+             if="profile.separator"/>
+      <param name="profile.lang" expression="${profile.lang}"
+             if="profile.lang"/>
+      <param name="profile.revisionflag" expression="${profile.revisionflag}"
+             if="profile.revisionflag"/>
+      <param name="profile.role" expression="${profile.role}"
+             if="profile.role"/>
+      <param name="profile.arch" expression="${profile.arch}"
+             if="profile.arch"/>
+      <param name="profile.audience" expression="${profile.audience}"
+             if="profile.audience"/>
+      <param name="profile.condition" expression="${profile.condition}"
+             if="profile.condition"/>
+      <param name="profile.conformance" expression="${profile.conformance}"
+             if="profile.conformance"/>
+      <param name="profile.os" expression="${profile.os}"
+             if="profile.os"/>
+      <param name="profile.outputformat" expression="${profile.outputformat}"
+             if="profile.outputformat"/>
+      <param name="profile.revision" expression="${profile.revision}"
+             if="profile.revision"/>
+      <param name="profile.security" expression="${profile.security}"
+             if="profile.security"/>
+      <param name="profile.userlevel" expression="${profile.userlevel}"
+             if="profile.userlevel"/>
+      <param name="profile.vendor" expression="${profile.vendor}"
+             if="profile.vendor"/>
+      <param name="profile.wordsize" expression="${profile.wordsize}"
+             if="profile.wordsize"/>
+    </xslt>
+  </target>
+
+  <target name="transclude" depends="db4to5">
+    <xslt in="${db4to5.temp}" out="${transclude.temp}"
+          style="../preprocess/20-transclude.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+  <!-- This should be conditional; it should run only if the root element
+       of the document is in no-namespace (or perhaps not the DocBook
+       namespace) but I can't be bothered to work out how to do that in
+       standard Ant
+  -->
+  <target name="db4to5" depends="logical-structure">
+    <xslt in="${logical-structure.temp}" out="${db4to5.temp}"
+          style="../preprocess/10-db4to5.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+  <target name="logical-structure">
+    <xslt in="${SOURCE}" out="${logical-structure.temp}"
+          style="../preprocess/00-logstruct.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
+  </target>
+
+</project>

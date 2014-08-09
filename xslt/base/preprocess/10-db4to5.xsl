@@ -9,45 +9,31 @@
 
 <!-- This stylesheet attempts to convert DocBook V4.x into DocBook V5.x -->
 
-<!-- This may be the first in a series of transformations. Because
-     only the first document in a series has (guaranteed) access to
-     the original base URI and any declarations provided in an internal
-     or external subset, this stylesheet also provides an xml:base
-     attribute and replaces all entityref attributes with fileref. -->
-
 <xsl:variable name="version" select="'1.0'"/>
 
-<xsl:output method="xml" encoding="utf-8" indent="no" omit-xml-declaration="yes"/>
+<xsl:output method="xml" encoding="utf-8" indent="no"
+            omit-xml-declaration="yes"/>
 
 <!-- Let the next phase deal with where space is insignificant -->
 <xsl:preserve-space elements="*"/>
 
 <xsl:template match="/">
-  <xsl:sequence select="f:convert-to-docbook5(/)"/>
-</xsl:template>
-
-<xsl:function name="f:convert-to-docbook5" as="document-node()">
-  <xsl:param name="root" as="document-node()"/>
-
   <xsl:variable name="converted" as="document-node()">
-    <xsl:apply-templates mode="mp:db4to5" select="$root"/>
+    <xsl:copy>
+      <xsl:comment>
+        <xsl:text> DocBook V4.x converted to DocBook V5.x</xsl:text>
+        <xsl:text> by 10-db4to5.xsl version </xsl:text>
+        <xsl:value-of select="$version"/>
+        <xsl:text> </xsl:text>
+      </xsl:comment>
+      <xsl:text>&#10;</xsl:text>
+      <xsl:apply-templates/>
+    </xsl:copy>
   </xsl:variable>
 
   <xsl:apply-templates select="$converted" mode="mp:addNS">
-    <xsl:with-param name="base-uri" select="base-uri($root)"/>
+    <xsl:with-param name="base-uri" select="base-uri(/)"/>
   </xsl:apply-templates>
-</xsl:function>
-
-<xsl:template match="/" mode="mp:db4to5">
-  <xsl:copy>
-    <xsl:comment>
-      <xsl:text> DocBook V4.x converted to DocBook V5.x by 0-db4to5.xsl version </xsl:text>
-      <xsl:value-of select="$version"/>
-      <xsl:text> </xsl:text>
-    </xsl:comment>
-    <xsl:text>&#10;</xsl:text>
-    <xsl:apply-templates mode="mp:db4to5"/>
-  </xsl:copy>
 </xsl:template>
 
 <xsl:template match="bookinfo|chapterinfo|articleinfo|artheader|appendixinfo
@@ -58,8 +44,7 @@
                      |sectioninfo
                      |refsect1info|refsect2info|refsect3info|refsectioninfo
 		     |referenceinfo|partinfo"
-              priority="200"
-              mode="mp:db4to5">
+              priority="200">
   <info>
     <xsl:call-template name="copy.attributes"/>
 
@@ -136,14 +121,13 @@
       </xsl:when>
     </xsl:choose>
 
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </info>
 </xsl:template>
 
 <xsl:template match="objectinfo|prefaceinfo|refsynopsisdivinfo
 		     |screeninfo|sidebarinfo"
-	      priority="200"
-              mode="mp:db4to5">
+	      priority="200">
   <info>
     <xsl:call-template name="copy.attributes"/>
 
@@ -214,13 +198,12 @@
       </xsl:when>
     </xsl:choose>
 
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </info>
 </xsl:template>
 
 <xsl:template match="refentryinfo"
-              priority="200"
-              mode="mp:db4to5">
+              priority="200">
   <info>
     <xsl:call-template name="copy.attributes"/>
 
@@ -249,13 +232,12 @@
       </xsl:call-template>
     </xsl:if>
 
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </info>
 </xsl:template>
 
 <xsl:template match="refmiscinfo"
-              priority="200"
-              mode="mp:db4to5">
+              priority="200">
   <refmiscinfo>
     <xsl:call-template name="copy.attributes">
       <xsl:with-param name="suppress" select="'class'"/>
@@ -281,60 +263,58 @@
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:if>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </refmiscinfo>
 </xsl:template>
 
 <xsl:template match="corpauthor"
-              priority="200"
-              mode="mp:db4to5">
+              priority="200">
   <author>
     <xsl:call-template name="copy.attributes"/>
     <orgname>
-      <xsl:apply-templates mode="mp:db4to5"/>
+      <xsl:apply-templates/>
     </orgname>
   </author>
 </xsl:template>
 
 <xsl:template match="corpname"
-              priority="200"
-              mode="mp:db4to5">
+              priority="200">
   <orgname>
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </orgname>
 </xsl:template>
 
-<xsl:template match="author[not(personname)]|editor[not(personname)]|othercredit[not(personname)]"
-              priority="200"
-              mode="mp:db4to5">
+<xsl:template match="author[not(personname)]
+                     |editor[not(personname)]
+                     |othercredit[not(personname)]"
+              priority="200">
   <xsl:copy>
     <xsl:call-template name="copy.attributes"/>
     <personname>
-      <xsl:apply-templates select="honorific|firstname|surname|othername|lineage"
-                           mode="mp:db4to5"/>
+      <xsl:apply-templates select="honorific|firstname|surname|othername|lineage"/>
     </personname>
     <xsl:apply-templates select="*[not(self::honorific|self::firstname|self::surname
                                    |self::othername|self::lineage)]"
-                         mode="mp:db4to5"/>
+                        />
   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="address|programlisting|screen|funcsynopsisinfo
                      |classsynopsisinfo|literallayout"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:copy>
     <xsl:call-template name="copy.attributes">
       <xsl:with-param name="suppress" select="'format'"/>
     </xsl:call-template>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </xsl:copy>
 </xsl:template>
 
 <xsl:template match="productname[@class]"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:call-template name="tp:emit-message">
     <xsl:with-param name="message">
       <xsl:text>Dropping class attribute from productname</xsl:text>
@@ -344,7 +324,7 @@
     <xsl:call-template name="copy.attributes">
       <xsl:with-param name="suppress" select="'class'"/>
     </xsl:call-template>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </xsl:copy>
 </xsl:template>
 
@@ -352,7 +332,7 @@
                      |article|bibliography|glossary|glossdiv|index
 		     |reference[not(referenceinfo)]|book"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:choose>
     <xsl:when test="not(dedicationinfo|prefaceinfo|chapterinfo
 		        |appendixinfo|partinfo
@@ -369,13 +349,13 @@
             <xsl:apply-templates select="abstract" mode="mp:copy"/>
           </info>
         </xsl:if>
-        <xsl:apply-templates mode="mp:db4to5"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy>
         <xsl:call-template name="copy.attributes"/>
-        <xsl:apply-templates mode="mp:db4to5"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
@@ -388,12 +368,12 @@
 		     |task|tasksummary|taskprerequisites|taskrelated
 		     |sidebar"
 	      priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:choose>
     <xsl:when test="blockinfo">
       <xsl:copy>
         <xsl:call-template name="copy.attributes"/>
-        <xsl:apply-templates mode="mp:db4to5"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:when>
     <xsl:otherwise>
@@ -408,7 +388,7 @@
 	  </info>
 	</xsl:if>
 
-        <xsl:apply-templates mode="mp:db4to5"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
@@ -416,7 +396,7 @@
 
 <xsl:template match="equation"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:choose>
     <xsl:when test="not(title)">
       <xsl:call-template name="tp:emit-message">
@@ -426,13 +406,13 @@
       </xsl:call-template>
       <informalequation>
         <xsl:call-template name="copy.attributes"/>
-        <xsl:apply-templates mode="mp:db4to5"/>
+        <xsl:apply-templates/>
       </informalequation>
     </xsl:when>
     <xsl:when test="blockinfo">
       <xsl:copy>
         <xsl:call-template name="copy.attributes"/>
-        <xsl:apply-templates mode="mp:db4to5"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:when>
     <xsl:otherwise>
@@ -443,7 +423,7 @@
           <xsl:apply-templates select="titleabbrev" mode="mp:copy"/>
           <xsl:apply-templates select="subtitle" mode="mp:copy"/>
         </info>
-        <xsl:apply-templates mode="mp:db4to5"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
@@ -451,7 +431,7 @@
 
 <xsl:template match="sect1|sect2|sect3|sect4|sect5|section"
 	      priority="200"
-              mode="mp:db4to5">
+             >
   <section>
     <xsl:call-template name="copy.attributes"/>
 
@@ -463,13 +443,13 @@
         <xsl:apply-templates select="abstract" mode="mp:copy"/>
       </info>
     </xsl:if>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </section>
 </xsl:template>
 
 <xsl:template match="simplesect"
 	      priority="200"
-              mode="mp:db4to5">
+             >
   <simplesect>
     <xsl:call-template name="copy.attributes"/>
     <info>
@@ -478,13 +458,13 @@
       <xsl:apply-templates select="subtitle" mode="mp:copy"/>
       <xsl:apply-templates select="abstract" mode="mp:copy"/>
     </info>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </simplesect>
 </xsl:template>
 
 <xsl:template match="refsect1|refsect2|refsect3|refsection"
               priority="200"
-              mode="mp:db4to5">
+             >
   <refsection>
     <xsl:call-template name="copy.attributes"/>
 
@@ -496,13 +476,13 @@
         <xsl:apply-templates select="abstract" mode="mp:copy"/>
       </info>
     </xsl:if>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </refsection>
 </xsl:template>
 
 <xsl:template match="imagedata|videodata|audiodata|textdata"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:copy>
     <xsl:call-template name="copy.attributes">
       <xsl:with-param name="suppress" select="'srccredit'"/>
@@ -528,19 +508,19 @@
 
 <xsl:template match="sgmltag"
               priority="200"
-              mode="mp:db4to5">
+             >
   <tag>
     <xsl:call-template name="copy.attributes"/>
     <xsl:if test="@class = 'sgmlcomment'">
       <xsl:attribute name="class">comment</xsl:attribute>
     </xsl:if>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </tag>
 </xsl:template>
 
 <xsl:template match="inlinegraphic[@format='linespecific']"
               priority="210"
-              mode="mp:db4to5">
+             >
   <textobject>
     <textdata>
       <xsl:call-template name="copy.attributes"/>
@@ -550,7 +530,7 @@
 
 <xsl:template match="inlinegraphic"
               priority="200"
-              mode="mp:db4to5">
+             >
   <inlinemediaobject>
     <imageobject>
       <imagedata>
@@ -562,7 +542,7 @@
 
 <xsl:template match="graphic[@format='linespecific']"
               priority="210"
-              mode="mp:db4to5">
+             >
   <mediaobject>
     <textobject>
       <textdata>
@@ -574,7 +554,7 @@
 
 <xsl:template match="graphic"
               priority="200"
-              mode="mp:db4to5">
+             >
   <mediaobject>
     <imageobject>
       <imagedata>
@@ -586,16 +566,16 @@
 
 <xsl:template match="pubsnumber"
               priority="200"
-              mode="mp:db4to5">
+             >
   <biblioid class="pubsnumber">
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </biblioid>
 </xsl:template>
 
 <xsl:template match="invpartnumber"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:call-template name="tp:emit-message">
     <xsl:with-param name="message">
       <xsl:text>Converting invpartnumber to biblioid otherclass="invpartnumber".</xsl:text>
@@ -603,13 +583,13 @@
   </xsl:call-template>
   <biblioid class="other" otherclass="invpartnumber">
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </biblioid>
 </xsl:template>
 
 <xsl:template match="contractsponsor"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:variable name="contractnum"
                 select="preceding-sibling::contractnum|following-sibling::contractnum"/>
 
@@ -622,11 +602,11 @@
   <othercredit class="other" otherclass="contractsponsor">
     <orgname>
       <xsl:call-template name="copy.attributes"/>
-      <xsl:apply-templates mode="mp:db4to5"/>
+      <xsl:apply-templates/>
     </orgname>
     <xsl:for-each select="$contractnum">
       <contrib role="contractnum">
-        <xsl:apply-templates select="node()" mode="mp:db4to5"/>
+        <xsl:apply-templates select="node()"/>
       </contrib>
     </xsl:for-each>
   </othercredit>
@@ -634,7 +614,7 @@
 
 <xsl:template match="contractnum"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:if test="not(preceding-sibling::contractsponsor
                     |following-sibling::contractsponsor)
                 and not(preceding-sibling::contractnum)">
@@ -650,7 +630,7 @@
                             |preceding-sibling::contractnum
                             |following-sibling::contractnum">
         <contrib>
-          <xsl:apply-templates select="node()" mode="mp:db4to5"/>
+          <xsl:apply-templates select="node()"/>
         </contrib>
       </xsl:for-each>
     </othercredit>
@@ -659,10 +639,10 @@
 
 <xsl:template match="isbn|issn"
               priority="200"
-              mode="mp:db4to5">
+             >
   <biblioid class="{local-name(.)}">
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </biblioid>
 </xsl:template>
 
@@ -670,25 +650,25 @@
 		              and ulink
 			      and normalize-space(text()) = '']"
               priority="200"
-              mode="mp:db4to5">
+             >
   <biblioid xlink:href="{ulink/@url}">
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates select="ulink/node()" mode="mp:db4to5"/>
+    <xsl:apply-templates select="ulink/node()"/>
   </biblioid>
 </xsl:template>
 
 <xsl:template match="authorblurb"
               priority="200"
-              mode="mp:db4to5">
+             >
   <personblurb>
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </personblurb>
 </xsl:template>
 
 <xsl:template match="collabname"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:call-template name="tp:emit-message">
     <xsl:with-param name="message">
       <xsl:text>Check conversion of collabname </xsl:text>
@@ -697,13 +677,13 @@
   </xsl:call-template>
   <orgname role="collabname">
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </orgname>
 </xsl:template>
 
 <xsl:template match="modespec"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:call-template name="tp:emit-message">
     <xsl:with-param name="message">
       <xsl:text>Discarding modespec (</xsl:text>
@@ -713,14 +693,14 @@
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="mediaobjectco" priority="200" mode="mp:db4to5">
+<xsl:template match="mediaobjectco" priority="200">
   <mediaobject>
     <xsl:copy-of select="@*"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </mediaobject>
 </xsl:template>
 
-<xsl:template match="remark" priority="200" mode="mp:db4to5">
+<xsl:template match="remark" priority="200">
   <!-- get rid of any embedded markup -->
   <remark>
     <xsl:copy-of select="@*"/>
@@ -733,10 +713,10 @@
                      |biblioset/title
                      |bibliomixed/title"
               priority="400"
-              mode="mp:db4to5">
+             >
   <citetitle>
     <xsl:copy-of select="@*"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </citetitle>
 </xsl:template>
 
@@ -745,10 +725,10 @@
                      |biblioset/titleabbrev|biblioset/subtitle
                      |bibliomixed/titleabbrev|bibliomixed/subtitle"
 	      priority="400"
-              mode="mp:db4to5">
+             >
   <xsl:copy>
     <xsl:copy-of select="@*"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </xsl:copy>
 </xsl:template>
 
@@ -756,7 +736,7 @@
                      |bibliomset/contrib
                      |bibliomixed/contrib"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:call-template name="tp:emit-message">
     <xsl:with-param name="message">
       <xsl:text>Check conversion of contrib </xsl:text>
@@ -767,19 +747,19 @@
     <orgname>???</orgname>
     <contrib>
       <xsl:call-template name="copy.attributes"/>
-      <xsl:apply-templates mode="mp:db4to5"/>
+      <xsl:apply-templates/>
     </contrib>
   </othercredit>
 </xsl:template>
 
-<xsl:template match="link" priority="200" mode="mp:db4to5">
+<xsl:template match="link" priority="200">
   <xsl:copy>
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="ulink" priority="200" mode="mp:db4to5">
+<xsl:template match="ulink" priority="200">
   <xsl:choose>
     <xsl:when test="node()">
       <xsl:call-template name="tp:emit-message">
@@ -792,7 +772,7 @@
 	<xsl:call-template name="copy.attributes">
 	  <xsl:with-param name="suppress" select="'url'"/>
 	</xsl:call-template>
-	<xsl:apply-templates mode="mp:db4to5"/>
+	<xsl:apply-templates/>
       </link>
     </xsl:when>
     <xsl:otherwise>
@@ -812,7 +792,7 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="olink" priority="200" mode="mp:db4to5">
+<xsl:template match="olink" priority="200">
   <xsl:if test="@linkmode">
     <xsl:call-template name="tp:emit-message">
       <xsl:with-param name="message">
@@ -836,7 +816,7 @@
 	    <xsl:copy/>
 	  </xsl:if>
 	</xsl:for-each>
-	<xsl:apply-templates mode="mp:db4to5"/>
+	<xsl:apply-templates/>
       </olink>
     </xsl:when>
     <xsl:otherwise>
@@ -846,7 +826,7 @@
 	    <xsl:copy/>
 	  </xsl:if>
 	</xsl:for-each>
-	<xsl:apply-templates mode="mp:db4to5"/>
+	<xsl:apply-templates/>
       </olink>
     </xsl:otherwise>
   </xsl:choose>
@@ -863,7 +843,7 @@
                      |bibliomset/lineage
                      |bibliomset/honorific"
               priority="200"
-              mode="mp:db4to5">
+             >
   <xsl:choose>
     <xsl:when test="preceding-sibling::firstname
                     |preceding-sibling::surname
@@ -884,16 +864,16 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="areaset" priority="200" mode="mp:db4to5">
+<xsl:template match="areaset" priority="200">
   <xsl:copy>
     <xsl:call-template name="copy.attributes">
       <xsl:with-param name="suppress" select="'coords'"/>
     </xsl:call-template>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="date|pubdate" priority="200" mode="mp:db4to5">
+<xsl:template match="date|pubdate" priority="200">
   <xsl:variable name="rp1" select="substring-before(normalize-space(.), ' ')"/>
   <xsl:variable name="rp2"
 		select="substring-before(substring-after(normalize-space(.), ' '),
@@ -999,7 +979,7 @@
 	    <xsl:number value="$p1" format="01"/>
 	  </xsl:when>
 	  <xsl:otherwise>
-	    <xsl:apply-templates mode="mp:db4to5"/>
+	    <xsl:apply-templates/>
 	  </xsl:otherwise>
 	</xsl:choose>
       </xsl:when>
@@ -1066,12 +1046,12 @@
 	    <xsl:number value="$p2" format="01"/>
 	  </xsl:when>
 	  <xsl:otherwise>
-	    <xsl:apply-templates mode="mp:db4to5"/>
+	    <xsl:apply-templates/>
 	  </xsl:otherwise>
 	</xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates mode="mp:db4to5"/>
+	<xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -1098,17 +1078,17 @@
     <xsl:otherwise>
       <xsl:copy>
 	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates mode="mp:db4to5"/>
+	<xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="title|subtitle|titleabbrev" priority="300" mode="mp:db4to5">
+<xsl:template match="title|subtitle|titleabbrev" priority="300">
   <!-- nop -->
 </xsl:template>
 
-<xsl:template match="abstract" priority="300" mode="mp:db4to5">
+<xsl:template match="abstract" priority="300">
   <xsl:if test="not(contains(name(parent::*),'info'))">
     <xsl:call-template name="tp:emit-message">
       <xsl:with-param name="message">
@@ -1118,7 +1098,7 @@
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="indexterm" mode="mp:db4to5">
+<xsl:template match="indexterm">
   <!-- don't copy the defaulted significance='normal' attribute -->
   <indexterm>
     <xsl:call-template name="copy.attributes">
@@ -1126,15 +1106,15 @@
 	<xsl:if test="@significance = 'normal'">significance</xsl:if>
       </xsl:with-param>
     </xsl:call-template>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </indexterm>
 </xsl:template>
 
-<xsl:template match="ackno" priority="200" mode="mp:db4to5">
+<xsl:template match="ackno" priority="200">
   <acknowledgements>
     <xsl:copy-of select="@*"/>
     <para>
-      <xsl:apply-templates mode="mp:db4to5"/>
+      <xsl:apply-templates/>
     </para>
   </acknowledgements>
 </xsl:template>
@@ -1142,21 +1122,21 @@
 <xsl:template match="lot|lotentry|tocback|tocchap|tocfront|toclevel1|
 		     toclevel2|toclevel3|toclevel4|toclevel5|tocpart"
               priority="200"
-              mode="mp:db4to5">
+             >
   <tocdiv>
     <xsl:copy-of select="@*"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </tocdiv>
 </xsl:template>
 
-<xsl:template match="action" priority="200" mode="mp:db4to5">
+<xsl:template match="action" priority="200">
   <phrase remap="action">
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </phrase>
 </xsl:template>
 
-<xsl:template match="beginpage" priority="200" mode="mp:db4to5">
+<xsl:template match="beginpage" priority="200">
   <xsl:comment> beginpage pagenum=<xsl:value-of select="@pagenum"/> </xsl:comment>
   <xsl:call-template name="tp:emit-message">
     <xsl:with-param name="message">
@@ -1165,30 +1145,30 @@
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="structname|structfield" priority="200" mode="mp:db4to5">
+<xsl:template match="structname|structfield" priority="200">
   <varname remap="{local-name(.)}">
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </varname>
 </xsl:template>
 
 <xsl:template match="*" mode="mp:copy">
   <xsl:copy>
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </xsl:copy>
 </xsl:template>
 
 <!-- ====================================================================== -->
 
-<xsl:template match="*" mode="mp:db4to5">
+<xsl:template match="*">
   <xsl:copy>
     <xsl:call-template name="copy.attributes"/>
-    <xsl:apply-templates mode="mp:db4to5"/>
+    <xsl:apply-templates/>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="comment()|processing-instruction()|text()"  mode="mp:db4to5">
+<xsl:template match="comment()|processing-instruction()|text()">
   <xsl:copy/>
 </xsl:template>
 

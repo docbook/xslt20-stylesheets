@@ -7,30 +7,24 @@
 		exclude-result-prefixes="db f mp xs"
                 version="2.0">
 
-<xsl:param name="schemafile" select="''"/>
+<xsl:param name="schemaext.schema" select="''"/>
 
 <!--	   select="'../../docbook/relaxng/dita4db/dita4db.rng'"/> -->
 
 <xsl:param name="schema"
-	   select="if ($schemafile = '')
+	   select="if ($schemaext.schema = '')
 		   then ()
-		   else document($schemafile)"/>
+		   else document($schemaext.schema)"/>
 
 <xsl:param name="schema-extensions" as="element()*" select="()"/>
 
-<xsl:template match="/">
-  <xsl:sequence select="f:resolve-schema-extensions(/)"/>
-</xsl:template>
-
-<xsl:function name="f:resolve-schema-extensions" as="document-node()">
-  <xsl:param name="root" as="document-node()"/>
-  <xsl:apply-templates select="$root" mode="m:schemaextensions"/>
-</xsl:function>
-
-<xsl:template match="/" mode="m:schemaextensions">
-  <xsl:copy>
-    <xsl:apply-templates mode="m:schemaextensions"/>
-  </xsl:copy>
+<xsl:template match="/" as="document-node()">
+  <xsl:variable name="content" as="document-node()">
+    <xsl:copy>
+      <xsl:apply-templates mode="m:schemaextensions"/>
+    </xsl:copy>
+  </xsl:variable>
+  <xsl:sequence select="$content"/>
 </xsl:template>
 
 <xsl:template match="*" mode="m:schemaextensions"

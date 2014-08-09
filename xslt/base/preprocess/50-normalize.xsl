@@ -1,5 +1,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:fp="http://docbook.org/xslt/ns/extension/private"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
@@ -7,11 +8,13 @@
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:n="http://docbook.org/xslt/ns/normalize"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f ghost m mp n xs"
+		exclude-result-prefixes="db doc f ghost m fp mp n xs"
                 version="2.0">
-<!-- needed for standalone processing...not sure what to do about that
+
 <xsl:import href="../common/l10n.xsl"/>
--->
+
+<xsl:key name="id" match="*" use="@xml:id"/>
+<xsl:key name="genid" match="*" use="generate-id(.)"/>
 
 <xsl:param name="l10n.gentext.default.language" select="'en'"/>
 <xsl:param name="l10n.gentext.language" select="''"/>
@@ -630,5 +633,94 @@ if appropriate</refpurpose>
     </xsl:apply-templates>
   </xsl:copy>
 </xsl:template>
+
+<xsl:function name="f:resolve-path" as="xs:string">
+  <xsl:param name="uri" as="xs:string"/>
+  <xsl:param name="abspath" as="xs:string"/>
+
+  <xsl:value-of select="f:resolve-path($uri, $abspath, static-base-uri())"/>
+</xsl:function>
+
+<!-- this three-argument form really only exists for testing -->
+<xsl:function name="f:resolve-path" as="xs:string">
+  <xsl:param name="uri" as="xs:string"/>
+  <xsl:param name="abspath" as="xs:string"/>
+  <xsl:param name="static-base-uri" as="xs:string"/>
+
+  <xsl:choose>
+    <xsl:when test="matches($abspath, '^[-a-zA-Z0-9]+:')">
+      <!-- $abspath is an absolute URI -->
+      <xsl:value-of select="resolve-uri($uri, $abspath)"/>
+    </xsl:when>
+    <xsl:when test="matches($static-base-uri, '^[-a-zA-Z0-9]+:')">
+      <!-- the static base uri is an absolute URI -->
+
+      <!-- we have to make $abspath absolute (per the finicky def in XSLT 2.0) -->
+      <!-- but if the static base uri is a file:// uri, we want to pull the -->
+      <!-- file:// bit back off the front. -->
+
+      <xsl:variable name="resolved-abs" select="resolve-uri($abspath, $static-base-uri)"/>
+      <xsl:variable name="resolved" select="resolve-uri($uri, $resolved-abs)"/>
+
+      <!-- strip off the leading file: -->
+      <!-- this is complicated by two things, first it's not clear when we get
+           file:///path and when we get file://path; second, on a Windows system
+           if we get file://D:/path we have to remove both slashes -->
+      <xsl:choose>
+        <xsl:when test="matches($resolved, '^file://.:')">
+          <xsl:value-of select="substring-after($resolved, 'file://')"/>
+        </xsl:when>
+        <xsl:when test="matches($resolved, '^file:/.:')">
+          <xsl:value-of select="substring-after($resolved, 'file:/')"/>
+        </xsl:when>
+        <xsl:when test="starts-with($resolved, 'file://')">
+          <xsl:value-of select="substring-after($resolved, 'file:/')"/>
+        </xsl:when>
+        <xsl:when test="starts-with($resolved, 'file:/')">
+          <xsl:value-of select="substring-after($resolved, 'file:')"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$resolved"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:when test="matches($uri, '^[-a-zA-Z0-9]+:') or starts-with($uri, '/')">
+      <!-- $uri is already absolute -->
+      <xsl:value-of select="$uri"/>
+    </xsl:when>
+    <xsl:when test="not(starts-with($abspath, '/'))">
+      <!-- if the $abspath isn't absolute, we lose -->
+      <xsl:value-of select="error((), '$abspath in f:resolve-path is not absolute')"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <!-- otherwise, resolve them together -->
+      <xsl:variable name="base" select="replace($abspath, '^(.*)/[^/]*$', '$1')"/>
+
+      <xsl:variable name="allsegs" select="(tokenize(substring-after($base, '/'), '/'),
+                                         tokenize($uri, '/'))"/>
+      <xsl:variable name="segs" select="$allsegs[. != '.']"/>
+      <xsl:variable name="path" select="fp:resolve-dotdots($segs)"/>
+      <xsl:value-of select="concat('/', string-join($path, '/'))"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
+
+<xsl:function name="fp:resolve-dotdots" as="xs:string*">
+  <xsl:param name="segs" as="xs:string*"/>
+  <xsl:variable name="pos" select="index-of($segs, '..')"/>
+  <xsl:choose>
+    <xsl:when test="empty($pos)">
+      <xsl:sequence select="$segs"/>
+    </xsl:when>
+    <xsl:when test="$pos[1] = 1">
+      <xsl:sequence select="fp:resolve-dotdots(subsequence($segs, 2))"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:sequence select="fp:resolve-dotdots(
+                            (subsequence($segs, 1, $pos[1] - 2),
+                             subsequence($segs, $pos[1] + 1)))"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
 
 </xsl:stylesheet>
