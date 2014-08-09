@@ -1,8 +1,8 @@
 *~
-/dist
+,*
+/dist/
 /tests/smoketest.html
 /tools/lib/cachedir/
 /docs/RELEASENOTES.html
-/tools/lib/saxon9he.93
-/tools/lib/saxon9he.94
 /ext/tests/
+/local/
