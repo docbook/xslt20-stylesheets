@@ -62,7 +62,7 @@ return
 
 </xsl:text>
 
-<xsl:value-of select="concat('( (: xdmp:log(&quot;Register docbook/', $lang, '.xqy&quot;), :)&#10;')"/>
+<xsl:value-of select="concat('( xdmp:log(&quot;Register docbook/', $lang, '.xqy&quot;),&#10;')"/>
 <xsl:value-of select="concat(' plugin:register(dbl10n:capabilities(),&quot;', $lang, '.xqy&quot;))&#10;')"/>
 
 </xsl:template>

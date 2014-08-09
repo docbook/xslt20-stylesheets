@@ -5,7 +5,10 @@
   <import file="../../../tools/build-shared.xml"/>
 
   <target name="all">
-    <xslt2 style="../../../tools/mkparam.xsl" in="param.xml" out="param.xsl"/>
+    <xslt style="../../../tools/mkparam.xsl" in="param.xml" out="param.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
+    </xslt>
   </target>
 
   <target name="clean">

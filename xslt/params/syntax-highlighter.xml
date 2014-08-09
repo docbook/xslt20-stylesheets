@@ -1,0 +1,26 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0" xml:id="resource.root">
+<refmeta>
+<refentrytitle>syntax-highlighter</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>syntax-highlighter</refname>
+<refpurpose>Determines if Prism syntax highlighting is attempted</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id='syntax-highlighter.frag'>
+<xsl:param name="syntax-highlighter" select="'0'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If non-zero, Prism syntax highlighting is attempted when … FIXME:</para>
+
+</refsect1>
+</refentry>

@@ -93,11 +93,25 @@
 
   <xsl:call-template name="t:callout-bug">
     <xsl:with-param name="conum">
-      <xsl:number count="db:co"
-                  level="any"
-                  format="1"/>
+      <xsl:choose>
+        <xsl:when test="@label and @label castable as xs:decimal">
+          <xsl:value-of select="xs:decimal(@label)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:number count="db:co"
+                      level="any"
+                      format="1"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
+</xsl:template>
+
+<xsl:template name="t:callout-line-bug">
+  <xsl:param name="conum" select='1'/>
+  <span class="coline">
+    <xsl:value-of select="$conum"/>
+  </span>
 </xsl:template>
 
 <xsl:template name="t:callout-bug">
@@ -107,47 +121,31 @@
                 select="if ($conum castable as xs:decimal)
                         then xs:decimal($conum) else 1"/>
 
-  <xsl:choose>
-    <xsl:when test="$callout.graphics != 0
-                    and $iconum &lt;= number($callout.graphics.number.limit)">
-      <img src="{$callout.graphics.path}{$iconum}{$callout.graphics.extension}"
-           alt="{$iconum}" border="0"/>
-    </xsl:when>
-    <xsl:when test="$callout.unicode != 0
-                    and $iconum &lt;= number($callout.unicode.number.limit)">
-      <xsl:choose>
-        <xsl:when test="$callout.unicode.start.character = 10102">
-          <xsl:choose>
-            <xsl:when test="$iconum = 1">&#10102;</xsl:when>
-            <xsl:when test="$iconum = 2">&#10103;</xsl:when>
-            <xsl:when test="$iconum = 3">&#10104;</xsl:when>
-            <xsl:when test="$iconum = 4">&#10105;</xsl:when>
-            <xsl:when test="$iconum = 5">&#10106;</xsl:when>
-            <xsl:when test="$iconum = 6">&#10107;</xsl:when>
-            <xsl:when test="$iconum = 7">&#10108;</xsl:when>
-            <xsl:when test="$iconum = 8">&#10109;</xsl:when>
-            <xsl:when test="$iconum = 9">&#10110;</xsl:when>
-            <xsl:when test="$iconum = 10">&#10111;</xsl:when>
-          </xsl:choose>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:message>
-            <xsl:text>Don't know how to generate Unicode callouts </xsl:text>
-            <xsl:text>when $callout.unicode.start.character is </xsl:text>
-            <xsl:value-of select="$callout.unicode.start.character"/>
-          </xsl:message>
-          <xsl:text>(</xsl:text>
-          <xsl:value-of select="$iconum"/>
-          <xsl:text>)</xsl:text>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:text>(</xsl:text>
-      <xsl:value-of select="$iconum"/>
-      <xsl:text>)</xsl:text>
-    </xsl:otherwise>
-  </xsl:choose>
+  <span data-number="{$conum}">
+    <xsl:choose>
+      <xsl:when test="$iconum &lt;= 10">
+        <xsl:attribute name="class" select="'callout-bug callout-bug-unicode'"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:attribute name="class" select="'callout-bug callout-bug-text'"/>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:choose>
+      <xsl:when test="$iconum = 1">&#10102;</xsl:when>
+      <xsl:when test="$iconum = 2">&#10103;</xsl:when>
+      <xsl:when test="$iconum = 3">&#10104;</xsl:when>
+      <xsl:when test="$iconum = 4">&#10105;</xsl:when>
+      <xsl:when test="$iconum = 5">&#10106;</xsl:when>
+      <xsl:when test="$iconum = 6">&#10107;</xsl:when>
+      <xsl:when test="$iconum = 7">&#10108;</xsl:when>
+      <xsl:when test="$iconum = 8">&#10109;</xsl:when>
+      <xsl:when test="$iconum = 9">&#10110;</xsl:when>
+      <xsl:when test="$iconum = 10">&#10111;</xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$iconum"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </span>
 </xsl:template>
 
 <xsl:template match="db:calloutlist">
@@ -159,82 +157,83 @@
     <xsl:apply-templates select="*[not(self::db:info)
 				   and not(self::db:callout)]"/>
 
-    <!-- If you can get CSS to do this layout right, please tell me how -->
-    <table border="0" summary="Callout list">
+    <dl>
       <xsl:apply-templates select="db:callout"/>
-    </table>
+    </dl>
   </div>
 </xsl:template>
 
 <xsl:template match="db:callout">
   <xsl:variable name="doc" select="/"/>
 
-  <tr class="callout-row">
-    <td class="callout-bug" valign="baseline" align="left">
-      <p>
-        <xsl:sequence select="f:html-attributes(.)"/>
+  <dt>
+    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:for-each select="tokenize(@arearefs,'\s')">
+      <xsl:variable name="target" select="key('id',.,$doc)[1]"/>
 
-	<xsl:for-each select="tokenize(@arearefs,'\s')">
-	  <xsl:variable name="target" select="key('id',.,$doc)[1]"/>
+      <xsl:choose>
+	<xsl:when test="count($target)=0">
+	  <xsl:message>
+	    <xsl:text>Error? callout points to non-existent id: </xsl:text>
+	    <xsl:value-of select="."/>
+	  </xsl:message>
+	  <xsl:text>???</xsl:text>
+	</xsl:when>
 
-	  <xsl:choose>
-	    <xsl:when test="count($target)=0">
-	      <xsl:message>
-		<xsl:text>Error? callout points to non-existent id: </xsl:text>
-		<xsl:value-of select="."/>
-	      </xsl:message>
-	      <xsl:text>???</xsl:text>
-	    </xsl:when>
-	    <xsl:when test="$target/self::db:co">
-	      <a href="{f:href($doc,$target)}">
-		<xsl:apply-templates select="$target" mode="m:callout-bug"/>
-	      </a>
-	      <xsl:text>&#160;</xsl:text>
-	    </xsl:when>
-	    <xsl:when test="$target/self::db:areaset">
+	<xsl:when test="$target/self::db:co">
+	  <a href="{f:href($doc,$target)}">
+	    <xsl:apply-templates select="$target" mode="m:callout-bug"/>
+	  </a>
+	  <xsl:text>&#160;</xsl:text>
+	</xsl:when>
+
+	<xsl:when test="$target/self::db:areaset">
+          <xsl:choose>
+            <xsl:when test="$syntax-highlighter = '0'">
 	      <xsl:call-template name="t:callout-bug">
-		<xsl:with-param name="conum"
-				select="count($target/preceding-sibling::db:areaset
-					|$target/preceding-sibling::db:area)
-					+1"/>
+	        <xsl:with-param name="conum"
+                                select="tokenize($target//db:area[1]/@coords, '\s+')[1]"/>
 	      </xsl:call-template>
-	    </xsl:when>
-	    <xsl:when test="$target/self::db:area">
-	      <xsl:choose>
-		<xsl:when test="$target/parent::db:areaset">
-		  <xsl:call-template name="t:callout-bug">
-		    <xsl:with-param name="conum"
-				    select="count($target/parent::db:areaset/preceding-sibling::db:areaset
-					    |$target/parent::db:areaset/preceding-sibling::db:area)
-					    +1"/>
-		  </xsl:call-template>
-		</xsl:when>
-		<xsl:otherwise>
-		  <xsl:call-template name="t:callout-bug">
-		    <xsl:with-param name="conum"
-				    select="count($target/preceding-sibling::db:areaset
-					    |$target/preceding-sibling::db:area)
-					    +1"/>
-		  </xsl:call-template>
-		</xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:message>
-		<xsl:text>Error? callout points to </xsl:text>
-		<xsl:value-of select="name($target)"/>
-	      </xsl:message>
-	      <xsl:text>???</xsl:text>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:for-each>
-	<xsl:text>&#160;</xsl:text>
-      </p>
-    </td>
-    <td class="callout-body" valign="baseline" align="left">
-      <xsl:apply-templates/>
-    </td>
-  </tr>
+            </xsl:when>
+            <xsl:otherwise>
+	      <xsl:call-template name="t:callout-line-bug">
+	        <xsl:with-param name="conum"
+                                select="tokenize($target//db:area[1]/@coords, '\s+')[1]"/>
+	      </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
+	</xsl:when>
+
+	<xsl:when test="$target/self::db:area">
+          <xsl:choose>
+            <xsl:when test="$syntax-highlighter = '0'">
+	      <xsl:call-template name="t:callout-bug">
+	        <xsl:with-param name="conum"
+			        select="tokenize($target/@coords,'\s+')[1]"/>
+	      </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+	      <xsl:call-template name="t:callout-line-bug">
+	        <xsl:with-param name="conum"
+			        select="tokenize($target/@coords,'\s+')[1]"/>
+	      </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
+	</xsl:when>
+
+	<xsl:otherwise>
+	  <xsl:message>
+	    <xsl:text>Error? callout points to </xsl:text>
+	    <xsl:value-of select="name($target)"/>
+	  </xsl:message>
+	  <xsl:text>???</xsl:text>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+  </dt>
+  <dd>
+    <xsl:apply-templates/>
+  </dd>
 </xsl:template>
 
 </xsl:stylesheet>

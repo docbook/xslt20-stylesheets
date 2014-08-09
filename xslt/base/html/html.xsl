@@ -183,20 +183,28 @@ and a CSS style is specified.</para>
   <xsl:param name="node" select="."/>
 
   <xsl:if test="//db:annotation">
-    <script type="text/javascript" src="{concat($resource.root, 'js/AnchorPosition.js')}"/>
-    <script type="text/javascript" src="{concat($resource.root, 'js/PopupWindow.js')}"/>
-    <script type="text/javascript" src="{concat($resource.root, 'js/annotation.js')}"/>
+    <script type="text/javascript"
+            src="{concat($resource.root, 'js/AnchorPosition.js')}"/>
+    <script type="text/javascript"
+            src="{concat($resource.root, 'js/PopupWindow.js')}"/>
+    <script type="text/javascript"
+            src="{concat($resource.root, 'js/annotation.js')}"/>
   </xsl:if>
 
-  <script type="text/javascript" src="{concat($resource.root, 'js/dbmodnizr.js')}"/>
+  <script type="text/javascript"
+          src="{concat($resource.root, 'js/dbmodnizr.js')}"/>
 
   <xsl:if test="//*[@xlink:type='extended']">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"/>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"/>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
     <link type="text/css" rel="stylesheet"
           href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"/>
-    <script type="text/javascript" src="{concat($resource.root, 'js/nhrefs.js')}"/>
+    <script type="text/javascript"
+            src="{concat($resource.root, 'js/nhrefs.js')}"/>
   </xsl:if>
+  <xsl:call-template name="t:syntax-highlight-head"/>
 </xsl:template>
 
 <xsl:template name="t:user-javascript">
@@ -212,6 +220,47 @@ and a CSS style is specified.</para>
     <xsl:with-param name="node" select="$node"/>
   </xsl:call-template>
 </xsl:template>
+
+<xsl:template name="t:syntax-highlight-head">
+  <xsl:choose>
+    <xsl:when test="$syntax-highlighter != '0'">
+      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" />
+      <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet" />
+    </xsl:when>
+    <xsl:otherwise>
+      <link href="{concat($resource.root, 'css/db-noprism.css')}" rel="stylesheet" />
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template name="t:syntax-highlight-body">
+  <xsl:if test="$syntax-highlighter != '0'">
+    <script src="{concat($resource.root, 'js/prism.js')}"></script>
+  </xsl:if>
+</xsl:template>
+
+<xsl:function name="f:syntax-highlight-class" as="xs:string*">
+  <xsl:param name="node"/>
+
+  <xsl:if test="$syntax-highlighter != '0'">
+    <xsl:variable name="language" as="xs:string?"
+                  select="if ($node/@language)
+                          then concat('language-', $node/@language)
+                          else ()"/>
+
+    <xsl:variable name="numbered" as="xs:boolean"
+                  select="f:lineNumbering($node,'everyNth') != 0"/>
+
+    <xsl:variable name="numbers" as="xs:string?"
+                  select="if ($node/ancestor::db:programlistingco
+                              or $node/ancestor::db:screenco
+                              or not($numbered))
+                          then ()
+                          else 'line-numbers'"/>
+
+    <xsl:sequence select="($language,$numbers)"/>
+  </xsl:if>
+</xsl:function>
 
 <!-- ====================================================================== -->
 
@@ -568,6 +617,8 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
        means, for example, that <style> elements output by system-head-content
        have a lower CSS precedence than the users stylesheet. -->
 
+  <meta charset="utf-8"/>
+
   <!-- See http://remysharp.com/2009/01/07/html5-enabling-script/ -->
   <!--
   <xsl:comment>[if lt IE 9]>
@@ -609,49 +660,10 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
 
 <!-- ====================================================================== -->
 
-<xsl:template match="*" mode="m:html-attributes" as="attribute()*">
-  <xsl:param name="class" select="''" as="xs:string"/>
-  <xsl:param name="force-id" select="false()" as="xs:boolean"/>
-  <xsl:param name="suppress-local-name-class" select="false()" as="xs:boolean"/>
-  <xsl:param name="suppress-role-class" select="false()" as="xs:boolean"/>
+<xsl:param name="omit-names-from-class"
+           select="('phrase', 'link')"/>
 
-  <xsl:choose>
-    <xsl:when test="@xml:id">
-      <xsl:attribute name="id" select="@xml:id"/>
-    </xsl:when>
-    <xsl:when test="$force-id">
-      <xsl:attribute name="id" select="f:node-id(.)"/>
-    </xsl:when>
-  </xsl:choose>
-
-  <xsl:if test="@dir">
-    <xsl:copy-of select="@dir"/>
-  </xsl:if>
-
-  <xsl:if test="@xml:lang">
-    <xsl:call-template name="lang-attribute">
-      <xsl:with-param name="node" select="."/>
-    </xsl:call-template>
-  </xsl:if>
-
-  <xsl:variable name="value-seq"
-                select="(if ($suppress-local-name-class)
-                         then () else local-name(.),
-                         if ($class != '') then $class else (),
-                         if ($suppress-role-class or not(@role))
-                         then ()
-                         else @role,
-                         if (@revisionflag)
-                         then concat('rf-',@revisionflag)
-                         else ())"/>
-
-  <xsl:if test="not(empty($value-seq))">
-    <xsl:attribute name="class"
-                   select="normalize-space(string-join($value-seq, ' '))"/>
-  </xsl:if>
-</xsl:template>
-
-<!-- ============================================================ -->
+<!-- ====================================================================== -->
 
 <xsl:function name="f:html-class" as="attribute()*">
   <xsl:param name="node" as="element()"/>
@@ -660,26 +672,61 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
 
   <xsl:if test="exists($class) or exists($extra-classes)">
     <xsl:attribute name="class"
-                   select="normalize-space(string-join(($class,$extra-classes), ' '))"/>
+                   select="string-join(distinct-values(($class,$extra-classes)), ' ')"/>
   </xsl:if>
 </xsl:function>
 
 <xsl:function name="f:html-attributes" as="attribute()*">
   <xsl:param name="node" as="element()"/>
-  <xsl:sequence select="f:html-attributes($node, $node/@xml:id, local-name($node), $node/@role, $node/@h:*)"/>
+
+  <xsl:variable name="class" select="if (local-name($node) = $omit-names-from-class)
+                                     then ()
+                                     else local-name($node)"/>
+
+  <xsl:variable name="extra-classes"
+                select="(if ($node/@role)
+                         then string($node/@role)
+                         else (),
+                         if ($node/@revision)
+                         then concat('rf-', $node/@revision)
+                         else ())"/>
+
+  <xsl:sequence select="f:html-attributes($node, $node/@xml:id, $class, $extra-classes, $node/@h:*)"/>
 </xsl:function>
 
 <xsl:function name="f:html-attributes" as="attribute()*">
   <xsl:param name="node" as="element()"/>
   <xsl:param name="id" as="xs:string?"/>
-  <xsl:sequence select="f:html-attributes($node, $id, local-name($node), $node/@role, $node/@h:*)"/>
+
+  <xsl:variable name="class" select="if (local-name($node) = $omit-names-from-class)
+                                     then ()
+                                     else local-name($node)"/>
+
+  <xsl:variable name="extra-classes"
+                select="(if ($node/@role)
+                         then string($node/@role)
+                         else (),
+                         if ($node/@revision)
+                         then concat('rf-', $node/@revision)
+                         else ())"/>
+
+  <xsl:sequence select="f:html-attributes($node, $id, $class, $extra-classes, $node/@h:*)"/>
 </xsl:function>
 
 <xsl:function name="f:html-attributes" as="attribute()*">
   <xsl:param name="node" as="element()"/>
   <xsl:param name="id" as="xs:string?"/>
   <xsl:param name="class" as="xs:string?"/>
-  <xsl:sequence select="f:html-attributes($node, $id, $class, $node/@role, $node/@h:*)"/>
+
+  <xsl:variable name="extra-classes"
+                select="(if ($node/@role)
+                         then string($node/@role)
+                         else (),
+                         if ($node/@revision)
+                         then concat('rf-', $node/@revision)
+                         else ())"/>
+
+  <xsl:sequence select="f:html-attributes($node, $id, $class, $extra-classes, $node/@h:*)"/>
 </xsl:function>
 
 <xsl:function name="f:html-attributes" as="attribute()*">
@@ -698,12 +745,14 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
   <xsl:param name="extra-attrs" as="attribute()*"/>
 
   <xsl:if test="exists($id)">
-    <xsl:attribute name="id" select="($id,$node/@xml:id)[1]"/>
+    <xsl:attribute name="id" select="$id"/>
   </xsl:if>
 
-  <xsl:if test="$node/@dir">
-    <xsl:copy-of select="$node/@dir"/>
-  </xsl:if>
+  <!-- Copy the writing direction and the RDFa attributes through, if they're present -->
+  <xsl:for-each select="($node/@dir, $node/@vocab, $node/@typeof, $node/@property,
+                         $node/@resource, $node/@prefix)">
+    <xsl:copy/>
+  </xsl:for-each>
 
   <xsl:if test="$node/@xml:lang">
     <xsl:call-template name="lang-attribute">
@@ -718,7 +767,14 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
   <xsl:sequence select="f:html-class($node, $class, $extra-classes)"/>
 
   <xsl:for-each select="$extra-attrs">
-    <xsl:attribute name="{local-name(.)}" select="string(.)"/>
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) = 'http://www.w3.org/1999/xhtml'">
+        <xsl:attribute name="{local-name(.)}" select="string(.)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:attribute name="{node-name(.)}" select="string(.)"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:for-each>
 </xsl:function>
 

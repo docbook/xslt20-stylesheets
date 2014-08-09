@@ -24,7 +24,6 @@
   <xsl:include href="../common/title-content.xsl"/>
   <xsl:include href="../common/inlines.xsl"/>
   <xsl:include href="../common/olink.xsl"/>
-  <xsl:include href="../common/preprocess.xsl"/>
   <xsl:include href="../common/titlepages.xsl"/>
   <xsl:include href="titlepage-templates.xsl"/>
   <xsl:include href="titlepage-mode.xsl"/>
@@ -69,24 +68,22 @@
 <xsl:param name="stylesheet.result.type" select="'xhtml'"/>
 
 <xsl:template match="/">
-  <xsl:variable name="root" as="element()"
-		select="f:docbook-root-element(f:preprocess(/),$rootid)"/>
-
   <xsl:if test="$verbosity &gt; 3">
     <xsl:message>Styling...</xsl:message>
   </xsl:if>
 
   <html>
     <xsl:call-template name="t:head">
-      <xsl:with-param name="node" select="$root"/>
+      <xsl:with-param name="node" select="/*"/>
     </xsl:call-template>
     <body>
       <xsl:call-template name="t:body-attributes"/>
-      <xsl:if test="$root/@status">
-        <xsl:attribute name="class" select="$root/@status"/>
+      <xsl:if test="/*/@status">
+        <xsl:attribute name="class" select="/*/@status"/>
       </xsl:if>
 
-      <xsl:apply-templates select="$root"/>
+      <xsl:apply-templates/>
+      <xsl:call-template name="t:syntax-highlight-body"/>
     </body>
   </html>
 

@@ -15,16 +15,22 @@
     </jing>
 
     <echo>Adding missing translations from English master localization...</echo>
-    <xslt2 style="../tools/build-l10n.xsl" destdir="build" basedir="src" includes="*.xml">
+    <xslt style="../tools/build-l10n.xsl"
+          destdir="build" basedir="src" includes="*.xml">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
       <param name="en.locale.file" expression="en.xml"/>
       <mapper type="identity"/>
-    </xslt2>
+    </xslt>
   </target>
 
   <target name="plugins" depends="all">
-    <xslt2 style="../tools/build-plugins.xsl" destdir="build/docbook" basedir="build" includes="*.xml">
+    <xslt style="../tools/build-plugins.xsl"
+          destdir="build/docbook" basedir="build" includes="*.xml">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon.classpath"/>
       <mapper type="glob" from="*.xml" to="*.xqy"/>
-    </xslt2>
+    </xslt>
   </target>
 
   <target name="clean">

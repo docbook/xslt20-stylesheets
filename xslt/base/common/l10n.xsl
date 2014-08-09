@@ -864,7 +864,8 @@ the English locale value will be used as the default.</para>
 
   <xsl:choose>
     <xsl:when test="function-available('mldb:check-locale')">
-      <xsl:sequence use-when="function-available('mldb:check-locale')"
+      <!-- Can't use function available because it's not static!? -->
+      <xsl:sequence use-when="system-property('xsl:vendor')='MarkLogic Corporation'"
                     select="mldb:check-locale($lang)"/>
     </xsl:when>
     <xsl:otherwise>
@@ -872,8 +873,6 @@ the English locale value will be used as the default.</para>
           select="doc-available(f:resolve-path(concat($lang,'.xml'), $l10n.locale.dir))"/>
     </xsl:otherwise>
   </xsl:choose>
-
-
 </xsl:function>
 
 <!-- ============================================================ -->
@@ -942,7 +941,7 @@ the English locale value will be used as the default.</para>
 
   <xsl:choose>
     <xsl:when test="function-available('mldb:load-locale')">
-      <xsl:sequence use-when="function-available('mldb:load-locale')"
+      <xsl:sequence use-when="system-property('xsl:vendor')='MarkLogic Corporation'"
                     select="mldb:load-locale($lang)"/>
     </xsl:when>
     <xsl:otherwise>

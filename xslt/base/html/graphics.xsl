@@ -604,6 +604,14 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
             <xsl:value-of select="$html.width"/>
           </xsl:attribute>
         </xsl:if>
+        <!-- align the table so that the viewport is aligned -->
+<!-- or not
+        <xsl:if test="@align">
+          <xsl:attribute name="align">
+            <xsl:value-of select="@align"/>
+          </xsl:attribute>
+        </xsl:if>
+-->
         <tr>
           <xsl:if test="$html.depth != '' and $depth-units != '%'">
             <!-- don't do this for percentages because browsers get confused -->
@@ -1041,6 +1049,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
       <xsl:value-of select="."/>
     </xsl:when>
     <xsl:otherwise>
+      <xsl:value-of select="f:resolve-path(.,base-uri(.))"/>
+<!--
       <xsl:variable name="absuri" select="f:resolve-path(.,base-uri(.))"/>
       <xsl:choose>
         <xsl:when test="starts-with($absuri, 'file://')">
@@ -1053,6 +1063,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
           <xsl:value-of select="$absuri"/>
         </xsl:otherwise>
       </xsl:choose>
+-->
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

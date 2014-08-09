@@ -16,36 +16,46 @@
 		exclude-result-prefixes="doc h f m mp fn db t ext xdmp xs tp"
                 version="2.0">
 
-<xsl:include href="verbatim-patch.xsl"/>
-
-<xsl:param name="pygments-default" select="0"/>
-<xsl:param name="pygmenter-uri" select="''"/>
-
 <xsl:template match="db:programlistingco|db:screenco">
-  <xsl:variable name="areas-unsorted" as="element()*">
-    <xsl:apply-templates select="db:areaspec"/>
-  </xsl:variable>
-
-  <xsl:variable name="areas" as="element()*"
-                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral">
-    <xsl:for-each select="$areas-unsorted">
-      <xsl:sort data-type="number" select="@ghost:line"/>
-      <xsl:sort data-type="number" select="@ghost:col"/>
-      <xsl:sort data-type="number" select="@ghost:number"/>
-      <xsl:if test="@ghost:line">
-	<xsl:copy-of select="."/>
-      </xsl:if>
+  <xsl:variable name="lines" as="xs:string*">
+    <xsl:for-each select="db:areaspec//db:area">
+      <xsl:choose>
+        <xsl:when test="@units = 'linecolumn' or not(@units)">
+          <xsl:value-of select="tokenize(@coords,'\s+')[1]"/>
+        </xsl:when>
+        <xsl:when test="@units = 'linerange'">
+          <xsl:variable name="l1" select="tokenize(@coords,'\s+')[1]"/>
+          <xsl:variable name="l2" select="tokenize(@coords,'\s+')[2]"/>
+          <xsl:if test="$l1 ne '' and $l2 ne ''">
+            <xsl:value-of select="concat($l1,'-',$l2)"/>
+          </xsl:if>
+        </xsl:when>
+        <xsl:when test="@units = 'linecolumnpair'">
+          <xsl:variable name="l1" select="tokenize(@coords,'\s+')[1]"/>
+          <xsl:variable name="l2" select="tokenize(@coords,'\s+')[3]"/>
+          <xsl:if test="$l1 ne '' and $l2 ne ''">
+            <xsl:value-of select="concat($l1,'-',$l2)"/>
+          </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:message>
+            <xsl:text>Unable to process area with </xsl:text>
+            <xsl:value-of select="@units"/>
+            <xsl:text> coords.</xsl:text>
+          </xsl:message>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:for-each>
   </xsl:variable>
 
   <xsl:apply-templates select="db:programlisting|db:screen" mode="m:verbatim">
-    <xsl:with-param name="areas" select="$areas"/>
+    <xsl:with-param name="lines" select="$lines"/>
   </xsl:apply-templates>
-
   <xsl:apply-templates select="db:calloutlist"/>
 </xsl:template>
 
-<xsl:template match="db:programlisting|db:address|db:screen|db:synopsis|db:literallayout">
+<xsl:template match="db:programlisting|db:address|db:screen
+                     |db:synopsis|db:literallayout">
   <xsl:apply-templates select="." mode="m:verbatim"/>
 </xsl:template>
 
@@ -59,245 +69,167 @@
 </refdescription>
 </doc:mode>
 
-<xsl:template match="db:programlisting|db:screen|db:synopsis
-		     |db:literallayout[@class='monospaced']"
+<xsl:function name="f:lastLineNumber" as="xs:decimal">
+  <xsl:param name="listing" as="element()"/>
+
+  <xsl:variable name="startnum" as="xs:decimal">
+    <xsl:choose>
+      <xsl:when test="$listing/@continuation != 'continues'">
+        <xsl:value-of select="0"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:variable name="prev"
+             select="$listing/preceding::*[node-name(.)=node-name($listing)][1]"/>
+        <xsl:choose>
+          <xsl:when test="empty($prev)">
+            <xsl:value-of select="0"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="f:lastLineNumber($prev)"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="alltext" select="string-join($listing//text(), ' ')"/>
+  <xsl:value-of select="count(tokenize($alltext,'&#10;'))"/>
+</xsl:function>
+
+<xsl:template match="db:programlisting|db:synopsis"
 	      mode="m:verbatim">
-  <xsl:call-template name="tp:format-as-verbatim"/>
+  <xsl:param name="lines" select="()" as="xs:string*"/>
+  <xsl:variable name="this" select="."/>
+
+  <xsl:variable name="startno" as="xs:decimal">
+    <xsl:choose>
+      <xsl:when test="@startinglinenumber">
+        <xsl:value-of select="xs:decimal(@startinglinenumber) - 1"/>
+      </xsl:when>
+      <xsl:when test="@continuation = 'continues'">
+        <xsl:variable name="prev"
+             select="preceding::*[node-name(.)=node-name($this)][1]"/>
+        <xsl:choose>
+          <xsl:when test="empty($prev)">
+            <xsl:value-of select="0"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="f:lastLineNumber($prev)"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="0"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="numbered" as="xs:boolean"
+                select="f:lineNumbering(.,'everyNth') != 0"/>
+
+  <xsl:variable name="data-attr" as="attribute()*">
+    <xsl:choose>
+      <xsl:when test="$syntax-highlighter = '0'">
+        <!-- nop -->
+      </xsl:when>
+      <xsl:when test="empty($lines)">
+        <xsl:if test="$startno != 0 and $numbered">
+          <xsl:attribute name="data-start" select="$startno + 1"/>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:choose>
+          <xsl:when test="$startno != 0">
+            <xsl:attribute name="data-line-offset" select="$startno"/>
+            <xsl:variable name="adj-lines" as="xs:string*">
+              <xsl:for-each select="$lines">
+                <xsl:choose>
+                  <xsl:when test="contains(.,'-')">
+                    <xsl:variable name="l1" select="substring-before(.,'-')"/>
+                    <xsl:variable name="l2" select="substring-after(.,'-')"/>
+                    <xsl:value-of select="concat(xs:decimal($l1) + $startno,
+                                                 '-',
+                                                 xs:decimal($l2) + $startno)"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="xs:decimal(.) + $startno"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:for-each>
+            </xsl:variable>
+            <xsl:attribute name="data-line" select="string-join($adj-lines,',')"/>
+          </xsl:when>
+          <xsl:otherwise>
+          <xsl:attribute name="data-line" select="string-join($lines,',')"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="pre" as="element()">
+    <pre>
+      <xsl:sequence select="$data-attr"/>
+      <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
+                                              f:syntax-highlight-class($this))"/>
+      <code>
+        <xsl:apply-templates/>
+      </code>
+    </pre>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="$syntax-highlighter = '0' and $numbered">
+      <div class="numbered-verbatim">
+        <table border="0">
+          <tr>
+            <td align="right" valign="top">
+              <pre class="line-numbers">
+                <xsl:for-each
+                    select="tokenize(string-join($pre/h:code//text(),''),'&#10;')">
+                  <code class="line-number">
+                    <xsl:value-of select="position() + $startno"/>
+                  </code>
+                  <xsl:text>&#10;</xsl:text>
+                </xsl:for-each>
+              </pre>
+            </td>
+            <td valign="top">
+              <xsl:sequence select="$pre"/>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </xsl:when>
+    <xsl:when test="$syntax-highlighter = '0'"> <!-- and not($numbered) -->
+      <div class="unnumbered-verbatim">
+        <xsl:sequence select="$pre"/>
+      </div>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:sequence select="$pre"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="db:screen|db:literallayout[@class='monospaced']"
+	      mode="m:verbatim">
+  <xsl:variable name="this" select="."/>
+  <pre>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
+                                            f:syntax-highlight-class($this))"/>
+    <xsl:apply-templates/>
+  </pre>
 </xsl:template>
 
 <xsl:template match="db:literallayout|db:address"
 	      mode="m:verbatim">
-  <xsl:variable name="asTable" select="f:lineNumbering(.,'asTable')" as="xs:boolean"/>
-  <xsl:choose>
-    <xsl:when test="$asTable">
-      <xsl:call-template name="tp:format-as-verbatim"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:variable name="verbatim" as="node()*">
-        <xsl:apply-templates/>
-      </xsl:variable>
-      <xsl:variable name="formatted" as="node()*">
-        <xsl:call-template name="t:verbatim-patch-html">
-          <xsl:with-param name="content" select="$verbatim"/>
-        </xsl:call-template>
-      </xsl:variable>
-      <div>
-        <xsl:sequence select="f:html-attributes(.)"/>
-        <xsl:apply-templates select="$formatted" mode="mp:literallayout"/>
-      </div>
-    </xsl:otherwise>
-  </xsl:choose>
+  <xsl:variable name="this" select="."/>
+  <pre>
+    <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
+                                            f:syntax-highlight-class($this))"/>
+    <xsl:apply-templates/>
+  </pre>
 </xsl:template>
-
-<xsl:template name="tp:format-as-verbatim">
-  <xsl:param name="areas" select="()"/>
-
-  <xsl:variable name="pygments-pi" as="xs:string?"
-                select="f:pi(/processing-instruction('dbhtml'), 'pygments')"/>
-
-  <xsl:variable name="use-pygments" as="xs:boolean"
-                select="$pygments-pi = 'true' or $pygments-pi = 'yes' or $pygments-pi = '1'
-                        or (contains(@role,'pygments') and not(contains(@role,'nopygments')))"/>
-
-  <xsl:variable name="verbatim" as="node()*">
-    <!-- n.b. look below where the class attribute is computed -->
-    <xsl:choose>
-      <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000
-                      or self::db:literallayout or exists(*)">
-        <xsl:apply-templates/>
-      </xsl:when>
-      <xsl:when test="$pygments-default = 0 and not($use-pygments)">
-        <xsl:apply-templates/>
-      </xsl:when>
-      <xsl:when use-when="function-available('xdmp:http-post')"
-                test="$pygmenter-uri != ''">
-        <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
-      </xsl:when>
-      <xsl:when use-when="function-available('ext:highlight')"
-                test="true()">
-        <xsl:sequence select="ext:highlight(string(.), string(@language))"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
-
-  <xsl:variable name="formatted" as="node()*">
-    <xsl:call-template name="t:verbatim-patch-html">
-      <xsl:with-param name="content" select="$verbatim"/>
-      <xsl:with-param name="areas" select="$areas"/>
-    </xsl:call-template>
-  </xsl:variable>
-
-  <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
-    <xsl:attribute name="class">
-      <xsl:value-of select="string-join((local-name(.), @role), ' ')"/>
-      <!-- n.b. look above where $verbatim is computed -->
-      <xsl:choose>
-        <xsl:when test="contains(@role,'nopygments') or string-length(.) &gt; 9000
-                        or self::db:literallayout or exists(*)"/>
-        <xsl:when test="$pygments-default = 0 and not($use-pygments)"/>
-        <xsl:when use-when="function-available('xdmp:http-post')"
-                  test="$pygmenter-uri != ''">
-          <xsl:value-of select="' highlight'"/>
-        </xsl:when>
-        <xsl:when use-when="function-available('ext:highlight')"
-                  test="true()">
-          <xsl:value-of select="' highlight'"/>
-        </xsl:when>
-        <xsl:otherwise/>
-      </xsl:choose>
-    </xsl:attribute>
-
-    <xsl:variable name="asTable" select="f:lineNumbering(.,'asTable')" as="xs:boolean"/>
-
-    <xsl:choose>
-      <xsl:when test="$asTable">
-        <xsl:variable name="startnum" as="xs:decimal">
-          <xsl:choose>
-            <xsl:when test="not(@continuation) or @continuation != 'continues'">
-              <xsl:value-of select="0"/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:variable name="prev"
-                            select="preceding::*[node-name(.)=node-name(.)][1]"/>
-              <xsl:choose>
-                <xsl:when test="empty($prev)">
-                  <xsl:value-of select="0"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="f:lastLineNumber($prev)"/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-
-        <xsl:variable name="everyNth" select="f:lineNumbering(.,'everyNth')" as="xs:integer"/>
-        <xsl:variable name="minlines" select="f:lineNumbering(.,'minlines')" as="xs:integer"/>
-
-        <xsl:variable name="lines" select="tokenize(string-join($formatted, ' '), '&#10;')"/>
-
-        <xsl:variable name="wrapper"
-                      select="if ((self::db:literallayout and not(@class='monospaced'))
-                                   or self::db:address)
-                              then 'div'
-                              else 'pre'"/>
-
-        <table class="verbatimlined" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td valign="top" align="right" class="verbatimlinenumbers">
-              <xsl:element name="{$wrapper}">
-                <xsl:for-each select="$lines">
-                  <xsl:variable name="linenumber" select="position() + $startnum"/>
-                  <div class="verbatimline verbatimlinenumber {
-                              if (position() mod 2 = 0) then 'verbatimeven' else 'verbatimodd'
-                              }">
-                    <div class="vlcontent">
-                      <xsl:if test="position() = 1 or ($everyNth = 0) or ($linenumber mod $everyNth = 0)">
-                        <xsl:value-of select="$linenumber"/>
-                      </xsl:if>
-                      <xsl:text>&#10;</xsl:text>
-                    </div>
-                  </div>
-                </xsl:for-each>
-              </xsl:element>
-            </td>
-            <td valign="top" align="left" class="verbatimlines">
-              <xsl:element name="{$wrapper}">
-                <xsl:if test="@language">
-                  <xsl:attribute name="class" select="@language"/>
-                </xsl:if>
-                <xsl:sequence select="$formatted"/>
-              </xsl:element>
-            </td>
-          </tr>
-        </table>
-      </xsl:when>
-      <xsl:otherwise>
-        <!-- Removed spaces before xsl:attribute so that if <pre> is schema validated
-             and magically grows an xml:space="preserve" attribute, the processor
-             doesn't fall over because we've added an attribute after a text node.
-             Maybe this only happens in MarkLogic. Maybe it's a bug. For now: whatever. -->
-        <pre><xsl:if test="@language"><xsl:attribute name="class" select="@language"/></xsl:if><xsl:sequence select="$formatted"/></pre>
-      </xsl:otherwise>
-    </xsl:choose>
-  </div>
-</xsl:template>
-
-<xsl:template match="*" mode="mp:literallayout">
-  <xsl:copy>
-    <xsl:copy-of select="@*"/>
-    <xsl:apply-templates mode="mp:literallayout"/>
-  </xsl:copy>
-</xsl:template>
-
-<xsl:template match="comment()|processing-instruction()"
-	      mode="mp:literallayout">
-  <xsl:copy/>
-</xsl:template>
-
-<xsl:template match="text()" mode="mp:literallayout">
-  <xsl:choose>
-    <xsl:when test="system-property('xsl:vendor') = 'MarkLogic Corporation'">
-      <xsl:variable name="parts" as="item()*">
-        <xsl:analyze-string select="." regex="&#10;">
-          <xsl:matching-substring>
-            <wrap><br/><xsl:text>&#10;</xsl:text></wrap>
-          </xsl:matching-substring>
-          <xsl:non-matching-substring>
-            <xsl:analyze-string select="." regex="[\s]">
-              <xsl:matching-substring>
-                <wrap><xsl:text>&#160;</xsl:text></wrap>
-              </xsl:matching-substring>
-              <xsl:non-matching-substring>
-                <wrap><xsl:copy/></wrap>
-              </xsl:non-matching-substring>
-            </xsl:analyze-string>
-          </xsl:non-matching-substring>
-        </xsl:analyze-string>
-      </xsl:variable>
-      <xsl:for-each select="$parts/node()">
-        <xsl:sequence select="./node()"/>
-      </xsl:for-each>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:analyze-string select="." regex="&#10;">
-        <xsl:matching-substring>
-          <br/><xsl:text>&#10;</xsl:text>
-        </xsl:matching-substring>
-        <xsl:non-matching-substring>
-          <xsl:analyze-string select="." regex="[\s]">
-            <xsl:matching-substring>
-              <xsl:text>&#160;</xsl:text>
-            </xsl:matching-substring>
-            <xsl:non-matching-substring>
-              <xsl:copy/>
-            </xsl:non-matching-substring>
-          </xsl:analyze-string>
-        </xsl:non-matching-substring>
-      </xsl:analyze-string>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
-
-<!-- This is a highlight implementation that works on MarkLogic server.
-     It relies on a web service to perform the actual highlighting. -->
-<xsl:function use-when="function-available('xdmp:http-post')"
-              name="ext:highlight" as="node()*">
-  <xsl:param name="code"/>
-  <xsl:param name="language"/>
-
-  <xsl:variable name="code-node" as="text()">
-    <xsl:value-of select="$code"/>
-  </xsl:variable>
-
-  <xsl:variable name="highlighted"
-                select="xdmp:http-post(concat($pygmenter-uri,'?language=',$language),(),$code-node)"/>
-
-  <xsl:sequence select="$highlighted[2]//h:pre/node()"/>
-</xsl:function>
 
 </xsl:stylesheet>
