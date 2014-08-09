@@ -224,7 +224,7 @@
 
 <xsl:template match="db:foil">
   <div class="{ if (parent::db:slides and preceding-sibling::db:foilgroup)
-                then 'foil titlefoil foilgroup'
+                then 'foil closingfoil'
                 else 'foil' }">
     <div class="page">
       <div class="header">
@@ -291,21 +291,21 @@
     <xsl:choose>
       <xsl:when test="exists($prev)">
         <a href="javascript:clicknav('prev')">
-          <img src="{$resource.root}../slides/img/transparent.gif" alt="[Prev]"/>
+          <img src="{$resource.root}img/transparent.gif" alt="[Prev]"/>
         </a>
       </xsl:when>
       <xsl:otherwise>
-        <img src="{$resource.root}../slides/img/transparent.gif" alt="[Prev]"/>
+        <img src="{$resource.root}img/transparent.gif" alt="[Prev]"/>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:choose>
       <xsl:when test="exists($next)">
         <a href="javascript:clicknav('next')">
-          <img src="{$resource.root}../slides/img/transparent.gif" alt="[Next]"/>
+          <img src="{$resource.root}img/transparent.gif" alt="[Next]"/>
         </a>
       </xsl:when>
       <xsl:otherwise>
-        <img src="{$resource.root}../slides/img/transparent.gif" alt="[Next]"/>
+        <img src="{$resource.root}img/transparent.gif" alt="[Next]"/>
       </xsl:otherwise>
     </xsl:choose>
   </div>
