@@ -46,7 +46,7 @@ stylesheets to make use of the cross reference style:</para>
 &lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0"&gt;
 
-&lt;xsl:import href="../xsl/html/docbook.xsl"/&gt;
+&lt;xsl:import href="../base/html/final-pass.xsl"/&gt;
 
 &lt;xsl:output method="html"/&gt;
 
