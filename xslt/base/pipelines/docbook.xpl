@@ -1,6 +1,8 @@
 <p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
                 xmlns:db="http://docbook.org/ns/docbook"
-                name="main" version="1.0">
+                xmlns:dbp="http://docbook.github.com/ns/pipeline"
+                name="main" version="1.0" exclude-inline-prefixes="dbp"
+                type="dbp:docbook">
 <p:input port="source" sequence="true"/>
 <p:input port="parameters" kind="parameter"/>
 <p:output port="result" sequence="true"/>
@@ -28,7 +30,7 @@
   <p:input port="parameters">
     <p:empty/>
   </p:input>
-  <!--<p:log port="result" href="/tmp/00-logstruct.xml"/>-->
+  <!-- <p:log port="result" href="/tmp/00-logstruct.xml"/> -->
 </p:xslt>
 
 <p:choose name="db4to5">
@@ -114,20 +116,32 @@
   <!-- <p:log port="result" href="/tmp/ex.xml"/> -->
 </p:xslt>
 
-<p:xslt name="preprocessed">
+<p:delete match="@ghost:*"
+          xmlns:ghost="http://docbook.org/ns/docbook/ephemeral">
   <p:input port="source">
     <p:pipe step="expand-linkbases" port="result"/>
   </p:input>
+</p:delete>
+
+<p:xslt name="preprocessed">
   <p:input port="stylesheet">
     <p:pipe step="inline-xlinks" port="result"/>
   </p:input>
   <!-- <p:log port="result" href="/tmp/doc.xml"/> -->
 </p:xslt>
 
-<p:choose>
+<p:choose name="final-pass">
   <p:when test="$format = 'html'">
-    <p:choose>
+    <p:output port="result" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:pipe step="format-html" port="secondary"/>
+    </p:output>
+    <p:choose name="format-html">
       <p:when test="$style = 'docbook'">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="html-docbook" port="secondary"/>
+        </p:output>
         <p:xslt name="html-docbook">
           <p:input port="stylesheet">
             <p:document href="../html/final-pass.xsl"/>
@@ -139,6 +153,10 @@
         </p:xslt>
       </p:when>
       <p:when test="$style = 'slides'">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="html-slides" port="secondary"/>
+        </p:output>
         <p:xslt name="html-slides">
           <p:input port="stylesheet">
             <p:document href="../../slides/html/plain.xsl"/>
@@ -150,6 +168,10 @@
         </p:xslt>
       </p:when>
       <p:when test="$style = 'slide-notes'">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="html-slides-notes" port="secondary"/>
+        </p:output>
         <p:xslt name="html-slides-notes">
           <p:input port="stylesheet">
             <p:document href="../../slides/html/plain-notes.xsl"/>
@@ -161,6 +183,10 @@
         </p:xslt>
       </p:when>
       <p:when test="$style = 'publishers'">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="html-publishers" port="secondary"/>
+        </p:output>
         <p:xslt name="html-publishers">
           <p:input port="stylesheet">
             <p:document href="../../publishers/html/publishers.xsl"/>
@@ -172,7 +198,11 @@
         </p:xslt>
       </p:when>
       <p:when test="$style = 'chunk'">
-        <p:xslt name="html-chunks">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="html-chunk" port="secondary"/>
+        </p:output>
+        <p:xslt name="html-chunk">
           <p:input port="stylesheet">
             <p:document href="../html/chunk.xsl"/>
           </p:input>
@@ -181,31 +211,12 @@
           </p:input>
           <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
-
-        <p:for-each>
-          <p:iteration-source>
-            <p:pipe step="html-chunks" port="secondary"/>
-          </p:iteration-source>
-          <p:store name="store-chunk" method="html">
-            <p:with-option name="href" select="base-uri(/)"/>
-          </p:store>
-          <cx:message xmlns:cx="http://xmlcalabash.com/ns/extensions">
-            <p:input port="source">
-              <p:pipe step="store-chunk" port="result"/>
-            </p:input>
-            <p:with-option name="message" select="concat('Chunk: ', .)">
-              <p:pipe step="store-chunk" port="result"/>
-            </p:with-option>
-          </cx:message>
-        </p:for-each>
-
-        <p:identity>
-          <p:input port="source">
-            <p:pipe step="html-chunks" port="result"/>
-          </p:input>
-        </p:identity>
       </p:when>
       <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="html-user-cwd" port="secondary"/>
+        </p:output>
         <!-- This relies on an XML Calabash extension function as a user
              convenience. I'm open to suggestions... -->
         <p:load name="load-style">
@@ -228,8 +239,16 @@
     </p:choose>
   </p:when>
   <p:when test="$format = 'print'">
-    <p:choose>
+    <p:output port="result" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:pipe step="format-print" port="secondary"/>
+    </p:output>
+    <p:choose name="format-print">
       <p:when test="$style = 'docbook'">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="print-docbook" port="secondary"/>
+        </p:output>
         <p:xslt name="print-docbook">
           <p:input port="stylesheet">
             <p:document href="../print/final-pass.xsl"/>
@@ -241,6 +260,10 @@
         </p:xslt>
       </p:when>
       <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="print-user-cwd" port="secondary"/>
+        </p:output>
         <!-- This relies on an XML Calabash extension function as a user
              convenience. I'm open to suggestions... -->
         <p:load name="load-style">
@@ -264,8 +287,16 @@
   </p:when>
   <!-- Assume legacy FO -->
   <p:otherwise>
-    <p:choose>
+    <p:output port="result" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:pipe step="print-fo" port="secondary"/>
+    </p:output>
+    <p:choose name="print-fo">
       <p:when test="$style = 'docbook'">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="fo-docbook" port="secondary"/>
+        </p:output>
         <p:xslt name="fo-docbook">
           <p:input port="stylesheet">
             <p:document href="../fo/final-pass.xsl"/>
@@ -277,6 +308,10 @@
         </p:xslt>
       </p:when>
       <p:when test="$style = 'slides'">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="fo-slides" port="secondary"/>
+        </p:output>
         <p:xslt name="fo-slides">
           <p:input port="stylesheet">
             <p:document href="../../slides/fo/plain.xsl"/>
@@ -288,6 +323,10 @@
         </p:xslt>
       </p:when>
       <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
+        <p:output port="result" primary="true"/>
+        <p:output port="secondary" sequence="true">
+          <p:pipe step="fo-user-cwd" port="secondary"/>
+        </p:output>
         <!-- This relies on an XML Calabash extension function as a user
              convenience. I'm open to suggestions... -->
         <p:load name="load-style">
@@ -308,6 +347,57 @@
         </p:xslt>
       </p:otherwise>
     </p:choose>
+  </p:otherwise>
+</p:choose>
+
+<p:choose>
+  <p:when test="$format = 'html' or $format = 'print'">
+    <p:for-each>
+      <p:iteration-source>
+        <p:pipe step="final-pass" port="secondary"/>
+      </p:iteration-source>
+      <p:store name="store-chunk" method="html">
+        <p:with-option name="href" select="base-uri(/)"/>
+      </p:store>
+      <cx:message xmlns:cx="http://xmlcalabash.com/ns/extensions">
+        <p:input port="source">
+          <p:pipe step="store-chunk" port="result"/>
+        </p:input>
+        <p:with-option name="message" select="concat('Chunk: ', .)">
+          <p:pipe step="store-chunk" port="result"/>
+        </p:with-option>
+      </cx:message>
+    </p:for-each>
+    <p:sink/>
+    <p:identity>
+      <p:input port="source">
+        <p:pipe step="final-pass" port="result"/>
+      </p:input>
+    </p:identity>
+  </p:when>
+  <p:otherwise>
+    <p:for-each>
+      <p:iteration-source>
+        <p:pipe step="final-pass" port="secondary"/>
+      </p:iteration-source>
+      <p:store name="store-chunk" method="xml">
+        <p:with-option name="href" select="base-uri(/)"/>
+      </p:store>
+      <cx:message xmlns:cx="http://xmlcalabash.com/ns/extensions">
+        <p:input port="source">
+          <p:pipe step="store-chunk" port="result"/>
+        </p:input>
+        <p:with-option name="message" select="concat('Chunk: ', .)">
+          <p:pipe step="store-chunk" port="result"/>
+        </p:with-option>
+      </cx:message>
+    </p:for-each>
+    <p:sink/>
+    <p:identity>
+      <p:input port="source">
+        <p:pipe step="final-pass" port="result"/>
+      </p:input>
+    </p:identity>
   </p:otherwise>
 </p:choose>
 
