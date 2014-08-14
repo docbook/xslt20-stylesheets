@@ -3,109 +3,94 @@
          version="5.0">
 <title>Release Notes</title>
 
-<para>This document summarizes the significant changes since the 2.0.2
-release. There's nothing significant about the order in which they're listed.</para>
+<para>This document summarizes the significant changes since the 2.0.3
+release. It's been a long time since I did a release, no doubt I've
+tinkered with things that aren't well documented. Mea culpa. There's
+nothing significant about the order in which the changes are listed.</para>
 
-<para>That said: the big one is first.</para>
+<para>That said: the big ones are first.</para>
 
 <orderedlist>
 <listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/872c7d5759c00426bac4823af02c684c9e9102d2">Converted</link>
-a number of div elements into more semantic HTML5 elements (<tag>article</tag>,
-<tag>section</tag>, etc.).
-</para>
+<para>DocBook processing has for some time now been a multi-stage process.
+I've decided to break these stages out separately for ease of maintenance
+and configurability.</para>
+
+<para>There's an XProc pipeline in the
+<filename class="directory">/pipelines/</filename> directory that runs
+them all. For convenience, I've also provided an Ant build script and
+a MarkLogic query module to perform the pipelining.</para>
 </listitem>
+
 <listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/efe2d0d00869897c912f5c1ab0a1051483201654">Fixed</link> <tag>lineannotation</tag> formatting.
+<para>I've (largely) abandoned attempts to do “server side” pretty printing
+of verbatim environments. I was more-or-less happy with Pygments, but as
+Jython development hasn't kept up with Python development (AFAICT) it's
+become too difficult to make it work. Also, the effort expended by the stylesheets
+to do the pretty printing was significant and could be quite slow.</para>
+<para>Modern sites seem to rely on client-side pretty printing, so I'm going
+to give that a try. Some of the “server side” work will be preserved for
+the “XHTML for print” stylesheets, but I don't know how that's going to
+shake out.</para>
+<para>In the short term, I've selected
+<citetitle xlink:href="http://prismjs.com/">Prism</citetitle> for the
+rendering. It's small, efficient, and seems well supported. I was able to
+make <tag>programlistingco</tag> elements perform both line and line range
+highlighting with it, which I thought was a nice touch.</para>
+
+<para>There's a small Prism configuration in the DocBook github “CDN”.
+You're encouraged to customize the stylesheets to use your own configuration.
 </para>
+
+<para>If you've got a strong preference for some other client-side
+pretty printer, let me know. I'm willing to attempt to make the stylesheets
+support more than one, if there's sufficient interest.</para>
 </listitem>
+
 <listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/dfb8e5e73f8c3aee8a9e915971368dc723ef6908">Added</link> localization template for annotation titles.
-<link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/9bdbef3a045136eb24b02acb21482642bf516c70">Fixed</link>
-bugs in annotation support.
+<para>I've (provisionally, perhaps) decided to abandon development of
+the XSL FO stylesheets. Honestly, they were never very good in the
+XSLT 2.0 stylesheets anyway. If you still want to use FO, your best
+bet is probably the XSLT 1.0 stylesheets.</para>
+<para>With the <citetitle xlink:href="http://www.w3.org/XML/XPPL/">XML
+Print and Page Layout Working Group</citetitle> shuttered, it seems unlikely
+that there will be significant further developments in XSL FO.
+</para>
+<para>Attention now seems to be focused (I observe without comment) on
+development of CSS facilities for doing paged layout. I will be working on
+“XHTML for print” stylesheets that can take advantage of those facilities.
 </para>
 </listitem>
+
 <listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/8cb7c7d35defa38b01018ed2a408b4b5311efbe8">Added</link>
-a <parameter>default.table.column.widths</parameter>
-parameter to allow a user to suppress default column widths when none
-are specified in the DocBook (CALS) table.
-In an effort to make it easier to control table style with CSS,
-added
-a “<literal>tcol<replaceable>n</replaceable></literal>” class to each table
-column.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/6eab30a2aa70e6495b820774557f17ff837e6fc5">Fixed</link>
+processing of HTML attributes in some environments.
 </para>
 </listitem>
+
 <listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/3597d4debb738ac412d13304b4c25780f033feea">Added</link>
-support for plugins (and other mechanisms) to load localization data in MarkLogic server.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/166cf1c55550b2076b309a7d219b92a062285346">Fixed</link>
+a bug in <function>f:resolve-path</function>
 </para>
 </listitem>
+
 <listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/9bad461dab742ae1182f098f8922399bdf03d4c4">Fiddled</link>
-with nesting of divs in chunks to better support CSS styling of the footer.
-</para>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/234d2a87fae4073a0c57be57a5e2481a5c80fa7d">Upgraded</link>
+to xspec-0.3.0; removed saxon9-ant.jar as it just didn't work anymore;
+fixed some build paths; updated to saxon 9.5.1.1.</para>
+<important>
+<para>The XSpec unit tests aren't really working at the moment due to
+the change over to a pipelined architecture. I'll be working on fixing
+that in due course.</para>
+</important>
 </listitem>
+
 <listitem>
-<para><emphasis>Greatly</emphasis> <link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/133c77e8446dc22f2b03aacb40cd57f9ad69aa6b">improved</link> chunking
-performance.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/b5858a5d48d5a13aaed99e401c3a2af0aa82dfe8">Removed</link>
+'ext'. It now lives in the
+<link xlink:href="https://github.com/docbook/xslt20-java"/> repository
 </para>
 </listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/fad3697720071e9b1eaf682440ab2c0ac6b6eed9">Fixed</link> bug where sections would sometimes be labelled even
-if they didn't appear in <parameter>autolabel.elements</parameter>.
-</para>
-</listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/c06af84537a96d9b67cdbe5ef8e54449e93bae04">Removed</link> massive
-<filename>i18n.xml</filename> and <filename>i18ndata.xsl</filename> files; dynamically
-load individual locales when needed.
-</para>
-</listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/4bd9aa609b5b7aa5adc75de599bca390a5c1f7fa">Removed</link>
-<uri>about:legacy-compat</uri> doctype as it borks XML parsers.
-</para>
-</listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/3ef5877b2c91961d79ca20ab2a292c8374920fb4">Fixed</link>
-github
-<link xlink:href="https://github.com/docbook/xslt20-stylesheets/issues/2">issue 2</link>,
-empty title causes infinite loop.
-</para>
-</listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/e638282a449229dba107df64a90fc5df3aeb08b7">Fixed</link> <tag>link</tag> processing.
-</para>
-</listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/c0fa67804bc29ea21e8ef0e6aa1aa5656df83283">Tinkered</link> with
-with CSS/JS templates for customizing; added <filename>html5.js</filename> for IE.
-</para>
-</listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/de529aede9289b8e2b1931abeaad1299956d5f1e">Rearranged</link>
-the way chunks are handled so that the whole document is available for
-cross references even when only the selected chunk (<parameter>rootid</parameter>) is
-processed
-</para>
-</listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/30cd17ed3ce36fd9e824d553ef8c0c578514ed31">Changed</link>
-condition for title foil slides to accomodate new content model in slides:
-<literal>(foil|foilgroup)+</literal>.
-</para>
-</listitem>
-<listitem>
-<para>Always <link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/85d74a9e37f5197374692f3b0d7502366bbfd69f">use
-<tag>ul</tag> for tables of contents</link>, <tag>dl</tag>s without any <tag>dd</tag>
-are not valid in HTML5
-</para>
-</listitem>
-<listitem>
-<para><link xlink:href="https://github.com/docbook/xslt20-stylesheets/commit/2e22775ef4ad6e6a5c0fb082a10b3190dcca302f">Treat</link>
-HTML table caption as title for the purposes of cross references.
-</para>
-</listitem>
+
 </orderedlist>
 </article>

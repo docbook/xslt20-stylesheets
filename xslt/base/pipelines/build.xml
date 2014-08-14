@@ -58,7 +58,7 @@
 
   <target name="docbook-print" unless="do-html">
     <xslt in="${preproc.temp}" out="${RESULT}"
-          style="../print/docbook.xsl">
+          style="../print/final-pass.xsl">
       <factory name="net.sf.saxon.TransformerFactoryImpl"/>
       <classpath refid="saxon.classpath"/>
       <param name="syntax-highlighter" expression="${syntax-highlighter}"/>
@@ -69,7 +69,7 @@
 
   <target name="docbook-html" if="do-html">
     <xslt in="${preproc.temp}" out="${RESULT}"
-          style="../html/docbook.xsl">
+          style="../html/final-pass.xsl">
       <factory name="net.sf.saxon.TransformerFactoryImpl"/>
       <classpath refid="saxon.classpath"/>
       <param name="syntax-highlighter" expression="${syntax-highlighter}"/>

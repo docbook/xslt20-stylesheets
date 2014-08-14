@@ -8,7 +8,9 @@
     <include name="*.xml"/>
   </fileset>
 
-  <target name="all">
+  <target name="all" depends="l10n,plugins"/>
+
+  <target name="l10n">
     <echo>Validating l10n files...</echo>
     <jing rngfile="../schemas/locale.rnc" compactsyntax="true" checkid="false">
       <fileset refid="l10n-files"/>
@@ -24,9 +26,9 @@
     </xslt>
   </target>
 
-  <target name="plugins" depends="all">
+  <target name="plugins" depends="l10n">
     <xslt style="../tools/build-plugins.xsl"
-          destdir="build/docbook" basedir="build" includes="*.xml">
+          destdir="build/plugins" basedir="build" includes="*.xml">
       <factory name="net.sf.saxon.TransformerFactoryImpl"/>
       <classpath refid="saxon.classpath"/>
       <mapper type="glob" from="*.xml" to="*.xqy"/>
