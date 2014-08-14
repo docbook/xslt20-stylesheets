@@ -23,12 +23,6 @@ separating them by semicolon. You can change separator character by
 <link linkend="profile.separator"><parameter>profile.separator</parameter></link>
 parameter.</para>
 
-<para>This parameter has effect only when you are using profiling
-stylesheets (<filename>profile-docbook.xsl</filename>,
-<filename>profile-chunk.xsl</filename>, …) instead of normal
-ones (<filename>docbook.xsl</filename>,
-<filename>chunk.xsl</filename>, …).</para>
-
 <warning>
 <para>Note that <tag class="attribute">role</tag> is often
 used for other purposes than profiling. For example it is commonly
