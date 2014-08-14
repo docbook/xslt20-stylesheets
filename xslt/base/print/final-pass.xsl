@@ -11,7 +11,7 @@
 		exclude-result-prefixes="h f m fn db t ghost"
                 version="2.0">
 
-  <xsl:import href="../html/docbook.xsl"/>
+  <xsl:import href="../html/final-pass.xsl"/>
 
   <xsl:param name="syntax-highlighter" select="'0'"/>
 
