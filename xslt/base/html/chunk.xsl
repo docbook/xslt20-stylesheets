@@ -12,7 +12,7 @@
                 exclude-result-prefixes="ch db f fn h m t xs"
                 version="2.0">
 
-<xsl:import href="docbook.xsl"/>
+<xsl:import href="final-pass.xsl"/>
 <xsl:include href="chunktemp.xsl"/>
 
 </xsl:stylesheet>

@@ -8,7 +8,7 @@
 		exclude-result-prefixes="db f t xs"
                 version="2.0">
 
-<xsl:import href="../../base/html/docbook.xsl"/>
+<xsl:import href="../../base/html/final-pass.xsl"/>
 
 <!-- ====================================================================== -->
 

@@ -10,7 +10,7 @@
                 exclude-result-prefixes="f t db xs m"
                 version="2.0">
 
-<xsl:import href="../../base/fo/docbook.xsl"/>
+<xsl:import href="../../base/fo/final-pass.xsl"/>
 
 <xsl:param name="group-toc" select="0"/>
 

@@ -10,7 +10,7 @@
 		exclude-result-prefixes="db f h m t xs"
                 version="2.0">
 
-<xsl:import href="../../base/html/docbook.xsl"/>
+<xsl:import href="../../base/html/final-pass.xsl"/>
 
 <xsl:param name="speaker.notes" select="0"/>
 <xsl:param name="localStorage.key" select="'slideno'"/>
