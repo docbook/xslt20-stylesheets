@@ -1,0 +1,382 @@
+<export><workspace name="DocBook"><query name="Setup Modules" focus="true" active="true" mode="xquery">xquery version "1.0-ml";
+
+import module namespace sec="http://marklogic.com/xdmp/security"
+    at "/MarkLogic/security.xqy";
+
+import module namespace hof="http://marklogic.com/higher-order"
+    at "/MarkLogic/appservices/utils/higher-order.xqy";
+
+declare default function namespace "http://www.w3.org/2005/xpath-functions";
+
+declare option xdmp:mapping "false";
+
+(: USER CONFIGURABLE PARTS: specify modules database and modules root :)
+declare variable $MODULES-DATABASE := "Modules";
+declare variable $ROOT-DIRECTORY := "/application/";
+
+declare variable $SECDB  := xdmp:database("Security");
+declare variable $MODDB  := xdmp:database($MODULES-DATABASE);
+
+let $_ := if (ends-with($ROOT-DIRECTORY, "/"))
+          then ()
+          else (error((), "$ROOT-DIRECTORY must end in a slash"))
+
+(: Create the docbook-stylesheets role... :)
+let $db-role := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-role("docbook-stylesheets", "The DocBook stylesheets role", (), (), ())
+  } catch ($e) {
+    if ($e/error:code = "SEC-ROLEEXISTS")
+    then xdmp:log("Role docbook-stylesheets already exists?")
+    else xdmp:rethrow()
+  }})
+
+(: Create the docbook-formatter execute privilege... :)
+let $form-priv := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-privilege("docbook-formatter",
+                         "http://docbook.github.com/ns/marklogic/formatter",
+                         "execute", ("docbook-stylesheets"))
+  } catch ($e) {
+    if ($e/error:code = "SEC-PRIVEXISTS")
+    then xdmp:log("Privilege docbook-formatter already exists?")
+    else xdmp:rethrow()
+  }})
+  
+(: Create the docbook-stylesheets-internal role... :)
+let $roles            := ("docbook-stylesheets")
+let $privileges       := ("http://marklogic.com/xdmp/privileges/xslt-eval",
+                          "http://marklogic.com/xdmp/privileges/xslt-invoke",
+                          "http://marklogic.com/xdmp/privileges/xdmp-eval",
+                          "http://marklogic.com/xdmp/privileges/xdmp-eval-in")
+                          
+let $db-internal-role := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-role("docbook-stylesheets-internal", "The DocBook stylesheets internal role",
+                    (), (), ())
+  } catch ($e) {
+    if ($e/error:code = "SEC-ROLEEXISTS")
+    then xdmp:log("Role docbook-stylesheets-internal already exists?")
+    else xdmp:rethrow()
+  }})
+
+let $_ := for $action in $privileges
+          return
+            hof:apply-update-in($SECDB, function () {
+              sec:privilege-add-roles($action, "execute", "docbook-stylesheets-internal")
+            })
+
+let $_ := for $role in $roles
+          return
+            hof:apply-update-in($SECDB, function () {
+              sec:role-add-roles("docbook-stylesheets-internal", $role)
+            })
+            
+(: Create the amps... :)
+let $_ := for $name in ("for-browser", "for-print", "prepare-document")
+          return
+            hof:apply-update-in($SECDB, function () {
+              try {
+                 sec:create-amp("http://docbook.github.com/ns/marklogic/pipeline",
+                                $name,
+                                concat($ROOT-DIRECTORY,
+                                       "DocBook/base/pipelines/marklogic.xqy"),
+                                $MODDB, ("docbook-stylesheets-internal"))
+              } catch ($e) {
+                if ($e/error:code = "SEC-AMPEXISTS")
+                then xdmp:log(concat("Amp exists for ", $name, " function already?"))
+                else xdmp:rethrow()
+              }})
+
+return
+  "Success"
+  </query><query name="Setup Plugins" focus="false" active="true" mode="xquery">xquery version "1.0-ml";
+
+import module namespace sec="http://marklogic.com/xdmp/security"
+    at "/MarkLogic/security.xqy";
+
+import module namespace hof="http://marklogic.com/higher-order"
+    at "/MarkLogic/appservices/utils/higher-order.xqy";
+
+import module namespace plugin="http://marklogic.com/extension/plugin"
+       at "/MarkLogic/plugin/plugin.xqy";
+
+declare default function namespace "http://www.w3.org/2005/xpath-functions";
+
+declare option xdmp:mapping "false";
+
+(: USER CONFIGURABLE PARTS: :)
+(: You must copy the DocBook plugin files to Assets/plugins/docbook/locales/ :)
+(: You must also copy the DocBook stylesheets to the Modules directory :)
+declare variable $COPIED-FILES := true();
+
+declare variable $SECDB  := xdmp:database("Security");
+declare variable $MODDB  := 0;
+
+let $_ := if ($COPIED-FILES)
+          then ()
+          else (error((), "You must copy plugins to the Assets/plugins/docbook/locales/ directory"))
+
+(: Create the docbook-stylesheets role... :)
+let $db-role := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-role("docbook-stylesheets", "The DocBook stylesheets role", (), (), ())
+  } catch ($e) {
+    if ($e/error:code = "SEC-ROLEEXISTS")
+    then xdmp:log("Role docbook-stylesheets already exists?")
+    else xdmp:rethrow()
+  }})
+
+(: Create the docbook-formatter execute privilege... :)
+let $form-priv := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-privilege("docbook-formatter",
+                         "http://docbook.github.com/ns/marklogic/formatter",
+                         "execute", ("docbook-stylesheets"))
+  } catch ($e) {
+    if ($e/error:code = "SEC-PRIVEXISTS")
+    then xdmp:log("Privilege docbook-formatter already exists?")
+    else xdmp:rethrow()
+  }})
+  
+(: Create the docbook-stylesheets-internal role... :)
+let $roles            := ("docbook-stylesheets", "application-plugin-registrar")
+let $privileges       := ("http://marklogic.com/xdmp/privileges/xslt-eval",
+                          "http://marklogic.com/xdmp/privileges/xslt-invoke",
+                          "http://marklogic.com/xdmp/privileges/xdmp-filesystem-directory",
+                          "http://marklogic.com/xdmp/privileges/xdmp-invoke",
+                          "http://marklogic.com/xdmp/privileges/xdmp-invoke-modules-change",
+                          "http://marklogic.com/xdmp/privileges/xdmp-set-server-field",
+                          "http://marklogic.com/xdmp/privileges/xdmp-set-server-field-privilege")
+                          
+let $db-internal-role := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-role("docbook-stylesheets-internal", "The DocBook stylesheets internal role",
+                    (), (), ())
+  } catch ($e) {
+    if ($e/error:code = "SEC-ROLEEXISTS")
+    then xdmp:log("Role docbook-stylesheets-internal already exists?")
+    else xdmp:rethrow()
+  }})
+
+let $_ := for $action in $privileges
+          return
+            hof:apply-update-in($SECDB, function () {
+              sec:privilege-add-roles($action, "execute", "docbook-stylesheets-internal")
+            })
+
+let $_ := for $role in $roles
+          return
+            hof:apply-update-in($SECDB, function () {
+              sec:role-add-roles("docbook-stylesheets-internal", $role)
+            })
+            
+(: Create the amps... :)
+let $_ := for $name in ("for-browser", "for-print", "prepare-document")
+          return
+            hof:apply-update-in($SECDB, function () {
+              try {
+                 sec:create-amp("http://docbook.github.com/ns/marklogic/pipeline",
+                                $name, "/DocBook/base/pipelines/marklogic.xqy",
+                                $MODDB, ("docbook-stylesheets-internal"))
+              } catch ($e) {
+                if ($e/error:code = "SEC-AMPEXISTS")
+                then xdmp:log(concat("Amp exists for ", $name, " function already?"))
+                else xdmp:rethrow()
+              }})
+              
+let $_ := plugin:install-from-filesystem("docbook.locales")
+
+return
+  "Success"
+  </query><query name="Setup Database" focus="false" active="true" mode="xquery">xquery version "1.0-ml";
+
+import module namespace sec="http://marklogic.com/xdmp/security"
+    at "/MarkLogic/security.xqy";
+
+import module namespace hof="http://marklogic.com/higher-order"
+    at "/MarkLogic/appservices/utils/higher-order.xqy";
+    
+declare namespace dir="http://marklogic.com/xdmp/directory";
+
+declare default function namespace "http://www.w3.org/2005/xpath-functions";
+
+declare option xdmp:mapping "false";
+
+(: USER CONFIGURABLE PARTS: specify DocBook locales database :)
+(: You must also copy the DocBook stylesheets to the Modules directory :)
+declare variable $LOCALE-DATABASE := "DocBook";
+declare variable $FSPATH := "/opt/MarkLogic/Modules/DocBook/base/common/locales";
+
+declare variable $SECDB  := xdmp:database("Security");
+declare variable $MODDB  := 0;
+declare variable $LOCDB  := xdmp:database($LOCALE-DATABASE);
+
+(: Create the docbook-stylesheets role... :)
+let $db-role := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-role("docbook-stylesheets", "The DocBook stylesheets role", (), (), ())
+  } catch ($e) {
+    if ($e/error:code = "SEC-ROLEEXISTS")
+    then xdmp:log("Role docbook-stylesheets already exists?")
+    else xdmp:rethrow()
+  }})
+
+(: Create the docbook-formatter execute privilege... :)
+let $form-priv := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-privilege("docbook-formatter",
+                         "http://docbook.github.com/ns/marklogic/formatter",
+                         "execute", ("docbook-stylesheets"))
+  } catch ($e) {
+    if ($e/error:code = "SEC-PRIVEXISTS")
+    then xdmp:log("Privilege docbook-formatter already exists?")
+    else xdmp:rethrow()
+  }})
+  
+(: Create the docbook-stylesheets-internal role... :)
+let $roles            := ("docbook-stylesheets")
+let $privileges       := ("http://marklogic.com/xdmp/privileges/xslt-eval",
+                          "http://marklogic.com/xdmp/privileges/xslt-invoke",
+                          "http://marklogic.com/xdmp/privileges/xdmp-eval",
+                          "http://marklogic.com/xdmp/privileges/xdmp-eval-in")
+                          
+let $db-internal-role := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-role("docbook-stylesheets-internal", "The DocBook stylesheets internal role",
+                    (), (), ())
+  } catch ($e) {
+    if ($e/error:code = "SEC-ROLEEXISTS")
+    then xdmp:log("Role docbook-stylesheets-internal already exists?")
+    else xdmp:rethrow()
+  }})
+
+let $_ := for $action in $privileges
+          return
+            hof:apply-update-in($SECDB, function () {
+              sec:privilege-add-roles($action, "execute", "docbook-stylesheets-internal")
+            })
+
+let $_ := for $role in $roles
+          return
+            hof:apply-update-in($SECDB, function () {
+              sec:role-add-roles("docbook-stylesheets-internal", $role)
+            })
+            
+(: Create the amps... :)
+let $_ := for $name in ("for-browser", "for-print", "prepare-document")
+          return
+            hof:apply-update-in($SECDB, function () {
+              try {
+                 sec:create-amp("http://docbook.github.com/ns/marklogic/pipeline",
+                                $name, "/DocBook/base/pipelines/marklogic.xqy",
+                                $MODDB, ("docbook-stylesheets-internal"))
+              } catch ($e) {
+                if ($e/error:code = "SEC-AMPEXISTS")
+                then xdmp:log(concat("Amp exists for ", $name, " function already?"))
+                else xdmp:rethrow()
+              }})
+              
+let $_ := 
+    let $baseURI := "/DocBook/locales/"
+    let $path    := $FSPATH
+    let $perms   := (xdmp:permission("docbook-stylesheets", ("read")),
+                     xdmp:permission("docbook-stylesheets-internal", "update"))
+    let $entries := xdmp:filesystem-directory($path)/dir:entry
+    return
+      (count($entries),
+       for $locale in $entries
+       let $xml  := xdmp:document-get($locale/dir:pathname)
+       let $uri  := $baseURI || $locale/dir:filename
+       return
+         hof:apply-update-in($LOCDB, function () {
+           xdmp:document-insert($uri, $xml, $perms)
+           })
+       )
+
+return
+  "Success"
+  </query><query name="Setup Filesystem" focus="false" active="true" mode="xquery">xquery version "1.0-ml";
+
+import module namespace sec="http://marklogic.com/xdmp/security"
+    at "/MarkLogic/security.xqy";
+
+import module namespace hof="http://marklogic.com/higher-order"
+    at "/MarkLogic/appservices/utils/higher-order.xqy";
+    
+declare namespace dir="http://marklogic.com/xdmp/directory";
+
+declare default function namespace "http://www.w3.org/2005/xpath-functions";
+
+declare option xdmp:mapping "false";
+
+declare variable $SECDB  := xdmp:database("Security");
+declare variable $MODDB  := 0;
+
+(: Create the docbook-stylesheets role... :)
+let $db-role := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-role("docbook-stylesheets", "The DocBook stylesheets role", (), (), ())
+  } catch ($e) {
+    if ($e/error:code = "SEC-ROLEEXISTS")
+    then xdmp:log("Role docbook-stylesheets already exists?")
+    else xdmp:rethrow()
+  }})
+
+(: Create the docbook-formatter execute privilege... :)
+let $form-priv := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-privilege("docbook-formatter",
+                         "http://docbook.github.com/ns/marklogic/formatter",
+                         "execute", ("docbook-stylesheets"))
+  } catch ($e) {
+    if ($e/error:code = "SEC-PRIVEXISTS")
+    then xdmp:log("Privilege docbook-formatter already exists?")
+    else xdmp:rethrow()
+  }})
+  
+(: Create the docbook-stylesheets-internal role... :)
+let $roles            := ("docbook-stylesheets")
+let $privileges       := ("http://marklogic.com/xdmp/privileges/xslt-eval",
+                          "http://marklogic.com/xdmp/privileges/xslt-invoke",
+                          "http://marklogic.com/xdmp/privileges/xdmp-document-get")
+                          
+let $db-internal-role := hof:apply-update-in($SECDB, function () {
+  try {
+    sec:create-role("docbook-stylesheets-internal", "The DocBook stylesheets internal role",
+                    (), (), ())
+  } catch ($e) {
+    if ($e/error:code = "SEC-ROLEEXISTS")
+    then xdmp:log("Role docbook-stylesheets-internal already exists?")
+    else xdmp:rethrow()
+  }})
+
+let $_ := for $action in $privileges
+          return
+            hof:apply-update-in($SECDB, function () {
+              sec:privilege-add-roles($action, "execute", "docbook-stylesheets-internal")
+            })
+
+let $_ := for $role in $roles
+          return
+            hof:apply-update-in($SECDB, function () {
+              sec:role-add-roles("docbook-stylesheets-internal", $role)
+            })
+            
+(: Create the amps... :)
+let $_ := for $name in ("for-browser", "for-print", "prepare-document")
+          return
+            hof:apply-update-in($SECDB, function () {
+              try {
+                 sec:create-amp("http://docbook.github.com/ns/marklogic/pipeline",
+                                $name, "/DocBook/base/pipelines/marklogic.xqy",
+                                $MODDB, ("docbook-stylesheets-internal"))
+              } catch ($e) {
+                if ($e/error:code = "SEC-AMPEXISTS")
+                then xdmp:log(concat("Amp exists for ", $name, " function already?"))
+                else xdmp:rethrow()
+              }})
+
+return
+  "Success"
+  </query></workspace></export>

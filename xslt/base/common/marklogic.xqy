@@ -32,22 +32,20 @@ from anywhere you wish.
 
    ============================================================ :)
 
-declare variable $dbml:debug          := true();
-declare variable $dbml:use-modules    := true() and xdmp:modules-database() != 0;
-declare variable $dbml:use-plugins    := true();
+declare variable $dbml:debug          := false();
+declare variable $dbml:use-modules    := false();
+declare variable $dbml:use-plugins    := false();
 declare variable $dbml:use-database   := false();
 declare variable $dbml:use-filesystem := false();
 
 declare variable $dbml:database       := "DocBook";
 declare variable $dbml:database-path  := "/DocBook/locales";
 
-declare variable $dbml:modules-path  := "/DocBook/base/common/locales";
-(:
+(: Does not start with a slash, will be appended to xdmp:modules-root() :)
+declare variable $dbml:modules-path  := "DocBook/base/common/locales";
+
 declare variable $dbml:filesystem-path
         := "/opt/MarkLogic/Modules/DocBook/base/common/locales";
-:)
-declare variable $dbml:filesystem-path
-        := "/MarkLogic/git/xdmp/src/Modules/DocBook/base/common/locales";
 
 declare variable $dbml:PLUGIN-SCOPE := "docbook.locales";
 declare variable $dbml:PLUGIN-COUNT-FIELD
@@ -85,7 +83,7 @@ declare private function dbml:_load-locale-modules(
   $lang as xs:string
 ) as element(l:l10n)?
 {
-  let $path := concat($dbml:modules-path, "/", $lang, ".xml")
+  let $path := concat(xdmp:modules-root(), $dbml:modules-path, "/", $lang, ".xml")
   let $db   := xdmp:modules-database()
   return
     dbml:_load-from-database($path, $db)
@@ -248,10 +246,19 @@ declare function dbml:load-locale(
   $lang as xs:string
 ) as element(l:l10n)?
 {
-  let $l10n    := map:get($dbml:locale-map, $lang)
+  let $l10n := map:get($dbml:locale-map, $lang)
   return
     if (empty($l10n))
     then
+      let $check := if ($dbml:use-modules or $dbml:use-plugins
+                        or $dbml:use-database or $dbml:use-filesystem)
+                    then
+                      ()
+                    else
+                      error((), concat("DocBook stylesheets misconfigured: ",
+                                       "you must select at least one method ",
+                                       "for loading localization data."))
+
       let $plugins := if ($dbml:use-plugins)
                       then dbml:check-plugins-loaded()
                       else ()
