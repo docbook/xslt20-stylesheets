@@ -10,16 +10,10 @@
 <p:option name="style" select="'docbook'"/>
 <p:option name="syntax-highlighter" select="if ($format='html') then 1 else 0"/>
 
-<!-- Ideally, this pipeline wouldn't rely on an XML Calabash extensions,
-     but it's a lot more convenient this way. See generic.xpl for a
-     version with no processor-specific extensions.
+<!-- This pipeline should run in any XProc processor; if the style
+     parameter is the URI for a stylesheet, it must be absolute or
+     must be relative to the location of *this* pipeline.
 -->
-
-<p:declare-step type="cx:message" xmlns:cx="http://xmlcalabash.com/ns/extensions">
-  <p:input port="source" sequence="true"/>
-  <p:output port="result" sequence="true"/>
-  <p:option name="message" required="true"/>
-</p:declare-step>
 
 <p:xslt name="logical-structure">
   <p:input port="stylesheet">
@@ -189,14 +183,6 @@
           <p:store name="store-chunk" method="html">
             <p:with-option name="href" select="base-uri(/)"/>
           </p:store>
-          <cx:message xmlns:cx="http://xmlcalabash.com/ns/extensions">
-            <p:input port="source">
-              <p:pipe step="store-chunk" port="result"/>
-            </p:input>
-            <p:with-option name="message" select="concat('Chunk: ', .)">
-              <p:pipe step="store-chunk" port="result"/>
-            </p:with-option>
-          </cx:message>
         </p:for-each>
 
         <p:identity>
@@ -205,11 +191,9 @@
           </p:input>
         </p:identity>
       </p:when>
-      <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
-        <!-- This relies on an XML Calabash extension function as a user
-             convenience. I'm open to suggestions... -->
+      <p:otherwise>
         <p:load name="load-style">
-          <p:with-option name="href" select="resolve-uri($style, exf:cwd())"/>
+          <p:with-option name="href" select="$style"/>
         </p:load>
         <p:xslt name="html-user-cwd">
           <p:input port="source">
@@ -240,11 +224,9 @@
           <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
-      <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
-        <!-- This relies on an XML Calabash extension function as a user
-             convenience. I'm open to suggestions... -->
+      <p:otherwise>
         <p:load name="load-style">
-          <p:with-option name="href" select="resolve-uri($style, exf:cwd())"/>
+          <p:with-option name="href" select="$style"/>
         </p:load>
         <p:xslt name="print-user-cwd">
           <p:input port="source">
@@ -287,11 +269,9 @@
           <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
-      <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
-        <!-- This relies on an XML Calabash extension function as a user
-             convenience. I'm open to suggestions... -->
+      <p:otherwise>
         <p:load name="load-style">
-          <p:with-option name="href" select="resolve-uri($style, exf:cwd())"/>
+          <p:with-option name="href" select="$style"/>
         </p:load>
         <p:xslt name="fo-user-cwd">
           <p:input port="source">
