@@ -19,22 +19,15 @@
 <xsl:param name="l10n.gentext.default.language" select="'en'"/>
 <xsl:param name="l10n.gentext.language" select="''"/>
 <xsl:param name="l10n.gentext.use.xref.language" select="0"/>
-<xsl:param name="l10n.locale.dir">locales/</xsl:param>
+<xsl:param name="l10n.locale.dir">../common/locales/</xsl:param>
 
 <xsl:param name="glossary.collection" select="''"/>
 <xsl:param name="bibliography.collection" select="''"/>
 <xsl:param name="docbook-namespace" select="'http://docbook.org/ns/docbook'"/>
 
 <xsl:template match="/">
-  <xsl:sequence select="f:normalize(/)"/>
+  <xsl:apply-templates/>
 </xsl:template>
-
-<xsl:function name="f:normalize" as="document-node()">
-  <xsl:param name="root" as="document-node()"/>
-  <xsl:document>
-    <xsl:apply-templates select="$root" mode="m:normalize"/>
-  </xsl:document>
-</xsl:function>
 
 <!-- ============================================================ -->
 <!-- normalize content -->
@@ -79,12 +72,6 @@ copied by normalization.</para>
 </refdescription>
 </doc:mode>
 
-<xsl:template match="/" mode="m:normalize">
-  <xsl:copy>
-    <xsl:apply-templates mode="m:normalize"/>
-  </xsl:copy>
-</xsl:template>
-
 <!-- ============================================================ -->
 
 <doc:template name="n:normalize-movetitle" xmlns="http://docbook.org/ns/docbook">
@@ -107,7 +94,7 @@ copied by normalization.</para>
 
     <xsl:choose>
       <xsl:when test="db:info">
-	<xsl:apply-templates mode="m:normalize"/>
+	<xsl:apply-templates/>
       </xsl:when>
       <xsl:when test="db:title|db:subtitle|db:titleabbrev">
 	<xsl:element name="info" namespace="{$docbook-namespace}">
@@ -116,16 +103,16 @@ copied by normalization.</para>
 			    select="db:title|db:subtitle|db:titleabbrev"/>
 	  </xsl:call-template>
 	</xsl:element>
-	<xsl:apply-templates mode="m:normalize"/>
+	<xsl:apply-templates/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates mode="m:normalize"/>
+	<xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="db:title|db:subtitle|db:titleabbrev" mode="m:normalize">
+<xsl:template match="db:title|db:subtitle|db:titleabbrev">
   <xsl:if test="parent::db:info
                 |parent::db:biblioentry
                 |parent::db:bibliomixed
@@ -133,18 +120,18 @@ copied by normalization.</para>
                 |parent::db:biblioset">
     <xsl:copy>
       <xsl:copy-of select="@*"/>
-      <xsl:apply-templates mode="m:normalize"/>
+      <xsl:apply-templates/>
     </xsl:copy>
   </xsl:if>
 </xsl:template>
 
-<xsl:template match="db:bibliography" mode="m:normalize">
+<xsl:template match="db:bibliography">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:bibliomixed|db:biblioentry" mode="m:normalize">
+<xsl:template match="db:bibliomixed|db:biblioentry">
   <xsl:choose>
     <xsl:when test="not(node())"> <!-- totally empty -->
       <xsl:variable name="id" select="(@id|@xml:id)[1]"/>
@@ -159,7 +146,7 @@ copied by normalization.</para>
 	</xsl:when>
 	<xsl:when test="$external.bibliography/key('id', $id)">
 	  <xsl:apply-templates select="$external.bibliography/key('id', $id)"
-			       mode="m:normalize"/>
+			      />
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:message>
@@ -177,13 +164,13 @@ copied by normalization.</para>
     <xsl:otherwise>
       <xsl:copy>
 	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates mode="m:normalize"/>
+	<xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="db:glossary" mode="m:normalize">
+<xsl:template match="db:glossary">
   <xsl:variable name="glossary">
     <xsl:call-template name="n:normalize-generated-title">
       <xsl:with-param name="title-key" select="local-name(.)"/>
@@ -248,55 +235,55 @@ copied by normalization.</para>
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="db:index" mode="m:normalize">
+<xsl:template match="db:index">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:setindex" mode="m:normalize">
+<xsl:template match="db:setindex">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:abstract" mode="m:normalize">
+<xsl:template match="db:abstract">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:legalnotice" mode="m:normalize">
+<xsl:template match="db:legalnotice">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:note" mode="m:normalize">
+<xsl:template match="db:note">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:tip" mode="m:normalize">
+<xsl:template match="db:tip">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:caution" mode="m:normalize">
+<xsl:template match="db:caution">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:warning" mode="m:normalize">
+<xsl:template match="db:warning">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:important" mode="m:normalize">
+<xsl:template match="db:important">
   <xsl:call-template name="n:normalize-generated-title">
     <xsl:with-param name="title-key" select="local-name(.)"/>
   </xsl:call-template>
@@ -357,7 +344,7 @@ necessary.</para>
 	    </xsl:element>
 
 	    <xsl:apply-templates select="db:info/following-sibling::node()"
-				 mode="m:normalize"/>
+				/>
 	  </xsl:when>
 
 	  <xsl:otherwise>
@@ -375,7 +362,7 @@ necessary.</para>
 		<xsl:with-param name="copynodes" select="$node-tree/*"/>
 	      </xsl:call-template>
 	    </xsl:element>
-	    <xsl:apply-templates mode="m:normalize"/>
+	    <xsl:apply-templates/>
 	  </xsl:otherwise>
 	</xsl:choose>
       </xsl:copy>
@@ -390,7 +377,7 @@ necessary.</para>
   </xsl:call-template>
 </xsl:template>
 
-<xsl:template match="db:info" mode="m:normalize">
+<xsl:template match="db:info">
   <xsl:copy>
     <xsl:copy-of select="@*"/>
     <xsl:if test="not(db:title)">
@@ -434,12 +421,12 @@ if appropriate</refpurpose>
   <xsl:for-each select="$copynodes">
     <xsl:copy>
       <xsl:copy-of select="@*"/>
-      <xsl:apply-templates mode="m:normalize"/>
+      <xsl:apply-templates/>
     </xsl:copy>
   </xsl:for-each>
 
   <xsl:if test="self::db:info">
-    <xsl:apply-templates mode="m:normalize"/>
+    <xsl:apply-templates/>
   </xsl:if>
 </xsl:template>
 
@@ -451,7 +438,7 @@ if appropriate</refpurpose>
 		       or parent::db:funcsynopsisinfo)
 		     and db:imageobject
 		     and db:imageobject/db:imagedata[@format='linespecific']]"
-	      mode="m:normalize">
+	     >
 
   <xsl:variable name="data"
 		select="(db:imageobject
@@ -472,7 +459,7 @@ if appropriate</refpurpose>
 		      or parent::db:literallayout
 		      or parent::db:address
 		      or parent::db:funcsynopsisinfo]"
-	      mode="m:normalize">
+	     >
   <xsl:choose>
     <xsl:when test="db:textdata/@entityref">
       <xsl:value-of select="unparsed-text(unparsed-entity-uri(db:textdata/@entityref))"/>
@@ -484,19 +471,19 @@ if appropriate</refpurpose>
 </xsl:template>
 
 <!-- CALS tables are normalized here so that they're in the right context later -->
-<xsl:template match="db:tgroup" mode="m:normalize">
+<xsl:template match="db:tgroup">
   <xsl:apply-templates select="." mode="m:cals-phase-1"/>
 </xsl:template>
 
 <!-- Verbatim environments are normalized here too -->
 <xsl:template
     match="db:programlisting|db:address|db:screen|db:synopsis|db:literallayout"
-    mode="m:normalize">
+   >
 
   <xsl:variable name="normalized" as="element()">
     <xsl:copy>
       <xsl:copy-of select="@*"/>
-      <xsl:apply-templates mode="m:normalize"/>
+      <xsl:apply-templates/>
     </xsl:copy>
   </xsl:variable>
 
@@ -505,7 +492,7 @@ if appropriate</refpurpose>
   </xsl:apply-templates>
 </xsl:template>
 
-<xsl:template match="db:programlistingco" mode="m:normalize">
+<xsl:template match="db:programlistingco">
   <xsl:variable name="normalized" as="element()">
     <xsl:copy>
       <xsl:copy-of select="@*"/>
@@ -513,7 +500,7 @@ if appropriate</refpurpose>
       <xsl:copy-of select="db:areaspec"/>
       <db:programlisting>
         <xsl:copy-of select="db:programlisting/@*"/>
-        <xsl:apply-templates select="db:programlisting/node()" mode="m:normalize"/>
+        <xsl:apply-templates select="db:programlisting/node()"/>
       </db:programlisting>
       <xsl:copy-of select="db:calloutlist"/>
     </xsl:copy>
@@ -530,7 +517,7 @@ if appropriate</refpurpose>
   </xsl:copy>
 </xsl:template>
 
-<xsl:template match="*" mode="m:normalize">
+<xsl:template match="*">
   <xsl:choose>
     <xsl:when test="db:title|db:subtitle|db:titleabbrev|db:info/db:title">
       <xsl:choose>
@@ -540,7 +527,7 @@ if appropriate</refpurpose>
                         |parent::db:biblioset">
           <xsl:copy>
             <xsl:copy-of select="@*"/>
-            <xsl:apply-templates mode="m:normalize"/>
+            <xsl:apply-templates/>
           </xsl:copy>
         </xsl:when>
         <xsl:otherwise>
@@ -551,14 +538,13 @@ if appropriate</refpurpose>
     <xsl:otherwise>
       <xsl:copy>
 	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates mode="m:normalize"/>
+	<xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="comment()|processing-instruction()|text()"
-	      mode="m:normalize">
+<xsl:template match="comment()|processing-instruction()|text()">
   <xsl:copy/>
 </xsl:template>
 
