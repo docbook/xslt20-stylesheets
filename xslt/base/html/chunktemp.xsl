@@ -27,31 +27,46 @@
   </xsl:template>
 
   <xsl:template match="/*" mode="m:identify-chunks" priority="100">
-    <chunk xml:id="{generate-id()}">
+    <chunk>
+      <xsl:attribute name="xml:id">
+        <xsl:value-of select="generate-id()"/>    
+      </xsl:attribute>
       <xsl:apply-templates select="*" mode="m:identify-chunks"/>
     </chunk>
   </xsl:template>
 
   <xsl:template match="db:book|db:part|db:reference|db:refentry" mode="m:identify-chunks">
-    <chunk xml:id="{generate-id()}">
+    <chunk>
+      <xsl:attribute name="xml:id">
+        <xsl:value-of select="generate-id()"/>    
+      </xsl:attribute>
       <xsl:apply-templates select="*" mode="m:identify-chunks"/>
     </chunk>
   </xsl:template>
 
   <xsl:template match="db:preface|db:chapter|db:appendix|db:colophon" mode="m:identify-chunks">
-    <chunk xml:id="{generate-id()}">
+    <chunk>
+      <xsl:attribute name="xml:id">
+        <xsl:value-of select="generate-id()"/>    
+      </xsl:attribute>
       <xsl:apply-templates select="*" mode="m:identify-chunks"/>
     </chunk>
   </xsl:template>
 
   <xsl:template match="db:book/db:bibliography|db:book/db:glossary" mode="m:identify-chunks">
-    <chunk xml:id="{generate-id()}">
+    <chunk>
+      <xsl:attribute name="xml:id">
+        <xsl:value-of select="generate-id()"/>    
+      </xsl:attribute>
       <xsl:apply-templates select="*" mode="m:identify-chunks"/>
     </chunk>
   </xsl:template>
 
   <xsl:template match="db:book/db:index|db:setindex" mode="m:identify-chunks">
-    <chunk xml:id="{generate-id()}">
+    <chunk>
+      <xsl:attribute name="xml:id">
+        <xsl:value-of select="generate-id()"/>    
+      </xsl:attribute>
       <xsl:apply-templates select="*" mode="m:identify-chunks"/>
     </chunk>
   </xsl:template>
@@ -60,7 +75,10 @@
     <xsl:choose>
       <xsl:when test="$chunk.section.depth &gt;= count(ancestor::db:section)+1 and 
 		      not(ancestor::*/processing-instruction('dbhtml')[normalize-space(.) = 'stop-chunking'])">
-	<chunk xml:id="{generate-id()}">
+	<chunk>
+          <xsl:attribute name="xml:id">
+            <xsl:value-of select="generate-id()"/>    
+          </xsl:attribute>
 	  <xsl:apply-templates select="*" mode="m:identify-chunks"/>
 	</chunk>
       </xsl:when>
