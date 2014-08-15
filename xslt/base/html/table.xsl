@@ -82,28 +82,10 @@
     </xsl:message>
   </xsl:if>
 
-  <!-- We start by normalizing the table, making all the columns, spans,
-       etc. explicit. This vastly simplifies subsequent processing. But
-       it introduces a problem, the normalized table is a different tree.
-       That means that links to other parts of the real tree won't work.
-
-       To resolve this problem, we carry the original table around and
-       when it comes time to process the *content* of a table cell, we use
-       the cell from the original tree.
-  -->
-
-  <xsl:variable name="normalized" as="element(db:tgroup)">
-    <xsl:apply-templates select="." mode="m:cals-phase-1"/>
-  </xsl:variable>
-
-  <xsl:apply-templates select="$normalized" mode="m:cals">
-    <xsl:with-param name="origtable" select="."/>
-  </xsl:apply-templates>
+  <xsl:apply-templates select="." mode="m:cals"/>
 </xsl:template>
 
 <xsl:template match="db:tgroup" name="db:tgroup" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-
   <xsl:variable name="summary"
 		select="f:pi(processing-instruction('dbhtml'),'table-summary')"/>
 
@@ -116,9 +98,9 @@
   <table border="0">
     <xsl:choose>
       <!-- If there's a textobject/phrase for the table summary, use it -->
-      <xsl:when test="$origtable/../db:textobject/db:phrase">
+      <xsl:when test="../db:textobject/db:phrase">
 	<xsl:attribute name="summary"
-		       select="xs:string($origtable/../db:textobject/db:phrase)"/>
+		       select="xs:string(../db:textobject/db:phrase)"/>
       </xsl:when>
 
       <!-- If there's a <?dbhtml table-summary="foo"?> PI, use it for
@@ -128,9 +110,9 @@
       </xsl:when>
 
       <!-- Otherwise, if there's a title, use that -->
-      <xsl:when test="$origtable/../db:title|$origtable/../db:info/db:title">
+      <xsl:when test="../db:title|../db:info/db:title">
         <xsl:variable name="title" as="node()*">
-          <xsl:apply-templates select="$origtable/.." mode="m:title-content"/>
+          <xsl:apply-templates select=".." mode="m:title-content"/>
         </xsl:variable>
 
         <xsl:attribute name="summary" select="string-join($title, '')"/>
@@ -154,13 +136,13 @@
 			     else $table.html.cellpadding"/>
     </xsl:if>
 
-    <xsl:if test="$origtable/../@pgwide=1 or self::db:entrytbl">
+    <xsl:if test="../@pgwide=1 or self::db:entrytbl">
       <xsl:attribute name="width" select="'100%'"/>
     </xsl:if>
 
     <xsl:variable name="frame"
-		  select="if ($origtable/../@frame)
-                          then $origtable/../@frame
+		  select="if (../@frame)
+                          then ../@frame
 			  else $table.frame.default"/>
 
     <xsl:choose>
@@ -263,23 +245,15 @@
       <xsl:with-param name="abspixels" select="1"/>
     </xsl:call-template>
 
-    <xsl:apply-templates select="db:thead" mode="m:cals">
-      <xsl:with-param name="origtable" select="$origtable"/>
-    </xsl:apply-templates>
-
-    <xsl:apply-templates select="db:tfoot" mode="m:cals">
-      <xsl:with-param name="origtable" select="$origtable"/>
-    </xsl:apply-templates>
-
-    <xsl:apply-templates select="db:tbody" mode="m:cals">
-      <xsl:with-param name="origtable" select="$origtable"/>
-    </xsl:apply-templates>
+    <xsl:apply-templates select="db:thead" mode="m:cals"/>
+    <xsl:apply-templates select="db:tfoot" mode="m:cals"/>
+    <xsl:apply-templates select="db:tbody" mode="m:cals"/>
 
     <xsl:if test=".//db:footnote">
       <tbody class="footnotes">
         <tr>
 	  <td colspan="{@cols}">
-	    <xsl:apply-templates select="$origtable//db:footnote"
+	    <xsl:apply-templates select="//db:footnote"
 				 mode="m:table-footnote-mode"/>
 	  </td>
 	</tr>
@@ -289,8 +263,6 @@
 </xsl:template>
 
 <xsl:template match="db:entrytbl" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-
   <xsl:variable name="cellgi">
     <xsl:choose>
       <xsl:when test="ancestor::db:thead">th</xsl:when>
@@ -302,9 +274,7 @@
   </xsl:variable>
 
   <xsl:element name="{$cellgi}">
-    <xsl:call-template name="db:tgroup">
-      <xsl:with-param name="origtable" select="$origtable"/>
-    </xsl:call-template>
+    <xsl:call-template name="db:tgroup"/>
   </xsl:element>
 </xsl:template>
 
@@ -319,25 +289,18 @@
 </doc:mode>
 
 <xsl:template match="db:thead|db:tbody|db:tfoot" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-
   <xsl:element name="{local-name(.)}"
 	       namespace="http://www.w3.org/1999/xhtml">
     <xsl:copy-of select="@align|@valign|@char|@charoff"/>
-    <xsl:apply-templates mode="m:cals">
-      <xsl:with-param name="origtable" select="$origtable"/>
-    </xsl:apply-templates>
+    <xsl:apply-templates mode="m:cals"/>
   </xsl:element>
 </xsl:template>
 
 <xsl:template match="db:colspec|db:spanspec" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
   <!-- nop -->
 </xsl:template>
 
 <xsl:template match="db:row" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-
   <xsl:variable name="row-height"
 		select="f:pi(processing-instruction('dbhtml'),'row-height')"/>
 
@@ -378,9 +341,7 @@
 
     <xsl:copy-of select="@align|@valign|@char|@charoff"/>
 
-    <xsl:apply-templates mode="m:cals">
-      <xsl:with-param name="origtable" select="$origtable"/>
-    </xsl:apply-templates>
+    <xsl:apply-templates mode="m:cals"/>
   </tr>
 </xsl:template>
 
@@ -434,8 +395,6 @@ to alternate rows of the table:</para>
 </xsl:template>
 
 <xsl:template match="db:entry" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-
   <xsl:variable name="cellgi">
     <xsl:choose>
       <xsl:when test="ancestor::db:thead">th</xsl:when>
@@ -492,16 +451,13 @@ to alternate rows of the table:</para>
 	<xsl:text>&#160;</xsl:text>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:variable name="origcell" select="key('genid',@ghost:id,$origtable)"/>
-	<xsl:apply-templates select="$origcell/node()"/>
+        <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:element>
 </xsl:template>
 
 <xsl:template match="ghost:empty" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-
   <!-- FIXME: what about attributes on empty cells? -->
   <td>
     <xsl:attribute name="style">
@@ -521,14 +477,10 @@ to alternate rows of the table:</para>
 </xsl:template>
 
 <xsl:template match="ghost:overlapped" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-
   <!-- nop -->
 </xsl:template>
 
 <xsl:template match="*" mode="m:cals">
-  <xsl:param name="origtable" required="yes" as="element(db:tgroup)"/>
-
   <xsl:message terminate="yes">
     <xsl:text>Error: attempt to process </xsl:text>
     <xsl:value-of select="name(.)"/>
