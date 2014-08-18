@@ -5,10 +5,53 @@
 
 <para>This document summarizes the significant changes since the 2.0.3
 release. It's been a long time since I did a release, no doubt I've
-tinkered with things that aren't well documented. Mea culpa. There's
-nothing significant about the order in which the changes are listed.</para>
+tinkered with things that aren't well documented. Mea culpa.</para>
 
-<para>That said: the big ones are first.</para>
+<para>There's nothing significant about the order in which the changes
+are listed except that I usually try to put the big ones near
+the top..</para>
+
+<para>There are a series of betas leading up to 2.0.4.</para>
+
+<section>
+<title>Changes since 2.0.4-b1</title>
+
+<para>This section summarizes the significant changes since the 2.0.4-b1
+release. </para>
+
+<orderedlist>
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/ffc5e4b53269b6a68f401b1781b61157e362f842">Merged</link>:
+pull request <link xlink:href="https://github.com/ndw/xmlcalabash1/issues/31">#31</link> fixing a catastrophic bug in the handling of CALS tables.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/48ac7109c435cee8519a7c71b32b19583556192d">Merged</link>
+pull request <link xlink:href="https://github.com/ndw/xmlcalabash1/issues/16">#16</link> to create a separate resource root parameter for slide resources.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/c7cd3d90209d86024e3145d09ac71becfaa37cff">Merged</link>:
+pull request <link xlink:href="https://github.com/ndw/xmlcalabash1/issues/29">#29</link> to move generated <tag class="attribute">xml:id</tag> attributes out
+of AVTs and into <tag>xsl:attribute</tag> syntax (to make ExistDB happy).
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/d97c507af7e449ca864af781c2d7ddc4e23c6fed">Improved</link> the
+DocBook XProc pipeline.
+</para>
+</listitem>
+</orderedlist>
+</section>
+
+<section>
+<title>Changes since 2.0.3</title>
+
+<para>This section summarizes the significant changes since the 2.0.3
+release. </para>
 
 <orderedlist>
 <listitem>
@@ -93,4 +136,5 @@ that in due course.</para>
 </listitem>
 
 </orderedlist>
+</section>
 </article>
