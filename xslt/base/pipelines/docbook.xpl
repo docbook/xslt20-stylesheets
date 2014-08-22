@@ -1,7 +1,9 @@
 <p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:dbp="http://docbook.github.com/ns/pipeline"
-                name="main" version="1.0" exclude-inline-prefixes="dbp"
+                xmlns:pxp="http://exproc.org/proposed/steps"
+                name="main" version="1.0"
+                exclude-inline-prefixes="db dbp pxp"
                 type="dbp:docbook">
 <p:input port="source" sequence="true"/>
 <p:input port="parameters" kind="parameter"/>
@@ -16,6 +18,12 @@
      but it's a lot more convenient this way. See generic.xpl for a
      version with no processor-specific extensions.
 -->
+
+<p:declare-step type="pxp:set-base-uri">
+  <p:input port="source"/>
+  <p:output port="result"/>
+  <p:option name="uri" required="true"/>
+</p:declare-step>
 
 <p:declare-step type="cx:message" xmlns:cx="http://xmlcalabash.com/ns/extensions">
   <p:input port="source" sequence="true"/>
@@ -49,6 +57,12 @@
     </p:xslt>
   </p:otherwise>
 </p:choose>
+
+<pxp:set-base-uri>
+  <p:with-option name="uri" select="base-uri(/)">
+    <p:pipe step="main" port="source"/>
+  </p:with-option>
+</pxp:set-base-uri>
 
 <p:xslt name="transclude">
   <p:input port="stylesheet">
@@ -88,6 +102,13 @@
     <p:identity/>
   </p:otherwise>
 </p:choose>
+
+<pxp:set-base-uri>
+  <p:with-option name="uri" select="base-uri(/)">
+    <p:pipe step="main" port="source"/>
+  </p:with-option>
+  <p:log port="result" href="/tmp/result.xml"/>
+</pxp:set-base-uri>
 
 <p:xslt name="normalize">
   <p:input port="stylesheet">
