@@ -613,7 +613,7 @@
 <template name="insert">Insert</template>
 <template name="left">&#x2190;</template>
 <template name="meta">Meta</template>
-<!-- <template name="option"></template> FIXME -->
+<template name="option">Option</template>
 <template name="pagedown">Page Down</template>
 <template name="pageup">Page Up</template>
 <template name="right">&#x2192;</template>
