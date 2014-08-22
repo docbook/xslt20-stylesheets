@@ -225,11 +225,11 @@
 <xsl:template match="db:literallayout|db:address"
 	      mode="m:verbatim">
   <xsl:variable name="this" select="."/>
-  <pre>
+  <div>
     <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
                                             f:syntax-highlight-class($this))"/>
     <xsl:apply-templates/>
-  </pre>
+  </div>
 </xsl:template>
 
 </xsl:stylesheet>
