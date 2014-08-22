@@ -438,9 +438,7 @@ if appropriate</refpurpose>
 		       or parent::db:address
 		       or parent::db:funcsynopsisinfo)
 		     and db:imageobject
-		     and db:imageobject/db:imagedata[@format='linespecific']]"
-	     >
-
+		     and db:imageobject/db:imagedata[@format='linespecific']]">
   <xsl:variable name="data"
 		select="(db:imageobject
 			 /db:imagedata[@format='linespecific'])[1]"/>
@@ -449,7 +447,8 @@ if appropriate</refpurpose>
       <xsl:value-of select="unparsed-text(unparsed-entity-uri($data/@entityref))"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="unparsed-text($data/@fileref)"/>
+      <xsl:value-of
+          select="unparsed-text(resolve-uri($data/@fileref, base-uri(.)))"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -466,7 +465,7 @@ if appropriate</refpurpose>
       <xsl:value-of select="unparsed-text(unparsed-entity-uri(db:textdata/@entityref))"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="unparsed-text(db:textdata/@fileref)"/>
+      <xsl:value-of select="unparsed-text(resolve-uri(db:textdata/@fileref, base-uri(.)))"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
