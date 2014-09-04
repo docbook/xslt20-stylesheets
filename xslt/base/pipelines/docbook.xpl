@@ -62,6 +62,7 @@
   <p:with-option name="uri" select="base-uri(/)">
     <p:pipe step="main" port="source"/>
   </p:with-option>
+  <!-- <p:log port="result" href="/tmp/s-b-u-1.xml"/> -->
 </pxp:set-base-uri>
 
 <p:xslt name="transclude">
@@ -107,7 +108,7 @@
   <p:with-option name="uri" select="base-uri(/)">
     <p:pipe step="main" port="source"/>
   </p:with-option>
-  <p:log port="result" href="/tmp/result.xml"/>
+  <!-- <p:log port="result" href="/tmp/s-b-u-2.xml"/> -->
 </pxp:set-base-uri>
 
 <p:xslt name="normalize">
