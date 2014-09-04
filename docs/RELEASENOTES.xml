@@ -4,14 +4,77 @@
 <title>Release Notes</title>
 
 <para>This document summarizes the significant changes since the 2.0.3
-release. It's been a long time since I did a release, no doubt I've
-tinkered with things that aren't well documented. Mea culpa.</para>
+release.</para>
 
 <para>There's nothing significant about the order in which the changes
 are listed except that I usually try to put the big ones near
 the top..</para>
 
-<para>There are a series of betas leading up to 2.0.4.</para>
+<para>There were a series of betas leading up to 2.0.4.</para>
+
+<section>
+<title>Changes since 2.0.4-b2</title>
+
+<para>This section summarizes the significant changes since the 2.0.4-b2
+release.</para>
+
+<itemizedlist>
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/17c8252b684cbf561eacdb86d131e01c720bcfc5">Update</link>
+version of Calabash in the system.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/90f5f128320702d269514d73100624c35f2169c2">Moved</link>
+section titles one level up in the hierarchy (h2 instead of h3).
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/c043c916baf3d254d98567847ce650a8b5962e97">Support</link>:
+configuration of the ToC title.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/4eb1215e9fb1a9da1b146519da2bba9b1d1e67ba">Restore</link>
+base URI after transforms.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/1eb58a483b1f0b32e1b2dee4fed1cfd09e3a1c69">Resolve</link>
+relative URIs against the context node.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/a12906f1ca25779c5fc628f5966a09727514554b">Use</link>:
+div not pre for literallayout and address.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/fee1bf0550aa73cc207ba7e47b4bbd29577ce31f">Use</link>
+keycap/@otherfunction as the gentext for keycap/@function=other.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/fc87bd88215e6332714fe173d96c31dff043dd98">Added</link>
+gentext for keycap/option.
+</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/2b91d62ebe6f2441c29e32f4cb858d35fb8953b2">Removed</link>
+tests from the build; they don't work right now.
+</para>
+</listitem>
+</itemizedlist>
+
+</section>
 
 <section>
 <title>Changes since 2.0.4-b1</title>
