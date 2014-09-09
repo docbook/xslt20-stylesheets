@@ -9,8 +9,6 @@
 
 <xsl:param name="schemaext.schema" select="''"/>
 
-<!--	   select="'../../docbook/relaxng/dita4db/dita4db.rng'"/> -->
-
 <xsl:param name="schema"
 	   select="if ($schemaext.schema = '')
 		   then ()
@@ -31,7 +29,6 @@
 	      xmlns:r="http://nwalsh.com/xmlns/schema-remap/"
 	      xmlns:rng="http://relaxng.org/ns/structure/1.0">
 
-  <xsl:variable name="element" select="local-name(.)"/>
   <xsl:variable name="element-name" select="node-name(.)"/>
   <xsl:variable name="known" select="for $n in $schema-extensions
 				     return
@@ -45,7 +42,8 @@
        We can come back to them if they ever matter. -->
   <xsl:variable name="remap"
 		select="$schema
-			//rng:element[@name=$element and r:remap]/r:remap[1]"/>
+			//rng:element[resolve-QName(@name,.)=$element-name
+                                      and r:remap]/r:remap[1]"/>
 
   <!--
   <xsl:message>
