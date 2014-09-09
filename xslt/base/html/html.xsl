@@ -20,6 +20,8 @@
   <!-- this isn't used by the HTML stylesheets, but it's in common/functions -->
 </xsl:param>
 
+<xsl:param name="syntax.highlight.map" as="element()*"/>
+
 <!-- ============================================================ -->
 
 <doc:template name="anchor" xmlns="http://docbook.org/ns/docbook">
@@ -243,9 +245,14 @@ and a CSS style is specified.</para>
   <xsl:param name="node"/>
 
   <xsl:if test="$syntax-highlighter != '0'">
+    <xsl:variable name="language" select="$node/@language/string()"/>
+    <xsl:variable name="mapped-language"
+                  select="($syntax.highlight.map[@key=$language]/@value/string(),
+                           $language)[1]"/>
+
     <xsl:variable name="language" as="xs:string?"
-                  select="if ($node/@language)
-                          then concat('language-', $node/@language)
+                  select="if ($mapped-language)
+                          then concat('language-', $mapped-language)
                           else ()"/>
 
     <xsl:variable name="numbered" as="xs:boolean"
