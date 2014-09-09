@@ -902,14 +902,7 @@ the English locale value will be used as the default.</para>
 <xsl:function name="f:get-locale" as="element(l:l10n)">
   <xsl:param name="lang" as="xs:string"/>
 
-  <xsl:choose>
-    <xsl:when test="$localization/l:l10n[@language=$lang]">
-      <xsl:sequence select="$localization/l:l10n[@language=$lang]"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:sequence select="f:load-locale($lang)"/>
-    </xsl:otherwise>
-  </xsl:choose>
+  <xsl:sequence select="f:load-locale($lang)"/>
 </xsl:function>
 
 <!-- ============================================================ -->
