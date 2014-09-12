@@ -3,201 +3,37 @@
          version="5.0">
 <title>Release Notes</title>
 
-<para>This document summarizes the significant changes since the 2.0.3
+<para>This document summarizes the significant changes since the 2.0.4
 release.</para>
 
 <para>There's nothing significant about the order in which the changes
 are listed except that I usually try to put the big ones near
 the top..</para>
 
-<para>There were a series of betas leading up to 2.0.4.</para>
-
-<section>
-<title>Changes since 2.0.4-b2</title>
-
-<para>This section summarizes the significant changes since the 2.0.4-b2
-release.</para>
-
 <itemizedlist>
 <listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/17c8252b684cbf561eacdb86d131e01c720bcfc5">Update</link>
-version of Calabash in the system.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/942c9877290099db48b50a7288846af3edb5d73d">Fixed</link> bug where
+QNames were compared incorrectly in the schema extension preprocessor.
 </para>
 </listitem>
 
 <listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/90f5f128320702d269514d73100624c35f2169c2">Moved</link>
-section titles one level up in the hierarchy (h2 instead of h3).
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/4799b2e1bff42fc259ac4a95e91097c5659c91ff">Added</link>
+<parameter>$syntax.highlight.map</parameter> parameter to map verbatim
+language values.</para>
+</listitem>
+
+<listitem>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/c41a4ecc7b676993f23839b91433278a9a1b5897">Fixed</link> bug where a
+customized locale was assumed to override everything in the locale.
 </para>
 </listitem>
 
 <listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/c043c916baf3d254d98567847ce650a8b5962e97">Support</link>:
-configuration of the ToC title.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/4eb1215e9fb1a9da1b146519da2bba9b1d1e67ba">Restore</link>
-base URI after transforms.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/1eb58a483b1f0b32e1b2dee4fed1cfd09e3a1c69">Resolve</link>
-relative URIs against the context node.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/a12906f1ca25779c5fc628f5966a09727514554b">Use</link>:
-div not pre for literallayout and address.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/fee1bf0550aa73cc207ba7e47b4bbd29577ce31f">Use</link>
-keycap/@otherfunction as the gentext for keycap/@function=other.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/fc87bd88215e6332714fe173d96c31dff043dd98">Added</link>
-gentext for keycap/option.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/2b91d62ebe6f2441c29e32f4cb858d35fb8953b2">Removed</link>
-tests from the build; they don't work right now.
-</para>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/49c9af8ea170a3062683fe6045ce6b368140e5af">Use</link>
+<parameter>$resource.slide</parameter> in the
+<filename>plain-notes.xsl</filename> slides module (parallel to
+<filename>plain.xsl</filename>).</para>
 </listitem>
 </itemizedlist>
-
-</section>
-
-<section>
-<title>Changes since 2.0.4-b1</title>
-
-<para>This section summarizes the significant changes since the 2.0.4-b1
-release. </para>
-
-<orderedlist>
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/ffc5e4b53269b6a68f401b1781b61157e362f842">Merged</link>:
-pull request <link xlink:href="https://github.com/ndw/xmlcalabash1/issues/31">#31</link> fixing a catastrophic bug in the handling of CALS tables.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/48ac7109c435cee8519a7c71b32b19583556192d">Merged</link>
-pull request <link xlink:href="https://github.com/ndw/xmlcalabash1/issues/16">#16</link> to create a separate resource root parameter for slide resources.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/c7cd3d90209d86024e3145d09ac71becfaa37cff">Merged</link>:
-pull request <link xlink:href="https://github.com/ndw/xmlcalabash1/issues/29">#29</link> to move generated <tag class="attribute">xml:id</tag> attributes out
-of AVTs and into <tag>xsl:attribute</tag> syntax (to make ExistDB happy).
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/d97c507af7e449ca864af781c2d7ddc4e23c6fed">Improved</link> the
-DocBook XProc pipeline.
-</para>
-</listitem>
-</orderedlist>
-</section>
-
-<section>
-<title>Changes since 2.0.3</title>
-
-<para>This section summarizes the significant changes since the 2.0.3
-release. </para>
-
-<orderedlist>
-<listitem>
-<para>DocBook processing has for some time now been a multi-stage process.
-I've decided to break these stages out separately for ease of maintenance
-and configurability.</para>
-
-<para>There's an XProc pipeline in the
-<filename class="directory">/pipelines/</filename> directory that runs
-them all. For convenience, I've also provided an Ant build script and
-a MarkLogic query module to perform the pipelining.</para>
-</listitem>
-
-<listitem>
-<para>I've (largely) abandoned attempts to do “server side” pretty printing
-of verbatim environments. I was more-or-less happy with Pygments, but as
-Jython development hasn't kept up with Python development (AFAICT) it's
-become too difficult to make it work. Also, the effort expended by the stylesheets
-to do the pretty printing was significant and could be quite slow.</para>
-<para>Modern sites seem to rely on client-side pretty printing, so I'm going
-to give that a try. Some of the “server side” work will be preserved for
-the “XHTML for print” stylesheets, but I don't know how that's going to
-shake out.</para>
-<para>In the short term, I've selected
-<citetitle xlink:href="http://prismjs.com/">Prism</citetitle> for the
-rendering. It's small, efficient, and seems well supported. I was able to
-make <tag>programlistingco</tag> elements perform both line and line range
-highlighting with it, which I thought was a nice touch.</para>
-
-<para>There's a small Prism configuration in the DocBook github “CDN”.
-You're encouraged to customize the stylesheets to use your own configuration.
-</para>
-
-<para>If you've got a strong preference for some other client-side
-pretty printer, let me know. I'm willing to attempt to make the stylesheets
-support more than one, if there's sufficient interest.</para>
-</listitem>
-
-<listitem>
-<para>I've (provisionally, perhaps) decided to abandon development of
-the XSL FO stylesheets. Honestly, they were never very good in the
-XSLT 2.0 stylesheets anyway. If you still want to use FO, your best
-bet is probably the XSLT 1.0 stylesheets.</para>
-<para>With the <citetitle xlink:href="http://www.w3.org/XML/XPPL/">XML
-Print and Page Layout Working Group</citetitle> shuttered, it seems unlikely
-that there will be significant further developments in XSL FO.
-</para>
-<para>Attention now seems to be focused (I observe without comment) on
-development of CSS facilities for doing paged layout. I will be working on
-“XHTML for print” stylesheets that can take advantage of those facilities.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/6eab30a2aa70e6495b820774557f17ff837e6fc5">Fixed</link>
-processing of HTML attributes in some environments.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/166cf1c55550b2076b309a7d219b92a062285346">Fixed</link>
-a bug in <function>f:resolve-path</function>
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/234d2a87fae4073a0c57be57a5e2481a5c80fa7d">Upgraded</link>
-to xspec-0.3.0; removed saxon9-ant.jar as it just didn't work anymore;
-fixed some build paths; updated to saxon 9.5.1.1.</para>
-<important>
-<para>The XSpec unit tests aren't really working at the moment due to
-the change over to a pipelined architecture. I'll be working on fixing
-that in due course.</para>
-</important>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/b5858a5d48d5a13aaed99e401c3a2af0aa82dfe8">Removed</link>
-'ext'. It now lives in the
-<link xlink:href="https://github.com/docbook/xslt20-java"/> repository
-</para>
-</listitem>
-
-</orderedlist>
-</section>
 </article>
