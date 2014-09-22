@@ -250,9 +250,13 @@
         </div>
 
         <div class="foil-notes">
-          <div class="foilinset">
-            <xsl:apply-templates select="*[not(self::db:title) and not(self::db:speakernotes)]"/>
-          </div>
+          <xsl:variable name="foilinset" as="element(h:div)">
+            <div class="foilinset">
+              <xsl:apply-templates select="*[not(self::db:title) and not(self::db:speakernotes)]"/>
+            </div>
+          </xsl:variable>
+
+          <xsl:apply-templates select="$foilinset" mode="trim-reveal"/>
 
           <xsl:choose>
             <xsl:when test="db:speakernotes">
@@ -280,6 +284,25 @@
     <xsl:copy-of select="@*"/>
     <xsl:apply-templates/>
   </xsl:element>
+</xsl:template>
+
+<!-- ============================================================ -->
+
+<xsl:template match="element()" mode="trim-reveal">
+  <xsl:copy>
+    <xsl:apply-templates select="@*,node()" mode="trim-reveal"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="@class" mode="trim-reveal" priority="10">
+  <xsl:attribute name="class">
+    <xsl:value-of select="replace(., 'reveal1?', '')"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="attribute()|text()|comment()|processing-instruction()"
+              mode="trim-reveal">
+  <xsl:copy/>
 </xsl:template>
 
 <!-- ============================================================ -->
