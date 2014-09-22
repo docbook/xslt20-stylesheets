@@ -265,7 +265,7 @@ and a CSS style is specified.</para>
                           then ()
                           else 'line-numbers'"/>
 
-    <xsl:sequence select="($language,$numbers)"/>
+    <xsl:sequence select="($language,$numbers,$node/@role)"/>
   </xsl:if>
 </xsl:function>
 
