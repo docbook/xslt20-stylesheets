@@ -7,11 +7,17 @@
                 type="dbp:docbook">
 <p:input port="source" sequence="true"/>
 <p:input port="parameters" kind="parameter"/>
-<p:output port="result" sequence="true"/>
+<p:output port="result" sequence="true" primary="true">
+  <p:pipe step="process-secondary" port="result"/>
+</p:output>
+<p:output port="secondary" sequence="true" primary="false">
+  <p:pipe step="process-secondary" port="secondary"/>
+</p:output>
 <p:serialization port="result" method="xhtml" encoding="utf-8" indent="false"/>
 
 <p:option name="format" select="'html'"/>
 <p:option name="style" select="'docbook'"/>
+<p:option name="return-secondary" select="'false'"/>
 <p:option name="syntax-highlighter" select="if ($format='html') then 1 else 0"/>
 
 <!-- Ideally, this pipeline wouldn't rely on an XML Calabash extensions,
@@ -372,8 +378,28 @@
   </p:otherwise>
 </p:choose>
 
-<p:choose>
+<p:choose name="process-secondary">
+  <p:when test="$return-secondary = 'true'">
+    <p:output port="result" sequence="true" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:pipe step="secondary" port="result"/>
+    </p:output>
+    <p:identity name="secondary">
+      <p:input port="source">
+        <p:pipe step="final-pass" port="secondary"/>
+      </p:input>
+    </p:identity>
+    <p:identity>
+      <p:input port="source">
+        <p:pipe step="final-pass" port="result"/>
+      </p:input>
+    </p:identity>
+  </p:when>
   <p:when test="$format = 'html' or $format = 'print'">
+    <p:output port="result" sequence="true" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:empty/>
+    </p:output>
     <p:for-each>
       <p:iteration-source>
         <p:pipe step="final-pass" port="secondary"/>
@@ -398,6 +424,10 @@
     </p:identity>
   </p:when>
   <p:otherwise>
+    <p:output port="result" sequence="true" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:empty/>
+    </p:output>
     <p:for-each>
       <p:iteration-source>
         <p:pipe step="final-pass" port="secondary"/>
