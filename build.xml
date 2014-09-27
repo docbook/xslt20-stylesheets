@@ -38,19 +38,23 @@
   <target name="build-dist" depends="build">
     <delete dir="dist"/>
     <mkdir dir="dist"/>
+<!--
     <mkdir dir="dist/xspec-results-${version}"/>
+-->
     <mkdir dir="dist/docbook-xslt2-${version}"/>
     <mkdir dir="dist/docbook-xslt2-${version}/lib"/>
     <mkdir dir="dist/docbook-xslt2-${version}/lib/MarkLogic"/>
     <mkdir dir="dist/docbook-xslt2-${version}-src"/>
     <mkdir dir="dist/docbook-xslt2-${version}-src/lib"/>
 
+<!--
     <copy todir="dist/xspec-results-${version}">
       <fileset dir="tests/xspec/xspec">
         <exclude name="**/*.xml"/>
         <exclude name="**/*.xsl"/>
       </fileset>
     </copy>
+-->
 
     <copy file="docs/RELEASENOTES.html" todir="dist"/>
 
