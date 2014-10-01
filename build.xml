@@ -41,11 +41,12 @@
 <!--
     <mkdir dir="dist/xspec-results-${version}"/>
 -->
-    <mkdir dir="dist/docbook-xslt2-${version}"/>
-    <mkdir dir="dist/docbook-xslt2-${version}/lib"/>
-    <mkdir dir="dist/docbook-xslt2-${version}/lib/MarkLogic"/>
-    <mkdir dir="dist/docbook-xslt2-${version}-src"/>
-    <mkdir dir="dist/docbook-xslt2-${version}-src/lib"/>
+
+    <mkdir dir="dist/bin/docbook-xslt2-${version}"/>
+    <mkdir dir="dist/bin/docbook-xslt2-${version}/lib"/>
+    <mkdir dir="dist/bin/docbook-xslt2-${version}/lib/MarkLogic"/>
+    <mkdir dir="dist/src/docbook-xslt2-${version}-src"/>
+    <mkdir dir="dist/src/docbook-xslt2-${version}-src/lib"/>
 
 <!--
     <copy todir="dist/xspec-results-${version}">
@@ -56,9 +57,7 @@
     </copy>
 -->
 
-    <copy file="docs/RELEASENOTES.html" todir="dist"/>
-
-    <copy todir="dist/docbook-xslt2-${version}">
+    <copy todir="dist/bin/docbook-xslt2-${version}">
       <fileset dir=".">
         <exclude name=",status"/>
         <exclude name=".git"/>
@@ -75,18 +74,18 @@
       </fileset>
     </copy>
 
-    <copy todir="dist/docbook-xslt2-${version}/lib"
+    <copy todir="dist/bin/docbook-xslt2-${version}/lib"
           file="tools/lib/docbook-xsl-java-saxon.jar"/>
 
-    <copy todir="dist/docbook-xslt2-${version}/lib/MarkLogic">
+    <copy todir="dist/bin/docbook-xslt2-${version}/lib/MarkLogic">
       <fileset dir="tools/MarkLogic"/>
     </copy>
 
-    <copy todir="dist/docbook-xslt2-${version}/lib/MarkLogic/plugins">
+    <copy todir="dist/bin/docbook-xslt2-${version}/lib/MarkLogic/plugins">
       <fileset dir="gentext/build/plugins"/>
     </copy>
 
-    <copy todir="dist/docbook-xslt2-${version}-src">
+    <copy todir="dist/src/docbook-xslt2-${version}-src">
       <fileset dir=".">
         <exclude name=",status"/>
         <exclude name=".git"/>
@@ -133,10 +132,10 @@
   <target name="zip">
     <delete file="dist/docbook-xslt2-${version}.zip"/>
     <delete file="dist/docbook-xslt2-${version}-src.zip"/>
-    <zip destfile="dist/docbook-xslt2-${version}.zip" basedir="dist/docbook-xslt2-${version}"/>
-    <zip destfile="dist/docbook-xslt2-${version}-src.zip" basedir="dist/docbook-xslt2-${version}-src"/>
-    <delete dir="dist/docbook-xslt2-${version}"/>
-    <delete dir="dist/docbook-xslt2-${version}-src"/>
+    <zip destfile="dist/docbook-xslt2-${version}.zip" basedir="dist/bin"/>
+    <zip destfile="dist/docbook-xslt2-${version}-src.zip" basedir="dist/src"/>
+    <delete dir="dist/bin"/>
+    <delete dir="dist/src"/>
   </target>
 
 </project>
