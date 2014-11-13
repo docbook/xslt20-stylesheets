@@ -311,7 +311,13 @@
       <xsl:sequence select="$targets[1]/string(@xml:id)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:message>Error: no matching ID for reference "<xsl:value-of select="$idref"/>" was found.</xsl:message>
+      <!-- You might think we should generate a warning message here.
+           The trouble is, it's possible that a downstream step
+           in the pipeline knows what to do with this. So we just leave
+           it alone and assume someone else will generate the error
+           if it is an error.
+      -->
+      <xsl:value-of select="$idref"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
