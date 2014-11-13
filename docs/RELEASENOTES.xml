@@ -3,7 +3,7 @@
          version="5.0">
 <title>Release Notes</title>
 
-<para>This document summarizes the significant changes since the 2.0.5
+<para>This document summarizes the significant changes since the 2.0.6
 release.</para>
 
 <para>There's nothing significant about the order in which the changes
@@ -12,35 +12,21 @@ the top..</para>
 
 <itemizedlist>
 <listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/b7a5afa126657a961454212d9178591fcd139529">Added</link>:
-support for passing the secondary documents back from the DocBook processing
-pipeline.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/70b3d2f15f367b3897e1b712e91864915b98ebc3">Made</link>
+missing links stand out better
 </para>
 </listitem>
 
 <listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/c6750bd7319870a03e5272717c483a208df1b4d2">Added</link>
-<tag class="attribute">role</tag> attribute to verbatim classes.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/5c1803e0a248f14a9742b6beccc1e9ccd351c474">Allow</link>
+broken links to flow through the preprocessing step in the pipeline.
+It's possible that downstream stylesheets will know what to do with them.
 </para>
 </listitem>
 
 <listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/62dcfe34e386252211828d9e0392df95d6be8521">Added</link> a second pass over slides to
-remove “reveal” classes from notes. With reveal classes in the notes, the
-JavaScript was getting confused about slide transitions.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/79ede784446f0606809568b9d479f7f40b7a85e4">Tinkered</link>
-with <code>dist</code> target so that the distribution zips
-have a top-level, versioned directory.
-</para>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/5d0ebed1d533b6f6f6f3eceee486231f58215179">Removed</link>
-xspec results from the distributions; they're not used at the moment.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/09425bf42213608e20475dcfe53c9a9ed293bcef">Support</link>
+XLink simple links on <tag>tag</tag> elements.
 </para>
 </listitem>
 
