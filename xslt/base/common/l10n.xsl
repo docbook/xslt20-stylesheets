@@ -307,7 +307,7 @@ context node.</para>
 
   <xsl:variable name="l10n.gentext"
 		select="($localization/key('l10n-gentext', concat($lang, '#', $key)),
-		         f:get-locale($lang)/key('l10n-gentext', concat($lang, '#', $key)))[1]"/>
+		         f:load-locale($lang)/key('l10n-gentext', concat($lang, '#', $key)))[1]"/>
 
   <xsl:choose>
     <xsl:when test="$l10n.gentext">
@@ -330,7 +330,7 @@ context node.</para>
         </xsl:choose>
       </xsl:message>
       <xsl:value-of select="($localization/key('l10n-gentext', concat('en#', $key)),
-                             f:get-locale('en')/key('l10n-gentext', concat('en#', $key)))[1]/@text"/>
+                             f:load-locale('en')/key('l10n-gentext', concat('en#', $key)))[1]/@text"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -440,7 +440,7 @@ parameters.</para>
 		select="$localization//l:l10n[@language=$lang]"/>
 
   <xsl:variable name="localization.nodes"
-    select="f:get-locale($lang)"/>
+    select="f:load-locale($lang)"/>
 
   <xsl:if test="not($localization.nodes | $user.localization.nodes)">
     <xsl:message>
@@ -577,7 +577,7 @@ the specified parameters.</para>
 		select="$localization//l:l10n[@language=$lang]"/>
 
   <xsl:variable name="localization.nodes"
-		select="f:get-locale($lang)"/>
+		select="f:load-locale($lang)"/>
 
   <xsl:variable name="user.context.nodes"
 		select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
@@ -815,7 +815,7 @@ the English locale value will be used as the default.</para>
 
   <xsl:variable name="l10n.dingbat"
                 select="($localization/key('l10n-dingbat', concat($lang, '#', $dingbat)),
-                         f:get-locale($lang)/key('l10n-dingbat', concat($lang, '#', $dingbat)))[1]"/>
+                         f:load-locale($lang)/key('l10n-dingbat', concat($lang, '#', $dingbat)))[1]"/>
 
   <xsl:choose>
     <xsl:when test="$l10n.dingbat">
@@ -830,7 +830,7 @@ the English locale value will be used as the default.</para>
         <xsl:text> exists; using "en".</xsl:text>
       </xsl:message>
       <xsl:value-of select="($localization/key('l10n-dingbat', concat('en#', $dingbat)),
-                             f:get-locale('en')/key('l10n-dingbat', concat('en#', $dingbat)))[1]"/>
+                             f:load-locale('en')/key('l10n-dingbat', concat('en#', $dingbat)))[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
