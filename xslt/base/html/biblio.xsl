@@ -80,10 +80,13 @@
   <div>
     <xsl:sequence select="f:html-attributes(.)"/>
 
-    <p>
+    <p class="{local-name(.)}">
+      <span class="label">
       <xsl:text>[</xsl:text>
       <xsl:copy-of select="$label"/>
       <xsl:text>] </xsl:text>
+      </span>
+      <span class="entry">
       <xsl:choose>
 	<xsl:when test="self::db:biblioentry">
 	  <xsl:apply-templates mode="m:biblioentry"/>
@@ -92,6 +95,7 @@
 	  <xsl:apply-templates mode="m:bibliomixed"/>
 	</xsl:otherwise>
       </xsl:choose>
+      </span>
     </p>
   </div>
 </xsl:template>
