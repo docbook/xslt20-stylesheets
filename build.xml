@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="DocBook XSLT 2.0 stylesheets" default="all">
 
-  <property name="version" value="2.0.7"/>
+  <property name="version" value="2.0.8"/>
 
   <property name="dbroot.dir" value="${ant.file}/.."/>
   <import file="tools/build-shared.xml"/>
@@ -71,6 +71,8 @@
         <exclude name="gentext/**"/>
         <exclude name="xslt/params/**"/>
         <exclude name="**/build.xml"/>
+        <exclude name="**/build.gradle"/>
+        <exclude name="**/gradle.properties"/>
       </fileset>
     </copy>
 
