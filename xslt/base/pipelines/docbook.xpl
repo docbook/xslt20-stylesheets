@@ -144,18 +144,20 @@
   <!-- <p:log port="result" href="/tmp/ex.xml"/> -->
 </p:xslt>
 
-<p:delete match="@ghost:*"
-          xmlns:ghost="http://docbook.org/ns/docbook/ephemeral">
-  <p:input port="source">
-    <p:pipe step="expand-linkbases" port="result"/>
-  </p:input>
-</p:delete>
+<!-- There used to be a step here that deleted the ghost: attributes
+     inserted earlier. You can't do that, some of the final-pass processing,
+     particularly for tables and verbatim environments, relies on the
+     presence of computed ghost: attributes.
+-->
 
 <p:xslt name="preprocessed">
   <p:input port="stylesheet">
     <p:pipe step="inline-xlinks" port="result"/>
   </p:input>
-  <!-- <p:log port="result" href="/tmp/doc.xml"/> -->
+  <p:input port="source">
+    <p:pipe step="expand-linkbases" port="result"/>
+  </p:input>
+<!--  <p:log port="result" href="/tmp/doc.xml"/> -->
 </p:xslt>
 
 <p:choose name="final-pass">
