@@ -33,7 +33,7 @@
     <echo>Tests, what tests?</echo>
   </target>
 
-  <target name="dist" depends="clean,build,relnotes,build-dist,smoketest,zip"/>
+  <target name="dist" depends="clean,build,relnotes,smoketest,build-dist,zip"/>
 
   <target name="build-dist" depends="build">
     <delete dir="dist"/>
@@ -75,7 +75,7 @@
     </copy>
 
     <copy todir="dist/bin/docbook-xslt2-${version}/lib"
-          file="tools/lib/docbook-xsl-java-saxon.jar"/>
+          file="tools/lib/docbook-xsl-java-saxon-1.2.1-95.jar"/>
 
     <copy todir="dist/bin/docbook-xslt2-${version}/lib/MarkLogic">
       <fileset dir="tools/MarkLogic"/>

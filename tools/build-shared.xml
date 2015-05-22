@@ -3,7 +3,7 @@
 
   <property name="dbroot.dir" value="${ant.file}/.."/>
   <property name="libs" value="${dbroot.dir}/tools/lib"/>
-  <property name="saxon.jar" value="${libs}/saxon9he.jar"/>
+  <property name="saxon.jar" value="${libs}/Saxon-HE-9.6.0-4.jar"/>
   <property name="jing.jar" value="${libs}/jing.jar"/>
   <property name="ant-contrib.jar" value="${libs}/ant-contrib-1.0b3.jar"/>
 
@@ -13,7 +13,7 @@
 
   <path id="saxon.classpath">
     <pathelement location="${saxon.jar}"/>
-    <pathelement location="lib/docbook-xsl-java-saxon.jar"/>
+    <pathelement location="lib/docbook-xsl-java-saxon-1.2.1-95.jar"/>
   </path>
 
   <path id="calabash.classpath">
