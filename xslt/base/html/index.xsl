@@ -12,32 +12,36 @@
 
 <xsl:template match="db:index|db:setindex">
   <article>
-    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))" />
 
-    <xsl:call-template name="t:titlepage"/>
+    <xsl:call-template name="t:titlepage" />
 
-    <xsl:apply-templates select="*[not(self::db:indexdiv)
-                                   and not(self::db:indexentry)]"/>
+    <xsl:apply-templates
+      select="*[not(self::db:indexdiv)
+                                   and not(self::db:indexentry)]" />
 
     <!-- An empty index element indicates that the index -->
     <!-- should be generated automatically -->
-    <xsl:choose>
-      <xsl:when test="not(db:indexentry) and not(db:indexdiv)">
-	<xsl:call-template name="generate-index">
-	  <xsl:with-param name="scope" select="parent::*"/>
-	</xsl:call-template>
-      </xsl:when>
-      <xsl:when test="db:indexentry">
-	<div class="indexdiv">
-	  <dl>
-	    <xsl:apply-templates select="db:indexentry"/>
-	  </dl>
-	</div>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:apply-templates select="db:indexdiv"/>
-      </xsl:otherwise>
-    </xsl:choose>
+    <!-- when generate.index is not false -->
+    <xsl:if test="count(*)>0 or $generate.index != 0">
+      <xsl:choose>
+        <xsl:when test="not(db:indexentry) and not(db:indexdiv)">
+          <xsl:call-template name="generate-index">
+            <xsl:with-param name="scope" select="parent::*" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:when test="db:indexentry">
+          <div class="indexdiv">
+            <dl>
+              <xsl:apply-templates select="db:indexentry" />
+            </dl>
+          </div>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="db:indexdiv" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
   </article>
 </xsl:template>
 
