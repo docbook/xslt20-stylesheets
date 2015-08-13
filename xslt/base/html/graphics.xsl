@@ -273,7 +273,7 @@ vertical alignment.</para>
   <xsl:variable name="filename" select="f:mediaobject-filename(..)"/>
 
   <xsl:variable name="imageproperties" as="xs:integer*">
-    <xsl:if test="$filename != ''">
+    <xsl:if test="$tag eq 'img' and $filename != ''">
       <xsl:call-template name="t:image-properties">
         <xsl:with-param name="image" select="$filename"/>
       </xsl:call-template>
@@ -596,6 +596,16 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                              or @valign)"/>
 
   <xsl:choose>
+    <xsl:when test="$tag = 'video'">
+      <video controls="controls">
+        <xsl:if test="$html.width != ''">
+          <xsl:attribute name="width">
+            <xsl:value-of select="$html.width"/>
+          </xsl:attribute>
+        </xsl:if>
+        <source src="{$href}"/>
+      </video>
+    </xsl:when>
     <xsl:when test="$use.viewport">
       <table border="0" summary="Manufactured viewport for HTML image"
              cellspacing="0" cellpadding="0">
@@ -967,7 +977,7 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 
 <xsl:template match="db:videodata">
   <xsl:call-template name="t:process-image">
-    <xsl:with-param name="tag" select="'embed'"/>
+    <xsl:with-param name="tag" select="'video'"/>
     <xsl:with-param name="alt">
       <xsl:apply-templates select="(../../db:textobject/db:phrase)[1]"/>
     </xsl:with-param>
