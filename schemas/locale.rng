@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <include href="docbook.rng">
+    <start combine="choice">
+      <notAllowed/>
+    </start>
+  </include>
+  <start>
+    <ref name="locale"/>
+  </start>
+  <define name="any">
+    <element>
+      <anyName/>
+      <zeroOrMore>
+        <choice>
+          <attribute>
+            <anyName/>
+          </attribute>
+          <text/>
+          <ref name="any"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <!-- ============================================================ -->
+  <define name="locale">
+    <element name="locale">
+      <attribute name="language"/>
+      <attribute name="english-language-name"/>
+      <group>
+        <optional>
+          <ref name="db.info"/>
+        </optional>
+        <zeroOrMore>
+          <choice>
+            <ref name="gentext"/>
+            <ref name="dingbat"/>
+            <ref name="xref"/>
+            <ref name="context"/>
+            <ref name="letters"/>
+          </choice>
+        </zeroOrMore>
+      </group>
+    </element>
+  </define>
+  <define name="gentext">
+    <element name="gentext">
+      <attribute name="key"/>
+      <attribute name="text"/>
+      <optional>
+        <attribute name="lang"/>
+      </optional>
+      <empty/>
+    </element>
+  </define>
+  <define name="dingbat">
+    <element name="dingbat">
+      <attribute name="key"/>
+      <attribute name="text"/>
+      <optional>
+        <attribute name="lang"/>
+      </optional>
+      <empty/>
+    </element>
+  </define>
+  <define name="xref">
+    <element name="xref">
+      <attribute name="element"/>
+      <attribute name="text"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="context">
+    <element name="context">
+      <attribute name="name"/>
+      <zeroOrMore>
+        <ref name="template"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="template">
+    <choice>
+      <ref name="textTemplate"/>
+      <ref name="contentTemplate"/>
+    </choice>
+  </define>
+  <define name="contentTemplate">
+    <element name="template">
+      <attribute name="name"/>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="any"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="textTemplate">
+    <element name="template">
+      <attribute name="name"/>
+      <attribute name="text"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="letters">
+    <element name="letters">
+      <zeroOrMore>
+        <ref name="l"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="l">
+    <element name="l">
+      <attribute name="i">
+        <data type="integer"/>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+</grammar>

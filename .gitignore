@@ -1,8 +1,9 @@
 *~
 ,*
 /dist/
-/tests/smoketest.html
+/test/smoketest.html
 /tools/lib/cachedir/
 /docs/RELEASENOTES.html
 /ext/tests/
 /local/
+/.gradle/
