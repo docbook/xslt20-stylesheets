@@ -1286,4 +1286,64 @@ an absolute URI (including a scheme!).</para>
 </xsl:function>
 
 <!-- ============================================================ -->
-     </xsl:stylesheet>
+
+<doc:function name="f:strip-file-uri-scheme"
+	      xmlns="http://docbook.org/ns/docbook">
+<refpurpose>Strip file: URI shemes off URIs</refpurpose>
+
+<refdescription>
+<para>The <function>strip-file-uri-scheme</function> removes any leading
+<code>file:</code> URI schemes from the URI.</para>
+</refdescription>
+
+<refparameter>
+<variablelist>
+<varlistentry><term>uri</term>
+<listitem>
+<para>The URI to be stripped.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+</refparameter>
+
+<refreturn>
+<para>The uri without the leading scheme.</para>
+</refreturn>
+</doc:function>
+
+<xsl:function name="f:strip-file-uri-scheme" as="xs:string">
+  <xsl:param name="uri" as="xs:string"/>
+
+  <!-- Stripping is complicated by two things, first it's not
+       clear when we get file:///path and when we get file://path;
+       second, on a Windows system, if we get file://D:/path we
+       have to remove the drive as well. -->
+
+  <xsl:choose>
+    <xsl:when test="matches($uri, '^file:///?[A-Za-z]:')">
+      <xsl:value-of select="replace($uri, '^file:///?[A-Za-z]:(.*)$', '$1')"/>
+    </xsl:when>
+    <xsl:when test="matches($uri, '^file://.:')">
+      <xsl:value-of select="substring-after($uri, 'file://')"/>
+    </xsl:when>
+    <xsl:when test="matches($uri, '^file:/.:')">
+      <xsl:value-of select="substring-after($uri, 'file:/')"/>
+    </xsl:when>
+    <xsl:when test="starts-with($uri, 'file://')">
+      <xsl:value-of select="substring-after($uri, 'file:/')"/>
+    </xsl:when>
+    <xsl:when test="starts-with($uri, 'file:/')">
+      <xsl:value-of select="substring-after($uri, 'file:')"/>
+    </xsl:when>
+    <xsl:when test="starts-with($uri, '[A-Za-z]:/')">
+      <xsl:value-of select="substring($uri, 3)"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="$uri"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
+
+<!-- ============================================================ -->
+
+</xsl:stylesheet>

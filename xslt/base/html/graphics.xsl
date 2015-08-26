@@ -1059,21 +1059,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
       <xsl:value-of select="."/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="f:resolve-path(.,base-uri(.))"/>
-<!--
-      <xsl:variable name="absuri" select="f:resolve-path(.,base-uri(.))"/>
-      <xsl:choose>
-        <xsl:when test="starts-with($absuri, 'file://')">
-          <xsl:value-of select="substring-after($absuri, 'file:/')"/>
-        </xsl:when>
-        <xsl:when test="starts-with($absuri, 'file:/')">
-          <xsl:value-of select="substring-after($absuri, 'file:')"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="$absuri"/>
-        </xsl:otherwise>
-      </xsl:choose>
--->
+      <xsl:value-of
+          select="f:strip-file-uri-scheme(f:resolve-path(.,base-uri(.)))"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

@@ -870,7 +870,8 @@ the English locale value will be used as the default.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:sequence
-          select="doc-available(f:resolve-path(concat($lang,'.xml'), $l10n.locale.dir))"/>
+          select="doc-available(f:resolve-path(concat($lang,'.xml'),
+                                               $l10n.locale.dir))"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -939,7 +940,8 @@ the English locale value will be used as the default.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="locale-file"
-                    select="f:resolve-path(concat($lang,'.xml'), $l10n.locale.dir)"/>
+                    select="f:resolve-path(concat($lang,'.xml'),
+                                           $l10n.locale.dir)"/>
       <xsl:sequence select="doc($locale-file)/l:l10n"/>
     </xsl:otherwise>
   </xsl:choose>
