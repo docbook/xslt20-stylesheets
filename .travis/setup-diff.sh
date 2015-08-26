@@ -3,6 +3,7 @@ echo "Setting up diff tools..."
 
 if [ "$DELTA_BASE" != "" ] && [ "$DELTA_NAME" != "" ] && [ "DELTA_PASS" != "" ]
 then
+    echo "Installing tools..."
     rm -rf delta
     mkdir delta
     cd delta
@@ -12,6 +13,7 @@ then
     done
 else if [ -d "$DELTA_LOCAL" ]
 then
+    echo "Installing local tools..."
     rm -rf delta
     mkdir delta
     cd delta
