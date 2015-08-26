@@ -36,6 +36,7 @@ configurations.all {
 
 dependencies {
   compile fileTree(dir: 'lib').include("*.jar")
+  compile fileTree(dir: 'delta').include("*.jar")
   compile (
     [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
     [group: 'com.xmlcalabash', name: 'xmlcalabash', version: '1.1.5-96'],
@@ -44,7 +45,7 @@ dependencies {
   )
 }
 
-task runtests(dependsOn: setuptests, type: JavaExec) {
+task runtests(type: JavaExec) {
   classpath = configurations.runtime
 
   main = 'com.xmlcalabash.drivers.Main'
