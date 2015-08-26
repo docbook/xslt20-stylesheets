@@ -14,28 +14,21 @@ by various more or less silly URLs.</para>
 <mediaobject>
   <imageobject>
     <imagedata
-      fileref="../../xspec/graphics/stamp.png"/>
-  </imageobject>
-</mediaobject>
-  
-<mediaobject>
-  <imageobject>
-    <imagedata
-      fileref="../../../tests/xspec/graphics/stamp.png"/>
+      fileref="../../test/graphics/stamp.png"/>
   </imageobject>
 </mediaobject>
 
 <mediaobject>
   <imageobject>
     <imagedata
-      fileref="../../../tests/xspec/dummy/../graphics/stamp.png"/>
+      fileref="../../test/dummy/../graphics/stamp.png"/>
   </imageobject>
 </mediaobject>
-  
+
 <mediaobject>
   <imageobject>
     <imagedata
-      fileref="../../../tests/xspec/./graphics/stamp.png"/>
+      fileref="../../test/./graphics/stamp.png"/>
   </imageobject>
 </mediaobject>
 
@@ -45,5 +38,5 @@ by various more or less silly URLs.</para>
       fileref="../graphics/emc2.png"/>
   </imageobject>
 </mediaobject>
-  
+
 </article>
