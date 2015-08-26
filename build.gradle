@@ -192,6 +192,10 @@ task copyAll(dependsOn: [copyReadme, copyDocs, copyXslt, copySrc, copyLib,
   // nothing to see here
 }
 
+task dist(dependsOn: [copyAll, buildDist]) {
+  // nothing to see here
+}
+
 task clean.doFirst {
   delete "gentext/build/"
   delete "xslt/base/common/locales/"
