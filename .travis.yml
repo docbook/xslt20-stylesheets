@@ -3,4 +3,4 @@ script: gradle dist
 sudu: false
 
 install:
-  - .travis/setup-diffs.sh
+  - cd $TRAVIS_REPO_SLUG && .travis/setup-diffs.sh
