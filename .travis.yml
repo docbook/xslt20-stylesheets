@@ -1,6 +1,6 @@
 language: java
 script: gradle dist
-sudu: false
+sudo: false
 install:
 - ".travis/setup-diff.sh"
 env:
