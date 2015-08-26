@@ -134,7 +134,7 @@ task copyLocales(dependsOn: gentext, type: Copy) {
   includeEmptyDirs = false
 }
 
-task buildDist(dependsOn: [makeVersion,copyLocales,makeParams,relnotes]) {
+task buildDist(dependsOn: [makeVersion,copyLocales,makeParams,relnotes,testreport]) {
   // nothing to see here
 }
 
