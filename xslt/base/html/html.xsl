@@ -226,11 +226,14 @@ and a CSS style is specified.</para>
 <xsl:template name="t:syntax-highlight-head">
   <xsl:choose>
     <xsl:when test="$syntax-highlighter != '0'">
-      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" />
-      <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet" />
+      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" 
+            type="text/css"/>
+      <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet"
+            type="text/css"/>
     </xsl:when>
     <xsl:otherwise>
-      <link href="{concat($resource.root, 'css/db-noprism.css')}" rel="stylesheet" />
+      <link href="{concat($resource.root, 'css/db-noprism.css')}" rel="stylesheet"
+            type="text/css"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
