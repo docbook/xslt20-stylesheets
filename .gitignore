@@ -7,3 +7,4 @@
 /ext/tests/
 /local/
 /.gradle/
+/gentext/build/
