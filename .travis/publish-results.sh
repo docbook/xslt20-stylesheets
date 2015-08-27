@@ -14,8 +14,8 @@ if [ "$TRAVIS_REPO_SLUG" == "$GIT_PUB_REPO" ]; then
         RELEASE=${TRAVIS_BRANCH}
     fi
 
-    mkdir -p $HOME/pages/{$RELEASE}
-    cp -R build/distributions/* $HOME/pages/{$RELEASE}/
+    mkdir -p $HOME/pages/${RELEASE}
+    cp -R build/distributions/* $HOME/pages/${RELEASE}/
 
     cd $HOME
     git config --global user.email ${GIT_EMAIL}
