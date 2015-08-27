@@ -87,16 +87,4 @@
       <p:pipe step="list" port="result"/>
     </p:input>
   </p:insert>
-
-
-  <p:insert match="h:html/h:body" position="last-child"
-            xmlns:h="http://www.w3.org/1999/xhtml">
-    <p:input port="source">
-      <p:pipe step="insert" port="result"/>
-    </p:input>
-    <p:input port="insertion">
-      <p:pipe step="env" port="result"/>
-    </p:input>
-  </p:insert>
-
 </p:declare-step>
