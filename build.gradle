@@ -69,7 +69,7 @@ task testreport(dependsOn: runtests, type: JavaExec) {
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
   args('-D',
-       '-oresult=' + testsRoot + '/result/index.html',
+       '-oresult=' + testsRoot + '/index.html',
        testsRoot + '/style/report.xpl',
        'resultdir=' + testsRoot + '/result/'
       )
@@ -140,60 +140,103 @@ task buildDist(dependsOn: [makeVersion,copyLocales,makeParams,relnotes,testrepor
 
 task copyReadme(type: Copy) {
   from 'README.md'
-  into "dist/bin/docbook-xslt2-${version}/"
+  into "build/dist/bin/"
 }
 
 task copyDocs(type: Copy) {
-  FileCollection collection
   FileTree tree = fileTree(dir: 'docs')
   from tree
-  into "dist/bin/docbook-xslt2-${version}/docs/"
+  into "build/dist/bin/docs/"
+}
+
+task copyEtc(type: Copy) {
+  File srcDir
+  FileTree tree = fileTree(dir: 'tools/distindex')
+  from tree
+  into "build/distributions/"
 }
 
 task copyXslt(type: Copy) {
   File srcDir
-  FileCollection collection
   FileTree tree = fileTree(dir: 'xslt',
                            exclude: ['params/**'])
   from tree
-  into "dist/bin/docbook-xslt2-${version}/xslt/"
+  into "build/dist/bin/xslt/"
 }
 
 task copySrc(type: Copy) {
   File srcDir
-  FileCollection collection
   FileTree tree = fileTree(dir: '.',
-                           exclude: ['OLD.tests/**', 'dist/**',
+                           exclude: ['OLD.tests/**', 'OLD.lib/**', 'build/**',
                                      'tools/lib/cachedir/**',
                                      'gentext/build/**',
-                                     '.gradle/**', 'lib/**',
+                                     'test/diff/**', 'test/actual/**',
+                                     'test/result/**', '.travis/**',
+                                     '.travis.yml', 'delta/**',
+                                     '.gradle/**', 'lib/**', 'SECURE',
                                      ',status', 'build.xml'])
   from tree
-  into "dist/src/docbook-xslt2-${version}"
+  into "build/dist/src"
 }
 
 task copyLib(type: Copy) {
   from "tools/lib/docbook-xsl-java-saxon-1.2.1-95.jar"
-  into "dist/bin/docbook-xslt2-${version}/lib/"
+  into "build/dist/bin/lib/"
 }
 
 task copyMarkLogic(type: Copy) {
   from "tools/MarkLogic/"
-  into "dist/bin/docbook-xslt2-${version}/lib/MarkLogic/"
+  into "build/dist/bin/lib/MarkLogic/"
 }
 
 task copyMarkLogicPlugins(type: Copy) {
   from "gentext/build/plugins/"
-  into "dist/bin/docbook-xslt2-${version}/lib/MarkLogic/plugins/"
+  into "build/dist/bin/lib/MarkLogic/plugins/"
 }
 
-task copyAll(dependsOn: [copyReadme, copyDocs, copyXslt, copySrc, copyLib,
+task copyResults(dependsOn: testreport, type: Copy) {
+  File srcDir
+  FileTree tree = fileTree(dir: 'test')
+  from tree
+  into "build/distributions/test-results/"
+}
+
+task copyAll(dependsOn: [copyReadme, copyDocs, copyEtc, copyXslt,
+                         copySrc, copyLib, copyResults,
                          copyMarkLogic, copyMarkLogicPlugins]) {
   // nothing to see here
 }
 
-task dist(dependsOn: [copyAll, buildDist]) {
+task zipBin(dependsOn: copyAll, type: Zip) {
+  from('build/dist/bin')
+  into 'docbook-xslt2-' + version
+  archiveName 'docbook-xslt2-' + version + ".zip"
+}
+
+task zipSrc(dependsOn: copyAll, type: Zip) {
+  from('build/dist/src')
+  into 'docbook-xslt2-' + version + '-src'
+  archiveName 'docbook-xslt2-' + version + "-src.zip"
+}
+
+task zip(dependsOn: [zipBin,zipSrc]) {
   // nothing to see here
+}
+
+task updateDist(dependsOn: [copyAll, buildDist, zip], type: Copy) {
+  from 'build/dist/bin/'
+  into 'build/distributions/'
+}
+
+task dist(dependsOn: updateDist, type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'com.xmlcalabash.drivers.Main'
+  maxHeapSize = '1024m'
+  args('-D',
+       '-oresult=build/distributions/index.html',
+       'tools/makeindex.xpl'
+      )
 }
 
 task clean.doFirst {
@@ -201,5 +244,5 @@ task clean.doFirst {
   delete "xslt/base/common/locales/"
   delete "xslt/base/fo/param.xsl"
   delete "xslt/base/html/param.xsl"
-  delete "dist/"
+  delete "build/"
 }

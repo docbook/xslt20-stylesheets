@@ -1,6 +1,5 @@
 *~
 ,*
-/dist/
 /test/smoketest.html
 /tools/lib/cachedir/
 /docs/RELEASENOTES.html
@@ -8,3 +7,4 @@
 /local/
 /.gradle/
 /gentext/build/
+/build/

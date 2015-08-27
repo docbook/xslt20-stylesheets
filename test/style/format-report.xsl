@@ -12,7 +12,7 @@
   <html>
     <head>
       <title>Test results</title>
-      <link href="show-results.css" rel="stylesheet" type="text/css"/>
+      <link href="style/show-results.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
       <h1>Test results</h1>
@@ -41,7 +41,7 @@
       <xsl:attribute name="class" select="'diff'"/>
     </xsl:if>
     <td>
-      <a href="{@test}">
+      <a href="result/{@test}">
         <xsl:value-of select="@test"/>
       </a>
     </td>
@@ -49,12 +49,12 @@
       <xsl:value-of select="@differences"/>
     </td>
     <td>
-      <a href="../expected/{@test}">
+      <a href="expected/{@test}">
         <xsl:value-of select="@test"/>
       </a>
     </td>
     <td>
-      <a href="../actual/{@test}">
+      <a href="actual/{@test}">
         <xsl:value-of select="@test"/>
       </a>
     </td>

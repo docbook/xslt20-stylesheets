@@ -5,12 +5,17 @@ set | grep TRAVIS
 if [ "$TRAVIS_REPO_SLUG" == "$GIT_PUB_REPO" ]; then
     echo -e "Setting up for publication...\n"
 
-    TIP=${TRAVIS_TAG:="head"}
+    VERSION=`grep version gradle.properties | cut -f2 -d=`
+    ZIPBASE=docbook-xslt2-${VERSION}
 
-    mkdir -p $HOME/pages/results
-    mkdir -p $HOME/pages/dist
-    cp test/result/* $HOME/pages/results/
-    cp test/style/show-results.css $HOME/pages/results/
+    if [ "$TRAVIS_BRANCH" = "master" ]; then
+        RELEASE=${VERSION}
+    else
+        RELEASE=${TRAVIS_BRANCH}
+    fi
+
+    mkdir -p $HOME/pages/{$RELEASE}
+    cp -R build/distributions/* $HOME/pages/{$RELEASE}/
 
     cd $HOME
     git config --global user.email ${GIT_EMAIL}
@@ -21,9 +26,9 @@ if [ "$TRAVIS_REPO_SLUG" == "$GIT_PUB_REPO" ]; then
         echo -e "Publishing results...\n"
 
         cd gh-pages
-        git rm -rf ./pages/${TRAVIS_BRANCH}/${TIP}
-        mkdir -p ./pages/${TRAVIS_BRANCH}/${TIP}
-        cp -Rf $HOME/pages/* ./pages/${TRAVIS_BRANCH}/${TIP}
+        git rm -rf ./pages/${RELEASE}
+        mkdir -p ./pages/${RELEASE}
+        cp -Rf $HOME/pages/* ./pages/
 
         git add -f .
         git commit -m "Successful travis build $TRAVIS_BUILD_NUMBER"
