@@ -48,6 +48,8 @@ dependencies {
 task runtests(type: JavaExec) {
   classpath = configurations.runtime
 
+  println(classpath.asPath)
+
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
   args('-D',
@@ -150,7 +152,6 @@ task copyDocs(type: Copy) {
 }
 
 task copyEtc(type: Copy) {
-  File srcDir
   FileTree tree = fileTree(dir: 'tools/distindex')
   from tree
   into "build/distributions/"
@@ -158,12 +159,12 @@ task copyEtc(type: Copy) {
 
 task copyResources1(type: Copy) {
   from "resources/base"
-  into "build/distributions/resources/base/"
+  into "build/dist/bin/resources/base/"
 }
 
 task copyResources2(type: Copy) {
   from "resources/slides"
-  into "build/distributions/resources/slides/"
+  into "build/dist/bin/resources/slides/"
 }
 
 task copyResources(dependsOn: [copyResources1, copyResources2, copyEtc]) {
@@ -171,7 +172,6 @@ task copyResources(dependsOn: [copyResources1, copyResources2, copyEtc]) {
 }
 
 task copyXslt(type: Copy) {
-  File srcDir
   FileTree tree = fileTree(dir: 'xslt',
                            exclude: ['params/**'])
   from tree
@@ -179,7 +179,6 @@ task copyXslt(type: Copy) {
 }
 
 task copySrc(type: Copy) {
-  File srcDir
   FileTree tree = fileTree(dir: '.',
                            exclude: ['OLD.tests/**', 'OLD.lib/**', 'build/**',
                                      'tools/lib/cachedir/**',
@@ -209,7 +208,6 @@ task copyMarkLogicPlugins(type: Copy) {
 }
 
 task copyResults(dependsOn: testreport, type: Copy) {
-  File srcDir
   FileTree tree = fileTree(dir: 'test')
   from tree
   into "build/distributions/test-results/"
