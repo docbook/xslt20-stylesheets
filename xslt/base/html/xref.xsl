@@ -1059,6 +1059,7 @@ cross references to that element.</para>
 <xsl:template match="db:co" mode="m:xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
+  <xsl:attribute name="class" select="'callout-link'"/>
   <xsl:apply-templates select="." mode="m:callout-bug"/>
 </xsl:template>
 
