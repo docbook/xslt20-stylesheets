@@ -619,4 +619,27 @@ if appropriate</refpurpose>
   </xsl:copy>
 </xsl:template>
 
+<!-- ============================================================ -->
+
+<xsl:template match="db:informaltable[db:tr]
+                     |db:table[db:tr]"
+	      xmlns="http://docbook.org/ns/docbook">
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+
+    <xsl:for-each-group select="*" group-by="node-name(.)">
+      <xsl:choose>
+        <xsl:when test="current-group()[1]/self::db:tr">
+          <tbody>
+            <xsl:sequence select="current-group()"/>
+          </tbody>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="current-group()"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each-group>
+  </xsl:copy>
+</xsl:template>
+
 </xsl:stylesheet>
