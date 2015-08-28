@@ -20,6 +20,8 @@
   <!-- this isn't used by the HTML stylesheets, but it's in common/functions -->
 </xsl:param>
 
+<xsl:param name="syntax.highlight.map" as="element()*"/>
+
 <!-- ============================================================ -->
 
 <doc:template name="anchor" xmlns="http://docbook.org/ns/docbook">
@@ -224,11 +226,14 @@ and a CSS style is specified.</para>
 <xsl:template name="t:syntax-highlight-head">
   <xsl:choose>
     <xsl:when test="$syntax-highlighter != '0'">
-      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" />
-      <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet" />
+      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" 
+            type="text/css"/>
+      <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet"
+            type="text/css"/>
     </xsl:when>
     <xsl:otherwise>
-      <link href="{concat($resource.root, 'css/db-noprism.css')}" rel="stylesheet" />
+      <link href="{concat($resource.root, 'css/db-noprism.css')}" rel="stylesheet"
+            type="text/css"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -239,14 +244,35 @@ and a CSS style is specified.</para>
   </xsl:if>
 </xsl:template>
 
+<xsl:function name="f:syntax-highlight" as="xs:boolean">
+  <xsl:param name="node"/>
+
+  <xsl:variable name="minlines" as="xs:decimal"
+                select="(xs:decimal(f:lineNumbering($node,'minlines')),0)[1]"/>
+
+  <!-- count the approximate number of lines... -->
+  <xsl:variable name="numlines"
+                select="count(tokenize(string($node), '&#10;'))"/>
+
+  <xsl:sequence select="f:lineNumbering($node,'everyNth') != 0
+                        and $minlines &lt;= $numlines"/>
+</xsl:function>
+
 <xsl:function name="f:syntax-highlight-class" as="xs:string*">
   <xsl:param name="node"/>
 
-  <xsl:if test="$syntax-highlighter != '0'">
+  <xsl:variable name="numbered" select="f:syntax-highlight($node)"/>
+
+  <xsl:if test="$syntax-highlighter != '0' and $numbered">
+    <xsl:variable name="language" select="$node/@language/string()"/>
+    <xsl:variable name="mapped-language"
+                  select="($syntax.highlight.map[@key=$language]/@value/string(),
+                           $language)[1]"/>
+
     <xsl:variable name="language" as="xs:string?"
-                  select="if ($node/@language)
-                          then concat('language-', $node/@language)
-                          else ()"/>
+                  select="if ($mapped-language)
+                          then concat('language-', $mapped-language)
+                          else 'language-none'"/>
 
     <xsl:variable name="numbered" as="xs:boolean"
                   select="f:lineNumbering($node,'everyNth') != 0"/>
@@ -258,7 +284,7 @@ and a CSS style is specified.</para>
                           then ()
                           else 'line-numbers'"/>
 
-    <xsl:sequence select="($language,$numbers)"/>
+    <xsl:sequence select="($language,$numbers,$node/@role)"/>
   </xsl:if>
 </xsl:function>
 

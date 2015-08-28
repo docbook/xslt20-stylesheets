@@ -1,21 +1,35 @@
 <p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:dbp="http://docbook.github.com/ns/pipeline"
-                name="main" version="1.0" exclude-inline-prefixes="dbp"
+                xmlns:pxp="http://exproc.org/proposed/steps"
+                name="main" version="1.0"
+                exclude-inline-prefixes="db dbp pxp"
                 type="dbp:docbook">
 <p:input port="source" sequence="true"/>
 <p:input port="parameters" kind="parameter"/>
-<p:output port="result" sequence="true"/>
+<p:output port="result" sequence="true" primary="true">
+  <p:pipe step="process-secondary" port="result"/>
+</p:output>
+<p:output port="secondary" sequence="true" primary="false">
+  <p:pipe step="process-secondary" port="secondary"/>
+</p:output>
 <p:serialization port="result" method="xhtml" encoding="utf-8" indent="false"/>
 
 <p:option name="format" select="'html'"/>
 <p:option name="style" select="'docbook'"/>
+<p:option name="return-secondary" select="'false'"/>
 <p:option name="syntax-highlighter" select="if ($format='html') then 1 else 0"/>
 
 <!-- Ideally, this pipeline wouldn't rely on an XML Calabash extensions,
      but it's a lot more convenient this way. See generic.xpl for a
      version with no processor-specific extensions.
 -->
+
+<p:declare-step type="pxp:set-base-uri">
+  <p:input port="source"/>
+  <p:output port="result"/>
+  <p:option name="uri" required="true"/>
+</p:declare-step>
 
 <p:declare-step type="cx:message" xmlns:cx="http://xmlcalabash.com/ns/extensions">
   <p:input port="source" sequence="true"/>
@@ -49,6 +63,13 @@
     </p:xslt>
   </p:otherwise>
 </p:choose>
+
+<pxp:set-base-uri>
+  <p:with-option name="uri" select="base-uri(/)">
+    <p:pipe step="main" port="source"/>
+  </p:with-option>
+  <!-- <p:log port="result" href="/tmp/s-b-u-1.xml"/> -->
+</pxp:set-base-uri>
 
 <p:xslt name="transclude">
   <p:input port="stylesheet">
@@ -89,10 +110,18 @@
   </p:otherwise>
 </p:choose>
 
+<pxp:set-base-uri>
+  <p:with-option name="uri" select="base-uri(/)">
+    <p:pipe step="main" port="source"/>
+  </p:with-option>
+  <!-- <p:log port="result" href="/tmp/s-b-u-2.xml"/> -->
+</pxp:set-base-uri>
+
 <p:xslt name="normalize">
   <p:input port="stylesheet">
     <p:document href="../preprocess/50-normalize.xsl"/>
   </p:input>
+  <!-- Use the parameters passed to the pipeline -->
   <!-- <p:log port="result" href="/tmp/50-normalize.xml"/> -->
 </p:xslt>
 
@@ -116,18 +145,20 @@
   <!-- <p:log port="result" href="/tmp/ex.xml"/> -->
 </p:xslt>
 
-<p:delete match="@ghost:*"
-          xmlns:ghost="http://docbook.org/ns/docbook/ephemeral">
-  <p:input port="source">
-    <p:pipe step="expand-linkbases" port="result"/>
-  </p:input>
-</p:delete>
+<!-- There used to be a step here that deleted the ghost: attributes
+     inserted earlier. You can't do that, some of the final-pass processing,
+     particularly for tables and verbatim environments, relies on the
+     presence of computed ghost: attributes.
+-->
 
 <p:xslt name="preprocessed">
   <p:input port="stylesheet">
     <p:pipe step="inline-xlinks" port="result"/>
   </p:input>
-  <!-- <p:log port="result" href="/tmp/doc.xml"/> -->
+  <p:input port="source">
+    <p:pipe step="expand-linkbases" port="result"/>
+  </p:input>
+<!--  <p:log port="result" href="/tmp/doc.xml"/> -->
 </p:xslt>
 
 <p:choose name="final-pass">
@@ -350,8 +381,28 @@
   </p:otherwise>
 </p:choose>
 
-<p:choose>
+<p:choose name="process-secondary">
+  <p:when test="$return-secondary = 'true'">
+    <p:output port="result" sequence="true" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:pipe step="secondary" port="result"/>
+    </p:output>
+    <p:identity name="secondary">
+      <p:input port="source">
+        <p:pipe step="final-pass" port="secondary"/>
+      </p:input>
+    </p:identity>
+    <p:identity>
+      <p:input port="source">
+        <p:pipe step="final-pass" port="result"/>
+      </p:input>
+    </p:identity>
+  </p:when>
   <p:when test="$format = 'html' or $format = 'print'">
+    <p:output port="result" sequence="true" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:empty/>
+    </p:output>
     <p:for-each>
       <p:iteration-source>
         <p:pipe step="final-pass" port="secondary"/>
@@ -376,6 +427,10 @@
     </p:identity>
   </p:when>
   <p:otherwise>
+    <p:output port="result" sequence="true" primary="true"/>
+    <p:output port="secondary" sequence="true">
+      <p:empty/>
+    </p:output>
     <p:for-each>
       <p:iteration-source>
         <p:pipe step="final-pass" port="secondary"/>

@@ -32,7 +32,7 @@
   <xsl:variable name="target" select="$targets[1]"/>
   <xsl:choose>
     <xsl:when test="$target">
-      <a href="{f:href(/,$target)}">
+      <a href="{f:href(/,$target)}" class="callout-link">
         <xsl:sequence select="f:html-attributes(.)"/>
         <xsl:apply-templates select="." mode="m:callout-bug"/>
       </a>
@@ -181,7 +181,7 @@
 	</xsl:when>
 
 	<xsl:when test="$target/self::db:co">
-	  <a href="{f:href($doc,$target)}">
+	  <a href="{f:href($doc,$target)}" class="callout-link">
 	    <xsl:apply-templates select="$target" mode="m:callout-bug"/>
 	  </a>
 	  <xsl:text>&#160;</xsl:text>
@@ -204,7 +204,15 @@
           </xsl:choose>
 	</xsl:when>
 
-	<xsl:when test="$target/self::db:area">
+	<xsl:when test="$target/self::db:area
+                        and $target/ancestor::db:imageobjectco">
+	  <xsl:call-template name="t:callout-bug">
+	    <xsl:with-param name="conum"
+			    select="count($target/preceding-sibling::*) + 1"/>
+          </xsl:call-template>
+        </xsl:when>
+
+	<xsl:when test="$target/self::db:area"> <!-- not imageobjectco -->
           <xsl:choose>
             <xsl:when test="$syntax-highlighter = '0'">
 	      <xsl:call-template name="t:callout-bug">

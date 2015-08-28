@@ -1,0 +1,261 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://maven.restlet.org" }
+    maven { url "http://developer.marklogic.com/maven2" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+  }
+
+  dependencies {
+    classpath group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion
+    classpath group: 'com.xmlcalabash', name: 'xmlcalabash', version: '1.1.5-96'
+    classpath group: 'com.thaiopensource', name: 'jing', version: '20091111', transitive: false
+  }
+}
+
+plugins {
+  id "java"
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url "http://maven.restlet.org" }
+  maven { url "http://developer.marklogic.com/maven2" }
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+configurations.all {
+  resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+    if (details.requested.name == 'saxon' && details.requested.version == '8.7') {
+      details.useTarget "net.sf.saxon:Saxon-HE:" + saxonVersion
+    }
+  }
+}
+
+dependencies {
+  compile fileTree(dir: 'tools/lib').include("*.jar")
+  compile fileTree(dir: 'delta').include("*.jar")
+  compile (
+    [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
+    [group: 'com.xmlcalabash', name: 'xmlcalabash', version: '1.1.5-96'],
+    [group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.3'],
+    [group: 'com.thaiopensource', name: 'jing', version: '20091111', transitive: false]
+  )
+}
+
+task runtests(type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'com.xmlcalabash.drivers.Main'
+  maxHeapSize = '1024m'
+  args('-D',
+       testsRoot + '/style/runtests.xpl',
+       'ignore-head=1',
+       'ignore-prism=1',
+       'srcdir=' + testsRoot + '/src/',
+       'resultdir=' + testsRoot + '/result/',
+       'actualdir=' + testsRoot + '/actual/',
+       'expecteddir=' + testsRoot + '/expected/',
+       'diffdir=' + testsRoot + '/diff/',
+      )
+//       'include=equation\\.003\\.xml',
+}
+
+task testreport(dependsOn: runtests, type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'com.xmlcalabash.drivers.Main'
+  maxHeapSize = '1024m'
+  args('-D',
+       '-oresult=' + testsRoot + '/index.html',
+       testsRoot + '/style/report.xpl',
+       'resultdir=' + testsRoot + '/result/'
+      )
+}
+
+task relnotes(type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'com.xmlcalabash.drivers.Main'
+  maxHeapSize = '1024m'
+  args('-D',
+       '-oresult=docs/RELEASENOTES.html',
+       '-isource=docs/RELEASENOTES.xml',
+       '-presource.root=http://docbook.github.com/latest/',
+       'xslt/base/pipelines/docbook.xpl')
+}
+
+task makeVersion(type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'net.sf.saxon.Transform'
+  args('-it:main',
+       '-o:xslt/base/VERSION.xsl',
+       '-xsl:tools/version.xsl',
+       'version=' + version)
+}
+
+task gentext(type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'com.xmlcalabash.drivers.Main'
+  maxHeapSize = '1024m'
+  args('-D', '-Xallow-text-results', 'gentext/style/build.xpl')
+}
+
+task makeFoParams(type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'net.sf.saxon.Transform'
+  args('-xsl:tools/mkparam.xsl',
+       '-o:xslt/base/fo/param.xsl',
+       'xslt/base/fo/param.xml')
+}
+
+task makeHtmlParams(type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'net.sf.saxon.Transform'
+  args('-xsl:tools/mkparam.xsl',
+       '-o:xslt/base/html/param.xsl',
+       'xslt/base/html/param.xml')
+}
+
+task makeParams(dependsOn: [makeFoParams, makeHtmlParams]) {
+  // nothing to see here
+}
+
+task copyLocales(dependsOn: gentext, type: Copy) {
+  from 'gentext/build'
+  into 'xslt/base/common/locales'
+  exclude { details -> details.file.name.endsWith('.xqy') }
+  includeEmptyDirs = false
+}
+
+task buildDist(dependsOn: [makeVersion,copyLocales,makeParams,relnotes,testreport]) {
+  // nothing to see here
+}
+
+task copyReadme(type: Copy) {
+  from 'README.md'
+  into "build/dist/bin/"
+}
+
+task copyDocs(type: Copy) {
+  FileTree tree = fileTree(dir: 'docs')
+  from tree
+  into "build/dist/bin/docs/"
+}
+
+task copyEtc(type: Copy) {
+  FileTree tree = fileTree(dir: 'tools/distindex')
+  from tree
+  into "build/distributions/"
+}
+
+task copyResources1(type: Copy) {
+  from "resources/base"
+  into "build/dist/bin/resources/base/"
+}
+
+task copyResources2(type: Copy) {
+  from "resources/slides"
+  into "build/dist/bin/resources/slides/"
+}
+
+task copyResources(dependsOn: [copyResources1, copyResources2, copyEtc]) {
+  // nothing to see here
+}
+
+task copyXslt(type: Copy) {
+  FileTree tree = fileTree(dir: 'xslt',
+                           exclude: ['params/**'])
+  from tree
+  into "build/dist/bin/xslt/"
+}
+
+task copySrc(type: Copy) {
+  FileTree tree = fileTree(dir: '.',
+                           exclude: ['OLD.tests/**', 'OLD.lib/**', 'build/**',
+                                     'tools/lib/cachedir/**',
+                                     'gentext/build/**',
+                                     'test/diff/**', 'test/actual/**',
+                                     'test/result/**', '.travis/**',
+                                     '.travis.yml', 'delta/**',
+                                     '.gradle/**', 'lib/**', 'SECURE',
+                                     ',status', 'build.xml'])
+  from tree
+  into "build/dist/src"
+}
+
+task copyLib(type: Copy) {
+  from "tools/lib/docbook-xsl-java-saxon-1.2.1-95.jar"
+  into "build/dist/bin/lib/"
+}
+
+task copyMarkLogic(type: Copy) {
+  from "tools/MarkLogic/"
+  into "build/dist/bin/lib/MarkLogic/"
+}
+
+task copyMarkLogicPlugins(type: Copy) {
+  from "gentext/build/plugins/"
+  into "build/dist/bin/lib/MarkLogic/plugins/"
+}
+
+task copyResults(dependsOn: testreport, type: Copy) {
+  FileTree tree = fileTree(dir: 'test')
+  from tree
+  into "build/distributions/test-results/"
+}
+
+task copyAll(dependsOn: [copyReadme, copyDocs, copyResources, copyXslt,
+                         copySrc, copyLib, copyResults,
+                         copyMarkLogic, copyMarkLogicPlugins]) {
+  // nothing to see here
+}
+
+task zipBin(dependsOn: copyAll, type: Zip) {
+  from('build/dist/bin')
+  into 'docbook-xslt2-' + version
+  archiveName 'docbook-xslt2-' + version + ".zip"
+}
+
+task zipSrc(dependsOn: copyAll, type: Zip) {
+  from('build/dist/src')
+  into 'docbook-xslt2-' + version + '-src'
+  archiveName 'docbook-xslt2-' + version + "-src.zip"
+}
+
+task zip(dependsOn: [zipBin,zipSrc]) {
+  // nothing to see here
+}
+
+task updateDist(dependsOn: [copyAll, buildDist, zip], type: Copy) {
+  from 'build/dist/bin/'
+  into 'build/distributions/'
+}
+
+task dist(dependsOn: updateDist, type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'com.xmlcalabash.drivers.Main'
+  maxHeapSize = '1024m'
+  args('-D',
+       '-oresult=build/distributions/index.html',
+       'tools/makeindex.xpl'
+      )
+}
+
+task clean.doFirst {
+  delete "gentext/build/"
+  delete "xslt/base/common/locales/"
+  delete "xslt/base/fo/param.xsl"
+  delete "xslt/base/html/param.xsl"
+  delete "build/"
+  delete "test/diff"
+  delete "test/actual"
+  delete "test/result"
+}

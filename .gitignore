@@ -1,8 +1,11 @@
 *~
 ,*
-/dist/
-/tests/smoketest.html
+*_flymake.css
+/test/smoketest.html
 /tools/lib/cachedir/
 /docs/RELEASENOTES.html
 /ext/tests/
 /local/
+/.gradle/
+/gentext/build/
+/build/

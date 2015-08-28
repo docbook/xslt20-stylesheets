@@ -80,10 +80,13 @@
   <div>
     <xsl:sequence select="f:html-attributes(.)"/>
 
-    <p>
+    <p class="{local-name(.)}">
+      <span class="label">
       <xsl:text>[</xsl:text>
       <xsl:copy-of select="$label"/>
       <xsl:text>] </xsl:text>
+      </span>
+      <span class="entry">
       <xsl:choose>
 	<xsl:when test="self::db:biblioentry">
 	  <xsl:apply-templates mode="m:biblioentry"/>
@@ -92,6 +95,7 @@
 	  <xsl:apply-templates mode="m:bibliomixed"/>
 	</xsl:otherwise>
       </xsl:choose>
+      </span>
     </p>
   </div>
 </xsl:template>
@@ -310,25 +314,13 @@ for the content of a bibliography entry.</para>
 </xsl:template>
 
 <xsl:template match="db:address" mode="m:biblioentry">
-  <xsl:variable name="addr" as="element(h:div)">
+  <xsl:variable name="addr" as="element(h:pre)">
     <xsl:apply-templates select="."/>
   </xsl:variable>
 
   <span>
     <xsl:sequence select="f:html-attributes(.)"/>
-    <!-- Now $addr is a div containing lines with BRs -->
-    <xsl:for-each select="$addr/node()">
-      <xsl:variable name="node" select="."/>
-      <xsl:choose>
-        <xsl:when test="$node/self::h:br">
-          <xsl:if test="position() &lt; last()"> / </xsl:if>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:sequence select="$node"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:for-each>
-
+    <xsl:value-of select="replace(string($addr), '&#10;', ' / ')"/>
     <xsl:if test="not(ends-with(string($addr), '.'))">.</xsl:if>
   </span>
   <xsl:text> </xsl:text>

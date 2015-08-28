@@ -272,13 +272,14 @@
   </h2>
 </xsl:template>
 
-<xsl:template match="db:section/db:title|db:section/db:info/db:title" mode="m:titlepage-mode">
-  <xsl:variable name="depth" select="min((count(ancestor::db:section), 4))"/>
+<xsl:template match="db:section/db:title
+                     |db:section/db:info/db:title" mode="m:titlepage-mode">
+  <xsl:variable name="depth" select="min((count(ancestor::db:section), 5))"/>
 
   <xsl:variable name="context"
                 select="if (parent::db:info) then parent::db:info/parent::* else parent::*"/>
 
-  <xsl:element name="h{$depth + 2}" namespace="http://www.w3.org/1999/xhtml">
+  <xsl:element name="h{$depth + 1}" namespace="http://www.w3.org/1999/xhtml">
     <xsl:apply-templates select="$context" mode="m:object-title-markup">
       <xsl:with-param name="allow-anchors" select="true()"/>
     </xsl:apply-templates>

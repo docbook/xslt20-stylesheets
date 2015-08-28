@@ -1,0 +1,44 @@
+table.diffs {
+   table-layout: fixed;
+   width: 100%;
+   border-spacing: 0px;
+}
+
+table.diffs > thead > tr > th {
+   text-align: left;
+   padding-bottom: 0.25em;
+   border-bottom: 1px solid black;
+   padding-left: 0.5em;
+   padding-right: 1em;
+}
+
+table.diffs > thead > tr > th+th {
+   border-left: 1px solid black;
+}
+
+table.diffs > tbody > tr > td {
+   vertical-align: top;
+   padding-top: 0.5em;
+   padding-left: 0.5em;
+   padding-right: 1em;
+}
+
+table.diffs > tbody > tr > td+td {
+   border-left: 1px solid black;
+}
+
+table.diffs > tbody > tr > td,
+table.diffs > thead > tr > th {
+   width: 50%;
+   overflow-x: scroll;
+}
+
+/*
+pre   { color: #777; }
+.tag  { color: black; }
+.att  { color: #777; }
+.diff { color: red }
+*/
+.diff { background-color: #FFFFAA; }
+.del  { background-color: #FFAAAA; }
+.add  { background-color: #AAFFAA; }

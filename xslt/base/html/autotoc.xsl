@@ -71,13 +71,14 @@
 
   <xsl:variable name="toc.title">
     <xsl:if test="$toc.title">
-      <p>
-        <b>
+      <xsl:call-template name="t:format-toc-title">
+        <xsl:with-param name="toc-context" as="element()" select="$toc-context"/>
+        <xsl:with-param name="toc-title" as="node()*">
           <xsl:call-template name="gentext">
             <xsl:with-param name="key">TableofContents</xsl:with-param>
           </xsl:call-template>
-        </b>
-      </p>
+        </xsl:with-param>
+      </xsl:call-template>
     </xsl:if>
   </xsl:variable>
 
@@ -110,6 +111,16 @@
       </xsl:if>
     </xsl:otherwise>
   </xsl:choose>
+</xsl:template>
+
+<xsl:template name="t:format-toc-title">
+  <xsl:param name="toc-context" as="element()"/>
+  <xsl:param name="toc-title" as="node()*"/>
+  <p>
+    <b>
+      <xsl:sequence select="$toc-title"/>
+    </b>
+  </p>
 </xsl:template>
 
 <!-- ============================================================ -->

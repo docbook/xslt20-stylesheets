@@ -3,94 +3,32 @@
          version="5.0">
 <title>Release Notes</title>
 
-<para>This document summarizes the significant changes since the 2.0.3
-release. It's been a long time since I did a release, no doubt I've
-tinkered with things that aren't well documented. Mea culpa. There's
-nothing significant about the order in which the changes are listed.</para>
+<para>This document summarizes the significant changes since the 2.0.6
+release.</para>
 
-<para>That said: the big ones are first.</para>
+<para>There's nothing significant about the order in which the changes
+are listed except that I usually try to put the big ones near
+the top..</para>
 
-<orderedlist>
+<itemizedlist>
 <listitem>
-<para>DocBook processing has for some time now been a multi-stage process.
-I've decided to break these stages out separately for ease of maintenance
-and configurability.</para>
-
-<para>There's an XProc pipeline in the
-<filename class="directory">/pipelines/</filename> directory that runs
-them all. For convenience, I've also provided an Ant build script and
-a MarkLogic query module to perform the pipelining.</para>
-</listitem>
-
-<listitem>
-<para>I've (largely) abandoned attempts to do “server side” pretty printing
-of verbatim environments. I was more-or-less happy with Pygments, but as
-Jython development hasn't kept up with Python development (AFAICT) it's
-become too difficult to make it work. Also, the effort expended by the stylesheets
-to do the pretty printing was significant and could be quite slow.</para>
-<para>Modern sites seem to rely on client-side pretty printing, so I'm going
-to give that a try. Some of the “server side” work will be preserved for
-the “XHTML for print” stylesheets, but I don't know how that's going to
-shake out.</para>
-<para>In the short term, I've selected
-<citetitle xlink:href="http://prismjs.com/">Prism</citetitle> for the
-rendering. It's small, efficient, and seems well supported. I was able to
-make <tag>programlistingco</tag> elements perform both line and line range
-highlighting with it, which I thought was a nice touch.</para>
-
-<para>There's a small Prism configuration in the DocBook github “CDN”.
-You're encouraged to customize the stylesheets to use your own configuration.
-</para>
-
-<para>If you've got a strong preference for some other client-side
-pretty printer, let me know. I'm willing to attempt to make the stylesheets
-support more than one, if there's sufficient interest.</para>
-</listitem>
-
-<listitem>
-<para>I've (provisionally, perhaps) decided to abandon development of
-the XSL FO stylesheets. Honestly, they were never very good in the
-XSLT 2.0 stylesheets anyway. If you still want to use FO, your best
-bet is probably the XSLT 1.0 stylesheets.</para>
-<para>With the <citetitle xlink:href="http://www.w3.org/XML/XPPL/">XML
-Print and Page Layout Working Group</citetitle> shuttered, it seems unlikely
-that there will be significant further developments in XSL FO.
-</para>
-<para>Attention now seems to be focused (I observe without comment) on
-development of CSS facilities for doing paged layout. I will be working on
-“XHTML for print” stylesheets that can take advantage of those facilities.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/70b3d2f15f367b3897e1b712e91864915b98ebc3">Made</link>
+missing links stand out better
 </para>
 </listitem>
 
 <listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/6eab30a2aa70e6495b820774557f17ff837e6fc5">Fixed</link>
-processing of HTML attributes in some environments.
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/5c1803e0a248f14a9742b6beccc1e9ccd351c474">Allow</link>
+broken links to flow through the preprocessing step in the pipeline.
+It's possible that downstream stylesheets will know what to do with them.
 </para>
 </listitem>
 
 <listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/166cf1c55550b2076b309a7d219b92a062285346">Fixed</link>
-a bug in <function>f:resolve-path</function>
+<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/09425bf42213608e20475dcfe53c9a9ed293bcef">Support</link>
+XLink simple links on <tag>tag</tag> elements.
 </para>
 </listitem>
 
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/234d2a87fae4073a0c57be57a5e2481a5c80fa7d">Upgraded</link>
-to xspec-0.3.0; removed saxon9-ant.jar as it just didn't work anymore;
-fixed some build paths; updated to saxon 9.5.1.1.</para>
-<important>
-<para>The XSpec unit tests aren't really working at the moment due to
-the change over to a pipelined architecture. I'll be working on fixing
-that in due course.</para>
-</important>
-</listitem>
-
-<listitem>
-<para><link xlink:href="https://github.com/ndw/xmlcalabash1/commit/b5858a5d48d5a13aaed99e401c3a2af0aa82dfe8">Removed</link>
-'ext'. It now lives in the
-<link xlink:href="https://github.com/docbook/xslt20-java"/> repository
-</para>
-</listitem>
-
-</orderedlist>
+</itemizedlist>
 </article>

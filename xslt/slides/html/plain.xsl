@@ -66,6 +66,7 @@
       </xsl:if>
 
       <xsl:apply-templates select="db:foil|db:foilgroup"/>
+      <xsl:call-template name="t:syntax-highlight-body"/>
     </body>
   </html>
 </xsl:template>
@@ -103,6 +104,7 @@
           src="{$resource.slide}js/jquery.ba-hashchange.min.js" />
   <script type="text/javascript" language="javascript"
           src="{$resource.slide}js/slides.js" />
+  <xsl:call-template name="t:syntax-highlight-head"/>
 </xsl:template>
 
 <xsl:template name="t:slides.css">

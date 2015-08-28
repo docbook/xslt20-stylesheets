@@ -83,10 +83,9 @@
   </xsl:variable>
 
   <div class="{name(.)}">
-    <xsl:choose>
-      <xsl:when test="$footnote.body[1][self::h:p]">
+    <div class="footnote-wrapper">
+      <div class="footnote-symbol-wrapper">
 	<p>
-	  <xsl:copy-of select="$footnote.body[1]/@*"/>
 	  <sup>
             <span class="osq">[</span>
 	    <a href="#{$name}" name="{concat('ftn.', $name)}">
@@ -94,30 +93,13 @@
 	    </a>
             <span class="csq">]</span>
 	  </sup>
-	  <xsl:sequence select="$footnote.body[1]/node()"/>
-	</p>
-	<xsl:sequence select="$footnote.body[position() &gt; 1]"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<!-- this is the best we can do, I think. -->
-	<table border="0" cellpadding="0" cellspacing="0">
-	  <tr>
-	    <td valign="top" align="left">
-	      <sup>
-                <span class="osq">[</span>
-		<a href="#{$name}" name="{concat('ftn.', $name)}">
-		  <xsl:copy-of select="$footnote.number"/>
-		</a>
-                <span class="csq">]</span>
-	      </sup>
-	    </td>
-	    <td valign="top" align="left">
-	      <xsl:sequence select="$footnote.body"/>
-	    </td>
-	  </tr>
-	</table>
-      </xsl:otherwise>
-    </xsl:choose>
+          <xsl:text>&#160;</xsl:text>
+        </p>
+      </div>
+      <div class="footnote-body-wrapper">
+        <xsl:sequence select="$footnote.body"/>
+      </div>
+    </div>
   </div>
 </xsl:template>
 

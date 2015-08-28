@@ -15,6 +15,7 @@
 <xsl:param name="speaker.notes" select="0"/>
 <xsl:param name="localStorage.key" select="'slideno'"/>
 <xsl:param name="group.toc" select="0"/>
+<xsl:param name="resource.slide" select="$resource.root"/>
 
 <xsl:param name="cdn.jquery"
            select="'http://code.jquery.com/jquery-1.6.3.min.js'"/>
@@ -42,8 +43,7 @@
 <xsl:template match="db:slides">
   <html>
     <head>
-      <!-- assume we're going to serialize as utf-8 -->
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta charset="utf-8"/>
       <meta name="localStorage.key" content="{$localStorage.key}"/>
       <title>
         <xsl:value-of select="db:info/db:title/node() except db:info/db:title/db:footnote"/>
@@ -63,6 +63,7 @@
       <xsl:call-template name="toc"/>
 
       <xsl:apply-templates select="db:foil|db:foilgroup"/>
+      <xsl:call-template name="t:syntax-highlight-body"/>
     </body>
   </html>
 </xsl:template>
@@ -95,18 +96,19 @@
           src="{$cdn.jqueryui}"/>
 
   <script type="text/javascript" language="javascript"
-          src="{$resource.root}js/jquery-timers-1.2.js" />
+          src="{$resource.slide}js/jquery-timers-1.2.js" />
   <script type="text/javascript" language="javascript"
-          src="{$resource.root}js/jquery.ba-hashchange.min.js" />
+          src="{$resource.slide}js/jquery.ba-hashchange.min.js" />
   <script type="text/javascript" language="javascript"
-          src="{$resource.root}../slides/js/slides.js" />
+          src="{$resource.slide}../slides/js/slides.js" />
+  <xsl:call-template name="t:syntax-highlight-head"/>
 </xsl:template>
 
 <xsl:template name="t:slides.css">
   <link type="text/css" rel="stylesheet"
         href="{$cdn.jqueryui.css}"/>
   <link type="text/css" rel="stylesheet"
-        href="{$resource.root}../slides/css/slides.css"/>
+        href="{$resource.slide}../slides/css/slides.css"/>
 </xsl:template>
 
 <xsl:template name="toc">
@@ -173,8 +175,8 @@
     </div>
     <div class="body">
       <div class="shownav">
-        <img src="{$resource.root}img/prev.gif" alt="[Prev]"/>
-        <img src="{$resource.root}img/next.gif" alt="[Next]"/>
+        <img src="{$resource.slide}img/prev.gif" alt="[Prev]"/>
+        <img src="{$resource.slide}img/next.gif" alt="[Next]"/>
       </div>
       <xsl:call-template name="t:clicknav">
         <xsl:with-param name="next" select="'#toc'"/>
@@ -250,9 +252,13 @@
         </div>
 
         <div class="foil-notes">
-          <div class="foilinset">
-            <xsl:apply-templates select="*[not(self::db:title) and not(self::db:speakernotes)]"/>
-          </div>
+          <xsl:variable name="foilinset" as="element(h:div)">
+            <div class="foilinset">
+              <xsl:apply-templates select="*[not(self::db:title) and not(self::db:speakernotes)]"/>
+            </div>
+          </xsl:variable>
+
+          <xsl:apply-templates select="$foilinset" mode="trim-reveal"/>
 
           <xsl:choose>
             <xsl:when test="db:speakernotes">
@@ -284,6 +290,25 @@
 
 <!-- ============================================================ -->
 
+<xsl:template match="element()" mode="trim-reveal">
+  <xsl:copy>
+    <xsl:apply-templates select="@*,node()" mode="trim-reveal"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="@class" mode="trim-reveal" priority="10">
+  <xsl:attribute name="class">
+    <xsl:value-of select="replace(., 'reveal1?', '')"/>
+  </xsl:attribute>
+</xsl:template>
+
+<xsl:template match="attribute()|text()|comment()|processing-instruction()"
+              mode="trim-reveal">
+  <xsl:copy/>
+</xsl:template>
+
+<!-- ============================================================ -->
+
 <xsl:template name="t:clicknav">
   <xsl:param name="prev" select="()"/>
   <xsl:param name="next" select="()"/>
@@ -291,21 +316,21 @@
     <xsl:choose>
       <xsl:when test="exists($prev)">
         <a href="javascript:clicknav('prev')">
-          <img src="{$resource.root}img/transparent.gif" alt="[Prev]"/>
+          <img src="{$resource.slide}img/transparent.gif" alt="[Prev]"/>
         </a>
       </xsl:when>
       <xsl:otherwise>
-        <img src="{$resource.root}img/transparent.gif" alt="[Prev]"/>
+        <img src="{$resource.slide}img/transparent.gif" alt="[Prev]"/>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:choose>
       <xsl:when test="exists($next)">
         <a href="javascript:clicknav('next')">
-          <img src="{$resource.root}img/transparent.gif" alt="[Next]"/>
+          <img src="{$resource.slide}img/transparent.gif" alt="[Next]"/>
         </a>
       </xsl:when>
       <xsl:otherwise>
-        <img src="{$resource.root}img/transparent.gif" alt="[Next]"/>
+        <img src="{$resource.slide}img/transparent.gif" alt="[Next]"/>
       </xsl:otherwise>
     </xsl:choose>
   </div>
