@@ -121,6 +121,7 @@
   <p:input port="stylesheet">
     <p:document href="../preprocess/50-normalize.xsl"/>
   </p:input>
+  <!-- Use the parameters passed to the pipeline -->
   <!-- <p:log port="result" href="/tmp/50-normalize.xml"/> -->
 </p:xslt>
 
