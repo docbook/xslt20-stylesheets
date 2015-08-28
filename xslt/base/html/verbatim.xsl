@@ -124,8 +124,7 @@
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:variable name="numbered" as="xs:boolean"
-                select="f:lineNumbering(.,'everyNth') != 0"/>
+  <xsl:variable name="numbered" select="f:syntax-highlight(.)"/>
 
   <xsl:variable name="data-attr" as="attribute()*">
     <xsl:choose>
@@ -218,18 +217,22 @@
   <pre>
     <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
                                             f:syntax-highlight-class($this))"/>
-    <xsl:apply-templates/>
+    <code>
+      <xsl:apply-templates/>
+    </code>
   </pre>
 </xsl:template>
 
 <xsl:template match="db:literallayout|db:address"
 	      mode="m:verbatim">
   <xsl:variable name="this" select="."/>
-  <div>
+  <pre>
     <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
                                             f:syntax-highlight-class($this))"/>
-    <xsl:apply-templates/>
-  </div>
+    <code>
+      <xsl:apply-templates/>
+    </code>
+  </pre>
 </xsl:template>
 
 </xsl:stylesheet>
