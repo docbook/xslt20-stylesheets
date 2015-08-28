@@ -41,6 +41,37 @@
   <p:with-option name="path" select="resolve-uri($srcdir, exf:cwd())"/>
 </p:directory-list>
 
+<!-- p:directory-list doesn't sort files; this stylesheet puts them
+     in alphabetic order. It doesn't matter to the tests, but it
+     makes the display easier to grok when they're running.
+-->
+<p:xslt>
+  <p:input port="stylesheet">
+    <p:inline>
+      <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                      xmlns:c="http://www.w3.org/ns/xproc-step"
+                      version="2.0">
+        <xsl:template match="c:directory">
+          <xsl:copy>
+            <xsl:apply-templates select="@*"/>
+            <xsl:apply-templates select="*">
+              <xsl:sort select="@name" order="ascending"/>
+            </xsl:apply-templates>
+          </xsl:copy>
+        </xsl:template>
+        <xsl:template match="element()">
+          <xsl:copy>
+            <xsl:apply-templates select="@*,node()"/>
+          </xsl:copy>
+        </xsl:template>
+        <xsl:template match="attribute()|text()">
+          <xsl:copy/>
+        </xsl:template>
+      </xsl:stylesheet>
+    </p:inline>
+  </p:input>
+</p:xslt>
+
 <p:for-each name="loop">
   <p:iteration-source select="/c:directory/c:file"/>
 
