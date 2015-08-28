@@ -13,7 +13,7 @@
 
 <xsl:template match="db:bibliography">
   <article>
-    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -23,7 +23,7 @@
 
 <xsl:template match="db:bibliodiv">
   <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:call-template name="t:titlepage"/>
 
@@ -33,7 +33,7 @@
 
 <xsl:template match="db:bibliolist">
   <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:call-template name="t:titlepage"/>
 
