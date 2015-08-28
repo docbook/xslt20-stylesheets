@@ -156,6 +156,20 @@ task copyEtc(type: Copy) {
   into "build/distributions/"
 }
 
+task copyResources1(type: Copy) {
+  from "resources/base"
+  into "build/distributions/resources/base/"
+}
+
+task copyResources2(type: Copy) {
+  from "resources/slides"
+  into "build/distributions/resources/slides/"
+}
+
+task copyResources(dependsOn: [copyResources1, copyResources2, copyEtc]) {
+  // nothing to see here
+}
+
 task copyXslt(type: Copy) {
   File srcDir
   FileTree tree = fileTree(dir: 'xslt',
@@ -201,7 +215,7 @@ task copyResults(dependsOn: testreport, type: Copy) {
   into "build/distributions/test-results/"
 }
 
-task copyAll(dependsOn: [copyReadme, copyDocs, copyEtc, copyXslt,
+task copyAll(dependsOn: [copyReadme, copyDocs, copyResources, copyXslt,
                          copySrc, copyLib, copyResults,
                          copyMarkLogic, copyMarkLogicPlugins]) {
   // nothing to see here
@@ -245,4 +259,7 @@ task clean.doFirst {
   delete "xslt/base/fo/param.xsl"
   delete "xslt/base/html/param.xsl"
   delete "build/"
+  delete "test/diff"
+  delete "test/actual"
+  delete "test/result"
 }

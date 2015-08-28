@@ -1,0 +1,8 @@
+dt span.coline {
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  border-radius: 999px;
+  font: bold 75%/1.5 sans-serif;
+  min-width: 1em;
+  padding: 0 .5em;
+}
