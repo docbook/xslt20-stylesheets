@@ -1,0 +1,27 @@
+= Building the stylesheets
+
+I’ve recently switched the whole build system from `ant` to `gradle`.
+That’s supposed to be a good thing. I’ve also hooked up Travis-CI, so
+you can see the build process at work.
+
+Running `gradle clean dist` in the top level should do a complete build.
+It stores release artifacts in `build/distributions`. Here are some
+useful targets:
+
+* `clean` – tidies things up
+* `dist` – builds a distribution, also leaves the `xslt/base` tree in runnable state
+* `testreport` – runs the tests and generates a report. Requires DeltaXML :-(
+
+== Setting up Travis
+
+If you want to make Travis builds work for your fork, you need to setup
+four secure environment variables in your .travis.yml.
+
+* `GH_TOKEN` – the GitHub token that will allow Travis to publish
+* `GIT_NAME` – Your name: Jane Doe
+* `GIT_EMAIL` – Your email: jane.doe@example.com
+* `GIT_PUB_REPO` – Your repo slug: jane/xslt20-stylesheets
+
+Add those to `.travis.yml` and send a _separate_ pull request for those
+changes.
+
