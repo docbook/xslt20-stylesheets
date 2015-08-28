@@ -45,11 +45,9 @@ title.</para>
 	<xsl:when test="$placement = 'before'">
 	  <xsl:sequence select="$title"/>
 	  <xsl:sequence select="$object"/>
-	  <xsl:apply-templates select="$context/db:caption"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:sequence select="$object"/>
-	  <xsl:apply-templates select="$context/db:caption"/>
 	  <xsl:sequence select="$title"/>
 	</xsl:otherwise>
       </xsl:choose>
