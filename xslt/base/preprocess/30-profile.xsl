@@ -176,6 +176,7 @@ true if the current attribute is not in the specified profile.</para>
     <xsl:variable name="profile-values"
 		  select="tokenize($prof, $profile.separator)"/>
 
+<!--
     <xsl:message>
       <xsl:value-of select="$node-values"/>
       <xsl:text>=</xsl:text>
@@ -183,6 +184,7 @@ true if the current attribute is not in the specified profile.</para>
       <xsl:text>: </xsl:text>
       <xsl:value-of select="$node-values = $profile-values"/>
     </xsl:message>
+-->
 
     <!-- take advantage of existential semantics of "=" -->
     <xsl:if test="not($node-values = $profile-values)">
