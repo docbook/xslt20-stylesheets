@@ -16,7 +16,7 @@
   <p:option name="message" required="true"/>
 </p:declare-step>
 
-<p:directory-list include-filter=".*\.html" exclude-filter="report\.html">
+<p:directory-list include-filter=".*\.html">
   <p:with-option name="path" select="resolve-uri($resultdir, exf:cwd())"/>
 </p:directory-list>
 
@@ -34,6 +34,13 @@
     </p:input>
     <p:with-option name="attribute-value"
                    select="string(//html:span[@class='exdiff'])"/>
+  </p:add-attribute>
+
+  <p:add-attribute match="/*" attribute-name="deltaxml">
+    <p:with-option name="attribute-value"
+                   select="string(//html:meta[@name='deltaxml']/@content)">
+      <p:pipe step="result" port="result"/>
+    </p:with-option>
   </p:add-attribute>
 
   <p:add-attribute match="/*" attribute-name="test">

@@ -49,45 +49,67 @@
       <link rel="stylesheet" type="text/css"
             href="../../resources/base/css/db-prism.css" />
       <link href="../style/show-results.css" rel="stylesheet" type="text/css"/>
+      <meta name="deltaxml"
+            content="{if (/*/@deltaxml:version) then 'true' else 'false'}"/>
     </head>
     <body>
       <h1>DocBook XSLT 2.0 Stylesheet output:
           <xsl:value-of select="$testname"/></h1>
 
       <xsl:choose>
-        <xsl:when test="$adiff = $bdiff and $adiff = 0">
+        <xsl:when test="$adiff = $bdiff and $adiff = 0
+                        and /*/@deltaxml:version">
           <p>No changes.</p>
           <xsl:sequence select="$A"/>
         </xsl:when>
         <xsl:otherwise>
+          <xsl:if test="not(/*/@deltaxml:version)">
+            <p>
+              DeltaXML appears not to have been available; you will
+              have to inspect the differences by hand.
+            </p>
+          </xsl:if>
+
           <table class="diffs">
             <tbody>
               <tr>
                 <th>
-                  <xsl:text>Expected (</xsl:text>
-                  <span class="exdiff"><xsl:value-of select="$adiff"/></span>
-                  <xsl:text> differences)</xsl:text>
+                  <xsl:text>Expected </xsl:text>
+                  <xsl:if test="/*/@deltaxml:version">
+                    <xsl:text>(</xsl:text>
+                    <span class="exdiff"><xsl:value-of select="$adiff"/></span>
+                    <xsl:text> differences)</xsl:text>
+                  </xsl:if>
                 </th>
                 <th>
-                  <xsl:text>Actual (</xsl:text>
-                  <span class="adiff"><xsl:value-of select="$bdiff"/></span>
-                  <xsl:text> differences)</xsl:text>
+                  <xsl:text>Actual </xsl:text>
+                  <xsl:if test="/*/@deltaxml:version">
+                    <xsl:text>(</xsl:text>
+                    <span class="adiff"><xsl:value-of select="$bdiff"/></span>
+                    <xsl:text> differences)</xsl:text>
+                  </xsl:if>
                 </th>
               </tr>
+
+              <xsl:if test="/*/@deltaxml:version">
+                <tr>
+                  <td>
+                    <xsl:sequence select="$A"/>
+                  </td>
+                  <td>
+                    <xsl:sequence select="$B"/>
+                  </td>
+                </tr>
+              </xsl:if>
+
               <tr>
                 <td>
-                  <xsl:sequence select="$A"/>
+                  <em>The “current” CSS styling is applied
+                  to the this entire document; the results in this
+                  column may be anomalous. Also, image links are broken
+                  in this column.</em>
                 </td>
-                <td>
-                  <xsl:sequence select="$B"/>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <em>Note: The same “current” CSS styling is applied
-                  to both expected and actual results below. This may
-                  produce incorrect results in the “expected” column.</em>
-                </td>
+                <td>&#160;</td>
               </tr>
               <tr>
                 <xsl:variable name="html"

@@ -171,32 +171,45 @@
     </p:input>
   </cx:pretty-print>
 
-  <cx:delta-xml name="diff">
-    <p:input port="source">
-      <p:pipe step="A" port="result"/>
-    </p:input>
-    <p:input port="alternate">
-      <p:pipe step="B" port="result"/>
-    </p:input>
-    <p:input port="dxp">
-      <p:inline>
-        <comparatorPipeline>
-          <outputProperties>
-            <property name="indent" literalValue="no"/>
-          </outputProperties>
-          <outputFileExtension extension="xml"/>
-          <comparatorFeatures>
-            <feature name="http://deltaxml.com/api/feature/deltaV2"
-                     literalValue="true"/>
-            <feature name="http://deltaxml.com/api/feature/isFullDelta"
-                     literalValue="true"/>
-            <feature name="http://deltaxml.com/api/feature/enhancedMatch1"
-                     literalValue="true"/>
-          </comparatorFeatures>
-        </comparatorPipeline>
-      </p:inline>
-    </p:input>
-  </cx:delta-xml>
+  <p:choose name="diff">
+    <p:when test="p:step-available('cx:delta-xml')">
+      <p:output port="result"/>
+      <cx:delta-xml>
+        <p:input port="source">
+          <p:pipe step="A" port="result"/>
+        </p:input>
+        <p:input port="alternate">
+          <p:pipe step="B" port="result"/>
+        </p:input>
+        <p:input port="dxp">
+          <p:inline>
+            <comparatorPipeline>
+              <outputProperties>
+                <property name="indent" literalValue="no"/>
+              </outputProperties>
+              <outputFileExtension extension="xml"/>
+              <comparatorFeatures>
+                <feature name="http://deltaxml.com/api/feature/deltaV2"
+                         literalValue="true"/>
+                <feature name="http://deltaxml.com/api/feature/isFullDelta"
+                         literalValue="true"/>
+                <feature name="http://deltaxml.com/api/feature/enhancedMatch1"
+                         literalValue="true"/>
+              </comparatorFeatures>
+            </comparatorPipeline>
+          </p:inline>
+        </p:input>
+      </cx:delta-xml>
+    </p:when>
+    <p:otherwise>
+      <p:output port="result"/>
+      <p:identity>
+        <p:input port="source">
+          <p:pipe step="B" port="result"/>
+        </p:input>
+      </p:identity>
+    </p:otherwise>
+  </p:choose>
 
   <p:store method="xml">
     <p:with-option name="href"

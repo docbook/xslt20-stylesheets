@@ -60,7 +60,7 @@ task runtests(type: JavaExec) {
        'expecteddir=' + testsRoot + '/expected/',
        'diffdir=' + testsRoot + '/diff/',
       )
-//       'include=equation\\.003\\.xml',
+  // 'include=equation\\.003\\.xml',
 }
 
 task testreport(dependsOn: runtests, type: JavaExec) {
