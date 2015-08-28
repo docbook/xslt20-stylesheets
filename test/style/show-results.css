@@ -1,8 +1,10 @@
-table {
+table.diffs {
+   table-layout: fixed;
+   width: 100%;
    border-spacing: 0px;
 }
 
-th {
+table.diffs > thead > tr > th {
    text-align: left;
    padding-bottom: 0.25em;
    border-bottom: 1px solid black;
@@ -10,28 +12,23 @@ th {
    padding-right: 1em;
 }
 
-th+th {
+table.diffs > thead > tr > th+th {
    border-left: 1px solid black;
 }
 
-td {
+table.diffs > tbody > tr > td {
    vertical-align: top;
    padding-top: 0.5em;
    padding-left: 0.5em;
    padding-right: 1em;
 }
 
-td+td {
+table.diffs > tbody > tr > td+td {
    border-left: 1px solid black;
 }
 
-table.diffs {
-   table-layout: fixed;
-   width: 100%;
-}
-
-table.diffs tr td,
-table.diffs tr th {
+table.diffs > tbody > tr > td,
+table.diffs > thead > tr > th {
    width: 50%;
    overflow-x: scroll;
 }

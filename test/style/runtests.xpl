@@ -53,7 +53,12 @@
                    select="resolve-uri(/*/@name, base-uri(/*))"/>
   </p:load>
 
-  <dbp:docbook/>
+  <dbp:docbook>
+    <p:with-param name="resource.root" select="'../../resources/base/'"/>
+    <p:with-param name="bibliography.collection"
+                  select="'../style/bibliography.xml'"/>
+    <p:with-param name="profile.os" select="'win'"/>
+  </dbp:docbook>
 
   <p:xslt name="docbook">
     <p:input port="stylesheet">

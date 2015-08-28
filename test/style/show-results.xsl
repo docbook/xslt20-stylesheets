@@ -17,7 +17,7 @@
 
 <xsl:template match="/">
   <xsl:variable name="A" as="element()">
-    <pre>
+    <pre class="show-diff">
       <xsl:apply-templates select="/" mode="prettyprint">
         <xsl:with-param name="version" select="'A'"/>
       </xsl:apply-templates>
@@ -25,7 +25,7 @@
   </xsl:variable>
 
   <xsl:variable name="B" as="element()">
-    <pre>
+    <pre class="show-diff">
       <xsl:apply-templates select="/" mode="prettyprint">
         <xsl:with-param name="version" select="'B'"/>
       </xsl:apply-templates>
@@ -40,10 +40,19 @@
   <html>
     <head>
       <title>Results for <xsl:value-of select="$testname"/></title>
-      <link href="show-results.css" rel="stylesheet" type="text/css"/>
+      <link rel="stylesheet" type="text/css"
+            href="../../resources/base/css/default.css" />
+      <script type="text/javascript"
+              src="../../resources/base/js/dbmodnizr.js"></script>
+      <link rel="stylesheet" type="text/css"
+            href="../../resources/base/css/prism.css" />
+      <link rel="stylesheet" type="text/css"
+            href="../../resources/base/css/db-prism.css" />
+      <link href="../style/show-results.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-      <h1>Results for  <xsl:value-of select="$testname"/></h1>
+      <h1>DocBook XSLT 2.0 Stylesheet output:
+          <xsl:value-of select="$testname"/></h1>
 
       <xsl:choose>
         <xsl:when test="$adiff = $bdiff and $adiff = 0">
@@ -74,6 +83,13 @@
                 </td>
               </tr>
               <tr>
+                <td colspan="2">
+                  <em>Note: The same “current” CSS styling is applied
+                  to both expected and actual results below. This may
+                  produce incorrect results in the “expected” column.</em>
+                </td>
+              </tr>
+              <tr>
                 <xsl:variable name="html"
                               select="replace($testname, '.xml', '.html')"/>
                 <xsl:variable name="ex-html"
@@ -100,7 +116,12 @@
           </table>
         </xsl:otherwise>
       </xsl:choose>
+
+      <h2>XML source</h2>
+      <pre data-src="../src/{$testname}"/>
     </body>
+    <script type="text/javascript"
+            src="../../resources/base/js/prism.js"></script>
   </html>
 </xsl:template>
 
@@ -235,6 +256,9 @@
     </xsl:when>
     <xsl:when test="$node/@deltaxml:deltaV2 = 'A!=B'">
       <xsl:attribute name="class" select="concat($base,' diff')"/>
+    </xsl:when>
+    <xsl:when test="$node/@deltaxml:deltaV2 = 'A=B'">
+      <xsl:attribute name="class" select="concat($base,' nodiff')"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:attribute name="class" select="$base"/>

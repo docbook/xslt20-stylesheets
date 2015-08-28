@@ -43,7 +43,9 @@
   </p:add-attribute>
 </p:for-each>
 
-<p:wrap-sequence wrapper="results"/>
+<p:wrap-sequence wrapper="results">
+  <p:log port="result" href="/tmp/log.xml"/>
+</p:wrap-sequence>
 
 <p:xslt>
   <p:input port="stylesheet">
