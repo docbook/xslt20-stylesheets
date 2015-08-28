@@ -176,25 +176,6 @@ task copyXslt(type: Copy) {
   into "build/dist/bin/xslt/"
 }
 
-task copySrc(type: Copy) {
-  FileTree tree = fileTree(dir: '.',
-                           exclude: ['OLD.tests/**', 'OLD.lib/**', 'build/**',
-                                     'tools/lib/cachedir/**',
-                                     'gentext/build/**',
-                                     'test/diff/**', 'test/actual/**',
-                                     'test/result/**', '.travis/**',
-                                     '.travis.yml', 'delta/**',
-                                     '.gradle/**', 'lib/**', 'SECURE',
-                                     ',status', 'build.xml'])
-  from tree
-  into "build/dist/src"
-}
-
-task copyLib(type: Copy) {
-  from "tools/lib/docbook-xsl-java-saxon-1.2.1-95.jar"
-  into "build/dist/bin/lib/"
-}
-
 task copyMarkLogic(type: Copy) {
   from "tools/MarkLogic/"
   into "build/dist/bin/lib/MarkLogic/"
@@ -212,25 +193,14 @@ task copyResults(dependsOn: testreport, type: Copy) {
 }
 
 task copyAll(dependsOn: [copyReadme, copyDocs, copyResources, copyXslt,
-                         copySrc, copyLib, copyResults,
-                         copyMarkLogic, copyMarkLogicPlugins]) {
+                         copyResults, copyMarkLogic, copyMarkLogicPlugins]) {
   // nothing to see here
 }
 
-task zipBin(dependsOn: copyAll, type: Zip) {
+task zip(dependsOn: copyAll, type: Zip) {
   from('build/dist/bin')
   into 'docbook-xslt2-' + version
   archiveName 'docbook-xslt2-' + version + ".zip"
-}
-
-task zipSrc(dependsOn: copyAll, type: Zip) {
-  from('build/dist/src')
-  into 'docbook-xslt2-' + version + '-src'
-  archiveName 'docbook-xslt2-' + version + "-src.zip"
-}
-
-task zip(dependsOn: [zipBin,zipSrc]) {
-  // nothing to see here
 }
 
 task updateDist(dependsOn: [copyAll, buildDist, zip], type: Copy) {
