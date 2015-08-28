@@ -26,14 +26,25 @@
       <xsl:value-of select="@label"/>
     </xsl:when>
 
-    <xsl:when test="ancestor::db:table or ancestor::db:informaltable">
+    <xsl:when test="ancestor::db:thead
+                    or ancestor::db:tbody
+                    or ancestor::db:tfoot">
       <!-- choose first in document order so that we get the outer most table -->
       <xsl:variable name="table"
                     select="(ancestor::db:table|ancestor::db:informaltable)[1]"/>
 
       <!-- have to count by hand because xsl:number only matches by pattern -->
+      <xsl:variable name="prec-footnotes"
+                    select="$table//db:footnote
+                            intersect preceding::db:footnote"/>
+
+      <xsl:variable name="oob-footnotes"
+                    select="$prec-footnotes[not(ancestor::db:thead
+                                                or ancestor::db:tbody
+                                                or ancestor::tfoot)]"/>
+
       <xsl:variable name="tfnum"
-                    select="count($table//db:footnote intersect preceding::db:footnote) + 1"/>
+                    select="count($prec-footnotes except $oob-footnotes) + 1"/>
 
       <xsl:choose>
 	<xsl:when test="string-length($table.footnote.number.symbols)&gt;= $tfnum">
