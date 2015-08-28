@@ -27,7 +27,6 @@ deploy:
     secure: DABnpUe+E4lFb0ku+j8UhYPUCrfY6YvhYT2M7SL9o9rg+eUlmDDowJO9Mbaxldj0x1JANT2dvkMgzZcxo2VUAQjGgMy8V7JHWEikaOdmmcfngK+P+QqAy+3ytsMLGny6jV7pKJwLisZ9Gcb75REvC2I64n3l/mBhzTgE6kXVuyA=
   file:
     - build/distributions/docbook-xslt2-$TRAVIS_TAG.zip
-    - build/distributions/docbook-xslt2-$TRAVIS_TAG-src.zip
   skip_cleanup: true
   on:
     tags: true
