@@ -8,6 +8,9 @@
 <xsl:output method="xhtml" encoding="utf-8" indent="no"
 	    omit-xml-declaration="yes"/>
 
+<xsl:variable name="deltaxml" as="xs:boolean"
+              select="exists(/results/result[1][@deltaxml='true'])"/>
+
 <xsl:template match="results">
   <html>
     <head>
@@ -15,12 +18,20 @@
       <link href="style/show-results.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-      <h1>Test results</h1>
+      <h1>DocBook XSLT 2.0 Stylesheet test results</h1>
+
+      <xsl:if test="not($deltaxml)">
+        <p>DeltaXML appears not to have been available; you will
+        have to inspect the differences by hand.</p>
+      </xsl:if>
+
       <table>
         <thead>
           <tr>
-            <th>Test</th>
-            <th>Differences</th>
+            <th>Test result</th>
+            <xsl:if test="$deltaxml">
+              <th>Differences</th>
+            </xsl:if>
             <th>Expected</th>
             <th>Actual</th>
           </tr>
@@ -45,9 +56,11 @@
         <xsl:value-of select="@test"/>
       </a>
     </td>
-    <td>
-      <xsl:value-of select="@differences"/>
-    </td>
+    <xsl:if test="$deltaxml">
+      <td>
+        <xsl:value-of select="@differences"/>
+      </td>
+    </xsl:if>
     <td>
       <a href="expected/{@test}">
         <xsl:value-of select="@test"/>
