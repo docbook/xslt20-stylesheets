@@ -35,7 +35,7 @@ configurations.all {
 }
 
 dependencies {
-  compile fileTree(dir: 'lib').include("*.jar")
+  compile fileTree(dir: 'tools/lib').include("*.jar")
   compile fileTree(dir: 'delta').include("*.jar")
   compile (
     [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
@@ -47,8 +47,6 @@ dependencies {
 
 task runtests(type: JavaExec) {
   classpath = configurations.runtime
-
-  println(classpath.asPath)
 
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
