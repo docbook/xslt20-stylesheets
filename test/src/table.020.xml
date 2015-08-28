@@ -1,0 +1,50 @@
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+<info>
+  <title>Article wrapper</title>
+</info>
+
+<para>This is a test of table normalization.</para>
+
+<para>HTML:</para>
+
+<informaltable>
+<tr>
+  <td>R1C1</td>
+  <td>R1C2</td>
+</tr>
+<tr>
+  <td>R2C1</td>
+  <td>R2C2</td>
+</tr>
+</informaltable>
+
+<table>
+<caption>Caption</caption>
+<tr>
+  <td>R1C1</td>
+  <td>R1C2</td>
+</tr>
+<tr>
+  <td>R2C1</td>
+  <td>R2C2</td>
+</tr>
+</table>
+
+<informaltable>
+<thead>
+<tr>
+  <th>H-R1C1</th>
+  <th>H-R1C2</th>
+</tr>
+</thead>
+<tr>
+  <td>R1C1</td>
+  <td>R1C2</td>
+</tr>
+<tr>
+  <td>R2C1</td>
+  <td>R2C2</td>
+</tr>
+</informaltable>
+
+</article>
