@@ -1,0 +1,51 @@
+<article xmlns="http://docbook.org/ns/docbook" version="5.0">
+<info xmlns:c="http://www.w3.org/ns/xproc-step">
+  <c:param name="unify.table.titles" value="0"/>
+  <title>Article wrapper</title>
+</info>
+
+<para>This document specifies <parameter>unify.table.titles</parameter>=0.</para>
+
+<para>CALS:</para>
+
+<table>
+<title>Table title</title>
+<tgroup cols="2">
+<tbody>
+<row>
+<entry>Body Left</entry>
+<entry>Body Right</entry>
+</row>
+<row>
+<entry>Body Left</entry>
+<entry>Body Right</entry>
+</row>
+<row>
+<entry>Body Left</entry>
+<entry>Body Right</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>HTML:</para>
+
+<table>
+<caption>Table title</caption>
+<tbody>
+<tr>
+<td>Body Left</td>
+<td>Body Right</td>
+</tr>
+<tr>
+<td>Body Left</td>
+<td>Body Right</td>
+</tr>
+<tr>
+<td>Body Left</td>
+<td>Body Right</td>
+</tr>
+</tbody>
+</table>
+
+</article>
