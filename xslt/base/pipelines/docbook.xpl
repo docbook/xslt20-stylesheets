@@ -81,17 +81,42 @@
   <!-- <p:log port="result" href="/tmp/20-transclude.xml"/> -->
 </p:xslt>
 
+<p:xslt name="document-parameters">
+  <p:input port="stylesheet">
+    <p:document href="document-params.xsl"/>
+  </p:input>
+</p:xslt>
+
+<!-- combine them with the pipeline parameters -->
+<p:parameters name="all-parameters">
+  <p:input port="parameters">
+    <p:pipe step="main" port="parameters"/>
+    <p:pipe step="document-parameters" port="result"/>
+  </p:input>
+  <p:with-param name="syntax-highlighter" select="$syntax-highlighter"
+                port="parameters"/>
+  <!-- <p:log port="result" href="/tmp/all-params.xml"/> -->
+</p:parameters>
+
 <p:xslt name="profile">
+  <p:input port="source">
+    <p:pipe step="transclude" port="result"/>
+  </p:input>
   <p:input port="stylesheet">
     <p:document href="../preprocess/30-profile.xsl"/>
   </p:input>
-  <!-- Use the parameters passed to the pipeline -->
+  <p:input port="parameters">
+    <p:pipe step="all-parameters" port="result"/>
+  </p:input>
   <!-- <p:log port="result" href="/tmp/30-profile.xml"/> -->
 </p:xslt>
 
 <p:xslt name="schemaext">
   <p:input port="stylesheet">
     <p:document href="../preprocess/40-schemaext.xsl"/>
+  </p:input>
+  <p:input port="parameters">
+    <p:empty/>
   </p:input>
   <!-- <p:log port="result" href="/tmp/40-schemaext.xml"/> -->
 </p:xslt>
@@ -101,6 +126,9 @@
     <p:xslt name="run45">
       <p:input port="stylesheet">
         <p:document href="../preprocess/45-verbatim.xsl"/>
+      </p:input>
+      <p:input port="parameters">
+        <p:pipe step="all-parameters" port="result"/>
       </p:input>
       <!-- <p:log port="result" href="/tmp/45-verbatim.xml"/> -->
     </p:xslt>
@@ -121,7 +149,9 @@
   <p:input port="stylesheet">
     <p:document href="../preprocess/50-normalize.xsl"/>
   </p:input>
-  <!-- Use the parameters passed to the pipeline -->
+  <p:input port="parameters">
+    <p:pipe step="all-parameters" port="result"/>
+  </p:input>
   <!-- <p:log port="result" href="/tmp/50-normalize.xml"/> -->
 </p:xslt>
 
@@ -158,7 +188,10 @@
   <p:input port="source">
     <p:pipe step="expand-linkbases" port="result"/>
   </p:input>
-<!--  <p:log port="result" href="/tmp/doc.xml"/> -->
+  <p:input port="parameters">
+    <p:pipe step="all-parameters" port="result"/>
+  </p:input>
+  <!--  <p:log port="result" href="/tmp/doc.xml"/> -->
 </p:xslt>
 
 <p:choose name="final-pass">
@@ -178,9 +211,8 @@
             <p:document href="../html/final-pass.xsl"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
       <p:when test="$style = 'slides'">
@@ -193,9 +225,8 @@
             <p:document href="../../slides/html/plain.xsl"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
       <p:when test="$style = 'slide-notes'">
@@ -208,9 +239,8 @@
             <p:document href="../../slides/html/plain-notes.xsl"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
       <p:when test="$style = 'publishers'">
@@ -223,9 +253,8 @@
             <p:document href="../../publishers/html/publishers.xsl"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
       <p:when test="$style = 'chunk'">
@@ -238,9 +267,8 @@
             <p:document href="../html/chunk.xsl"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
       <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
@@ -261,10 +289,8 @@
             <p:pipe step="load-style" port="result"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter"
-                        select="$syntax-highlighter"/>
         </p:xslt>
       </p:otherwise>
     </p:choose>
@@ -285,9 +311,8 @@
             <p:document href="../print/final-pass.xsl"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
       <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
@@ -308,10 +333,8 @@
             <p:pipe step="load-style" port="result"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter"
-                        select="$syntax-highlighter"/>
         </p:xslt>
       </p:otherwise>
     </p:choose>
@@ -333,9 +356,8 @@
             <p:document href="../fo/final-pass.xsl"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
       <p:when test="$style = 'slides'">
@@ -348,9 +370,8 @@
             <p:document href="../../slides/fo/plain.xsl"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter" select="$syntax-highlighter"/>
         </p:xslt>
       </p:when>
       <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
@@ -371,10 +392,8 @@
             <p:pipe step="load-style" port="result"/>
           </p:input>
           <p:input port="parameters">
-            <p:pipe step="main" port="parameters"/>
+            <p:pipe step="all-parameters" port="result"/>
           </p:input>
-          <p:with-param name="syntax-highlighter"
-                        select="$syntax-highlighter"/>
         </p:xslt>
       </p:otherwise>
     </p:choose>
