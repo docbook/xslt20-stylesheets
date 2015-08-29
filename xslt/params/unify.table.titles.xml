@@ -1,0 +1,23 @@
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="unify.table.titles">
+<refmeta>
+<refentrytitle>unify.table.titles</refentrytitle>
+<refmiscinfo role="type">boolean</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>unify.table.titles</refname>
+<refpurpose>Treat HTML table captions and CALS table titles uniformly?</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="unify.table.titles.frag">
+<xsl:param name="unify.table.titles" select="'0'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If true, HTML table captions will be treated as CALS table
+titles. They'll be formatted like titles, appear in the list of
+titles, etc.</para>
+</refsect1>
+</refentry>

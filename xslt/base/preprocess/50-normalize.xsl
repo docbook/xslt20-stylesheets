@@ -24,6 +24,7 @@
 <xsl:param name="glossary.collection" select="''"/>
 <xsl:param name="bibliography.collection" select="''"/>
 <xsl:param name="docbook-namespace" select="'http://docbook.org/ns/docbook'"/>
+<xsl:param name="unify.table.titles" select="'0'"/>
 
 <xsl:template match="/">
   <xsl:apply-templates/>
@@ -640,6 +641,23 @@ if appropriate</refpurpose>
       </xsl:choose>
     </xsl:for-each-group>
   </xsl:copy>
+</xsl:template>
+
+<!-- If we're unifying titles, turn the caption into a title. -->
+<xsl:template match="db:table/db:caption"
+	      xmlns="http://docbook.org/ns/docbook">
+  <xsl:choose>
+    <xsl:when test="$unify.table.titles != '0'">
+      <info>
+        <title>
+          <xsl:apply-templates select="@*,node()"/>
+        </title>
+      </info>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:next-match/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>
