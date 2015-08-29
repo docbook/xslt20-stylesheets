@@ -114,6 +114,7 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="table.width.nominal"/>
 <refentry xml:id="table.html.cellpadding"/>
 <refentry xml:id="table.html.cellspacing"/>
+<refentry xml:id="unify.table.titles"/>
 
 <refentry xml:id="admonition.graphics"/>
 <refentry xml:id="admonition.graphics.path"/>
