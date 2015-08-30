@@ -69,67 +69,6 @@
 
 <!-- ==================================================================== -->
 
-<!--
-GlossEntry ::=
-  GlossTerm, Acronym?, Abbrev?,
-  (IndexTerm)*,
-  RevHistory?,
-  (GlossSee | GlossDef+)
--->
-
-<xsl:template match="db:glossary[@role='auto']">
-  <xsl:if test="not($external.glossary)">
-    <xsl:message>
-      <xsl:text>Warning: processing automatic glossary </xsl:text>
-      <xsl:text>without an external glossary.</xsl:text>
-    </xsl:message>
-  </xsl:if>
-
-  <xsl:variable name="glossary">
-    <db:glossary>
-      <xsl:copy-of select="@*[name(.) != 'role']"/>
-
-      <xsl:copy-of select="db:info"/>
-
-      <xsl:variable name="seealsos" as="element()*">
-        <xsl:for-each select="$external.glossary//db:glossseealso">
-          <xsl:copy-of select="if (key('id', @otherterm))
-                               then key('id', @otherterm)[1]
-                               else key('glossterm', string(.))"/>
-        </xsl:for-each>
-      </xsl:variable>
-
-      <xsl:variable name="divs"
-                    select="db:glossdiv"/>
-
-      <xsl:choose>
-        <xsl:when test="$divs and $external.glossary//db:glossdiv">
-          <xsl:apply-templates select="$external.glossary//db:glossdiv"
-                               mode="m:copy-external-glossary">
-            <xsl:with-param name="terms"
-                            select="//db:glossterm[not(parent::db:glossdef)]
-                                    |//db:firstterm
-                                    |$seealsos"/>
-            <xsl:with-param name="divs" select="$divs"/>
-          </xsl:apply-templates>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates select="$external.glossary//db:glossentry"
-                               mode="m:copy-external-glossary">
-            <xsl:with-param name="terms"
-                            select="//db:glossterm[not(parent::db:glossdef)]
-                                    |//db:firstterm
-                                    |$seealsos"/>
-            <xsl:with-param name="divs" select="$divs"/>
-          </xsl:apply-templates>
-        </xsl:otherwise>
-      </xsl:choose>
-    </db:glossary>
-  </xsl:variable>
-
-  <xsl:apply-templates select="$glossary"/>
-</xsl:template>
-
 <xsl:template match="db:glossentry">
   <dt>
     <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>

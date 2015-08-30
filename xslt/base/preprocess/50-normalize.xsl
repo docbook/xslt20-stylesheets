@@ -475,48 +475,6 @@ if appropriate</refpurpose>
   <xsl:apply-templates select="." mode="m:cals-phase-1"/>
 </xsl:template>
 
-<!-- Verbatim environments are normalized here too -->
-<xsl:template
-    match="db:programlisting|db:address|db:screen|db:synopsis|db:literallayout"
-   >
-
-  <xsl:variable name="normalized" as="element()">
-    <xsl:copy>
-      <xsl:copy-of select="@*"/>
-      <xsl:apply-templates/>
-    </xsl:copy>
-  </xsl:variable>
-
-  <xsl:apply-templates select="$normalized" mode="m:verbatim-phase-1">
-    <xsl:with-param name="origelem" select="."/>
-  </xsl:apply-templates>
-</xsl:template>
-
-<xsl:template match="db:programlistingco">
-  <xsl:variable name="normalized" as="element()">
-    <xsl:copy>
-      <xsl:copy-of select="@*"/>
-      <xsl:copy-of select="db:info"/>
-      <xsl:copy-of select="db:areaspec"/>
-      <db:programlisting>
-        <xsl:copy-of select="db:programlisting/@*"/>
-        <xsl:apply-templates select="db:programlisting/node()"/>
-      </db:programlisting>
-      <xsl:copy-of select="db:calloutlist"/>
-    </xsl:copy>
-  </xsl:variable>
-
-  <xsl:apply-templates select="$normalized" mode="m:verbatim-phase-1"/>
-</xsl:template>
-
-<!-- HACK: m:verbatim-phase-1 was not implemented. This is a temporary noop implementation that at least 
-     does not strip verbatim elements. -->
-<xsl:template match="@*|node()" mode="m:verbatim-phase-1" xmlns:m="http://docbook.org/xslt/ns/mode">
-  <xsl:copy>
-    <xsl:apply-templates select="@*|node()" mode="m:verbatim-phase-1"/>
-  </xsl:copy>
-</xsl:template>
-
 <xsl:template match="*">
   <xsl:choose>
     <xsl:when test="db:title|db:subtitle|db:titleabbrev|db:info/db:title">

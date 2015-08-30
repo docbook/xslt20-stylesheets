@@ -16,7 +16,6 @@
   <xsl:include href="../common/l10n.xsl"/>
   <xsl:include href="../common/spspace.xsl"/>
   <xsl:include href="../common/gentext.xsl"/>
-  <xsl:include href="../common/normalize.xsl"/>
   <xsl:include href="../common/dbfunctions.xsl"/>
   <xsl:include href="../common/common.xsl"/>
   <xsl:include href="../common/label-content.xsl"/>

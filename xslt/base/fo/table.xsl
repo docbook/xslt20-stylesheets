@@ -490,7 +490,6 @@
 <xsl:template match="db:tbody" mode="m:cals">
   <fo:table-body>
     <xsl:apply-templates mode="m:cals"/>
-    </xsl:apply-templates>
   </fo:table-body>
 </xsl:template>
 
