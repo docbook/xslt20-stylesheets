@@ -25,4 +25,8 @@
   </xsl:message>
 </xsl:template>
 
+<xsl:template match="db:para">
+  <!-- nop; just make Saxon shut up about the namespaces. -->
+</xsl:template>
+
 </xsl:stylesheet>
