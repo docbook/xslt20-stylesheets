@@ -1,0 +1,3 @@
+This file just exists so that the etc directory will be created.
+The file version.properties that gets generated in here should
+not be in version control.

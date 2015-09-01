@@ -9,3 +9,5 @@
 /.gradle/
 /gentext/build/
 /build/
+/src/main/resources/xslt/
+/src/main/resources/etc/version.properties
