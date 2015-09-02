@@ -263,7 +263,7 @@ and a CSS style is specified.</para>
 
   <xsl:variable name="numbered" select="f:syntax-highlight($node)"/>
 
-  <xsl:if test="$syntax-highlighter != '0' and $numbered">
+  <xsl:if test="$syntax-highlighter != '0'">
     <xsl:variable name="language" select="$node/@language/string()"/>
     <xsl:variable name="mapped-language"
                   select="($syntax.highlight.map[@key=$language]/@value/string(),
@@ -273,9 +273,6 @@ and a CSS style is specified.</para>
                   select="if ($mapped-language)
                           then concat('language-', $mapped-language)
                           else 'language-none'"/>
-
-    <xsl:variable name="numbered" as="xs:boolean"
-                  select="f:lineNumbering($node,'everyNth') != 0"/>
 
     <xsl:variable name="numbers" as="xs:string?"
                   select="if ($node/ancestor::db:programlistingco

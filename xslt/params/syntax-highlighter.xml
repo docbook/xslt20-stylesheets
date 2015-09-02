@@ -14,7 +14,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='syntax-highlighter.frag'>
-<xsl:param name="syntax-highlighter" select="'0'"/>
+<xsl:param name="syntax-highlighter" select="'1'"/>
 </src:fragment>
 </refsynopsisdiv>
 
