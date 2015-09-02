@@ -27,7 +27,7 @@ public class Main {
         Options options = new Options();
 
         Option format = Option.builder("f").argName("format").longOpt("format").hasArg().desc("The format: (x)html (css)print foprint").build();
-        Option style  = Option.builder("s").argName("stylesheet").longOpt("stylesheet").hasArg().desc("Custom final-pass XSL stylesheet").build();
+        Option style  = Option.builder("s").argName("style").longOpt("style").hasArg().desc("Custom final-pass XSL stylesheet").build();
         Option post   = Option.builder().argName("postprocess").longOpt("postprocess").hasArg().desc("Post-processing stylesheet").build();
         Option pdf    = Option.builder().argName("pdf").longOpt("pdf").hasArg().desc("Name for the output PDF file (print only)").build();
         Option output = Option.builder("o").argName("output").longOpt("output").hasArg().desc("Name for the output file (defaults to stdout)").build();
@@ -68,7 +68,7 @@ public class Main {
                 }
             }
 
-            for (String opt : new String[] { "postprocess", "pdf", "css", "output", "format", "stylesheet" }) {
+            for (String opt : new String[] { "postprocess", "pdf", "css", "output", "format", "style" }) {
                 if (cmd.hasOption(opt)) {
                     docbook.setOption(opt, cmd.getOptionValue(opt));
                 }
