@@ -1,39 +1,39 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Article wrapper</title><meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.2" /><link rel="stylesheet" type="text/css" href="http://localhost:8119/base/css/default.css" /><script type="text/javascript" src="http://localhost:8119/base/js/dbmodnizr.js"></script></head><body><article id="R.1" class="article"><header class="article-titlepage"><h2>Article wrapper</h2></header><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>#!/usr/bin/perl -- # --*-Perl-*--
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>use Getopt::Std;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>$usage = "Usage: $0 [-q] [-u|-p|-m] file [ file ... ]\n";
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>die $usage if ! getopts('qupm');
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>die $usage if ($opt_p + $opt_u + $opt_m) != 1;
-<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>$file = shift @ARGV || die $usage;
-<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>$opt = '-u' if $opt_u;
-<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>$opt = '-p' if $opt_p;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>$opt = '-m' if $opt_m;</pre></div><p>This paragraph interrupts the listing. The line numbering
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Article wrapper</title><meta charset="utf-8" /><meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.9" /><link rel="stylesheet" type="text/css" href="../../resources/base/css/default.css" /><script type="text/javascript" src="../../resources/base/js/dbmodnizr.js"></script><link href="../../resources/base/css/prism.css" rel="stylesheet" type="text/css" /><link href="../../resources/base/css/db-prism.css" rel="stylesheet" type="text/css" /></head><body><article id="R.1" class="article"><header class="article-titlepage"><h2>Article wrapper</h2></header><pre class="programlisting language-none line-numbers"><code>#!/usr/bin/perl -- # --*-Perl-*--
+
+use Getopt::Std;
+
+$usage = "Usage: $0 [-q] [-u|-p|-m] file [ file ... ]\n";
+
+die $usage if ! getopts('qupm');
+
+die $usage if ($opt_p + $opt_u + $opt_m) != 1;
+
+$file = shift @ARGV || die $usage;
+
+$opt = '-u' if $opt_u;
+$opt = '-p' if $opt_p;
+$opt = '-m' if $opt_m;</code></pre><p>This paragraph interrupts the listing. The line numbering
 continues in the following listing.
-</p><div class="programlisting"><pre><span class="linenumber"> 16</span><span class="linenumber-separator"> </span>while ($file) {
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>    print "Converting $file to $opt linebreaks.\n" if !$opt_q;
-<span class="linenumber"> 18</span><span class="linenumber-separator"> </span>    open (F, "$file");
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>    binmode F;
-<span class="linenumber"> 20</span><span class="linenumber-separator"> </span>    read (F, $_, -s $file);
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>    close (F);
-<span class="linenumber"> 22</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>    s/\r\n/\n/sg;
-<span class="linenumber"> 24</span><span class="linenumber-separator"> </span>    s/\r/\n/sg;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber"> 26</span><span class="linenumber-separator"> </span>    if ($opt eq '-p') {
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>	s/\n/\r\n/sg;
-<span class="linenumber"> 28</span><span class="linenumber-separator"> </span>    } elsif ($opt eq '-m') {
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>	s/\n/\r/sg;
-<span class="linenumber"> 30</span><span class="linenumber-separator"> </span>    }
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber"> 32</span><span class="linenumber-separator"> </span>    open (F, "&gt;$file");
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>    binmode F;
-<span class="linenumber"> 34</span><span class="linenumber-separator"> </span>    print F $_;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>    close (F);
-<span class="linenumber"> 36</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>    $file = shift @ARGV;
-<span class="linenumber"> 38</span><span class="linenumber-separator"> </span>}</pre></div></article></body></html>
+</p><pre data-start="16" class="programlisting language-none line-numbers"><code>while ($file) {
+    print "Converting $file to $opt linebreaks.\n" if !$opt_q;
+    open (F, "$file");
+    binmode F;
+    read (F, $_, -s $file);
+    close (F);
+
+    s/\r\n/\n/sg;
+    s/\r/\n/sg;
+
+    if ($opt eq '-p') {
+	s/\n/\r\n/sg;
+    } elsif ($opt eq '-m') {
+	s/\n/\r/sg;
+    }
+
+    open (F, "&gt;$file");
+    binmode F;
+    print F $_;
+    close (F);
+
+    $file = shift @ARGV;
+}</code></pre></article><script src="../../resources/base/js/prism.js"></script></body></html>
