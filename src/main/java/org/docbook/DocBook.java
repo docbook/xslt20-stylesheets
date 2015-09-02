@@ -113,14 +113,6 @@ class DocBook {
         if (classLoc.endsWith(".jar")) {
             xpl = "jar:" + classLoc + "!" + xpl;
             finalBase = "jar:" + classLoc + "!" + finalBase;
-
-            // Are the XSLT resources actually in the jar?
-            System.err.println("URL: " + xpl);
-            URL resource = new URL(xpl);
-            URLConnection connection = resource.openConnection();
-            Object foo = connection.getContent();
-            System.err.println(connection);
-            System.err.println(foo);
         } else {
             // This is only supposed to happen on a dev box
             int pos = classLoc.indexOf("/build/");
