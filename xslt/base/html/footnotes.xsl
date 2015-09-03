@@ -27,7 +27,7 @@
   <sup>
     <xsl:sequence select="f:html-attributes(.)"/>
     <span class="osq">[</span>
-    <a name="{$name}" href="{concat('#ftn.', $name)}">
+    <a id="{$name}" href="{concat('#ftn.', $name)}">
       <xsl:apply-templates select="." mode="m:footnote-number"/>
     </a>
     <span class="csq">]</span>
@@ -88,7 +88,7 @@
 	<p>
 	  <sup>
             <span class="osq">[</span>
-	    <a href="#{$name}" name="{concat('ftn.', $name)}">
+	    <a href="#{$name}" id="{concat('ftn.', $name)}">
 	      <xsl:copy-of select="$footnote.number"/>
 	    </a>
             <span class="csq">]</span>
