@@ -14,7 +14,6 @@
 <p:output port="secondary" sequence="true" primary="false">
   <p:pipe step="process-secondary" port="secondary"/>
 </p:output>
-<p:serialization port="result" method="xhtml" encoding="utf-8" indent="false"/>
 
 <p:option name="style" select="'docbook'"/>
 <p:option name="postprocess" select="''"/>
@@ -182,7 +181,8 @@
       <p:iteration-source>
         <p:pipe step="postprocess" port="secondary"/>
       </p:iteration-source>
-      <p:store name="store-chunk" method="html">
+      <p:store name="store-chunk" method="html" encoding="utf-8"
+               indent="false" version="5">
         <p:with-option name="href" select="base-uri(/)"/>
       </p:store>
       <cx:message xmlns:cx="http://xmlcalabash.com/ns/extensions">

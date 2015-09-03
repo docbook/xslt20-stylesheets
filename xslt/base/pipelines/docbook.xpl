@@ -14,7 +14,8 @@
 <p:output port="secondary" sequence="true" primary="false">
   <p:pipe step="process" port="secondary"/>
 </p:output>
-<p:serialization port="result" method="xhtml" encoding="utf-8" indent="false"/>
+<p:serialization port="result" method="html" encoding="utf-8" indent="false"
+                 version="5"/>
 
 <p:option name="format" select="'html'"/>
 <p:option name="style" select="'docbook'"/>
@@ -201,7 +202,7 @@
   <p:input port="parameters">
     <p:pipe step="all-parameters" port="result"/>
   </p:input>
-  <!--  <p:log port="result" href="/tmp/doc.xml"/> -->
+  <!-- <p:log port="result" href="/tmp/doc.xml"/> -->
 </p:xslt>
 
 <p:choose name="process">
