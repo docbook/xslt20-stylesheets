@@ -1,3 +1,8 @@
+html {
+   background-color: #fffff8;
+   color: #111111;
+}
+
 table.diffs {
    table-layout: fixed;
    width: 100%;
@@ -39,6 +44,14 @@ pre   { color: #777; }
 .att  { color: #777; }
 .diff { color: red }
 */
-.diff { background-color: #FFFFAA; }
-.del  { background-color: #FFAAAA; }
-.add  { background-color: #AAFFAA; }
+.diff   { background-color: #FFFFAA; }
+.del    { background-color: #FFAAAA; }
+.add    { background-color: #AAFFAA; }
+.txtchg { background-color: #AAFFFF; }
+.nodiff { background-color: #f5f2f0; }
+
+pre.show-diff {
+   background-color: #f5f2f0;
+   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+   line-height: 1em;
+}

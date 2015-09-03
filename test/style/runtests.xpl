@@ -144,8 +144,8 @@
     <p:input port="stylesheet">
       <p:document href="normalize.xsl"/>
     </p:input>
-    <p:with-param name="ignore-head" select="$ignore-head != 0"/>
-    <p:with-param name="ignore-prism" select="$ignore-prism != 0"/>
+    <p:with-param name="ignore-head" select="$ignore-head"/>
+    <p:with-param name="ignore-prism" select="$ignore-prism"/>
   </p:xslt>
 
   <p:xslt name="Bnorm">
@@ -155,20 +155,22 @@
     <p:input port="stylesheet">
       <p:document href="normalize.xsl"/>
     </p:input>
-    <p:with-param name="ignore-head" select="$ignore-head != 0"/>
-    <p:with-param name="ignore-prism" select="$ignore-prism != 0"/>
+    <p:with-param name="ignore-head" select="$ignore-head"/>
+    <p:with-param name="ignore-prism" select="$ignore-prism"/>
   </p:xslt>
 
   <cx:pretty-print name="A">
     <p:input port="source">
       <p:pipe step="Anorm" port="result"/>
     </p:input>
+    <!-- <p:log port="result" href="/tmp/A.xml"/> -->
   </cx:pretty-print>
 
   <cx:pretty-print name="B">
     <p:input port="source">
       <p:pipe step="Bnorm" port="result"/>
     </p:input>
+    <!-- <p:log port="result" href="/tmp/B.xml"/> -->
   </cx:pretty-print>
 
   <p:choose name="diff">

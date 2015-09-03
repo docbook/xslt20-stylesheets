@@ -33,9 +33,11 @@
   </xsl:variable>
 
   <xsl:variable name="adiff"
-                select="count($A//html:span[contains(@class,'del')])"/>
+                select="count($A//html:span[contains(@class,'del')])
+                        + count($A//html:span[contains(@class,'txtchg')])"/>
   <xsl:variable name="bdiff"
-                select="count($B//html:span[contains(@class,'add')])"/>
+                select="count($B//html:span[contains(@class,'add')])
+                        + count($B//html:span[contains(@class,'txtchg')])"/>
 
   <html>
     <head>
@@ -53,14 +55,25 @@
             content="{if (/*/@deltaxml:version) then 'true' else 'false'}"/>
     </head>
     <body>
-      <h1>DocBook XSLT 2.0 Stylesheet output:
-          <xsl:value-of select="$testname"/></h1>
+      <h1>
+        <xsl:text>DocBook XSLT 2.0 Stylesheet output: </xsl:text>
+        <xsl:value-of select="$testname"/>
+      </h1>
+
+      <xsl:variable name="html"
+                    select="replace($testname, '.xml', '.html')"/>
+      <xsl:variable name="ac-html"
+                    select="concat('../actual/', $html)"/>
+      <xsl:variable name="actual"
+                    select="if (doc-available($ac-html))
+                            then doc($ac-html)
+                            else ()"/>
 
       <xsl:choose>
         <xsl:when test="$adiff = $bdiff and $adiff = 0
                         and /*/@deltaxml:version">
           <p>No changes.</p>
-          <xsl:sequence select="$A"/>
+          <xsl:sequence select="$actual//html:body/node()"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:if test="not(/*/@deltaxml:version)">
@@ -112,20 +125,11 @@
                 <td>&#160;</td>
               </tr>
               <tr>
-                <xsl:variable name="html"
-                              select="replace($testname, '.xml', '.html')"/>
                 <xsl:variable name="ex-html"
                               select="concat('../expected/', $html)"/>
-                <xsl:variable name="ac-html"
-                              select="concat('../actual/', $html)"/>
-
                 <xsl:variable name="expected"
                               select="if (doc-available($ex-html))
                                       then doc($ex-html)
-                                      else ()"/>
-                <xsl:variable name="actual"
-                              select="if (doc-available($ac-html))
-                                      then doc($ac-html)
                                       else ()"/>
                 <td>
                   <xsl:sequence select="$expected//html:body/node()"/>
@@ -176,7 +180,7 @@
 
 <xsl:template match="deltaxml:textGroup" mode="prettyprint">
   <xsl:param name="version" required="yes"/>
-  <span class="diff">
+  <span class="diff txtchg">
     <xsl:value-of select="deltaxml:text[@deltaxml:deltaV2=$version]"/>
   </span>
 </xsl:template>

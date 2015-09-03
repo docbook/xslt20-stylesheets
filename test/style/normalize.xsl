@@ -28,6 +28,21 @@
   </xsl:if>
 </xsl:template>
 
+<xsl:template match="html:head/html:meta
+                     [@name='generator'
+                      and matches(@content, 'DocBook XSL 2.0 Stylesheets V.*')]"
+              priority="100">
+  <meta name="generator">
+    <xsl:attribute name="content"
+                   select="replace(@content, 'V2.*$', 'Vxxx')"/>
+  </meta>
+</xsl:template>
+
+<xsl:template match="html:head/html:meta[@http-equiv='Content-Type']"
+              priority="100">
+  <!-- suppress -->
+</xsl:template>
+
 <xsl:template match="html:script[contains(@src,'prism')]">
   <xsl:if test="$ignore-prism = '0'">
     <xsl:next-match/>
