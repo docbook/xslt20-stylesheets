@@ -118,7 +118,6 @@ class DocBook {
 
         XdmNode source = runtime.parse(sourcefn, baseURI);
 
-        String xpl = "xslt/base/pipelines/docbook.xpl";
         String jarloc = "";
         if (classLoc.endsWith(".jar")) {
             jarloc = "jar:" + classLoc + "!";
@@ -127,6 +126,8 @@ class DocBook {
             int pos = classLoc.indexOf("/build/");
             jarloc = classLoc.substring(0, pos);
         }
+
+        String xpl = jarloc + "/xslt/base/pipelines/docbook.xpl";
 
         XdmNode xcat = runtime.parse(new InputSource(getClass().getResourceAsStream("/etc/uris.xml")));
         XdmNode patch = runtime.parse(new InputSource(getClass().getResourceAsStream("/etc/make-catalog.xsl")));
