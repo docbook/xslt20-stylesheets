@@ -12,3 +12,9 @@
 /src/main/resources/xslt/
 /src/main/resources/etc/version.properties
 /src/main/resources/etc/uris.xml
+/test/index.html
+/test/result/
+/test/diff/
+/test/actual/
+/test/cssprint-actual/
+/test/foprint-actual/

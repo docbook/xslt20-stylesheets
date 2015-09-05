@@ -113,6 +113,23 @@ task testreport(dependsOn: runtests, type: JavaExec) {
       )
 }
 
+task runprinttests(type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'com.xmlcalabash.drivers.Main'
+  maxHeapSize = '1024m'
+  args('-D',
+       testsRoot + '/style/runprint.xpl',
+       'include=' + include,
+       'srcdir=' + testsRoot + '/src/',
+       'resultdir=' + testsRoot + '/' + print + '-result/',
+       'actualdir=' + testsRoot + '/' + print + 'actual/',
+       'expecteddir=' + testsRoot + '/' + print + 'expected/',
+       'diffdir=' + testsRoot + '/' + print + 'diff/',
+       'format=' + print
+      )
+}
+
 task relnotes(type: JavaExec) {
   classpath = configurations.runtime
 
