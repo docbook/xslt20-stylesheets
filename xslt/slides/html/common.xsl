@@ -15,14 +15,13 @@
 <xsl:param name="speaker.notes" select="0"/>
 <xsl:param name="localStorage.key" select="'slideno'"/>
 <xsl:param name="group.toc" select="0"/>
-<xsl:param name="resource.slide" select="$resource.root"/>
 
 <xsl:param name="cdn.jquery"
-           select="'http://code.jquery.com/jquery-1.6.3.min.js'"/>
+           select="'http://code.jquery.com/jquery-1.6.4.min.js'"/>
 <xsl:param name="cdn.jqueryui"
-           select="'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'"/>
+           select="'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'"/>
 <xsl:param name="cdn.jqueryui.css"
-           select="'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css'"/>
+           select="'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-lightness/jquery-ui.css'"/>
 
 <xsl:param name="root.elements">
   <db:slides/>
@@ -49,8 +48,8 @@
         <xsl:value-of select="db:info/db:title/node() except db:info/db:title/db:footnote"/>
       </title>
 
-      <xsl:call-template name="t:slides.javascript"/>
-      <xsl:call-template name="t:slides.css"/>
+      <xsl:call-template name="t:javascript"/>
+      <xsl:call-template name="t:css"/>
 
       <xsl:apply-templates select="db:info/h:*"/>
     </head>
@@ -91,26 +90,61 @@
   </footer>
 </xsl:template>
 
-<xsl:template name="t:slides.javascript">
+<xsl:template name="t:javascript">
+  <xsl:param name="node" select="."/>
+  <xsl:call-template name="t:system-javascript">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
+  <xsl:call-template name="t:slides-javascript">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
+  <xsl:call-template name="t:user-javascript">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template name="t:css">
+  <xsl:param name="node" select="."/>
+  <xsl:choose>
+    <xsl:when test="string($docbook.css) = ''">
+      <!-- nop -->
+    </xsl:when>
+    <xsl:when test="$docbook.css.inline = 0">
+      <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <style type="text/css">
+        <xsl:copy-of select="unparsed-text($docbook.css, 'utf-8')"/>
+      </style>
+    </xsl:otherwise>
+  </xsl:choose>
+  <xsl:call-template name="t:slides-css">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template name="t:slides-javascript">
+  <xsl:param name="node" select="."/>
   <script type="text/javascript" language="javascript"
           src="{$cdn.jquery}"/>
   <script type="text/javascript" language="javascript"
           src="{$cdn.jqueryui}"/>
 
   <script type="text/javascript" language="javascript"
-          src="{$resource.slide}js/jquery-timers-1.2.js" />
+          src="{$resource.root}js/jquery-timers-1.2.js" />
   <script type="text/javascript" language="javascript"
-          src="{$resource.slide}js/jquery.ba-hashchange.min.js" />
+          src="{$resource.root}js/jquery.ba-hashchange.min.js" />
   <script type="text/javascript" language="javascript"
-          src="{$resource.slide}js/slides.js" />
+          src="{$resource.root}js/slides.js" />
   <xsl:call-template name="t:syntax-highlight-head"/>
 </xsl:template>
 
-<xsl:template name="t:slides.css">
+<xsl:template name="t:slides-css">
+  <xsl:param name="node" select="."/>
   <link type="text/css" rel="stylesheet"
         href="{$cdn.jqueryui.css}" media="screen"/>
   <link type="text/css" rel="stylesheet"
-        href="{$resource.slide}css/slides.css"/>
+        href="{$resource.root}css/slides.css"/>
 </xsl:template>
 
 <xsl:template name="toc">
@@ -181,8 +215,8 @@
     </header>
     <div class="body">
       <div class="shownav">
-        <img src="{$resource.slide}img/prev.gif" alt="[Prev]"/>
-        <img src="{$resource.slide}img/next.gif" alt="[Next]"/>
+        <img src="{$resource.root}img/slides/prev.gif" alt="[Prev]"/>
+        <img src="{$resource.root}img/slides/next.gif" alt="[Next]"/>
       </div>
       <xsl:call-template name="t:clicknav">
         <xsl:with-param name="next" select="'#toc'"/>
@@ -257,21 +291,21 @@
     <xsl:choose>
       <xsl:when test="exists($prev)">
         <a href="javascript:clicknav('prev')">
-          <img src="{$resource.slide}img/transparent.gif" alt="[Prev]"/>
+          <img src="{$resource.root}img/slides/transparent.gif" alt="[Prev]"/>
         </a>
       </xsl:when>
       <xsl:otherwise>
-        <img src="{$resource.slide}img/transparent.gif" alt="[Prev]"/>
+        <img src="{$resource.root}img/slides/transparent.gif" alt="[Prev]"/>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:choose>
       <xsl:when test="exists($next)">
         <a href="javascript:clicknav('next')">
-          <img src="{$resource.slide}img/transparent.gif" alt="[Next]"/>
+          <img src="{$resource.root}img/slides/transparent.gif" alt="[Next]"/>
         </a>
       </xsl:when>
       <xsl:otherwise>
-        <img src="{$resource.slide}img/transparent.gif" alt="[Next]"/>
+        <img src="{$resource.root}img/slides/transparent.gif" alt="[Next]"/>
       </xsl:otherwise>
     </xsl:choose>
   </nav>
