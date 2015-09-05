@@ -1,6 +1,18 @@
 /* FIXME: Should normalize.css be inlined to remove the server round trip? */
 @import url("normalize.css");
 
+/* ===================================================== */
+/* Undo some of the things normalize does because they
+   seem to have negative consequences.
+*/
+
+td,
+th {
+  padding: 2px;
+}
+
+/* ===================================================== */
+
 html {
    background-color: #FFFFF8;
    color: #111111;
