@@ -1,0 +1,108 @@
+<slides xml:lang="en"
+        xmlns="http://docbook.org/ns/docbook"
+        xmlns:h="http://www.w3.org/1999/xhtml"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+<info>
+  <title>Example slide title</title>
+  <subtitle>Example subtitle</subtitle>
+  <author>
+    <personname>
+      <firstname>Jane</firstname>
+      <surname>Doe</surname>
+    </personname>
+    <affiliation>
+      <jobtitle>Lead Engineer</jobtitle>
+      <orgname>Example Corporation</orgname>
+    </affiliation>
+    <email>jane.doe@example.com</email>
+  </author>
+  <releaseinfo role="version">Version 1.0</releaseinfo>
+  <pubdate>2015-09-14</pubdate>
+  <copyright>
+    <year>2015</year>
+    <holder>Example Corporation</holder>
+  </copyright>
+  <h:meta name="slides.timer" content="true"/>
+  <h:meta name="slides.countdown" content="90:00"/>
+  <p:style xmlns:p="http://www.w3.org/ns/xproc">slides</p:style>
+</info>
+
+<foilgroup>
+<title>Introduction</title>
+
+<foil>
+<title>Learning objectives</title>
+<para>Learn stuff.</para>
+
+<itemizedlist>
+<listitem>
+<para>First point</para>
+</listitem>
+<listitem>
+<para>Second point</para>
+</listitem>
+<listitem>
+<para>Third point</para>
+</listitem>
+</itemizedlist>
+</foil>
+
+<foil>
+<title>Something else</title>
+
+<itemizedlist>
+<listitem>
+<para>First point</para>
+</listitem>
+<listitem>
+<para>Second point</para>
+</listitem>
+<listitem>
+<para>Third point</para>
+</listitem>
+</itemizedlist>
+</foil>
+</foilgroup>
+
+<foilgroup>
+<title>Second foil group</title>
+
+<foil>
+<title>More stuff</title>
+
+<itemizedlist>
+<listitem>
+<para>First point</para>
+</listitem>
+<listitem>
+<para>Second point</para>
+</listitem>
+<listitem>
+<para>Third point</para>
+</listitem>
+</itemizedlist>
+</foil>
+
+<foil>
+<title>Even more stuff</title>
+
+<itemizedlist>
+<listitem>
+<para>First point</para>
+</listitem>
+<listitem>
+<para>Second point</para>
+</listitem>
+<listitem>
+<para>Third point</para>
+</listitem>
+</itemizedlist>
+</foil>
+</foilgroup>
+
+<foil>
+<title>Q&amp;A</title>
+<para condition="web">The ultimate slide...</para>
+</foil>
+
+</slides>
