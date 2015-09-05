@@ -55,6 +55,13 @@
   </xsl:copy>
 </xsl:template>
 
+<xsl:template match="html:link/@href|html:script/@src" priority="100">
+  <xsl:attribute name="{node-name(.)}"
+                 select="if (contains(., '/base/'))
+                         then replace(., '/base/', '/')
+                         else ."/>
+</xsl:template>
+
 <xsl:template match="attribute()|text()|comment()|processing-instruction()">
   <xsl:copy/>
 </xsl:template>

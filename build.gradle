@@ -101,12 +101,15 @@ task runtests(type: JavaExec) {
 task testreport(dependsOn: runtests, type: JavaExec) {
   classpath = configurations.runtime
 
+  //systemProperty "log4j.configurationFile", "/home/ndw/java/log4j2-debug.xml"
+
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
   args('-D',
        '-oresult=' + testsRoot + '/index.html',
        testsRoot + '/style/report.xpl',
-       'resultdir=' + testsRoot + '/result/'
+       'resultdir=' + testsRoot + '/result/',
+       'baseline=' + baseline
       )
 }
 

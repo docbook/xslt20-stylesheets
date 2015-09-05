@@ -1,6 +1,7 @@
 <p:declare-step xmlns:p="http://www.w3.org/ns/xproc" version="1.0"
                 xmlns:c="http://www.w3.org/ns/xproc-step"
                 xmlns:cx="http://xmlcalabash.com/ns/extensions"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:dbp="http://docbook.github.com/ns/pipeline"
                 xmlns:exf="http://exproc.org/standard/functions"
                 exclude-inline-prefixes="cx exf"
@@ -85,10 +86,14 @@
   </p:load>
 
   <dbp:docbook>
-    <p:with-param name="resource.root" select="'../../resources/base/'"/>
+    <p:with-param name="resource.root" select="'../../resources/'"/>
     <p:with-param name="bibliography.collection"
                   select="'../style/bibliography.xml'"/>
     <p:with-param name="profile.os" select="'win'"/>
+    <p:with-option name="style"
+                   select="if (/*/db:info/p:style)
+                           then string(/*/db:info/p:style)
+                           else 'docbook'"/>
   </dbp:docbook>
 
   <p:xslt name="docbook">

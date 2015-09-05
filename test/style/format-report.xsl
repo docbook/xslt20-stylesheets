@@ -8,13 +8,46 @@
 <xsl:output method="xhtml" encoding="utf-8" indent="no"
 	    omit-xml-declaration="yes"/>
 
+<xsl:param name="baseline" select="'0'"/>
+
+<xsl:variable name="baseline.xml" select="resolve-uri('../diff/baseline.xml')"/>
+
 <xsl:variable name="deltaxml" as="xs:boolean"
               select="exists(/results/result[1][@deltaxml='true'])"/>
+
+<xsl:variable name="baseline-results" as="element()?"
+              select="if (doc-available($baseline.xml))
+                      then doc($baseline.xml)/*
+                      else ()"/>
+
+<xsl:template match="/">
+  <xsl:if test="string($baseline) != '0' and $deltaxml">
+    <xsl:result-document href="{$baseline.xml}-temp.xml" method="xml" indent="yes">
+      <results xmlns="">
+        <xsl:for-each select="/results/result">
+          <xsl:sort select="@test" order="ascending"/>
+          <result test="{@test}"
+                  differences="{if (@differences = '')
+                                then '0' else @differences}"/>
+        </xsl:for-each>
+      </results>
+    </xsl:result-document>
+  </xsl:if>
+  <xsl:apply-templates/>
+</xsl:template>
 
 <xsl:template match="results">
   <html>
     <head>
       <title>Test results</title>
+      <link rel="stylesheet" type="text/css"
+            href="../resources/css/default.css" />
+      <script type="text/javascript"
+              src="../resources/js/dbmodnizr.js" />
+      <link href="../resources/css/prism.css"
+            rel="stylesheet" type="text/css" />
+      <link href="../resources/css/db-prism.css"
+            rel="stylesheet" type="text/css" />
       <link href="style/show-results.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -25,7 +58,7 @@
         have to inspect the differences by hand.</p>
       </xsl:if>
 
-      <table>
+      <table id="testresults">
         <thead>
           <tr>
             <th>Test result</th>
@@ -42,13 +75,20 @@
           </xsl:apply-templates>
         </tbody>
       </table>
+      <script src="../resources/js/prism.js"></script>
     </body>
   </html>
 </xsl:template>
 
 <xsl:template match="result">
+  <xsl:variable name="baseline"
+                select="$baseline-results/result[@test = current()/@test]
+                        /@differences/string()"/>
+  <xsl:variable name="diffcount"
+                select="if (@differences = '') then '0' else @differences"/>
+
   <tr>
-    <xsl:if test="@differences != ''">
+    <xsl:if test="$diffcount != '0'">
       <xsl:attribute name="class" select="'diff'"/>
     </xsl:if>
     <td>
@@ -58,6 +98,9 @@
     </td>
     <xsl:if test="$deltaxml">
       <td>
+        <xsl:if test="exists($baseline) and $baseline != $diffcount">
+          <xsl:attribute name="class" select="'basediff'"/>
+        </xsl:if>
         <xsl:value-of select="@differences"/>
       </td>
     </xsl:if>
