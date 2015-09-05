@@ -53,6 +53,13 @@
     <body>
       <h1>DocBook XSLT 2.0 Stylesheet test results</h1>
 
+      <p>
+        <xsl:text>Generated on </xsl:text>
+        <xsl:value-of select="format-dateTime(current-dateTime(),
+			      '[D01] [MNn,*-3] [Y0001] at [h02]:[m02]:[s02]')"/>
+        <xsl:text>.</xsl:text>
+      </p>
+
       <xsl:if test="not($deltaxml)">
         <p>DeltaXML appears not to have been available; you will
         have to inspect the differences by hand.</p>
