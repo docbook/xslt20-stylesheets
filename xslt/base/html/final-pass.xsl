@@ -82,7 +82,10 @@
       </xsl:if>
 
       <xsl:apply-templates/>
-      <xsl:call-template name="t:syntax-highlight-body"/>
+
+      <xsl:call-template name="t:javascript-body">
+        <xsl:with-param name="node" select="."/>
+      </xsl:call-template>
     </body>
   </html>
 

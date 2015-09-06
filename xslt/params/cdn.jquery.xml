@@ -1,0 +1,29 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="alignment">
+<refmeta>
+<refentrytitle>cdn.jquery</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>cdn.jquery</refname>
+<refpurpose>Specify the location of JQuery</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="cdn.jquery.frag">
+<xsl:param name="cdn.jquery"
+           select="'http://code.jquery.com/jquery-1.6.4.min.js'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If JQuery is required, the script element will use this location.
+</para>
+
+</refsect1>
+</refentry>

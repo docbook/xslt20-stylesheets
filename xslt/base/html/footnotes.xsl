@@ -6,8 +6,9 @@
 		xmlns:h="http://www.w3.org/1999/xhtml"
 		xmlns:m="http://docbook.org/xslt/ns/mode"
 		xmlns:t="http://docbook.org/xslt/ns/template"
+		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db f h m t xs"
+		exclude-result-prefixes="db f h m t xs ghost"
                 version='2.0'>
 
 <!-- ********************************************************************
@@ -54,11 +55,22 @@
   <xsl:variable name="table.footnotes"
                 select=".//db:tgroup//db:footnote|.//db:tr//db:footnote"/>
   <xsl:variable name="footnotes" select=".//db:footnote except $table.footnotes"/>
+  <xsl:variable name="annotations" select=".//ghost:annotation"/>
 
-  <xsl:if test="not(empty($footnotes))">
+  <xsl:if test="exists($footnotes)">
     <div class="footnotes">
       <hr width="100" align="left" class="footnotes-divider"/>
       <xsl:apply-templates select="$footnotes" mode="m:process-footnote-mode"/>
+    </div>
+  </xsl:if>
+
+  <xsl:if test="exists($annotations)">
+    <div class="annotations-list">
+      <xsl:for-each select="$annotations">
+        <div id="{@xml:id}" class="dialog annotation-hide">
+          <xsl:apply-templates/>
+        </div>
+      </xsl:for-each>
     </div>
   </xsl:if>
 </xsl:template>

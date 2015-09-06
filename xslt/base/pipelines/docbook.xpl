@@ -166,6 +166,16 @@
   <!-- <p:log port="result" href="/tmp/50-normalize.xml"/> -->
 </p:xslt>
 
+<p:xslt name="fix-annotations">
+  <p:input port="stylesheet">
+    <p:document href="../preprocess/60-annotations.xsl"/>
+  </p:input>
+  <p:input port="parameters">
+    <p:pipe step="all-parameters" port="result"/>
+  </p:input>
+  <!-- <p:log port="result" href="/tmp/60-annotations.xml"/> -->
+</p:xslt>
+
 <p:xslt name="expand-linkbases">
   <p:input port="stylesheet">
     <p:document href="../xlink/xlinklb.xsl"/>

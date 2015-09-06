@@ -9,9 +9,10 @@
 		xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
+		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns="http://www.w3.org/1999/xhtml"
-                exclude-result-prefixes="db doc f fn h m t u xlink xs"
+                exclude-result-prefixes="db doc f fn h m t u xlink ghost xs"
                 version="2.0">
 
 <!-- ============================================================ -->
@@ -173,57 +174,12 @@ and a CSS style is specified.</para>
 
 <!-- ====================================================================== -->
 
-<doc:template name="t:javascript" xmlns="http://docbook.org/ns/docbook">
-<refpurpose>Template for inserting JavaScript</refpurpose>
-
-<refdescription>
-<para>T.B.D.</para>
-</refdescription>
-</doc:template>
-
-<xsl:template name="t:system-javascript">
+<xsl:template name="t:system-javascript-head">
   <xsl:param name="node" select="."/>
-
-  <xsl:if test="//db:annotation">
-    <script type="text/javascript"
-            src="{concat($resource.root, 'js/AnchorPosition.js')}"/>
-    <script type="text/javascript"
-            src="{concat($resource.root, 'js/PopupWindow.js')}"/>
-    <script type="text/javascript"
-            src="{concat($resource.root, 'js/annotation.js')}"/>
-  </xsl:if>
 
   <script type="text/javascript"
           src="{concat($resource.root, 'js/dbmodnizr.js')}"/>
 
-  <xsl:if test="//*[@xlink:type='extended']">
-    <script type="text/javascript"
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"/>
-    <script type="text/javascript"
-            src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"/>
-    <link type="text/css" rel="stylesheet"
-          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"/>
-    <script type="text/javascript"
-            src="{concat($resource.root, 'js/nhrefs.js')}"/>
-  </xsl:if>
-  <xsl:call-template name="t:syntax-highlight-head"/>
-</xsl:template>
-
-<xsl:template name="t:user-javascript">
-  <xsl:param name="node" select="."/>
-</xsl:template>
-
-<xsl:template name="t:javascript">
-  <xsl:param name="node" select="."/>
-  <xsl:call-template name="t:system-javascript">
-    <xsl:with-param name="node" select="$node"/>
-  </xsl:call-template>
-  <xsl:call-template name="t:user-javascript">
-    <xsl:with-param name="node" select="$node"/>
-  </xsl:call-template>
-</xsl:template>
-
-<xsl:template name="t:syntax-highlight-head">
   <xsl:choose>
     <xsl:when test="$syntax-highlighter != '0'">
       <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" 
@@ -238,10 +194,72 @@ and a CSS style is specified.</para>
   </xsl:choose>
 </xsl:template>
 
-<xsl:template name="t:syntax-highlight-body">
+<xsl:template name="t:system-javascript-body">
+  <xsl:param name="node" select="."/>
+
+  <xsl:if test="f:include-jquery(/)">
+    <script type="text/javascript" src="{$cdn.jquery}"/>
+  </xsl:if>
+
+  <xsl:if test="f:include-jquery(/)">
+    <script type="text/javascript" src="{$cdn.jqueryui}"/>
+  </xsl:if>
+
+  <xsl:if test="//ghost:annotation">
+    <script type="text/javascript"
+            src="{concat($resource.root, 'js/annotation.js')}"/>
+  </xsl:if>
+
+  <xsl:if test="//*[@xlink:type='extended']">
+    <script type="text/javascript"
+            src="{concat($resource.root, 'js/nhrefs.js')}"/>
+  </xsl:if>
+
   <xsl:if test="$syntax-highlighter != '0'">
     <script src="{concat($resource.root, 'js/prism.js')}"></script>
   </xsl:if>
+</xsl:template>
+
+<xsl:function name="f:include-jquery">
+  <xsl:param name="node"/>
+
+  <xsl:sequence select="exists($node//ghost:annotation)
+                        or exists($node//*[@xlink:type='extended'])"/>
+</xsl:function>
+
+<xsl:function name="f:include-jqueryui">
+  <xsl:param name="node"/>
+
+  <xsl:sequence select="exists($node//ghost:annotation)
+                        or exists($node//*[@xlink:type='extended'])"/>
+</xsl:function>
+
+<xsl:template name="t:user-javascript-head">
+  <xsl:param name="node" select="."/>
+</xsl:template>
+
+<xsl:template name="t:user-javascript-body">
+  <xsl:param name="node" select="."/>
+</xsl:template>
+
+<xsl:template name="t:javascript-head">
+  <xsl:param name="node" select="."/>
+  <xsl:call-template name="t:system-javascript-head">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
+  <xsl:call-template name="t:user-javascript-head">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template name="t:javascript-body">
+  <xsl:param name="node" select="."/>
+  <xsl:call-template name="t:system-javascript-body">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
+  <xsl:call-template name="t:user-javascript-body">
+    <xsl:with-param name="node" select="$node"/>
+  </xsl:call-template>
 </xsl:template>
 
 <xsl:function name="f:syntax-highlight" as="xs:boolean">
@@ -297,19 +315,29 @@ and a CSS style is specified.</para>
 
 <xsl:template name="t:css">
   <xsl:param name="node" select="."/>
-  <xsl:choose>
-    <xsl:when test="string($docbook.css) = ''">
-      <!-- nop -->
-    </xsl:when>
-    <xsl:when test="$docbook.css.inline = 0">
-      <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <style type="text/css">
-        <xsl:copy-of select="unparsed-text($docbook.css, 'utf-8')"/>
-      </style>
-    </xsl:otherwise>
-  </xsl:choose>
+
+  <xsl:call-template name="t:system-css">
+    <xsl:with-param name="node" select="."/>
+  </xsl:call-template>
+  <xsl:call-template name="t:user-css">
+    <xsl:with-param name="node" select="."/>
+  </xsl:call-template>
+</xsl:template>
+
+<xsl:template name="t:system-css">
+  <xsl:param name="node" select="."/>
+
+  <xsl:if test="string($docbook.css) != ''">
+    <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
+  </xsl:if>
+
+  <xsl:if test="//ghost:annotation or //*[@xlink:type='extended']">
+    <link rel="stylesheet" type="text/css" href="{$cdn.jqueryui.css}"/>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template name="t:user-css">
+  <xsl:param name="node" select="."/>
 </xsl:template>
 
 <!-- ====================================================================== -->
@@ -347,21 +375,6 @@ primary result document.</para>
       <xsl:with-param name="node" select="$node"/>
     </xsl:call-template>
 
-    <xsl:if test="($draft.mode = 'yes'
-                   or ($draft.mode = 'maybe' and
-		       $node/ancestor-or-self::*[@status][1]/@status = 'draft'))
-                  and $draft.watermark.image != ''">
-      <style type="text/css">
-body { background-image: url('<xsl:value-of select="$draft.watermark.image"/>');
-       background-repeat: no-repeat;
-       background-position: center center;
-       /* The following property make the watermark "fixed" on the page. */
-       /* I think that's just a bit too distracting for the reader... */
-       /* background-attachment: fixed; */
-     }
-</style>
-    </xsl:if>
-
     <xsl:if test="$html.stylesheets != ''">
       <xsl:for-each select="tokenize($html.stylesheets, '\s+')">
         <link rel="stylesheet" href="{.}">
@@ -377,7 +390,7 @@ body { background-image: url('<xsl:value-of select="$draft.watermark.image"/>');
       </xsl:for-each>
     </xsl:if>
 
-    <xsl:call-template name="t:javascript">
+    <xsl:call-template name="t:javascript-head">
       <xsl:with-param name="node" select="$node"/>
     </xsl:call-template>
 

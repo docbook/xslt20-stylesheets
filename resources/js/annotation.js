@@ -1,24 +1,16 @@
 /* -*- JavaScript -*-
 */
 
-function show_annotation(id) {
-    var annot = document.getElementById('annot-'+id);
-    annot.style.display = "block";
-    annot = document.getElementById('annot-'+id+'-on');
-    annot.style.display = "none";
-    annot = document.getElementById('annot-'+id+'-off');
-    annot.style.display = "inline";
-    return false;
-}
+$( document ).ready(function() {
+    $( ".dialog" ).dialog({
+	autoOpen: false,
+	width: "60%"
+    });
 
-function hide_annotation(id) {
-    var annot = document.getElementById('annot-'+id);
-    annot.style.display = "none";
-    annot = document.getElementById('annot-'+id+'-on');
-    annot.style.display = "inline";
-    annot = document.getElementById('annot-'+id+'-off');
-    annot.style.display = "none";
-    return false;
-}
-
-
+    $( ".dialog-link" ).click(function( event ) {
+        id = $(this).attr('id').substr(11)
+        console.log("ID:" + id)
+        $( "#" + id ).dialog( "open" );
+	event.preventDefault();
+    });
+})

@@ -50,35 +50,6 @@
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
-
-  <!-- This is a convenient place to hang the annotations check.
-       I'm not absolutely convinced that convenient == best. -->
-  <!-- This annotation stuff only works if we're in a para. That's a bug. -->
-  <xsl:if test="ancestor::db:para">
-    <xsl:variable name="para" select="ancestor::db:para[1]"/>
-    <xsl:variable name="annotations" as="element()*">
-      <xsl:variable name="id" select="@xml:id"/>
-      <xsl:sequence select="if (@annotations)
-                            then key('id',tokenize(@annotations,'\s'))
-                            else ()"/>
-      <xsl:sequence select="if ($id)
-                            then //db:annotation[tokenize(@annotates,'\s')=$id]
-                            else ()"/>
-    </xsl:variable>
-
-    <xsl:for-each select="$annotations">
-      <xsl:variable name="id"
-                    select="concat(f:node-id(.),'-',generate-id($para))"/>
-      <a style="display: inline" onclick="show_annotation('{$id}')"
-         id="annot-{$id}-on">
-        <img border="0" src="{$annotation.graphic.open}" alt="[A+]"/>
-      </a>
-      <a style="display: none" onclick="hide_annotation('{$id}')"
-         id="annot-{$id}-off">
-        <img border="0" src="{$annotation.graphic.close}" alt="[A-]"/>
-      </a>
-    </xsl:for-each>
-  </xsl:if>
 </xsl:template>
 
 <!-- ============================================================ -->
