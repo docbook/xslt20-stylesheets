@@ -67,7 +67,6 @@
           <db:revhistory/>
           <db:abstract/>
         </header>
-        <hr tmpl:keep="true"/>
       </tmpl:recto>
     </tmpl:templates>
 
