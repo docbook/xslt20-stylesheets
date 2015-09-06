@@ -79,7 +79,6 @@
   <xsl:if test="exists($longdescs)">
     <div class="longdesc-list">
       <xsl:for-each select="$longdescs">
-      <xsl:message><xsl:sequence select="."/></xsl:message>
         <div id="longdesc-{generate-id(.)}" class="dialog longdesc-hide">
           <xsl:apply-templates select="*"/>
         </div>
