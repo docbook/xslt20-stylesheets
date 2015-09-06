@@ -205,12 +205,13 @@ and a CSS style is specified.</para>
     <script type="text/javascript" src="{$cdn.jqueryui}"/>
   </xsl:if>
 
-  <xsl:if test="//ghost:annotation">
+  <xsl:if test="exists(//ghost:annotation)
+                or exists($node//db:mediaobject/db:textobject[not(db:phrase)])">
     <script type="text/javascript"
             src="{concat($resource.root, 'js/annotation.js')}"/>
   </xsl:if>
 
-  <xsl:if test="//*[@xlink:type='extended']">
+  <xsl:if test="exists(//*[@xlink:type='extended'])">
     <script type="text/javascript"
             src="{concat($resource.root, 'js/nhrefs.js')}"/>
   </xsl:if>
@@ -224,14 +225,16 @@ and a CSS style is specified.</para>
   <xsl:param name="node"/>
 
   <xsl:sequence select="exists($node//ghost:annotation)
-                        or exists($node//*[@xlink:type='extended'])"/>
+            or exists($node//*[@xlink:type='extended'])
+            or exists($node//db:mediaobject/db:textobject[not(db:phrase)])"/>
 </xsl:function>
 
 <xsl:function name="f:include-jqueryui">
   <xsl:param name="node"/>
 
   <xsl:sequence select="exists($node//ghost:annotation)
-                        or exists($node//*[@xlink:type='extended'])"/>
+            or exists($node//*[@xlink:type='extended'])
+            or exists($node//db:mediaobject/db:textobject[not(db:phrase)])"/>
 </xsl:function>
 
 <xsl:template name="t:user-javascript-head">

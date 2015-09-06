@@ -56,6 +56,8 @@
                 select=".//db:tgroup//db:footnote|.//db:tr//db:footnote"/>
   <xsl:variable name="footnotes" select=".//db:footnote except $table.footnotes"/>
   <xsl:variable name="annotations" select=".//ghost:annotation"/>
+  <xsl:variable name="longdescs"
+                select=".//db:mediaobject/db:textobject[not(db:phrase)]"/>
 
   <xsl:if test="exists($footnotes)">
     <div class="footnotes">
@@ -67,8 +69,19 @@
   <xsl:if test="exists($annotations)">
     <div class="annotations-list">
       <xsl:for-each select="$annotations">
-        <div id="{@xml:id}" class="dialog annotation-hide">
+        <div id="annotation-{@xml:id}" class="dialog annotation-hide">
           <xsl:apply-templates/>
+        </div>
+      </xsl:for-each>
+    </div>
+  </xsl:if>
+
+  <xsl:if test="exists($longdescs)">
+    <div class="longdesc-list">
+      <xsl:for-each select="$longdescs">
+      <xsl:message><xsl:sequence select="."/></xsl:message>
+        <div id="longdesc-{generate-id(.)}" class="dialog longdesc-hide">
+          <xsl:apply-templates select="*"/>
         </div>
       </xsl:for-each>
     </div>

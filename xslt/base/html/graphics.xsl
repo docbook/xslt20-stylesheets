@@ -1091,18 +1091,11 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
 <xsl:template name="t:longdesc-link">
   <xsl:param name="textobject" as="element()?"/>
 
-  <xsl:if test="exists($textobject) and $html.longdesc != 0">
-    <xsl:variable name="this.uri"
-                  select="concat($base.dir, f:href-target-uri($textobject))"/>
-
-    <xsl:variable name="href.to"
-                  select="f:trim-common-uri-paths(f:longdesc-uri($textobject),
-                                                  $this.uri)"/>
-
+  <xsl:if test="exists($textobject)">
     <div class="longdesc-link">
       <xsl:text>[</xsl:text>
-      <a href="{$href.to}" target="longdesc"
-         title="Link to long description">D</a>
+      <a class="dialog-link" href="#longdesc-{generate-id($textobject)}"
+         title="long description link">D</a>
       <xsl:text>]</xsl:text>
     </div>
   </xsl:if>

@@ -108,7 +108,8 @@
 
 <xsl:template match="ghost:annotation">
   <xsl:variable name="id" select="@xml:id"/>
-  <a id="annotation-{$id}" class="dialog-link" href="#">
+  <a class="dialog-link" href="#annotation-{$id}"
+     title="Annotation link">
     <span class="ui-icon ui-icon-comment inline-icon"></span>
   </a>
 </xsl:template>

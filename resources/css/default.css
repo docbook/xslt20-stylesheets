@@ -263,6 +263,10 @@ div.caption {
     font-family: sans-serif;
 }
 
+.longdesc-list {
+   display: none;
+}
+
 div.longdesc-link {
     position: absolute;
     right: 10px;
@@ -355,6 +359,10 @@ div.title {
 
 div.sidebar-content {
     padding: 10px;
+}
+
+.annotations-list {
+   display: none;
 }
 
 .annotation {
