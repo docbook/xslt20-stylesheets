@@ -55,8 +55,10 @@
             href="../../resources/css/default.css" />
       <script type="text/javascript"
               src="../../resources/js/dbmodnizr.js"></script>
-      <script type="text/javascript"
-              src="../../resources/js/annotation.js"></script>
+
+      <link rel="stylesheet" type="text/css"
+            href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/start/jquery-ui.css"/>
+
       <link rel="stylesheet" type="text/css"
             href="../../resources/css/prism.css" />
       <link rel="stylesheet" type="text/css"
@@ -157,6 +159,13 @@
       <h2>XML source</h2>
       <pre data-src="../src/{$testname}"/>
     </body>
+
+    <script type="text/javascript"
+            src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript"
+            src="../../resources/js/annotation.js"></script>
     <script type="text/javascript"
             src="../../resources/js/prism.js"></script>
   </html>
