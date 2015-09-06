@@ -19,6 +19,7 @@
 
 <p:option name="format" select="'html'"/>
 <p:option name="style" select="'docbook'"/>
+<p:option name="preprocess" select="''"/>
 <p:option name="postprocess" select="''"/>
 <p:option name="return-secondary" select="'false'"/>
 <p:option name="pdf" select="'/tmp/docbook.pdf'"/>
@@ -202,7 +203,7 @@
      presence of computed ghost: attributes.
 -->
 
-<p:xslt name="preprocessed">
+<p:xslt name="end-of-preprocess">
   <p:input port="stylesheet">
     <p:pipe step="inline-xlinks" port="result"/>
   </p:input>
@@ -214,6 +215,29 @@
   </p:input>
   <!-- <p:log port="result" href="/tmp/doc.xml"/> -->
 </p:xslt>
+
+<p:choose name="preprocess">
+  <p:when test="$preprocess = ''">
+    <p:output port="result"/>
+    <p:identity/>
+  </p:when>
+  <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
+    <p:output port="result"/>
+
+    <p:load name="load-style">
+      <p:with-option name="href" select="resolve-uri($preprocess, exf:cwd())"/>
+    </p:load>
+
+    <p:xslt>
+      <p:input port="stylesheet">
+        <p:pipe step="load-style" port="result"/>
+      </p:input>
+      <p:input port="source">
+        <p:pipe step="end-of-preprocess" port="result"/>
+      </p:input>
+    </p:xslt>
+  </p:otherwise>
+</p:choose>
 
 <p:choose name="process">
   <p:when test="$format = 'xhtml' or $format = 'html'">

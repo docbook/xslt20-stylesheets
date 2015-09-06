@@ -91,6 +91,7 @@
                            else 'docbook'"/>
     <p:with-option name="format" select="$format"/>
     <p:with-option name="postprocess" select="$postprocess"/>
+    <p:with-option name="preprocess" select="$preprocess"/>
     <p:with-option name="css"
                    select="if ($css = '') then $css
                            else resolve-uri($css, exf:cwd())"/>

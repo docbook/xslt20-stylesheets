@@ -101,8 +101,7 @@ task runtests(type: JavaExec) {
       )
 }
 
-//task testreport(dependsOn: runtests, type: JavaExec) {
-task testreport(type: JavaExec) {
+task testreport(dependsOn: runtests, type: JavaExec) {
   classpath = configurations.runtime
 
   //systemProperty "log4j.configurationFile", "/home/ndw/java/log4j2-debug.xml"
@@ -133,6 +132,7 @@ task runprinttests(type: JavaExec) {
        'expecteddir=' + testsRoot + '/' + print + '-expected/',
        'diffdir=' + testsRoot + '/' + print + '-diff/',
        'format=' + print,
+       'preprocess=test/style/ann-to-footnotes.xsl',
        'css=' + css
       )
 }
