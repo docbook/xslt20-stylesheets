@@ -6,9 +6,13 @@
                 exclude-inline-prefixes="cx exf c html"
                 name="main">
 <p:input port="parameters" kind="parameter"/>
-<p:output port="result" sequence="true"/>
+<p:output port="result">
+  <p:pipe step="report" port="result"/>
+</p:output>
+<p:serialization port="result" method="html" version="5"/>
 
 <p:option name="resultdir" select="'result/'"/>
+<p:option name="baseline" select="'0'"/>
 
 <p:declare-step type="cx:message" xmlns:cx="http://xmlcalabash.com/ns/extensions">
   <p:input port="source" sequence="true"/>
@@ -50,14 +54,22 @@
   </p:add-attribute>
 </p:for-each>
 
-<p:wrap-sequence wrapper="results">
-  <p:log port="result" href="/tmp/log.xml"/>
-</p:wrap-sequence>
+<p:wrap-sequence wrapper="results"/>
 
-<p:xslt>
+<p:xslt name="report">
   <p:input port="stylesheet">
     <p:document href="format-report.xsl"/>
   </p:input>
+  <p:with-param name="baseline" select="$baseline"/>
 </p:xslt>
+
+<!-- I know there's only one secondary output, baseline.xml -->
+<p:for-each>
+  <p:iteration-source>
+    <p:pipe step="report" port="secondary"/>
+  </p:iteration-source>
+  <p:store method="xml" encoding="utf-8" indent="true"
+           href="../diff/baseline.xml"/>
+</p:for-each>
 
 </p:declare-step>

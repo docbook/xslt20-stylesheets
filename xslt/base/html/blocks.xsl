@@ -6,7 +6,8 @@
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-                exclude-result-prefixes="db f h m t"
+		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                exclude-result-prefixes="db f h m t ghost"
                 version="2.0">
 
 <!-- ============================================================ -->
@@ -14,56 +15,6 @@
 <xsl:template match="db:para|db:simpara">
   <xsl:param name="runin" select="()" tunnel="yes"/>
   <xsl:param name="class" select="()" tunnel="yes"/>
-
-  <xsl:variable name="para" select="."/>
-
-  <xsl:variable name="annotations" as="element()*">
-    <xsl:for-each select="ancestor-or-self::*">
-      <xsl:variable name="id" select="@xml:id"/>
-      <xsl:if test="f:first-in-context($para,.)">
-        <xsl:sequence select="if (@annotations)
-                              then key('id',tokenize(@annotations,'\s'))
-                              else ()"/>
-        <xsl:sequence select="if ($id)
-                              then //db:annotation[tokenize(@annotates,'\s')=$id]
-                              else ()"/>
-      </xsl:if>
-    </xsl:for-each>
-  </xsl:variable>
-
-  <xsl:variable name="descendant-annotations" as="element()*">
-    <xsl:for-each select=".//*">
-      <xsl:variable name="id" select="@xml:id"/>
-      <xsl:sequence select="if (@annotations)
-                            then key('id',tokenize(@annotations,'\s'))
-                            else ()"/>
-      <xsl:sequence select="if ($id)
-                            then //db:annotation[tokenize(@annotates,'\s')=$id]
-                            else ()"/>
-    </xsl:for-each>
-  </xsl:variable>
-
-  <xsl:variable name="annotmarkup">
-    <xsl:for-each select="$annotations">
-      <xsl:variable name="id"
-                    select="concat(f:node-id(.),'-',generate-id($para))"/>
-      <a style="display: inline" onclick="show_annotation('{$id}')"
-         id="annot-{$id}-on">
-        <img border="0" src="{$annotation.graphic.open}" alt="[A+]"/>
-      </a>
-      <a style="display: none" onclick="hide_annotation('{$id}')"
-         id="annot-{$id}-off">
-        <img border="0" src="{$annotation.graphic.close}" alt="[A-]"/>
-      </a>
-    </xsl:for-each>
-    <xsl:for-each select="($annotations, $descendant-annotations)">
-      <xsl:variable name="id"
-                    select="concat(f:node-id(.),'-',generate-id($para))"/>
-      <div style="display: none" id="annot-{$id}">
-        <xsl:apply-templates select="." mode="m:annotation"/>
-      </div>
-    </xsl:for-each>
-  </xsl:variable>
 
   <xsl:choose>
     <xsl:when test="parent::db:listitem
@@ -84,7 +35,6 @@
             <xsl:sequence select="f:html-attributes(., @xml:id, $class)"/>
             <xsl:copy-of select="$runin"/>
             <xsl:apply-templates/>
-            <xsl:copy-of select="$annotmarkup"/>
           </p>
         </xsl:otherwise>
       </xsl:choose>
@@ -94,20 +44,9 @@
         <xsl:sequence select="f:html-attributes(., @xml:id, $class)"/>
         <xsl:copy-of select="$runin"/>
         <xsl:apply-templates/>
-        <xsl:copy-of select="$annotmarkup"/>
       </p>
     </xsl:otherwise>
   </xsl:choose>
-
-  <!--
-  <xsl:for-each select="$annotations">
-    <xsl:variable name="id"
-                    select="concat(f:node-id(.),'-',generate-id($para))"/>
-    <div style="display: none" id="annot-{$id}">
-      <xsl:apply-templates select="." mode="m:annotation"/>
-    </div>
-  </xsl:for-each>
-  -->
 </xsl:template>
 
 <xsl:template match="db:epigraph">
@@ -167,14 +106,12 @@
 
 <!-- ==================================================================== -->
 
-<xsl:template match="db:annotation" mode="m:annotation">
-  <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
-    <xsl:call-template name="t:titlepage"/>
-    <div class="annotation-content">
-      <xsl:apply-templates/>
-    </div>
-  </div>
+<xsl:template match="ghost:annotation">
+  <xsl:variable name="id" select="@xml:id"/>
+  <a class="dialog-link" href="#annotation-{$id}"
+     title="Annotation link">
+    <span class="ui-icon ui-icon-comment inline-icon"></span>
+  </a>
 </xsl:template>
 
 <!-- ==================================================================== -->

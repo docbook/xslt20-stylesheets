@@ -82,13 +82,12 @@
       </xsl:if>
 
       <xsl:apply-templates/>
-      <xsl:call-template name="t:syntax-highlight-body"/>
+
+      <xsl:call-template name="t:javascript-body">
+        <xsl:with-param name="node" select="."/>
+      </xsl:call-template>
     </body>
   </html>
-
-  <xsl:for-each select=".//db:mediaobject[db:textobject[not(db:phrase)]]">
-    <xsl:call-template name="t:write-longdesc"/>
-  </xsl:for-each>
 </xsl:template>
 
 <xsl:template match="*">

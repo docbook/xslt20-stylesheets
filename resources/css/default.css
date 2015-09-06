@@ -1,5 +1,24 @@
 /* FIXME: Should normalize.css be inlined to remove the server round trip? */
-@import url("normalize.css");
+
+@media screen {
+   @import url("normalize.css");
+}
+
+@media paged {
+   @import url("paged-normalize.css");
+}
+
+/* ===================================================== */
+/* Undo some of the things normalize does because they
+   seem to have negative consequences.
+*/
+
+td,
+th {
+  padding: 2px;
+}
+
+/* ===================================================== */
 
 html {
    background-color: #FFFFF8;
@@ -10,6 +29,16 @@ body {
    font: 100%/1.5 serif;
    padding-left: 1em;
    padding-right: 1em;
+}
+
+body.draft {
+   background-image: url("../img/draft.svg");
+   background-repeat: no-repeat;
+   background-position: center center;
+}
+
+div.toc {
+   border-top: 1px solid black;
 }
 
 ul.toc {
@@ -131,7 +160,6 @@ tbody.footnotes tr:first-child td {
 }
 
 .footnote-body-wrapper {
-   float: left;
    overflow: hidden;
 }
 
@@ -235,6 +263,10 @@ div.caption {
     font-family: sans-serif;
 }
 
+.longdesc-list {
+   display: none;
+}
+
 div.longdesc-link {
     position: absolute;
     right: 10px;
@@ -329,22 +361,42 @@ div.sidebar-content {
     padding: 10px;
 }
 
-div.annotation {
-    border: solid #afafaf 1px;
-    margin-left: 35px;
-    margin-right: 70px;
-    margin-top: 1ex;
-    margin-bottom: 1ex;
+.annotations-list {
+   display: none;
 }
 
-div.annotation
-div.title {
+.annotation {
+   border: solid #afafaf 1px;
+   margin-left: 35px;
+   margin-right: 70px;
+   margin-top: 1ex;
+   margin-bottom: 1ex;
+}
+
+.annotation-content {
+    padding: 10px;
+}
+
+.annotation
+.title {
     background-color: #CACACA;
     padding: 3px;
 }
 
-div.annotation-content {
-    padding: 10px;
+.annotation-hide {
+   display: none;
+}
+
+.annotation-show {
+   display: block;
+}
+
+.annotation-showbug {
+   display: inline;
+}
+
+.annotation-hidebug {
+   display: none;
 }
 
 td.verbatimlinenumbers {
@@ -375,4 +427,8 @@ div.calloutlist dl dd {
 div.calloutlist dl dd :first-child {
   margin-top: 0px;
   padding-top: 0px;
+}
+
+.inline-icon {
+   display: inline-block!important;
 }

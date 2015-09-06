@@ -1,74 +1,14 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Article wrapper</title><meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.2" /><link rel="stylesheet" type="text/css" href="http://localhost:8119/base/css/default.css" /><script type="text/javascript" src="http://localhost:8119/base/js/dbmodnizr.js"></script></head><body><article id="R.1" class="article"><header class="article-titlepage"><h2>Article wrapper</h2></header><div class="toc"><p><b>Table of Contents</b></p><ul class="toc"><li><span><a href="#R.1.2">1. imagedata/@fileref + numbering + sep.</a></span></li><li><span><a href="#R.1.3">2. inlinegraphic/@fileref + numbering</a></span></li><li><span><a href="#R.1.4">3. textdata/@fileref w/o numbering or sep</a></span></li></ul></div><section id="R.1.2" class="section"><div class="section-titlepage"><h3>1. imagedata/@fileref + numbering + sep.</h3></div><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> &gt;</span>@rem = '--*-Perl-*--                                       <a name="prologue1"></a><img src="http://localhost:8119/base/img/1.png" alt="1" border="0" />
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>@echo off
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>perl.exe %_batchname %$
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>goto endofperl                                             <a name="skipeof1"></a><img src="http://localhost:8119/base/img/2.png" alt="2" border="0" />
-<span class="linenumber">  5</span><span class="linenumber-separator"> &gt;</span>@rem ';
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span># Compress mail...
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>require 'n:/home/nwalsh/lib/cygnus.pl';                    <a name="xreq1"></a><img src="http://localhost:8119/base/img/3.png" alt="3" border="0" />
-<span class="linenumber"> 10</span><span class="linenumber-separator"> &gt;</span>require 'timelocal.pl';                                    <a name="require1"></a><img src="http://localhost:8119/base/img/3.png" alt="3" border="0" />
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>use Cwd;   <a name="use1"></a><img src="http://localhost:8119/base/img/4.png" alt="4" border="0" />
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>select (STDERR); $| = 1;
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>select (STDOUT); $| = 1;
-<span class="linenumber"> 15</span><span class="linenumber-separator"> &gt;</span>
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>@DIRS = ("/home/nwalsh/Mail");
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>while (@DIRS) {
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>    $dir = shift @DIRS;
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>    opendir (DIR, $dir);
-<span class="linenumber"> 20</span><span class="linenumber-separator"> &gt;</span>    while ($fname = readdir(DIR)) {
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>        $file = "$dir/$fname";
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>        next if ! -d $file;
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>        next if $fname =~ /^\.\.?$/;
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>
-<span class="linenumber"> 25</span><span class="linenumber-separator"> &gt;</span>        print "$file\n";
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>        push (@DIRS, $file);
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>        &amp;compress ($file);                                 <a name="funccall1"></a><img src="http://localhost:8119/base/img/5.png" alt="5" border="0" />
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>    }
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>}
-<span class="linenumber"> 30</span><span class="linenumber-separator"> &gt;</span>
-<span class="linenumber">   </span><span class="linenumber-separator"> &gt;</span>exit;</pre></div></section><section id="R.1.3" class="section"><div class="section-titlepage"><h3>2. inlinegraphic/@fileref + numbering</h3></div><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>@rem = '--*-Perl-*--                                       <a name="prologue2"></a><img src="http://localhost:8119/base/img/1.png" alt="1" border="0" />
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>@echo off
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>perl.exe %_batchname %$
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>goto endofperl                                             <a name="skipeof2"></a><img src="http://localhost:8119/base/img/2.png" alt="2" border="0" />
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>@rem ';
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span># Compress mail...
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>require 'n:/home/nwalsh/lib/cygnus.pl';                    <a name="xreq2"></a><img src="http://localhost:8119/base/img/3.png" alt="3" border="0" />
-<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>require 'timelocal.pl';                                    <a name="require22"></a><img src="http://localhost:8119/base/img/3.png" alt="3" border="0" />
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>use Cwd;   <a name="use2"></a><img src="http://localhost:8119/base/img/4.png" alt="4" border="0" />
-<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>select (STDERR); $| = 1;
-<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>select (STDOUT); $| = 1;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber"> 16</span><span class="linenumber-separator"> </span>@DIRS = ("/home/nwalsh/Mail");
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>while (@DIRS) {
-<span class="linenumber"> 18</span><span class="linenumber-separator"> </span>    $dir = shift @DIRS;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>    opendir (DIR, $dir);
-<span class="linenumber"> 20</span><span class="linenumber-separator"> </span>    while ($fname = readdir(DIR)) {
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>        $file = "$dir/$fname";
-<span class="linenumber"> 22</span><span class="linenumber-separator"> </span>        next if ! -d $file;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>        next if $fname =~ /^\.\.?$/;
-<span class="linenumber"> 24</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>        print "$file\n";
-<span class="linenumber"> 26</span><span class="linenumber-separator"> </span>        push (@DIRS, $file);
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &amp;compress ($file);                                 <a name="funccall2"></a><img src="http://localhost:8119/base/img/5.png" alt="5" border="0" />
-<span class="linenumber"> 28</span><span class="linenumber-separator"> </span>    }
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>}
-<span class="linenumber"> 30</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>exit;</pre></div></section><section id="R.1.4" class="section"><div class="section-titlepage"><h3>3. textdata/@fileref w/o numbering or sep</h3></div><div class="programlisting"><pre>@rem = '--*-Perl-*--                                       <a name="prologue3"></a><img src="http://localhost:8119/base/img/1.png" alt="1" border="0" />
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Article wrapper</title><meta charset="utf-8" /><meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.9" /><link rel="stylesheet" type="text/css" href="../../resources/base/css/default.css" /><script type="text/javascript" src="../../resources/base/js/dbmodnizr.js"></script><link href="../../resources/base/css/prism.css" rel="stylesheet" type="text/css" /><link href="../../resources/base/css/db-prism.css" rel="stylesheet" type="text/css" /></head><body><article id="R.1" class="article"><header class="article-titlepage"><h2>Article wrapper</h2></header><div class="toc"><p><b>Table of Contents</b></p><ul class="toc"><li><span><a href="#R.1.2">1. imagedata/@fileref + numbering + sep.</a></span></li><li><span><a href="#R.1.3">2. inlinegraphic/@fileref + numbering</a></span></li><li><span><a href="#R.1.4">3. textdata/@fileref w/o numbering or sep</a></span></li></ul></div><section id="R.1.2" class="section"><div class="section-titlepage"><h2>1. imagedata/@fileref + numbering + sep.</h2></div><pre data-line="1,4,9,10,11,27" class="programlisting language-none"><code>@rem = '--*-Perl-*--
 @echo off
 perl.exe %_batchname %$
-goto endofperl                                             <a name="skipeof3"></a><img src="http://localhost:8119/base/img/2.png" alt="2" border="0" />
+goto endofperl
 @rem ';
 
 # Compress mail...
 
-require 'n:/home/nwalsh/lib/cygnus.pl';                    <a name="xreq3"></a><img src="http://localhost:8119/base/img/3.png" alt="3" border="0" />
-require 'timelocal.pl';                                    <a name="require3"></a><img src="http://localhost:8119/base/img/3.png" alt="3" border="0" />
-use Cwd;   <a name="use3"></a><img src="http://localhost:8119/base/img/4.png" alt="4" border="0" />
+require 'n:/home/nwalsh/lib/cygnus.pl';
+require 'timelocal.pl';
+use Cwd;
 
 select (STDERR); $| = 1;
 select (STDOUT); $| = 1;
@@ -84,8 +24,68 @@ while (@DIRS) {
 
         print "$file\n";
         push (@DIRS, $file);
-        &amp;compress ($file);                                 <a name="funccall3"></a><img src="http://localhost:8119/base/img/5.png" alt="5" border="0" />
+        &amp;compress ($file);
     }
 }
 
-exit;</pre></div></section></article></body></html>
+exit;</code></pre></section><section id="R.1.3" class="section"><div class="section-titlepage"><h2>2. inlinegraphic/@fileref + numbering</h2></div><pre data-line="1,4,9,10,11,27" class="programlisting language-none"><code>@rem = '--*-Perl-*--
+@echo off
+perl.exe %_batchname %$
+goto endofperl
+@rem ';
+
+# Compress mail...
+
+require 'n:/home/nwalsh/lib/cygnus.pl';
+require 'timelocal.pl';
+use Cwd;
+
+select (STDERR); $| = 1;
+select (STDOUT); $| = 1;
+
+@DIRS = ("/home/nwalsh/Mail");
+while (@DIRS) {
+    $dir = shift @DIRS;
+    opendir (DIR, $dir);
+    while ($fname = readdir(DIR)) {
+        $file = "$dir/$fname";
+        next if ! -d $file;
+        next if $fname =~ /^\.\.?$/;
+
+        print "$file\n";
+        push (@DIRS, $file);
+        &amp;compress ($file);
+    }
+}
+
+exit;</code></pre></section><section id="R.1.4" class="section"><div class="section-titlepage"><h2>3. textdata/@fileref w/o numbering or sep</h2></div><pre data-line="1,4,9,10,11,27" class="programlisting language-none"><code>@rem = '--*-Perl-*--
+@echo off
+perl.exe %_batchname %$
+goto endofperl
+@rem ';
+
+# Compress mail...
+
+require 'n:/home/nwalsh/lib/cygnus.pl';
+require 'timelocal.pl';
+use Cwd;
+
+select (STDERR); $| = 1;
+select (STDOUT); $| = 1;
+
+@DIRS = ("/home/nwalsh/Mail");
+while (@DIRS) {
+    $dir = shift @DIRS;
+    opendir (DIR, $dir);
+    while ($fname = readdir(DIR)) {
+        $file = "$dir/$fname";
+        next if ! -d $file;
+        next if $fname =~ /^\.\.?$/;
+
+        print "$file\n";
+        push (@DIRS, $file);
+        &amp;compress ($file);
+    }
+}
+
+exit;</code></pre></section></article><script src="../../resources/base/js/prism.js"></script></body></html>

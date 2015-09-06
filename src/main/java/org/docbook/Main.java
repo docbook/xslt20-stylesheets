@@ -19,10 +19,10 @@ import java.util.Properties;
  * Created by ndw on 8/30/15.
  */
 public class Main {
-    private static final String usage = "java -jar docbook-xslt2-" + version() + ".jar [options] dbdoc.xml [param=value [param=value] ...] ";
-
     public static void main(String[] args) throws IOException, SaxonApiException {
         DocBook docbook = new DocBook();
+        String usage = "java -jar docbook-xslt2-" + docbook.version() + ".jar [options] dbdoc.xml [param=value [param=value] ...] ";
+
 
         Options options = new Options();
 
@@ -98,25 +98,6 @@ public class Main {
             System.err.println("Unexpected: " + pe.getMessage());
             formatter.printHelp(usage, options);
             System.exit(1);
-        }
-    }
-
-    private static String version() {
-        Properties config = new Properties();
-        InputStream stream = null;
-        try {
-            stream = Main.class.getResourceAsStream("/etc/version.properties");
-            if (stream == null) {
-                throw new UnsupportedOperationException("JAR file doesn't contain version.properties file!?");
-            }
-            config.load(stream);
-            String version = config.getProperty("version");
-            if (version == null) {
-                throw new UnsupportedOperationException("Invalid version.properties in JAR file!?");
-            }
-            return version;
-        } catch (IOException ioe) {
-            throw new UnsupportedOperationException("No version.properties in JAR file!?");
         }
     }
 }

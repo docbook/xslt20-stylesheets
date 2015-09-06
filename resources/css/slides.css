@@ -28,8 +28,8 @@ body {
     padding-right: 2em;
 }
 
-.header {
-    background-image: url(../img/foil.png);
+header {
+    background-image: url(../img/slides/foil.png);
     background-repeat: no-repeat;
     background-position: left top;
     color: black;
@@ -37,7 +37,7 @@ body {
     height: 140px;
 }
 
-.header h1 {
+header h1 {
     font-size: 38pt;
     font-weight: bold;
     padding-top: 40px;
@@ -49,9 +49,9 @@ body {
     padding-left: 100px;
 }
 
-.footer {
+footer {
     position: relative;
-    background-image: url(../img/footer.png);
+    background-image: url(../img/slides/footer.png);
     background-repeat: no-repeat;
     background-position: right top;
     margin-top: -65px; /* negative value of footer height */
@@ -66,12 +66,12 @@ img {
     padding-top: 1em;
 }
 
-.footer .content { padding-top: 35px; }
+footer .content { padding-top: 35px; }
 
 /* ============================================================ */
 
-.titlefoil .header {
-    background-image: url(../img/title.png);
+.titlefoil header {
+    background-image: url(../img/slides/title.png);
     background-repeat: no-repeat;
     background-position: left top;
     color: #414141;
@@ -79,7 +79,7 @@ img {
     height: 488px;
 }
 
-.titlefoil .header h1 {
+.titlefoil header h1 {
     font-size: 38pt;
     font-weight: bold;
     padding-top: 525px;
@@ -92,26 +92,26 @@ img {
     padding-top: 140px;
 }
 
-.titlefoil .footer {
+.titlefoil footer {
     display: none;
 }
 
 /* ============================================================ */
 
 .foilgroup {
-    background-image: url(../img/group.png);
+    background-image: url(../img/slides/group.png);
     background-repeat: no-repeat;
     background-position: left top;
     width: 1005px;
     height: 768px;
 }
 
-.foilgroup .header {
+.foilgroup header {
     background: none;
     color: #414141;
 }
 
-.foilgroup .header h1 {
+.foilgroup header h1 {
     font-size: 38pt;
     font-weight: bold;
     padding-top: 300px;
@@ -124,7 +124,7 @@ img {
     padding-top: 250px;
 }
 
-.foilgroup .footer {
+.foilgroup footer {
     display: none;
 }
 

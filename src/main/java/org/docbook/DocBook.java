@@ -12,9 +12,16 @@ import com.xmlcalabash.util.Input;
 import com.xmlcalabash.util.XProcURIResolver;
 import net.sf.saxon.s9api.QName;
 import net.sf.saxon.s9api.SaxonApiException;
+import net.sf.saxon.s9api.ValidationMode;
+import net.sf.saxon.s9api.XdmAtomicValue;
+import net.sf.saxon.s9api.XdmDestination;
 import net.sf.saxon.s9api.XdmNode;
+import net.sf.saxon.s9api.XsltCompiler;
+import net.sf.saxon.s9api.XsltExecutable;
+import net.sf.saxon.s9api.XsltTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.InputSource;
 import org.xmlresolver.Catalog;
 import org.xmlresolver.Resolver;
 
@@ -24,12 +31,15 @@ import javax.xml.transform.URIResolver;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.CodeSource;
 import java.util.Hashtable;
+import java.util.Properties;
 import java.util.Vector;
 
 class DocBook {
@@ -108,41 +118,44 @@ class DocBook {
 
         XdmNode source = runtime.parse(sourcefn, baseURI);
 
-        String xpl = "/xslt/base/pipelines/docbook.xpl";
-        String finalBase = "/xslt/base/";
+        String jarloc = "";
         if (classLoc.endsWith(".jar")) {
-            xpl = "jar:" + classLoc + "!" + xpl;
-            finalBase = "jar:" + classLoc + "!" + finalBase;
+            jarloc = "jar:" + classLoc + "!";
         } else {
             // This is only supposed to happen on a dev box
             int pos = classLoc.indexOf("/build/");
-            xpl = classLoc.substring(0, pos) + xpl;
-            finalBase = classLoc.substring(0, pos) + finalBase;
+            jarloc = classLoc.substring(0, pos);
         }
 
-        File tempcat = null;
-        try {
-            tempcat = File.createTempFile("dbcat", ".xml");
-            tempcat.deleteOnExit();
-            PrintStream catstream = new PrintStream(tempcat);
+        String xpl = jarloc + "/xslt/base/pipelines/docbook.xpl";
 
-            catstream.println("<catalog xmlns='urn:oasis:names:tc:entity:xmlns:xml:catalog'>");
+        XdmNode xcat = runtime.parse(new InputSource(getClass().getResourceAsStream("/etc/uris.xml")));
+        XdmNode patch = runtime.parse(new InputSource(getClass().getResourceAsStream("/etc/make-catalog.xsl")));
 
-            for (String fn : new String[] { "html/final-pass.xsl", "html/chunktemp.xsl", "fo/final-pass.xsl" }) {
-                catstream.println("<uri name='http://docbook.github.com/release/latest/xslt/base/" + fn + "'");
-                catstream.println("     uri='" + finalBase + fn + "'/>");
-                catstream.println("<uri name='https://docbook.github.io/release/latest/xslt/base/" + fn + "'");
-                catstream.println("     uri='" + finalBase + fn + "'/>");
+        XsltCompiler compiler = runtime.getProcessor().newXsltCompiler();
+        compiler.setSchemaAware(false);
+        XsltExecutable exec = compiler.compile(patch.asSource());
+        XsltTransformer transformer = exec.load();
 
-            }
+        transformer.setParameter(new QName("", "jarloc"), new XdmAtomicValue(jarloc));
+        transformer.setParameter(new QName("", "version"), new XdmAtomicValue(version()));
 
-            catstream.println("</catalog>");
+        transformer.setInitialContextNode(xcat);
 
-            catstream.close();
-            logger.debug("Final pass catalog: " + tempcat.getAbsolutePath());
-        } catch (IOException ioe) {
-            throw new RuntimeException(ioe);
-        }
+        XdmDestination xresult = new XdmDestination();
+        transformer.setDestination(xresult);
+
+        transformer.setSchemaValidationMode(ValidationMode.DEFAULT);
+        transformer.transform();
+        XdmNode xformed = xresult.getXdmNode();
+
+        //File tempcat = new File("/tmp/dbcat.xml");
+        File tempcat = File.createTempFile("dbcat", ".xml");
+        tempcat.deleteOnExit();
+
+        PrintStream catstream = new PrintStream(tempcat);
+        catstream.print(xformed.toString());
+        catstream.close();
 
         Catalog catalog = new Catalog(tempcat.getAbsolutePath());
 
@@ -192,6 +205,24 @@ class DocBook {
         wd.write(result);
     }
 
+    public String version() {
+        Properties config = new Properties();
+        InputStream stream = null;
+        try {
+            stream = Main.class.getResourceAsStream("/etc/version.properties");
+            if (stream == null) {
+                throw new UnsupportedOperationException("JAR file doesn't contain version.properties file!?");
+            }
+            config.load(stream);
+            String version = config.getProperty("version");
+            if (version == null) {
+                throw new UnsupportedOperationException("Invalid version.properties in JAR file!?");
+            }
+            return version;
+        } catch (IOException ioe) {
+            throw new UnsupportedOperationException("No version.properties in JAR file!?");
+        }
+    }
 
     private class DocBookResolver extends Resolver {
         URIResolver nextResolver = null;

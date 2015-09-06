@@ -1,0 +1,28 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+	  version="5.0"
+	  xml:id="alignment">
+<refmeta>
+<refentrytitle>jqueryui.theme</refentrytitle>
+<refmiscinfo role="type">string</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>jqueryui.theme</refname>
+<refpurpose>Specify the JQuery UI theme</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<src:fragment xml:id="jqueryui.theme.frag">
+<xsl:param name="jqueryui.theme"
+           select="'start'"/>
+</src:fragment>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+
+<para>If JQuery UI is required, this identifies the theme.</para>
+
+</refsect1>
+</refentry>

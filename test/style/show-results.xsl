@@ -33,34 +33,60 @@
   </xsl:variable>
 
   <xsl:variable name="adiff"
-                select="count($A//html:span[contains(@class,'del')])"/>
+                select="count($A//html:span[contains(@class,'del')])
+                        + count($A//html:span[contains(@class,'txtchg')])
+                        + count($A//html:span[contains(@class,'attchg')])"/>
   <xsl:variable name="bdiff"
-                select="count($B//html:span[contains(@class,'add')])"/>
+                select="count($B//html:span[contains(@class,'add')])
+                        + count($B//html:span[contains(@class,'txtchg')])
+                        + count($B//html:span[contains(@class,'attchg')])"/>
+
+<!--
+  <xsl:message><xsl:sequence select="$A"/></xsl:message>
+  <xsl:message><xsl:sequence select="$B"/></xsl:message>
+  <xsl:message><xsl:sequence select="$adiff"/></xsl:message>
+  <xsl:message><xsl:sequence select="$bdiff"/></xsl:message>
+-->
 
   <html>
     <head>
       <title>Results for <xsl:value-of select="$testname"/></title>
       <link rel="stylesheet" type="text/css"
-            href="../../resources/base/css/default.css" />
+            href="../../resources/css/default.css" />
       <script type="text/javascript"
-              src="../../resources/base/js/dbmodnizr.js"></script>
+              src="../../resources/js/dbmodnizr.js"></script>
+
       <link rel="stylesheet" type="text/css"
-            href="../../resources/base/css/prism.css" />
+            href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/start/jquery-ui.css"/>
+
       <link rel="stylesheet" type="text/css"
-            href="../../resources/base/css/db-prism.css" />
+            href="../../resources/css/prism.css" />
+      <link rel="stylesheet" type="text/css"
+            href="../../resources/css/db-prism.css" />
       <link href="../style/show-results.css" rel="stylesheet" type="text/css"/>
       <meta name="deltaxml"
             content="{if (/*/@deltaxml:version) then 'true' else 'false'}"/>
     </head>
     <body>
-      <h1>DocBook XSLT 2.0 Stylesheet output:
-          <xsl:value-of select="$testname"/></h1>
+      <h1>
+        <xsl:text>DocBook XSLT 2.0 Stylesheet output: </xsl:text>
+        <xsl:value-of select="$testname"/>
+      </h1>
+
+      <xsl:variable name="html"
+                    select="replace($testname, '.xml', '.html')"/>
+      <xsl:variable name="ac-html"
+                    select="concat('../actual/', $html)"/>
+      <xsl:variable name="actual"
+                    select="if (doc-available($ac-html))
+                            then doc($ac-html)
+                            else ()"/>
 
       <xsl:choose>
         <xsl:when test="$adiff = $bdiff and $adiff = 0
                         and /*/@deltaxml:version">
           <p>No changes.</p>
-          <xsl:sequence select="$A"/>
+          <xsl:sequence select="$actual//html:body/node()"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:if test="not(/*/@deltaxml:version)">
@@ -112,20 +138,11 @@
                 <td>&#160;</td>
               </tr>
               <tr>
-                <xsl:variable name="html"
-                              select="replace($testname, '.xml', '.html')"/>
                 <xsl:variable name="ex-html"
                               select="concat('../expected/', $html)"/>
-                <xsl:variable name="ac-html"
-                              select="concat('../actual/', $html)"/>
-
                 <xsl:variable name="expected"
                               select="if (doc-available($ex-html))
                                       then doc($ex-html)
-                                      else ()"/>
-                <xsl:variable name="actual"
-                              select="if (doc-available($ac-html))
-                                      then doc($ac-html)
                                       else ()"/>
                 <td>
                   <xsl:sequence select="$expected//html:body/node()"/>
@@ -142,8 +159,15 @@
       <h2>XML source</h2>
       <pre data-src="../src/{$testname}"/>
     </body>
+
     <script type="text/javascript"
-            src="../../resources/base/js/prism.js"></script>
+            src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript"
+            src="../../resources/js/annotation.js"></script>
+    <script type="text/javascript"
+            src="../../resources/js/prism.js"></script>
   </html>
 </xsl:template>
 
@@ -176,7 +200,7 @@
 
 <xsl:template match="deltaxml:textGroup" mode="prettyprint">
   <xsl:param name="version" required="yes"/>
-  <span class="diff">
+  <span class="diff txtchg">
     <xsl:value-of select="deltaxml:text[@deltaxml:deltaV2=$version]"/>
   </span>
 </xsl:template>
@@ -243,7 +267,20 @@
   <xsl:param name="version" required="yes"/>
 
   <xsl:text> </xsl:text>
-  <span class="att">
+  <span>
+    <xsl:attribute name="class">
+      <xsl:choose>
+        <xsl:when test="@deltaxml:deltaV2=$version">
+          <xsl:text>att add</xsl:text>
+        </xsl:when>
+        <xsl:when test="@deltaxml:deltaV2 != 'A!=B'">
+          <xsl:text>att del</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>att</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
     <xsl:choose>
       <xsl:when test="self::dxa:*">
         <xsl:value-of select="local-name(.)"/>
@@ -253,7 +290,26 @@
       </xsl:otherwise>
     </xsl:choose>
     <xsl:text>="</xsl:text>
-    <span class="diff">
+    <span>
+      <xsl:attribute name="class">
+        <xsl:choose>
+          <xsl:when test="@deltaxml:deltaV2
+                          and @deltaxml:deltaV2 != 'A!=B'">
+            <xsl:text>att</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:choose>
+              <xsl:when test="deltaxml:attributeValue[@deltaxml:deltaV2='A']
+                              and deltaxml:attributeValue[@deltaxml:deltaV2='B']">
+                <xsl:text>att attchg</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>att</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
       <xsl:value-of select="deltaxml:attributeValue[@deltaxml:deltaV2=$version]"/>
     </span>
     <xsl:text>"</xsl:text>
