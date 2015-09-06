@@ -22,7 +22,9 @@
       <div>
         <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), 'admonition')"/>
         <xsl:call-template name="t:titlepage"/>
-	<xsl:apply-templates/>
+        <div class="admonition-body">
+	  <xsl:apply-templates/>
+        </div>
       </div>
     </xsl:otherwise>
   </xsl:choose>
