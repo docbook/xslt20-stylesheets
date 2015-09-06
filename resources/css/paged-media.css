@@ -1,0 +1,56 @@
+/* Style for paged media */
+
+@import url("default.css");
+@import url("paged-prism.css");
+@import url("db-prism.css");
+
+.annotation-bug {
+   display: none
+}
+
+.toc a::after {
+   content: " " leader(dotted) " " target-counter(attr(href, url), page);
+}
+
+article.book > div.toc,
+article.part > div.toc {
+   break-after: page;
+}
+
+ul.toc ul.toc {
+   padding-left: 0;
+}
+
+.book-titlepage {
+   break-after: page;
+}
+
+article.part,
+article.chapter,
+article.preface,
+article.appendix,
+article.reference {
+   break-before: page;
+}
+
+div.footnotes {
+   float: bottom;
+   page-break-inside: avoid;
+}
+
+@page {
+  margin-top: 1in;
+  margin-bottom: 1in;
+  margin-left: 1in;
+  margin-right: 1in;
+
+  @bottom-left {
+  }
+
+  @bottom-center {
+    content: counter(page);
+  }
+
+  @bottom-right {
+  }
+}

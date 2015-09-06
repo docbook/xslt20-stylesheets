@@ -15,6 +15,8 @@
 <p:option name="diffdir" select="'cssprint-diff/'"/>
 <p:option name="include" select="'.*\.xml'"/>
 <p:option name="format" select="'cssprint'"/>
+<p:option name="css" select="''"/>
+<p:option name="postprocess" select="''"/>
 
 <p:import href="../../xslt/base/pipelines/docbook.xpl"/>
 
@@ -88,6 +90,10 @@
                            then string(/*/db:info/p:style)
                            else 'docbook'"/>
     <p:with-option name="format" select="$format"/>
+    <p:with-option name="postprocess" select="$postprocess"/>
+    <p:with-option name="css"
+                   select="if ($css = '') then $css
+                           else resolve-uri($css, exf:cwd())"/>
     <p:with-option name="pdf"
                    select="replace(resolve-uri(/*/@name,
                                    resolve-uri($actualdir, exf:cwd())),

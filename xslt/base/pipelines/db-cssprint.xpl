@@ -3,9 +3,10 @@
                 xmlns:dbp="http://docbook.github.com/ns/pipeline"
                 xmlns:pxp="http://exproc.org/proposed/steps"
                 xmlns:cx="http://xmlcalabash.com/ns/extensions"
+                xmlns:exf="http://exproc.org/standard/functions"
                 xmlns:c="http://www.w3.org/ns/xproc-step"
                 name="main" version="1.0"
-                exclude-inline-prefixes="c cx db dbp pxp"
+                exclude-inline-prefixes="c cx db dbp exf pxp"
                 type="dbp:docbook-css-print">
 <p:input port="source" sequence="true" primary="true"/>
 <p:input port="parameters" kind="parameter"/>
@@ -20,7 +21,7 @@
 <p:option name="style" select="'docbook'"/>
 <p:option name="postprocess" select="''"/>
 <p:option name="pdf" select="'/tmp/db-cssprint.pdf'"/>
-<p:option name="css" select="''"/>
+<p:option name="css"/>
 
 <p:declare-step type="cx:message">
   <p:input port="source" sequence="true"/>
@@ -30,10 +31,10 @@
 
 <p:declare-step type="cx:css-formatter">
   <p:input port="source" primary="true"/>
-  <p:input port="css" sequence="true"/>
   <p:input port="parameters" kind="parameter"/>
   <p:output port="result" primary="false"/>
   <p:option name="href" required="true"/>
+  <p:option name="css" required="false"/>
   <p:option name="content-type"/>
 </p:declare-step>
 
@@ -93,7 +94,7 @@
       </p:input>
     </p:xslt>
   </p:when>
-  <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
+  <p:otherwise>
     <p:output port="result" primary="true"/>
     <p:output port="secondary" sequence="true">
       <p:pipe step="html-user-cwd" port="secondary"/>
@@ -114,6 +115,9 @@
   </p:otherwise>
 </p:choose>
 
+<p:delete name="strip-css"
+          match="h:head/h:link" xmlns:h="http://www.w3.org/1999/xhtml"/>
+
 <p:choose name="postprocess">
   <p:when test="$postprocess = ''">
     <p:output port="result" sequence="true" primary="true"/>
@@ -127,8 +131,9 @@
     </p:identity>
     <p:identity>
       <p:input port="source">
-        <p:pipe step="final-pass" port="result"/>
+        <p:pipe step="strip-css" port="result"/>
       </p:input>
+      <p:log port="result" href="/tmp/final-pass.xml"/>
     </p:identity>
   </p:when>
   <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
@@ -148,7 +153,7 @@
         <p:pipe step="load-style" port="result"/>
       </p:input>
       <p:input port="source">
-        <p:pipe step="final-pass" port="result"/>
+        <p:pipe step="strip-css" port="result"/>
       </p:input>
     </p:xslt>
 
@@ -167,44 +172,32 @@
   </p:otherwise>
 </p:choose>
 
-<p:choose name="load-css">
-  <p:when test="$css = ''">
-    <p:output port="result" sequence="true"/>
-    <p:identity>
+<p:choose name="process-secondary">
+  <p:when test="p:value-available('css')">
+    <p:output port="result">
+      <p:pipe step="css" port="result"/>
+    </p:output>
+    <cx:css-formatter name="css" content-type="application/pdf">
       <p:input port="source">
-        <p:inline>
-          <c:result content-type="text/css">/* CSS */</c:result>
-        </p:inline>
+        <p:pipe step="postprocess" port="result"/>
       </p:input>
-    </p:identity>
+      <p:with-option xmlns:exf="http://exproc.org/standard/functions"
+                     name="href" select="resolve-uri($pdf, exf:cwd())"/>
+      <p:with-option name="css" select="resolve-uri($css, exf:cwd())"/>
+    </cx:css-formatter>
   </p:when>
-  <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
-    <p:output port="result" sequence="true"/>
-
-    <p:add-attribute match="/*" attribute-name="href">
+  <p:otherwise>
+    <p:output port="result">
+      <p:pipe step="css" port="result"/>
+    </p:output>
+    <cx:css-formatter name="css" content-type="application/pdf">
       <p:input port="source">
-        <p:inline>
-          <c:request override-content-type="text/css"
-                     method="GET"/>
-        </p:inline>
+        <p:pipe step="postprocess" port="result"/>
       </p:input>
-      <p:with-option name="attribute-value"
-                     select="resolve-uri($css, exf:cwd())"/>
-    </p:add-attribute>
-
-    <p:http-request/>
+      <p:with-option xmlns:exf="http://exproc.org/standard/functions"
+                     name="href" select="resolve-uri($pdf, exf:cwd())"/>
+    </cx:css-formatter>
   </p:otherwise>
 </p:choose>
-
-<cx:css-formatter name="process-secondary" content-type="application/pdf">
-  <p:input port="source">
-    <p:pipe step="postprocess" port="result"/>
-  </p:input>
-  <p:input port="css">
-    <p:pipe step="load-css" port="result"/>
-  </p:input>
-  <p:with-option xmlns:exf="http://exproc.org/standard/functions"
-                 name="href" select="resolve-uri($pdf, exf:cwd())"/>
-</cx:css-formatter>
 
 </p:declare-step>

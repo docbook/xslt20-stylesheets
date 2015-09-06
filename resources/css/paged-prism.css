@@ -1,8 +1,5 @@
-/* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript+c+java+python+ruby+scss+scala&plugins=line-highlight+line-numbers+file-highlight+show-language+remove-initial-line-feed */
-/**
- * prism.js default theme for JavaScript, CSS and HTML
- * Based on dabblet (http://dabblet.com)
- * @author Lea Verou
+/* A modified version of prism.css that doesn't include screen
+ * only properties such as pointer-event and user-select
  */
 
 code[class*="language-"],
@@ -132,7 +129,6 @@ pre[class*="language-"] {
 }
 
 .token.entity {
-	cursor: help;
 }
 
 pre[data-line] {
@@ -155,9 +151,6 @@ pre[data-line] {
 	background: -webkit-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
 	background: -o-linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
 	background: linear-gradient(left, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
-	
-	pointer-events: none;
-	
 	line-height: inherit;
 	white-space: pre;
 }
@@ -197,23 +190,15 @@ pre.line-numbers > code {
 
 .line-numbers .line-numbers-rows {
 	position: absolute;
-	pointer-events: none;
 	top: 0;
 	font-size: 100%;
 	left: -3.8em;
 	width: 3em; /* works for line-numbers below 1000 lines */
 	letter-spacing: -1px;
 	border-right: 1px solid #999;
-
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-
 }
 
 	.line-numbers-rows > span {
-		pointer-events: none;
 		display: block;
 		counter-increment: linenumber;
 	}
