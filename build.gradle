@@ -271,18 +271,11 @@ task copyEtc(type: Copy) {
   into "build/distributions/"
 }
 
-task copyResources1(type: Copy) {
-  from "resources/base"
-  into "build/dist/bin/resources/base/"
-}
-
-task copyResources2(type: Copy) {
-  from "resources/slides"
-  into "build/dist/bin/resources/slides/"
-}
-
-task copyResources(dependsOn: [copyResources1, copyResources2, copyEtc]) {
-  // nothing to see here
+task copyResources(type: Copy) {
+  FileTree tree = fileTree(dir: 'resources',
+                           exclude: ['src/**'])
+  from tree
+  into "build/dist/bin/resources/"
 }
 
 task copyXslt(type: Copy) {
