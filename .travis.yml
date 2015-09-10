@@ -2,7 +2,9 @@ language: java
 script: gradle dist
 sudo: false
 install:
-- ".travis/setup-diff.sh"
+  - echo sonatypeUsername=none >> gradle.properties
+  - echo sonatypePassword=none >> gradle.properties
+  - ".travis/setup-diff.sh"
 env:
   global:
   - secure: EEcwLo3rIHqaV46h/AOMGafxqaZcy4i9WA8RlFO53wj23QJGmeUdYa2ka4IC2c+J+iNFYu1+dRkR52G6S6tY3LnsDmZGHj9xT9n7tPr/h/OmMXhdtNy3Nl5AWQORMZhqGCXwMxRZUyhWp6CjtY1LeGaVenwf1A3PiLEQmEJw9nY=
