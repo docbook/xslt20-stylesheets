@@ -158,6 +158,7 @@ task runprinttests(type: JavaExec) {
   args('-D',
        testsRoot + '/style/runprint.xpl',
        'include=' + include,
+       'exclude=' + exclude,
        'srcdir=' + testsRoot + '/src/',
        'resultdir=' + testsRoot + '/' + print + '-result/',
        'actualdir=' + testsRoot + '/' + print + '-actual/',

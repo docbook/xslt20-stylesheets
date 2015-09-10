@@ -14,6 +14,7 @@
 <p:option name="expecteddir" select="'cssprint-expected/'"/>
 <p:option name="diffdir" select="'cssprint-diff/'"/>
 <p:option name="include" select="'.*\.xml'"/>
+<p:option name="exclude" select="'doesnt-match-anything'"/>
 <p:option name="format" select="'cssprint'"/>
 <p:option name="css" select="''"/>
 <p:option name="postprocess" select="''"/>
@@ -33,6 +34,7 @@
 
 <p:directory-list>
   <p:with-option name="include-filter" select="$include"/>
+  <p:with-option name="exclude-filter" select="$exclude"/>
   <p:with-option name="path" select="resolve-uri($srcdir, exf:cwd())"/>
 </p:directory-list>
 
