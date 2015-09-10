@@ -24,4 +24,11 @@
   <xsl:copy/>
 </xsl:template>
 
+<!-- Make Saxon shut up about not having any templates that match -->
+<xsl:template match="db:book" xmlns:db="http://docbook.org/ns/docbook">
+  <xsl:copy>
+    <xsl:apply-templates select="@*,node()"/>
+  </xsl:copy>
+</xsl:template>
+
 </xsl:stylesheet>
