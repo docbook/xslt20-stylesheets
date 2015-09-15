@@ -335,8 +335,8 @@ task copyEtc(type: Copy) {
 }
 
 task copyResources(type: Copy) {
-  FileTree tree = fileTree(dir: 'resources',
-                           exclude: ['src/**'])
+  FileTree tree = fileTree(dir: 'resources', exclude: ['src/**',
+                                                       '**/*_flymake.css'])
   from tree
   into "build/dist/bin/resources/"
 }
