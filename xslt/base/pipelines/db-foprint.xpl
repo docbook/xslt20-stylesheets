@@ -15,8 +15,9 @@
 <p:output port="secondary" sequence="true" primary="false">
   <p:empty/>
 </p:output>
-<p:serialization port="result" method="text" encoding="utf-8"/>
+<p:serialization port="result" method="xml" encoding="utf-8" indent="false"/>
 
+<p:option name="format" select="'foprint'"/>
 <p:option name="style" select="'docbook'"/>
 <p:option name="postprocess" select="''"/>
 <p:option name="return-secondary" select="'false'"/>
@@ -125,12 +126,23 @@
   </p:otherwise>
 </p:choose>
 
-<p:xsl-formatter name="process-secondary" content-type="application/pdf">
-  <p:input port="source">
-    <p:pipe step="postprocess" port="result"/>
-  </p:input>
-  <p:with-option xmlns:exf="http://exproc.org/standard/functions"
-                 name="href" select="resolve-uri($pdf, exf:cwd())"/>
-</p:xsl-formatter>
+<p:choose name="process-secondary">
+  <p:when test="$format = 'fo'">
+    <p:output port="result"/>
+    <p:identity/>
+  </p:when>
+  <p:otherwise>
+    <p:output port="result">
+      <p:pipe step="format" port="result"/>
+    </p:output>
+    <p:xsl-formatter name="format" content-type="application/pdf">
+      <p:input port="source">
+        <p:pipe step="postprocess" port="result"/>
+      </p:input>
+      <p:with-option xmlns:exf="http://exproc.org/standard/functions"
+                     name="href" select="resolve-uri($pdf, exf:cwd())"/>
+    </p:xsl-formatter>
+  </p:otherwise>
+</p:choose>
 
 </p:declare-step>
