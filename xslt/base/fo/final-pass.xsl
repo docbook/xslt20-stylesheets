@@ -30,8 +30,8 @@
   <xsl:include href="division.xsl"/>
   <xsl:include href="component.xsl"/>
   <xsl:include href="fo.xsl"/>
-<!--
   <xsl:include href="refentry.xsl"/>
+<!--
   <xsl:include href="synopsis.xsl"/>
 -->
   <xsl:include href="sections.xsl"/>

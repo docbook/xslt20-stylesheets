@@ -766,12 +766,14 @@
     <xsl:with-param name="object" as="element()">
       <xsl:variable name="step1" select="db:step[1]"/>
 
-      <xsl:apply-templates select="node()[not(self::db:info|self::db:title) and (. &lt;&lt; $step1)]"/>
+      <fo:block>
+        <xsl:apply-templates select="node()[not(self::db:info|self::db:title) and (. &lt;&lt; $step1)]"/>
 
-      <fo:list-block xsl:use-attribute-sets="list.block.spacing"
-		     provisional-distance-between-starts="{$procedure.label.width}">
-	<xsl:apply-templates select="$step1 | node()[. >> $step1]"/>
-      </fo:list-block>
+        <fo:list-block xsl:use-attribute-sets="list.block.spacing"
+		       provisional-distance-between-starts="{$procedure.label.width}">
+	  <xsl:apply-templates select="$step1 | node()[. >> $step1]"/>
+        </fo:list-block>
+      </fo:block>
     </xsl:with-param>
   </xsl:call-template>
 </xsl:template>

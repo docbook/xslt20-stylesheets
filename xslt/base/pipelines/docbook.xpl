@@ -4,7 +4,7 @@
                 xmlns:pxp="http://exproc.org/proposed/steps"
                 xmlns:cx="http://xmlcalabash.com/ns/extensions"
                 name="main" version="1.0"
-                exclude-inline-prefixes="cx db dbp pxp"
+                exclude-inline-prefixes="cx dbp pxp"
                 type="dbp:docbook">
 <p:input port="source" sequence="true" primary="true"/>
 <p:input port="parameters" kind="parameter"/>
@@ -28,7 +28,6 @@
 <p:import href="db-xhtml.xpl"/>
 <p:import href="db-cssprint.xpl"/>
 <p:import href="db-foprint.xpl"/>
-<p:import href="db-fo.xpl"/>
 
 <!-- Ideally, this pipeline wouldn't rely on an XML Calabash extensions,
      but it's a lot more convenient this way. See generic.xpl for a
@@ -95,7 +94,34 @@
 
 <p:xslt name="document-parameters">
   <p:input port="stylesheet">
-    <p:document href="document-params.xsl"/>
+    <p:inline>
+      <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                      xmlns:db="http://docbook.org/ns/docbook"
+                      xmlns:c="http://www.w3.org/ns/xproc-step"
+		      exclude-result-prefixes="db"
+                      version="2.0">
+        <xsl:template match="/">
+          <c:param-set>
+            <xsl:apply-templates select="//db:info/c:param"/>
+          </c:param-set>
+        </xsl:template>
+
+        <xsl:template match="c:param[@name]" priority="100">
+          <xsl:copy-of select="."/>
+        </xsl:template>
+
+        <xsl:template match="c:param">
+          <xsl:message>
+            <xsl:value-of select="base-uri(/)"/>
+            <xsl:text>: document parameters must have name attributes.</xsl:text>
+          </xsl:message>
+        </xsl:template>
+
+        <xsl:template match="db:para">
+          <!-- nop; just make Saxon shut up about the namespaces. -->
+        </xsl:template>
+      </xsl:stylesheet>
+    </p:inline>
   </p:input>
 </p:xslt>
 
@@ -271,7 +297,7 @@
     </dbp:docbook-css-print>
   </p:when>
 
-  <p:when test="$format = 'foprint'">
+  <p:when test="$format = 'foprint' or $format='fo'">
     <p:output port="result" sequence="true" primary="true"/>
     <p:output port="secondary" sequence="true" primary="false">
       <p:pipe step="fo" port="secondary"/>
@@ -280,25 +306,11 @@
       <p:input port="parameters">
         <p:pipe step="all-parameters" port="result"/>
       </p:input>
+      <p:with-option name="format" select="$format"/>
       <p:with-option name="style" select="$style"/>
       <p:with-option name="postprocess" select="$postprocess"/>
       <p:with-option name="pdf" select="$pdf"/>
     </dbp:docbook-fo-print>
-  </p:when>
-
-  <p:when test="$format = 'fo'">
-    <p:output port="result" sequence="true" primary="true"/>
-    <p:output port="secondary" sequence="true" primary="false">
-      <p:pipe step="fo" port="secondary"/>
-    </p:output>
-    <dbp:docbook-fo name="fo">
-      <p:input port="parameters">
-        <p:pipe step="all-parameters" port="result"/>
-      </p:input>
-      <p:with-option name="style" select="$style"/>
-      <p:with-option name="postprocess" select="$postprocess"/>
-      <p:with-option name="pdf" select="$pdf"/>
-    </dbp:docbook-fo>
   </p:when>
 
   <p:otherwise>

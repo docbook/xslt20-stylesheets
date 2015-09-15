@@ -27,7 +27,7 @@
   <!-- Don't change these, define your own in t:user-titlepage-templates -->
   <templates-list xmlns="http://docbook.org/xslt/titlepage-templates">
 
-    <templates name="part">
+    <templates name="set">
       <recto>
         <fo:block>
           <fo:block font-size="{f:hsize(5)}pt"
@@ -114,6 +114,28 @@
       <separator>
         <fo:block break-after="page"/>
       </separator>
+    </templates>
+
+    <templates name="part">
+      <recto>
+        <fo:block>
+          <fo:block font-size="{f:hsize(5)}pt"
+                    space-before="{f:hsize(5)*0.75}pt"
+                    text-align="center"
+                    font-family="{$title.fontset}"
+                    font-weight="bold">
+            <db:title/>
+          </fo:block>
+          <fo:block font-size="{f:hsize(4)}pt"
+                    space-before="{f:hsize(4)*0.75}pt"
+                    text-align="center"
+                    text-style="italic"
+                    font-family="{$title.fontset}"
+                    font-weight="bold">
+            <db:subtitle/>
+          </fo:block>
+        </fo:block>
+      </recto>
     </templates>
 
     <templates name="dedication preface chapter appendix colophon">

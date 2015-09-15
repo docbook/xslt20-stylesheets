@@ -49,6 +49,16 @@
   </xsl:if>
 </xsl:template>
 
+<xsl:template match="html:a[contains(@class, 'dialog-link')]/@href">
+  <xsl:attribute name="href"
+                 select="concat(substring-before(.,'-'), '-xxx')"/>
+</xsl:template>
+
+<xsl:template match="html:div[contains(@class, 'dialog')]/@id">
+  <xsl:attribute name="id"
+                 select="concat(substring-before(.,'-'), '-xxx')"/>
+</xsl:template>
+
 <xsl:template match="element()">
   <xsl:copy>
     <xsl:apply-templates select="@*,node()"/>
