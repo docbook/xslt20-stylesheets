@@ -40,6 +40,7 @@ import java.util.Vector;
 
 class DocBook {
     private static final QName _output = new QName("", "output");
+    private static final QName _format = new QName("", "format");
 
     private String proctype = "he";
     private boolean schemaAware = false;
@@ -123,7 +124,21 @@ class DocBook {
             jarloc = classLoc.substring(0, pos);
         }
 
-        String xpl = jarloc + "/xslt/base/pipelines/docbook.xpl";
+        String format = "html";
+        if (options.containsKey(_format)) {
+            format = options.get(_format).getString();
+        }
+
+        String xpl = "db2html.xpl";
+        if (format.equals("foprint") || format.equals("cssprint")) {
+            xpl = "db2pdf.xpl";
+        } else if (format.equals("xhtml")) {
+            xpl = "db2xhtml.xpl";
+        } else if (format.equals("fo")) {
+            xpl = "db2fo.xpl";
+        }
+
+        xpl = jarloc + "/xslt/base/pipelines/" + xpl;
 
         XdmNode xcat = runtime.parse(new InputSource(getClass().getResourceAsStream("/etc/uris.xml")));
         XdmNode patch = runtime.parse(new InputSource(getClass().getResourceAsStream("/etc/make-catalog.xsl")));
