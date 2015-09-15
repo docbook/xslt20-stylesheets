@@ -143,9 +143,9 @@ task runtests(type: JavaExec) {
 task testreport(dependsOn: runtests, type: JavaExec) {
   classpath = configurations.runtime
 
-  inputs.file  fileTree(dir: testsRoot + "/style/").include("report.xpl")
-  inputs.file  fileTree(dir: testsRoot + "/result/")
-  outputs.file fileTree(dir: testsRoot).include("index.html")
+  inputs.file  file(testsRoot + "/style/report.xpl")
+  inputs.dir   testsRoot + "/result/"
+  outputs.file file(testsRoot + "/index.html")
 
   //systemProperty "log4j.configurationFile", "/home/ndw/java/log4j2-debug.xml"
 
