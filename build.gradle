@@ -118,6 +118,13 @@ jar.dependsOn copyLib
 task runtests(type: JavaExec) {
   classpath = configurations.runtime
 
+  FileCollection result = fileTree(dir: testsRoot + "/actual/")
+  FileCollection source = fileTree(dir: testsRoot + "/src/")
+  FileCollection style  = fileTree(dir: "xslt/")
+
+  inputs.file style + source
+  outputs.file result
+
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
   args('-D',
@@ -135,6 +142,10 @@ task runtests(type: JavaExec) {
 
 task testreport(dependsOn: runtests, type: JavaExec) {
   classpath = configurations.runtime
+
+  inputs.file  fileTree(dir: testsRoot + "/style/").include("report.xpl")
+  inputs.file  fileTree(dir: testsRoot + "/result/")
+  outputs.file fileTree(dir: testsRoot).include("index.html")
 
   //systemProperty "log4j.configurationFile", "/home/ndw/java/log4j2-debug.xml"
 
@@ -218,6 +229,11 @@ gentext.onlyIf {
 task makeFoParams(type: JavaExec) {
   classpath = configurations.runtime
 
+  inputs.file  fileTree(dir: "tools/").include("mkparam.xsl")
+  inputs.file  fileTree(dir: "xslt/params/")
+  inputs.file  fileTree(dir: "xslt/base/fo/").include("param.xml")
+  outputs.file fileTree(dir: "xslt/base/fo/").include("param.xsl")
+
   main = 'net.sf.saxon.Transform'
   args('-xsl:tools/mkparam.xsl',
        '-o:xslt/base/fo/param.xsl',
@@ -226,6 +242,11 @@ task makeFoParams(type: JavaExec) {
 
 task makeHtmlParams(type: JavaExec) {
   classpath = configurations.runtime
+
+  inputs.file  fileTree(dir: "tools/").include("mkparam.xsl")
+  inputs.file  fileTree(dir: "xslt/params/")
+  inputs.file  fileTree(dir: "xslt/base/html/").include("param.xml")
+  outputs.file fileTree(dir: "xslt/base/html/").include("param.xsl")
 
   main = 'net.sf.saxon.Transform'
   args('-xsl:tools/mkparam.xsl',
@@ -246,6 +267,10 @@ task copyLocales(dependsOn: gentext, type: Copy) {
 
 task makeUris(type: JavaExec) {
   classpath = configurations.runtime
+
+  inputs.file  fileTree(dir: "tools/").include("makecat.xpl")
+  inputs.file  fileTree(dir: "xslt/")
+  outputs.file fileTree(dir: "src/main/resources/etc/").include("uris.xml")
 
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
