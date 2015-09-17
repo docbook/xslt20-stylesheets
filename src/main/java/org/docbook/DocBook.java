@@ -196,24 +196,26 @@ class DocBook {
         pipeline.run();
 
         XdmNode result = pipeline.readFrom("result").read();
-        Serialization serial = pipeline.getSerialization("result");
+        if (result != null) {
+            Serialization serial = pipeline.getSerialization("result");
 
-        if (serial == null) {
-            serial = new Serialization(runtime, pipeline.getNode()); // The node's a hack
-            serial.setMethod(new QName("", "xhtml"));
+            if (serial == null) {
+                serial = new Serialization(runtime, pipeline.getNode()); // The node's a hack
+                serial.setMethod(new QName("", "xhtml"));
+            }
+
+            WritableDocument wd = null;
+            if (options.containsKey(_output)) {
+                String filename = options.get(_output).getStringValue().asString();
+                FileOutputStream outfile = new FileOutputStream(filename);
+                wd = new WritableDocument(runtime, filename, serial, outfile);
+                logger.info("Writing output to " + filename);
+            } else {
+                wd = new WritableDocument(runtime, null, serial);
+            }
+
+            wd.write(result);
         }
-
-        WritableDocument wd = null;
-        if (options.containsKey(_output)) {
-            String filename = options.get(_output).getStringValue().asString();
-            FileOutputStream outfile = new FileOutputStream(filename);
-            wd = new WritableDocument(runtime, filename, serial, outfile);
-            logger.info("Writing output to " + filename);
-        } else {
-            wd = new WritableDocument(runtime, null, serial);
-        }
-
-        wd.write(result);
     }
 
     public String version() {
