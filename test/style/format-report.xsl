@@ -74,6 +74,7 @@
             </xsl:if>
             <th>Expected</th>
             <th>Actual</th>
+            <th>Style</th>
           </tr>
         </thead>
         <tbody>
@@ -120,6 +121,9 @@
       <a href="actual/{@test}">
         <xsl:value-of select="@test"/>
       </a>
+    </td>
+    <td>
+      <xsl:value-of select="@style"/>
     </td>
   </tr>
 </xsl:template>
