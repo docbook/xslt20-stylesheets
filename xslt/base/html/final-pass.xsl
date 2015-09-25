@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:mp="http://docbook.org/xslt/ns/mode/private"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:db="http://docbook.org/ns/docbook"
-		exclude-result-prefixes="h f m fn db t ghost"
+                xmlns:db="http://docbook.org/ns/docbook"
+                exclude-result-prefixes="h f m mp fn db t ghost"
                 version="2.0">
 
   <xsl:include href="../VERSION.xsl"/>
@@ -71,10 +72,11 @@
     <xsl:message>Styling...</xsl:message>
   </xsl:if>
 
+  <xsl:apply-templates select="*" mode="m:pre-root"/>
   <html>
-    <xsl:call-template name="t:head">
-      <xsl:with-param name="node" select="/*"/>
-    </xsl:call-template>
+    <head>
+      <xsl:apply-templates select="*" mode="mp:html-head"/>
+    </head>
     <body>
       <xsl:call-template name="t:body-attributes"/>
       <xsl:if test="/*/@status">
@@ -83,9 +85,8 @@
 
       <xsl:apply-templates/>
 
-      <xsl:call-template name="t:javascript-body">
-        <xsl:with-param name="node" select="."/>
-      </xsl:call-template>
+      <xsl:apply-templates select="." mode="mp:javascript-body"/>
+      <xsl:apply-templates select="." mode="m:javascript-body"/>
     </body>
   </html>
 </xsl:template>
