@@ -144,6 +144,7 @@ task testreport(dependsOn: runtests, type: JavaExec) {
   classpath = configurations.runtime
 
   inputs.file  file(testsRoot + "/style/report.xpl")
+  inputs.file  file(testsRoot + "/style/format-report.xsl")
   inputs.dir   testsRoot + "/result/"
   outputs.file file(testsRoot + "/index.html")
 
