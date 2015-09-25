@@ -13,13 +13,13 @@
                 version="2.0"
                 exclude-result-prefixes="db m t tp ghost xs f fp tmpl h">
 
-  <xsl:template match="db:dialog|db:drama|db:poetry"
-                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
-    <tmpl:templates>
-      <tmpl:titlepage>
-        <db:title/>
-      </tmpl:titlepage>
-    </tmpl:templates>
-  </xsl:template>
+<xsl:template match="db:dialogue|db:drama|db:poetry"
+              mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+  <tmpl:templates>
+    <tmpl:titlepage>
+      <db:title/>
+    </tmpl:titlepage>
+  </tmpl:templates>
+</xsl:template>
 
 </xsl:stylesheet>

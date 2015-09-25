@@ -238,6 +238,20 @@
     </p:with-param>
   </p:xslt>
 
+  <p:add-attribute match="/*" attribute-name="p:style"
+                   xmlns:h="http://www.w3.org/1999/xhtml">
+    <p:with-option name="attribute-value"
+                   select="if (/h:html/h:head/h:link[@rel='stylesheet'
+                               and contains(@href,'publishers.css')])
+                           then 'publishers'
+                           else if (/h:html/h:head/h:link[@rel='stylesheet'
+                                    and contains(@href,'slides.css')])
+                                then 'slides'
+                                else ''">
+      <p:pipe step="docbook" port="result"/>
+    </p:with-option>
+  </p:add-attribute>
+
   <p:store method="xhtml">
     <p:with-option name="href"
                    select="replace(resolve-uri(/*/@name,

@@ -47,6 +47,13 @@
     </p:with-option>
   </p:add-attribute>
 
+  <p:add-attribute match="/*" attribute-name="style">
+    <p:with-option name="attribute-value"
+                   select="string(/*/@p:style)">
+      <p:pipe step="result" port="result"/>
+    </p:with-option>
+  </p:add-attribute>
+
   <p:add-attribute match="/*" attribute-name="test">
     <p:with-option name="attribute-value" select="/*/@name">
       <p:pipe step="loop" port="current"/>
@@ -54,7 +61,9 @@
   </p:add-attribute>
 </p:for-each>
 
-<p:wrap-sequence wrapper="results"/>
+<p:wrap-sequence wrapper="results">
+  <p:log href="/tmp/out.xml" port="result"/>
+</p:wrap-sequence>
 
 <p:xslt name="report">
   <p:input port="stylesheet">
