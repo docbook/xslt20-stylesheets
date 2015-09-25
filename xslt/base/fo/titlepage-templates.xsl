@@ -12,23 +12,15 @@
                 version="2.0"
                 exclude-result-prefixes="db m t tp ghost xs f fp tmpl">
 
-<!-- ============================================================ -->
-<!-- User templates -->
+  <xsl:template match="*"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)?">
+    <xsl:sequence select="()"/>
+  </xsl:template>
 
-<xsl:template name="t:user-titlepage-templates" as="element(tmpl:templates-list)?">
-  <!-- Empty by default, override for custom templates -->
-</xsl:template>
-
-<!-- ============================================================ -->
-<!-- System templates -->
-
-<xsl:template name="t:titlepage-templates" as="element(tmpl:templates-list)">
-  <!-- These are explicitly inline so that we can use XSLT during their construction -->
-  <!-- Don't change these, define your own in t:user-titlepage-templates -->
-  <templates-list xmlns="http://docbook.org/xslt/titlepage-templates">
-
-    <templates name="set">
-      <recto>
+  <xsl:template match="db:set"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:recto>
         <fo:block>
           <fo:block font-size="{f:hsize(5)}pt"
                     space-before="{f:hsize(5)*0.75}pt"
@@ -46,11 +38,14 @@
             <db:subtitle/>
           </fo:block>
         </fo:block>
-      </recto>
-    </templates>
+      </tmpl:recto>
+    </tmpl:templates>
+  </xsl:template>
 
-    <templates name="book">
-      <recto>
+  <xsl:template match="db:book"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:recto>
         <fo:block text-align="center"
                   font-family="{$title.fontset}"
                   font-weight="bold">
@@ -73,9 +68,9 @@
             </fo:block>
           </fo:block>
         </fo:block>
-      </recto>
+      </tmpl:recto>
 
-      <verso>
+      <tmpl:verso>
         <fo:block font-family="{$body.fontset}">
           <fo:block font-size="{f:hsize(2)}pt"
                     font-family="{$title.fontset}"
@@ -107,17 +102,20 @@
             <db:legalnotice/>
           </fo:block>
         </fo:block>
-      </verso>
+      </tmpl:verso>
 
-      <before-recto/>
-      <before-verso/>
-      <separator>
+      <tmpl:before-recto/>
+      <tmpl:before-verso/>
+      <tmpl:separator>
         <fo:block break-after="page"/>
-      </separator>
-    </templates>
+      </tmpl:separator>
+    </tmpl:templates>
+  </xsl:template>
 
-    <templates name="part">
-      <recto>
+  <xsl:template match="db:part"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:recto>
         <fo:block>
           <fo:block font-size="{f:hsize(5)}pt"
                     space-before="{f:hsize(5)*0.75}pt"
@@ -135,11 +133,16 @@
             <db:subtitle/>
           </fo:block>
         </fo:block>
-      </recto>
-    </templates>
+      </tmpl:recto>
+    </tmpl:templates>
+  </xsl:template>
 
-    <templates name="dedication preface chapter appendix colophon">
-      <titlepage>
+  <xsl:template match="db:dedication|db:preface
+                       |db:chapter|db:appendix
+                       |db:colophon"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:titlepage>
         <fo:block>
           <fo:block font-size="{f:hsize(5)}pt"
                     margin-left="{$title.margin.left}"
@@ -151,11 +154,14 @@
             <db:subtitle/>
           </fo:block>
         </fo:block>
-      </titlepage>
-    </templates>
+      </tmpl:titlepage>
+    </tmpl:templates>
+  </xsl:template>
 
-    <templates name="article">
-      <titlepage>
+  <xsl:template match="db:article"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:titlepage>
         <fo:block font-family="{$title.fontset}" text-align="center">
           <fo:block font-size="{f:hsize(5)}pt">
             <db:title/>
@@ -170,11 +176,14 @@
             <db:abstract/>
           </fo:block>
         </fo:block>
-      </titlepage>
-    </templates>
+      </tmpl:titlepage>
+    </tmpl:templates>
+  </xsl:template>
 
-    <templates name="article/appendix">
-      <titlepage>
+  <xsl:template match="db:article/db:appendix"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:titlepage>
         <fo:block space-before="1.5em">
           <fo:block font-size="{f:hsize(4)}pt"
                     margin-left="{$title.margin.left}"
@@ -185,12 +194,16 @@
             <db:subtitle/>
           </fo:block>
         </fo:block>
-      </titlepage>
-    </templates>
+      </tmpl:titlepage>
+    </tmpl:templates>
+  </xsl:template>
 
-    <templates name="section sect1 sect2 sect3 sect4 sect5
-                     refsection refsect1 refsect2 refsect3">
-      <titlepage>
+  <xsl:template match="db:sect1|db:sect2|db:sect3|db:sect4|db:sect5
+                       |db:section
+                       |db:refsection|db:refsect1|db:refsect2|db:refsect3"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:titlepage>
         <fo:block space-before="1.5em">
           <fo:block font-family="{$title.fontset}"
                     margin-left="{$title.margin.left}">
@@ -200,29 +213,34 @@
             <db:subtitle/>
           </fo:block>
         </fo:block>
-      </titlepage>
-    </templates>
+      </tmpl:titlepage>
+    </tmpl:templates>
+  </xsl:template>
 
-    <templates name="itemizedlist orderedlist variablelist">
-      <titlepage>
+  <xsl:template match="db:itemizedlist|db:orderedlist|db:variablelist"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:titlepage>
         <fo:block>
           <fo:block xsl:use-attribute-sets="list.title.properties">
             <db:title/>
           </fo:block>
         </fo:block>
-      </titlepage>
-    </templates>
+      </tmpl:titlepage>
+    </tmpl:templates>
+  </xsl:template>
 
-    <templates name="abstract">
-      <titlepage>
+  <xsl:template match="db:abstract"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
+      <tmpl:titlepage>
         <fo:block>
           <fo:block xsl:use-attribute-sets="list.title.properties">
             <db:title/>
           </fo:block>
         </fo:block>
-      </titlepage>
-    </templates>
-  </templates-list>
-</xsl:template>
+      </tmpl:titlepage>
+    </tmpl:templates>
+  </xsl:template>
 
 </xsl:stylesheet>

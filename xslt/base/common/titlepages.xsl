@@ -15,19 +15,17 @@
   <xsl:param name="node" select="."/>
 
   <xsl:variable name="titlepage-content"
-                select="(($node/db:title,$node/db:info/db:title,$ghost:title)[1],
-                         ($node/db:subtitle,$node/db:info/db:subtitle,$ghost:subtitle)[1],
-                         ($node/db:titleabbrev,$node/db:info/db:titleabbrev,$ghost:titleabbrev)[1],
-                         $node/db:info/*[not(self::db:title) and not(self::db:subtitle)
-                                         and not(self::db:titleabbrev)])"/>
+   select="(($node/db:title,$node/db:info/db:title,$ghost:title)[1],
+           ($node/db:subtitle,$node/db:info/db:subtitle,$ghost:subtitle)[1],
+           ($node/db:titleabbrev,$node/db:info/db:titleabbrev,
+                                 $ghost:titleabbrev)[1],
+           $node/db:info/*[not(self::db:title)
+                           and not(self::db:subtitle)
+                           and not(self::db:titleabbrev)])"/>
 
-  <xsl:variable name="templates" select="fp:titlepage-templates($node)"/>
-
-  <!--
-  <xsl:message>
-    <xsl:value-of select="local-name(.)"/> = <xsl:value-of select="$templates/@name"/>
-  </xsl:message>
-  -->
+  <xsl:variable name="templates" as="element(tmpl:templates)">
+    <xsl:apply-templates select="$node" mode="m:get-titlepage-templates"/>
+  </xsl:variable>
 
   <xsl:choose>
     <xsl:when test="$templates/tmpl:recto">
@@ -93,24 +91,6 @@
 
 <!-- ============================================================ -->
 
-<xsl:variable name="titlepage-templates" as="element()">
-  <xsl:variable name="user" as="element(tmpl:templates-list)?">
-    <xsl:call-template name="t:user-titlepage-templates"/>
-  </xsl:variable>
-  <xsl:variable name="system" as="element(tmpl:templates-list)">
-    <xsl:call-template name="t:titlepage-templates"/>
-  </xsl:variable>
-
-  <tmpl:titlepage-templates>
-    <tmpl:user-templates>
-      <xsl:sequence select="$user/*"/>
-    </tmpl:user-templates>
-    <tmpl:system-templates>
-      <xsl:sequence select="$system/*"/>
-    </tmpl:system-templates>
-  </tmpl:titlepage-templates>
-</xsl:variable>
-
 <xsl:variable name="ghost:title" as="element(db:title)">
   <db:title ghost:generated="true"/>
 </xsl:variable>
@@ -124,91 +104,6 @@
 </xsl:variable>
 
 <!-- ============================================================ -->
-
-<xsl:function name="fp:matching-template" as="xs:boolean">
-  <xsl:param name="templates" as="element(tmpl:templates)"/>
-  <xsl:param name="node" as="element()"/>
-
-  <xsl:variable name="names" select="tokenize($templates/@name, '\s+')"/>
-
-  <xsl:choose>
-    <xsl:when test="$templates/@namespace and $templates/@namespace != namespace-uri($node)">
-      <xsl:value-of select="false()"/>
-    </xsl:when>
-    <xsl:when test="empty($templates/@namespace) and namespace-uri($node) != 'http://docbook.org/ns/docbook'">
-      <xsl:value-of select="false()"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:value-of select="local-name($node) = $names"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:function>
-
-<xsl:function name="fp:matching-template" as="xs:boolean">
-  <xsl:param name="templates" as="element(tmpl:templates)"/>
-  <xsl:param name="node" as="element()"/>
-  <xsl:param name="path" as="xs:string"/>
-
-  <xsl:variable name="names" select="tokenize($templates/@name, '\s+')"/>
-
-  <xsl:choose>
-    <xsl:when test="$templates/@namespace and $templates/@namespace != namespace-uri($node)">
-      <xsl:value-of select="false()"/>
-    </xsl:when>
-    <xsl:when test="empty($templates/@namespace) and namespace-uri($node) != 'http://docbook.org/ns/docbook'">
-      <xsl:value-of select="false()"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:value-of select="$path = $names"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:function>
-
-<xsl:function name="fp:titlepage-templates" as="element(tmpl:templates)?">
-  <xsl:param name="node" as="element()"/>
-
-  <xsl:variable name="path" as="xs:string*">
-    <xsl:for-each select="($node/ancestor-or-self::*)">
-      <xsl:value-of select="local-name(.)"/>
-    </xsl:for-each>
-  </xsl:variable>
-
-  <xsl:variable name="templates"
-                select="fp:titlepage-templates($node, $path,
-                        $titlepage-templates/tmpl:user-templates/*)"/>
-
-  <xsl:choose>
-    <xsl:when test="empty($templates)">
-      <xsl:sequence select="fp:titlepage-templates($node, $path,
-                            $titlepage-templates/tmpl:system-templates/*)"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:sequence select="$templates"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:function>
-
-<xsl:function name="fp:titlepage-templates" as="element(tmpl:templates)?">
-  <xsl:param name="node" as="element()"/>
-  <xsl:param name="path" as="xs:string+"/>
-  <xsl:param name="templates-list" as="element(tmpl:templates)*"/>
-
-  <xsl:variable name="pathstr" select="string-join($path, '/')"/>
-  <xsl:variable name="templates"
-                select="($templates-list[fp:matching-template(.,$node,$pathstr)])[1]"/>
-
-  <xsl:choose>
-    <xsl:when test="exists($templates)">
-      <xsl:sequence select="$templates"/>
-    </xsl:when>
-    <xsl:when test="count($path) &lt;= 1">
-      <xsl:sequence select="()"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:sequence select="fp:titlepage-templates($node, $path[position() &gt; 1], $templates-list)"/>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:function>
 
 <xsl:template name="tp:titlepage">
   <xsl:param name="node" required="yes"/>

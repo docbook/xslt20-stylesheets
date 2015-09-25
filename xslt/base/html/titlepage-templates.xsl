@@ -13,22 +13,14 @@
                 version="2.0"
                 exclude-result-prefixes="db m t tp ghost xs f fp tmpl h">
 
-<!-- ============================================================ -->
-<!-- User templates -->
+  <xsl:template match="*"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)?">
+    <xsl:sequence select="()"/>
+  </xsl:template>
 
-<xsl:template name="t:user-titlepage-templates" as="element(tmpl:templates-list)?">
-  <!-- Empty by default, override for custom templates -->
-</xsl:template>
-
-<!-- ============================================================ -->
-<!-- System templates -->
-
-<xsl:template name="t:titlepage-templates" as="element(tmpl:templates-list)">
-  <!-- These are explicitly inline so that we can use XSLT during their construction -->
-  <!-- Don't change these, define your own in t:user-titlepage-templates -->
-  <tmpl:templates-list>
-
-    <tmpl:templates name="set part reference article setindex">
+  <xsl:template match="db:set|db:part|db:reference|db:article|db:setindex"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:recto>
         <header tmpl:class="titlepage">
           <db:title/>
@@ -48,8 +40,11 @@
         </header>
       </tmpl:recto>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="book">
+  <xsl:template match="db:book"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:recto>
         <header tmpl:class="titlepage">
           <db:title/>
@@ -69,8 +64,11 @@
         </header>
       </tmpl:recto>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="preface chapter appendix partintro">
+  <xsl:template match="db:preface|db:chapter|db:appendix|db:partintro"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage>
         <header tmpl:class="titlepage">
           <db:title/>
@@ -83,8 +81,11 @@
         </header>
       </tmpl:titlepage>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="dedication colophon">
+  <xsl:template match="db:dedication|db:colophon"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage>
         <header tmpl:class="titlepage">
           <db:title/>
@@ -92,9 +93,12 @@
         </header>
       </tmpl:titlepage>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="section sect1 sect2 sect3 sect4 sect5
-                          simplesect">
+  <xsl:template match="db:sect1|db:sect2|db:sect3|db:sect4|db:sect5
+                       |db:section|db:simplesect"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage>
         <div class="section-titlepage">
           <db:title/>
@@ -102,8 +106,11 @@
         </div>
       </tmpl:titlepage>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="refsection refsect1 refsect2 refsect3">
+  <xsl:template match="db:refsection|db:refsect1|db:refsect2|db:refsect3"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage>
         <div class="refsection-titlepage">
           <db:title/>
@@ -111,44 +118,64 @@
         </div>
       </tmpl:titlepage>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="bibliography bibliodiv glossary glossdiv index indexdiv">
+  <xsl:template match="db:bibliography|db:bibliodiv
+                       |db:glossary|db:glossdiv
+                       |db:index|db:indexdiv"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage>
         <header tmpl:class="titlepage">
           <db:title/>
         </header>
       </tmpl:titlepage>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="abstract sidebar task">
+  <xsl:template match="db:abstract|db:sidebar|db:task"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage>
         <header tmpl:class="titlepage">
           <db:title/>
         </header>
       </tmpl:titlepage>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="figure example table equation procedure step
-                          bibliolist glosslist qandaset qandadiv
-                          itemizedlist orderedlist variablelist segmentedlist calloutlist
-                          warning caution note tip important blockquote
-                          annotation revhistory msgset">
+  <xsl:template match="db:figure|db:example|db:table|db:equation
+                       |db:procedure|db:step
+                       |db:bibliolist|db:glosslist
+                       |db:qandaset|db:qandadiv
+                       |db:itemizedlist|db:orderedlist|db:variablelist
+                       |db:segmentedlist|db:calloutlist
+                       |db:warning|db:caution|db:note|db:tip
+                       |db:important|db:blockquote
+                       |db:annotation|db:revhistory|db:msgset"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage>
         <db:title/>
       </tmpl:titlepage>
     </tmpl:templates>
+  </xsl:template>
 
-    <tmpl:templates name="tasksummary taskprerequisites taskrelated">
+  <xsl:template match="db:tasksummary|db:taskprerequisites|db:taskrelated"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage>
         <db:title/>
       </tmpl:titlepage>
     </tmpl:templates>
+  </xsl:template>
 
     <!-- refentry elements are special, they don't really get a titlepage -->
-    <tmpl:templates name="refentry">
+  <xsl:template match="db:refentry"
+                mode="m:get-titlepage-templates" as="element(tmpl:templates)">
+    <tmpl:templates>
       <tmpl:titlepage/>
     </tmpl:templates>
-  </tmpl:templates-list>
-</xsl:template>
+  </xsl:template>
 
 </xsl:stylesheet>
