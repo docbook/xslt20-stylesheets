@@ -20,11 +20,16 @@
   <xsl:function name="f:chunk-filename" as="xs:string">
     <xsl:param name="chunk" as="element()"/>
 
-    <xsl:variable name="pifn" select="f:pi($chunk/processing-instruction('dbhtml'), 'filename')"/>
+    <xsl:variable name="pis"  select="$chunk/processing-instruction('dbhtml')"/>
+    <xsl:variable name="pibn" select="f:pi($pis, 'basename')"/>
+    <xsl:variable name="pifn" select="f:pi($pis, 'filename')"/>
 
     <xsl:choose>
       <xsl:when test="string($pifn) != ''">
 	<xsl:value-of select="$pifn"/>
+      </xsl:when>
+      <xsl:when test="string($pibn) != ''">
+	<xsl:value-of select="concat($pibn, $html.ext)"/>
       </xsl:when>
       <xsl:when test="$chunk/@xml:id and $use.id.as.filename != '0'">
 	<xsl:value-of select="concat($chunk/@xml:id,$html.ext)"/>

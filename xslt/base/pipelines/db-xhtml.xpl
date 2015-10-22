@@ -16,6 +16,7 @@
 </p:output>
 
 <p:option name="style" select="'docbook'"/>
+<p:option name="format" select="'html'"/>
 <p:option name="postprocess" select="''"/>
 <p:option name="return-secondary" select="'false'"/>
 
@@ -181,8 +182,10 @@
       <p:iteration-source>
         <p:pipe step="postprocess" port="secondary"/>
       </p:iteration-source>
-      <p:store name="store-chunk" method="html" encoding="utf-8"
-               indent="false" version="5">
+      <p:store name="store-chunk" encoding="utf-8" indent="false">
+        <p:with-option name="method" select="$format"/>
+        <p:with-option name="version"
+                       select="if ($format = 'html') then '5' else '1.0'"/>
         <p:with-option name="href" select="base-uri(/)"/>
       </p:store>
       <cx:message xmlns:cx="http://xmlcalabash.com/ns/extensions">

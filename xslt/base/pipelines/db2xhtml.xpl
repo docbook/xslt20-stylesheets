@@ -15,7 +15,7 @@
 
 <p:import href="docbook.xpl"/>
 
-<dbp:docbook format="html" return-secondary="false">
+<dbp:docbook format="xhtml" return-secondary="false">
   <p:with-option name="style" select="$style"/>
   <p:with-option name="preprocess" select="$preprocess"/>
   <p:with-option name="postprocess" select="$postprocess"/>

@@ -156,43 +156,51 @@
   <xsl:param name="toc.params" as="element()?" select="()"/>
   <xsl:param name="toc"/>
 
-  <xsl:if test="$toc.params/@toc != 0">
-    <xsl:copy-of select="$toc"/>
-  </xsl:if>
+  <xsl:variable name="lots" as="node()*">
+    <xsl:if test="$toc.params/@toc != 0">
+      <xsl:copy-of select="$toc"/>
+    </xsl:if>
 
-  <xsl:if test="$toc.params/@figure != 0">
-    <xsl:call-template name="tp:list-of-titles">
-      <xsl:with-param name="titles" select="'figure'"/>
-      <xsl:with-param name="nodes" select=".//db:figure"/>
-    </xsl:call-template>
-  </xsl:if>
+    <xsl:if test="$toc.params/@figure != 0">
+      <xsl:call-template name="tp:list-of-titles">
+        <xsl:with-param name="titles" select="'figure'"/>
+        <xsl:with-param name="nodes" select=".//db:figure"/>
+      </xsl:call-template>
+    </xsl:if>
 
-  <xsl:if test="$toc.params/@table != 0">
-    <xsl:call-template name="tp:list-of-titles">
-      <xsl:with-param name="titles" select="'table'"/>
-      <xsl:with-param name="nodes" select=".//db:table"/>
-    </xsl:call-template>
-  </xsl:if>
+    <xsl:if test="$toc.params/@table != 0">
+      <xsl:call-template name="tp:list-of-titles">
+        <xsl:with-param name="titles" select="'table'"/>
+        <xsl:with-param name="nodes" select=".//db:table"/>
+      </xsl:call-template>
+    </xsl:if>
 
-  <xsl:if test="$toc.params/@example != 0">
-    <xsl:call-template name="tp:list-of-titles">
-      <xsl:with-param name="titles" select="'example'"/>
-      <xsl:with-param name="nodes" select=".//db:example"/>
-    </xsl:call-template>
-  </xsl:if>
+    <xsl:if test="$toc.params/@example != 0">
+      <xsl:call-template name="tp:list-of-titles">
+        <xsl:with-param name="titles" select="'example'"/>
+        <xsl:with-param name="nodes" select=".//db:example"/>
+      </xsl:call-template>
+    </xsl:if>
 
-  <xsl:if test="$toc.params/@equation != 0">
-    <xsl:call-template name="tp:list-of-titles">
-      <xsl:with-param name="titles" select="'equation'"/>
-      <xsl:with-param name="nodes" select=".//db:equation[db:title]"/>
-    </xsl:call-template>
-  </xsl:if>
+    <xsl:if test="$toc.params/@equation != 0">
+      <xsl:call-template name="tp:list-of-titles">
+        <xsl:with-param name="titles" select="'equation'"/>
+        <xsl:with-param name="nodes" select=".//db:equation[db:title]"/>
+      </xsl:call-template>
+    </xsl:if>
 
-  <xsl:if test="$toc.params/@procedure != 0">
-    <xsl:call-template name="tp:list-of-titles">
-      <xsl:with-param name="titles" select="'procedure'"/>
-      <xsl:with-param name="nodes" select=".//db:procedure[db:title]"/>
-    </xsl:call-template>
+    <xsl:if test="$toc.params/@procedure != 0">
+      <xsl:call-template name="tp:list-of-titles">
+        <xsl:with-param name="titles" select="'procedure'"/>
+        <xsl:with-param name="nodes" select=".//db:procedure[db:title]"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:variable>
+
+  <xsl:if test="exists($lots//element())">
+    <div class="lists-of-titles">
+      <xsl:sequence select="$lots"/>
+    </div>
   </xsl:if>
 </xsl:template>
 

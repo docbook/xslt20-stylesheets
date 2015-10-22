@@ -276,6 +276,7 @@
         <p:pipe step="all-parameters" port="result"/>
       </p:input>
       <p:with-option name="style" select="$style"/>
+      <p:with-option name="format" select="$format"/>
       <p:with-option name="postprocess" select="$postprocess"/>
       <p:with-option name="return-secondary" select="$return-secondary"/>
     </dbp:docbook-xhtml>
