@@ -7,9 +7,10 @@
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                exclude-result-prefixes="ch db f fn h m t xs"
+                exclude-result-prefixes="ch db f fn h m mp t xs"
                 version="2.0">
 
   <xsl:import href="chunkfunc.xsl"/>
@@ -138,10 +139,11 @@
     -->
 
     <xsl:result-document href="{$base.dir}{$chunkfn}" method="xhtml" indent="no">
+      <xsl:apply-templates select="." mode="m:pre-root"/>
       <html>
-        <xsl:call-template name="t:head">
-          <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
+        <head>
+          <xsl:apply-templates select="." mode="mp:html-head"/>
+        </head>
         <body>
           <div class="page">
             <xsl:call-template name="t:body-attributes"/>
@@ -151,12 +153,12 @@
 
             <div class="content">
               <xsl:if test="$pinav = 'true'">
-                <xsl:call-template name="t:user-header-content">
+                <xsl:apply-templates select="." mode="m:user-header-content">
                   <xsl:with-param name="node" select="."/>
                   <xsl:with-param name="next" select="key('genid', $nchunk/@xml:id)"/>
                   <xsl:with-param name="prev" select="key('genid', $pchunk/@xml:id)"/>
                   <xsl:with-param name="up" select="key('genid', $uchunk/@xml:id)"/>
-                </xsl:call-template>
+                </xsl:apply-templates>
               </xsl:if>
 
               <div class="body">
@@ -167,12 +169,12 @@
             </div>
 
             <xsl:if test="$pinav = 'true'">
-              <xsl:call-template name="t:user-footer-content">
+              <xsl:apply-templates select="." mode="m:user-footer-content">
                 <xsl:with-param name="node" select="."/>
                 <xsl:with-param name="next" select="key('genid', $nchunk/@xml:id)"/>
                 <xsl:with-param name="prev" select="key('genid', $pchunk/@xml:id)"/>
                 <xsl:with-param name="up" select="key('genid', $uchunk/@xml:id)"/>
-              </xsl:call-template>
+              </xsl:apply-templates>
             </xsl:if>
           </div>
         </body>

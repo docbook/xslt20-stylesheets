@@ -7,12 +7,13 @@
                 xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:ext="http://docbook.org/extensions/xslt20"
-                exclude-result-prefixes="db doc f ghost h m t u xlink xs ext"
+                exclude-result-prefixes="db doc f ghost h m mp t u xlink xs ext"
                 version="2.0">
 
 <xsl:param name="output.dir" select="''"/>
@@ -1113,15 +1114,17 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                 and $filename != ''">
 
     <xsl:result-document href="{$filename}" method="xhtml">
-      <xsl:call-template name="t:user-preroot"/>
+      <xsl:apply-templates select="." mode="m:pre-root"/>
       <html>
-        <xsl:call-template name="t:head">
-          <xsl:with-param name="node" select="."/>
-        </xsl:call-template>
+        <head>
+          <xsl:apply-templates select="." mode="mp:html-head"/>
+        </head>
         <body>
-          <xsl:for-each select="$mediaobject/db:textobject[not(db:phrase)]">
-            <xsl:apply-templates select="*"/>
-          </xsl:for-each>
+          <xsl:apply-templates
+              select="$mediaobject/db:textobject[not(db:phrase)]"/>
+
+          <xsl:apply-templates select="." mode="mp:javascript-body"/>
+          <xsl:apply-templates select="." mode="m:javascript-body"/>
         </body>
       </html>
     </xsl:result-document>

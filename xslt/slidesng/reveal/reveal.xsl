@@ -6,6 +6,7 @@
 		xmlns:f="http://docbook.org/xslt/ns/extension"
 		xmlns:h="http://www.w3.org/1999/xhtml"
 		xmlns:m="http://docbook.org/xslt/ns/mode"
+		xmlns:mp="http://docbook.org/xslt/ns/mode/private"
 		xmlns:t="http://docbook.org/xslt/ns/template"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:tmpl="http://docbook.org/xslt/titlepage-templates"
@@ -37,26 +38,22 @@
       </xsl:if>
 
       <xsl:apply-templates/>
-	  
-      <xsl:call-template name="t:reveal-footer"/>
 
+      <xsl:call-template name="t:reveal-footer"/>
     </body>
   </html>
 </xsl:template>
 
 <!-- Disable DocBook JS and CSS -->
-<xsl:template name="t:javascript">
-  <xsl:param name="node"/>
+<xsl:template match="*" mode="mp:javascript-head">
 </xsl:template>
-
-<xsl:template name="t:css">
-  <xsl:param name="node"/>
+<xsl:template match="*" mode="mp:javascript-body">
+</xsl:template>
+<xsl:template match="*" mode="mp:css">
 </xsl:template>
 
 <!-- Link reveal.js CSS + JS -->
-<xsl:template name="t:user-head-content">
-  <xsl:param name="node"/>
-
+<xsl:template match="*" mode="m:head-content">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
@@ -92,7 +89,7 @@
 		  loop: false,
 		  rtl: false,
 		  fragments: true,
-	  
+
 	  });
 
   </script>
@@ -106,7 +103,7 @@
       <section>
 	<xsl:call-template name="t:titlepage"/>
       </section>
-      
+
       <xsl:apply-templates/>
     </div>
   </div>
@@ -170,4 +167,3 @@
 </xsl:template>
 
 </xsl:stylesheet>
-

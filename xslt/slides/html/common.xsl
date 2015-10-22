@@ -5,9 +5,10 @@
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                exclude-result-prefixes="db f h m t xs"
+                exclude-result-prefixes="db f h m mp t xs"
                 version="2.0">
 
 <xsl:import href="../../base/html/final-pass.xsl"/>
@@ -41,8 +42,10 @@
         <xsl:value-of select="db:info/db:title/node() except db:info/db:title/db:footnote"/>
       </title>
 
-      <xsl:call-template name="t:javascript-head"/>
-      <xsl:call-template name="t:css"/>
+      <xsl:apply-templates select="." mode="mp:javascript-head"/>
+      <xsl:apply-templates select="." mode="m:javascript-head"/>
+      <xsl:apply-templates select="." mode="mp:css"/>
+      <xsl:apply-templates select="." mode="m:css"/>
 
       <xsl:apply-templates select="db:info/h:*"/>
     </head>
@@ -57,7 +60,9 @@
       </xsl:if>
 
       <xsl:apply-templates select="db:foil|db:foilgroup"/>
-      <xsl:call-template name="t:javascript-body"/>
+
+      <xsl:apply-templates select="." mode="mp:javascript-body"/>
+      <xsl:apply-templates select="." mode="m:javascript-body"/>
     </body>
   </html>
 </xsl:template>
@@ -83,33 +88,6 @@
   </footer>
 </xsl:template>
 
-<xsl:template name="t:javascript-body">
-  <xsl:param name="node" select="."/>
-  <xsl:call-template name="t:system-javascript-body">
-    <xsl:with-param name="node" select="$node"/>
-  </xsl:call-template>
-  <xsl:call-template name="t:slides-javascript-body">
-    <xsl:with-param name="node" select="$node"/>
-  </xsl:call-template>
-  <xsl:call-template name="t:user-javascript-body">
-    <xsl:with-param name="node" select="$node"/>
-  </xsl:call-template>
-</xsl:template>
-
-<xsl:template name="t:css">
-  <xsl:param name="node" select="."/>
-
-  <xsl:call-template name="t:system-css">
-    <xsl:with-param name="node" select="."/>
-  </xsl:call-template>
-  <xsl:call-template name="t:slides-css">
-    <xsl:with-param name="node" select="$node"/>
-  </xsl:call-template>
-  <xsl:call-template name="t:user-css">
-    <xsl:with-param name="node" select="."/>
-  </xsl:call-template>
-</xsl:template>
-
 <xsl:function name="f:include-jquery">
   <xsl:param name="node"/>
 
@@ -122,9 +100,8 @@
   <xsl:sequence select="true()"/>
 </xsl:function>
 
-<xsl:template name="t:slides-javascript-body">
-  <xsl:param name="node" select="."/>
-
+<xsl:template match="*" mode="mp:javascript-body">
+  <xsl:apply-imports/>
   <script type="text/javascript" language="javascript"
           src="{$resource.root}js/jquery-timers-1.2.js" />
   <script type="text/javascript" language="javascript"
@@ -133,8 +110,8 @@
           src="{$resource.root}js/slides.js" />
 </xsl:template>
 
-<xsl:template name="t:slides-css">
-  <xsl:param name="node" select="."/>
+<xsl:template match="*" mode="mp:css">
+  <xsl:apply-imports/>
   <link type="text/css" rel="stylesheet"
         href="{$cdn.jqueryui.css}" media="screen"/>
   <link type="text/css" rel="stylesheet"
