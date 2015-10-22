@@ -23,7 +23,7 @@
                            and not(self::db:subtitle)
                            and not(self::db:titleabbrev)])"/>
 
-  <xsl:variable name="templates" as="element(tmpl:templates)">
+  <xsl:variable name="templates" as="element(tmpl:templates)?">
     <xsl:apply-templates select="$node" mode="m:get-titlepage-templates"/>
   </xsl:variable>
 
