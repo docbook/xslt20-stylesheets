@@ -72,6 +72,8 @@
 <gentext key="Procedure" text="Elj&#225;r&#225;s"/>
 <gentext key="procedure" text="elj&#225;r&#225;s"/>
 <gentext key="ProductionSet" text="Elemcsoport"/>
+<gentext key="PubDate" text="Kiadás dátuma"/>
+<gentext key="pubdate" text="kiadás dátuma"/>
 <gentext key="Published" text="Megjelent"/>
 <gentext key="published" text="megjelent"/>
 <gentext key="Qandadiv" text="K &#233;s V"/>
