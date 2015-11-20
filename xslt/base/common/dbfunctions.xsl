@@ -368,14 +368,14 @@ not have a title, it returns “???”.</para>
 
 <!-- ================================================================== -->
 
-<xsl:function name="f:length-in-points" as="xs:decimal">
+<xsl:function name="f:length-in-points" as="xs:double">
   <xsl:param name="length" as="xs:string"/>
   <xsl:value-of select="f:length-in-points($length, 10)"/>
 </xsl:function>
 
-<xsl:function name="f:length-in-points" as="xs:decimal">
+<xsl:function name="f:length-in-points" as="xs:double">
   <xsl:param name="length" as="xs:string"/>
-  <xsl:param name="em.size" as="xs:decimal"/>
+  <xsl:param name="em.size" as="xs:double"/>
 
   <xsl:variable name="magnitude" select="f:length-magnitude($length)"/>
   <xsl:variable name="units" select="f:length-units($length)"/>
