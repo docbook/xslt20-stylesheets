@@ -27,7 +27,7 @@ declare function mldb:to-html(
 declare function mldb:to-html(
   $doc as document-node(),
   $params as map:map,
-  $preprocess as document-node()?
+  $preprocess as item()?
 ) as document-node()
 {
   mldb:to-html($doc, $params, $preprocess, ())
@@ -36,8 +36,8 @@ declare function mldb:to-html(
 declare function mldb:to-html(
   $doc as document-node(),
   $params as map:map,
-  $preprocess as document-node()?,
-  $stylesheet as document-node()?
+  $preprocess as item()?,
+  $stylesheet as item()?
 ) as document-node()
 {
   mldb:transform($doc, $params, $preprocess, $stylesheet,
@@ -62,7 +62,7 @@ declare function mldb:to-fo(
 declare function mldb:to-fo(
   $doc as document-node(),
   $params as map:map,
-  $preprocess as document-node()?
+  $preprocess as item()?
 ) as document-node()
 {
   mldb:to-fo($doc, $params, $preprocess, ())
@@ -71,8 +71,8 @@ declare function mldb:to-fo(
 declare function mldb:to-fo(
   $doc as document-node(),
   $params as map:map,
-  $preprocess as document-node()?,
-  $stylesheet as document-node()?
+  $preprocess as item()?,
+  $stylesheet as item()?
 ) as document-node()
 {
   mldb:transform($doc, $params, $preprocess, $stylesheet,
@@ -82,8 +82,8 @@ declare function mldb:to-fo(
 declare %private function mldb:transform(
   $doc as document-node(),
   $params as map:map,
-  $preprocess as document-node()?,
-  $stylesheet as document-node()?,
+  $preprocess as item()?,
+  $stylesheet as item()?,
   $final-pass as xs:string
 ) as document-node()
 {
@@ -137,11 +137,21 @@ declare %private function mldb:transform(
 
   let $doc := if (empty($preprocess))
               then $processed
-              else xdmp:xslt-eval($preprocess, $processed, $params)
+              else if ($preprocess instance of document-node())
+                   then xdmp:xslt-eval($preprocess, $processed, $params)
+                   else if ($preprocess instance of element())
+                   then xdmp:xslt-eval(document { $preprocess },
+                                       $processed, $params)
+                   else xdmp:xslt-invoke($preprocess, $processed, $params)
 
   let $result := if (empty($stylesheet))
                  then xdmp:xslt-invoke($final-pass, $doc)
-                 else xdmp:xslt-eval($stylesheet, $doc)
+                 else if ($stylesheet instance of document-node())
+                      then xdmp:xslt-eval($stylesheet, $doc, $params)
+                      else if ($stylesheet instance of element())
+                      then xdmp:xslt-eval(document { $stylesheet },
+                                          $doc, $params)
+                      else xdmp:xslt-invoke($stylesheet, $doc, $params)
   return
     $result
 };
