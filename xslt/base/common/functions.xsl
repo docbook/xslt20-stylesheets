@@ -955,7 +955,7 @@ expects “/” to be the component separator.</para>
 
 <!-- ============================================================ -->
 
-<xsl:function name="f:length-magnitude" as="xs:decimal?">
+<xsl:function name="f:length-magnitude" as="xs:double?">
   <xsl:param name="length" as="xs:string"/>
 
   <xsl:if test="matches(normalize-space($length), '^[0-9\.]+')">

@@ -349,14 +349,9 @@ task copyXslt(type: Copy) {
   into "build/dist/bin/xslt/"
 }
 
-task copyMarkLogic(type: Copy) {
-  from "tools/MarkLogic/"
-  into "build/dist/bin/lib/MarkLogic/"
-}
-
-task copyMarkLogicPlugins(type: Copy) {
-  from "gentext/build/plugins/"
-  into "build/dist/bin/lib/MarkLogic/plugins/"
+task copyVendors(type: Copy) {
+  from "vendor/"
+  into "build/dist/bin/vendor"
 }
 
 task copyResults(dependsOn: testreport, type: Copy) {
@@ -366,7 +361,7 @@ task copyResults(dependsOn: testreport, type: Copy) {
 }
 
 task copyAll(dependsOn: [copyReadme, copyDocs, copyResources, copyXslt,
-                         copyResults, copyMarkLogic, copyMarkLogicPlugins]) {
+                         copyResults, copyVendors]) {
   // nothing to see here
 }
 

@@ -4,7 +4,7 @@
 <authorgroup>
   <author><personname><firstname>Frederik</firstname><surname>Fouvry</surname></personname>
   <email>fouvry@coli.uni-sb.de</email>
-          
+
   </author>
 </authorgroup>
 </info>
@@ -72,9 +72,11 @@
 <gentext key="preface" text="Voorwoord"/>
 <gentext key="Procedure" text="Procedure"/>
 <gentext key="procedure" text="Procedure"/>
-<gentext key="ProductionSet" text="Production"/> 
+<gentext key="ProductionSet" text="Production"/>
+<gentext key="PubDate" text="Publicatiedatum"/>
+<gentext key="pubdate" text="publicatiedatum"/>
 <gentext key="Published" text="Uitgegeven"/>
-<gentext key="published" text="Uitgegeven"/> 
+<gentext key="published" text="Uitgegeven"/>
 <gentext key="Qandadiv" text="Vraag en Antwoord"/>
 <gentext key="qandadiv" text="Vraag en Antwoord"/>
 <gentext key="Question" text="Vraag:"/>

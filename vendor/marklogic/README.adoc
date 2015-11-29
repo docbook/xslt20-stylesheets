@@ -1,0 +1,174 @@
+= MarkLogic README
+
+The DocBook XSLT 2.0 stylesheets can be used in MarkLogic Server.
+In order to do so, you must address two points:
+
+1. The XSLT 2.0 stylesheets use a modular, pipeline-driven architecture.
+Because MarkLogic Server doesn’t support XProc, an XQuery module must
+be used to implement the pipeline.
+
+2. The stylesheets import localization data. In many environments, the
+universe of URIs available for accessing stylesheet modules and
+document content are the same. Not so in MarkLogic Server which
+segregates document content in a database from module content (in
+either another database or on the filesystem).
+
+You have several choices about where to store localization data:
+
+a. You can store it in a separate database
+b. You can store it on the filesystem
+c. If your application uses a modules database, you can store
+   them in the modules database
+d. You can store them in your content database
+
+The latter is simplest in some ways but does mean you have to
+design the rest of your application to ignore the localization
+files where appropriate.
+
+== DocBook for everyone
+
+The easiest way to install DocBook on MarkLogic Server is to place
+the DocBook stylesheets in the system modules directory (often
+`/opt/MarkLogic/Modules’):
+
+....
+$ mkdir /opt/MarkLogic/Modules/DocBook
+$ cp -R docbook-xslt2-2.xx.xx/xslt/* /opt/MarkLogic/Modules/DocBook/
+....
+
+NOTE: The examples in this README assume Unix. FIXME:
+
+That makes the DocBook stylesheets available to all application
+servers on MarkLogic.
+
+In order to invoke the stylesheets and load localization content,
+we need to create a few roles, privileges, and amps. If you want
+to store the localization content
+
+If you’re running
+MarkLogic Server 8.0-4 or later, you can do this automatically by
+running the `setup.sh` script in this directory. Open the file in
+your favorite editor and change the configuration variables at the
+top of the script to suit your local environment, then run:
+
+....
+$ sh setup.sh
+....
+
+NOTE: It is possible to write this script in a cross-platform manner
+with Python. FIXME:
+
+If you have an earlier version of MarkLogic Server, or if you just
+prefer to perform the admin tasks by hand, here is what must be done:
+
+1. If you want to store the localization data in a separate database,
+   create a forest and database for that purpose. You can name them
+   anything you want, but we’ll assume they’re named `DocBook.locales`
+   for the purposes of this document.
+2. Create an execute privilege called `docbook-locales` with the
+   action `http://docbook.org/vendor/marklogic/docbook-locales`. This
+   privilege allows you to control which users can access the
+   locales.
+3. Create two roles named `docbook-locales` and `docbook-locales-internal`.
+   You’ll assign the role `docbook-locales` to users whom you wish to
+   allow to use DocBook. The internal role should never be assigned
+   directly. We’ll use that in amps as you’ll see.
+4. Give the `docbook-locales` role the `docbook-locales` execute privilege.
+5. Give the `docbook-locales-internal` role the `xslt-invoke` and `xslt-eval`
+   privileges.
+6. If you plan to store the locale data in a separate database, give the
+   `docbook-locales-internal` role the `xdmp-eval` and `xdmp-eval-in` privileges.
+7. If you plan to store the locale data on the filesystem, give the
+   `docbook-locales-internal` role the `xdmp-document-get` privilege.
+8. Create an amp for the `load-from-database` function: use the
+   namespace `http://docbook.org/vendor/marklogic/locales`, the local name
+   `load-from-database`, the document uri
+   `/DocBook/base/common/marklogic.xqy`, and use “`(filesystem)`” for the
+   database. Give it the `docbook-locale-internal` privilege.
+   Strictly speaking, this amp is only necessary if you plan
+   to store the locale data in a separate database, but it won’t hurt to
+   create it.
+9. Create an amp for the `load-locale-filesystem` function: use the
+   namespace `http://docbook.org/vendor/marklogic/locales`, the local name
+   `load-locale-filesystem`, the document uri
+   `/DocBook/base/common/marklogic.xqy`, and use “`(filesystem)`” for the
+   database. Give it the `docbook-locale-internal` privilege.
+   Strictly speaking, this amp is only necessary if you plan
+   to store the locale data on the filesystem, but it won’t hurt to
+   create it.
+10. Create an amp for the `transform` function: use the
+   namespace `http://docbook.org/vendor/marklogic/docbook` (note that it’s
+   different from the preceding two!), the local name
+   `transform`, the document uri
+   `/DocBook/vendor/marklogic/docbook.xqy`, and use “`(filesystem)`” for the
+   database. Give it the `docbook-locale-internal` privilege.
+11. If you plan to store the locale data in a separate database, load
+    all of the locale documents into that database. The `en.xml` locale should
+    have the URI `/DocBook/locales/en.xml`, the `fr.xml` locale should
+    have the URI `/DocBook/locales/fr.xml`, etc. Make sure that each
+    file is readable by the `docbook-locale` role.
+
+== DocBook for a specific application
+
+NOTE: This section could use work. FIXME:
+
+If you want to limit access to the DocBook stylesheets to specific
+applications, the setup is as above with a few modifications.
+
+IMPORTANT: You _must_ store the modules for your application in a modules
+database. You cannot store them on the filesystem.
+
+First, instead of storing the stylesheets in the global modules
+directory, store them in your application’s modules directory:
+
+....
+$ mkdir /your/app/module/root/DocBook
+$ cp -R docbook-xslt2-2.xx.xx/xslt/* /your/app/module/root/DocBook/
+....
+
+Next, apply each of the setup steps in the preceding section except
+that when it comes time to create the amps, make sure that you specify
+your application’s modules database instead of the filesystem.
+
+=== DocBook without a modules database
+
+Technically, I lied. If you want to limit access to DocBook to specific
+applications and you want to store those application’s modules on the
+filesystem, you can make that work. But the amps won’t work so you’ll
+have to make sure that each user has the appropriate privileges
+(`xslt-invoke`, `xslt-eval`, etc.) directly.
+
+This is not recommended. YMMV. Your gun, your bullet, your foot.
+
+== Using DocBook
+
+Now that you have DocBook setup, you can invoke it like so:
+
+....
+import module namespace mldb="http://docbook.org/vendor/marklogic/docbook"
+    at "/DocBook/vendor/marklogic/docbook.xqy";
+
+declare default function namespace "http://www.w3.org/2005/xpath-functions";
+
+declare option xdmp:mapping "false";
+
+let $doc := doc("my-docbook-doc.xml")
+return
+  mldb:to-html($doc)
+....
+
+You can test your installation as follows:
+
+1. Create a user and give them the `docbook-locales` role.
+2. Create an HTTP application server. Set its root to the path where
+   you’ve unpacked the distribution. To the directory containing _this_
+   README file. Set the port to anything you’d like, say 8123. If you
+   want to store the locales in the content database, point the server
+   at a content database where you’ve installed them. (If you want to
+   store the locales in the modules database, you’ll have to move
+   this directory into your modules database along with the locales.)
+3. Try to open `http://localhost:8123/docbook-test.xqy`. If you get a
+   page that says, in part, “everything is ok”, you win!
+
+If not, well, feel free to ask.
+

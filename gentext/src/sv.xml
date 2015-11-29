@@ -4,7 +4,7 @@
 <authorgroup>
   <author><personname><firstname>Daniel</firstname><surname>Larsson</surname></personname>
   <email>Daniel.Larsson@servicefactory.se</email>
-          
+
   </author>
 </authorgroup>
 </info>
@@ -14,7 +14,7 @@
 <gentext key="Acknowledgements" text="Tack till"/>
 <gentext key="acknowledgements" text="Tack till"/>
 <gentext key="Answer" text="A:"/>
-<gentext key="answer" text="A:"/> 
+<gentext key="answer" text="A:"/>
 <gentext key="Appendix" text="Appendix"/>
 <gentext key="appendix" text="appendix"/>
 <gentext key="Article" text="Artikel"/>
@@ -25,11 +25,11 @@
 <gentext key="book" text="Bok"/>
 <gentext key="CAUTION" text="OBSERVERA"/>
 <gentext key="Caution" text="Observera"/>
-<gentext key="caution" text="Observera"/> 
+<gentext key="caution" text="Observera"/>
 <gentext key="Chapter" text="Kapitel"/>
 <gentext key="chapter" text="kapitel"/>
 <gentext key="Colophon" text="Kolofon"/>
-<gentext key="colophon" text="kolofon"/> 
+<gentext key="colophon" text="kolofon"/>
 <gentext key="Copyright" text="Copyright"/>
 <gentext key="copyright" text="Copyright"/>
 <gentext key="Dedication" text="Dedikation"/>
@@ -72,7 +72,9 @@
 <gentext key="preface" text="F&#246;retal"/>
 <gentext key="Procedure" text="Procedur"/>
 <gentext key="procedure" text="Procedur"/>
-<gentext key="ProductionSet" text="Production"/> 
+<gentext key="ProductionSet" text="Production"/>
+<gentext key="PubDate" text="Publiceringsdatum"/>
+<gentext key="pubdate" text="publiceringsdatum"/>
 <gentext key="Published" text="Publicerad"/>
 <gentext key="published" text="Publicerad"/>
 <gentext key="Qandadiv" text="Fr&#229;ga och A"/>
@@ -88,16 +90,16 @@
 <gentext key="RefSection" text=""/>
 <gentext key="refsection" text=""/>
 <gentext key="RefSynopsisDiv" text="Synopsis"/>
-<gentext key="refsynopsisdiv" text="Synopsis"/> 
+<gentext key="refsynopsisdiv" text="Synopsis"/>
 <gentext key="RevHistory" text="Revisionshistorik"/>
 <gentext key="revhistory" text="Revisionshistorik"/>
 <gentext key="Revision" text="Revision"/>
 <gentext key="revision" text="Revision"/>
-<gentext key="sect1" text="Section"/> 
-<gentext key="sect2" text="Section"/> 
-<gentext key="sect3" text="Section"/> 
-<gentext key="sect4" text="Section"/> 
-<gentext key="sect5" text="Section"/> 
+<gentext key="sect1" text="Section"/>
+<gentext key="sect2" text="Section"/>
+<gentext key="sect3" text="Section"/>
+<gentext key="sect4" text="Section"/>
+<gentext key="sect5" text="Section"/>
 <gentext key="Section" text="Avsnitt"/>
 <gentext key="section" text="avsnitt"/>
 <gentext key="See" text="Se"/>
@@ -165,10 +167,10 @@
 <gentext key="nav-prev-sibling" text="Snabbt bak&#229;t"/>
 <gentext key="nav-up" text="Upp"/>
 
-<gentext key="sectioncalled" text="the section called"/> 
-<gentext key="Draft" text="Utkast"/> 
-<gentext key="above" text="ovan"/> 
-<gentext key="below" text="nedan"/> 
+<gentext key="sectioncalled" text="the section called"/>
+<gentext key="Draft" text="Utkast"/>
+<gentext key="above" text="ovan"/>
+<gentext key="below" text="nedan"/>
 <gentext key="index symbols" text="Symboler"/>
 <gentext key="writing-mode" text="lr-tb"/>
 
@@ -584,12 +586,12 @@
   <l i="25">y</l>
   <l i="26">Z</l>
   <l i="26">z</l>
-  <l i="27">&#197;</l> 
-  <l i="27">&#229;</l> 
-  <l i="28">&#196;</l> 
-  <l i="28">&#228;</l> 
-  <l i="29">&#214;</l> 
-  <l i="29">&#246;</l> 
+  <l i="27">&#197;</l>
+  <l i="27">&#229;</l>
+  <l i="28">&#196;</l>
+  <l i="28">&#228;</l>
+  <l i="29">&#214;</l>
+  <l i="29">&#246;</l>
 </letters>
 
 </locale>

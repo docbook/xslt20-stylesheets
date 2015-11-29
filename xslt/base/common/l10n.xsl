@@ -6,7 +6,7 @@
 		xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:xdmp="http://marklogic.com/xdmp"
-                xmlns:mldb="http://docbook.github.com/ns/marklogic"
+                xmlns:mldb="http://docbook.org/vendor/marklogic/locales"
                 exclude-result-prefixes="doc f l t xs xdmp mldb"
                 extension-element-prefixes="xdmp"
                 version='2.0'>
@@ -25,7 +25,7 @@
 <!-- Pending resolution of bug 15636, this href has to be absolute. If you install
      the stylesheets in /Modules/DocBook, it'll work fine. If you install them
      elsewhere, update this path. -->
-<xdmp:import-module namespace="http://docbook.github.com/ns/marklogic"
+<xdmp:import-module namespace="http://docbook.org/vendor/marklogic/locales"
                     href="/DocBook/base/common/marklogic.xqy"/>
 
 <xsl:key name="l10n-gentext" match="l:l10n/l:gentext" use="concat(../@language, '#', @key)"/>
