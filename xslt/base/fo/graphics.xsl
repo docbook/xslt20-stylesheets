@@ -75,8 +75,11 @@
   </fo:block>
 </xsl:template>
 
+<!-- FIXME: Support multiple imagedata objects; see
+     https://github.com/docbook/docbook/issues/49 and
+     https://github.com/docbook/docbook/issues/52 -->
 <xsl:template match="db:imageobject">
-  <xsl:apply-templates select="db:imagedata"/>
+  <xsl:apply-templates select="db:imagedata[1]"/>
 </xsl:template>
 
 <xsl:template match="db:imagedata">

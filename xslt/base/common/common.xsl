@@ -880,9 +880,12 @@ object is recognized as a graphic.</para>
   <xsl:variable name="ext"
                 select="f:filename-extension($filename)"/>
 
-  <xsl:variable name="data" select="$object/db:videodata
-                                    |$object/db:imagedata
-                                    |$object/db:audiodata"/>
+  <!-- FIXME: Support multiple imagedata objects; see
+       https://github.com/docbook/docbook/issues/49 and
+       https://github.com/docbook/docbook/issues/52 -->
+  <xsl:variable name="data" select="($object/db:videodata
+                                     |$object/db:imagedata
+                                     |$object/db:audiodata)[1]"/>
 
   <xsl:variable name="explicit-format" select="lower-case($data/@format)"/>
 
