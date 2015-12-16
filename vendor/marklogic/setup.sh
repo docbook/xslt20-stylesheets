@@ -11,6 +11,7 @@ HOSTNAME=localhost
 LOCALE_DATABASE=1
 LOCALE_MODULES=1
 LOCALE_FILESYSTEM=1
+LOCALE_DIRECTORY=`dirname $0`/../../xslt/base/common/locales
 
 # Configure artifact names
 
@@ -130,7 +131,7 @@ API="http://$HOSTNAME:8000/v1/documents"
 CURLOPT="--anyauth -u $ADMIN_USER:$ADMIN_PASS"
 
 if [ $LOCALE_DATABASE = 1 ]; then
-for LOCALE in ../../xslt/base/common/locales/*.xml; do
+for LOCALE in $LOCALE_DIRECTORY/*.xml; do
     LANG=`basename $LOCALE .xml`
     echo "Uploading $LANG locale..."
     curl $CURLOPT $PUT --upload-file $LOCALE \

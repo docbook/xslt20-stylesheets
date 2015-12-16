@@ -2,9 +2,13 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns="http://docbook.org/ns/docbook"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                exclude-result-prefixes="f"
                 version="2.0">
+
+<xsl:import href="../common/functions.xsl"/>
 
 <xsl:output method="xml" indent="no"/>
 
@@ -36,7 +40,7 @@
   <xsl:variable name="lto" select="(../*[@xlink:type='locator' and @xlink:label=$to])[1]"/>
 
   <xsl:if test="$lfrom and $lto and $lfrom/@xlink:href=''">
-    <xsl:sequence select="doc(resolve-uri($lto/@xlink:href, base-uri($lto)))/*/*[@xlink:type='extended']"/>
+    <xsl:sequence select="doc(f:resolve-path($lto/@xlink:href, base-uri($lto)))/*/*[@xlink:type='extended']"/>
   </xsl:if>
 </xsl:template>
 

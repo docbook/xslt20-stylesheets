@@ -1,12 +1,13 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:n="http://docbook.org/xslt/ns/normalize"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc ghost m mp n xs"
+		exclude-result-prefixes="db doc f ghost m mp n xs"
                 version="2.0">
 
 <xsl:import href="../common/functions.xsl"/>
@@ -448,7 +449,7 @@ if appropriate</refpurpose>
     </xsl:when>
     <xsl:otherwise>
       <xsl:value-of
-          select="unparsed-text(resolve-uri($data/@fileref, base-uri(.)))"/>
+          select="unparsed-text(f:resolve-path($data/@fileref, base-uri(.)))"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -465,7 +466,7 @@ if appropriate</refpurpose>
       <xsl:value-of select="unparsed-text(unparsed-entity-uri(db:textdata/@entityref))"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="unparsed-text(resolve-uri(db:textdata/@fileref, base-uri(.)))"/>
+      <xsl:value-of select="unparsed-text(f:resolve-path(db:textdata/@fileref, base-uri(.)))"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

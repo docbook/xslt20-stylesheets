@@ -1,0 +1,22 @@
+<article xmlns="http://docbook.org/ns/docbook" version="5.1">
+<title>Mediaobject test</title>
+
+<para>This tests passing multiple objects through to HTML using
+srcset.</para>
+
+  <mediaobject>
+    <imageobject>
+      <imagedata
+        fileref="../graphics/duck.png"
+        format="PNG">
+      </imagedata>
+      <imagedata
+        fileref="../graphics/duck-small.png"
+        format="PNG">
+      </imagedata>
+    </imageobject>
+    <textobject><phrase>The DocBook: TDG Duck</phrase></textobject>
+    <caption><para>The Duck</para></caption>
+  </mediaobject>
+
+</article>

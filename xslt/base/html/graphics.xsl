@@ -925,7 +925,10 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
       <xsl:apply-templates/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:apply-templates select="db:imagedata"/>
+      <!-- FIXME: Support multiple imagedata objects; see
+           https://github.com/docbook/docbook/issues/49 and
+           https://github.com/docbook/docbook/issues/52 -->
+      <xsl:apply-templates select="db:imagedata[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
