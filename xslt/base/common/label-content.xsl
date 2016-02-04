@@ -109,7 +109,7 @@ processed in this mode should generate their label.</para>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  
+
   <!--
   <xsl:message>label-markup for <xsl:value-of select="name(.)"/></xsl:message>
   <xsl:message>label: <xsl:copy-of select="$label"/></xsl:message>
@@ -125,12 +125,12 @@ processed in this mode should generate their label.</para>
       <xsl:if test="$component.label.includes.part.label != 0 and
 		    ancestor::db:part">
 	<xsl:variable name="part.label">
-          <xsl:apply-templates select="ancestor::db:part" 
+          <xsl:apply-templates select="ancestor::db:part"
 			       mode="m:label-content"/>
 	</xsl:variable>
 	<xsl:if test="$part.label != ''">
           <xsl:value-of select="$part.label"/>
-          <xsl:apply-templates select="ancestor::db:part" 
+          <xsl:apply-templates select="ancestor::db:part"
 			       mode="m:intralabel-punctuation"/>
 	</xsl:if>
       </xsl:if>
@@ -587,17 +587,16 @@ processed in this mode should generate their label.</para>
       <xsl:value-of select="@label"/>
     </xsl:when>
     <xsl:otherwise>
+        <xsl:variable name="prefix">
+          <xsl:if test="$pchap">
+            <xsl:apply-templates select="$pchap" mode="m:label-content"/>
+          </xsl:if>
+        </xsl:variable>
       <xsl:choose>
-        <xsl:when test="$pchap">
-	  <xsl:variable name="prefix">
-	    <xsl:apply-templates select="$pchap" mode="m:label-content"/>
-	  </xsl:variable>
-
-	  <xsl:if test="$prefix != ''">
-	    <xsl:copy-of select="$prefix"/>
-	    <xsl:apply-templates select="$pchap"
-				 mode="m:intralabel-punctuation"/>
-	  </xsl:if>
+        <xsl:when test="$prefix != ''">
+          <xsl:copy-of select="$prefix"/>
+          <xsl:apply-templates select="$pchap"
+                   mode="m:intralabel-punctuation"/>
 
           <xsl:variable name="count" as="xs:string*">
             <xsl:for-each select="$pchap//db:table intersect preceding::db:table">
