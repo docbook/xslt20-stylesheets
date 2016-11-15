@@ -13,7 +13,7 @@
 		exclude-result-prefixes="h f m fn db doc xs t ghost"
                 version="2.0">
 
-<xsl:template match="db:note|db:important|db:warning|db:caution|db:tip">
+<xsl:template match="db:note|db:important|db:warning|db:caution|db:tip|db:danger">
   <xsl:choose>
     <xsl:when test="$admonition.graphics">
       <xsl:apply-templates select="." mode="m:graphical-admonition"/>
