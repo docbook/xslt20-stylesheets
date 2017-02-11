@@ -440,6 +440,7 @@ signing {
 // N.B. This can't work in a CI environment so there's no way to
 // automatically publish the artifacts from, for example, Travis CI.
 //
+
 gradle.taskGraph.whenReady { taskGraph ->
   if(taskGraph.hasTask(':uploadArchives')) {
 
