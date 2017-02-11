@@ -20,7 +20,9 @@
       <xsl:apply-templates select="." mode="m:toc"/>
     </xsl:if>
 
-    <xsl:apply-templates/>
+    <div class="content">
+      <xsl:apply-templates/>
+    </div>
   </article>
 </xsl:template>
 

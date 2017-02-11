@@ -118,12 +118,12 @@ jar.dependsOn copyLib
 task runtests(type: JavaExec) {
   classpath = configurations.runtime
 
-  FileCollection result = fileTree(dir: testsRoot + "/actual/")
+  //FileCollection result = fileTree(dir: testsRoot + "/actual/")
   FileCollection source = fileTree(dir: testsRoot + "/src/")
   FileCollection style  = fileTree(dir: "xslt/")
 
   inputs.file style + source
-  outputs.file result
+  //outputs.file result
 
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
@@ -233,7 +233,7 @@ task makeFoParams(type: JavaExec) {
   inputs.file  fileTree(dir: "tools/").include("mkparam.xsl")
   inputs.file  fileTree(dir: "xslt/params/")
   inputs.file  fileTree(dir: "xslt/base/fo/").include("param.xml")
-  outputs.file fileTree(dir: "xslt/base/fo/").include("param.xsl")
+  outputs.file "xslt/base/fo/param.xsl"
 
   main = 'net.sf.saxon.Transform'
   args('-xsl:tools/mkparam.xsl',
@@ -247,7 +247,7 @@ task makeHtmlParams(type: JavaExec) {
   inputs.file  fileTree(dir: "tools/").include("mkparam.xsl")
   inputs.file  fileTree(dir: "xslt/params/")
   inputs.file  fileTree(dir: "xslt/base/html/").include("param.xml")
-  outputs.file fileTree(dir: "xslt/base/html/").include("param.xsl")
+  outputs.file "xslt/base/html/param.xsl"
 
   main = 'net.sf.saxon.Transform'
   args('-xsl:tools/mkparam.xsl',
@@ -271,7 +271,7 @@ task makeUris(type: JavaExec) {
 
   inputs.file  fileTree(dir: "tools/").include("makecat.xpl")
   inputs.file  fileTree(dir: "xslt/")
-  outputs.file fileTree(dir: "src/main/resources/etc/").include("uris.xml")
+  outputs.file "src/main/resources/etc/uris.xml"
 
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
@@ -440,6 +440,7 @@ signing {
 // N.B. This can't work in a CI environment so there's no way to
 // automatically publish the artifacts from, for example, Travis CI.
 //
+
 gradle.taskGraph.whenReady { taskGraph ->
   if(taskGraph.hasTask(':uploadArchives')) {
 

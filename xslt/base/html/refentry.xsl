@@ -22,7 +22,9 @@
 
     <xsl:call-template name="t:titlepage"/>
 
-    <xsl:apply-templates/>
+    <div class="content">
+      <xsl:apply-templates/>
+    </div>
 
     <xsl:call-template name="t:process-footnotes"/>
   </article>
@@ -122,7 +124,9 @@
 
     <xsl:call-template name="t:titlepage"/>
 
-    <xsl:apply-templates/>
+    <div class="content">
+      <xsl:apply-templates/>
+    </div>
   </div>
 </xsl:template>
 

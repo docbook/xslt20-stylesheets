@@ -16,7 +16,9 @@
   <section>
     <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
-    <xsl:apply-templates/>
+    <div class="content">
+      <xsl:apply-templates/>
+    </div>
   </section>
 </xsl:template>
 
@@ -24,7 +26,9 @@
   <section>
     <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
-    <xsl:apply-templates/>
+    <div class="content">
+      <xsl:apply-templates/>
+    </div>
   </section>
 </xsl:template>
 
