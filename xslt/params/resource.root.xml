@@ -15,7 +15,7 @@
 <refsynopsisdiv>
 <src:fragment xml:id='resource.root.frag'>
 <xsl:param name="resource.root"
-	   select="concat('https://docbook.github.io/release/',$VERSION,'/resources/')"/>
+	   select="concat('https://cdn.docbook.org/release/',$VERSION,'/resources/')"/>
 </src:fragment>
 </refsynopsisdiv>
 
