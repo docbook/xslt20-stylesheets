@@ -178,19 +178,6 @@ and a CSS style is specified.</para>
 <xsl:template match="*" mode="mp:javascript-head">
   <script type="text/javascript"
           src="{concat($resource.root, 'js/dbmodnizr.js')}"/>
-
-  <xsl:choose>
-    <xsl:when test="$syntax-highlighter != '0'">
-      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" 
-            type="text/css"/>
-      <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet"
-            type="text/css"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <link href="{concat($resource.root, 'css/db-noprism.css')}" rel="stylesheet"
-            type="text/css"/>
-    </xsl:otherwise>
-  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="*" mode="m:javascript-head">
@@ -286,12 +273,25 @@ and a CSS style is specified.</para>
 <!-- ====================================================================== -->
 
 <xsl:template match="*" mode="mp:css">
-  <xsl:if test="string($docbook.css) != ''">
-    <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
-  </xsl:if>
-
   <xsl:if test=".//ghost:annotation or .//*[@xlink:type='extended']">
     <link rel="stylesheet" type="text/css" href="{$cdn.jqueryui.css}"/>
+  </xsl:if>
+
+  <xsl:choose>
+    <xsl:when test="$syntax-highlighter != '0'">
+      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" 
+            type="text/css"/>
+      <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet"
+            type="text/css"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <link href="{concat($resource.root, 'css/db-noprism.css')}" rel="stylesheet"
+            type="text/css"/>
+    </xsl:otherwise>
+  </xsl:choose>
+
+  <xsl:if test="string($docbook.css) != ''">
+    <link rel="stylesheet" type="text/css" href="{$docbook.css}"/>
   </xsl:if>
 </xsl:template>
 
