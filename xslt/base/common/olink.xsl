@@ -1020,7 +1020,7 @@
 
   <xsl:if test="not(starts-with(normalize-space($xrefstyle), 'select:') 
               and (contains($xrefstyle, 'docname')))
-              and ($olink.doctitle = 'yes' or $olink.doctitle = '1')
+              and ($olink.doctitle = 1)
               and $current.docid != '' 
               and $rootptr != $targetptr
               and $current.docid != $targetdoc

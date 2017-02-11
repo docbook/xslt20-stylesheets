@@ -691,8 +691,8 @@ and <tag>firstterm</tag> elements.</para>
 
 	<xsl:variable name="targets"
 		      select="//db:glossentry
-			        [normalize-space(db:glossterm) = $term
-			         or normalize-space(db:glossterm/@baseform)
+			        [db:glossterm/normalize-space(.) = $term
+			         or db:glossterm/normalize-space(@baseform)
 				    = $term]"/>
 
 	<xsl:variable name="target" select="$targets[1]"/>
