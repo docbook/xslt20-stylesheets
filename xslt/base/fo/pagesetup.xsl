@@ -2408,6 +2408,7 @@
     <xsl:when test="starts-with($master-reference, 'body') or
                     starts-with($master-reference, 'lot') or
                     starts-with($master-reference, 'front') or
+                    starts-with($master-reference, 'titlepage') or
                     $element = 'preface' or
 		    (starts-with($master-reference, 'back') and $element = 'appendix')">
       <xsl:attribute name="start-indent">
@@ -2662,6 +2663,7 @@
     <xsl:when test="starts-with($pageclass, 'body') or
                     starts-with($pageclass, 'lot') or
                     starts-with($pageclass, 'front') or
+                    starts-with($pageclass, 'titlepage') or
                     $element = 'preface' or
                     (starts-with($pageclass, 'back') and
                     $element = 'appendix')">
