@@ -1,5 +1,5 @@
 <article xmlns="http://docbook.org/ns/docbook">
-<title>HTML Parameters</title>
+<title>FO Parameters</title>
 
 <para>This should be expanded to do a better job of documentation.
 It's just a bogus mess right now.</para>
@@ -177,7 +177,8 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="headers.on.blank.pages"/>
 <refentry xml:id="region.after.extent"/>
 <refentry xml:id="region.before.extent"/>
-
+<refentry xml:id="side.region.precedence"/>
+    
 <refentry xml:id="fo.processor"/>
 <refentry xml:id="root.properties"/>
 <refentry xml:id="alignment"/>
