@@ -56,7 +56,7 @@ dependencies {
   compile (
     [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
     [group: 'com.xmlcalabash', name: 'xmlcalabash', version: '1.1.8-96'],
-    [group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.4'],
+    //[group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.4'],
     [group: 'com.xmlcalabash', name: 'xmlcalabash1-print', version: '1.1.4'],
     [group: 'com.thaiopensource', name: 'jing', version: '20091111', transitive: false],
     [group: 'org.docbook', name: 'docbook-xsl-java-saxon', version: '1.2.1-95'],
