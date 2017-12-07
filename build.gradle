@@ -405,7 +405,7 @@ task dist(dependsOn: [updateDist, zipJar], type: JavaExec) {
       )
 }
 
-task clean.doFirst {
+clean {
   delete "gentext/build/"
   delete "src/main/resources/xslt"
   delete "xslt/base/common/locales/"
