@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <refentry xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0"
           xml:id="footnote.mark.width">
    <refmeta>
@@ -13,11 +13,13 @@
       <refname>footnote.mark.width</refname>
       <refpurpose>FIXME: TBA</refpurpose>
    </refnamediv>
-   <refsynopsisdiv>
-      <src:fragment xml:id="footnote.mark.width.frag">
-<xsl:param name="footnote.mark.width">1em</xsl:param>
-      </src:fragment>
-   </refsynopsisdiv>
+
+<refsynopsisdiv>
+  <src:fragment xml:id="footnote.mark.width.frag">
+    <xsl:param name="footnote.mark.width" as="xs:string" select="'1em'"/>
+  </src:fragment>
+</refsynopsisdiv>
+
    <refsect1>
       <title>Description</title>
       <para>FIXME: TBA</para>

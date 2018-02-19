@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="bibliography.style">
 <refmeta>
 <refentrytitle>bibliography.style</refentrytitle>
@@ -17,7 +18,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='bibliography.style.frag'>
-<xsl:param name="bibliography.style">normal</xsl:param>
+<xsl:param name="bibliography.style" as="xs:string" select="'normal'"/>
 </src:fragment>
 </refsynopsisdiv>
 

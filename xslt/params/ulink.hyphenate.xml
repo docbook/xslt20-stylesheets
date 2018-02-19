@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="ulink.hyphenate">
 <refmeta>
 <refentrytitle>ulink.hyphenate</refentrytitle>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="ulink.hyphenate.frag">
-<xsl:param name="ulink.hyphenate" select="''"/>
+<xsl:param name="ulink.hyphenate" as="xs:string" select="''"/>
 </src:fragment>
 </refsynopsisdiv>
 

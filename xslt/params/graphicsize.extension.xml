@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="graphicsize.extension">
 <refmeta>
 <refentrytitle>graphicsize.extension</refentrytitle>
@@ -14,14 +15,14 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='graphicsize.extension.frag'>
-<xsl:param name="graphicsize.extension" select="1"/>
+<xsl:param name="graphicsize.extension" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero (and if <parameter>use.extensions</parameter> is
-non-zero and if you're using a processor that supports extension
+<para>If true (and if <parameter>use.extensions</parameter> is
+true and if you're using a processor that supports extension
 functions), the <function>getWidth</function> and
 <function>getDepth</function> functions will be used to extract image
 sizes from graphics.</para>

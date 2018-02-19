@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="body.font.size">
 <refmeta>
@@ -15,10 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="body.font.size.frag">
-<xsl:param name="body.font.size">
-  <xsl:value-of select="$body.font.master"/>
-  <xsl:text>pt</xsl:text>
-</xsl:param>
+<xsl:param name="body.font.size" as="xs:string" select="concat(string($body.font.master), 'pt')"/>
 </src:fragment>
 </refsynopsisdiv>
 

@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="alignment">
 <refmeta>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="cdn.jqueryui.frag">
-<xsl:param name="cdn.jqueryui"
+<xsl:param name="cdn.jqueryui" as="xs:string"
            select="'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'"/>
 </src:fragment>
 </refsynopsisdiv>

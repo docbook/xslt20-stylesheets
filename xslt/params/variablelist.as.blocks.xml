@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="variablelist.as.blocks">
 <refmeta>
 <refentrytitle>variablelist.as.blocks</refentrytitle>
@@ -15,13 +16,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="variablelist.as.blocks.frag">
-<xsl:param name="variablelist.as.blocks" select="0"/>
+<xsl:param name="variablelist.as.blocks" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, <tag>variablelist</tag>s will be formatted as
+<para>If true, <tag>variablelist</tag>s will be formatted as
 blocks.</para>
 
 <para>If you have long terms, proper list markup in the FO case may produce

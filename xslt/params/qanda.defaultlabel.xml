@@ -1,7 +1,9 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="qanda.defaultlabel">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="qanda.defaultlabel">
 <refmeta>
 <refentrytitle>qanda.defaultlabel</refentrytitle>
-<refmiscinfo role="type">boolean</refmiscinfo>
+<refmiscinfo role="type">string</refmiscinfo>
 </refmeta>
 <refnamediv>
 <refname>qanda.defaultlabel</refname>
@@ -10,7 +12,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="qanda.defaultlabel.frag">
-<xsl:param name="qanda.defaultlabel">number</xsl:param>
+<xsl:param name="qanda.defaultlabel" as="xs:string" select="'number'"/>
 </src:fragment>
 </refsynopsisdiv>
 

@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="page.margin.outer">
 <refmeta>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="page.margin.outer.frag">
-<xsl:param name="page.margin.outer">
+<xsl:param name="page.margin.outer" as="xs:string">
   <xsl:choose>
     <xsl:when test="$double.sided != 0">0.75in</xsl:when>
     <xsl:otherwise>1in</xsl:otherwise>

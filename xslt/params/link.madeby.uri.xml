@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="link.madeby.uri">
 <refmeta>
@@ -15,13 +16,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="link.madeby.uri.frag">
-<xsl:param name="link.madeby.uri" select="''"/>
+<xsl:param name="link.madeby.uri" as="xs:string" select="''"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If <parameter>$link.madeby.uri</parameter> is not the empty string, each HTML file
+<para>If <parameter>link.madeby.uri</parameter> is not the empty string, each HTML file
 generated will include a <tag>link</tag> element with <code>rel="made"</code> pointing
 to this URI.</para>
 

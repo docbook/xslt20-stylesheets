@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="img.src.path">
 <refmeta>
 <refentrytitle>img.src.path</refentrytitle>
@@ -14,14 +15,14 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='img.src.path.frag'>
-<xsl:param name="img.src.path"/>
+<xsl:param name="img.src.path" as="xs:string" select="''"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
 <para>Add a path prefix to each HTML
-<tag class="element">img</tag> or FO 
+<tag class="element">img</tag> or FO
 <tag class="element">fo:external-graphics</tag> element's
 <tag class="attribute">src</tag> attribute.
 This path could relative to the directory where the HTML/FO

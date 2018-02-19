@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="docbook.css.inline">
 <refmeta>
@@ -15,13 +16,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="docbook.css.inline.frag">
-<xsl:param name="docbook.css.inline" select="0"/>
+<xsl:param name="docbook.css.inline" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, then the CSS will be incorporated directly into
+<para>If true, then the CSS will be incorporated directly into
 the resulting HTML file, rather incorporating a link to it.
 </para>
 

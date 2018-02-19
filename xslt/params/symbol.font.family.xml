@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="symbol.font.family">
 <refmeta>
@@ -16,7 +17,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="symbol.font.family.frag">
-<xsl:param name="symbol.font.family" select="'Symbol,ZapfDingbats'"/>
+<xsl:param name="symbol.font.family" as="xs:string" select="'Symbol,ZapfDingbats'"/>
 </src:fragment>
 </refsynopsisdiv>
 

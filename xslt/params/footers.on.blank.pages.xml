@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="footers.on.blank.pages">
 <refmeta>
@@ -15,13 +16,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="footers.on.blank.pages.frag">
-<xsl:param name="footers.on.blank.pages" select="1"/>
+<xsl:param name="footers.on.blank.pages" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, footers will be placed on blank pages.</para>
+<para>If true, footers will be placed on blank pages.</para>
 
 </refsect1>
 </refentry>

@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="table.cell.border.thickness">
 <refmeta>
 <refentrytitle>table.cell.border.thickness</refentrytitle>
@@ -14,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='table.cell.border.thickness.frag'>
-<xsl:param name="table.cell.border.thickness" select="'1px'"/>
+<xsl:param name="table.cell.border.thickness" as="xs:string" select="'1px'"/>
 </src:fragment>
 </refsynopsisdiv>
 

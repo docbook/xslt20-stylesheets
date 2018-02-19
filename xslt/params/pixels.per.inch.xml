@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="pixels.per.inch">
 <refmeta>
 <refentrytitle>pixels.per.inch</refentrytitle>
@@ -14,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='pixels.per.inch.frag'>
-<xsl:param name="pixels.per.inch" select="90"/>
+<xsl:param name="pixels.per.inch" as="xs:integer" select="90"/>
 </src:fragment>
 </refsynopsisdiv>
 

@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="body.margin.bottom">
 <refmeta>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="body.margin.bottom.frag">
-<xsl:param name="body.margin.bottom" select="'0.5in'"/>
+<xsl:param name="body.margin.bottom" as="xs:string" select="'0.5in'"/>
 </src:fragment>
 </refsynopsisdiv>
 

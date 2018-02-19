@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <refentry xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0"
           xml:id="writing.mode">
    <refmeta>
@@ -15,7 +15,7 @@
    </refnamediv>
    <refsynopsisdiv>
       <src:fragment xml:id="writing.mode.frag">
-<xsl:param name="writing.mode" select="f:gentext(/*[1], 'writing-mode')"
+<xsl:param name="writing.mode" as="xs:string" select="f:gentext(/*[1], 'writing-mode')"
                  xmlns:f="http://docbook.org/xslt/ns/extension"/>
       </src:fragment>
    </refsynopsisdiv>

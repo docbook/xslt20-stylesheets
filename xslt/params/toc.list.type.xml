@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="toc.list.type">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="toc.list.type">
 <refmeta>
 <refentrytitle>toc.list.type</refentrytitle>
 <refmiscinfo role="type">list</refmiscinfo>
@@ -13,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="toc.list.type.frag">
-<xsl:param name="toc.list.type">dl</xsl:param>
+<xsl:param name="toc.list.type" as="xs:string" select="'dl'"/>
 </src:fragment>
 </refsynopsisdiv>
 

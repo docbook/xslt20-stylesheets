@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="bibliography.collection">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="bibliography.collection">
 <refmeta>
 <refentrytitle>bibliography.collection</refentrytitle>
 <refmiscinfo role="type">string</refmiscinfo>
@@ -10,7 +12,8 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="bibliography.collection.frag">
-<xsl:param name="bibliography.collection" select="'http://docbook.sourceforge.net/release/bibliography/bibliography.xml'"/>
+<xsl:param name="bibliography.collection" as="xs:string"
+           select="'http://docbook.sourceforge.net/release/bibliography/bibliography.xml'"/>
 </src:fragment>
 </refsynopsisdiv>
 
