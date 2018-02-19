@@ -842,7 +842,7 @@ cross references to that element.</para>
 
   <!-- handles both biblioentry and bibliomixed -->
   <xsl:choose>
-    <xsl:when test="$bibliography.numbered != 0">
+    <xsl:when test="$bibliography.numbered">
       <xsl:choose>
 	<xsl:when test="$context/self::db:bibliography">
 	  <xsl:number from="db:bibliography"

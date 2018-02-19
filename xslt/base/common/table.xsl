@@ -208,7 +208,7 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
   <xsl:param name="abspixels" select="0"/>
 
   <xsl:variable name="specify-widths"
-                select="$default.table.column.widths != 0 or exists($colgroup/h:col/@width)"/>
+                select="$default.table.column.widths or exists($colgroup/h:col/@width)"/>
 
   <xsl:variable name="parsedcols" as="element()*">
     <xsl:for-each select="$colgroup/*">

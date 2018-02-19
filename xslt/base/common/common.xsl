@@ -293,7 +293,7 @@ template.</para>
     <xsl:apply-templates select="($node/db:firstname|$node/db:givenname)[1]"/>
   </xsl:if>
 
-  <xsl:if test="$node/db:othername and $author.othername.in.middle != 0">
+  <xsl:if test="$node/db:othername and $author.othername.in.middle">
     <xsl:if test="$node/db:honorific or $node/db:firstname or $node/db:givenname">
       <xsl:text> </xsl:text>
     </xsl:if>
@@ -302,7 +302,7 @@ template.</para>
 
   <xsl:if test="$node/db:surname">
     <xsl:if test="$node/db:honorific or $node/db:firstname or $node/db:givenname
-                  or ($node/db:othername and $author.othername.in.middle != 0)">
+                  or ($node/db:othername and $author.othername.in.middle)">
       <xsl:text> </xsl:text>
     </xsl:if>
     <xsl:apply-templates select="$node/db:surname[1]"/>
@@ -542,7 +542,7 @@ year range is <quote>1991-1992</quote> but discretely it's
   -->
 
   <xsl:choose>
-    <xsl:when test="$print.ranges = 0 and exists($years)">
+    <xsl:when test="not($print.ranges) and exists($years)">
       <xsl:choose>
         <xsl:when test="count($years) = 1">
           <xsl:apply-templates select="$years[1]" mode="titlepage.mode"/>

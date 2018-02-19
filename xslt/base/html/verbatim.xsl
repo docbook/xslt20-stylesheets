@@ -128,7 +128,7 @@
 
   <xsl:variable name="data-attr" as="attribute()*">
     <xsl:choose>
-      <xsl:when test="$syntax-highlighter = '0'">
+      <xsl:when test="not($syntax-highlighter)">
         <!-- nop -->
       </xsl:when>
       <xsl:when test="empty($lines)">
@@ -178,7 +178,7 @@
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="$syntax-highlighter = '0' and $numbered">
+    <xsl:when test="not($syntax-highlighter) and $numbered">
       <div class="numbered-verbatim">
         <table border="0">
           <tr>
@@ -200,7 +200,7 @@
         </table>
       </div>
     </xsl:when>
-    <xsl:when test="$syntax-highlighter = '0'"> <!-- and not($numbered) -->
+    <xsl:when test="not($syntax-highlighter)"> <!-- and not($numbered) -->
       <div class="unnumbered-verbatim">
         <xsl:sequence select="$pre"/>
       </div>

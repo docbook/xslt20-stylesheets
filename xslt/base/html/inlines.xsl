@@ -667,7 +667,7 @@ and <tag>firstterm</tag> elements.</para>
     <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), $extra-class)"/>
 
     <xsl:choose>
-      <xsl:when test="($firstterm.only.link = 0 or $firstterm = 1) and @linkend">
+      <xsl:when test="(not($firstterm.only.link) or $firstterm = 1) and @linkend">
 	<xsl:variable name="target" select="key('id',@linkend)[1]"/>
 
 	<a href="{f:href(/,$target)}">
@@ -676,8 +676,8 @@ and <tag>firstterm</tag> elements.</para>
       </xsl:when>
 
       <xsl:when test="not(@linkend)
-		      and ($firstterm.only.link = 0 or $firstterm = 1)
-		      and $glossterm.auto.link != 0">
+		      and (not($firstterm.only.link) or $firstterm = 1)
+		      and $glossterm.auto.link">
 	<xsl:variable name="term">
 	  <xsl:choose>
 	    <xsl:when test="@baseform">

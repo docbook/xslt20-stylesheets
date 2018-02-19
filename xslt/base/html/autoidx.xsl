@@ -74,13 +74,13 @@
   <xsl:param name="scope" select="(ancestor::db:book|/)[last()]"/>
 
   <xsl:variable name="role">
-    <xsl:if test="$index.on.role != 0">
+    <xsl:if test="$index.on.role">
       <xsl:value-of select="@role"/>
     </xsl:if>
   </xsl:variable>
 
   <xsl:variable name="type">
-    <xsl:if test="$index.on.type != 0">
+    <xsl:if test="$index.on.type">
       <xsl:value-of select="@type"/>
     </xsl:if>
   </xsl:variable>

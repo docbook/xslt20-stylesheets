@@ -149,7 +149,7 @@ context node.</para>
   <xsl:param name="node"/>
 
   <xsl:choose>
-    <xsl:when test="$bibliography.numbered != 0">
+    <xsl:when test="$bibliography.numbered">
       <xsl:apply-templates select="$node" mode="mp:biblioentry-label-count"/>
     </xsl:when>
     <xsl:when test="node-name($node/child::*[1]) = xs:QName('db:abbrev')">
@@ -1078,7 +1078,7 @@ node does not have an ID, the XSLT
     <xsl:when test="$node/@id">
       <xsl:value-of select="$node/@id"/>
     </xsl:when>
-    <xsl:when test="$persistent.generated.ids != 0">
+    <xsl:when test="$persistent.generated.ids">
       <xsl:variable name="xpid" select="f:xptr-id($node)"/>
       <xsl:choose>
 	<!-- FIXME: what if $node/key('id', $xpid)? I can't test that because
