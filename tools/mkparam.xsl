@@ -16,6 +16,8 @@
     <xsl:namespace name="xsl" select="'http://www.w3.org/1999/XSL/Transform'"/>
     <xsl:namespace name="db" select="'http://docbook.org/ns/docbook'"/>
     <xsl:namespace name="f" select="'http://docbook.org/xslt/ns/extension'"/>
+    <xsl:namespace name="xs" select="'http://www.w3.org/2001/XMLSchema'"/>
+    <xsl:attribute name="exclude-result-prefixes" select="'db f xs'"/>
     <xsl:apply-templates select="//db:refentry">
       <xsl:sort select="@xml:id"/>
     </xsl:apply-templates>
