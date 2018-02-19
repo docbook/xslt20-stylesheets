@@ -241,7 +241,7 @@ division (book, part, etc.).</para>
 			    |db:article
 			    |db:bibliography|db:glossary|db:index
 			    |db:refentry
-			    |db:bridgehead[$bridgehead.in.toc != 0]"/>
+			    |db:bridgehead[$bridgehead.in.toc]"/>
 
   </xsl:call-template>
 </xsl:template>
@@ -284,9 +284,9 @@ component (chapter, article, etc.).</para>
 			    |db:article|db:bibliography|db:glossary
 			    |db:appendix|db:index
 			    |db:bridgehead[not(@renderas)
-			                   and $bridgehead.in.toc != 0]
+			                   and $bridgehead.in.toc]
 			    |.//db:bridgehead[@renderas='sect1'
-			                      and $bridgehead.in.toc != 0]"/>
+			                      and $bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -348,7 +348,7 @@ section.</para>
                     select="db:section
 			    |db:sect1|db:sect2|db:sect3|db:sect4|db:sect5
 			    |db:refentry
-			    |db:bridgehead[$bridgehead.in.toc != 0]"/>
+			    |db:bridgehead[$bridgehead.in.toc]"/>
 
   </xsl:call-template>
 </xsl:template>
@@ -558,7 +558,7 @@ Lists of Titles for a qandaset.</para>
                                          |db:article
                                          |db:bibliography|db:glossary|db:index
                                          |db:refentry
-                                         |db:bridgehead[$bridgehead.in.toc != 0]"/>
+                                         |db:bridgehead[$bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -566,7 +566,7 @@ Lists of Titles for a qandaset.</para>
   <xsl:param name="toc-context" select="."/>
 
   <!-- If the setindex tag is not empty, it should be it in the TOC -->
-  <xsl:if test="* or $generate.index != 0">
+  <xsl:if test="* or $generate.index">
     <xsl:call-template name="tp:subtoc">
       <xsl:with-param name="toc-context" select="$toc-context"/>
     </xsl:call-template>
@@ -581,7 +581,7 @@ Lists of Titles for a qandaset.</para>
     <xsl:with-param name="nodes" select="db:appendix|db:chapter|db:article
                                          |db:index|db:glossary|db:bibliography
                                          |db:preface|db:reference|db:refentry
-                                         |db:bridgehead[$bridgehead.in.toc != 0]"/>
+                                         |db:bridgehead[$bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -592,7 +592,7 @@ Lists of Titles for a qandaset.</para>
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:section|db:sect1|db:simplesect|db:refentry
                                          |db:glossary|db:bibliography|db:index
-                                         |db:bridgehead[$bridgehead.in.toc != 0]"/>
+                                         |db:bridgehead[$bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -601,7 +601,7 @@ Lists of Titles for a qandaset.</para>
   <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:sect2
-                                         |db:bridgehead[$bridgehead.in.toc != 0]"/>
+                                         |db:bridgehead[$bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -611,7 +611,7 @@ Lists of Titles for a qandaset.</para>
   <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:sect3
-                                         |db:bridgehead[$bridgehead.in.toc != 0]"/>
+                                         |db:bridgehead[$bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -621,7 +621,7 @@ Lists of Titles for a qandaset.</para>
   <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:sect4
-                                         |db:bridgehead[$bridgehead.in.toc != 0]"/>
+                                         |db:bridgehead[$bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -631,7 +631,7 @@ Lists of Titles for a qandaset.</para>
   <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:sect5
-                                         |db:bridgehead[$bridgehead.in.toc != 0]"/>
+                                         |db:bridgehead[$bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
@@ -649,14 +649,14 @@ Lists of Titles for a qandaset.</para>
   <xsl:call-template name="tp:subtoc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes" select="db:section
-                                         |db:bridgehead[$bridgehead.in.toc != 0]"/>
+                                         |db:bridgehead[$bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="db:bridgehead" mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
-  <xsl:if test="$bridgehead.in.toc != 0">
+  <xsl:if test="$bridgehead.in.toc">
     <xsl:call-template name="tp:subtoc">
       <xsl:with-param name="toc-context" select="$toc-context"/>
     </xsl:call-template>
@@ -675,7 +675,7 @@ Lists of Titles for a qandaset.</para>
   <xsl:param name="toc-context" select="."/>
 
   <!-- If the index tag is not empty, it should be it in the TOC -->
-  <xsl:if test="* or $generate.index != 0">
+  <xsl:if test="* or $generate.index">
     <xsl:call-template name="tp:subtoc">
       <xsl:with-param name="toc-context" select="$toc-context"/>
     </xsl:call-template>
@@ -708,7 +708,7 @@ Lists of Titles for a qandaset.</para>
       </a>
     </span>
     <span class='refpurpose'>
-      <xsl:if test="$annotate.toc != 0">
+      <xsl:if test="$annotate.toc">
         <xsl:text> - </xsl:text>
         <xsl:value-of select="db:refnamediv/db:refpurpose"/>
       </xsl:if>

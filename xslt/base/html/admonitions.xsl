@@ -86,7 +86,7 @@ the graphical form.</para>
 	  </td>
 	  <td>
 	    <xsl:if test="db:info/db:title[not(@ghost:title)
-			                   or $admonition.default.titles != 0]">
+			                   or $admonition.default.titles]">
 	      <div class="admon-title-text">
 		<xsl:call-template name="t:titlepage"/>
 	      </div>

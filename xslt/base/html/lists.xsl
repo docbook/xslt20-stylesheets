@@ -94,7 +94,7 @@
       <!-- If there's no inline style attribute, force the class -->
       <!-- to contain the numeration so that external CSS can work -->
       <!-- otherwise, leave the class whatever it was -->
-      <xsl:if test="$inline.style.attribute = 0">
+      <xsl:if test="not($inline.style.attribute)">
         <xsl:attribute name="class" select="$numeration"/>
       </xsl:if>
 
@@ -489,7 +489,7 @@
       <xsl:when test="$presentation = 'list'">
         <xsl:apply-templates/>
       </xsl:when>
-      <xsl:when test="$segmentedlist.as.table != 0">
+      <xsl:when test="$segmentedlist.as.table">
         <xsl:apply-templates select="." mode="m:seglist-table"/>
       </xsl:when>
       <xsl:otherwise>

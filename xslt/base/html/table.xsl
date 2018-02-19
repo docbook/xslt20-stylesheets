@@ -64,7 +64,7 @@
 <xsl:template name="t:table-longdesc">
   <xsl:variable name="longdesc.uri" select="f:longdesc-uri(.)"/>
 
-  <xsl:if test="$html.longdesc != 0 and $html.longdesc.link != 0
+  <xsl:if test="$html.longdesc and $html.longdesc.link
                 and db:textobject[not(db:phrase)]">
     <xsl:call-template name="t:write-longdesc">
       <xsl:with-param name="mediaobject" select="."/>

@@ -94,7 +94,7 @@ that should be used to generate its title.</para>
 
 <xsl:template match="db:procedure" mode="m:object-title-template">
   <xsl:choose>
-    <xsl:when test="$formal.procedures != 0 and title">
+    <xsl:when test="$formal.procedures and title">
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title'"/>
 	<xsl:with-param name="name"
@@ -176,13 +176,13 @@ that should be used to generate a cross-reference to it.</para>
 
   <xsl:variable name="context">
     <xsl:choose>
-      <xsl:when test="$autonumber != 0 
-                      and $number-and-title-template != 0
-                      and $xref.with.number.and.title != 0">
+      <xsl:when test="$autonumber
+                      and $number-and-title-template
+                      and $xref.with.number.and.title">
          <xsl:value-of select="'xref-number-and-title'"/>
       </xsl:when>
-      <xsl:when test="$autonumber != 0 
-                      and $number-template != 0">
+      <xsl:when test="$autonumber
+                      and $number-template">
          <xsl:value-of select="'xref-number'"/>
       </xsl:when>
       <xsl:otherwise>
@@ -837,7 +837,7 @@ defaults to the language of the context node.</para>
 
   <xsl:variable name="pagetype">
     <xsl:choose>
-      <xsl:when test="$olink.insert.page.number = 0
+      <xsl:when test="not($olink.insert.page.number)
                       and local-name($referrer) = 'olink'">
         <!-- suppress page numbers -->
       </xsl:when>
@@ -865,7 +865,7 @@ defaults to the language of the context node.</para>
 
   <xsl:variable name="docnametype">
     <xsl:choose>
-      <xsl:when test="$olink.doctitle = 0
+      <xsl:when test="not($olink.doctitle)
                       and local-name($referrer) = 'olink'">
         <!-- suppress docname -->
       </xsl:when>

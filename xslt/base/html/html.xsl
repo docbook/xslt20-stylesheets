@@ -166,7 +166,7 @@ and a CSS style is specified.</para>
 <xsl:template name="style">
   <xsl:param name="css"/>
 
-  <xsl:if test="$inline.style.attribute != 0 and $css">
+  <xsl:if test="$inline.style.attribute and $css">
     <xsl:attribute name="style">
       <xsl:value-of select="$css"/>
     </xsl:attribute>
@@ -204,7 +204,7 @@ and a CSS style is specified.</para>
             src="{concat($resource.root, 'js/nhrefs.js')}"/>
   </xsl:if>
 
-  <xsl:if test="$syntax-highlighter != '0'">
+  <xsl:if test="$syntax-highlighter">
     <script src="{concat($resource.root, 'js/prism.js')}"></script>
   </xsl:if>
 </xsl:template>
@@ -248,7 +248,7 @@ and a CSS style is specified.</para>
 
   <xsl:variable name="numbered" select="f:syntax-highlight($node)"/>
 
-  <xsl:if test="$syntax-highlighter != '0'">
+  <xsl:if test="$syntax-highlighter">
     <xsl:variable name="language" select="$node/@language/string()"/>
     <xsl:variable name="mapped-language"
                   select="($syntax.highlight.map[@key=$language]/@value/string(),
@@ -278,7 +278,7 @@ and a CSS style is specified.</para>
   </xsl:if>
 
   <xsl:choose>
-    <xsl:when test="$syntax-highlighter != '0'">
+    <xsl:when test="$syntax-highlighter">
       <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" 
             type="text/css"/>
       <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet"
