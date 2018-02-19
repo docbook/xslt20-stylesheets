@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="callout.unicode.number.limit">
 <refmeta>
 <refentrytitle>callout.unicode.number.limit</refentrytitle>
@@ -14,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='callout.unicode.number.limit.frag'>
-<xsl:param name="callout.unicode.number.limit" select="'10'"/>
+<xsl:param name="callout.unicode.number.limit" as="xs:integer" select="10"/>
 </src:fragment>
 </refsynopsisdiv>
 

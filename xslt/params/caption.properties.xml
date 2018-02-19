@@ -13,11 +13,13 @@
       <refname>caption.properties</refname>
       <refpurpose>FIXME: TBA</refpurpose>
    </refnamediv>
-   <refsynopsisdiv>
-      <src:fragment xml:id="caption.properties.frag">
-         <xsl:attribute-set name="caption.properties"> </xsl:attribute-set>
-      </src:fragment>
-   </refsynopsisdiv>
+
+<refsynopsisdiv>
+  <src:fragment xml:id="caption.properties.frag">
+    <xsl:attribute-set name="caption.properties"/>
+  </src:fragment>
+</refsynopsisdiv>
+
    <refsect1>
       <title>Description</title>
       <para>FIXME: TBA</para>

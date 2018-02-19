@@ -1,25 +1,27 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="author.othername.in.middle">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="author.othername.in.middle">
 <refmeta>
 <refentrytitle>author.othername.in.middle</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
 </refmeta>
 <refnamediv>
 <refname>author.othername.in.middle</refname>
-<refpurpose>Is <tag>othername</tag> in <sgmltag>author</sgmltag> a
+<refpurpose>Is <tag>othername</tag> in <tag>author</tag> a
 middle name?</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
 <src:fragment xml:id="author.othername.in.middle.frag">
-<xsl:param name="author.othername.in.middle" select="1"/>
+<xsl:param name="author.othername.in.middle" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If true (non-zero), the <tag>othername</tag> of an <sgmltag>author</sgmltag>
+<para>If true (non-zero), the <tag>othername</tag> of an <tag>author</tag>
 appears between the <tag>firstname</tag> and
-<tag>surname</tag>.  Otherwise, <sgmltag>othername</sgmltag>
+<tag>surname</tag>.  Otherwise, <tag>othername</tag>
 is suppressed.
 </para>
 

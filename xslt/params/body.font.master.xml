@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="body.font.master">
 <refmeta>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="body.font.master.frag">
-<xsl:param name="body.font.master" select="10"/>
+<xsl:param name="body.font.master" as="xs:double" select="10.0"/>
 </src:fragment>
 </refsynopsisdiv>
 

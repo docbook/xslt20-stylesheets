@@ -23,7 +23,7 @@
     <!-- An empty index element indicates that the index -->
     <!-- should be generated automatically -->
     <!-- when generate.index is not false -->
-    <xsl:if test="count(*)>0 or $generate.index != 0">
+    <xsl:if test="count(*) > 0 or $generate.index">
       <xsl:choose>
         <xsl:when test="not(db:indexentry) and not(db:indexdiv)">
           <xsl:call-template name="generate-index">

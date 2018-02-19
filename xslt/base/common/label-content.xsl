@@ -122,7 +122,7 @@ processed in this mode should generate their label.</para>
     </xsl:when>
 
     <xsl:when test="$label">
-      <xsl:if test="$component.label.includes.part.label != 0 and
+      <xsl:if test="$component.label.includes.part.label and
 		    ancestor::db:part">
 	<xsl:variable name="part.label">
           <xsl:apply-templates select="ancestor::db:part"
@@ -136,7 +136,7 @@ processed in this mode should generate their label.</para>
       </xsl:if>
 
       <xsl:choose>
-        <xsl:when test="$label.from.part != 0 and ancestor::db:part">
+        <xsl:when test="$label.from.part and ancestor::db:part">
 	  <xsl:number from="db:part" format="{$format}" level="any"/>
         </xsl:when>
 	<xsl:when test="ancestor::db:article">
@@ -210,7 +210,7 @@ processed in this mode should generate their label.</para>
       <xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
     </xsl:if>
 
-    <xsl:if test="$section.label.includes.component.label != 0
+    <xsl:if test="$section.label.includes.component.label
 		  and parent::* instance of element()
 		  and f:is-component(..)">
       <xsl:variable name="parent.label">
@@ -247,7 +247,7 @@ processed in this mode should generate their label.</para>
 
   <xsl:if test="@label or f:label-this-section(.)">
     <!-- if the parent is a component, maybe label that too -->
-    <xsl:if test="$section.label.includes.component.label != 0
+    <xsl:if test="$section.label.includes.component.label
 		  and f:is-component(..)">
       <xsl:variable name="parent.label">
 	<xsl:apply-templates select=".." mode="m:label-content"/>
@@ -408,7 +408,7 @@ processed in this mode should generate their label.</para>
       </xsl:if>
     </xsl:if>
 
-    <xsl:if test="$section.label.includes.component.label != 0
+    <xsl:if test="$section.label.includes.component.label
 		  and f:is-component(..)">
       <xsl:variable name="parent.label">
 	<xsl:apply-templates select=".." mode="m:label-content"/>
@@ -457,7 +457,7 @@ processed in this mode should generate their label.</para>
     </xsl:variable>
 
     <xsl:variable name="prefix">
-      <xsl:if test="$qanda.inherit.numeration != 0">
+      <xsl:if test="$qanda.inherit.numeration">
 	<xsl:if test="$lparent.prefix != ''">
 	  <xsl:copy-of select="$lparent.prefix"/>
 	  <xsl:apply-templates select="$lparent"
@@ -500,7 +500,7 @@ processed in this mode should generate their label.</para>
   </xsl:variable>
 
   <xsl:variable name="prefix">
-    <xsl:if test="$qanda.inherit.numeration != 0">
+    <xsl:if test="$qanda.inherit.numeration">
       <xsl:if test="$lparent.prefix != ''">
 	<xsl:copy-of select="$lparent.prefix"/>
 	<xsl:apply-templates select="$lparent" mode="m:intralabel-punctuation"/>
@@ -640,7 +640,7 @@ processed in this mode should generate their label.</para>
     <xsl:when test="@label">
       <xsl:value-of select="@label"/>
     </xsl:when>
-    <xsl:when test="self::db:procedure and $formal.procedures = 0">
+    <xsl:when test="self::db:procedure and not($formal.procedures)">
       <!-- No label -->
     </xsl:when>
     <xsl:otherwise>

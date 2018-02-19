@@ -1,4 +1,9 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="xref.with.number.and.title">
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+          xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="xref.with.number.and.title">
 <refmeta>
 <refentrytitle>xref.with.number.and.title</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="xref.with.number.and.title.frag">
-<xsl:param name="xref.with.number.and.title" select="1"/>
+<xsl:param name="xref.with.number.and.title" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 

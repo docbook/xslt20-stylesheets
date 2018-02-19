@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="draft.mode">
 <refmeta>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="draft.mode.frag">
-<xsl:param name="draft.mode" select="'maybe'"/>
+<xsl:param name="draft.mode" as="xs:string" select="'maybe'"/>
 </src:fragment>
 </refsynopsisdiv>
 

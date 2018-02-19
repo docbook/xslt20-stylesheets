@@ -39,24 +39,16 @@ repositories {
   maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-configurations.all {
-  resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-    if (details.requested.name == 'saxon' && details.requested.version == '8.7') {
-      details.useTarget "net.sf.saxon:Saxon-HE:" + saxonVersion
-    }
-  }
-}
-
 configurations {
   pluginApi
 }
 
 dependencies {
-  compile fileTree(dir: 'delta').include("*.jar")
+  compile fileTree(dir: 'lib').include("*.jar")
   compile (
     [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
     [group: 'com.xmlcalabash', name: 'xmlcalabash', version: '1.1.8-96'],
-    [group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.4'],
+    //[group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.4'],
     [group: 'com.xmlcalabash', name: 'xmlcalabash1-print', version: '1.1.4'],
     [group: 'com.thaiopensource', name: 'jing', version: '20091111', transitive: false],
     [group: 'org.docbook', name: 'docbook-xsl-java-saxon', version: '1.2.1-95'],
@@ -122,8 +114,7 @@ task runtests(type: JavaExec) {
   FileCollection source = fileTree(dir: testsRoot + "/src/")
   FileCollection style  = fileTree(dir: "xslt/")
 
-  inputs.file style + source
-  //outputs.file result
+  inputs.files style + source
 
   main = 'com.xmlcalabash.drivers.Main'
   maxHeapSize = '1024m'
@@ -230,9 +221,9 @@ gentext.onlyIf {
 task makeFoParams(type: JavaExec) {
   classpath = configurations.runtime
 
-  inputs.file  fileTree(dir: "tools/").include("mkparam.xsl")
-  inputs.file  fileTree(dir: "xslt/params/")
-  inputs.file  fileTree(dir: "xslt/base/fo/").include("param.xml")
+  inputs.file  "tools/mkparam.xsl"
+  inputs.files fileTree(dir: "xslt/params/")
+  inputs.files fileTree(dir: "xslt/base/fo/").include("param.xml")
   outputs.file "xslt/base/fo/param.xsl"
 
   main = 'net.sf.saxon.Transform'
@@ -244,9 +235,9 @@ task makeFoParams(type: JavaExec) {
 task makeHtmlParams(type: JavaExec) {
   classpath = configurations.runtime
 
-  inputs.file  fileTree(dir: "tools/").include("mkparam.xsl")
-  inputs.file  fileTree(dir: "xslt/params/")
-  inputs.file  fileTree(dir: "xslt/base/html/").include("param.xml")
+  inputs.file "tools/mkparam.xsl"
+  inputs.files fileTree(dir: "xslt/params/")
+  inputs.files fileTree(dir: "xslt/base/html/").include("param.xml")
   outputs.file "xslt/base/html/param.xsl"
 
   main = 'net.sf.saxon.Transform'
@@ -405,16 +396,18 @@ task dist(dependsOn: [updateDist, zipJar], type: JavaExec) {
       )
 }
 
-task clean.doFirst {
-  delete "gentext/build/"
-  delete "src/main/resources/xslt"
-  delete "xslt/base/common/locales/"
-  delete "xslt/base/fo/param.xsl"
-  delete "xslt/base/html/param.xsl"
-  delete "build/"
-  delete "test/diff"
-  delete "test/actual"
-  delete "test/result"
+clean {
+  doFirst {
+    delete "gentext/build/"
+    delete "src/main/resources/xslt"
+    delete "xslt/base/common/locales/"
+    delete "xslt/base/fo/param.xsl"
+    delete "xslt/base/html/param.xsl"
+    delete "build/"
+    delete "test/diff"
+    delete "test/actual"
+    delete "test/result"
+  }
 }
 
 /*

@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="ulink.footnotes">
 <refmeta>
 <refentrytitle>ulink.footnotes</refentrytitle>
@@ -15,13 +16,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="ulink.footnotes.frag">
-<xsl:param name="ulink.footnotes" select="0"/>
+<xsl:param name="ulink.footnotes" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, and if <parameter>ulink.show</parameter> also is non-zero,
+<para>If true, and if <parameter>ulink.show</parameter> also is non-zero,
 the URL of each <tag>ulink</tag> will appear as a footnote.</para>
 
 <note><para>DocBook 5 does not have an <tag>ulink</tag> element. When processing 

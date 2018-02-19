@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="body.end.indent">
 <refmeta>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="body.end.indent.frag">
-<xsl:param name="body.end.indent" select="'0pt'"/>
+<xsl:param name="body.end.indent" as="xs:string" select="'0pt'"/>
 </src:fragment>
 </refsynopsisdiv>
 

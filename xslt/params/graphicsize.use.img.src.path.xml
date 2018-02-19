@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="graphicsize.use.img.src.path">
 <refmeta>
 <refentrytitle>graphicsize.use.img.src.path</refentrytitle>
@@ -15,13 +16,13 @@ filenames passed to extension functions</refpurpose>
 
 <refsynopsisdiv>
 <src:fragment xml:id='graphicsize.use.img.src.path.frag'>
-<xsl:param name="graphicsize.use.img.src.path" select="0"/>
+<xsl:param name="graphicsize.use.img.src.path" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero <parameter>img.src.path</parameter> parameter will
+<para>If true <parameter>img.src.path</parameter> parameter will
 be appended before filenames passed to extension functions for
 measuring image dimensions.</para>
 

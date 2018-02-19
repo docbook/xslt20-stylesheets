@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="nominal.image.width">
 <refmeta>
 <refentrytitle>nominal.image.width</refentrytitle>
@@ -14,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='nominal.image.width.frag'>
-<xsl:param name="nominal.image.width" select="6 * $pixels.per.inch"/>
+<xsl:param name="nominal.image.width" as="xs:integer" select="6 * $pixels.per.inch"/>
 </src:fragment>
 </refsynopsisdiv>
 

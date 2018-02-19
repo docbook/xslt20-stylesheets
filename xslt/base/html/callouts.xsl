@@ -189,7 +189,7 @@
 
 	<xsl:when test="$target/self::db:areaset">
           <xsl:choose>
-            <xsl:when test="$syntax-highlighter = '0'">
+            <xsl:when test="not($syntax-highlighter)">
 	      <xsl:call-template name="t:callout-bug">
 	        <xsl:with-param name="conum"
                                 select="tokenize($target//db:area[1]/@coords, '\s+')[1]"/>
@@ -214,7 +214,7 @@
 
 	<xsl:when test="$target/self::db:area"> <!-- not imageobjectco -->
           <xsl:choose>
-            <xsl:when test="$syntax-highlighter = '0'">
+            <xsl:when test="not($syntax-highlighter)">
 	      <xsl:call-template name="t:callout-bug">
 	        <xsl:with-param name="conum"
 			        select="tokenize($target/@coords,'\s+')[1]"/>

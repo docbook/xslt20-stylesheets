@@ -3,6 +3,7 @@
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns="http://docbook.org/ns/docbook"
           xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0"
           xml:id="admonition.graphics.path">
    <refmeta>
@@ -13,11 +14,13 @@
       <refname>admonition.graphics.path</refname>
       <refpurpose>FIXME: TBA</refpurpose>
    </refnamediv>
-   <refsynopsisdiv>
-      <src:fragment xml:id="admonition.graphics.path.frag">
-<xsl:param name="admonition.graphics.path">FIXME:/images/</xsl:param>
-      </src:fragment>
-   </refsynopsisdiv>
+
+<refsynopsisdiv>
+  <src:fragment xml:id="admonition.graphics.path.frag">
+    <xsl:param name="admonition.graphics.path" as="xs:string" select="'FIXME:/images/'"/>
+  </src:fragment>
+</refsynopsisdiv>
+
    <refsect1>
       <title>Description</title>
       <para>FIXME: TBA</para>

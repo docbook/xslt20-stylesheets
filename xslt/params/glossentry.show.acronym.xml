@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="glossentry.show.acronym">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="glossentry.show.acronym">
 <refmeta>
 <refentrytitle>glossentry.show.acronym</refentrytitle>
 <refmiscinfo role="type">list</refmiscinfo>
@@ -10,7 +12,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="glossentry.show.acronym.frag">
-<xsl:param name="glossentry.show.acronym" select="'no'"/>
+<xsl:param name="glossentry.show.acronym" as="xs:string" select="'no'"/>
 </src:fragment>
 </refsynopsisdiv>
 
@@ -22,7 +24,7 @@ then they are shown as the primary text for the entry.</para>
 
 <note>
 <para>This setting controls both <tag>acronym</tag> and
-<tag>abbrev</tag> elements in the <sgmltag>glossentry</sgmltag>.</para>
+<tag>abbrev</tag> elements in the <tag>glossentry</tag>.</para>
 </note>
 
 </refsect1>

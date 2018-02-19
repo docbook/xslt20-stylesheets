@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="page.orientation">
 <refmeta>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="page.orientation.frag">
-<xsl:param name="page.orientation" select="'portrait'"/>
+<xsl:param name="page.orientation" as="xs:string" select="'portrait'"/>
 </src:fragment>
 </refsynopsisdiv>
 

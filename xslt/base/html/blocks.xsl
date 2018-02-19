@@ -90,7 +90,7 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:remark">
-  <xsl:if test="$show.comments != 0">
+  <xsl:if test="$show.comments">
     <div>
       <xsl:sequence select="f:html-attributes(.)"/>
       <xsl:apply-templates/>

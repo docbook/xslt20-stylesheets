@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="label.from.part">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="label.from.part">
 <refmeta>
 <refentrytitle>label.from.part</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,14 +12,14 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="label.from.part.frag">
-<xsl:param name="label.from.part" select="0"/>
+<xsl:param name="label.from.part" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
 <para>If <parameter>label.from.part</parameter> is non-zero, components
-(<tag>chapter</tag>s, <sgmltag>appendixe</sgmltag>s, etc.)
+(<tag>chapter</tag>s, <tag>appendixe</tag>s, etc.)
 will be numbered from 1 in each <tag>part</tag>. Otherwise,
 they will be numbered monotonically throughout each
 <tag>book</tag>.

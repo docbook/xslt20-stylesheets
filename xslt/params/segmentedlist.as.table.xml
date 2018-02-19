@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="segmentedlist.as.table">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="segmentedlist.as.table">
 <refmeta>
 <refentrytitle>segmentedlist.as.table</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,13 +12,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="segmentedlist.as.table.frag">
-<xsl:param name="segmentedlist.as.table" select="0"/>
+<xsl:param name="segmentedlist.as.table" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, <tag>segmentedlist</tag>s will be formatted as
+<para>If true, <tag>segmentedlist</tag>s will be formatted as
 tables.</para>
 
 </refsect1>

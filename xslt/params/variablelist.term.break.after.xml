@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="variablelist.term.break.after">
 <refmeta>
 <refentrytitle>variablelist.term.break.after</refentrytitle>
@@ -16,18 +17,19 @@ multi-term <tag>varlistentry</tag>?</refpurpose>
 
 <refsynopsisdiv>
 <src:fragment xml:id="variablelist.term.break.after.frag">
-<xsl:param name="variablelist.term.break.after">0</xsl:param></src:fragment>
+<xsl:param name="variablelist.term.break.after" as="xs:boolean" select="false()"/>
+</src:fragment>
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
 
-<para>Set a non-zero value for the
+<para>Set the
 <parameter>variablelist.term.break.after</parameter> parameter to
 generate a line break between <tag>term</tag>s in a
 multi-term <tag>varlistentry</tag>.</para>
 
 <note>
-<para>If you set a non-zero value for
+<para>If you set the
 <parameter>variablelist.term.break.after</parameter>, you may also
 want to set the value of the
 <parameter>variablelist.term.separator</parameter> parameter to an

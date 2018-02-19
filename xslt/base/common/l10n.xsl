@@ -104,7 +104,7 @@ target.</para>
         <xsl:value-of select="$l10n.gentext.language"/>
       </xsl:when>
 
-      <xsl:when test="$xref-context or $l10n.gentext.use.xref.language != 0">
+      <xsl:when test="$xref-context or $l10n.gentext.use.xref.language">
         <!-- can't do this one step: attributes are unordered! -->
         <xsl:variable name="lang-scope"
                       select="$target/ancestor-or-self::*

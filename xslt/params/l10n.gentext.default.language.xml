@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="l10n.gentext.default.language">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="l10n.gentext.default.language">
 <refmeta>
 <refentrytitle>l10n.gentext.default.language</refentrytitle>
 <refmiscinfo role="type">string</refmiscinfo>
@@ -10,7 +12,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="l10n.gentext.default.language.frag">
-<xsl:param name="l10n.gentext.default.language" select="'en'"/>
+<xsl:param name="l10n.gentext.default.language" as="xs:string" select="'en'"/>
 </src:fragment>
 </refsynopsisdiv>
 

@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="default.table.column.widths">
 <refmeta>
 <refentrytitle>default.table.column.widths</refentrytitle>
@@ -14,11 +15,11 @@
 </refnamediv>
 <refsynopsisdiv>
 <src:fragment xml:id="default.table.column.widths.frag">
-<xsl:param name="default.table.column.widths" select="1"></xsl:param>
+<xsl:param name="default.table.column.widths" as="xs:boolean" select="true()"></xsl:param>
 </src:fragment>
 </refsynopsisdiv>
 <refsection><info><title>Description</title></info>
-<para>If non-zero, CALS tables will have a computed width for every column, even if
+<para>If true, CALS tables will have a computed width for every column, even if
 the table doesn't specify any widths. By default, CALS table columns are all of equal
 width in the absense of any width specification.</para>
 

@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="callout.graphics.extension">
 <refmeta>
 <refentrytitle>callout.graphics.extension</refentrytitle>
@@ -14,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='callout.graphics.extension.frag'>
-<xsl:param name="callout.graphics.extension" select="'.png'"/>
+<xsl:param name="callout.graphics.extension" as="xs:string" select="'.png'"/>
 </src:fragment>
 </refsynopsisdiv>
 

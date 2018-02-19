@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="table.cell.border.color">
 <refmeta>
 <refentrytitle>table.cell.border.color</refentrytitle>
@@ -14,8 +15,8 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='table.cell.border.color.frag'>
-<xsl:param condition="html" name="table.cell.border.color" select="''"/>
-<xsl:param condition="fo" name="table.cell.border.color" select="'black'"/>
+<xsl:param condition="html" name="table.cell.border.color" as="xs:string" select="''"/>
+<xsl:param condition="fo" name="table.cell.border.color" as="xs:string" select="'black'"/>
 </src:fragment>
 </refsynopsisdiv>
 

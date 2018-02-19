@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="itemizedlist.label.width">
 <refmeta>
 <refentrytitle>itemizedlist.label.width</refentrytitle>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
   <src:fragment xml:id="itemizedlist.label.width.frag">
-    <xsl:param name="itemizedlist.label.width">1.0em</xsl:param>
+    <xsl:param name="itemizedlist.label.width" as="xs:string" select="'1.0em'"/>
   </src:fragment>
 </refsynopsisdiv>
 

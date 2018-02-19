@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="index.on.role">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="index.on.role">
 <refmeta>
 <refentrytitle>index.on.role</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,19 +12,19 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="index.on.role.frag">
-<xsl:param name="index.on.role" select="0"/>
+<xsl:param name="index.on.role" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
 <para>
-If non-zero, 
+If true,
 then an <tag>index</tag> element that has a
 <tag>role</tag> attribute
 value will contain only those <tag>indexterm</tag>
 elements with a matching role value.
-If an <tag>index</tag> has no <sgmltag>role</sgmltag>
+If an <tag>index</tag> has no <tag>role</tag>
 attribute or it is blank, then the index will contain
 all <tag>indexterm</tag>s in the current scope.
 </para>
@@ -33,8 +35,8 @@ on selecting indexterms for an index.
 </para>
 
 <para>If you are using DocBook version 4.3 or later, you should
-use the <tag>type</tag> attribute instead of <sgmltag>role</sgmltag>
-on <tag>indexterm</tag> and <sgmltag>index</sgmltag>,
+use the <tag>type</tag> attribute instead of <tag>role</tag>
+on <tag>indexterm</tag> and <tag>index</tag>,
 and set the <parameter>index.on.type</parameter> to a nonzero
 value.
 </para>

@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="footnote.font.size">
 <refmeta>
 <refentrytitle>footnote.font.size</refentrytitle>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="footnote.font.size.frag"><xsl:param name="footnote.font.size">
- <xsl:value-of select="$body.font.master * 0.8"/><xsl:text>pt</xsl:text>
+ <xsl:value-of as="xs:double" select="$body.font.master * 0.8"/><xsl:text>pt</xsl:text>
 </xsl:param></src:fragment>
 </refsynopsisdiv>
 
