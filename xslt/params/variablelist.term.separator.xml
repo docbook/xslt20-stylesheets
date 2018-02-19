@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="variablelist.term.separator">
 <refmeta>
 <refentrytitle>variablelist.term.separator</refentrytitle>
@@ -16,7 +17,8 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="variablelist.term.separator.frag">
-<xsl:param name="variablelist.term.separator">, </xsl:param></src:fragment>
+<xsl:param name="variablelist.term.separator" as="xs:string" select="', '"/>
+</src:fragment>
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>

@@ -2,6 +2,7 @@
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
           xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="verbatim.trim.blank.lines">
 <refmeta>
 <refentrytitle>verbatim.trim.blank.lines</refentrytitle>
@@ -14,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="verbatim.trim.blank.lines.frag">
-<xsl:param name="verbatim.trim.blank.lines" select="1"/>
+<xsl:param name="verbatim.trim.blank.lines" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 

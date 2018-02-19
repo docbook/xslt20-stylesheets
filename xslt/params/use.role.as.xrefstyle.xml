@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="use.role.as.xrefstyle">
 <refmeta>
 <refentrytitle>use.role.as.xrefstyle</refentrytitle>
@@ -16,13 +17,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="use.role.as.xrefstyle.frag">
-<xsl:param name="use.role.as.xrefstyle" select="1"/>
+<xsl:param name="use.role.as.xrefstyle" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
 
-<para>If non-zero, the <tag class="attribute">role</tag> attribute on
+<para>If true, the <tag class="attribute">role</tag> attribute on
 <tag>xref</tag> will be used to select the cross reference style.
 The <link xlink:href="http://www.oasis-open.org/docbook/">DocBook
 Technical Committee</link> recently added an

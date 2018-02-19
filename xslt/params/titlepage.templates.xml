@@ -1,10 +1,10 @@
 <refentry xmlns="http://docbook.org/ns/docbook"
-	   xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
-	   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	   xmlns:xlink="http://www.w3.org/1999/xlink"
-	   version="5.0"
-	   xml:id="titlepage.templates">
-
+	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	  version="5.0"
+	  xml:id="titlepage.templates">
 <refmeta>
 <refentrytitle>titlepage.templates</refentrytitle>
 <refmiscinfo role="type">uri</refmiscinfo>
@@ -16,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="titlepage.templates.frag">
-<xsl:param name="titlepage.templates" select="'titlepages.xml'"/>
+<xsl:param name="titlepage.templates" as="xs:string" select="'titlepages.xml'"/>
 </src:fragment>
 </refsynopsisdiv>
 

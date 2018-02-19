@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="admonition.default.titles">
 <refmeta>
 <refentrytitle>admonition.default.titles</refentrytitle>
@@ -14,14 +15,14 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='admonition.default.titles.frag'>
-<xsl:param name="admonition.default.titles" select="1"/>
+<xsl:param name="admonition.default.titles" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If true (non-zero), default titles (“Note”, “Warning”, etc.) are
-placed on admonitions that do not have explicit titles.</para>
+<para>If true, default titles (“Note”, “Warning”, etc.) are placed on
+admonitions that do not have explicit titles.</para>
 
 </refsect1>
 </refentry>

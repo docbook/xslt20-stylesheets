@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="keep.relative.image.uris">
 <refmeta>
@@ -14,15 +15,15 @@
 </refnamediv>
 
 <refsynopsisdiv>
-<src:fragment id='keep.relative.image.uris.frag'>
-<xsl:param condition="html" name="keep.relative.image.uris" select="1"/>
-<xsl:param condition="fo" name="keep.relative.image.uris" select="0"/>
+<src:fragment xml:id='keep.relative.image.uris.frag'>
+<xsl:param condition="html" name="keep.relative.image.uris" as="xs:boolean" select="true()"/>
+<xsl:param condition="fo" name="keep.relative.image.uris" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zeor, relative URIs (in, for example fileref attributes) will
+<para>If true, relative URIs (in, for example fileref attributes) will
 be used in the generated output. Otherwise, the URIs will be made absolute
 with respect to the base URI.</para>
 

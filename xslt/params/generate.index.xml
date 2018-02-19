@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="generate.index">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="generate.index">
 <refmeta>
 <refentrytitle>generate.index</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,7 +12,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="generate.index.frag">
-<xsl:param name="generate.index" select="1"/>
+<xsl:param name="generate.index" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 

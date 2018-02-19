@@ -2,11 +2,12 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="l10n.locale.dir">
 <refmeta>
 <refentrytitle>l10n.locale.dir</refentrytitle>
-<refmiscinfo role="type"></refmiscinfo>
+<refmiscinfo role="type">string</refmiscinfo>
 </refmeta>
 <refnamediv>
 <refname>l10n.locale.dir</refname>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="l10n.locale.dir.frag">
-<xsl:param name="l10n.locale.dir">locales/</xsl:param>
+<xsl:param name="l10n.locale.dir" as="xs:string" select="'locales/'"/>
 </src:fragment>
 </refsynopsisdiv>
 

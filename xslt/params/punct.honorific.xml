@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="punct.honorific">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="punct.honorific">
 <refmeta>
 <refentrytitle>punct.honorific</refentrytitle>
 <refmiscinfo role="type">string</refmiscinfo>
@@ -10,7 +12,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="punct.honorific.frag">
-<xsl:param name="punct.honorific" select="'.'"/>
+<xsl:param name="punct.honorific" as="xs:string" select="'.'"/>
 </src:fragment>
 </refsynopsisdiv>
 

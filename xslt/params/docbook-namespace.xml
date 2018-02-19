@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="docbook-namespace">
 <refmeta>
@@ -15,7 +16,8 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="docbook-namespace.frag">
-<xsl:param name="docbook-namespace" select="'http://docbook.org/ns/docbook'"/>
+<xsl:param name="docbook-namespace" as="xs:string"
+           select="'http://docbook.org/ns/docbook'"/>
 </src:fragment>
 </refsynopsisdiv>
 

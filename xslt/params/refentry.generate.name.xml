@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="refentry.generate.name">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="refentry.generate.name">
 <refmeta>
 <refentrytitle>refentry.generate.name</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,13 +12,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="refentry.generate.name.frag">
-<xsl:param name="refentry.generate.name" select="1"/>
+<xsl:param name="refentry.generate.name" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If true (non-zero), a "NAME" section title is output before the list
+<para>If true, a "NAME" section title is output before the list
 of 'RefName's. This parameter and
 <parameter>refentry.generate.title</parameter> are mutually
 exclusive. This means that if you change this parameter to zero, you

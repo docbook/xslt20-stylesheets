@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="make.single.year.ranges">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="make.single.year.ranges">
 <refmeta>
 <refentrytitle>make.single.year.ranges</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,13 +12,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="make.single.year.ranges.frag">
-<xsl:param name="make.single.year.ranges" select="0"/>
+<xsl:param name="make.single.year.ranges" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, year ranges that span a single year will be printed
+<para>If true, year ranges that span a single year will be printed
 in range notation (1998-1999) instead of discrete notation
 (1998, 1999).</para>
 

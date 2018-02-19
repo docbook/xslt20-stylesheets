@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0" xml:id="graphic.extensions">
 <refmeta>
 <refentrytitle>graphic.extensions</refentrytitle>
@@ -14,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id='graphic.extensions.frag'>
-<xsl:param name="graphic.extensions"
+<xsl:param name="graphic.extensions" as="xs:string*"
 	   select="('svg','png','jpg','jpeg','gif','bmp',
 		    'avi', 'mpg', 'mpeg', 'qt')"/>
 </src:fragment>

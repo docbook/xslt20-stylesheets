@@ -3,6 +3,7 @@
           xmlns:xi="http://www.w3.org/2001/XInclude"
           xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           version="5.0" xml:id="default.table.width">
 <refmeta>
 <refentrytitle>default.table.width</refentrytitle>
@@ -14,11 +15,11 @@
 </refnamediv>
 <refsynopsisdiv>
 <src:fragment xml:id="default.table.width.frag">
-<xsl:param name="default.table.width"></xsl:param>
+<xsl:param name="default.table.width" as="xs:string" select="''"/>
 </src:fragment>
 </refsynopsisdiv>
 <refsection><info><title>Description</title></info>
-<para>If non-zero, this value will be used for the
+<para>If not the empty string, this value will be used for the
 <literal>width</literal> attribute on <tag>table</tag>s that do not specify an
 alternate width (with the <tag class="xmlpi">dbhtml table-width</tag> or 
 <tag class="xmlpi">dbfo table-width</tag> processing instruction).</para>

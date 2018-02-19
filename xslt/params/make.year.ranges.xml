@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="make.year.ranges">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="make.year.ranges">
 <refmeta>
 <refentrytitle>make.year.ranges</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,13 +12,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="make.year.ranges.frag">
-<xsl:param name="make.year.ranges" select="0"/>
+<xsl:param name="make.year.ranges" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, copyright years will be collated into ranges.</para>
+<para>If true, copyright years will be collated into ranges.</para>
 
 </refsect1>
 </refentry>

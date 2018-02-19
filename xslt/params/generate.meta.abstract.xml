@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="generate.meta.abstract">
 <refmeta>
@@ -15,13 +16,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="generate.meta.abstract.frag">
-<xsl:param name="generate.meta.abstract" select="0"/>
+<xsl:param name="generate.meta.abstract" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If true (non-0), and if the document has an associated <tag>abstract</tag>, then
+<para>If true, and if the document has an associated <tag>abstract</tag>, then
 the text content of that abstract will be used as a n HTML <tag>meta</tag> abstract.</para>
 
 </refsect1>

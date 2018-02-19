@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="xref.label-title.separator">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="xref.label-title.separator">
 <refmeta>
 <refentrytitle>xref.label-title.separator</refentrytitle>
 <refmiscinfo role="type">string</refmiscinfo>
@@ -10,7 +12,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="xref.label-title.separator.frag">
-<xsl:param name="xref.label-title.separator">: </xsl:param>
+<xsl:param name="xref.label-title.separator" as="xs:string" select="': '"/>
 </src:fragment>
 </refsynopsisdiv>
 
@@ -19,14 +21,14 @@
 <para>
 This parameter allows you to control the punctuation of certain
 types of generated cross reference text.
-When cross reference text is generated for an 
-<tag class="element">xref</tag> or 
+When cross reference text is generated for an
+<tag class="element">xref</tag> or
 <tag class="element">olink</tag> element
 using an <tag class="attribute">xrefstyle</tag> attribute
 that makes use of the <literal>select:</literal> feature,
 and the selected components include both label and title,
 then the value of this parameter is inserted between
-label and title in the output.  
+label and title in the output.
 </para>
 
 </refsect1>

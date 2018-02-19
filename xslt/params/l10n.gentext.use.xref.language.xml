@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="l10n.gentext.use.xref.language">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="l10n.gentext.use.xref.language">
 <refmeta>
 <refentrytitle>l10n.gentext.use.xref.language</refentrytitle>
 <refmiscinfo role="type">boolean</refmiscinfo>
@@ -10,13 +12,13 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="l10n.gentext.use.xref.language.frag">
-<xsl:param name="l10n.gentext.use.xref.language" select="0"/>
+<xsl:param name="l10n.gentext.use.xref.language" as="xs:boolean" select="false()"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>If non-zero, the language of the target will be used when
+<para>If true, the language of the target will be used when
 generating cross reference text. Usually, the <quote>current</quote>
 language is used when generating text (that is, the language of the
 element that contains the cross-reference element). But setting this parameter

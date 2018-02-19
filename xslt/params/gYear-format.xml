@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="gYear-format">
 <refmeta>
@@ -14,7 +15,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="gYear-format.frag">
-<xsl:param name="gYear-format" select="'[Y0001]'"/>
+<xsl:param name="gYear-format" as="xs:string" select="'[Y0001]'"/>
 </src:fragment>
 </refsynopsisdiv>
 

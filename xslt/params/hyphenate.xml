@@ -2,6 +2,7 @@
 	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
 	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	  xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	  version="5.0"
 	  xml:id="hyphenate">
 <refmeta>
@@ -15,7 +16,7 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="hyphenate.frag">
-<xsl:param name="hyphenate" select="'true'"/>
+<xsl:param name="hyphenate" as="xs:boolean" select="true()"/>
 </src:fragment>
 </refsynopsisdiv>
 

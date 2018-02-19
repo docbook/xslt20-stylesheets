@@ -1,4 +1,6 @@
-<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="profile.userlevel">
+<refentry xmlns="http://docbook.org/ns/docbook" xmlns:src="http://nwalsh.com/xmlns/litprog/fragment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          version="5.0" xml:id="profile.userlevel">
 <refmeta>
 <refentrytitle>profile.userlevel</refentrytitle>
 <refmiscinfo role="type">string</refmiscinfo>
@@ -11,7 +13,7 @@ attribute</refpurpose>
 
 <refsynopsisdiv>
 <src:fragment xml:id="profile.userlevel.frag">
-<xsl:param name="profile.userlevel" select="''"/>
+<xsl:param name="profile.userlevel" as="xs:string" select="''"/>
 </src:fragment>
 </refsynopsisdiv>
 
