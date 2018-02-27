@@ -863,10 +863,13 @@ the English locale value will be used as the default.</para>
   <xsl:param name="lang" as="xs:string"/>
 
   <xsl:choose>
-    <xsl:when test="function-available('mldb:check-locale')">
-      <!-- Can't use function available because it's not static!? -->
-      <xsl:sequence use-when="system-property('xsl:vendor')='MarkLogic Corporation'"
-                    select="mldb:check-locale($lang)"/>
+    <xsl:when use-when="system-property('xsl:vendor')='MarkLogic Corporation'"
+              test="function-available('mldb:check-locale')">
+      <xsl:sequence select="mldb:check-locale($lang)"/>
+    </xsl:when>
+    <xsl:when test="false()">
+      <!-- this never happens, but it avoids XTSE0010 when the preceding
+           xsl:when clause is removed by the use-when condition. -->
     </xsl:when>
     <xsl:otherwise>
       <xsl:sequence
@@ -934,9 +937,13 @@ the English locale value will be used as the default.</para>
   <xsl:param name="lang" as="xs:string"/>
 
   <xsl:choose>
-    <xsl:when test="function-available('mldb:load-locale')">
-      <xsl:sequence use-when="system-property('xsl:vendor')='MarkLogic Corporation'"
-                    select="mldb:load-locale($lang)"/>
+    <xsl:when use-when="system-property('xsl:vendor')='MarkLogic Corporation'"
+              test="function-available('mldb:load-locale')">
+      <xsl:sequence select="mldb:load-locale($lang)"/>
+    </xsl:when>
+    <xsl:when test="false()">
+      <!-- this never happens, but it avoids XTSE0010 when the preceding
+           xsl:when clause is removed by the use-when condition. -->
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="locale-file"
