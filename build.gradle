@@ -70,8 +70,16 @@ dependencies {
   pluginApi gradleApi()
 }
 
-project.ext.saxonRelease = saxonVersion.substring(0,5)
-project.ext.saxonBranch  = saxonVersion.substring(0,3).replaceAll("\\.", "")
+// Assuming the pattern for Saxon versions is 1.2.3-4
+int pos = saxonVersion.indexOf(".")
+String major = saxonVersion.substring(0, pos)
+String temp = saxonVersion.substring(pos+1)
+pos = temp.indexOf(".")
+String minor = temp.substring(0, pos)
+pos = saxonVersion.indexOf("-")
+
+project.ext.saxonRelease = saxonVersion.substring(0,pos)
+project.ext.saxonBranch  = major + minor
 project.ext.releaseVersion = version
 project.ext.distVersion = version + "-" + saxonBranch + snapshot
 
@@ -487,7 +495,7 @@ task zipExtra(type: Copy, dependsOn: [ "jar" ]) {
 task jarZip(type: Zip, dependsOn: [ "stageJarZip" ]) {
   from('build/stage/jarzip')
   into 'docbook-xslt2-' + version
-  archiveName 'docbook-xslt2-' + version + "-jar.zip"
+  archiveName 'docbook-xslt2-' + version + "-" + saxonBranch + "-jar.zip"
 }
 
 // ======================================================================
@@ -561,5 +569,16 @@ uploadArchives {
         }
       }
     }
+  }
+}
+
+// Just a convenience for testing
+task helloWorld() {
+  doLast {
+    println("Hello, world.")
+    println("Saxon release: " + saxonRelease)
+    println("Saxon branch : " + saxonBranch)
+    println("Release ver. : " + releaseVersion)
+    println("Dist version : " + distVersion)
   }
 }
