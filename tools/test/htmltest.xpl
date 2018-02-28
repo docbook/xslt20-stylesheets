@@ -21,6 +21,8 @@
 <p:option name="diffdir" select="'../../build/test/diff-html/'"/>
 <p:option name="ignore-head" select="0"/>
 <p:option name="ignore-prism" select="0"/>
+<p:option name="preprocess" select="''"/>
+<p:option name="postprocess" select="''"/>
 
 <p:import href="../../build/xslt/base/pipelines/docbook.xpl"/>
 
@@ -56,6 +58,9 @@
   </p:load>
 
   <dbp:docbook>
+    <p:input port="parameters">
+      <p:pipe step="main" port="parameters"/>
+    </p:input>
     <p:with-param name="resource.root" select="'../../resources/'"/>
     <p:with-param name="bibliography.collection"
                   select="'../resources/bibliography.xml'"/>
@@ -64,6 +69,8 @@
                    select="if (/*/db:info/p:style)
                            then string(/*/db:info/p:style)
                            else 'docbook'"/>
+    <p:with-option name="preprocess" select="$preprocess"/>
+    <p:with-option name="postprocess" select="$postprocess"/>
   </dbp:docbook>
 
   <p:xslt name="docbook">

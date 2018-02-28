@@ -50,15 +50,15 @@
 </xsl:template>
 
 <xsl:template match="db:epigraph">
-  <div>
+  <blockquote>
     <xsl:sequence select="f:html-attributes(.)"/>
-    <blockquote>
-      <xsl:apply-templates select="*[not(self::db:attribution)]"/>
+    <xsl:apply-templates select="*[not(self::db:attribution)]"/>
+    <xsl:if test="db:attribution">
       <footer>
         <xsl:apply-templates select="db:attribution"/>
       </footer>
-    </blockquote>
-  </div>
+    </xsl:if>
+  </blockquote>
 </xsl:template>
 
 <xsl:template match="db:attribution">
@@ -81,9 +81,11 @@
     <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
     <xsl:call-template name="t:titlepage"/>
     <xsl:apply-templates select="* except db:attribution"/>
-    <footer>
-      <xsl:apply-templates select="db:attribution"/>
-    </footer>
+    <xsl:if test="db:attribution">
+      <footer>
+        <xsl:apply-templates select="db:attribution"/>
+      </footer>
+    </xsl:if>
   </blockquote>
 </xsl:template>
 

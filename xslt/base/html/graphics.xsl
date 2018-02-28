@@ -516,6 +516,19 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
         </object>
       </xsl:when>
       <xsl:otherwise>
+        <xsl:if test="$tag = 'img' and ancestor::db:imageobjectco">
+          <xsl:choose>
+            <xsl:when test="$scaled">
+              <xsl:comment> Imagemap skipped: not supported on scaled images </xsl:comment>
+            </xsl:when>
+            <xsl:when test="empty($imageproperties)">
+              <xsl:comment> Imagemap skipped: intrinsics extension not available </xsl:comment>
+            </xsl:when>
+            <xsl:otherwise>
+              <!-- nop -->
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:if>
         <xsl:element name="{$tag}">
           <xsl:if test="@role or ../@role">
             <xsl:variable name="values"
@@ -544,7 +557,8 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:attribute name="border" select="0"/>
-                <xsl:attribute name="usemap" select="concat('#',f:imagemap-name(ancestor::db:imageobjectco))"/>
+                <xsl:attribute name="usemap"
+                     select="concat('#',f:imagemap-name(ancestor::db:imageobjectco))"/>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:if>
