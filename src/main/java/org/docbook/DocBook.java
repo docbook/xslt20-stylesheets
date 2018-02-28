@@ -6,7 +6,6 @@ import com.xmlcalabash.core.XProcRuntime;
 import com.xmlcalabash.io.WritableDocument;
 import com.xmlcalabash.model.RuntimeValue;
 import com.xmlcalabash.model.Serialization;
-import com.xmlcalabash.piperack.Run;
 import com.xmlcalabash.runtime.XPipeline;
 import com.xmlcalabash.util.Input;
 import com.xmlcalabash.util.XProcURIResolver;
@@ -206,7 +205,7 @@ class DocBook {
 
             WritableDocument wd = null;
             if (options.containsKey(_output)) {
-                String filename = options.get(_output).getStringValue().asString();
+                String filename = options.get(_output).getStringValue().getPrimitiveStringValue().toString();
                 FileOutputStream outfile = new FileOutputStream(filename);
                 wd = new WritableDocument(runtime, filename, serial, outfile);
                 logger.info("Writing output to " + filename);
