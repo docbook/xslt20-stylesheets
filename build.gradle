@@ -164,6 +164,9 @@ locales.each { File file ->
     input("source", in_name)
     output("result", out_name)
     pipeline "tools/gentext.xpl"
+    doFirst {
+      mkdir ("build/xslt/base/common/locales")
+    }
   }
   t.dependsOn("compileSchemas")
   gentext.dependsOn "gentext_$name"
@@ -414,6 +417,9 @@ task makeUris(type: XMLCalabashTask, dependsOn: [ "compileXslt", "copyResources"
 
   output("result", "build/stage/jar/etc/uris.xml")
   pipeline "tools/makecat.xpl"
+  doFirst {
+    mkdir ("build/stage/jar/etc")
+  }
 }
 
 task copyLib(type: Copy) {
