@@ -54,9 +54,11 @@
     <xsl:sequence select="f:html-attributes(.)"/>
     <blockquote>
       <xsl:apply-templates select="*[not(self::db:attribution)]"/>
-      <footer>
-        <xsl:apply-templates select="db:attribution"/>
-      </footer>
+      <xsl:if test="db:attribution">
+        <footer>
+          <xsl:apply-templates select="db:attribution"/>
+        </footer>
+      </xsl:if>
     </blockquote>
   </div>
 </xsl:template>
@@ -81,9 +83,11 @@
     <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
     <xsl:call-template name="t:titlepage"/>
     <xsl:apply-templates select="* except db:attribution"/>
-    <footer>
-      <xsl:apply-templates select="db:attribution"/>
-    </footer>
+    <xsl:if test="db:attribution">
+      <footer>
+        <xsl:apply-templates select="db:attribution"/>
+      </footer>
+    </xsl:if>
   </blockquote>
 </xsl:template>
 
