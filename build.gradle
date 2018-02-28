@@ -19,6 +19,7 @@ buildscript {
     classpath group: 'com.xmlcalabash', name: 'xmlcalabash', version: xmlCalabashVersion
     classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-gradle', version: '1.2.2'
     classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.4'
+    classpath group: 'org.docbook', name: 'docbook-xsl-java-saxon', version: '1.2.1-95'
   }
 }
 
@@ -241,10 +242,17 @@ task test_print_fo() {
 };
 test.dependsOn test_print_fo
 
-def tests = fileTree(dir: "src/test/xml/").include("book.001.xml")
+def tests = fileTree(dir: "src/test/xml/").include(testsrc)
 tests.each { File file ->
   String filename = file.getName()
   String testname = filename.substring(0, filename.lastIndexOf("."))
+
+  // For the purpose of the XSLT, just claim we're putting the
+  // files in the same directory as the sources; this avoids
+  // mangled graphics paths.
+  String outputDir = file.getAbsolutePath()
+  pos = outputDir.lastIndexOf(File.separator)
+  outputDir = outputDir.substring(0, pos+1)
 
   Task t = task "test_html_$testname"(type: XMLCalabashTask) {
     inputs.dir "xslt"
@@ -252,6 +260,9 @@ tests.each { File file ->
     inputs.dir "tools/test"
     outputs.file "build/test/actual-html/" + testname + ".html"
     option("name", testname)
+    param("output.dir", outputDir)
+    option("preprocess", pre_html)
+    option("postprocess", post_html)
     pipeline "tools/test/htmltest.xpl"
   }
   t.dependsOn "compileXslt"
@@ -268,7 +279,8 @@ tests.each { File file ->
     option("expecteddir", "../../src/test/expected-print-css/")
     option("diffdir", "../../build/test/diff-print-css/")
     option("format", "cssprint")
-    option("preprocess", "tools/test/ann-to-footnotes.xsl")
+    option("preprocess", pre_print_css)
+    option("postprocess", post_print_css)
     pipeline "tools/test/printtest.xpl"
   }
   t.dependsOn "compileXslt"
@@ -285,6 +297,8 @@ tests.each { File file ->
     option("expecteddir", "../../src/test/expected-print-fo/")
     option("diffdir", "../../build/test/diff-print-fo/")
     option("format", "foprint")
+    option("preprocess", pre_print_fo)
+    option("postprocess", post_print_fo)
     pipeline "tools/test/printtest.xpl"
   }
   t.dependsOn "compileXslt"
