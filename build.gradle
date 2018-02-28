@@ -1,24 +1,24 @@
 // This Gradle script builds the DocBook stylesheet releases.
 //
 // Note well: there's a little Java tool in this repo, but it is not,
-// first and foremost, a Java project. For historical reasons, and
-// to keep the paths shorter and simpler, the stylesheets that are
-// in src/main/resources/xslt/ *ARE NOT SOURCES*. They're copied there
-// from xslt/ by the build process. I couldn't find a way to get
-// Gradle to accept resources directly from xslt/ without losing the
-// top-level xslt/ part of the path names. So I punted.
-
-import groovy.swing.SwingBuilder
-import java.awt.Point
+// first and foremost, a Java project.
 
 buildscript {
   repositories {
-    // maven { url uri('/tmp/repo') }
+    maven { url uri('/tmp/repo') }
     mavenLocal()
     mavenCentral()
     maven { url "http://maven.restlet.org" }
     maven { url "http://developer.marklogic.com/maven2" }
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+  }
+
+  dependencies {
+    classpath fileTree(dir: 'lib').include("*.jar")
+    classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-print', version: '1.1.4'
+    classpath group: 'com.xmlcalabash', name: 'xmlcalabash', version: xmlCalabashVersion
+    classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-gradle', version: '1.2.2'
+    classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.4'
   }
 }
 
@@ -31,7 +31,14 @@ plugins {
   id "signing"
 }
 
+defaultTasks 'compileXslt'
+
+apply plugin: 'com.xmlcalabash.task'
+
+import com.xmlcalabash.XMLCalabashTask
+
 repositories {
+  maven { url uri('/tmp/repo') }
   mavenLocal()
   mavenCentral()
   maven { url "http://maven.restlet.org" }
@@ -47,14 +54,19 @@ dependencies {
   compile fileTree(dir: 'lib').include("*.jar")
   compile (
     [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
-    [group: 'com.xmlcalabash', name: 'xmlcalabash', version: '1.1.8-96'],
-    //[group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.4'],
-    [group: 'com.xmlcalabash', name: 'xmlcalabash1-print', version: '1.1.4'],
     [group: 'com.thaiopensource', name: 'jing', version: '20091111', transitive: false],
     [group: 'org.docbook', name: 'docbook-xsl-java-saxon', version: '1.2.1-95'],
+    [group: 'com.xmlcalabash', name: 'xmlcalabash', version: xmlCalabashVersion],
     // 1.2 because that's what gradleApi requires :-(
-    [group: 'commons-cli', name: 'commons-cli', version: '1.2'],
+    [group: 'commons-cli', name: 'commons-cli', version: '1.2']
   )
+
+  runtime (
+    [group: 'com.xmlcalabash', name: 'xmlcalabash1-print', version: '1.1.4'],
+    [group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.4'],
+    [group: 'com.thaiopensource', name: 'trang', version: '20091111']
+  )
+
   pluginApi gradleApi()
 }
 
@@ -62,11 +74,6 @@ project.ext.saxonRelease = saxonVersion.substring(0,5)
 project.ext.saxonBranch  = saxonVersion.substring(0,3).replaceAll("\\.", "")
 project.ext.releaseVersion = version
 project.ext.distVersion = version + "-" + saxonBranch + snapshot
-
-def Properties versionProps = new Properties()
-def versionPropsFile = file("src/main/resources/etc/version.properties")
-versionProps['version'] = releaseVersion
-versionProps.store(versionPropsFile.newWriter(),null)
 
 compileGroovy {
   classpath += configurations.pluginApi
@@ -76,14 +83,304 @@ compileJava {
   classpath += configurations.pluginApi
 }
 
+sourceSets {
+  main {
+    resources {
+      srcDirs "src/main/resources", "build/stage/jar"
+    }
+  }
+}
+
+// ======================================================================
+// Compile the stylesheets
+
+task compileXslt(dependsOn: [ "compileSchemas",
+                              "copyXsltSources", "foParams", "htmlParams",
+                              "gentext", "makeVersion" ]) {
+  // nop
+}
+
+task copyXsltSources(type: Copy) {
+  FileTree tree = fileTree(dir: 'xslt', exclude: ['**/param.xml', '/params'])
+  from tree
+  into 'build/xslt'
+  doFirst {
+    mkdir("build/xslt")
+  }
+}
+
+task foParams(type: JavaExec) {
+  classpath = configurations.runtime
+
+  inputs.file  "tools/mkparam.xsl"
+  inputs.files fileTree(dir: "xslt/params/")
+  inputs.files fileTree(dir: "xslt/base/fo/").include("param.xml")
+  outputs.file "build/xslt/base/fo/param.xsl"
+
+  main = 'net.sf.saxon.Transform'
+  args('-xsl:tools/mkparam.xsl',
+       '-o:build/xslt/base/fo/param.xsl',
+       'xslt/base/fo/param.xml')
+}
+
+task htmlParams(type: JavaExec) {
+  classpath = configurations.runtime
+
+  inputs.file "tools/mkparam.xsl"
+  inputs.files fileTree(dir: "xslt/params/")
+  inputs.files fileTree(dir: "xslt/base/html/").include("param.xml")
+  outputs.file "build/xslt/base/html/param.xsl"
+
+  main = 'net.sf.saxon.Transform'
+  args('-xsl:tools/mkparam.xsl',
+       '-o:build/xslt/base/html/param.xsl',
+       'xslt/base/html/param.xml')
+}
+
+task gentext() {
+  // just a task to hang dependencies on
+}
+
+def locales = fileTree(dir: "src/main/gentext/").include("*.xml")
+locales.each { File file ->
+  String name = file.getName();
+  String in_name = "src/main/gentext/" + name
+  String out_name = "build/xslt/base/common/locales/" + name
+
+  Task t = task "gentext_$name"(type: XMLCalabashTask) {
+    inputs.file in_name
+    inputs.file  "tools/gentext.xpl"
+    inputs.file  "build/schemas/locale.rng"
+    inputs.file  "tools/build-l10n.xsl"
+    outputs.file out_name
+    input("source", in_name)
+    output("result", out_name)
+    pipeline "tools/gentext.xpl"
+  }
+  t.dependsOn("compileSchemas")
+  gentext.dependsOn "gentext_$name"
+}
+
+task makeVersion(type: JavaExec) {
+  classpath = configurations.runtime
+
+  main = 'net.sf.saxon.Transform'
+  args('-it:main',
+       '-o:build/xslt/base/VERSION.xsl',
+       '-xsl:tools/version.xsl',
+       'version=' + version)
+}
+
+// ======================================================================
+// Compile the schemas
+
+task compileSchemas(dependsOn: [ "copyRnc" ]) {
+  // nop
+}
+
+task copyRnc(type: Copy) {
+  from "src/main/schemas"
+  into "build/schemas"
+  doFirst {
+    mkdir("build/schemas")
+  }
+}
+
+def schemas = ["docbook.rnc", "i18n.rnc", "locale.rnc", "xslt.rnc"]
+schemas.each { String rnc ->
+  String rng = rnc.substring(0, rnc.lastIndexOf(".")) + ".rng"
+
+  Task t = task "compile_rng_$rnc"(type: JavaExec) {
+    classpath = configurations.runtime
+
+    inputs.dir "src/main/schemas"
+    outputs.file "build/schemas/" + rng
+    main = 'com.thaiopensource.relaxng.translate.Driver'
+    args = ["src/main/schemas/" + rnc, "build/schemas/" + rng]
+  }
+  t.doFirst {
+    mkdir("build/schemas")
+  }
+  compileSchemas.dependsOn "compile_rng_$rnc"
+}
+
+// ======================================================================
+// Run tests
+
+task test_html() {
+  // just a task to hang dependencies on
+};
+test.dependsOn test_html
+
+task test_print_css() {
+  // just a task to hang dependencies on
+};
+test.dependsOn test_print_css
+
+task test_print_fo() {
+  // just a task to hang dependencies on
+};
+test.dependsOn test_print_fo
+
+def tests = fileTree(dir: "src/test/xml/").include("book.001.xml")
+tests.each { File file ->
+  String filename = file.getName()
+  String testname = filename.substring(0, filename.lastIndexOf("."))
+
+  Task t = task "test_html_$testname"(type: XMLCalabashTask) {
+    inputs.dir "xslt"
+    inputs.dir "src/main/gentext"
+    inputs.dir "tools/test"
+    outputs.file "build/test/actual-html/" + testname + ".html"
+    option("name", testname)
+    pipeline "tools/test/htmltest.xpl"
+  }
+  t.dependsOn "compileXslt"
+  test_html.dependsOn "test_html_$testname"
+
+  t = task "test_print_css_$testname"(type: XMLCalabashTask) {
+    inputs.dir "xslt"
+    inputs.dir "src/main/gentext"
+    inputs.dir "tools/test"
+    outputs.file "build/test/actual-print-css/" + testname + ".html"
+    option("name", testname)
+    option("resultdir", "../../build/test/result-print-css/")
+    option("actualdir", "../../build/test/actual-print-css/")
+    option("expecteddir", "../../src/test/expected-print-css/")
+    option("diffdir", "../../build/test/diff-print-css/")
+    option("format", "cssprint")
+    option("preprocess", "tools/test/ann-to-footnotes.xsl")
+    pipeline "tools/test/printtest.xpl"
+  }
+  t.dependsOn "compileXslt"
+  test_print_css.dependsOn "test_print_css_$testname"
+
+  t = task "test_print_fo_$testname"(type: XMLCalabashTask) {
+    inputs.dir "xslt"
+    inputs.dir "src/main/gentext"
+    inputs.dir "tools/test"
+    outputs.file "build/test/actual-print-fo/" + testname + ".html"
+    option("name", testname)
+    option("resultdir", "../../build/test/result-print-fo/")
+    option("actualdir", "../../build/test/actual-print-fo/")
+    option("expecteddir", "../../src/test/expected-print-fo/")
+    option("diffdir", "../../build/test/diff-print-fo/")
+    option("format", "foprint")
+    pipeline "tools/test/printtest.xpl"
+  }
+  t.dependsOn "compileXslt"
+  test_print_fo.dependsOn "test_print_fo_$testname"
+}
+
+// ======================================================================
+// Make test report(s)
+
+task testReport(dependsOn: ["copy_test_css", "test_html"], type: XMLCalabashTask) {
+  inputs.file  file("tools/test/report.xpl")
+  inputs.file  file("tools/test/format-report.xsl")
+  inputs.dir   "build/test/actual-html/"
+  inputs.dir   "build/test/result-html/"
+  outputs.file file("build/test/index.html")
+
+  option("baseline", baseline)
+  output("result", "build/test/index.html")
+  pipeline("tools/test/report.xpl")
+}
+
+task copy_test_css(type: Copy) {
+  from 'src/test/resources'
+  include "*.css"
+  into 'build/test/css'
+  doFirst {
+    mkdir("build/test/css")
+  }
+}
+
+// ======================================================================
+// Make ZIP distribution
+
+task stageZip(type: Copy, dependsOn: [ "compileXslt", "copyResources" ]) {
+  from 'build/xslt'
+  into 'build/stage/zip/xslt'
+  doFirst {
+    mkdir("build/stage/zip/xslt")
+  }
+}
+
+task relNotes(type: XMLCalabashTask, dependsOn: [ "compileXslt" ]) {
+  inputs.file "docs/RELEASENOTES.xml"
+  inputs.file "build/xslt/base/pipelines/docbook.xpl"
+  outputs.file "build/stage/zip/docs/RELEASENOTES.html"
+  param("resource.root", "https://cdn.docbook.org/latest/")
+  input("source", "docs/RELEASENOTES.xml")
+  output("result", "build/stage/zip/docs/RELEASENOTES.html")
+  pipeline "build/xslt/base/pipelines/docbook.xpl"
+  doFirst {
+    mkdir("build/stage/zip/docs")
+  }
+}
+
+task copyDocs(type: Copy, dependsOn: [ "relNotes", "copyReadme" ]) {
+  from "docs"
+  exclude "RELEASENOTES.xml"
+  into "build/stage/zip/docs/"
+}
+
+task copyReadme(type: Copy) {
+  from 'README.md'
+  into "build/stage/zip/"
+}
+
+task copyResources(type: Copy, dependsOn: [ "copyDocs", "copyVendors" ]) {
+  FileTree tree = fileTree(dir: 'resources', exclude: ['**/*_flymake.css'])
+  from tree
+  into "build/stage/zip/resources/"
+}
+
+/*
+task copyEtc(type: Copy) {
+  from "src/main/resources/etc"
+  into "build/stage/jar/etc"
+}
+
+task copyMetaInf(type: Copy) {
+  from "src/main/resources/META-INF"
+  into "build/stage/jar/META-INF"
+}
+*/
+
+task copyVendors(type: Copy) {
+  from "vendor/"
+  into "build/stage/zip/vendor"
+}
+
+task zip(type: Zip, dependsOn: [ "stageZip" ]) {
+  from('build/stage/zip')
+  into 'docbook-xslt2-' + version
+  archiveName 'docbook-xslt2-' + version + ".zip"
+}
+
+// ======================================================================
+// Make JAR distribution
+
+task stageJar(type: Copy, dependsOn: [ "compileXslt", "makeUris",
+                                       "makeVersionProperties" ]) {
+  from "build/xslt"
+  into "build/stage/jar/xslt"
+  doFirst {
+    mkdir ("build/stage/jar/xslt")
+  }
+}
+processResources.dependsOn stageJar
+
 task javadocJar(type: Jar, dependsOn: javadoc) {
   classifier = 'javadoc'
   from javadoc.destinationDir
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+  classifier = 'sources'
+  from sourceSets.main.allSource
 }
 
 artifacts {
@@ -92,9 +389,28 @@ artifacts {
   archives javadocJar
 }
 
+task makeVersionProperties() {
+  doFirst {
+    mkdir("build/stage/jar/etc")
+  }
+  doLast {
+    new File("build/stage/jar/etc/version.properties").text = """version=$version
+"""
+  }
+}
+
+task makeUris(type: XMLCalabashTask, dependsOn: [ "compileXslt", "copyResources" ]) {
+  inputs.file   "tools/makecat.xpl"
+  inputs.files  fileTree(dir: "build/xslt/")
+  outputs.file "build/stage/jar/etc/uris.xml"
+
+  output("result", "build/stage/jar/etc/uris.xml")
+  pipeline "tools/makecat.xpl"
+}
+
 task copyLib(type: Copy) {
   FileCollection runtime  = configurations.runtime
-  FileCollection localLib = fileTree(dir: 'delta').include("*.jar")
+  FileCollection localLib = fileTree(dir: 'lib').include("*.jar")
   FileCollection lib = runtime - localLib
   String path = ""
   lib.each {
@@ -106,179 +422,6 @@ task copyLib(type: Copy) {
   into { "build/libs/lib" }
 }
 jar.dependsOn copyLib
-
-task runtests(type: JavaExec) {
-  classpath = configurations.runtime
-
-  //FileCollection result = fileTree(dir: testsRoot + "/actual/")
-  FileCollection source = fileTree(dir: testsRoot + "/src/")
-  FileCollection style  = fileTree(dir: "xslt/")
-
-  inputs.files style + source
-
-  main = 'com.xmlcalabash.drivers.Main'
-  maxHeapSize = '1024m'
-  args('-D',
-       testsRoot + '/style/runtests.xpl',
-       'include=' + include,
-       'ignore-head=0',
-       'ignore-prism=0',
-       'srcdir=' + testsRoot + '/src/',
-       'resultdir=' + testsRoot + '/result/',
-       'actualdir=' + testsRoot + '/actual/',
-       'expecteddir=' + testsRoot + '/expected/',
-       'diffdir=' + testsRoot + '/diff/',
-      )
-}
-
-task testreport(dependsOn: runtests, type: JavaExec) {
-  classpath = configurations.runtime
-
-  inputs.file  file(testsRoot + "/style/report.xpl")
-  inputs.file  file(testsRoot + "/style/format-report.xsl")
-  inputs.dir   testsRoot + "/result/"
-  outputs.file file(testsRoot + "/index.html")
-
-  //systemProperty "log4j.configurationFile", "/home/ndw/java/log4j2-debug.xml"
-
-  main = 'com.xmlcalabash.drivers.Main'
-  maxHeapSize = '1024m'
-  args('-D',
-       '-oresult=' + testsRoot + '/index.html',
-       testsRoot + '/style/report.xpl',
-       'resultdir=' + testsRoot + '/result/',
-       'baseline=' + baseline
-      )
-}
-
-task runprinttests(type: JavaExec) {
-  classpath = configurations.runtime
-
-  //systemProperty "log4j.configurationFile", "/home/ndw/java/log4j2-debug.xml"
-
-  main = 'com.xmlcalabash.drivers.Main'
-  maxHeapSize = '1024m'
-  args('-D',
-       testsRoot + '/style/runprint.xpl',
-       'include=' + include,
-       'exclude=' + exclude,
-       'srcdir=' + testsRoot + '/src/',
-       'resultdir=' + testsRoot + '/' + print + '-result/',
-       'actualdir=' + testsRoot + '/' + print + '-actual/',
-       'expecteddir=' + testsRoot + '/' + print + '-expected/',
-       'diffdir=' + testsRoot + '/' + print + '-diff/',
-       'format=' + print,
-       'preprocess=test/style/ann-to-footnotes.xsl',
-       'css=' + css
-      )
-}
-
-task relnotes(type: JavaExec) {
-  classpath = configurations.runtime
-
-  main = 'com.xmlcalabash.drivers.Main'
-  maxHeapSize = '1024m'
-  args('-D',
-       '-oresult=docs/RELEASENOTES.html',
-       '-isource=docs/RELEASENOTES.xml',
-       '-presource.root=http://docbook.github.com/latest/',
-       'xslt/base/pipelines/docbook.xpl')
-}
-
-task makeVersion(type: JavaExec) {
-  classpath = configurations.runtime
-
-  main = 'net.sf.saxon.Transform'
-  args('-it:main',
-       '-o:xslt/base/VERSION.xsl',
-       '-xsl:tools/version.xsl',
-       'version=' + version)
-}
-
-task gentext(type: JavaExec) {
-  classpath = configurations.runtime
-
-  main = 'com.xmlcalabash.drivers.Main'
-  maxHeapSize = '1024m'
-  args('-D', '-Xallow-text-results', 'gentext/style/build.xpl')
-}
-
-gentext.onlyIf {
-  Boolean upToDate = true
-  FileCollection src = fileTree(dir: 'gentext/src').include("*.xml")
-
-  src.each {
-    File file ->
-      String srcName = file.path
-      String buildName = srcName.replace('/src/', '/build/')
-      File build = new File(buildName)
-      upToDate = upToDate && (file.lastModified() < build.lastModified())
-  }
-
-  return !upToDate
-}
-
-task makeFoParams(type: JavaExec) {
-  classpath = configurations.runtime
-
-  inputs.file  "tools/mkparam.xsl"
-  inputs.files fileTree(dir: "xslt/params/")
-  inputs.files fileTree(dir: "xslt/base/fo/").include("param.xml")
-  outputs.file "xslt/base/fo/param.xsl"
-
-  main = 'net.sf.saxon.Transform'
-  args('-xsl:tools/mkparam.xsl',
-       '-o:xslt/base/fo/param.xsl',
-       'xslt/base/fo/param.xml')
-}
-
-task makeHtmlParams(type: JavaExec) {
-  classpath = configurations.runtime
-
-  inputs.file "tools/mkparam.xsl"
-  inputs.files fileTree(dir: "xslt/params/")
-  inputs.files fileTree(dir: "xslt/base/html/").include("param.xml")
-  outputs.file "xslt/base/html/param.xsl"
-
-  main = 'net.sf.saxon.Transform'
-  args('-xsl:tools/mkparam.xsl',
-       '-o:xslt/base/html/param.xsl',
-       'xslt/base/html/param.xml')
-}
-
-task makeParams(dependsOn: [makeFoParams, makeHtmlParams]) {
-  // nothing to see here
-}
-
-task copyLocales(dependsOn: gentext, type: Copy) {
-  from 'gentext/build'
-  into 'xslt/base/common/locales'
-  exclude { details -> details.file.name.endsWith('.xqy') }
-  includeEmptyDirs = false
-}
-
-task makeUris(type: JavaExec) {
-  classpath = configurations.runtime
-
-  inputs.file  fileTree(dir: "tools/").include("makecat.xpl")
-  inputs.file  fileTree(dir: "xslt/")
-  outputs.file "src/main/resources/etc/uris.xml"
-
-  main = 'com.xmlcalabash.drivers.Main'
-  maxHeapSize = '1024m'
-  args('-D',
-       '-oresult=src/main/resources/etc/uris.xml',
-       'tools/makecat.xpl')
-}
-
-task copyJarResources(dependsOn: [copyLocales, makeParams, makeUris],
-                      type: Copy) {
-  FileTree tree = fileTree(dir: 'xslt',
-                           exclude: ['params/**'])
-  from tree
-  into 'src/main/resources/xslt'
-}
-processResources.dependsOn copyJarResources
 
 jar {
   baseName "docbook-xslt2"
@@ -304,109 +447,45 @@ jar {
   }
 }
 
-task buildDist(dependsOn: [makeVersion,copyLocales,makeParams,
-                           relnotes,testreport]) {
-  // nothing to see here
+// ======================================================================
+// Make JAR ZIP distribution
+
+task stageJarZip(dependsOn: [ "zipJar", "zipLibs", "zipExtra" ]) {
 }
 
-task copyReadme(type: Copy) {
-  from 'README.md'
-  into "build/dist/bin/"
-}
-
-task copyDocs(type: Copy) {
-  FileTree tree = fileTree(dir: 'docs')
-  from tree
-  into "build/dist/bin/docs/"
-}
-
-task copyEtc(type: Copy) {
-  FileTree tree = fileTree(dir: 'tools/distindex')
-  from tree
-  into "build/distributions/"
-}
-
-task copyResources(type: Copy) {
-  FileTree tree = fileTree(dir: 'resources', exclude: ['src/**',
-                                                       '**/*_flymake.css'])
-  from tree
-  into "build/dist/bin/resources/"
-}
-
-task copyXslt(type: Copy) {
-  FileTree tree = fileTree(dir: 'xslt',
-                           exclude: ['params/**'])
-  from tree
-  into "build/dist/bin/xslt/"
-}
-
-task copyVendors(type: Copy) {
-  from "vendor/"
-  into "build/dist/bin/vendor"
-}
-
-task copyResults(dependsOn: testreport, type: Copy) {
-  FileTree tree = fileTree(dir: 'test')
-  from tree
-  into "build/distributions/test-results/"
-}
-
-task copyAll(dependsOn: [copyReadme, copyDocs, copyResources, copyXslt,
-                         copyResults, copyVendors]) {
-  // nothing to see here
-}
-
-task zip(dependsOn: copyAll, type: Zip) {
-  from('build/dist/bin')
-  into 'docbook-xslt2-' + version
-  archiveName 'docbook-xslt2-' + version + ".zip"
-}
-
-task updateDist(dependsOn: [copyAll, buildDist, zip], type: Copy) {
-  from 'build/dist/bin/'
-  into 'build/distributions/'
-}
-
-task distJar(dependsOn: [copyAll, jar], type: Copy) {
+task zipJar(type: Copy, dependsOn: [ "jar" ]) {
   from "build/libs"
-  into "build/dist/jar"
+  include "*.jar"
+  into "build/stage/jarzip"
 }
 
-task distJarEtc(dependsOn: [updateDist, distJar], type: Copy) {
-  FileTree tree = fileTree(dir: 'build/dist/bin',
-                           exclude: ['xslt/**'])
-  from tree
-  into "build/dist/jar"
+task zipLibs(type: Copy, dependsOn: [ "jar" ]) {
+  from "build/libs/lib"
+  into "build/stage/jarzip/lib"
 }
 
-task zipJar(dependsOn: distJarEtc, type: Zip) {
-  from('build/dist/jar')
+task zipExtra(type: Copy, dependsOn: [ "jar" ]) {
+  from "build/stage/zip"
+  exclude "xslt"
+  into "build/stage/jarzip"
+}
+
+task jarZip(type: Zip, dependsOn: [ "stageJarZip" ]) {
+  from('build/stage/jarzip')
   into 'docbook-xslt2-' + version
   archiveName 'docbook-xslt2-' + version + "-jar.zip"
 }
 
-task dist(dependsOn: [updateDist, zipJar], type: JavaExec) {
-  classpath = configurations.runtime
+// ======================================================================
+// Make dist
 
-  main = 'com.xmlcalabash.drivers.Main'
-  maxHeapSize = '1024m'
-  args('-D',
-       '-oresult=build/distributions/index.html',
-       'tools/makeindex.xpl'
-      )
+task dist(dependsOn: [ "zip", "jarZip" ]) {
+  // nop
 }
 
 clean {
   doFirst {
-    delete "gentext/build/"
-    delete "src/main/resources/xslt"
-    delete "xslt/base/common/locales/"
-    delete "xslt/base/fo/param.xsl"
-    delete "xslt/base/html/param.xsl"
-    delete "build/"
-    delete "test/diff"
-    delete "test/actual"
-    delete "test/result"
+    delete "build"
   }
 }
 
@@ -470,4 +549,3 @@ uploadArchives {
     }
   }
 }
-

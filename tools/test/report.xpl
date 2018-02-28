@@ -11,7 +11,12 @@
 </p:output>
 <p:serialization port="result" method="html" version="5"/>
 
-<p:option name="resultdir" select="'result/'"/>
+<!-- N.B. The path names are *relative to this pipeline document*.   -->
+<!-- If you provide different paths as runtime options, make sure    -->
+<!-- they are absolute, or make sure that they're correctly relative -->
+<!-- to the location of this pipeline document.                      -->
+
+<p:option name="resultdir" select="'../../build/test/result-html/'"/>
 <p:option name="baseline" select="'0'"/>
 
 <p:declare-step type="cx:message" xmlns:cx="http://xmlcalabash.com/ns/extensions">
@@ -21,7 +26,7 @@
 </p:declare-step>
 
 <p:directory-list include-filter=".*\.html">
-  <p:with-option name="path" select="resolve-uri($resultdir, exf:cwd())"/>
+  <p:with-option name="path" select="resolve-uri($resultdir)"/>
 </p:directory-list>
 
 <p:for-each name="loop">

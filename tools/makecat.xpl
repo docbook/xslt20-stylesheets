@@ -100,7 +100,7 @@
 </p:declare-step>
 
 <cx:recursive-directory-list>
-  <p:with-option name="path" select="resolve-uri('xslt/', exf:cwd())"/>
+  <p:with-option name="path" select="resolve-uri('../build/xslt/')"/>
 </cx:recursive-directory-list>
 
 <p:for-each>

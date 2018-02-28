@@ -1,22 +1,7 @@
 *~
-,*
 *_flymake.css
-/test/smoketest.html
 /tools/lib/cachedir/
-/docs/RELEASENOTES.html
-/ext/tests/
-/local/
 /.gradle/
-/gentext/build/
 /build/
-/src/main/resources/xslt/
-/src/main/resources/etc/version.properties
-/src/main/resources/etc/uris.xml
-/test/index.html
-/test/result/
-/test/diff/
-/test/actual/
-/test/cssprint-actual/
-/test/foprint-actual/
-/xslt/base/VERSION.xsl
-docbook-xslt2.xpr
+# Local libraries that should not be committed or distributed
+/lib/

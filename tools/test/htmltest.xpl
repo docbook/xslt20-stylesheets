@@ -3,21 +3,26 @@
                 xmlns:cx="http://xmlcalabash.com/ns/extensions"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:dbp="http://docbook.github.com/ns/pipeline"
-                xmlns:exf="http://exproc.org/standard/functions"
-                exclude-inline-prefixes="cx exf"
+                exclude-inline-prefixes="cx"
                 name="main">
 <p:input port="parameters" kind="parameter"/>
 
-<p:option name="srcdir" select="'src/'"/>
-<p:option name="resultdir" select="'result/'"/>
-<p:option name="actualdir" select="'actual/'"/>
-<p:option name="expecteddir" select="'expected/'"/>
-<p:option name="diffdir" select="'diff/'"/>
-<p:option name="include" select="'.*\.xml'"/>
+<p:option name="name" required="true"/>
+
+<!-- N.B. The path names are *relative to this pipeline document*.   -->
+<!-- If you provide different paths as runtime options, make sure    -->
+<!-- they are absolute, or make sure that they're correctly relative -->
+<!-- to the location of this pipeline document.                      -->
+
+<p:option name="srcdir" select="'../../src/test/xml/'"/>
+<p:option name="resultdir" select="'../../build/test/result-html/'"/>
+<p:option name="actualdir" select="'../../build/test/actual-html/'"/>
+<p:option name="expecteddir" select="'../../src/test/expected-html/'"/>
+<p:option name="diffdir" select="'../../build/test/diff-html/'"/>
 <p:option name="ignore-head" select="0"/>
 <p:option name="ignore-prism" select="0"/>
 
-<p:import href="../../xslt/base/pipelines/docbook.xpl"/>
+<p:import href="../../build/xslt/base/pipelines/docbook.xpl"/>
 
 <p:declare-step type="cx:message" xmlns:cx="http://xmlcalabash.com/ns/extensions">
   <p:input port="source" sequence="true"/>
@@ -38,47 +43,12 @@
 </p:declare-step>
 
 <p:directory-list>
-  <p:with-option name="include-filter" select="$include"/>
-  <p:with-option name="path" select="resolve-uri($srcdir, exf:cwd())"/>
+  <p:with-option name="include-filter" select="concat($name, '.xml')"/>
+  <p:with-option name="path" select="resolve-uri($srcdir)"/>
 </p:directory-list>
-
-<!-- p:directory-list doesn't sort files; this stylesheet puts them
-     in alphabetic order. It doesn't matter to the tests, but it
-     makes the display easier to grok when they're running.
--->
-<p:xslt>
-  <p:input port="stylesheet">
-    <p:inline>
-      <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                      xmlns:c="http://www.w3.org/ns/xproc-step"
-                      version="2.0">
-        <xsl:template match="c:directory">
-          <xsl:copy>
-            <xsl:apply-templates select="@*"/>
-            <xsl:apply-templates select="*">
-              <xsl:sort select="@name" order="ascending"/>
-            </xsl:apply-templates>
-          </xsl:copy>
-        </xsl:template>
-        <xsl:template match="element()">
-          <xsl:copy>
-            <xsl:apply-templates select="@*,node()"/>
-          </xsl:copy>
-        </xsl:template>
-        <xsl:template match="attribute()|text()">
-          <xsl:copy/>
-        </xsl:template>
-      </xsl:stylesheet>
-    </p:inline>
-  </p:input>
-</p:xslt>
 
 <p:for-each name="loop">
   <p:iteration-source select="/c:directory/c:file"/>
-
-  <cx:message>
-    <p:with-option name="message" select="concat('Processing ', /*/@name)"/>
-  </cx:message>
 
   <p:load>
     <p:with-option name="href"
@@ -88,7 +58,7 @@
   <dbp:docbook>
     <p:with-param name="resource.root" select="'../../resources/'"/>
     <p:with-param name="bibliography.collection"
-                  select="'../style/bibliography.xml'"/>
+                  select="'../resources/bibliography.xml'"/>
     <p:with-param name="profile.os" select="'win'"/>
     <p:with-option name="style"
                    select="if (/*/db:info/p:style)
@@ -105,7 +75,7 @@
   <p:store method="xhtml">
     <p:with-option name="href"
                    select="replace(resolve-uri(/*/@name,
-                                     resolve-uri($actualdir, exf:cwd())),
+                                     resolve-uri($actualdir)),
                                    '.xml$', '.html')">
       <p:pipe step="loop" port="current"/>
     </p:with-option>
@@ -117,7 +87,7 @@
       <p:load>
         <p:with-option name="href"
                        select="replace(resolve-uri(/*/@name,
-                                         resolve-uri($expecteddir, exf:cwd())),
+                                         resolve-uri($expecteddir)),
                                        '.xml$', '.html')">
           <p:pipe step="loop" port="current"/>
         </p:with-option>
@@ -221,7 +191,7 @@
   <p:store method="xml">
     <p:with-option name="href"
                    select="resolve-uri(/*/@name,
-                              resolve-uri($diffdir, exf:cwd()))">
+                              resolve-uri($diffdir))">
       <p:pipe step="loop" port="current"/>
     </p:with-option>
   </p:store>
@@ -255,7 +225,7 @@
   <p:store method="xhtml">
     <p:with-option name="href"
                    select="replace(resolve-uri(/*/@name,
-                                     resolve-uri($resultdir, exf:cwd())),
+                                     resolve-uri($resultdir)),
                                    '.xml$', '.html')">
       <p:pipe step="loop" port="current"/>
     </p:with-option>
