@@ -177,8 +177,12 @@ It's just a bogus mess right now.</para>
 <refentry xml:id="headers.on.blank.pages"/>
 <refentry xml:id="region.after.extent"/>
 <refentry xml:id="region.before.extent"/>
+<refentry xml:id="region.inner.extent"/>
+<refentry xml:id="region.outer.extent"/>
 <refentry xml:id="side.region.precedence"/>
-    
+<refentry xml:id="region.inner.properties"/>
+<refentry xml:id="region.outer.properties"/>
+
 <refentry xml:id="fo.processor"/>
 <refentry xml:id="root.properties"/>
 <refentry xml:id="alignment"/>

@@ -1370,7 +1370,7 @@
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
-              <xsl:when test="$double.sided != 0">titlepage-even</xsl:when>
+              <xsl:when test="$double.sided">titlepage-even</xsl:when>
               <xsl:otherwise>titlepage-odd</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -1391,7 +1391,7 @@
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
-              <xsl:when test="$double.sided != 0">lot-even</xsl:when>
+              <xsl:when test="$double.sided">lot-even</xsl:when>
               <xsl:otherwise>lot-odd</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -1412,7 +1412,7 @@
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
-              <xsl:when test="$double.sided != 0">front-even</xsl:when>
+              <xsl:when test="$double.sided">front-even</xsl:when>
               <xsl:otherwise>front-odd</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -1433,7 +1433,7 @@
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
-              <xsl:when test="$double.sided != 0">body-even</xsl:when>
+              <xsl:when test="$double.sided">body-even</xsl:when>
               <xsl:otherwise>body-odd</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -1454,7 +1454,7 @@
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
-              <xsl:when test="$double.sided != 0">back-even</xsl:when>
+              <xsl:when test="$double.sided">back-even</xsl:when>
               <xsl:otherwise>back-odd</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -1475,7 +1475,7 @@
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
-              <xsl:when test="$double.sided != 0">index-even</xsl:when>
+              <xsl:when test="$double.sided">index-even</xsl:when>
               <xsl:otherwise>index-odd</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -1497,7 +1497,7 @@
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
-                <xsl:when test="$double.sided != 0">titlepage-even-draft</xsl:when>
+                <xsl:when test="$double.sided">titlepage-even-draft</xsl:when>
                 <xsl:otherwise>titlepage-odd-draft</xsl:otherwise>
               </xsl:choose>
             </xsl:attribute>
@@ -1518,7 +1518,7 @@
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
-                <xsl:when test="$double.sided != 0">lot-even-draft</xsl:when>
+                <xsl:when test="$double.sided">lot-even-draft</xsl:when>
                 <xsl:otherwise>lot-odd-draft</xsl:otherwise>
               </xsl:choose>
             </xsl:attribute>
@@ -1539,7 +1539,7 @@
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
-                <xsl:when test="$double.sided != 0">front-even-draft</xsl:when>
+                <xsl:when test="$double.sided">front-even-draft</xsl:when>
                 <xsl:otherwise>front-odd-draft</xsl:otherwise>
               </xsl:choose>
             </xsl:attribute>
@@ -1560,7 +1560,7 @@
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
-                <xsl:when test="$double.sided != 0">body-even-draft</xsl:when>
+                <xsl:when test="$double.sided">body-even-draft</xsl:when>
                 <xsl:otherwise>body-odd-draft</xsl:otherwise>
               </xsl:choose>
             </xsl:attribute>
@@ -1581,7 +1581,7 @@
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
-                <xsl:when test="$double.sided != 0">back-even-draft</xsl:when>
+                <xsl:when test="$double.sided">back-even-draft</xsl:when>
                 <xsl:otherwise>back-odd-draft</xsl:otherwise>
               </xsl:choose>
             </xsl:attribute>
@@ -1602,7 +1602,7 @@
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
-                <xsl:when test="$double.sided != 0">index-even-draft</xsl:when>
+                <xsl:when test="$double.sided">index-even-draft</xsl:when>
                 <xsl:otherwise>index-odd-draft</xsl:otherwise>
               </xsl:choose>
             </xsl:attribute>
@@ -1689,7 +1689,7 @@
   <xsl:param name="sequence"/>
   <xsl:param name="gentext-key"/>
 
-  <xsl:if test="$header.rule != 0">
+  <xsl:if test="$header.rule">
     <xsl:attribute name="border-bottom-width">0.5pt</xsl:attribute>
     <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
     <xsl:attribute name="border-bottom-color">black</xsl:attribute>
@@ -1701,7 +1701,7 @@
   <xsl:param name="sequence"/>
   <xsl:param name="gentext-key"/>
 
-  <xsl:if test="$footer.rule != 0">
+  <xsl:if test="$footer.rule">
     <xsl:attribute name="border-top-width">0.5pt</xsl:attribute>
     <xsl:attribute name="border-top-style">solid</xsl:attribute>
     <xsl:attribute name="border-top-color">black</xsl:attribute>
@@ -1803,7 +1803,7 @@
 
   <xsl:variable name="column1">
     <xsl:choose>
-      <xsl:when test="$double.sided = 0">1</xsl:when>
+      <xsl:when test="not($double.sided)">1</xsl:when>
       <xsl:when test="$sequence = 'first' or $sequence = 'odd'">1</xsl:when>
       <xsl:otherwise>3</xsl:otherwise>
     </xsl:choose>
@@ -1811,7 +1811,7 @@
 
   <xsl:variable name="column3">
     <xsl:choose>
-      <xsl:when test="$double.sided = 0">3</xsl:when>
+      <xsl:when test="not($double.sided)">3</xsl:when>
       <xsl:when test="$sequence = 'first' or $sequence = 'odd'">3</xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -1911,7 +1911,7 @@
                     and $sequence='first'">
       <!-- no, book titlepages have no headers at all -->
     </xsl:when>
-    <xsl:when test="$sequence = 'blank' and $headers.on.blank.pages = 0">
+    <xsl:when test="$sequence = 'blank' and not($headers.on.blank.pages)">
       <!-- no output -->
     </xsl:when>
     <xsl:otherwise>
@@ -1955,7 +1955,7 @@
       <xsl:when test="($sequence='odd' or $sequence='even') and $position='center'">
         <xsl:if test="$pageclass != 'titlepage'">
           <xsl:choose>
-            <xsl:when test="ancestor::book and ($double.sided != 0)">
+            <xsl:when test="ancestor::book and ($double.sided)">
               <fo:retrieve-marker retrieve-class-name="section.head.marker"
                                   retrieve-position="first-including-carryover"
                                   retrieve-boundary="page-sequence"/>
@@ -2128,7 +2128,7 @@
 
   <xsl:variable name="column1">
     <xsl:choose>
-      <xsl:when test="$double.sided = 0">1</xsl:when>
+      <xsl:when test="not($double.sided)">1</xsl:when>
       <xsl:when test="$sequence = 'first' or $sequence = 'odd'">1</xsl:when>
       <xsl:otherwise>3</xsl:otherwise>
     </xsl:choose>
@@ -2136,7 +2136,7 @@
 
   <xsl:variable name="column3">
     <xsl:choose>
-      <xsl:when test="$double.sided = 0">3</xsl:when>
+      <xsl:when test="not($double.sided)">3</xsl:when>
       <xsl:when test="$sequence = 'first' or $sequence = 'odd'">3</xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -2235,7 +2235,7 @@
                     and $sequence='first'">
       <!-- no, book titlepages have no footers at all -->
     </xsl:when>
-    <xsl:when test="$sequence = 'blank' and $footers.on.blank.pages = 0">
+    <xsl:when test="$sequence = 'blank' and not($footers.on.blank.pages)">
       <!-- no output -->
     </xsl:when>
     <xsl:otherwise>
@@ -2271,26 +2271,26 @@
         <!-- nop; no footer on title pages -->
       </xsl:when>
 
-      <xsl:when test="$double.sided != 0 and $sequence = 'even'
+      <xsl:when test="$double.sided and $sequence = 'even'
                       and $position='left'">
         <fo:page-number/>
       </xsl:when>
 
-      <xsl:when test="$double.sided != 0 and ($sequence = 'odd' or $sequence = 'first')
+      <xsl:when test="$double.sided and ($sequence = 'odd' or $sequence = 'first')
                       and $position='right'">
         <fo:page-number/>
       </xsl:when>
 
-      <xsl:when test="$double.sided = 0 and $position='center'">
+      <xsl:when test="not($double.sided) and $position='center'">
         <fo:page-number/>
       </xsl:when>
 
       <xsl:when test="$sequence='blank'">
         <xsl:choose>
-          <xsl:when test="$double.sided != 0 and $position = 'left'">
+          <xsl:when test="$double.sided and $position = 'left'">
             <fo:page-number/>
           </xsl:when>
-          <xsl:when test="$double.sided = 0 and $position = 'center'">
+          <xsl:when test="not($double.sided) and $position = 'center'">
             <fo:page-number/>
           </xsl:when>
           <xsl:otherwise>
@@ -2339,7 +2339,7 @@
                               self::lot)][1]"/>
   <xsl:choose>
     <!-- double-sided output -->
-    <xsl:when test="$double.sided != 0">
+    <xsl:when test="$double.sided">
       <xsl:choose>
         <xsl:when test="$element = 'toc'">auto-odd</xsl:when>
         <xsl:when test="$element = 'book'">1</xsl:when>
@@ -2388,7 +2388,7 @@
 
   <xsl:choose>
     <!-- double-sided output -->
-    <xsl:when test="$double.sided != 0">end-on-even</xsl:when>
+    <xsl:when test="$double.sided">end-on-even</xsl:when>
     <!-- single-sided output -->
     <xsl:otherwise>no-force</xsl:otherwise>
   </xsl:choose>
@@ -2574,7 +2574,7 @@
                               self::db:lot)
 			][1]"/>
 
-  <xsl:variable name="auto" select="if ($double.sided != 0)
+  <xsl:variable name="auto" select="if ($double.sided)
                                     then 'auto-odd'
 				    else 'auto'"/>
 
@@ -2627,7 +2627,7 @@
 
   <xsl:choose>
     <!-- double-sided output -->
-    <xsl:when test="$double.sided != 0">
+    <xsl:when test="$double.sided">
       <xsl:value-of select="'end-on-even'"/>
     </xsl:when>
     <!-- single-sided output -->

@@ -41,14 +41,14 @@
     <head>
       <title>Test results</title>
       <link rel="stylesheet" type="text/css"
-            href="../resources/css/default.css" />
+            href="../../resources/css/default.css" />
       <script type="text/javascript"
-              src="../resources/js/dbmodnizr.js" />
-      <link href="../resources/css/prism.css"
+              src="../../resources/js/dbmodnizr.js" />
+      <link href="../../resources/css/prism.css"
             rel="stylesheet" type="text/css" />
-      <link href="../resources/css/db-prism.css"
+      <link href="../../resources/css/db-prism.css"
             rel="stylesheet" type="text/css" />
-      <link href="style/show-results.css" rel="stylesheet" type="text/css"/>
+      <link href="css/show-results.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
       <h1>DocBook XSLT 2.0 Stylesheet test results</h1>
@@ -83,7 +83,7 @@
           </xsl:apply-templates>
         </tbody>
       </table>
-      <script src="../resources/js/prism.js"></script>
+      <script src="../../resources/js/prism.js"></script>
     </body>
   </html>
 </xsl:template>
@@ -100,7 +100,7 @@
       <xsl:attribute name="class" select="'diff'"/>
     </xsl:if>
     <td>
-      <a href="result/{@test}">
+      <a href="result-html/{@test}">
         <xsl:value-of select="@test"/>
       </a>
     </td>
@@ -113,12 +113,12 @@
       </td>
     </xsl:if>
     <td>
-      <a href="expected/{@test}">
+      <a href="expected-html/{@test}">
         <xsl:value-of select="@test"/>
       </a>
     </td>
     <td>
-      <a href="actual/{@test}">
+      <a href="actual-html/{@test}">
         <xsl:value-of select="@test"/>
       </a>
     </td>

@@ -52,18 +52,18 @@
     <head>
       <title>Results for <xsl:value-of select="$testname"/></title>
       <link rel="stylesheet" type="text/css"
-            href="../../resources/css/default.css" />
+            href="../../../resources/css/default.css" />
       <script type="text/javascript"
-              src="../../resources/js/dbmodnizr.js"></script>
+              src="../../../resources/js/dbmodnizr.js"></script>
 
       <link rel="stylesheet" type="text/css"
             href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/start/jquery-ui.css"/>
 
       <link rel="stylesheet" type="text/css"
-            href="../../resources/css/prism.css" />
+            href="../../../resources/css/prism.css" />
       <link rel="stylesheet" type="text/css"
-            href="../../resources/css/db-prism.css" />
-      <link href="../style/show-results.css" rel="stylesheet" type="text/css"/>
+            href="../../../resources/css/db-prism.css" />
+      <link href="../css/show-results.css" rel="stylesheet" type="text/css"/>
       <meta name="deltaxml"
             content="{if (/*/@deltaxml:version) then 'true' else 'false'}"/>
     </head>
@@ -165,9 +165,9 @@
     <script type="text/javascript"
             src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript"
-            src="../../resources/js/annotation.js"></script>
+            src="../../../resources/js/annotation.js"></script>
     <script type="text/javascript"
-            src="../../resources/js/prism.js"></script>
+            src="../../../resources/js/prism.js"></script>
   </html>
 </xsl:template>
 
