@@ -18,7 +18,7 @@
 <src:fragment xml:id="page.margin.outer.frag">
 <xsl:param name="page.margin.outer" as="xs:string">
   <xsl:choose>
-    <xsl:when test="$double.sided != 0">0.75in</xsl:when>
+    <xsl:when test="$double.sided">0.75in</xsl:when>
     <xsl:otherwise>1in</xsl:otherwise>
   </xsl:choose>
 </xsl:param>

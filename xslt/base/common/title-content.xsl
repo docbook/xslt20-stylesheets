@@ -560,7 +560,7 @@ but for elements that have optional titles, it may be a computed string.
             <xsl:with-param name="referrer" select="."/>
 	    <xsl:with-param name="xrefstyle">
 	      <xsl:choose>
-		<xsl:when test="@role and not(@xrefstyle) and $use.role.as.xrefstyle != 0">
+		<xsl:when test="@role and not(@xrefstyle) and $use.role.as.xrefstyle">
 		  <xsl:value-of select="@role"/>
 		</xsl:when>
 		<xsl:otherwise>

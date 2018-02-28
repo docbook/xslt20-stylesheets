@@ -16,7 +16,7 @@
                 version="2.0">
 
 <!-- Use internal variable for olink xlink role for consistency -->
-<xsl:variable 
+<xsl:variable
       name="xolink.role">http://docbook.org/xlink/role/olink</xsl:variable>
 
 <!-- ============================================================ -->
@@ -49,8 +49,8 @@
 
   <xsl:variable name="xrefstyle">
     <xsl:choose>
-      <xsl:when test="@role and not(@xrefstyle) 
-                      and $use.role.as.xrefstyle != 0">
+      <xsl:when test="@role and not(@xrefstyle)
+                      and $use.role.as.xrefstyle">
         <xsl:value-of select="@role"/>
       </xsl:when>
       <xsl:otherwise>
@@ -78,24 +78,24 @@
 	      </xsl:otherwise>
 	    </xsl:choose>
 	  </xsl:when>
-  
+
 	  <xsl:when test="$target/@xreflabel">
 	    <xsl:call-template name="t:xref-xreflabel">
 	      <xsl:with-param name="target" select="$target"/>
 	    </xsl:call-template>
 	  </xsl:when>
-  
+
 	  <xsl:when test="$target">
 	    <!-- FIXME: why? -->
 	    <xsl:if test="not(parent::db:citation)">
 	      <xsl:apply-templates select="$target" mode="m:xref-to-prefix"/>
 	    </xsl:if>
-  
+
 	    <xsl:apply-templates select="$target" mode="m:xref-to">
 	      <xsl:with-param name="referrer" select="."/>
 	      <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
 	    </xsl:apply-templates>
-  
+
 	    <xsl:if test="not(parent::db:citation)">
 	      <xsl:apply-templates select="$target" mode="m:xref-to-suffix"/>
 	    </xsl:if>
@@ -119,15 +119,15 @@
     <xsl:when test="not($target)">
       <!-- page numbers only for local targets -->
     </xsl:when>
-    <xsl:when test="starts-with(normalize-space($xrefstyle), 'select:') 
+    <xsl:when test="starts-with(normalize-space($xrefstyle), 'select:')
 		    and contains($xrefstyle, 'nopage')">
       <!-- negative xrefstyle in instance turns it off -->
     </xsl:when>
     <!-- positive xrefstyle already handles it -->
-    <xsl:when test="not(starts-with(normalize-space($xrefstyle), 'select:') 
+    <xsl:when test="not(starts-with(normalize-space($xrefstyle), 'select:')
 		    and (contains($xrefstyle, 'page')
                          or contains($xrefstyle, 'Page')))
-                    and ($insert.xref.page.number = 'yes' 
+                    and ($insert.xref.page.number = 'yes'
                          or $insert.xref.page.number = '1')
                     or $target/self::db:para">
       <xsl:apply-templates select="$target" mode="m:page-citation">
@@ -146,8 +146,8 @@
 
   <xsl:variable name="xrefstyle">
     <xsl:choose>
-      <xsl:when test="@role and not(@xrefstyle) 
-                      and $use.role.as.xrefstyle != 0">
+      <xsl:when test="@role and not(@xrefstyle)
+                      and $use.role.as.xrefstyle">
         <xsl:value-of select="@role"/>
       </xsl:when>
       <xsl:otherwise>
@@ -612,7 +612,7 @@
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
 
-  <!-- FIXME: 
+  <!-- FIXME:
   <xsl:call-template name="t:callout-bug">
     <xsl:with-param name="db:conum">
       <xsl:apply-templates select="." mode="db:conumber"/>
@@ -682,8 +682,8 @@
 
   <xsl:variable name="xrefstyle">
     <xsl:choose>
-      <xsl:when test="@role and not(@xrefstyle) 
-                      and $use.role.as.xrefstyle != 0">
+      <xsl:when test="@role and not(@xrefstyle)
+                      and $use.role.as.xrefstyle">
         <xsl:value-of select="@role"/>
       </xsl:when>
       <xsl:otherwise>
@@ -745,15 +745,15 @@
 	<xsl:with-param name="url" select="@xlink:href"/>
       </xsl:call-template>
     </xsl:when>
-    <xsl:when test="starts-with(normalize-space($xrefstyle), 'select:') 
+    <xsl:when test="starts-with(normalize-space($xrefstyle), 'select:')
                     and contains($xrefstyle, 'nopage')">
       <!-- negative xrefstyle in instance turns it off -->
     </xsl:when>
-    <xsl:when test="(starts-with(normalize-space($xrefstyle), 'select:') 
-                     and $insert.link.page.number = 'maybe'  
+    <xsl:when test="(starts-with(normalize-space($xrefstyle), 'select:')
+                     and $insert.link.page.number = 'maybe'
                      and (contains($xrefstyle, 'page')
                           or contains($xrefstyle, 'Page')))
-                     or ($insert.link.page.number = 'yes' 
+                     or ($insert.link.page.number = 'yes'
                          or $insert.link.page.number = '1')
                      or $target/self::db:para">
       <xsl:apply-templates select="$target" mode="m:page-citation">
@@ -771,12 +771,12 @@
 
   <xsl:if test="not(empty(child::node()))
 		and string(.) != $url
-		and $ulink.show != 0">
+		and $ulink.show">
     <!-- * Display the URL for this hyperlink only if it is non-empty, -->
     <!-- * and the value of its content is not a URL that is the same as -->
     <!-- * URL it links to, and if ulink.show is non-zero. -->
     <xsl:choose>
-      <xsl:when test="$ulink.footnotes != 0 and not(ancestor::footnote)">
+      <xsl:when test="$ulink.footnotes and not(ancestor::footnote)">
         <!-- * ulink.show and ulink.footnote are both non-zero; that -->
         <!-- * means we display the URL as a footnote (instead of inline) -->
         <fo:footnote>
@@ -836,7 +836,7 @@
       <!-- * - the element either has no xlink:type attribute or has -->
       <!-- *   an xlink:type attribute whose value is 'simple' -->
       <!-- FIXME: list in @from is probably not complete -->
-      <xsl:number level="any" 
+      <xsl:number level="any"
                   from="db:chapter|db:appendix|db:preface|db:article
 			|db:refentry|db:bibliography[not(parent::db:article)]"
 		  count="db:footnote[not(@label)][not(ancestor::db:tgroup)]

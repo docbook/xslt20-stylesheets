@@ -102,7 +102,7 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:remark">
-  <xsl:if test="$show.comments != 0">
+  <xsl:if test="$show.comments">
     <fo:block>
       <xsl:call-template name="t:id"/>
       <xsl:apply-templates/>

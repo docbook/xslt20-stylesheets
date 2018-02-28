@@ -280,7 +280,7 @@ vertical alignment.</para>
 
   <xsl:variable name="scalefit">
     <xsl:choose>
-      <xsl:when test="$ignore.image.scaling != 0">0</xsl:when>
+      <xsl:when test="$ignore.image.scaling">0</xsl:when>
       <xsl:when test="@contentwidth or @contentdepth">0</xsl:when>
       <xsl:when test="@scale">0</xsl:when>
       <xsl:when test="@scalefit"><xsl:value-of select="@scalefit"/></xsl:when>
@@ -292,7 +292,7 @@ vertical alignment.</para>
 
   <xsl:variable name="scale">
     <xsl:choose>
-      <xsl:when test="$ignore.image.scaling != 0">1.0</xsl:when>
+      <xsl:when test="$ignore.image.scaling">1.0</xsl:when>
       <xsl:when test="@scale">
         <xsl:value-of select="@scale div 100.0"/>
       </xsl:when>
@@ -322,7 +322,7 @@ vertical alignment.</para>
     
     <xsl:attribute name="width">
       <xsl:choose>
-        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+        <xsl:when test="$ignore.image.scaling">auto</xsl:when>
         <xsl:when test="contains(@width,'%')">
           <xsl:value-of select="@width"/>
         </xsl:when>
@@ -338,7 +338,7 @@ vertical alignment.</para>
 
     <xsl:attribute name="height">
       <xsl:choose>
-        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+        <xsl:when test="$ignore.image.scaling">auto</xsl:when>
         <xsl:when test="contains(@depth,'%')">
           <xsl:value-of select="@depth"/>
         </xsl:when>
@@ -351,7 +351,7 @@ vertical alignment.</para>
 
     <xsl:attribute name="content-width">
       <xsl:choose>
-        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+        <xsl:when test="$ignore.image.scaling">auto</xsl:when>
         <xsl:when test="contains(@contentwidth,'%')">
           <xsl:value-of select="@contentwidth"/>
         </xsl:when>
@@ -369,7 +369,7 @@ vertical alignment.</para>
 
     <xsl:attribute name="content-height">
       <xsl:choose>
-        <xsl:when test="$ignore.image.scaling != 0">auto</xsl:when>
+        <xsl:when test="$ignore.image.scaling">auto</xsl:when>
         <xsl:when test="contains(@contentdepth,'%')">
           <xsl:value-of select="@contentdepth"/>
         </xsl:when>

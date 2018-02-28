@@ -234,7 +234,7 @@
     <xsl:when test="$presentation = 'blocks'">
       <xsl:apply-templates select="." mode="mp:vl.as.blocks"/>
     </xsl:when>
-    <xsl:when test="$variablelist.as.blocks != 0">
+    <xsl:when test="$variablelist.as.blocks">
       <xsl:apply-templates select="." mode="mp:vl.as.blocks"/>
     </xsl:when>
     <xsl:otherwise>
@@ -482,7 +482,7 @@
       <!-- * a separator (", " by default) and/or an additional line -->
       <!-- * break after each one except the last -->
       <fo:inline><xsl:value-of select="$variablelist.term.separator"/></fo:inline>
-      <xsl:if test="not($variablelist.term.break.after = '0')">
+      <xsl:if test="$variablelist.term.break.after">
         <fo:block/>
       </xsl:if>
     </xsl:otherwise>

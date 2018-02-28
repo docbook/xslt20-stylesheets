@@ -878,15 +878,15 @@ and <tag>firstterm</tag> elements.</para>
     </xsl:if>
 
     <xsl:choose>
-      <xsl:when test="($firstterm.only.link = 0 or $firstterm = 1) and @linkend">
+      <xsl:when test="(not($firstterm.only.link) or ($firstterm = 1)) and @linkend">
 	<!-- FIXME:
 	<xsl:variable name="target" select="key('id',@linkend)[1]"/>
 	-->
       </xsl:when>
 
       <xsl:when test="not(@linkend)
-		      and ($firstterm.only.link = 0 or $firstterm = 1)
-		      and $glossterm.auto.link != 0">
+		      and (not($firstterm.only.link) or ($firstterm = 1))
+		      and $glossterm.auto.link">
 	<xsl:variable name="term">
 	  <xsl:choose>
 	    <xsl:when test="@baseform">

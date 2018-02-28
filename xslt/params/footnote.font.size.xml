@@ -15,9 +15,11 @@
 </refnamediv>
 
 <refsynopsisdiv>
-<src:fragment xml:id="footnote.font.size.frag"><xsl:param name="footnote.font.size">
- <xsl:value-of as="xs:double" select="$body.font.master * 0.8"/><xsl:text>pt</xsl:text>
-</xsl:param></src:fragment>
+<src:fragment xml:id="footnote.font.size.frag">
+  <xsl:param name="footnote.font.size">
+    <xsl:value-of select="$body.font.master * 0.8"/><xsl:text>pt</xsl:text>
+  </xsl:param>
+</src:fragment>
 </refsynopsisdiv>
 
 <refsection><info><title>Description</title></info>
