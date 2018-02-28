@@ -75,6 +75,14 @@ project.ext.saxonBranch  = saxonVersion.substring(0,3).replaceAll("\\.", "")
 project.ext.releaseVersion = version
 project.ext.distVersion = version + "-" + saxonBranch + snapshot
 
+if (!hasProperty("sonatypeUsername")) {
+  ext.sonatypeUsername=""
+}
+
+if (!hasProperty("sonatypePassword")) {
+  ext.sonatypePassword=""
+}
+
 compileGroovy {
   classpath += configurations.pluginApi
 }
