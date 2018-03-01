@@ -447,6 +447,12 @@ task copyLib(type: Copy) {
 }
 jar.dependsOn copyLib
 
+task copyJar(type: Copy, dependsOn: [ "jar" ]) {
+  from('build/libs')
+  include 'docbook-xslt2-' + version + ".jar"
+  into 'build/distributions/'
+}
+
 jar {
   baseName "docbook-xslt2"
   manifest {
@@ -509,7 +515,7 @@ task jarZip(type: Zip, dependsOn: [ "stageJarZip" ]) {
 // ======================================================================
 // Make dist
 
-task dist(dependsOn: [ "zip" ]) {
+task dist(dependsOn: [ "zip", "copyJar" ]) {
   // nop
 }
 
