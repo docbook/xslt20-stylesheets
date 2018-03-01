@@ -370,18 +370,6 @@ task copyResources(type: Copy, dependsOn: [ "copyDocs", "copyVendors" ]) {
   into "build/stage/zip/resources/"
 }
 
-/*
-task copyEtc(type: Copy) {
-  from "src/main/resources/etc"
-  into "build/stage/jar/etc"
-}
-
-task copyMetaInf(type: Copy) {
-  from "src/main/resources/META-INF"
-  into "build/stage/jar/META-INF"
-}
-*/
-
 task copyVendors(type: Copy) {
   from "vendor/"
   into "build/stage/zip/vendor"
@@ -459,6 +447,12 @@ task copyLib(type: Copy) {
 }
 jar.dependsOn copyLib
 
+task copyJar(type: Copy, dependsOn: [ "jar" ]) {
+  from('build/libs')
+  include 'docbook-xslt2-' + version + ".jar"
+  into 'build/distributions/'
+}
+
 jar {
   baseName "docbook-xslt2"
   manifest {
@@ -482,6 +476,11 @@ jar {
         + " lib/prince.jar"
   }
 }
+
+/* I'm not sure this is worth maintaining. I'm going to remove it
+   and see if anyone notices. The problem is that it would have
+   to ship with different versions of Saxon and XML Calabash.
+   It's not unmanagable, but it's hard to manage.
 
 // ======================================================================
 // Make JAR ZIP distribution
@@ -511,11 +510,12 @@ task jarZip(type: Zip, dependsOn: [ "stageJarZip" ]) {
   into 'docbook-xslt2-' + version
   archiveName 'docbook-xslt2-' + version + "-" + saxonBranch + "-jar.zip"
 }
+*/
 
 // ======================================================================
 // Make dist
 
-task dist(dependsOn: [ "zip", "jarZip" ]) {
+task dist(dependsOn: [ "zip", "copyJar" ]) {
   // nop
 }
 
@@ -523,6 +523,11 @@ clean {
   doFirst {
     delete "build"
   }
+}
+
+signing {
+  required { gradle.taskGraph.hasTask("uploadArchives") }
+  sign configurations.archives
 }
 
 /*
@@ -534,11 +539,6 @@ uploadArchives {
     }
 }
 */
-
-signing {
-  required { gradle.taskGraph.hasTask("uploadArchives") }
-  sign configurations.archives
-}
 
 uploadArchives {
   repositories {
@@ -586,13 +586,3 @@ uploadArchives {
   }
 }
 
-// Just a convenience for testing
-task helloWorld() {
-  doLast {
-    println("Hello, world.")
-    println("Saxon release: " + saxonRelease)
-    println("Saxon branch : " + saxonBranch)
-    println("Release ver. : " + releaseVersion)
-    println("Dist version : " + distVersion)
-  }
-}

@@ -2,13 +2,14 @@ language: java
 script: gradle dist
 sudo: false
 
-#install:
-#- echo sonatypeUsername=none >> gradle.properties
-#- echo sonatypePassword=none >> gradle.properties
-
-#after_success:
-#- ".travis/publish-results.sh"
-
-#deploy:
- # api_key:
-#    secure: CJWhv76T55re6sEhYblukVcOKhr1nP9zZ6bAdvp3nbcjRNcBh5shMj/fq/JaqKos90cTDpTwBn3rnbAtrX24TLU0KX//CzRkzjmYsl3e71Rb5v9MDiOFdw/iZTNZXBRED7fZy6eGqTboWHN0BGAPHBrsypRo8zVdFTuYDMRgsi0=
+deploy:
+  provider: releases
+  api_key:
+    secure: Q1zi1yC4ZbeaY+GtKji/QjVKIDwxMoYkfU7v4RShA1/7oFFgJBSDliv+yCCafsp/y3rQD9er3wNzdUsV8pRBO0TNnYwGPyoepvSjaQRzwGbghx3QHhoBMTvLjEsNnhvX/daMbtYLUHP/6oIkKr2sGEwrNfbBlfvoCe7MSdQ2XFo=
+  file:
+    - build/distributions/docbook-xslt2-$TRAVIS_TAG.zip
+    - build/distributions/docbook-xslt2-$TRAVIS_TAG.jar
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
