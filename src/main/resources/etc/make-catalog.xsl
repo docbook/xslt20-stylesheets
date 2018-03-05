@@ -11,8 +11,7 @@
 <xsl:param name="jarloc" required="yes"/>
 <xsl:param name="version" required="yes"/>
 
-<xsl:variable name="http" select="'http://docbook.github.com/release/'"/>
-<xsl:variable name="https" select="'https://docbook.github.io/release/'"/>
+<xsl:variable name="https" select="'https://cdn.docbook.org/release/'"/>
 
 <xsl:template match="catalog">
   <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
@@ -22,15 +21,11 @@
 
 <xsl:template match="uri">
   <xsl:variable name="name" select="@name"/>
-
-  <xsl:for-each select="($http, $https)">
-    <xsl:variable name="base" select="."/>
-    <xsl:for-each select="('latest', $version)">
-      <uri xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-        <xsl:attribute name="name" select="concat($base, ., $name)"/>
-        <xsl:attribute name="uri" select="concat($jarloc, $name)"/>
-      </uri>
-    </xsl:for-each>
+  <xsl:for-each select="('latest', $version)">
+    <uri xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+      <xsl:attribute name="name" select="concat($https, ., $name)"/>
+      <xsl:attribute name="uri" select="concat($jarloc, $name)"/>
+    </uri>
   </xsl:for-each>
 </xsl:template>
 
