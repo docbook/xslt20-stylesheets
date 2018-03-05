@@ -1,192 +1,118 @@
 package org.docbook
 
-import com.xmlcalabash.drivers.Main
-import com.xmlcalabash.util.ParseArgs
-import com.xmlcalabash.util.UserArgs
-import org.gradle.api.internal.ConventionTask
-import org.gradle.api.tasks.Input;
-import org.gradle.api.tasks.TaskAction
+import com.xmlcalabash.XMLCalabashTask
 
-import com.xmlcalabash.core.XProcConfiguration;
-import com.xmlcalabash.core.XProcRuntime;
-import com.xmlcalabash.model.RuntimeValue;
-import com.xmlcalabash.runtime.XPipeline;
-import net.sf.saxon.s9api.QName;
-import net.sf.saxon.s9api.XdmNode;
+import java.lang.reflect.Method
 
-class DocBookTask extends ConventionTask {
-    private Hashtable<String,String> nsBindings = new Hashtable<String,String> ()
-    private Hashtable<String,String> params = new Hashtable<String,String> ()
-    private Hashtable<String,String> options = new Hashtable<String,String> ()
-    private Vector<String> extensions = new Vector<String> ()
-
-    private String paramFile = null
-    private String input = null
-    private String output = null
+class DocBookTask extends XMLCalabashTask {
+    private String format = "html"
+    private String style = "docbook"
+    private String preprocess = ""
+    private String postprocess = ""
+    private String returnSecondary = ""
+    private String pdf = ""
+    private String css = ""
 
     DocBookTask() {
     }
 
-    private String getOpt(String optName) {
-        if (options.containsKey(optName)) {
-            return options.get(optName)
-        } else {
-            return null
-        }
-    }
-
     String getFormat() {
-        return getOpt("format")
+        format
     }
 
-    def setFormat(String format) {
-        options.put("format", format)
+    def setFormat(String value) {
+        format = value
         return this
     }
 
     String getStyle() {
-        return getOpt("style")
+        return style
     }
 
-    def setStyle(String style) {
-        options.put("style", style)
+    def setStyle(String value) {
+        style = value
         return this
     }
 
     String getPreprocess() {
-        return getOpt("preprocess")
+        return preprocess
     }
 
-    def setPreprocess(String preprocess) {
-        options.put("preprocess", preprocess)
+    def setPreprocess(String value) {
+        preprocess = value
         return this
     }
 
     String getPostprocess() {
-        return getOpt("postprocess")
+        return postprocess
     }
 
-    def setpostProcess(String postprocess) {
-        options.put("postprocess", postprocess)
+    def setpostProcess(String value) {
+        postprocess = value
         return this
     }
 
     String getReturnSecondary() {
-        return getOpt("return-secondary")
+        return returnSecondary
     }
 
-    def setReturnSecondary(String returnSecondary) {
-        options.put("return-secondary", returnSecondary)
+    def setReturnSecondary(String value) {
+        returnSecondary = value
         return this
     }
 
     String getPdf() {
-        return getOpt("pdf")
+        return pdf
     }
 
-    def setPdf(String pdf) {
-        options.put("pdf", pdf)
+    def setPdf(String value) {
+        pdf = value
         return this
     }
 
     String getCss() {
-        return getOpt("css")
+        return css
     }
 
-    def setCss(String css) {
-        options.put("css", css)
+    def setCss(String value) {
+        css = value
         return this
     }
 
-    String getParamFile() {
-        return paramFile
-    }
+    @Override
+    protected void setupRuntime() {
+        XSLT20 docbook = new XSLT20()
+        String catalog = "file://" + docbook.createCatalog()
 
-    def setParamFile(String paramFile) {
-        this.paramFile = paramFile
-        return this
-    }
-
-    @Input
-    String getInput() {
-        return input
-    }
-
-    def setInput(String input) {
-        this.input = input
-        return this
-    }
-
-    String getOutput() {
-        return output
-    }
-
-    def setOutput(String output) {
-        this.output = output
-        return this
-    }
-
-    void namespaceBinding(String prefix, String uri) {
-        nsBindings.put(prefix,uri)
-    }
-
-    String param(String qname, String value) {
-        params.put(qname, value)
-    }
-
-    List getCalabashExtensions() {
-        return extensions
-    }
-
-    def setCalabashExtensions(Iterable<String> extensions) {
-        this.extensions.clear()
-        for (String s : extensions) {
-            this.extensions.add(s)
-        }
-        return this
-    }
-
-    def setCalabashExtensions(String... extensions) {
-        this.extensions.clear()
-        for (String s : extensions) {
-            this.extensions.add(s)
-        }
-        return this
-    }
-
-    @TaskAction
-    void exec() {
-        DocBook docbook = new DocBook()
-
-        for (String ns : nsBindings.keySet()) {
-            docbook.setNamespace(ns, nsBindings.get(ns))
+        String schemaCatalog = null
+        try {
+            Class klass = Class.forName("org.docbook.Schemas")
+            Object schemas = klass.newInstance()
+            Method method = schemas.getClass().getMethod("createCatalog")
+            schemaCatalog = "file://" + method.invoke(schemas)
+        } catch (ClassNotFoundException cfne) {
+            logger.debug("DocBookTask did not find org.docbook.Schemas class");
         }
 
-        for (String param : params.keySet()) {
-            docbook.setParam(param, params.get(param))
-        }
+        pipelineURI = "https://cdn.docbook.org/release/latest/xslt/base/pipelines/docbook.xpl"
 
-        for (String opt : options.keySet()) {
-            docbook.setOption(opt, options.get(opt))
-        }
+        userArgs.addOption("format", getFormat())
+        userArgs.addOption("style", getStyle())
+        userArgs.addOption("preprocess", getPreprocess())
+        userArgs.addOption("postprocess", getPostprocess())
+        userArgs.addOption("return-secondary", getReturnSecondary())
+        userArgs.addOption("pdf", getPdf())
+        userArgs.addOption("css", getCss())
+        super.setupRuntime()
 
-        if (paramFile != null) {
-            docbook.addParameterFile(paramFile)
+        if (schemaCatalog != null) {
+            logger.debug("DocBookTask adds catalogs to runtime:")
+            logger.debug(catalog)
+            logger.debug(schemaCatalog)
+            runtime.getResolver().addCatalogs([catalog, schemaCatalog])
+        } else {
+            logger.debug("DocBookTask adds catalog to runtime: " + catalog)
+            runtime.getResolver().addCatalogs([catalog])
         }
-
-        if (output != null) {
-            docbook.setOption("output", output)
-        }
-
-        if (input == null) {
-            throw notAllowed("You must specify the input file")
-        }
-
-        docbook.run(input)
     }
-
-    private static UnsupportedOperationException notAllowed(final String msg) {
-        return new UnsupportedOperationException (msg)
-    }
-
 }

@@ -2,13 +2,15 @@ package org.docbook;
 
 
 import com.xmlcalabash.core.XProcConfiguration;
-import com.xmlcalabash.core.XProcRuntime;
 import com.xmlcalabash.io.WritableDocument;
 import com.xmlcalabash.model.RuntimeValue;
 import com.xmlcalabash.model.Serialization;
 import com.xmlcalabash.runtime.XPipeline;
+import com.xmlcalabash.core.XProcRuntime;
 import com.xmlcalabash.util.Input;
 import com.xmlcalabash.util.XProcURIResolver;
+import net.sf.saxon.s9api.DocumentBuilder;
+import net.sf.saxon.s9api.Processor;
 import net.sf.saxon.s9api.QName;
 import net.sf.saxon.s9api.SaxonApiException;
 import net.sf.saxon.s9api.ValidationMode;
@@ -27,36 +29,52 @@ import org.xmlresolver.Resolver;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
+import javax.xml.transform.sax.SAXSource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.net.JarURLConnection;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.CodeSource;
 import java.util.Hashtable;
 import java.util.Properties;
 import java.util.Vector;
 
-class DocBook {
+public class XSLT20 {
     private static final QName _output = new QName("", "output");
     private static final QName _format = new QName("", "format");
+
+    protected Logger logger = null;
 
     private String proctype = "he";
     private boolean schemaAware = false;
     private String classLoc = null;
+    private String jarLoc = null;
     private Hashtable<String,String> nsbindings = new Hashtable<String, String> ();
     private Hashtable<QName,RuntimeValue> params = new Hashtable<QName, RuntimeValue> ();
     private Vector<String> paramFiles = new Vector<String>();
     private String sourcefn = null;
     private Hashtable<QName,RuntimeValue> options = new Hashtable<QName,RuntimeValue>();
-    protected Logger logger = null;
+    private String version = null;
+    private String catalogFile = null;
 
-    public DocBook() {
-        logger = LoggerFactory.getLogger(DocBook.class);
+    public XSLT20() {
+        logger = LoggerFactory.getLogger(XSLT20.class);
         // Where am I?
-        CodeSource src = DocBook.class.getProtectionDomain().getCodeSource();
+        CodeSource src = XSLT20.class.getProtectionDomain().getCodeSource();
         classLoc = src.getLocation().toString();
         logger.debug("classLoc=" + classLoc);
+
+        if (classLoc.endsWith(".jar")) {
+            jarLoc = "jar:" + classLoc + "!";
+        } else {
+            // This is only supposed to happen on a dev box
+            int pos = classLoc.indexOf("/build/");
+            jarLoc = classLoc.substring(0, pos);
+        }
     }
 
     public void setParam(String param, String value) {
@@ -106,6 +124,89 @@ class DocBook {
         logger.debug("Param file=" + fn);
     }
 
+    public String createCatalog() {
+        if (catalogFile != null) {
+            return catalogFile;
+        }
+
+        try {
+            Processor processor = new Processor(false);
+            DocumentBuilder builder = processor.newDocumentBuilder();
+            builder.setDTDValidation(false);
+            builder.setLineNumbering(true);
+
+            URL uris_url = new URL(jarLoc + "/etc/uris.xml");
+            URL xsl_url   = new URL(jarLoc + "/etc/make-catalog.xsl");
+
+            JarURLConnection uris_conn = (JarURLConnection) uris_url.openConnection();
+            JarURLConnection xsl_conn   = (JarURLConnection) xsl_url.openConnection();
+
+            InputSource uris_src = new InputSource(uris_conn.getInputStream());
+            InputSource xsl_src = new InputSource(xsl_conn.getInputStream());
+
+            uris_src.setSystemId(uris_url.toURI().toASCIIString());
+            xsl_src.setSystemId(xsl_url.toURI().toASCIIString());
+
+            XdmNode uris = builder.build(new SAXSource(uris_src));
+            XdmNode xsl  = builder.build(new SAXSource(xsl_src));
+
+            XsltCompiler compiler = processor.newXsltCompiler();
+            compiler.setSchemaAware(false);
+            XsltExecutable exec = compiler.compile(xsl.asSource());
+            XsltTransformer transformer = exec.load();
+
+            transformer.setParameter(new QName("", "jarloc"), new XdmAtomicValue(jarLoc));
+            transformer.setParameter(new QName("", "version"), new XdmAtomicValue(version()));
+
+            transformer.setInitialContextNode(uris);
+
+            XdmDestination xresult = new XdmDestination();
+            transformer.setDestination(xresult);
+
+            transformer.setSchemaValidationMode(ValidationMode.DEFAULT);
+            transformer.transform();
+            XdmNode xformed = xresult.getXdmNode();
+
+            File tempcat = File.createTempFile("dbcat", ".xml");
+            tempcat.deleteOnExit();
+
+            PrintStream catstream = new PrintStream(tempcat);
+            catstream.print(xformed.toString());
+            catstream.close();
+
+            catalogFile = tempcat.getAbsolutePath();
+            return catalogFile;
+        } catch (SaxonApiException | IOException | URISyntaxException sae) {
+            logger.info("org.docbook.XSLT20 failed to create catalog: " + sae.getMessage());
+            throw new RuntimeException(sae);
+        }
+    }
+
+    public String version() {
+        if (version != null) {
+            return version;
+        }
+
+        Properties config = new Properties();
+        InputStream stream = null;
+        try {
+            URL version_url = new URL(jarLoc + "/etc/version.properties");
+            JarURLConnection version_conn = (JarURLConnection) version_url.openConnection();
+            stream = version_conn.getInputStream();
+            if (stream == null) {
+                throw new UnsupportedOperationException("JAR file doesn't contain version.properties file!?");
+            }
+            config.load(stream);
+            version = config.getProperty("version");
+            if (version == null) {
+                throw new UnsupportedOperationException("Invalid version.properties in JAR file!?");
+            }
+            return version;
+        } catch (IOException ioe) {
+            throw new UnsupportedOperationException("No version.properties in JAR file!?");
+        }
+    }
+
     public void run(String sourcefn) throws IOException, SaxonApiException {
         XProcConfiguration config = new XProcConfiguration(proctype, schemaAware);
         XProcRuntime runtime = new XProcRuntime(config);
@@ -113,15 +214,6 @@ class DocBook {
         String baseURI = "file://" + System.getProperty("user.dir") + "/";
 
         XdmNode source = runtime.parse(sourcefn, baseURI);
-
-        String jarloc = "";
-        if (classLoc.endsWith(".jar")) {
-            jarloc = "jar:" + classLoc + "!";
-        } else {
-            // This is only supposed to happen on a dev box
-            int pos = classLoc.indexOf("/build/");
-            jarloc = classLoc.substring(0, pos);
-        }
 
         String format = "html";
         if (options.containsKey(_format)) {
@@ -137,37 +229,10 @@ class DocBook {
             xpl = "db2fo.xpl";
         }
 
-        xpl = jarloc + "/xslt/base/pipelines/" + xpl;
+        xpl = jarLoc + "/xslt/base/pipelines/" + xpl;
 
-        XdmNode xcat = runtime.parse(new InputSource(getClass().getResourceAsStream("/etc/uris.xml")));
-        XdmNode patch = runtime.parse(new InputSource(getClass().getResourceAsStream("/etc/make-catalog.xsl")));
-
-        XsltCompiler compiler = runtime.getProcessor().newXsltCompiler();
-        compiler.setSchemaAware(false);
-        XsltExecutable exec = compiler.compile(patch.asSource());
-        XsltTransformer transformer = exec.load();
-
-        transformer.setParameter(new QName("", "jarloc"), new XdmAtomicValue(jarloc));
-        transformer.setParameter(new QName("", "version"), new XdmAtomicValue(version()));
-
-        transformer.setInitialContextNode(xcat);
-
-        XdmDestination xresult = new XdmDestination();
-        transformer.setDestination(xresult);
-
-        transformer.setSchemaValidationMode(ValidationMode.DEFAULT);
-        transformer.transform();
-        XdmNode xformed = xresult.getXdmNode();
-
-        //File tempcat = new File("/tmp/dbcat.xml");
-        File tempcat = File.createTempFile("dbcat", ".xml");
-        tempcat.deleteOnExit();
-
-        PrintStream catstream = new PrintStream(tempcat);
-        catstream.print(xformed.toString());
-        catstream.close();
-
-        Catalog catalog = new Catalog(tempcat.getAbsolutePath());
+        String catalogFn = createCatalog();
+        Catalog catalog = new Catalog(catalogFn);
 
         XProcURIResolver resolver = runtime.getResolver();
         URIResolver uriResolver = resolver.getUnderlyingURIResolver();
@@ -217,30 +282,11 @@ class DocBook {
         }
     }
 
-    public String version() {
-        Properties config = new Properties();
-        InputStream stream = null;
-        try {
-            stream = Main.class.getResourceAsStream("/etc/version.properties");
-            if (stream == null) {
-                throw new UnsupportedOperationException("JAR file doesn't contain version.properties file!?");
-            }
-            config.load(stream);
-            String version = config.getProperty("version");
-            if (version == null) {
-                throw new UnsupportedOperationException("Invalid version.properties in JAR file!?");
-            }
-            return version;
-        } catch (IOException ioe) {
-            throw new UnsupportedOperationException("No version.properties in JAR file!?");
-        }
-    }
-
     private class DocBookResolver extends Resolver {
         URIResolver nextResolver = null;
         Resolver resolver = null;
 
-        public DocBookResolver(URIResolver resolver, Catalog catalog) {
+        DocBookResolver(URIResolver resolver, Catalog catalog) {
             nextResolver = resolver;
             this.resolver = new Resolver(catalog);
         }
