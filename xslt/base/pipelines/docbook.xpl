@@ -17,6 +17,7 @@
 <p:serialization port="result" method="html" encoding="utf-8" indent="false"
                  version="5"/>
 
+<p:option name="schema" select="''"/>
 <p:option name="format" select="'html'"/>
 <p:option name="style" select="'docbook'"/>
 <p:option name="preprocess" select="''"/>
@@ -46,7 +47,29 @@
   <p:option name="message" required="true"/>
 </p:declare-step>
 
-<p:xinclude fixup-xml-base="true" fixup-xml-lang="true"/>
+<p:xinclude name="xinclude" fixup-xml-base="true" fixup-xml-lang="true"/>
+
+<p:choose>
+  <p:when test="$schema = ''">
+    <p:output port="result"/>
+    <p:identity/>
+  </p:when>
+  <p:otherwise>
+    <p:output port="result"/>
+    <p:load name="load-schema" xmlns:exf="http://exproc.org/standard/functions">
+      <p:with-option name="href" select="resolve-uri($schema, exf:cwd())"/>
+    </p:load>
+    <p:validate-with-relax-ng>
+      <p:input port="source">
+        <p:pipe step="xinclude" port="result"/>
+      </p:input>
+      <p:input port="schema">
+        <p:pipe step="load-schema" port="result"/>
+      </p:input>
+      <!-- <p:log port="result" href="/tmp/00-validate.xml"/> -->
+    </p:validate-with-relax-ng>
+  </p:otherwise>
+</p:choose>
 
 <p:xslt name="logical-structure">
   <p:input port="stylesheet">
