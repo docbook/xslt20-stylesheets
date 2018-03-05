@@ -94,15 +94,41 @@ class DocBookTask extends XMLCalabashTask {
             logger.debug("DocBookTask did not find org.docbook.Schemas class");
         }
 
-        pipelineURI = "https://cdn.docbook.org/release/latest/xslt/base/pipelines/docbook.xpl"
+        // The options in the build.gradle file are evaluated before we get called.
+        // Don't attempt to overwrite anything that's already been set.
 
-        userArgs.addOption("format", getFormat())
-        userArgs.addOption("style", getStyle())
-        userArgs.addOption("preprocess", getPreprocess())
-        userArgs.addOption("postprocess", getPostprocess())
-        userArgs.addOption("return-secondary", getReturnSecondary())
-        userArgs.addOption("pdf", getPdf())
-        userArgs.addOption("css", getCss())
+        if (pipelineURI == null) {
+            pipelineURI = "https://cdn.docbook.org/release/latest/xslt/base/pipelines/docbook.xpl"
+        }
+
+        if (!seenOptions.containsKey("format")) {
+            option("format", getFormat())
+        }
+
+        if (!seenOptions.containsKey("style")) {
+            option("style", getStyle())
+        }
+
+        if (!seenOptions.containsKey("preprocess")) {
+            option("preprocess", getPreprocess())
+        }
+
+        if (!seenOptions.containsKey("postprocess")) {
+            option("postprocess", getPostprocess())
+        }
+
+        if (!seenOptions.containsKey("return-secondary")) {
+            option("return-secondary", getReturnSecondary())
+        }
+
+        if (!seenOptions.containsKey("pdf")) {
+            option("pdf", getPdf())
+        }
+
+        if (!seenOptions.containsKey("css")) {
+            option("css", getCss())
+        }
+
         super.setupRuntime()
 
         if (schemaCatalog != null) {
