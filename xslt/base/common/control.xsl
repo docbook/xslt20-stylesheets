@@ -17,7 +17,7 @@
   <xsl:param name="document"/>
   <xsl:param name="rootid"/>
 
-  <xsl:if test="$rootid != '' and not(key('id', $rootid, $document))">
+  <xsl:if test="exists($rootid) and ($rootid != '') and not(key('id', $rootid, $document))">
     <xsl:message terminate="yes">
       <xsl:text>ID '</xsl:text>
       <xsl:value-of select="$rootid"/>
@@ -27,7 +27,7 @@
 
   <xsl:variable name="root" as="element()">
     <xsl:choose>
-      <xsl:when test="$rootid != ''">
+      <xsl:when test="exists($rootid) and ($rootid != '')">
 	<xsl:sequence select="key('id', $rootid, $document)"/>
       </xsl:when>
       <xsl:otherwise>
@@ -82,7 +82,7 @@ element (or the element selected for processing with
   <xsl:message terminate="yes">
     <xsl:text>Error: document root element (</xsl:text>
     <xsl:value-of select="name($root/*[1])"/>
-    <xsl:if test="$rootid">
+    <xsl:if test="exists($rootid) and ($rootid != '')">
       <xsl:text>, $rootid=</xsl:text>
       <xsl:value-of select="$rootid"/>
     </xsl:if>

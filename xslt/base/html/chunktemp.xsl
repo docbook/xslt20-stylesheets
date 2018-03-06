@@ -108,7 +108,7 @@
 
   <xsl:template match="/">
     <xsl:choose>
-      <xsl:when test="$rootid = ''">
+      <xsl:when test="empty($rootid) or ($rootid = '')">
         <xsl:apply-templates select="$chunks" mode="m:chunk"/>
       </xsl:when>
       <xsl:when test="$chunks[@xml:id = $rootid]">
