@@ -31,7 +31,7 @@
       <xsl:when test="string($pibn) != ''">
 	<xsl:value-of select="concat($pibn, $html.ext)"/>
       </xsl:when>
-      <xsl:when test="$chunk/@xml:id and $use.id.as.filename != '0'">
+      <xsl:when test="$chunk/@xml:id and $use.id.as.filename">
 	<xsl:value-of select="concat($chunk/@xml:id,$html.ext)"/>
       </xsl:when>
       <xsl:otherwise>
