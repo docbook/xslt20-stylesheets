@@ -1,11 +1,11 @@
 package org.docbook;
 
 import com.xmlcalabash.core.XProcConfiguration;
+import com.xmlcalabash.core.XProcRuntime;
 import com.xmlcalabash.io.WritableDocument;
 import com.xmlcalabash.model.RuntimeValue;
 import com.xmlcalabash.model.Serialization;
 import com.xmlcalabash.runtime.XPipeline;
-import com.xmlcalabash.core.XProcRuntime;
 import com.xmlcalabash.util.Input;
 import com.xmlcalabash.util.XProcURIResolver;
 import net.sf.saxon.s9api.DocumentBuilder;
@@ -37,6 +37,7 @@ import java.io.PrintStream;
 import java.net.JarURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.security.CodeSource;
 import java.util.Hashtable;
 import java.util.Properties;
@@ -72,9 +73,15 @@ public class XSLT20 {
         if (classLoc.endsWith(".jar")) {
             jarLoc = "jar:" + classLoc + "!";
         } else {
-            // This is only supposed to happen on a dev box
-            int pos = classLoc.indexOf("/build/");
-            jarLoc = classLoc.substring(0, pos);
+            // This is only supposed to happen on a dev box; if you're integrating this into some bigger
+            // application, well, sorry, it's all a bit of a hack if it's not in the jar.
+            if (classLoc.indexOf("/build/") > 0) {
+                jarLoc = classLoc + "../../../resources/main";
+            } else if (classLoc.indexOf("/out/production/") > 0) { // IntelliJ
+                jarLoc = classLoc + "../resources";
+            } else {
+                throw new RuntimeException("org.docbook.XSLT20 cannot find root from " + classLoc);
+            }
         }
     }
 
@@ -145,11 +152,8 @@ public class XSLT20 {
             URL uris_url = new URL(jarLoc + "/etc/uris.xml");
             URL xsl_url   = new URL(jarLoc + "/etc/make-catalog.xsl");
 
-            JarURLConnection uris_conn = (JarURLConnection) uris_url.openConnection();
-            JarURLConnection xsl_conn   = (JarURLConnection) xsl_url.openConnection();
-
-            InputSource uris_src = new InputSource(uris_conn.getInputStream());
-            InputSource xsl_src = new InputSource(xsl_conn.getInputStream());
+            InputSource uris_src = new InputSource(getStream(uris_url));
+            InputSource xsl_src = new InputSource(getStream(xsl_url));
 
             uris_src.setSystemId(uris_url.toURI().toASCIIString());
             xsl_src.setSystemId(xsl_url.toURI().toASCIIString());
@@ -194,6 +198,21 @@ public class XSLT20 {
         }
     }
 
+    private InputStream getStream(URL url) {
+        URLConnection conn = null;
+        try {
+            try {
+                conn = (JarURLConnection) url.openConnection();
+            } catch (ClassCastException cce) {
+                conn = url.openConnection();
+            }
+
+            return conn.getInputStream();
+        } catch (IOException ioe) {
+            throw new RuntimeException("Cannot read: " + url.toString());
+        }
+    }
+
     public String version() {
         if (version != null) {
             return version;
@@ -229,11 +248,7 @@ public class XSLT20 {
         InputStream stream = null;
         try {
             URL version_url = new URL(jarLoc + "/etc/version.properties");
-            JarURLConnection version_conn = (JarURLConnection) version_url.openConnection();
-            stream = version_conn.getInputStream();
-            if (stream == null) {
-                throw new UnsupportedOperationException("JAR file doesn't contain version.properties file!?");
-            }
+            stream = getStream(version_url);
             configProperties.load(stream);
         } catch (IOException ioe) {
             throw new UnsupportedOperationException("Failed to load version.properties file from JAR!?");
