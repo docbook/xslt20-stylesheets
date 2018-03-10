@@ -7,8 +7,9 @@ deploy:
   api_key:
     secure: e6vZRdwzvb8L/DfFZ0/AY2dcQmOqbXFxepdgYGcbEXMtED7Os94YodLMTNrdt47WiN+buPEjaQq1uMCkZOF6ndGK6ZaxN67S16RFTdIlVDOsux46DlBnE1WsVGPNFFMHb7YQBAGc/OdtMLyF1B+w/XHh4Y6YkLWi02c/ox3ih3E=
   file:
-    - build/distributions/docbook-xslt2-$TRAVIS_TAG.zip
     - build/distributions/docbook-xslt2-$TRAVIS_TAG.jar
+    - build/distributions/docbook-xslt2-$TRAVIS_TAG.zip
+    - build/distributions/docbook-xslt2-$TRAVIS_TAG-app.zip
   skip_cleanup: true
   on:
     tags: true
