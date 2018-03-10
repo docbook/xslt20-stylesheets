@@ -1,6 +1,5 @@
 package org.docbook;
 
-
 import com.xmlcalabash.core.XProcConfiguration;
 import com.xmlcalabash.io.WritableDocument;
 import com.xmlcalabash.model.RuntimeValue;
@@ -59,7 +58,9 @@ public class XSLT20 {
     private String sourcefn = null;
     private Hashtable<QName,RuntimeValue> options = new Hashtable<QName,RuntimeValue>();
     private String version = null;
+    private String resourcesVersion = null;
     private String catalogFile = null;
+    private Properties configProperties = null;
 
     public XSLT20() {
         logger = LoggerFactory.getLogger(XSLT20.class);
@@ -125,8 +126,14 @@ public class XSLT20 {
     }
 
     public String createCatalog() {
+        return createCatalog(null);
+    }
+
+    public String createCatalog(String catalogFilename) {
         if (catalogFile != null) {
-            return catalogFile;
+            if (catalogFilename == null || catalogFile.equals(catalogFilename)) {
+                return catalogFile;
+            }
         }
 
         try {
@@ -157,7 +164,7 @@ public class XSLT20 {
 
             transformer.setParameter(new QName("", "jarloc"), new XdmAtomicValue(jarLoc));
             transformer.setParameter(new QName("", "version"), new XdmAtomicValue(version()));
-
+            transformer.setParameter(new QName( "", "resourcesVersion"), new XdmAtomicValue(resourcesVersion()));
             transformer.setInitialContextNode(uris);
 
             XdmDestination xresult = new XdmDestination();
@@ -167,8 +174,13 @@ public class XSLT20 {
             transformer.transform();
             XdmNode xformed = xresult.getXdmNode();
 
-            File tempcat = File.createTempFile("dbcat", ".xml");
-            tempcat.deleteOnExit();
+            File tempcat = null;
+            if (catalogFilename == null) {
+                tempcat = File.createTempFile("dbcat", ".xml");
+                tempcat.deleteOnExit();
+            } else {
+                tempcat = new File(catalogFilename);
+            }
 
             PrintStream catstream = new PrintStream(tempcat);
             catstream.print(xformed.toString());
@@ -187,7 +199,33 @@ public class XSLT20 {
             return version;
         }
 
-        Properties config = new Properties();
+        loadProperties();
+        version = configProperties.getProperty("version");
+        if (version == null) {
+            throw new UnsupportedOperationException("No version property in version.properties!?");
+        }
+        return version;
+    }
+
+    public String resourcesVersion() {
+        if (resourcesVersion != null) {
+            return resourcesVersion;
+        }
+
+        loadProperties();
+        resourcesVersion = configProperties.getProperty("resourcesVersion");
+        if (resourcesVersion == null) {
+            throw new UnsupportedOperationException("No resourcesVersion property in version.properties!?");
+        }
+        return resourcesVersion;
+    }
+
+    private void loadProperties() {
+        if (configProperties != null) {
+            return;
+        }
+
+        configProperties = new Properties();
         InputStream stream = null;
         try {
             URL version_url = new URL(jarLoc + "/etc/version.properties");
@@ -196,14 +234,9 @@ public class XSLT20 {
             if (stream == null) {
                 throw new UnsupportedOperationException("JAR file doesn't contain version.properties file!?");
             }
-            config.load(stream);
-            version = config.getProperty("version");
-            if (version == null) {
-                throw new UnsupportedOperationException("Invalid version.properties in JAR file!?");
-            }
-            return version;
+            configProperties.load(stream);
         } catch (IOException ioe) {
-            throw new UnsupportedOperationException("No version.properties in JAR file!?");
+            throw new UnsupportedOperationException("Failed to load version.properties file from JAR!?");
         }
     }
 

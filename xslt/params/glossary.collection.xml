@@ -12,7 +12,10 @@
 
 <refsynopsisdiv>
 <src:fragment xml:id="glossary.collection.frag">
-<xsl:param name="glossary.collection" as="xs:string" select="''"/>
+<xsl:param name="glossary.collection" as="xs:string"
+           select="concat('http://cdn.docbook.org/resources/',
+                          $RESOURCES.VERSION,
+                          '/xml/glossary.xml')"/>
 </src:fragment>
 </refsynopsisdiv>
 

@@ -100,10 +100,13 @@
 </p:declare-step>
 
 <cx:recursive-directory-list>
-  <p:with-option name="path" select="resolve-uri('../build/xslt/')"/>
+  <p:with-option name="path" select="resolve-uri('../build/xslt/')">
+    <p:empty/>
+  </p:with-option>
 </cx:recursive-directory-list>
 
-<p:for-each>
+<p:for-each name="stylesheets">
+  <p:output port="result"/>
   <p:iteration-source select="//c:file"/>
   <p:add-attribute name="uri1" match="/*" attribute-name="name">
     <p:input port="source">
@@ -117,6 +120,32 @@
   </p:add-attribute>
 </p:for-each>
 
-<p:wrap-sequence wrapper="catalog"/>
+<cx:recursive-directory-list>
+  <p:with-option name="path" select="resolve-uri('../build/stage/zip/resources/')">
+    <p:empty/>
+  </p:with-option>
+</cx:recursive-directory-list>
+
+<p:for-each name="resources">
+  <p:output port="result"/>
+  <p:iteration-source select="//c:file"/>
+  <p:add-attribute name="uri1" match="/*" attribute-name="name">
+    <p:input port="source">
+      <p:inline exclude-inline-prefixes="c"><uri/></p:inline>
+    </p:input>
+    <p:with-option name="attribute-value"
+                   select="concat('/resources/',
+                                  substring-after(
+                                     resolve-uri(/*/@name, base-uri(/)),
+                                                 '/resources/'))"/>
+  </p:add-attribute>
+</p:for-each>
+
+<p:wrap-sequence wrapper="catalog">
+  <p:input port="source">
+    <p:pipe step="stylesheets" port="result"/>
+    <p:pipe step="resources" port="result"/>
+  </p:input>
+</p:wrap-sequence>
 
 </p:declare-step>

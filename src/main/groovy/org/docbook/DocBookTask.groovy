@@ -12,6 +12,7 @@ class DocBookTask extends XMLCalabashTask {
     private String returnSecondary = ""
     private String pdf = ""
     private String css = ""
+    private String catalogFilename = null;
 
     DocBookTask() {
     }
@@ -79,10 +80,19 @@ class DocBookTask extends XMLCalabashTask {
         return this
     }
 
+    String getCatalogFile() {
+        return catalogFilename
+    }
+
+    def setCatalogFile(String value) {
+        catalogFilename = value
+        return this
+    }
+
     @Override
     protected void setupRuntime() {
         XSLT20 docbook = new XSLT20()
-        String catalog = "file://" + docbook.createCatalog()
+        String catalog = "file://" + docbook.createCatalog(catalogFilename)
 
         String schemaCatalog = null
         try {

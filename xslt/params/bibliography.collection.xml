@@ -13,7 +13,9 @@
 <refsynopsisdiv>
 <src:fragment xml:id="bibliography.collection.frag">
 <xsl:param name="bibliography.collection" as="xs:string"
-           select="'http://docbook.sourceforge.net/release/bibliography/bibliography.xml'"/>
+           select="concat('http://cdn.docbook.org/resources/',
+                          $RESOURCES.VERSION,
+                          '/xml/bibliography.xml')"/>
 </src:fragment>
 </refsynopsisdiv>
 
@@ -30,7 +32,7 @@ bibliography <quote>database</quote>, follow these steps:</para>
 
 <para>First, create a stand-alone bibliography document that contains all of
 the documents that you wish to reference. Make sure that each bibliography
-entry (whether you use <tag>biblioentry</tag> or <sgmltag>bibliomixed</sgmltag>)
+entry (whether you use <tag>biblioentry</tag> or <tag>bibliomixed</tag>)
 has an ID.</para>
 
 <para>My global bibliography, <filename>~/bibliography.xml</filename> begins
