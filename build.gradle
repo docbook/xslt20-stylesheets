@@ -314,7 +314,8 @@ tests.each { File file ->
 // ======================================================================
 // Make test report(s)
 
-task testReport(dependsOn: ["copy_test_css", "test_html"], type: XMLCalabashTask) {
+task testReport(type: XMLCalabashTask, dependsOn: ["copy_test_css", "copy_test_graphics",
+                                                   "copy_expected_html", "test_html"]) {
   inputs.file  file("tools/test/report.xpl")
   inputs.file  file("tools/test/format-report.xsl")
   inputs.dir   "build/test/actual-html/"
@@ -332,6 +333,22 @@ task copy_test_css(type: Copy) {
   into 'build/test/css'
   doFirst {
     mkdir("build/test/css")
+  }
+}
+
+task copy_test_graphics(type: Copy) {
+  from 'src/test/graphics'
+  into 'build/test/graphics'
+  doFirst {
+    mkdir("build/test/graphics")
+  }
+}
+
+task copy_expected_html(type: Copy) {
+  from 'src/test/expected-html'
+  into 'build/test/expected-html'
+  doFirst {
+    mkdir("build/test/expected-html")
   }
 }
 
@@ -381,6 +398,14 @@ task zip(type: Zip, dependsOn: [ "stageZip" ]) {
   from('build/stage/zip')
   into 'docbook-xslt2-' + version
   archiveName 'docbook-xslt2-' + version + ".zip"
+}
+
+task zipApp(type: Zip, dependsOn: [ "jar" ]) {
+  String jarfn = "docbook-xslt2-" + version + ".jar"
+  FileTree tree = fileTree(dir: 'build/libs').include(jarfn).include("lib/*.jar")
+  from tree
+  into 'docbook-xslt2-' + version + "-app"
+  archiveName 'docbook-xslt2-' + version + "-app.zip"
 }
 
 // ======================================================================
@@ -512,7 +537,7 @@ task jarZip(type: Zip, dependsOn: [ "stageJarZip" ]) {
 // ======================================================================
 // Make dist
 
-task dist(dependsOn: [ "zip", "copyJar" ]) {
+task dist(dependsOn: [ "zip", "zipApp", "copyJar" ]) {
   // nop
 }
 
@@ -553,6 +578,14 @@ setupResources.onlyIf {
 }
 
 // ================================================================================
+// TestJvm
+
+task runTestJvm(type: JavaExec) {
+  classpath = sourceSets.test.runtimeClasspath
+  main = "TestJvm"
+}
+
+// ================================================================================
 // Cleanup
 
 clean {
@@ -580,7 +613,7 @@ publishing {
   }
   repositories {
     maven {
-      url 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+      url 'file://tmp/repo'
     }
   }
 }
