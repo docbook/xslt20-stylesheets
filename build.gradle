@@ -31,6 +31,7 @@ plugins {
   id "maven"
   id "maven-publish"
   id "signing"
+  id "de.undercouch.download" version "2.0.0"
 }
 
 defaultTasks 'compileXslt'
@@ -38,6 +39,7 @@ defaultTasks 'compileXslt'
 apply plugin: 'com.xmlcalabash.task'
 
 import com.xmlcalabash.XMLCalabashTask
+import de.undercouch.gradle.tasks.download.Download
 
 repositories {
   maven { url uri('/tmp/repo') }
@@ -191,7 +193,8 @@ task makeVersion(type: JavaExec) {
   args('-it:main',
        '-o:build/xslt/base/VERSION.xsl',
        '-xsl:tools/version.xsl',
-       'version=' + version)
+       'version=' + version,
+       'resourcesVersion=' + resourcesVersion)
 }
 
 // ======================================================================
@@ -365,10 +368,8 @@ task copyReadme(type: Copy) {
   into "build/stage/zip/"
 }
 
-task copyResources(type: Copy, dependsOn: [ "copyDocs", "copyVendors" ]) {
-  FileTree tree = fileTree(dir: 'resources', exclude: ['**/*_flymake.css'])
-  from tree
-  into "build/stage/zip/resources/"
+task copyResources(dependsOn: [ "copyDocs", "copyVendors", "setupResources" ]) {
+  // nop
 }
 
 task copyVendors(type: Copy) {
@@ -417,6 +418,7 @@ task makeVersionProperties() {
   }
   doLast {
     new File("build/stage/jar/etc/version.properties").text = """version=$version
+resourcesVersion=$resourcesVersion
 """
   }
 }
@@ -514,11 +516,53 @@ task dist(dependsOn: [ "zip", "copyJar" ]) {
   // nop
 }
 
+// ================================================================================
+// Setup resources
+
+// Explicitly not into build because it's tedious if 'clean' deletes
+// the resources, especially if you're not connected to the internet!
+task downloadResources(type: Download) {
+  String base = "https://github.com/docbook/xslt20-resources/releases/download/"
+  src base + resourcesVersion + "/docbook-xslt20-resources-" + resourcesVersion + ".zip"
+  dest new File("lib/resources-" + resourcesVersion + ".zip")
+  doFirst {
+    mkdir("lib")
+  }
+}
+downloadResources.onlyIf {
+  !file("lib/resources-" + resourcesVersion + ".zip").exists()
+}
+
+task setupResources(type: Copy, dependsOn: [ "downloadResources" ]) {
+  from zipTree(downloadResources.dest)
+  into { "build" }
+  doFirst {
+    mkdir("build/stage/zip")
+  }
+  doLast {
+    copy {
+      from "build/docbook-xslt20-resources-" + resourcesVersion
+      into "build/stage/zip/resources"
+      rename ("build/stage/zip/resources/docbook-xslt20-resources-" + resourcesVersion,
+              "build/stage/zip/resources")
+    }
+  }
+}
+setupResources.onlyIf {
+  !file("build/stage/zip/resources").exists()
+}
+
+// ================================================================================
+// Cleanup
+
 clean {
   doFirst {
     delete "build"
   }
 }
+
+// ================================================================================
+// Sign, publish, and upload
 
 signing {
   required { gradle.taskGraph.hasTask("uploadArchives") }
