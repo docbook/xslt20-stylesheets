@@ -3,6 +3,8 @@
 /tools/lib/cachedir/
 /.gradle/
 /build/
+/out/
+/buildSrc/.gradle/
+/buildSrc/build/
 # Local libraries that should not be committed or distributed
 /lib/
-/out/
