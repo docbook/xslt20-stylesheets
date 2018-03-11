@@ -61,9 +61,9 @@
     <p:input port="parameters">
       <p:pipe step="main" port="parameters"/>
     </p:input>
-    <p:with-param name="resource.root" select="'../../resources/'"/>
+    <p:with-param name="resource.root" select="'../resources/'"/>
     <p:with-param name="bibliography.collection"
-                  select="'../resources/bibliography.xml'"/>
+                  select="'../../test/resources/bibliography.xml'"/>
     <p:with-param name="profile.os" select="'win'"/>
     <p:with-option name="style"
                    select="if (/*/db:info/p:style)

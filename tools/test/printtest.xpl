@@ -53,9 +53,9 @@
   </p:load>
 
   <dbp:docbook>
-    <p:with-param name="resource.root" select="resolve-uri('../../resources/')"/>
+    <p:with-param name="resource.root" select="resolve-uri('../resources/')"/>
     <p:with-param name="bibliography.collection"
-                  select="'../resources/bibliography.xml'"/>
+                  select="'../../test/resources/bibliography.xml'"/>
     <p:with-param name="profile.os" select="'win'"/>
     <p:with-option name="style"
                    select="if (/*/db:info/p:style)
