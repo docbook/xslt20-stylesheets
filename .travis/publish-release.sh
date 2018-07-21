@@ -27,11 +27,6 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     exit 0
 fi
 
-if [ "$TRAVIS_BRANCH" != "master" -a "$TRAVIS_BRANCH" != "travis" ]; then
-    echo "Skipping deploy for branch: $TRAVIS_BRANCH"
-    exit 0
-fi
-
 # Remember the SHA of the current build.
 SHA=$(git rev-parse --verify HEAD)
 
