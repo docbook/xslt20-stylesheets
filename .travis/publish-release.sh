@@ -32,6 +32,9 @@ mkdir -p cdn/release/xsl20/$VERSION
 rm -f cdn/release/xsl20/index.html
 cp -a build/distributions/docbook-xslt2-$VERSION.zip cdn/release/xsl20/$VERSION
 cd cdn/release/xsl20/$VERSION && unzip docbook-xslt2-$VERSION.zip
+
+ls -laR cdn/release/xsl20
+
 # We could normally make "current" symbolic links to "snapshot"
 # but github's policy doesn't allow to publish symbolic links in pages.
 mkdir -p cdn/release/xsl20/current
