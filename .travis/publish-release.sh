@@ -29,7 +29,6 @@ git clone $CDN_REPO cdn --depth=1 -q
 rm -rf cdn/release/xsl20/$VERSION
 
 # ...and copy the new one.
-mkdir -p cdn/release/xsl20/$VERSION
 cd cdn/release/xsl20
 unzip -q ../../../build/distributions/docbook-xslt2-$VERSION.zip
 mv docbook-xslt2-$VERSION $VERSION
@@ -39,7 +38,7 @@ cd ../../..
 # but github's policy doesn't allow to publish symbolic links in pages.
 rm -rf cdn/release/xsl20/current
 mkdir -p cdn/release/xsl20/current
-cp -a cdn/release/xsl20/$VERSION cdn/release/xsl20/current
+cp -a cdn/release/xsl20/$VERSION/* cdn/release/xsl20/current
 
 # Regenerate index files
 rm -f cdn/release/xsl20/index.html
