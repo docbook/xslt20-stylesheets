@@ -13,11 +13,10 @@ pwd
 whoami
 
 #if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
-if [ "$TRAVIS_BRANCH" != master -a \
-     "$TRAVIS_BRANCH" != travis ]; then
-    echo "Skipping deployment"
-    exit 0
-fi
+#   [ "$TRAVIS_BRANCH" != master -a "$TRAVIS_BRANCH" != travis ]; then
+#    echo "Skipping deployment"
+#    exit 0
+#fi
 
 # Remember the SHA of the current build.
 SHA=$(git rev-parse --verify HEAD)
