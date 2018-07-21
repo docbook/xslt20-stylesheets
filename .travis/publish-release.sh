@@ -8,6 +8,10 @@ set | grep TRAVIS
 
 VERSION=`grep "^version=" < gradle.properties | cut -f2 -d=`
 
+pwd
+ls -l
+
+
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
    [ "$TRAVIS_BRANCH" != master -a \
      "$TRAVIS_BRANCH" != travis ]; then
