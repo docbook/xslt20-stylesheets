@@ -9,7 +9,7 @@ set | grep TRAVIS
 VERSION=`grep "^version=" < gradle.properties | cut -f2 -d=`
 
 pwd
-ls -l
+ls -laR build
 
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
