@@ -31,7 +31,7 @@ rm -rf cdn/release/xsl20/$VERSION
 # ...and copy the new one.
 mkdir -p cdn/release/xsl20/$VERSION
 cd cdn/release/xsl20
-unzip -q build/distributions/docbook-xslt2-$VERSION.zip
+unzip -q ../../../build/distributions/docbook-xslt2-$VERSION.zip
 mv docbook-xslt2-$VERSION $VERSION
 cd ../../..
 
