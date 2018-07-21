@@ -9,8 +9,7 @@ set | grep TRAVIS
 VERSION=`grep "^version=" < gradle.properties | cut -f2 -d=`
 
 pwd
-ls -laR build
-
+whoami
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
    [ "$TRAVIS_BRANCH" != master -a \
@@ -30,13 +29,13 @@ rm -rf cdn/release/xsl20/$VERSION
 # ...and copy the new one.
 mkdir -p cdn/release/xsl20/$VERSION
 rm -f cdn/release/xsl20/index.html
-cp -a build/distributions/docbook-xsl2-$VERSION.zip cdn/release/xsl20/$VERSION
-cd cdn/release/xslt20/$VERSION && unzip docbook-xsl2-$VERSION.zip
+cp -a build/distributions/docbook-xslt2-$VERSION.zip cdn/release/xsl20/$VERSION
+cd cdn/release/xslt20/$VERSION && unzip docbook-xslt2-$VERSION.zip
 # We could normally make "current" symbolic links to "snapshot"
 # but github's policy doesn't allow to publish symbolic links in pages.
 rm -rf cdn/release/xsl20/current
 cp -a cdn/release/xsl20/$VERSION cdn/release/xsl20/current
-#
+
 # If there are no changes, bail out.
 # (Note that this doesn't detect additions.)
 if (cd cdn && git diff --quiet); then
@@ -44,9 +43,8 @@ if (cd cdn && git diff --quiet); then
     exit 0
 fi
 
-#$here/generate_index.py cdn/release/xsl
-#$here/generate_index.py cdn/release/xsl-nons
-#
+$here/generate_index.py cdn/release/xsl20
+
 ## Now prepare to commit and push to the CDN
 #cd cdn
 #git config user.name "Travis CI"
