@@ -6,6 +6,10 @@ here=$(dirname "${BASH_SOURCE[0]}")
 
 set | grep TRAVIS
 
+VERSION=`grep "^version=" < gradle.properties | cut -f2 -d=`
+
+echo "VERSION=$VERSION"
+
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
    [ "$TRAVIS_BRANCH" != master -a \
      "$TRAVIS_BRANCH" != travis ]; then
@@ -16,10 +20,10 @@ fi
 # Remember the SHA of the current build.
 SHA=$(git rev-parse --verify HEAD)
 
-## Clone the minimum of the CDN repo needed.
+# Clone the minimum of the CDN repo needed.
 #CDN_REPO="https://$GH_TOKEN@github.com/docbook/cdn.git"
 #git clone $CDN_REPO cdn --depth=1 -q
-## Clean out existing content...
+# Clean out existing content...
 #rm -rf cdn/release/xsl/$VERSION
 #rm -rf cdn/release/xsl-nons/$VERSION
 ## ...and copy the new one.
