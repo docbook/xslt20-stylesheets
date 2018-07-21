@@ -30,7 +30,7 @@ rm -rf cdn/release/xsl20/$VERSION
 mkdir -p cdn/release/xsl20/$VERSION
 rm -f cdn/release/xsl20/index.html
 cp -a build/distributions/docbook-xslt2-$VERSION.zip cdn/release/xsl20/$VERSION
-cd cdn/release/xsl20/$VERSION && unzip docbook-xslt2-$VERSION.zip
+cd cdn/release/xsl20/$VERSION && unzip docbook-xslt2-$VERSION.zip && cd ../../../../
 
 ls -laR cdn/release/xsl20
 
