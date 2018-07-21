@@ -3,6 +3,9 @@ set -e # Exit with nonzero exit code if anything fails
 here=$(dirname "${BASH_SOURCE[0]}")
 # Only commits to master should trigger deployment
 # (add 'travis' for testing purposes.)
+
+set | grep TRAVIS
+
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
    [ "$TRAVIS_BRANCH" != master -a \
      "$TRAVIS_BRANCH" != travis ]; then
@@ -12,8 +15,6 @@ fi
 
 # Remember the SHA of the current build.
 SHA=$(git rev-parse --verify HEAD)
-
-set | grep TRAVIS
 
 ## Clone the minimum of the CDN repo needed.
 #CDN_REPO="https://$GH_TOKEN@github.com/docbook/cdn.git"
