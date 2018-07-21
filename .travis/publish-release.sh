@@ -5,18 +5,18 @@ here=$(dirname "${BASH_SOURCE[0]}")
 # Only commits to master should trigger deployment
 # (add 'travis' for testing purposes.)
 
-set | grep TRAVIS
+# debugging things
+#set | grep TRAVIS
+#pwd
+#whoami
 
 VERSION=`grep "^version=" < gradle.properties | cut -f2 -d=`
 
-pwd
-whoami
-
-#if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
-#   [ "$TRAVIS_BRANCH" != master -a "$TRAVIS_BRANCH" != travis ]; then
-#    echo "Skipping deployment"
-#    exit 0
-#fi
+if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
+   [ "$TRAVIS_BRANCH" != master -a "$TRAVIS_BRANCH" != travis ]; then
+    echo "Skipping deployment"
+    exit 0
+fi
 
 # Remember the SHA of the current build.
 SHA=$(git rev-parse --verify HEAD)
@@ -45,11 +45,11 @@ cp -a cdn/release/xsl20/$VERSION cdn/release/xsl20/current
 rm -f cdn/release/xsl20/index.html
 $here/generate_index.py cdn/release/xsl20
 
-## Now prepare to commit and push to the CDN
-#cd cdn
-#git config user.name "Travis CI"
-#git config user.email "travis-ci"
-#
-#git add .
-#git commit -m "Deploy XSL Stylesheets to GitHub Pages: ${SHA}"
-#git push -q origin HEAD
+# Now prepare to commit and push to the CDN
+cd cdn
+git config user.name "Travis CI"
+git config user.email "travis-ci"
+
+git add .
+git commit -m "Deploy XSL Stylesheets to GitHub Pages: ${SHA}"
+git push -q origin HEAD
