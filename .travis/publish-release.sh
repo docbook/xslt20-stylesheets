@@ -12,8 +12,8 @@ VERSION=`grep "^version=" < gradle.properties | cut -f2 -d=`
 pwd
 whoami
 
-if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
-   [ "$TRAVIS_BRANCH" != master -a \
+#if [ "$TRAVIS_PULL_REQUEST" != "false" ] || \
+if [ "$TRAVIS_BRANCH" != master -a \
      "$TRAVIS_BRANCH" != travis ]; then
     echo "Skipping deployment"
     exit 0
@@ -31,10 +31,7 @@ rm -rf cdn/release/xsl20/$VERSION
 mkdir -p cdn/release/xsl20/$VERSION
 rm -f cdn/release/xsl20/index.html
 cp -a build/distributions/docbook-xslt2-$VERSION.zip cdn/release/xsl20/$VERSION
-
-ls -laR cdn/release
-
-cd cdn/release/xslt20/$VERSION && unzip docbook-xslt2-$VERSION.zip
+cd cdn/release/xsl20/$VERSION && unzip docbook-xslt2-$VERSION.zip
 # We could normally make "current" symbolic links to "snapshot"
 # but github's policy doesn't allow to publish symbolic links in pages.
 mkdir -p cdn/release/xsl20/current
