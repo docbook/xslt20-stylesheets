@@ -7,6 +7,7 @@ buildscript {
   repositories {
     mavenLocal()
     mavenCentral()
+    maven { url "http://maven.restlet.com" }
   }
 
   dependencies {
