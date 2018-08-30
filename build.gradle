@@ -7,7 +7,6 @@ buildscript {
   repositories {
     mavenLocal()
     mavenCentral()
-    maven { url "https://maven.restlet.com" }
   }
 
   dependencies {
@@ -40,6 +39,7 @@ import de.undercouch.gradle.tasks.download.Download
 repositories {
   mavenLocal()
   mavenCentral()
+  maven { url "https://maven.restlet.com" }
 }
 
 configurations {
