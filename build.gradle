@@ -104,6 +104,10 @@ sourceSets {
   }
 }
 
+wrapper {
+    gradleVersion = '4.9'
+}
+
 // ======================================================================
 // Compile the stylesheets
 

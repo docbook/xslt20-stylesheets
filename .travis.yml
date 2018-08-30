@@ -1,5 +1,5 @@
 language: java
-script: gradle dist
+script: ./gradlew dist
 sudo: false
 
 after_success: .travis/publish-release.sh
