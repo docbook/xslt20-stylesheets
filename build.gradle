@@ -5,12 +5,8 @@
 
 buildscript {
   repositories {
-    maven { url uri('/tmp/repo') }
     mavenLocal()
     mavenCentral()
-    maven { url "http://maven.restlet.org" }
-    maven { url "http://developer.marklogic.com/maven2" }
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
   }
 
   dependencies {
@@ -41,12 +37,8 @@ import com.xmlcalabash.XMLCalabashTask
 import de.undercouch.gradle.tasks.download.Download
 
 repositories {
-  maven { url uri('/tmp/repo') }
   mavenLocal()
   mavenCentral()
-  maven { url "http://maven.restlet.org" }
-  maven { url "http://developer.marklogic.com/maven2" }
-  maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 configurations {
