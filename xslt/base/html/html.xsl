@@ -671,7 +671,7 @@ HTML document. It is responsible for generating the keyword-related
 
   <xsl:variable name="classes" as="xs:string*">
     <xsl:if test="$node/@role">
-      <xsl:sequence select="tokenize('\s+', $node/@role)"/>
+      <xsl:sequence select="tokenize($node/@role, '\s+')"/>
     </xsl:if>
     <xsl:if test="$node/@revision">
       <xsl:value-of select="concat('rf-', $node/@revision)"/>
