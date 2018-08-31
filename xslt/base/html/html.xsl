@@ -660,6 +660,30 @@ HTML document. It is responsible for generating the keyword-related
   </xsl:if>
 </xsl:function>
 
+<xsl:function name="f:html-extra-class-values" as="xs:string?">
+  <xsl:param name="node" as="element()"/>
+  <xsl:sequence select="f:html-extra-class-values($node, ())"/>
+</xsl:function>
+
+<xsl:function name="f:html-extra-class-values" as="xs:string?">
+  <xsl:param name="node" as="element()"/>
+  <xsl:param name="extra" as="xs:string*"/>
+
+  <xsl:variable name="classes" as="xs:string*">
+    <xsl:if test="$node/@role">
+      <xsl:sequence select="tokenize('\s+', $node/@role)"/>
+    </xsl:if>
+    <xsl:if test="$node/@revision">
+      <xsl:value-of select="concat('rf-', $node/@revision)"/>
+    </xsl:if>
+    <xsl:sequence select="$extra"/>
+  </xsl:variable>
+
+  <xsl:if test="exists($classes)">
+    <xsl:value-of select="string-join(distinct-values($classes), ' ')"/>
+  </xsl:if>
+</xsl:function>
+
 <xsl:function name="f:html-attributes" as="attribute()*">
   <xsl:param name="node" as="element()"/>
 
@@ -668,12 +692,7 @@ HTML document. It is responsible for generating the keyword-related
                                      else local-name($node)"/>
 
   <xsl:variable name="extra-classes"
-                select="(if ($node/@role)
-                         then string($node/@role)
-                         else (),
-                         if ($node/@revision)
-                         then concat('rf-', $node/@revision)
-                         else ())"/>
+                select="f:html-extra-class-values($node)"/>
 
   <xsl:sequence select="f:html-attributes($node, $node/@xml:id, $class, $extra-classes, $node/@h:*)"/>
 </xsl:function>
@@ -687,12 +706,7 @@ HTML document. It is responsible for generating the keyword-related
                                      else local-name($node)"/>
 
   <xsl:variable name="extra-classes"
-                select="(if ($node/@role)
-                         then string($node/@role)
-                         else (),
-                         if ($node/@revision)
-                         then concat('rf-', $node/@revision)
-                         else ())"/>
+                select="f:html-extra-class-values($node)"/>
 
   <xsl:sequence select="f:html-attributes($node, $id, $class, $extra-classes, $node/@h:*)"/>
 </xsl:function>
@@ -703,12 +717,7 @@ HTML document. It is responsible for generating the keyword-related
   <xsl:param name="class" as="xs:string?"/>
 
   <xsl:variable name="extra-classes"
-                select="(if ($node/@role)
-                         then string($node/@role)
-                         else (),
-                         if ($node/@revision)
-                         then concat('rf-', $node/@revision)
-                         else ())"/>
+                select="f:html-extra-class-values($node)"/>
 
   <xsl:sequence select="f:html-attributes($node, $id, $class, $extra-classes, $node/@h:*)"/>
 </xsl:function>

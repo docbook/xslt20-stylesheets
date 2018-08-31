@@ -19,8 +19,11 @@
       <xsl:apply-templates select="." mode="m:graphical-admonition"/>
     </xsl:when>
     <xsl:otherwise>
+      
+
       <div>
-        <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.), 'admonition')"/>
+        <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
+                                f:html-extra-class-values(., 'admonition'))"/>
         <xsl:call-template name="t:titlepage"/>
         <div class="admonition-body">
 	  <xsl:apply-templates/>
