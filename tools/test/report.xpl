@@ -42,7 +42,7 @@
       <p:inline><result/></p:inline>
     </p:input>
     <p:with-option name="attribute-value"
-                   select="string(//html:span[@class='exdiff'])"/>
+                   select="string(//html:span[@class='adiff'])"/>
   </p:add-attribute>
 
   <p:add-attribute match="/*" attribute-name="deltaxml">

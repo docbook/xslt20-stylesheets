@@ -57,6 +57,7 @@ pre.show-diff {
    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
    line-height: 1em;
    max-height: 80vh;
+   overflow-y: scroll;
 }
 
 #testresults {
