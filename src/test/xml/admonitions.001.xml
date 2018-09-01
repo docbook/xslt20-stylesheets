@@ -48,4 +48,9 @@
 <para>This is a caution.</para>
 </caution>
 
+<note role="other">
+<title>Note Title</title>
+<para>This is a note with a role of ‘other’.</para>
+</note>
+
 </article>
