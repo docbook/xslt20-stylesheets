@@ -259,7 +259,11 @@ public class XSLT20 {
         XProcConfiguration config = new XProcConfiguration(proctype, schemaAware);
         XProcRuntime runtime = new XProcRuntime(config);
 
-        String baseURI = "file://" + System.getProperty("user.dir") + "/";
+        File cwdFile = new File(System.getProperty("user.dir"));
+        String baseURI = cwdFile.toURI().toASCIIString();
+        if (!baseURI.endsWith("/")) {
+            baseURI = baseURI + "/";
+        }
 
         XdmNode source = runtime.parse(sourcefn, baseURI);
 
