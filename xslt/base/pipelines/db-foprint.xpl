@@ -30,7 +30,7 @@
 </p:declare-step>
 
 <p:choose name="final-pass">
-  <p:when test="$style = 'docbook'">
+  <p:when test="$style = 'docbook' or $style = 'publishers'">
     <p:output port="result" primary="true"/>
     <p:output port="secondary" sequence="true">
       <p:pipe step="fo-docbook" port="secondary"/>
