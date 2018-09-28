@@ -92,14 +92,18 @@ class DocBookTask extends XMLCalabashTask {
     @Override
     protected void setupRuntime() {
         XSLT20 docbook = new XSLT20()
-        String catalog = "file://" + docbook.createCatalog(catalogFilename)
+
+        File catfile = new File(docbook.createCatalog(catalogFilename));
+        String catalog = catfile.toURI().toASCIIString();
 
         String schemaCatalog = null
         try {
             Class klass = Class.forName("org.docbook.Schemas")
             Object schemas = klass.newInstance()
             Method method = schemas.getClass().getMethod("createCatalog")
-            schemaCatalog = "file://" + method.invoke(schemas)
+
+            catfile = new File(method.invoke(schemas).toString());
+            schemaCatalog = catfile.toURI().toASCIIString();
         } catch (ClassNotFoundException cfne) {
             logger.debug("DocBookTask did not find org.docbook.Schemas class");
         }
