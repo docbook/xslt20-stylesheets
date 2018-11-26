@@ -37,7 +37,7 @@
 
 <xsl:template match="db:footnoteref">
   <xsl:variable name="footnote" select="key('id',@linkend)[1]"/>
-  <xsl:variable name="href" select="concat('#ftn.', f:node-id(.))"/>
+  <xsl:variable name="href" select="concat('#ftn.', f:node-id($footnote))"/>
 
   <sup>
     <xsl:sequence select="f:html-attributes(.)"/>
