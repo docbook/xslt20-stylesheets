@@ -604,7 +604,7 @@ a cross-reference.</para>
             <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
             <xsl:with-param name="title">
               <xsl:choose>
-                <xsl:when test="$title = $ghost:marker">
+                <xsl:when test="count($title) = 1 and $title is $ghost:marker">
                   <xsl:apply-templates select="." mode="m:title-content">
 		    <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
 		    <xsl:with-param name="verbose" select="$verbose"/>
