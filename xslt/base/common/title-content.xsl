@@ -53,6 +53,7 @@
     <xsl:with-param name="title" select="$title"/>
     <xsl:with-param name="subtitle" select="$subtitle"/>
     <xsl:with-param name="label" select="$label"/>
+    <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
   </xsl:call-template>
 </xsl:template>
 
