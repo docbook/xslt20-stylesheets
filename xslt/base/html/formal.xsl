@@ -222,9 +222,9 @@ formal, sometimes informal, by calling the appropriate template.
     <xsl:apply-templates select="db:indexterm"/>
     <xsl:apply-templates select="db:para">
       <xsl:with-param name="runin" as="node()*" tunnel="yes">
-        <b>
+        <span class="title">
           <xsl:apply-templates select="." mode="m:title-content"/>
-        </b>
+        </span>
         <xsl:text>&#160;&#160;</xsl:text>
       </xsl:with-param>
     </xsl:apply-templates>
