@@ -46,7 +46,7 @@
     </p:output>
     <p:xslt name="html-docbook">
       <p:input port="stylesheet">
-        <p:document href="../html/final-pass.xsl"/>
+        <p:document href="../css/final-pass.xsl"/>
       </p:input>
     </p:xslt>
   </p:when>

@@ -1,0 +1,5 @@
+<!-- -*- nxml -*- -->
+<cc:xproc-config xmlns:cc="http://xmlcalabash.com/ns/configuration">
+  <cc:extension-function class-name="org.docbook.extensions.xslt20.ImageProperties"/>
+  <cc:extension-function class-name="org.docbook.extensions.xslt20.Cwd"/>
+</cc:xproc-config>
