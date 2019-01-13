@@ -116,11 +116,9 @@
 <xsl:template name="t:format-toc-title">
   <xsl:param name="toc-context" as="element()"/>
   <xsl:param name="toc-title" as="node()*"/>
-  <p>
-    <b>
-      <xsl:sequence select="$toc-title"/>
-    </b>
-  </p>
+  <div class="title">
+    <xsl:sequence select="$toc-title"/>
+  </div>
 </xsl:template>
 
 <!-- ============================================================ -->
@@ -535,14 +533,15 @@ Lists of Titles for a qandaset.</para>
 
   <span>
     <a href="{f:href(/,.)}">
-      <xsl:variable name="label">
-	<xsl:apply-templates select="." mode="m:label-content"/>
-      </xsl:variable>
-      <xsl:copy-of select="$label"/>
-      <xsl:if test="$label != ''">
-	<xsl:value-of select="$autotoc.label.separator"/>
-      </xsl:if>
-
+      <span class="label">
+        <xsl:variable name="label">
+	  <xsl:apply-templates select="." mode="m:label-content"/>
+        </xsl:variable>
+        <xsl:copy-of select="$label"/>
+        <xsl:if test="$label != ''">
+	  <xsl:value-of select="$autotoc.label.separator"/>
+        </xsl:if>
+      </span>
       <xsl:apply-templates select="." mode="m:titleabbrev-content"/>
     </a>
   </span>
@@ -806,22 +805,20 @@ Lists of Titles for a qandaset.</para>
 
   <xsl:if test="$nodes">
     <div class="list-of-{$titles}s">
-      <p>
-        <b>
-          <xsl:call-template name="gentext">
-            <xsl:with-param name="key">
-              <xsl:choose>
-                <xsl:when test="$titles='table'">ListofTables</xsl:when>
-                <xsl:when test="$titles='figure'">ListofFigures</xsl:when>
-                <xsl:when test="$titles='equation'">ListofEquations</xsl:when>
-                <xsl:when test="$titles='example'">ListofExamples</xsl:when>
-                <xsl:when test="$titles='procedure'">ListofProcedures</xsl:when>
-                <xsl:otherwise>ListofUnknown</xsl:otherwise>
-              </xsl:choose>
-            </xsl:with-param>
-          </xsl:call-template>
-        </b>
-      </p>
+      <div class="title">
+        <xsl:call-template name="gentext">
+          <xsl:with-param name="key">
+            <xsl:choose>
+              <xsl:when test="$titles='table'">ListofTables</xsl:when>
+              <xsl:when test="$titles='figure'">ListofFigures</xsl:when>
+              <xsl:when test="$titles='equation'">ListofEquations</xsl:when>
+              <xsl:when test="$titles='example'">ListofExamples</xsl:when>
+              <xsl:when test="$titles='procedure'">ListofProcedures</xsl:when>
+              <xsl:otherwise>ListofUnknown</xsl:otherwise>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:call-template>
+      </div>
 
       <ul class="toc">
         <xsl:apply-templates select="$nodes" mode="mp:toc">
