@@ -90,7 +90,7 @@
 </xsl:template>
 
 <xsl:template match="db:msgmain/db:info/db:title">
-  <b><xsl:apply-templates/></b>
+  <div class="title"><xsl:apply-templates/></div>
 </xsl:template>
 
 <xsl:template match="db:msgsub">
@@ -98,7 +98,7 @@
 </xsl:template>
 
 <xsl:template match="db:msgsub/db:info/db:title">
-  <b><xsl:apply-templates/></b>
+  <div class="title"><xsl:apply-templates/></div>
 </xsl:template>
 
 <xsl:template match="db:msgrel">
@@ -106,7 +106,7 @@
 </xsl:template>
 
 <xsl:template match="db:msgrel/db:info/db:title">
-  <b><xsl:apply-templates/></b>
+  <div class="title"><xsl:apply-templates/></div>
 </xsl:template>
 
 <xsl:template match="db:msgtext">
@@ -121,39 +121,33 @@
 </xsl:template>
 
 <xsl:template match="db:msglevel">
-  <p>
-    <b>
-      <xsl:call-template name="gentext-template">
-        <xsl:with-param name="context" select="'msgset'"/>
-        <xsl:with-param name="name" select="'MsgLevel'"/>
-      </xsl:call-template>
-    </b>
+  <div class="{local-name(.)}">
+    <xsl:call-template name="gentext-template">
+      <xsl:with-param name="context" select="'msgset'"/>
+      <xsl:with-param name="name" select="'MsgLevel'"/>
+    </xsl:call-template>
     <xsl:apply-templates/>
-  </p>
+  </div>
 </xsl:template>
 
 <xsl:template match="db:msgorig">
-  <p>
-    <b>
-      <xsl:call-template name="gentext-template">
-        <xsl:with-param name="context" select="'msgset'"/>
-        <xsl:with-param name="name" select="'MsgOrig'"/>
-      </xsl:call-template>
-    </b>
+  <div class="{local-name(.)}">
+    <xsl:call-template name="gentext-template">
+      <xsl:with-param name="context" select="'msgset'"/>
+      <xsl:with-param name="name" select="'MsgOrig'"/>
+    </xsl:call-template>
     <xsl:apply-templates/>
-  </p>
+  </div>
 </xsl:template>
 
 <xsl:template match="db:msgaud">
-  <p>
-    <b>
-      <xsl:call-template name="gentext-template">
-        <xsl:with-param name="context" select="'msgset'"/>
-        <xsl:with-param name="name" select="'MsgAud'"/>
-      </xsl:call-template>
-    </b>
+  <div class="{local-name(.)}">
+    <xsl:call-template name="gentext-template">
+      <xsl:with-param name="context" select="'msgset'"/>
+      <xsl:with-param name="name" select="'MsgAud'"/>
+    </xsl:call-template>
     <xsl:apply-templates/>
-  </p>
+  </div>
 </xsl:template>
 
 <xsl:template match="db:msgexplan">
