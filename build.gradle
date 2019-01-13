@@ -167,9 +167,9 @@ locales.each { File file ->
 
   Task t = task "gentext_$name"(type: XMLCalabashTask) {
     inputs.file in_name
-    inputs.file  "tools/gentext.xpl"
-    inputs.file  "build/schemas/locale.rng"
-    inputs.file  "tools/build-l10n.xsl"
+    inputs.file "tools/gentext.xpl"
+    inputs.file "build/schemas/locale.rng"
+    inputs.file "tools/build-l10n.xsl"
     outputs.file out_name
     input("source", in_name)
     output("result", out_name)
@@ -244,7 +244,7 @@ task test_print_fo(dependsOn: [ "setupTestResources" ]) {
 };
 test.dependsOn test_print_fo
 
-def tests = fileTree(dir: "src/test/xml/").include(testsrc)
+def tests = fileTree(dir: "src/test/xml/", exclude: ['**/linkbase.xml']).include(testsrc)
 tests.each { File file ->
   String filename = file.getName()
   String testname = filename.substring(0, filename.lastIndexOf("."))
@@ -274,13 +274,14 @@ tests.each { File file ->
     inputs.dir "xslt"
     inputs.dir "src/main/gentext"
     inputs.dir "tools/test"
-    outputs.file "build/test/actual-print-css/" + testname + ".html"
+    outputs.file "build/test/actual-print-css/" + testname + ".pdf"
     option("name", testname)
     option("resultdir", "../../build/test/result-print-css/")
     option("actualdir", "../../build/test/actual-print-css/")
     option("expecteddir", "../../src/test/expected-print-css/")
     option("diffdir", "../../build/test/diff-print-css/")
     option("format", "cssprint")
+    option("css", "build/xslt/base/css/print.css")
     option("preprocess", pre_print_css)
     option("postprocess", post_print_css)
     pipeline "tools/test/printtest.xpl"
@@ -292,7 +293,7 @@ tests.each { File file ->
     inputs.dir "xslt"
     inputs.dir "src/main/gentext"
     inputs.dir "tools/test"
-    outputs.file "build/test/actual-print-fo/" + testname + ".html"
+    outputs.file "build/test/actual-print-fo/" + testname + ".pdf"
     option("name", testname)
     option("resultdir", "../../build/test/result-print-fo/")
     option("actualdir", "../../build/test/actual-print-fo/")
@@ -347,6 +348,8 @@ task testReport(type: XMLCalabashTask,
   output("result", "build/test/index.html")
   pipeline("tools/test/report.xpl")
 }
+// Make the report part of the standard 'test' target build
+test.dependsOn testReport
 
 task copy_test_css(type: Copy) {
   from 'src/test/resources'
