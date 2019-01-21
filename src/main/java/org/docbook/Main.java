@@ -32,7 +32,7 @@ public class Main {
         Option output = OptionBuilder.withArgName("output").withLongOpt("output").hasArg().withDescription("Name for the output file (defaults to stdout)").create("o");
         Option css    = OptionBuilder.withArgName("css").withLongOpt("css").hasArg().withDescription("A CSS stylesheet (CSS print only)").create();
         Option help   = OptionBuilder.withArgName("help").withLongOpt("help").withDescription("Usage: org.docbook.Main [options] dbdoc.xml").create("h");
-        Option params = OptionBuilder.withArgName("params").withLongOpt("params").hasArg().withDescription("A file of parameters").create();
+        Option params = OptionBuilder.withArgName("params").withLongOpt("params").hasArg().withDescription("A file of parameters. The parameter file is expected to be an XML document containing a single XProc c:param-set.").create();
         Option ns     = OptionBuilder.withArgName("namespace").withLongOpt("ns").hasArgs(2).withValueSeparator().withDescription("Namespace binding").create();
 
         options.addOption(format);
