@@ -241,6 +241,7 @@
 <template name="caution">%t</template>
 <template name="chapter"><Chapter/>&#160;%n.&#160;%t</template>
 <template name="colophon">%t</template>
+<template name="danger">%t</template>
 <template name="dedication">%t</template>
 <template name="equation"><Equation/>&#160;%n.&#160;%t</template>
 <template name="example"><Example/>&#160;%n.&#160;%t</template>
@@ -400,6 +401,7 @@
 <template name="chapter">%t</template>
 <template name="colophon">%t</template>
 <template name="constraintdef">%t</template>
+<template name="danger">%t</template>
 <template name="dedication">%t</template>
 <template name="equation">%t</template>
 <template name="example">%t</template>
@@ -503,6 +505,7 @@
 <template name="example"><Example/>&#160;%n, <startquote/>%t<endquote/></template>
 <template name="figure"><Figure/>&#160;%n, <startquote/>%t<endquote/></template>
 <template name="part"><Part/>&#160;%n, <startquote/>%t<endquote/></template>
+<template name="reference"><Reference/>&#160;%n, <startquote/>%t<endquote/></template>
 <template name="procedure"><Procedure/>&#160;%n, <startquote/>%t<endquote/></template>
 <template name="productionset"><ProductionSet/>&#160;%n, <startquote/>%t<endquote/></template>
 <template name="qandadiv"><Qandadiv/>&#160;%n, <startquote/>%t<endquote/></template>
