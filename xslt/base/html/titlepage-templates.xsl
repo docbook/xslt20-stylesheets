@@ -144,13 +144,13 @@
     </tmpl:templates>
   </xsl:template>
 
-  <xsl:template match="db:figure|db:example|db:table|db:equation
+  <xsl:template match="db:formalgroup|db:figure|db:example|db:table|db:equation
                        |db:procedure|db:step
                        |db:bibliolist|db:glosslist
                        |db:qandaset|db:qandadiv
                        |db:itemizedlist|db:orderedlist|db:variablelist
                        |db:segmentedlist|db:calloutlist
-                       |db:warning|db:caution|db:note|db:tip
+                       |db:warning|db:caution|db:note|db:tip|db:danger
                        |db:important|db:blockquote
                        |db:annotation|db:revhistory|db:msgset"
                 mode="m:get-titlepage-templates" as="element(tmpl:templates)">

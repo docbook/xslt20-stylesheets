@@ -162,6 +162,13 @@ formal, sometimes informal, by calling the appropriate template.
 
 <!-- ============================================================ -->
 
+<xsl:template match="db:formalgroup">
+  <div class="{local-name(.)} {@fgstyle}">
+    <xsl:call-template name="t:titlepage"/>
+    <xsl:apply-templates/>
+  </div>
+</xsl:template>
+
 <xsl:template match="db:figure">
   <xsl:call-template name="t:formal-object">
     <xsl:with-param name="placement"
