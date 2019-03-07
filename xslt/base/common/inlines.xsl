@@ -112,6 +112,10 @@
   </xsl:choose>
 </xsl:template>
 
+<xsl:template match="db:buildtarget">
+  <xsl:call-template name="t:inline-monoseq"/>
+</xsl:template>
+
 <xsl:template match="db:citebiblioid">
   <xsl:call-template name="t:inline-charseq">
     <xsl:with-param name="class"
