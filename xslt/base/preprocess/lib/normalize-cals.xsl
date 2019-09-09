@@ -75,9 +75,9 @@ each row and cell.</para>
 <!--
   <xsl:message>
     <xsl:text>ROW </xsl:text>
-    <xsl:value-of select="count(preceding-sibling::db:row)+1"/>
+    <xsl:sequence select="count(preceding-sibling::db:row)+1"/>
     <xsl:text> </xsl:text>
-    <xsl:value-of select="$overhang" separator=","/>
+    <xsl:sequence select="$overhang" separator=","/>
   </xsl:message>
 -->
 
@@ -128,23 +128,23 @@ each row and cell.</para>
 	<xsl:variable name="name" select="@namest"/>
 	<xsl:variable name="colspec"
 		      select="$container/db:colspec[@colname=$name]"/>
-	<xsl:value-of select="f:colspec-colnum($colspec)"/>
+	<xsl:sequence select="f:colspec-colnum($colspec)"/>
       </xsl:when>
       <xsl:when test="@colname">
 	<xsl:variable name="name" select="@colname"/>
 	<xsl:variable name="colspec"
 		      select="$container/db:colspec[@colname=$name]"/>
-	<xsl:value-of select="f:colspec-colnum($colspec)"/>
+	<xsl:sequence select="f:colspec-colnum($colspec)"/>
       </xsl:when>
       <xsl:when test="@spanname">
 	<xsl:variable name="name" select="@spanname"/>
 	<xsl:variable name="spanspec"
 		      select="$container/db:spanspec[@spanname=$name]"/>
 
-	<xsl:value-of select="f:spanspec-colnum-start($spanspec)"/>
+	<xsl:sequence select="f:spanspec-colnum-start($spanspec)"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$nextpos"/>
+	<xsl:sequence select="$nextpos"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -156,14 +156,14 @@ each row and cell.</para>
 	<xsl:variable name="colspec"
 		      select="$container/db:colspec[@colname=$name]"/>
 
-	<xsl:value-of select="f:colspec-colnum($colspec) - $pos + 1"/>
+	<xsl:sequence select="f:colspec-colnum($colspec) - $pos + 1"/>
       </xsl:when>
       <xsl:when test="@spanname">
 	<xsl:variable name="name" select="@spanname"/>
 	<xsl:variable name="spanspec"
 		      select="$container/db:spanspec[@spanname=$name]"/>
 
-	<xsl:value-of select="f:spanspec-colnum-end($spanspec) - $pos + 1"/>
+	<xsl:sequence select="f:spanspec-colnum-end($spanspec) - $pos + 1"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -172,11 +172,11 @@ each row and cell.</para>
 <!--
   <xsl:message>
     <xsl:text>  ENT </xsl:text>
-    <xsl:value-of select="count(preceding-sibling::db:entry)+1"/>
+    <xsl:sequence select="count(preceding-sibling::db:entry)+1"/>
     <xsl:text> </xsl:text>
-    <xsl:value-of select="$pos"/>
+    <xsl:sequence select="$pos"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="$width"/>
+    <xsl:sequence select="$width"/>
   </xsl:message>
 -->
 
@@ -225,11 +225,11 @@ each row and cell.</para>
 
   <!--
   <xsl:message>
-    <xsl:value-of select="$pos"/>
+    <xsl:sequence select="$pos"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="count(following-sibling::*)"/>
+    <xsl:sequence select="count(following-sibling::*)"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="$container/@cols"/>
+    <xsl:sequence select="$container/@cols"/>
   </xsl:message>
   -->
 
@@ -245,9 +245,9 @@ each row and cell.</para>
 <!--
     <xsl:message>
       <xsl:text>  PAD </xsl:text>
-      <xsl:value-of select="$pos+$width"/>
+      <xsl:sequence select="$pos+$width"/>
       <xsl:text>-</xsl:text>
-      <xsl:value-of select="$container/@cols"/>
+      <xsl:sequence select="$container/@cols"/>
     </xsl:message>
 -->
     <xsl:for-each select="for $col
@@ -441,12 +441,12 @@ be an integer and won't have a parent.</para>
     <xsl:variable name="value">
       <xsl:choose>
 	<xsl:when test="f:find-element-by-attribute($elements, $attr)">
-	  <xsl:value-of select="f:find-element-by-attribute($elements, $attr)
+	  <xsl:sequence select="f:find-element-by-attribute($elements, $attr)
 				/@*[node-name(.) = $attr]"/>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:if test="$attr=QName('','rowsep') or $attr=QName('','colsep')">
-	    <xsl:value-of select="1"/>
+	    <xsl:sequence select="1"/>
 	  </xsl:if>
 	</xsl:otherwise>
       </xsl:choose>
@@ -632,10 +632,10 @@ current column number.</para>
 
   <xsl:choose>
     <xsl:when test="$pos &gt; count($overhang)">
-      <xsl:value-of select="$pos"/>
+      <xsl:sequence select="$pos"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="if ($overhang[$pos] = 0)
+      <xsl:sequence select="if ($overhang[$pos] = 0)
 			    then $pos
 			    else f:skip-overhang($overhang, $pos+1)"/>
     </xsl:otherwise>
@@ -673,10 +673,10 @@ current column number.</para>
 
   <xsl:choose>
     <xsl:when test="$colspec/@colnum">
-      <xsl:value-of select="$colspec/@colnum"/>
+      <xsl:sequence select="$colspec/@colnum"/>
     </xsl:when>
     <xsl:when test="$colspec/preceding-sibling::db:colspec">
-      <xsl:value-of select="f:colspec-colnum(
+      <xsl:sequence select="f:colspec-colnum(
 			       $colspec/preceding-sibling::db:colspec[1])
 	                    + 1"/>
     </xsl:when>
@@ -717,7 +717,7 @@ span.</para>
 <xsl:function name="f:spanspec-colnum-start" as="xs:integer">
   <xsl:param name="spanspec" as="element(db:spanspec)"/>
 
-  <xsl:value-of select="f:colspec-colnum($spanspec/ancestor::db:tgroup[1]
+  <xsl:sequence select="f:colspec-colnum($spanspec/ancestor::db:tgroup[1]
 			      /db:colspec[@colname=$spanspec/@namest])"/>
 </xsl:function>
 
@@ -751,8 +751,8 @@ of a span.</para>
 <xsl:function name="f:spanspec-colnum-end" as="xs:integer">
   <xsl:param name="spanspec" as="element(db:spanspec)"/>
 
-  <xsl:value-of select="f:colspec-colnum($spanspec/ancestor::db:tgroup[1]
-			      /db:colspec[@colname=$spanspec/@nameend])"/>
+  <xsl:sequence select="f:colspec-colnum($spanspec/ancestor::db:tgroup[1]
+                              /db:colspec[@colname=$spanspec/@nameend])"/>
 </xsl:function>
 
 <!-- ============================================================ -->
@@ -840,10 +840,10 @@ See <function role="named-template">generate-colgroup</function>.
       <xsl:variable name="colspec.colnum">
 	<xsl:choose>
 	  <xsl:when test="$colspec/@colnum">
-            <xsl:value-of select="$colspec/@colnum"/>
+            <xsl:sequence select="$colspec/@colnum"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="$colnum"/>
+            <xsl:sequence select="$colnum"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
@@ -855,10 +855,10 @@ See <function role="named-template">generate-colgroup</function>.
 	      <xsl:attribute name="width">
 		<xsl:choose>
 		  <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
-		    <xsl:value-of select="'1*'"/>
+		    <xsl:sequence select="'1*'"/>
 		  </xsl:when>
 		  <xsl:otherwise>
-		    <xsl:value-of select="$colspec/@colwidth"/>
+		    <xsl:sequence select="$colspec/@colwidth"/>
 		  </xsl:otherwise>
 		</xsl:choose>
 	      </xsl:attribute>
@@ -867,26 +867,26 @@ See <function role="named-template">generate-colgroup</function>.
 	    <xsl:choose>
 	      <xsl:when test="$colspec/@align">
 		<xsl:attribute name="align">
-		  <xsl:value-of select="$colspec/@align"/>
+		  <xsl:sequence select="$colspec/@align"/>
 		</xsl:attribute>
 	      </xsl:when>
 	      <!-- Suggested by Pavel ZAMPACH <zampach@nemcb.cz> -->
 	      <xsl:when test="$colspecs/parent::db:tgroup/@align">
 		<xsl:attribute name="align">
-                  <xsl:value-of select="$colspecs/parent::db:tgroup/@align"/>
+                  <xsl:sequence select="$colspecs/parent::db:tgroup/@align"/>
 		</xsl:attribute>
               </xsl:when>
             </xsl:choose>
 
 	    <xsl:if test="$colspec/@char">
               <xsl:attribute name="char">
-                <xsl:value-of select="$colspec/@char"/>
+                <xsl:sequence select="$colspec/@char"/>
               </xsl:attribute>
             </xsl:if>
 
             <xsl:if test="$colspec/@charoff">
               <xsl:attribute name="charoff">
-                <xsl:value-of select="$colspec/@charoff"/>
+                <xsl:sequence select="$colspec/@charoff"/>
               </xsl:attribute>
             </xsl:if>
 	  </col>
@@ -899,10 +899,10 @@ See <function role="named-template">generate-colgroup</function>.
             <xsl:with-param name="colnum">
               <xsl:choose>
                 <xsl:when test="$colspec/@colnum">
-                  <xsl:value-of select="$colspec/@colnum + 1"/>
+                  <xsl:sequence select="$colspec/@colnum + 1"/>
                 </xsl:when>
                 <xsl:otherwise>
-                  <xsl:value-of select="$colnum + 1"/>
+                  <xsl:sequence select="$colnum + 1"/>
                 </xsl:otherwise>
               </xsl:choose>
             </xsl:with-param>

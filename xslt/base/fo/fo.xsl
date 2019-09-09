@@ -118,15 +118,15 @@
   </xsl:choose>
 </xsl:param>
 
-<xsl:function name="f:hsize" as="xs:decimal">
+<xsl:function name="f:hsize" as="xs:double">
   <xsl:param name="size" as="xs:integer"/>
 
   <xsl:choose>
     <xsl:when test="$size &lt;= 0">
-      <xsl:value-of select="$body.font.master"/>
+      <xsl:sequence select="$body.font.master"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="f:hsize($size - 1) * 1.2"/>
+      <xsl:sequence select="f:hsize($size - 1) * 1.2"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -136,7 +136,7 @@
 <xsl:function name="f:keep-titlepage-fragment" as="xs:boolean">
   <xsl:param name="fragment" as="node()*"/>
 
-  <xsl:value-of select="string($fragment) != ''
+  <xsl:sequence select="string($fragment) != ''
                         or count($fragment//fo:block) != count($fragment//*)"/>
 </xsl:function>
 
