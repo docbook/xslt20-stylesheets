@@ -353,15 +353,15 @@ elements to the list of components, if necessary.</para>
 <xsl:function name="f:is-component" as="xs:boolean">
   <xsl:param name="node" as="element()"/>
 
-  <xsl:value-of select="if ($node/self::db:appendix
-			    | $node/self::db:article
-			    | $node/self::db:chapter
-			    | $node/self::db:preface
-			    | $node/self::db:bibliography
-			    | $node/self::db:glossary
-			    | $node/self::db:index)
-			then true()
-			else false()"/>
+  <xsl:sequence select="if ($node/self::db:appendix
+                            | $node/self::db:article
+                            | $node/self::db:chapter
+                            | $node/self::db:preface
+                            | $node/self::db:bibliography
+                            | $node/self::db:glossary
+                            | $node/self::db:index)
+                        then true()
+                        else false()"/>
 </xsl:function>
 
 <!-- ====================================================================== -->
@@ -396,19 +396,19 @@ elements to the list of sections, if necessary.</para>
 <xsl:function name="f:is-section" as="xs:boolean">
   <xsl:param name="node" as="element()"/>
 
-  <xsl:value-of select="if ($node/self::db:section
-			    | $node/self::db:sect1
-			    | $node/self::db:sect2
-			    | $node/self::db:sect3
-			    | $node/self::db:sect4
-			    | $node/self::db:sect5
-			    | $node/self::db:refsect1
-			    | $node/self::db:refsect2
-			    | $node/self::db:refsect3
-			    | $node/self::db:refsection
-			    | $node/self::db:simplesect)
-			 then true()
-			 else false()"/>
+  <xsl:sequence select="if ($node/self::db:section
+                            | $node/self::db:sect1
+                            | $node/self::db:sect2
+                            | $node/self::db:sect3
+                            | $node/self::db:sect4
+                            | $node/self::db:sect5
+                            | $node/self::db:refsect1
+                            | $node/self::db:refsect2
+                            | $node/self::db:refsect3
+                            | $node/self::db:refsection
+                            | $node/self::db:simplesect)
+                         then true()
+                         else false()"/>
 </xsl:function>
 
 <!-- ============================================================ -->

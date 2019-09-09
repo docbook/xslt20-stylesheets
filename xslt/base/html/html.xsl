@@ -542,8 +542,8 @@ for the specified node.</para>
 <xsl:function name="f:keep-titlepage-fragment" as="xs:boolean">
   <xsl:param name="fragment" as="node()*"/>
 
-  <xsl:value-of select="string($fragment) != ''
-                        or count($fragment//h:div) != count($fragment//*)"/>
+  <xsl:sequence select="string($fragment) != ''
+                          or count($fragment//h:div) != count($fragment//*)"/>
 </xsl:function>
 
 <xsl:template name="t:default-titlepage-template" as="element()">

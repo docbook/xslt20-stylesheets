@@ -111,10 +111,10 @@ lines should be removed from the specified verbatim environment.</para>
 
   <xsl:choose>
     <xsl:when test="empty($trim)">
-      <xsl:value-of select="string($verbatim.trim.blank.lines) != '0'"/>
+      <xsl:sequence select="string($verbatim.trim.blank.lines) != '0'"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="string($trim[last()]) != '0'"/>
+      <xsl:sequence select="string($trim[last()]) != '0'"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -370,7 +370,7 @@ not have a title, it returns “???”.</para>
 
 <xsl:function name="f:length-in-points" as="xs:double">
   <xsl:param name="length" as="xs:string"/>
-  <xsl:value-of select="f:length-in-points($length, 10)"/>
+  <xsl:sequence select="f:length-in-points($length, 10)"/>
 </xsl:function>
 
 <xsl:function name="f:length-in-points" as="xs:double">
