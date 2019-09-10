@@ -486,8 +486,9 @@ task makeUris(type: XMLCalabashTask, dependsOn: [ "compileXslt", "copyResources"
 
 task copyLib(type: Copy) {
   FileCollection runtime  = configurations.runtime
+  FileCollection compile  = configurations.compile
   FileCollection localLib = fileTree(dir: 'lib').include("*.jar")
-  FileCollection lib = runtime - localLib
+  FileCollection lib = compile + runtime - localLib
   String path = ""
   lib.each {
     File file -> path += " lib/" + file.name
