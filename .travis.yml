@@ -1,6 +1,8 @@
 language: java
-script: ./gradlew dist
+script: ./gradlew --no-daemon dist
 sudo: false
+jdk:
+  - openjdk8
 
 after_success: .travis/publish-release.sh
 
