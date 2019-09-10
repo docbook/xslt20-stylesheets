@@ -2,7 +2,7 @@ language: java
 script: ./gradlew dist
 sudo: false
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 after_success: .travis/publish-release.sh
 
