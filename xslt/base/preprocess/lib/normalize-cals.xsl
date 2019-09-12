@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:html="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:html="http://www.w3.org/1999/xhtml"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:fp="http://docbook.org/xslt/ns/extension/private"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:fp="http://docbook.org/xslt/ns/extension/private"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fp ghost h m u xs html"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db doc f fp ghost h m u xs html"
                 version="2.0">
 
 <doc:mode name="m:cals-phase-1" xmlns="http://docbook.org/ns/docbook">
@@ -57,10 +57,10 @@ each row and cell.</para>
 </xsl:template>
 
 <xsl:template match="db:thead|db:tbody|db:tfoot"
-	      mode="m:cals-phase-1">
+              mode="m:cals-phase-1">
   <xsl:variable name="overhang"
-		select="for $col in (1 to xs:integer(../@cols))
-			return 0"/>
+                select="for $col in (1 to xs:integer(../@cols))
+                        return 0"/>
   <xsl:copy>
     <xsl:copy-of select="@*"/>
     <xsl:apply-templates select="db:row[1]" mode="m:cals-phase-1">
@@ -85,9 +85,9 @@ each row and cell.</para>
     <xsl:copy>
       <xsl:copy-of select="@*"/>
       <xsl:apply-templates select="(db:entry|db:entrytbl)[1]"
-			   mode="m:cals-phase-1">
-	<xsl:with-param name="overhang" select="$overhang"/>
-	<xsl:with-param name="prevpos" select="0"/>
+                           mode="m:cals-phase-1">
+        <xsl:with-param name="overhang" select="$overhang"/>
+        <xsl:with-param name="prevpos" select="0"/>
       </xsl:apply-templates>
     </xsl:copy>
   </xsl:variable>
@@ -95,17 +95,17 @@ each row and cell.</para>
   <xsl:copy-of select="$row/db:row"/>
 
   <xsl:variable name="decremented-overhang"
-		select="for $col in (1 to count($overhang))
-			return xs:integer(max(($overhang[$col] - 1, 0)))"/>
+                select="for $col in (1 to count($overhang))
+                        return xs:integer(max(($overhang[$col] - 1, 0)))"/>
 
   <xsl:variable name="next-overhang"
-		select="for $col in (1 to count($overhang))
-			return
-			  xs:integer($decremented-overhang[$col]
-			              + $row/db:row/*[$col]/@ghost:morerows)"/>
+                select="for $col in (1 to count($overhang))
+                        return
+                          xs:integer($decremented-overhang[$col]
+                                      + $row/db:row/*[$col]/@ghost:morerows)"/>
 
   <xsl:apply-templates select="following-sibling::db:row[1]"
-		       mode="m:cals-phase-1">
+                       mode="m:cals-phase-1">
     <xsl:with-param name="overhang" select="$next-overhang"/>
   </xsl:apply-templates>
 </xsl:template>
@@ -120,31 +120,31 @@ each row and cell.</para>
                                           |ancestor::db:entrytbl)[last()]"/>
 
   <xsl:variable name="nextpos" select="f:skip-overhang($overhang, $prevpos+1)"
-		as="xs:integer"/>
+                as="xs:integer"/>
 
   <xsl:variable name="pos" as="xs:integer">
     <xsl:choose>
       <xsl:when test="@namest">
-	<xsl:variable name="name" select="@namest"/>
-	<xsl:variable name="colspec"
-		      select="$container/db:colspec[@colname=$name]"/>
-	<xsl:sequence select="f:colspec-colnum($colspec)"/>
+        <xsl:variable name="name" select="@namest"/>
+        <xsl:variable name="colspec"
+                      select="$container/db:colspec[@colname=$name]"/>
+        <xsl:sequence select="f:colspec-colnum($colspec)"/>
       </xsl:when>
       <xsl:when test="@colname">
-	<xsl:variable name="name" select="@colname"/>
-	<xsl:variable name="colspec"
-		      select="$container/db:colspec[@colname=$name]"/>
-	<xsl:sequence select="f:colspec-colnum($colspec)"/>
+        <xsl:variable name="name" select="@colname"/>
+        <xsl:variable name="colspec"
+                      select="$container/db:colspec[@colname=$name]"/>
+        <xsl:sequence select="f:colspec-colnum($colspec)"/>
       </xsl:when>
       <xsl:when test="@spanname">
-	<xsl:variable name="name" select="@spanname"/>
-	<xsl:variable name="spanspec"
-		      select="$container/db:spanspec[@spanname=$name]"/>
+        <xsl:variable name="name" select="@spanname"/>
+        <xsl:variable name="spanspec"
+                      select="$container/db:spanspec[@spanname=$name]"/>
 
-	<xsl:sequence select="f:spanspec-colnum-start($spanspec)"/>
+        <xsl:sequence select="f:spanspec-colnum-start($spanspec)"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:sequence select="$nextpos"/>
+        <xsl:sequence select="$nextpos"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -152,18 +152,18 @@ each row and cell.</para>
   <xsl:variable name="width" as="xs:integer">
     <xsl:choose>
       <xsl:when test="@nameend">
-	<xsl:variable name="name" select="@nameend"/>
-	<xsl:variable name="colspec"
-		      select="$container/db:colspec[@colname=$name]"/>
+        <xsl:variable name="name" select="@nameend"/>
+        <xsl:variable name="colspec"
+                      select="$container/db:colspec[@colname=$name]"/>
 
-	<xsl:sequence select="f:colspec-colnum($colspec) - $pos + 1"/>
+        <xsl:sequence select="f:colspec-colnum($colspec) - $pos + 1"/>
       </xsl:when>
       <xsl:when test="@spanname">
-	<xsl:variable name="name" select="@spanname"/>
-	<xsl:variable name="spanspec"
-		      select="$container/db:spanspec[@spanname=$name]"/>
+        <xsl:variable name="name" select="@spanname"/>
+        <xsl:variable name="spanspec"
+                      select="$container/db:spanspec[@spanname=$name]"/>
 
-	<xsl:sequence select="f:spanspec-colnum-end($spanspec) - $pos + 1"/>
+        <xsl:sequence select="f:spanspec-colnum-end($spanspec) - $pos + 1"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -184,15 +184,15 @@ each row and cell.</para>
     <xsl:variable name="col" select="."/>
     <xsl:choose>
       <xsl:when test="$overhang[$col] &gt; 0">
-	<ghost:overlapped ghost:colnum="{$col}" ghost:morerows="0"/>
+        <ghost:overlapped ghost:colnum="{$col}" ghost:morerows="0"/>
       </xsl:when>
       <xsl:otherwise>
-	<ghost:empty ghost:colnum="{$col}" ghost:morerows="0">
-	  <xsl:call-template name="inherit-table-attributes">
-	    <xsl:with-param name="colnum" select="."/>
-	    <xsl:with-param name="row" select="$row"/>
-	  </xsl:call-template>
-	</ghost:empty>
+        <ghost:empty ghost:colnum="{$col}" ghost:morerows="0">
+          <xsl:call-template name="inherit-table-attributes">
+            <xsl:with-param name="colnum" select="."/>
+            <xsl:with-param name="row" select="$row"/>
+          </xsl:call-template>
+        </ghost:empty>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:for-each>
@@ -203,9 +203,9 @@ each row and cell.</para>
     <xsl:attribute name="ghost:colnum" select="$pos"/>
     <xsl:attribute name="ghost:width" select="$width"/>
     <xsl:attribute name="ghost:morerows"
-		   select="if (@morerows)
-			   then xs:integer(@morerows)
-			   else 0"/>
+                   select="if (@morerows)
+                           then xs:integer(@morerows)
+                           else 0"/>
 
     <xsl:call-template name="inherit-table-attributes">
       <xsl:with-param name="colnum" select="$pos"/>
@@ -217,9 +217,9 @@ each row and cell.</para>
   <xsl:for-each select="for $col in ($pos + 1 to $pos + $width - 1) return $col">
     <ghost:overlapped ghost:colnum="{.}">
       <xsl:attribute name="ghost:morerows"
-		     select="if ($entry/@morerows)
-			     then xs:integer($entry/@morerows)
-			     else 0"/>
+                     select="if ($entry/@morerows)
+                             then xs:integer($entry/@morerows)
+                             else 0"/>
     </ghost:overlapped>
   </xsl:for-each>
 
@@ -234,8 +234,8 @@ each row and cell.</para>
   -->
 
   <xsl:apply-templates select="(following-sibling::db:entry
-			        |following-sibling::db:entrytbl)[1]"
-		       mode="m:cals-phase-1">
+                                |following-sibling::db:entrytbl)[1]"
+                       mode="m:cals-phase-1">
     <xsl:with-param name="overhang" select="$overhang"/>
     <xsl:with-param name="prevpos" select="$pos + $width - 1"/>
   </xsl:apply-templates>
@@ -251,8 +251,8 @@ each row and cell.</para>
     </xsl:message>
 -->
     <xsl:for-each select="for $col
-			  in ($pos + $width to $container/@cols)
-			  return $col">
+                          in ($pos + $width to $container/@cols)
+                          return $col">
       <xsl:variable name="col" select="."/>
       <xsl:choose>
         <xsl:when test="$overhang[$col] = 0">
@@ -292,14 +292,14 @@ each row and cell.</para>
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()|text()"
-	      mode="m:cals-phase-1">
+              mode="m:cals-phase-1">
   <xsl:copy/>
 </xsl:template>
 
 <!-- ============================================================ -->
 
 <doc:template name="inherit-table-attributes"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Calculates attribute values for table cells</refpurpose>
 
 <refdescription>
@@ -407,64 +407,64 @@ be an integer and won't have a parent.</para>
   <xsl:variable name="tgroup" select="$row/ancestor::db:tgroup[1]"/>
   <xsl:variable name="table" select="$tgroup/parent::*"/>
   <xsl:variable name="spanspec"
-		select="$tgroup/db:spanspec[@spanname=$entry/@spanname]"/>
+                select="$tgroup/db:spanspec[@spanname=$entry/@spanname]"/>
 
   <xsl:variable name="elements" as="element()*">
     <xsl:choose>
       <xsl:when test="$entry instance of element()">
-	<xsl:sequence select="($entry,
-			       $row,
-			       $spanspec,
-			       $tgroup/db:colspec[@colname=$spanspec/@namest],
-			       $tgroup/db:colspec[@colname=$entry/@namest],
-			       f:find-colspec-by-colnum($tgroup, $colnum),
-			       $tgroup,
-			       $tgroup/parent::*)"/>
+        <xsl:sequence select="($entry,
+                               $row,
+                               $spanspec,
+                               $tgroup/db:colspec[@colname=$spanspec/@namest],
+                               $tgroup/db:colspec[@colname=$entry/@namest],
+                               f:find-colspec-by-colnum($tgroup, $colnum),
+                               $tgroup,
+                               $tgroup/parent::*)"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:sequence select="($row,
-			       f:find-colspec-by-colnum($tgroup, $colnum),
-			       $tgroup,
-			       $tgroup/parent::*)"/>
+        <xsl:sequence select="($row,
+                               f:find-colspec-by-colnum($tgroup, $colnum),
+                               $tgroup,
+                               $tgroup/parent::*)"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
   <xsl:variable name="colspec"
-		select="f:find-colspec-by-colnum($tgroup, $colnum)"/>
+                select="f:find-colspec-by-colnum($tgroup, $colnum)"/>
 
   <xsl:for-each select="('rowsep', 'colsep',
                          'align', 'valign',
-			 'char', 'charoff')">
+                         'char', 'charoff')">
     <xsl:variable name="attr" select="QName('', .)"/>
 
     <xsl:variable name="value">
       <xsl:choose>
-	<xsl:when test="f:find-element-by-attribute($elements, $attr)">
-	  <xsl:sequence select="f:find-element-by-attribute($elements, $attr)
-				/@*[node-name(.) = $attr]"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:if test="$attr=QName('','rowsep') or $attr=QName('','colsep')">
-	    <xsl:sequence select="1"/>
-	  </xsl:if>
-	</xsl:otherwise>
+        <xsl:when test="f:find-element-by-attribute($elements, $attr)">
+          <xsl:sequence select="f:find-element-by-attribute($elements, $attr)
+                                /@*[node-name(.) = $attr]"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:if test="$attr=QName('','rowsep') or $attr=QName('','colsep')">
+            <xsl:sequence select="1"/>
+          </xsl:if>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
 
     <xsl:choose>
       <xsl:when test="f:find-element-by-attribute($elements, $attr)">
-	<xsl:attribute name="{string($attr)}"
-		       select="f:find-element-by-attribute($elements, $attr)
-			       /@*[node-name(.) = $attr]"/>
+        <xsl:attribute name="{string($attr)}"
+                       select="f:find-element-by-attribute($elements, $attr)
+                               /@*[node-name(.) = $attr]"/>
       </xsl:when>
       <xsl:otherwise>
-	<!-- According to CALS, the default for each attribute is the
-	     tgroup value, which we've already found above, if it exists,
-	     except for colsep and rowsep which default to "1" -->
-	<xsl:if test="$attr=QName('','rowsep') or $attr=QName('','colsep')">
-	  <xsl:attribute name="{string($attr)}" select="1"/>
-	</xsl:if>
+        <!-- According to CALS, the default for each attribute is the
+             tgroup value, which we've already found above, if it exists,
+             except for colsep and rowsep which default to "1" -->
+        <xsl:if test="$attr=QName('','rowsep') or $attr=QName('','colsep')">
+          <xsl:attribute name="{string($attr)}" select="1"/>
+        </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:for-each>
@@ -473,7 +473,7 @@ be an integer and won't have a parent.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:find-element-by-attribute"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Selects an element based on the presence of an attribute</refpurpose>
 
 <refdescription>
@@ -523,7 +523,7 @@ attribute.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:find-colspec-by-colnum"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Finds the <tag>colspec</tag> for the specified column
 number.</refpurpose>
 
@@ -556,7 +556,7 @@ specification for that column.</para>
 <xsl:function name="f:find-colspec-by-colnum" as="element()?">
   <xsl:param name="tgroup" as="element(db:tgroup)"/>
   <xsl:param name="colnum" as="xs:integer"/>
-  
+
   <xsl:sequence select="fp:find-colspec($tgroup/db:colspec[1], $colnum, 0)"/>
 </xsl:function>
 
@@ -571,22 +571,22 @@ specification for that column.</para>
     </xsl:when>
     <xsl:when test="$colspec/@colnum">
       <xsl:choose>
-	<xsl:when test="$colnum = $colspec/@colnum">
-	  <xsl:sequence select="$colspec"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:sequence select="fp:find-colspec($colspec/following-sibling::db:colspec[1], $colnum, xs:integer($colspec/@colnum))"/>
-	</xsl:otherwise>
+        <xsl:when test="$colnum = $colspec/@colnum">
+          <xsl:sequence select="$colspec"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="fp:find-colspec($colspec/following-sibling::db:colspec[1], $colnum, xs:integer($colspec/@colnum))"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
       <xsl:choose>
-	<xsl:when test="$colnum = $curcol+1">
-	  <xsl:sequence select="$colspec"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:sequence select="fp:find-colspec($colspec/following-sibling::db:colspec[1], $colnum, $colnum+1)"/>
-	</xsl:otherwise>
+        <xsl:when test="$colnum = $curcol+1">
+          <xsl:sequence select="$colspec"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="fp:find-colspec($colspec/following-sibling::db:colspec[1], $colnum, $colnum+1)"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -636,8 +636,8 @@ current column number.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:sequence select="if ($overhang[$pos] = 0)
-			    then $pos
-			    else f:skip-overhang($overhang, $pos+1)"/>
+                            then $pos
+                            else f:skip-overhang($overhang, $pos+1)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -677,8 +677,8 @@ current column number.</para>
     </xsl:when>
     <xsl:when test="$colspec/preceding-sibling::db:colspec">
       <xsl:sequence select="f:colspec-colnum(
-			       $colspec/preceding-sibling::db:colspec[1])
-	                    + 1"/>
+                               $colspec/preceding-sibling::db:colspec[1])
+                            + 1"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:sequence select="1"/>
@@ -689,7 +689,7 @@ current column number.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:spanspec-colnum-start"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the column number of the starting column of a
 span</refpurpose>
 
@@ -718,13 +718,13 @@ span.</para>
   <xsl:param name="spanspec" as="element(db:spanspec)"/>
 
   <xsl:sequence select="f:colspec-colnum($spanspec/ancestor::db:tgroup[1]
-			      /db:colspec[@colname=$spanspec/@namest])"/>
+                              /db:colspec[@colname=$spanspec/@namest])"/>
 </xsl:function>
 
 <!-- ============================================================ -->
 
 <doc:function name="f:spanspec-colnum-end"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the column number of the ending column of a
 span</refpurpose>
 
@@ -838,8 +838,8 @@ See <function role="named-template">generate-colgroup</function>.
     <xsl:otherwise>
       <xsl:variable name="colspec" select="$colspecs[$count=position()]"/>
       <xsl:variable name="colspec.colnum">
-	<xsl:choose>
-	  <xsl:when test="$colspec/@colnum">
+        <xsl:choose>
+          <xsl:when test="$colspec/@colnum">
             <xsl:sequence select="$colspec/@colnum"/>
           </xsl:when>
           <xsl:otherwise>
@@ -849,36 +849,36 @@ See <function role="named-template">generate-colgroup</function>.
       </xsl:variable>
 
       <xsl:choose>
-	<xsl:when test="$colspec.colnum=$countcol">
-	  <col>
-	    <xsl:if test="$colspec/@colwidth">
-	      <xsl:attribute name="width">
-		<xsl:choose>
-		  <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
-		    <xsl:sequence select="'1*'"/>
-		  </xsl:when>
-		  <xsl:otherwise>
-		    <xsl:sequence select="$colspec/@colwidth"/>
-		  </xsl:otherwise>
-		</xsl:choose>
-	      </xsl:attribute>
-	    </xsl:if>
+        <xsl:when test="$colspec.colnum=$countcol">
+          <col>
+            <xsl:if test="$colspec/@colwidth">
+              <xsl:attribute name="width">
+                <xsl:choose>
+                  <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
+                    <xsl:sequence select="'1*'"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:sequence select="$colspec/@colwidth"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:attribute>
+            </xsl:if>
 
-	    <xsl:choose>
-	      <xsl:when test="$colspec/@align">
-		<xsl:attribute name="align">
-		  <xsl:sequence select="$colspec/@align"/>
-		</xsl:attribute>
-	      </xsl:when>
-	      <!-- Suggested by Pavel ZAMPACH <zampach@nemcb.cz> -->
-	      <xsl:when test="$colspecs/parent::db:tgroup/@align">
-		<xsl:attribute name="align">
+            <xsl:choose>
+              <xsl:when test="$colspec/@align">
+                <xsl:attribute name="align">
+                  <xsl:sequence select="$colspec/@align"/>
+                </xsl:attribute>
+              </xsl:when>
+              <!-- Suggested by Pavel ZAMPACH <zampach@nemcb.cz> -->
+              <xsl:when test="$colspecs/parent::db:tgroup/@align">
+                <xsl:attribute name="align">
                   <xsl:sequence select="$colspecs/parent::db:tgroup/@align"/>
-		</xsl:attribute>
+                </xsl:attribute>
               </xsl:when>
             </xsl:choose>
 
-	    <xsl:if test="$colspec/@char">
+            <xsl:if test="$colspec/@char">
               <xsl:attribute name="char">
                 <xsl:sequence select="$colspec/@char"/>
               </xsl:attribute>
@@ -889,9 +889,9 @@ See <function role="named-template">generate-colgroup</function>.
                 <xsl:sequence select="$colspec/@charoff"/>
               </xsl:attribute>
             </xsl:if>
-	  </col>
-	</xsl:when>
-	<xsl:otherwise>
+          </col>
+        </xsl:when>
+        <xsl:otherwise>
           <xsl:call-template name="generate-col">
             <xsl:with-param name="countcol" select="$countcol"/>
             <xsl:with-param name="colspecs" select="$colspecs"/>

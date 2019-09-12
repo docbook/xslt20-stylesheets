@@ -4,10 +4,10 @@
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db f fn m t xlink xs"
+                exclude-result-prefixes="db f fn m t xlink xs"
                 version="2.0">
 
 <!-- ********************************************************************
@@ -98,8 +98,8 @@
     <!-- hack? -->
     <xsl:when test="string(.) = '' and @class = 'uri' and @xlink:href">
       <xsl:call-template name="t:inline-charseq">
-	<!-- if you pass the attribute, it gets copied...as an attribute! -->
-	<xsl:with-param name="content" select="string(@xlink:href)"/>
+        <!-- if you pass the attribute, it gets copied...as an attribute! -->
+        <xsl:with-param name="content" select="string(@xlink:href)"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:when test="string(.) = ''">
@@ -328,27 +328,27 @@
   <xsl:call-template name="t:inline-charseq">
     <xsl:with-param name="content">
       <xsl:choose>
-	<xsl:when test=". castable as xs:dateTime">
-	  <xsl:value-of select="format-dateTime(xs:dateTime(.),
-				                $dateTime-format,
-						f:l10n-language(.), (), ())"/>
-	</xsl:when>
-	<xsl:when test=". castable as xs:date">
-	  <xsl:value-of select="format-date(xs:date(.), $date-format, f:l10n-language(.), (), ())"/>
-	</xsl:when>
-	<xsl:when test=". castable as xs:gYearMonth">
-	  <xsl:value-of select="format-date(xs:date(concat(.,'-01')),
-				            $gYearMonth-format,
-					    f:l10n-language(.), (), ())"/>
-	</xsl:when>
-	<xsl:when test=". castable as xs:gYear">
-	  <xsl:value-of select="format-date(xs:date(concat(.,'-01-01')),
-				            $gYear-format,
-					    f:l10n-language(.), (), ())"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:apply-templates/>
-	</xsl:otherwise>
+        <xsl:when test=". castable as xs:dateTime">
+          <xsl:value-of select="format-dateTime(xs:dateTime(.),
+                                                $dateTime-format,
+                                                f:l10n-language(.), (), ())"/>
+        </xsl:when>
+        <xsl:when test=". castable as xs:date">
+          <xsl:value-of select="format-date(xs:date(.), $date-format, f:l10n-language(.), (), ())"/>
+        </xsl:when>
+        <xsl:when test=". castable as xs:gYearMonth">
+          <xsl:value-of select="format-date(xs:date(concat(.,'-01')),
+                                            $gYearMonth-format,
+                                            f:l10n-language(.), (), ())"/>
+        </xsl:when>
+        <xsl:when test=". castable as xs:gYear">
+          <xsl:value-of select="format-date(xs:date(concat(.,'-01-01')),
+                                            $gYear-format,
+                                            f:l10n-language(.), (), ())"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -521,7 +521,7 @@
 </xsl:template>
 
 <xsl:template match="db:pob|db:street|db:city|db:state
-		     |db:postcode|db:country|db:otheraddr">
+                     |db:postcode|db:country|db:otheraddr">
   <xsl:call-template name="t:inline-charseq"/>
 </xsl:template>
 
@@ -531,7 +531,7 @@
 
 <!-- in Addresses, for example -->
 <xsl:template match="db:honorific|db:firstname|db:givenname|db:surname
-		     |db:lineage|db:othername">
+                     |db:lineage|db:othername">
   <xsl:call-template name="t:inline-charseq"/>
 </xsl:template>
 

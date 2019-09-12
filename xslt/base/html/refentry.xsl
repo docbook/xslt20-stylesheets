@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="h f m fn db t"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                exclude-result-prefixes="h f m fn db t"
                 version="2.0">
 
 <xsl:template match="db:refentry">
@@ -16,7 +16,7 @@
 
     <xsl:if test="$refentry.separator and preceding-sibling::db:refentry">
       <div class="refentry-separator">
-	<hr/>
+        <hr/>
       </div>
     </xsl:if>
 
@@ -36,7 +36,7 @@
 
     <xsl:choose>
       <xsl:when test="$refentry.generate.name">
-	<h2>
+        <h2>
           <xsl:call-template name="gentext">
             <xsl:with-param name="key" select="'RefName'"/>
           </xsl:call-template>
@@ -44,16 +44,16 @@
       </xsl:when>
 
       <xsl:when test="$refentry.generate.title">
-	<h2>
-	  <xsl:choose>
-	    <xsl:when test="../db:refmeta/db:refentrytitle">
+        <h2>
+          <xsl:choose>
+            <xsl:when test="../db:refmeta/db:refentrytitle">
               <xsl:apply-templates select="../db:refmeta/db:refentrytitle"/>
             </xsl:when>
             <xsl:otherwise>
-	      <xsl:apply-templates select="db:refname[1]"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</h2>
+              <xsl:apply-templates select="db:refname[1]"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </h2>
       </xsl:when>
     </xsl:choose>
     <p>
@@ -103,12 +103,12 @@
 
     <h2>
       <xsl:choose>
-	<xsl:when test="db:info/db:title">
-	  <xsl:apply-templates select="db:info/db:title"
-			       mode="m:titlepage-mode"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:call-template name="gentext">
+        <xsl:when test="db:info/db:title">
+          <xsl:apply-templates select="db:info/db:title"
+                               mode="m:titlepage-mode"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="gentext">
             <xsl:with-param name="key" select="'RefSynopsisDiv'"/>
           </xsl:call-template>
         </xsl:otherwise>

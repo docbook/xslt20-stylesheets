@@ -8,7 +8,7 @@
                 version="2.0">
 
 <xsl:output method="xml" encoding="utf-8" indent="no"
-	    omit-xml-declaration="yes"/>
+            omit-xml-declaration="yes"/>
 
 <xsl:param name="profile.separator" select="';'"/>
 <xsl:param name="profile.lang" select="()"/>
@@ -172,9 +172,9 @@ true if the current attribute is not in the specified profile.</para>
 
   <xsl:if test="exists($prof)">
     <xsl:variable name="node-values"
-		  select="tokenize($attr, $profile.separator)"/>
+                  select="tokenize($attr, $profile.separator)"/>
     <xsl:variable name="profile-values"
-		  select="tokenize($prof, $profile.separator)"/>
+                  select="tokenize($prof, $profile.separator)"/>
 
 <!--
     <xsl:message>

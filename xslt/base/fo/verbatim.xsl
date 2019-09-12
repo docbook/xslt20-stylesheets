@@ -12,7 +12,7 @@
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xdmp="http://marklogic.com/xdmp"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="doc f m mp fn db ghost t ext xdmp xs"
+                exclude-result-prefixes="doc f m mp fn db ghost t ext xdmp xs"
                 version="2.0">
 
 <xsl:param name="shade.verbatim" select="0"/>
@@ -76,8 +76,8 @@
 </doc:mode>
 
 <xsl:template match="db:programlisting|db:screen|db:synopsis
-		     |db:literallayout[@class='monospaced']"
-	      mode="m:verbatim">
+                     |db:literallayout[@class='monospaced']"
+              mode="m:verbatim">
   <xsl:param name="suppress-numbers" select="'0'"/>
   <xsl:variable name="id" select="f:node-id(.)"/>
 
@@ -115,37 +115,37 @@
   <xsl:choose>
     <xsl:when test="$shade.verbatim != 0">
       <fo:block id="{$id}"
-		xsl:use-attribute-sets="monospace.verbatim.properties
-					shade.verbatim.style">
-	<xsl:apply-templates select="$verbatim" mode="m:verbatim"/>
+                xsl:use-attribute-sets="monospace.verbatim.properties
+                                        shade.verbatim.style">
+        <xsl:apply-templates select="$verbatim" mode="m:verbatim"/>
       </fo:block>
     </xsl:when>
     <xsl:otherwise>
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="monospace.verbatim.properties">
-	<xsl:apply-templates select="$verbatim" mode="m:verbatim"/>
+        <xsl:apply-templates select="$verbatim" mode="m:verbatim"/>
       </fo:block>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
 <xsl:template match="db:literallayout|db:address"
-	      mode="m:verbatim">
+              mode="m:verbatim">
   <xsl:param name="suppress-numbers" select="'0'"/>
   <xsl:variable name="id" select="f:node-id(.)"/>
 
   <xsl:choose>
     <xsl:when test="$shade.verbatim != 0">
       <fo:block id="{$id}"
-		xsl:use-attribute-sets="verbatim.properties
-					shade.verbatim.style">
-	<xsl:apply-templates mode="m:verbatim"/>
+                xsl:use-attribute-sets="verbatim.properties
+                                        shade.verbatim.style">
+        <xsl:apply-templates mode="m:verbatim"/>
       </fo:block>
     </xsl:when>
     <xsl:otherwise>
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="verbatim.properties">
-	<xsl:apply-templates mode="m:verbatim"/>
+        <xsl:apply-templates mode="m:verbatim"/>
       </fo:block>
     </xsl:otherwise>
   </xsl:choose>
@@ -159,15 +159,15 @@
   <xsl:call-template name="t:callout-bug">
     <xsl:with-param name="conum">
       <xsl:choose>
-	<xsl:when test="@number">
-	  <xsl:value-of select="@number"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:number count="ghost:co"
-		      level="any"
-		      from="db:programlisting|db:screen|db:literallayout|db:synopsis"
-		      format="1"/>
-	</xsl:otherwise>
+        <xsl:when test="@number">
+          <xsl:value-of select="@number"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:number count="ghost:co"
+                      level="any"
+                      from="db:programlisting|db:screen|db:literallayout|db:synopsis"
+                      format="1"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -197,7 +197,7 @@
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()"
-	      mode="mp:literallayout">
+              mode="mp:literallayout">
   <xsl:copy/>
 </xsl:template>
 
@@ -208,12 +208,12 @@
     </xsl:matching-substring>
     <xsl:non-matching-substring>
       <xsl:analyze-string select="." regex="[\s]">
-	<xsl:matching-substring>
-	  <xsl:text>&#160;</xsl:text>
-	</xsl:matching-substring>
-	<xsl:non-matching-substring>
-	  <xsl:copy/>
-	</xsl:non-matching-substring>
+        <xsl:matching-substring>
+          <xsl:text>&#160;</xsl:text>
+        </xsl:matching-substring>
+        <xsl:non-matching-substring>
+          <xsl:copy/>
+        </xsl:non-matching-substring>
       </xsl:analyze-string>
     </xsl:non-matching-substring>
   </xsl:analyze-string>

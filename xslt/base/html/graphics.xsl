@@ -171,7 +171,7 @@ vertical alignment.</para>
 
   <xsl:message use-when="not(function-available('ext:image-properties'))">
     <xsl:text>Cannot read image properties for </xsl:text>
-    <xsl:value-of select="$image"/>
+    <xsl:sequence select="$image"/>
     <xsl:text>. (No extension)</xsl:text>
   </xsl:message>
 
@@ -754,11 +754,11 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
        pass. It's probably overkill, but it might come in useful I suppose -->
   <xsl:choose>
     <xsl:when test="exists(f:pi($ioco/processing-instruction('dbhtml'), 'mapid'))">
-      <xsl:value-of
+      <xsl:sequence
           select="f:pi($ioco/processing-instruction('dbhtml'), 'mapid')"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="generate-id($ioco)"/>
+      <xsl:sequence select="generate-id($ioco)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -1096,17 +1096,16 @@ valign: <xsl:value-of select="@valign"/></xsl:message>
                 and $node/db:textobject[not(db:phrase)]">
     <xsl:variable name="image-id" select="f:node-id($node)"/>
     <xsl:variable name="dbhtml.dir" select="f:dbhtml-dir($node)"/>
-    <xsl:value-of>
-      <xsl:choose>
-        <xsl:when test="$dbhtml.dir != ''">
-          <xsl:value-of select="$dbhtml.dir"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="$base.dir"/>
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:value-of select="concat('ld-',$image-id,$html.ext)"/>
-    </xsl:value-of>
+    <xsl:variable name="fn" select="concat('ld-',$image-id,$html.ext)"/>
+
+    <xsl:choose>
+      <xsl:when test="$dbhtml.dir != ''">
+        <xsl:sequence select="concat($dbhtml.dir, $fn)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:sequence select="concat($base.dir, $fn)"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:if>
 </xsl:function>
 

@@ -12,7 +12,7 @@
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fn h m mp t u xlink xs"
+                exclude-result-prefixes="db doc f fn h m mp t u xlink xs"
                 version="2.0">
 
 <!-- Use internal variable for olink xlink role for consistency -->
@@ -33,18 +33,18 @@
   <xsl:param name="xhref" select="@xlink:href"/>
   <!-- is the @xlink:href a local idref link? -->
   <xsl:param name="xlink.idref"
-	     select="if (f:xpointer-idref($xhref) != '')
+             select="if (f:xpointer-idref($xhref) != '')
                      then f:xpointer-idref($xhref)
-		     else ''"/>
+                     else ''"/>
   <xsl:param name="xlink.targets" select="key('id',$xlink.idref)"/>
   <xsl:param name="linkend.targets" select="key('id',@linkend)"/>
   <xsl:param name="target" select="($xlink.targets | $linkend.targets)[1]"/>
 
   <xsl:call-template name="t:check-id-unique">
     <xsl:with-param name="linkend"
-		    select="if ($xlink.idref != '')
+                    select="if ($xlink.idref != '')
                             then $xlink.idref
-			    else @linkend"/>
+                            else @linkend"/>
   </xsl:call-template>
 
   <xsl:variable name="xrefstyle">
@@ -62,54 +62,54 @@
   <xsl:call-template name="t:simple-xlink">
     <xsl:with-param name="content">
       <fo:inline xsl:use-attribute-sets="xref.properties">
-	<xsl:choose>
-	  <xsl:when test="@endterm">
-	    <xsl:variable name="etargets" select="key('id',@endterm)"/>
-	    <xsl:choose>
-	      <xsl:when test="not($etargets)">
-		<xsl:message>
-		  <xsl:text>Endterm points to nonexistent ID: </xsl:text>
-		  <xsl:value-of select="@endterm"/>
-		</xsl:message>
-		<xsl:text>???</xsl:text>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:apply-templates select="$etargets[1]" mode="m:endterm"/>
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:when>
+        <xsl:choose>
+          <xsl:when test="@endterm">
+            <xsl:variable name="etargets" select="key('id',@endterm)"/>
+            <xsl:choose>
+              <xsl:when test="not($etargets)">
+                <xsl:message>
+                  <xsl:text>Endterm points to nonexistent ID: </xsl:text>
+                  <xsl:value-of select="@endterm"/>
+                </xsl:message>
+                <xsl:text>???</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="$etargets[1]" mode="m:endterm"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
 
-	  <xsl:when test="$target/@xreflabel">
-	    <xsl:call-template name="t:xref-xreflabel">
-	      <xsl:with-param name="target" select="$target"/>
-	    </xsl:call-template>
-	  </xsl:when>
+          <xsl:when test="$target/@xreflabel">
+            <xsl:call-template name="t:xref-xreflabel">
+              <xsl:with-param name="target" select="$target"/>
+            </xsl:call-template>
+          </xsl:when>
 
-	  <xsl:when test="$target">
-	    <!-- FIXME: why? -->
-	    <xsl:if test="not(parent::db:citation)">
-	      <xsl:apply-templates select="$target" mode="m:xref-to-prefix"/>
-	    </xsl:if>
+          <xsl:when test="$target">
+            <!-- FIXME: why? -->
+            <xsl:if test="not(parent::db:citation)">
+              <xsl:apply-templates select="$target" mode="m:xref-to-prefix"/>
+            </xsl:if>
 
-	    <xsl:apply-templates select="$target" mode="m:xref-to">
-	      <xsl:with-param name="referrer" select="."/>
-	      <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
-	    </xsl:apply-templates>
+            <xsl:apply-templates select="$target" mode="m:xref-to">
+              <xsl:with-param name="referrer" select="."/>
+              <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+            </xsl:apply-templates>
 
-	    <xsl:if test="not(parent::db:citation)">
-	      <xsl:apply-templates select="$target" mode="m:xref-to-suffix"/>
-	    </xsl:if>
-	  </xsl:when>
+            <xsl:if test="not(parent::db:citation)">
+              <xsl:apply-templates select="$target" mode="m:xref-to-suffix"/>
+            </xsl:if>
+          </xsl:when>
 
-	  <xsl:otherwise>
-	    <xsl:message>
-	      <xsl:text>ERROR: xref linking to </xsl:text>
-	      <xsl:value-of select="@linkend|@xlink:href"/>
-	      <xsl:text> has no generated link text.</xsl:text>
-	    </xsl:message>
-	    <xsl:text>???</xsl:text>
-	  </xsl:otherwise>
-	</xsl:choose>
+          <xsl:otherwise>
+            <xsl:message>
+              <xsl:text>ERROR: xref linking to </xsl:text>
+              <xsl:value-of select="@linkend|@xlink:href"/>
+              <xsl:text> has no generated link text.</xsl:text>
+            </xsl:message>
+            <xsl:text>???</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
       </fo:inline>
     </xsl:with-param>
   </xsl:call-template>
@@ -120,18 +120,18 @@
       <!-- page numbers only for local targets -->
     </xsl:when>
     <xsl:when test="starts-with(normalize-space($xrefstyle), 'select:')
-		    and contains($xrefstyle, 'nopage')">
+                    and contains($xrefstyle, 'nopage')">
       <!-- negative xrefstyle in instance turns it off -->
     </xsl:when>
     <!-- positive xrefstyle already handles it -->
     <xsl:when test="not(starts-with(normalize-space($xrefstyle), 'select:')
-		    and (contains($xrefstyle, 'page')
+                    and (contains($xrefstyle, 'page')
                          or contains($xrefstyle, 'Page')))
                     and ($insert.xref.page.number = 'yes'
                          or $insert.xref.page.number = '1')
                     or $target/self::db:para">
       <xsl:apply-templates select="$target" mode="m:page-citation">
-	<xsl:with-param name="id" select="$target/@xml:id"/>
+        <xsl:with-param name="id" select="$target/@xml:id"/>
       </xsl:apply-templates>
     </xsl:when>
   </xsl:choose>
@@ -172,13 +172,13 @@
         <xsl:choose>
           <xsl:when test="not($etargets)">
             <xsl:message>
-	      <xsl:text>Endterm points to nonexistent ID: </xsl:text>
-	      <xsl:value-of select="@endterm"/>
-	    </xsl:message>
+              <xsl:text>Endterm points to nonexistent ID: </xsl:text>
+              <xsl:value-of select="@endterm"/>
+            </xsl:message>
             <xsl:text>???</xsl:text>
           </xsl:when>
           <xsl:otherwise>
-	    <xsl:apply-templates select="$etargets[1]" mode="m:endterm"/>
+            <xsl:apply-templates select="$etargets[1]" mode="m:endterm"/>
           </xsl:otherwise>
         </xsl:choose>
       </fo:basic-link>
@@ -188,7 +188,7 @@
       <fo:basic-link internal-destination="{@linkend}"
                      xsl:use-attribute-sets="xref.properties">
         <xsl:call-template name="t:xref-xreflabel">
-	  <xsl:with-param name="target" select="$target"/>
+          <xsl:with-param name="target" select="$target"/>
         </xsl:call-template>
       </fo:basic-link>
     </xsl:when>
@@ -203,7 +203,7 @@
         <xsl:apply-templates select="$target" mode="m:xref-to">
           <xsl:with-param name="referrer" select="."/>
           <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
-	</xsl:apply-templates>
+        </xsl:apply-templates>
       </fo:basic-link>
 
       <xsl:if test="not(parent::db:citation)">
@@ -301,7 +301,7 @@
 </xsl:template>
 
 <xsl:template match="db:author|db:editor|db:othercredit|db:personname"
-	      mode="m:xref-to">
+              mode="m:xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
@@ -373,7 +373,7 @@
 </xsl:template>
 
 <xsl:template match="db:dedication|db:preface|db:chapter|db:appendix"
-	      mode="m:xref-to">
+              mode="m:xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
@@ -453,7 +453,7 @@
 <xsl:template match="db:section|db:simplesect
                      |db:sect1|db:sect2|db:sect3|db:sect4|db:sect5
                      |db:refsect1|db:refsect2|db:refsect3|db:refsection"
-	      mode="m:xref-to">
+              mode="m:xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
   <xsl:param name="verbose" select="1"/>
@@ -695,42 +695,42 @@
   <xsl:call-template name="t:simple-xlink">
     <xsl:with-param name="content">
       <fo:inline xsl:use-attribute-sets="xref.properties">
-	<xsl:choose>
-	  <xsl:when test="not(empty(child::node()))">
-	    <!-- If it has content, use it -->
-	    <xsl:apply-templates/>
-	  </xsl:when>
-	  <!-- look for an endterm -->
-	  <xsl:when test="@endterm">
-	    <xsl:variable name="etargets" select="key('id',@endterm)"/>
-	    <xsl:choose>
-	      <xsl:when test="not($etargets)">
-		<xsl:message>
-		  <xsl:text>Endterm points to nonexistent ID: </xsl:text>
-		  <xsl:value-of select="@endterm"/>
-		</xsl:message>
-		<xsl:text>???</xsl:text>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:apply-templates select="$etargets[1]" mode="m:endterm"/>
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:when>
-	  <!-- Use the xlink:href if no other text -->
-	  <xsl:when test="@xlink:href">
-	    <xsl:call-template name="t:hyphenate-url">
-	      <xsl:with-param name="url" select="@xlink:href"/>
-	    </xsl:call-template>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:message>
-	      <xsl:text>Link element has no content and no endterm. </xsl:text>
-	      <xsl:text>Nothing to show in the link to </xsl:text>
-	      <xsl:value-of select="$target"/>
-	    </xsl:message>
-	    <xsl:text>???</xsl:text>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="not(empty(child::node()))">
+            <!-- If it has content, use it -->
+            <xsl:apply-templates/>
+          </xsl:when>
+          <!-- look for an endterm -->
+          <xsl:when test="@endterm">
+            <xsl:variable name="etargets" select="key('id',@endterm)"/>
+            <xsl:choose>
+              <xsl:when test="not($etargets)">
+                <xsl:message>
+                  <xsl:text>Endterm points to nonexistent ID: </xsl:text>
+                  <xsl:value-of select="@endterm"/>
+                </xsl:message>
+                <xsl:text>???</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates select="$etargets[1]" mode="m:endterm"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+          <!-- Use the xlink:href if no other text -->
+          <xsl:when test="@xlink:href">
+            <xsl:call-template name="t:hyphenate-url">
+              <xsl:with-param name="url" select="@xlink:href"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:message>
+              <xsl:text>Link element has no content and no endterm. </xsl:text>
+              <xsl:text>Nothing to show in the link to </xsl:text>
+              <xsl:value-of select="$target"/>
+            </xsl:message>
+            <xsl:text>???</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
       </fo:inline>
     </xsl:with-param>
   </xsl:call-template>
@@ -742,7 +742,7 @@
     <xsl:when test="not($linkend)">
       <!-- must have been an xlink:href -->
       <xsl:call-template name="t:hyperlink-url-display">
-	<xsl:with-param name="url" select="@xlink:href"/>
+        <xsl:with-param name="url" select="@xlink:href"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:when test="starts-with(normalize-space($xrefstyle), 'select:')
@@ -757,7 +757,7 @@
                          or $insert.link.page.number = '1')
                      or $target/self::db:para">
       <xsl:apply-templates select="$target" mode="m:page-citation">
-	<xsl:with-param name="id" select="$linkend"/>
+        <xsl:with-param name="id" select="$linkend"/>
       </xsl:apply-templates>
     </xsl:when>
   </xsl:choose>
@@ -770,8 +770,8 @@
   <xsl:param name="url"/>
 
   <xsl:if test="not(empty(child::node()))
-		and string(.) != $url
-		and $ulink.show">
+                and string(.) != $url
+                and $ulink.show">
     <!-- * Display the URL for this hyperlink only if it is non-empty, -->
     <!-- * and the value of its content is not a URL that is the same as -->
     <!-- * URL it links to, and if ulink.show is non-zero. -->
@@ -781,26 +781,26 @@
         <!-- * means we display the URL as a footnote (instead of inline) -->
         <fo:footnote>
           <xsl:call-template name="t:ulink-footnote-number"/>
-	  <fo:footnote-body xsl:use-attribute-sets="footnote.properties">
-	    <fo:block>
-	      <xsl:call-template name="t:ulink-footnote-number"/>
-	      <xsl:text> </xsl:text>
-	      <fo:basic-link external-destination="url({$url})">
-		<xsl:value-of select="$url"/>
-	      </fo:basic-link>
-	    </fo:block>
-	  </fo:footnote-body>
-	</fo:footnote>
+          <fo:footnote-body xsl:use-attribute-sets="footnote.properties">
+            <fo:block>
+              <xsl:call-template name="t:ulink-footnote-number"/>
+              <xsl:text> </xsl:text>
+              <fo:basic-link external-destination="url({$url})">
+                <xsl:value-of select="$url"/>
+              </fo:basic-link>
+            </fo:block>
+          </fo:footnote-body>
+        </fo:footnote>
       </xsl:when>
       <xsl:otherwise>
         <!-- * ulink.show is non-zero, but ulink.footnote is not; that -->
         <!-- * means we display the URL inline -->
-	<fo:inline hyphenate="false" font-style="normal">
-	  <!-- * put square brackets around the URL -->
-	  <xsl:text> [</xsl:text>
-	  <fo:basic-link external-destination="url({$url})">
-	    <xsl:call-template name="t:hyphenate-url">
-	      <xsl:with-param name="url" select="$url"/>
+        <fo:inline hyphenate="false" font-style="normal">
+          <!-- * put square brackets around the URL -->
+          <xsl:text> [</xsl:text>
+          <fo:basic-link external-destination="url({$url})">
+            <xsl:call-template name="t:hyphenate-url">
+              <xsl:with-param name="url" select="$url"/>
             </xsl:call-template>
           </fo:basic-link>
           <xsl:text>]</xsl:text>
@@ -814,7 +814,7 @@
   <fo:inline xsl:use-attribute-sets="footnote.mark.properties">
     <xsl:choose>
       <xsl:when test="$fo.processor = 'fop'">
-	<xsl:attribute name="vertical-align">super</xsl:attribute>
+        <xsl:attribute name="vertical-align">super</xsl:attribute>
       </xsl:when>
       <xsl:otherwise>
         <xsl:attribute name="baseline-shift">super</xsl:attribute>
@@ -838,22 +838,22 @@
       <!-- FIXME: list in @from is probably not complete -->
       <xsl:number level="any"
                   from="db:chapter|db:appendix|db:preface|db:article
-			|db:refentry|db:bibliography[not(parent::db:article)]"
-		  count="db:footnote[not(@label)][not(ancestor::db:tgroup)]
-			 |db:link[node()][@xlink:href != .][not(ancestor::db:footnote)]
-			 |*[node()][@xlink:href][not(@xlink:href = .)][not(starts-with(@xlink:href,'#'))]
+                        |db:refentry|db:bibliography[not(parent::db:article)]"
+                  count="db:footnote[not(@label)][not(ancestor::db:tgroup)]
+                         |db:link[node()][@xlink:href != .][not(ancestor::db:footnote)]
+                         |*[node()][@xlink:href][not(@xlink:href = .)][not(starts-with(@xlink:href,'#'))]
                     [not(contains(@xlink:href,'#') and @xlink:role = $xolink.role)]
                     [not(@xlink:type) or @xlink:type='simple']
                     [not(ancestor::db:footnote)]"
-		  format="1"/>
+                  format="1"/>
     </xsl:variable>
 
     <xsl:choose>
       <xsl:when test="string-length($footnote.number.symbols) &gt;= $fnum">
-	<xsl:value-of select="substring($footnote.number.symbols, $fnum, 1)"/>
+        <xsl:value-of select="substring($footnote.number.symbols, $fnum, 1)"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:number value="$fnum" format="{$footnote.number.format}"/>
+        <xsl:number value="$fnum" format="{$footnote.number.format}"/>
       </xsl:otherwise>
     </xsl:choose>
   </fo:inline>
@@ -1060,7 +1060,7 @@ in this mode should generate its label (number).</para>
 <!-- ==================================================================== -->
 
 <doc:mode name="m:insert-pagenumber-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for inserting page number markup</refpurpose>
 
 <refdescription>
@@ -1080,7 +1080,7 @@ in this mode should generate its page number.</para>
 <!-- ==================================================================== -->
 
 <doc:mode name="m:insert-direction-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for inserting “direction” markup</refpurpose>
 
 <refdescription>

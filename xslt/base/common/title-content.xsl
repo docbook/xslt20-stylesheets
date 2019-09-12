@@ -61,7 +61,7 @@
 <!-- find title content -->
 
 <doc:mode name="mp:title-content"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for computing title content</refpurpose>
 
 <refdescription>
@@ -339,7 +339,7 @@ but for elements that have optional titles, it may be a computed string.
 <!-- ============================================================ -->
 
 <doc:mode name="m:titleabbrev-content"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for computing abbreviated title content</refpurpose>
 
 <refdescription>
@@ -397,7 +397,7 @@ but for elements that have optional titles, it may be a computed string.
 <!-- ============================================================ -->
 
 <doc:mode name="m:subtitle-content"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for computing subtitle content</refpurpose>
 
 <refdescription>
@@ -453,7 +453,7 @@ but for elements that have optional titles, it may be a computed string.
                     descendant-or-self::db:olink or
                     descendant-or-self::db:xref or
                     descendant-or-self::db:indexterm or
-		    (ancestor::db:title and @xml:id)">
+                    (ancestor::db:title and @xml:id)">
       <xsl:apply-templates mode="mp:no-anchors"/>
     </xsl:when>
     <xsl:otherwise>
@@ -521,7 +521,7 @@ but for elements that have optional titles, it may be a computed string.
     <xsl:when test="count($target) = 0">
       <xsl:message>
         <xsl:text>XRef to nonexistent id: </xsl:text>
-        <xsl:value-of select="@linkend"/> 
+        <xsl:value-of select="@linkend"/>
         <xsl:value-of select="@xlink:href"/>
       </xsl:message>
       <xsl:text>???</xsl:text>
@@ -553,28 +553,28 @@ but for elements that have optional titles, it may be a computed string.
 
     <xsl:otherwise>
       <xsl:choose>
-	<!-- Watch out for the case when there is a xref or link inside
-	     a title. See bugs #1811721 and #1838136. -->
-	<xsl:when test="not(ancestor::*[@xml:id = $target/@xml:id])">
-	  <xsl:apply-templates select="$target" mode="m:xref-to-prefix"/>
-	  <xsl:apply-templates select="$target" mode="m:xref-to">
+        <!-- Watch out for the case when there is a xref or link inside
+             a title. See bugs #1811721 and #1838136. -->
+        <xsl:when test="not(ancestor::*[@xml:id = $target/@xml:id])">
+          <xsl:apply-templates select="$target" mode="m:xref-to-prefix"/>
+          <xsl:apply-templates select="$target" mode="m:xref-to">
             <xsl:with-param name="referrer" select="."/>
-	    <xsl:with-param name="xrefstyle">
-	      <xsl:choose>
-		<xsl:when test="@role and not(@xrefstyle) and $use.role.as.xrefstyle">
-		  <xsl:value-of select="@role"/>
-		</xsl:when>
-		<xsl:otherwise>
-		  <xsl:value-of select="@xrefstyle"/>
-		</xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:with-param>
-	  </xsl:apply-templates>
-	  <xsl:apply-templates select="$target" mode="m:xref-to-suffix"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:apply-templates/>
-	</xsl:otherwise>
+            <xsl:with-param name="xrefstyle">
+              <xsl:choose>
+                <xsl:when test="@role and not(@xrefstyle) and $use.role.as.xrefstyle">
+                  <xsl:value-of select="@role"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="@xrefstyle"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:with-param>
+          </xsl:apply-templates>
+          <xsl:apply-templates select="$target" mode="m:xref-to-suffix"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>

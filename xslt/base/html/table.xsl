@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f ghost h m t u xs"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db doc f ghost h m t u xs"
                 version="2.0">
 
 <xsl:include href="../common/table.xsl"/>
@@ -18,21 +18,21 @@
 <xsl:template match="db:table">
   <xsl:call-template name="t:formal-object">
     <xsl:with-param name="placement"
-		    select="$formal.title.placement[self::db:table]/@placement"/>
+                    select="$formal.title.placement[self::db:table]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="longdesc" select="db:textobject[not(db:phrase)]"/>
     <xsl:with-param name="object" as="element()">
       <div>
         <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
 
-	<xsl:choose>
-	  <xsl:when test="db:tgroup|db:mediaobject">
-	    <xsl:apply-templates select="db:tgroup|db:mediaobject"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates select="." mode="m:html"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="db:tgroup|db:mediaobject">
+            <xsl:apply-templates select="db:tgroup|db:mediaobject"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="." mode="m:html"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </div>
     </xsl:with-param>
   </xsl:call-template>
@@ -46,15 +46,15 @@
       <div>
         <xsl:sequence select="f:html-class(., local-name(.), @role)"/>
 
-	<xsl:choose>
-	  <xsl:when test="db:tgroup|db:mediaobject">
-	    <xsl:apply-templates select="db:tgroup|db:mediaobject"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates select="." mode="m:html">
-	    </xsl:apply-templates>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="db:tgroup|db:mediaobject">
+            <xsl:apply-templates select="db:tgroup|db:mediaobject"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="." mode="m:html">
+            </xsl:apply-templates>
+          </xsl:otherwise>
+        </xsl:choose>
       </div>
     </xsl:with-param>
   </xsl:call-template>
@@ -87,20 +87,20 @@
 
 <xsl:template match="db:tgroup" name="db:tgroup" mode="m:cals">
   <xsl:variable name="summary"
-		select="f:pi(processing-instruction('dbhtml'),'table-summary')"/>
+                select="f:pi(processing-instruction('dbhtml'),'table-summary')"/>
 
   <xsl:variable name="cellspacing"
-		select="f:pi(processing-instruction('dbhtml'),'cellspacing')"/>
+                select="f:pi(processing-instruction('dbhtml'),'cellspacing')"/>
 
   <xsl:variable name="cellpadding"
-		select="f:pi(processing-instruction('dbhtml'),'cellpadding')"/>
+                select="f:pi(processing-instruction('dbhtml'),'cellpadding')"/>
 
   <table border="0">
     <xsl:choose>
       <!-- If there's a textobject/phrase for the table summary, use it -->
       <xsl:when test="../db:textobject/db:phrase">
-	<xsl:attribute name="summary"
-		       select="xs:string(../db:textobject/db:phrase)"/>
+        <xsl:attribute name="summary"
+                       select="xs:string(../db:textobject/db:phrase)"/>
       </xsl:when>
 
       <!-- If there's a <?dbhtml table-summary="foo"?> PI, use it for
@@ -124,16 +124,16 @@
 
     <xsl:if test="$cellspacing != '' or $table.html.cellspacing != ''">
       <xsl:attribute name="cellspacing"
-		     select="if ($cellspacing != '')
-	                     then $cellspacing
-			     else $table.html.cellspacing"/>
+                     select="if ($cellspacing != '')
+                             then $cellspacing
+                             else $table.html.cellspacing"/>
     </xsl:if>
 
     <xsl:if test="$cellpadding != '' or $table.html.cellpadding != ''">
       <xsl:attribute name="cellpadding"
-		     select="if ($cellpadding != '')
-	                     then $cellpadding
-			     else $table.html.cellpadding"/>
+                     select="if ($cellpadding != '')
+                             then $cellpadding
+                             else $table.html.cellpadding"/>
     </xsl:if>
 
     <xsl:if test="../@pgwide=1 or self::db:entrytbl">
@@ -141,90 +141,90 @@
     </xsl:if>
 
     <xsl:variable name="frame"
-		  select="if (../@frame)
+                  select="if (../@frame)
                           then ../@frame
-			  else $table.frame.default"/>
+                          else $table.frame.default"/>
 
     <xsl:choose>
       <xsl:when test="$frame='all'">
-	<xsl:attribute name="style">
-	  <xsl:text>border-collapse: collapse;</xsl:text>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'top'"/>
-	  </xsl:call-template>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'bottom'"/>
-	  </xsl:call-template>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'left'"/>
-	  </xsl:call-template>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'right'"/>
-	  </xsl:call-template>
-	</xsl:attribute>
+        <xsl:attribute name="style">
+          <xsl:text>border-collapse: collapse;</xsl:text>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'top'"/>
+          </xsl:call-template>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'bottom'"/>
+          </xsl:call-template>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'left'"/>
+          </xsl:call-template>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'right'"/>
+          </xsl:call-template>
+        </xsl:attribute>
       </xsl:when>
       <xsl:when test="$frame='topbot'">
-	<xsl:attribute name="style">
-	  <xsl:text>border-collapse: collapse;</xsl:text>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'top'"/>
-	  </xsl:call-template>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'bottom'"/>
-	  </xsl:call-template>
-	</xsl:attribute>
+        <xsl:attribute name="style">
+          <xsl:text>border-collapse: collapse;</xsl:text>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'top'"/>
+          </xsl:call-template>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'bottom'"/>
+          </xsl:call-template>
+        </xsl:attribute>
       </xsl:when>
       <xsl:when test="$frame='top'">
-	<xsl:attribute name="style">
-	  <xsl:text>border-collapse: collapse;</xsl:text>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'top'"/>
-	  </xsl:call-template>
-	</xsl:attribute>
+        <xsl:attribute name="style">
+          <xsl:text>border-collapse: collapse;</xsl:text>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'top'"/>
+          </xsl:call-template>
+        </xsl:attribute>
       </xsl:when>
       <xsl:when test="$frame='bottom'">
-	<xsl:attribute name="style">
-	  <xsl:text>border-collapse: collapse;</xsl:text>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'bottom'"/>
-	  </xsl:call-template>
-	</xsl:attribute>
+        <xsl:attribute name="style">
+          <xsl:text>border-collapse: collapse;</xsl:text>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'bottom'"/>
+          </xsl:call-template>
+        </xsl:attribute>
       </xsl:when>
       <xsl:when test="$frame='sides'">
-	<xsl:attribute name="style">
-	  <xsl:text>border-collapse: collapse;</xsl:text>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'left'"/>
-	  </xsl:call-template>
-	  <xsl:call-template name="border">
-	    <xsl:with-param name="side" select="'right'"/>
-	  </xsl:call-template>
-	</xsl:attribute>
+        <xsl:attribute name="style">
+          <xsl:text>border-collapse: collapse;</xsl:text>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'left'"/>
+          </xsl:call-template>
+          <xsl:call-template name="border">
+            <xsl:with-param name="side" select="'right'"/>
+          </xsl:call-template>
+        </xsl:attribute>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:attribute name="style">
-	  <xsl:text>border-collapse: collapse;</xsl:text>
-	</xsl:attribute>
+        <xsl:attribute name="style">
+          <xsl:text>border-collapse: collapse;</xsl:text>
+        </xsl:attribute>
       </xsl:otherwise>
     </xsl:choose>
 
     <xsl:variable name="colgroup" as="element()">
       <colgroup>
-	<xsl:call-template name="generate-colgroup">
+        <xsl:call-template name="generate-colgroup">
           <xsl:with-param name="cols" select="@cols"/>
-	</xsl:call-template>
+        </xsl:call-template>
       </colgroup>
     </xsl:variable>
 
     <xsl:variable name="explicit.table.width"
-		  select="f:pi(processing-instruction('dbhtml'),'table-width')"/>
+                  select="f:pi(processing-instruction('dbhtml'),'table-width')"/>
 
     <xsl:variable name="table.width">
       <xsl:choose>
-	<xsl:when test="$explicit.table.width != ''">
+        <xsl:when test="$explicit.table.width != ''">
           <xsl:value-of select="$explicit.table.width"/>
         </xsl:when>
-	<xsl:when test="string($table.width.default) = ''">
+        <xsl:when test="string($table.width.default) = ''">
           <xsl:text>100%</xsl:text>
         </xsl:when>
         <xsl:otherwise>
@@ -236,7 +236,7 @@
     <xsl:if test="string($table.width.default) != ''
                   or $explicit.table.width != ''">
       <xsl:attribute name="width"
-		     select="f:convert-length($table.width)"/>
+                     select="f:convert-length($table.width)"/>
     </xsl:if>
 
     <xsl:call-template name="adjust-column-widths">
@@ -252,11 +252,11 @@
     <xsl:if test=".//db:footnote">
       <tbody class="footnotes">
         <tr>
-	  <td colspan="{@cols}">
-	    <xsl:apply-templates select=".//db:footnote"
-				 mode="m:table-footnote-mode"/>
-	  </td>
-	</tr>
+          <td colspan="{@cols}">
+            <xsl:apply-templates select=".//db:footnote"
+                                 mode="m:table-footnote-mode"/>
+          </td>
+        </tr>
       </tbody>
     </xsl:if>
   </table>
@@ -268,7 +268,7 @@
       <xsl:when test="ancestor::db:thead">th</xsl:when>
       <xsl:when test="ancestor::db:tfoot">th</xsl:when>
       <xsl:when test="ancestor::db:tgroup/parent::*/@rowheader='firstcol'
-		      and ghost:colnum=1">th</xsl:when>
+                      and ghost:colnum=1">th</xsl:when>
       <xsl:otherwise>td</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -290,7 +290,7 @@
 
 <xsl:template match="db:thead|db:tbody|db:tfoot" mode="m:cals">
   <xsl:element name="{local-name(.)}"
-	       namespace="http://www.w3.org/1999/xhtml">
+               namespace="http://www.w3.org/1999/xhtml">
     <xsl:copy-of select="@align|@valign|@char|@charoff"/>
     <xsl:apply-templates mode="m:cals"/>
   </xsl:element>
@@ -302,13 +302,13 @@
 
 <xsl:template match="db:row" mode="m:cals">
   <xsl:variable name="row-height"
-		select="f:pi(processing-instruction('dbhtml'),'row-height')"/>
+                select="f:pi(processing-instruction('dbhtml'),'row-height')"/>
 
   <xsl:variable name="bgcolor"
-		select="f:pi(processing-instruction('dbhtml'),'bgcolor')"/>
+                select="f:pi(processing-instruction('dbhtml'),'bgcolor')"/>
 
   <xsl:variable name="class"
-		select="f:pi(processing-instruction('dbhtml'),'class')"/>
+                select="f:pi(processing-instruction('dbhtml'),'class')"/>
 
   <tr>
     <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
@@ -333,9 +333,9 @@
 
     <xsl:if test="@rowsep = 1 and (following-sibling::db:row or ../(following-sibling::db:tbody|following-sibling::db:tfoot))">
       <xsl:attribute name="style">
-	<xsl:call-template name="border">
-	  <xsl:with-param name="side" select="'bottom'"/>
-	</xsl:call-template>
+        <xsl:call-template name="border">
+          <xsl:with-param name="side" select="'bottom'"/>
+        </xsl:call-template>
       </xsl:attribute>
     </xsl:if>
 
@@ -400,7 +400,7 @@ to alternate rows of the table:</para>
       <xsl:when test="ancestor::db:thead">th</xsl:when>
       <xsl:when test="ancestor::db:tfoot">th</xsl:when>
       <xsl:when test="ancestor::db:tgroup/parent::*/@rowheader='firstcol'
-		      and ghost:colnum=1">th</xsl:when>
+                      and ghost:colnum=1">th</xsl:when>
       <xsl:otherwise>td</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -408,7 +408,7 @@ to alternate rows of the table:</para>
   <xsl:variable name="empty.cell" select="not(node())"/>
 
   <xsl:variable name="bgcolor"
-		select="f:pi(processing-instruction('dbhtml'),'bgcolor')"/>
+                select="f:pi(processing-instruction('dbhtml'),'bgcolor')"/>
 
   <xsl:element name="{$cellgi}">
     <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
@@ -448,7 +448,7 @@ to alternate rows of the table:</para>
 
     <xsl:choose>
       <xsl:when test="$empty.cell">
-	<xsl:text>&#160;</xsl:text>
+        <xsl:text>&#160;</xsl:text>
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates/>
@@ -462,14 +462,14 @@ to alternate rows of the table:</para>
   <td>
     <xsl:attribute name="style">
       <xsl:if test="@colsep &gt; 0 and following-sibling::*">
-	<xsl:call-template name="border">
-	  <xsl:with-param name="side" select="'right'"/>
-	</xsl:call-template>
+        <xsl:call-template name="border">
+          <xsl:with-param name="side" select="'right'"/>
+        </xsl:call-template>
       </xsl:if>
       <xsl:if test="@rowsep &gt; 0 and parent::*/following-sibling::db:row">
-	<xsl:call-template name="border">
-	  <xsl:with-param name="side" select="'bottom'"/>
-	</xsl:call-template>
+        <xsl:call-template name="border">
+          <xsl:with-param name="side" select="'bottom'"/>
+        </xsl:call-template>
       </xsl:if>
     </xsl:attribute>
     <xsl:text>&#160;</xsl:text>
@@ -489,7 +489,7 @@ to alternate rows of the table:</para>
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()|text()"
-	      mode="m:cals">
+              mode="m:cals">
   <xsl:copy/>
 </xsl:template>
 
@@ -624,7 +624,7 @@ Defaults to <parameter>table.cell.border.thickness</parameter>.</para>
 
 <xsl:template match="db:table" mode="m:html">
   <xsl:element name="{local-name(.)}"
-	       namespace="http://www.w3.org/1999/xhtml">
+               namespace="http://www.w3.org/1999/xhtml">
     <xsl:copy-of select="@*"/>
     <xsl:apply-templates mode="m:html"/>
 
@@ -661,9 +661,9 @@ Defaults to <parameter>table.cell.border.thickness</parameter>.</para>
 
 <xsl:template match="db:col|db:colgroup
                      |db:thead|db:tfoot|db:tbody|db:tr
-		     |db:th|db:td" mode="m:html">
+                     |db:th|db:td" mode="m:html">
   <xsl:element name="{local-name(.)}"
-	       namespace="http://www.w3.org/1999/xhtml">
+               namespace="http://www.w3.org/1999/xhtml">
     <xsl:copy-of select="@*"/>
     <xsl:apply-templates mode="m:html"/>
   </xsl:element>

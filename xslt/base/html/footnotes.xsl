@@ -1,14 +1,14 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db f h m t xs ghost"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db f h m t xs ghost"
                 version='2.0'>
 
 <!-- ********************************************************************
@@ -92,7 +92,7 @@
 </xsl:template>
 
 <xsl:template match="db:footnote" name="t:process-footnote"
-	      mode="m:process-footnote-mode">
+              mode="m:process-footnote-mode">
   <xsl:variable name="name" select="f:node-id(.)"/>
 
   <xsl:variable name="footnote.body.doc">
@@ -100,7 +100,7 @@
   </xsl:variable>
 
   <xsl:variable name="footnote.body" as="element()*"
-		select="$footnote.body.doc/*"/>
+                select="$footnote.body.doc/*"/>
 
   <xsl:variable name="footnote.number" as="xs:string">
     <xsl:apply-templates select="." mode="m:footnote-number"/>
@@ -109,14 +109,14 @@
   <div class="{name(.)}">
     <div class="footnote-wrapper">
       <div class="footnote-symbol-wrapper">
-	<p>
-	  <sup>
+        <p>
+          <sup>
             <span class="osq">[</span>
-	    <a href="#{$name}" id="{concat('ftn.', $name)}">
-	      <xsl:copy-of select="$footnote.number"/>
-	    </a>
+            <a href="#{$name}" id="{concat('ftn.', $name)}">
+              <xsl:copy-of select="$footnote.number"/>
+            </a>
             <span class="csq">]</span>
-	  </sup>
+          </sup>
           <xsl:text>&#160;</xsl:text>
         </p>
       </div>
@@ -128,7 +128,7 @@
 </xsl:template>
 
 <xsl:template match="db:tgroup//db:footnote"
-	      mode="m:process-footnote-mode">
+              mode="m:process-footnote-mode">
 </xsl:template>
 
 <xsl:template match="db:footnote" mode="m:table-footnote-mode">

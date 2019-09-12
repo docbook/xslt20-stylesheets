@@ -627,6 +627,7 @@
 <template name="space">Spacebar</template>
 <template name="tab">Tab</template> <!-- Alternative: &#x27fc; -->
 <template name="up">&#x2191;</template>
+<template name="other">Other</template>
 </context>
 
 <context name="index">

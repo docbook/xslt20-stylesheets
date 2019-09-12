@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="h f m fn db t"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                exclude-result-prefixes="h f m fn db t"
                 version="2.0">
 
 <xsl:key name="glossterm" match="db:glossentry/db:glossterm" use="string(.)"/>
@@ -22,12 +22,12 @@
 
     <xsl:choose>
       <xsl:when test="db:glossdiv">
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:when>
       <xsl:otherwise>
-	<dl>
-	  <xsl:apply-templates/>
-	</dl>
+        <dl>
+          <xsl:apply-templates/>
+        </dl>
       </xsl:otherwise>
     </xsl:choose>
 
@@ -75,29 +75,29 @@
 
     <xsl:choose>
       <xsl:when test="$glossentry.show.acronym = 'primary'">
-	<xsl:choose>
-	  <xsl:when test="db:acronym|db:abbrev">
-	    <xsl:apply-templates select="db:acronym|db:abbrev"/>
-	    <xsl:text> (</xsl:text>
-	    <xsl:apply-templates select="db:glossterm"/>
-	    <xsl:text>)</xsl:text>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates select="db:glossterm"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="db:acronym|db:abbrev">
+            <xsl:apply-templates select="db:acronym|db:abbrev"/>
+            <xsl:text> (</xsl:text>
+            <xsl:apply-templates select="db:glossterm"/>
+            <xsl:text>)</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="db:glossterm"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:when test="$glossentry.show.acronym = 'yes'">
-	<xsl:apply-templates select="db:glossterm"/>
+        <xsl:apply-templates select="db:glossterm"/>
 
-	<xsl:if test="db:acronym|db:abbrev">
+        <xsl:if test="db:acronym|db:abbrev">
           <xsl:text> (</xsl:text>
           <xsl:apply-templates select="db:acronym|db:abbrev"/>
           <xsl:text>)</xsl:text>
         </xsl:if>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates select="db:glossterm"/>
+        <xsl:apply-templates select="db:glossterm"/>
       </xsl:otherwise>
     </xsl:choose>
   </dt>
@@ -119,7 +119,7 @@
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:acronym
-		|following-sibling::db:abbrev">, </xsl:if>
+                |following-sibling::db:abbrev">, </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:glossentry/db:abbrev">
@@ -128,7 +128,7 @@
     <xsl:apply-templates/>
   </span>
   <xsl:if test="following-sibling::db:acronym
-		|following-sibling::db:abbrev">, </xsl:if>
+                |following-sibling::db:abbrev">, </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:glossentry/db:glosssee">
@@ -142,20 +142,20 @@
         <xsl:with-param name="name" select="'see'"/>
       </xsl:call-template>
       <xsl:choose>
-	<xsl:when test="$target">
-	  <a href="{f:href(/,$target)}">
-	    <xsl:apply-templates select="$target" mode="m:xref-to"/>
-	  </a>
-	</xsl:when>
-	<xsl:when test="@otherterm and not($target)">
-	  <xsl:message>
-	    <xsl:text>Warning: </xsl:text>
-	    <xsl:text>glosssee @otherterm reference not found: </xsl:text>
-	    <xsl:value-of select="@otherterm"/>
-	  </xsl:message>
-	  <xsl:apply-templates/>
-	</xsl:when>
-	<xsl:otherwise>
+        <xsl:when test="$target">
+          <a href="{f:href(/,$target)}">
+            <xsl:apply-templates select="$target" mode="m:xref-to"/>
+          </a>
+        </xsl:when>
+        <xsl:when test="@otherterm and not($target)">
+          <xsl:message>
+            <xsl:text>Warning: </xsl:text>
+            <xsl:text>glosssee @otherterm reference not found: </xsl:text>
+            <xsl:value-of select="@otherterm"/>
+          </xsl:message>
+          <xsl:apply-templates/>
+        </xsl:when>
+        <xsl:otherwise>
           <xsl:apply-templates/>
         </xsl:otherwise>
       </xsl:choose>
@@ -190,9 +190,9 @@
 
 <xsl:template match="db:glossseealso">
   <xsl:variable name="target"
-		select="if (key('id', @otherterm))
-			then key('id', @otherterm)[1]
-			else key('glossterm', string(.))"/>
+                select="if (key('id', @otherterm))
+                        then key('id', @otherterm)[1]
+                        else key('glossterm', string(.))"/>
 
   <xsl:choose>
     <xsl:when test="$target">
@@ -203,7 +203,7 @@
     <xsl:when test="@otherterm and not($target)">
       <xsl:message>
         <xsl:text>Warning: </xsl:text>
-	<xsl:text>glossseealso @otherterm reference not found: </xsl:text>
+        <xsl:text>glossseealso @otherterm reference not found: </xsl:text>
         <xsl:value-of select="@otherterm"/>
       </xsl:message>
       <xsl:apply-templates/>

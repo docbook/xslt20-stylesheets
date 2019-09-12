@@ -156,7 +156,7 @@
 <xsl:function name="f:slideno" as="xs:integer">
   <xsl:param name="foil"/>
 
-  <xsl:value-of select="count($foil/preceding::db:foil)
+  <xsl:sequence select="count($foil/preceding::db:foil)
                         + count($foil/preceding::db:foilgroup)
                         + count($foil/parent::db:foilgroup)
                         + 1"/>
@@ -174,7 +174,7 @@
                 select="string(($pfoil/db:titleabbrev,$pfoil/db:info/db:titleabbrev,
                                 $pfoil/db:title,$pfoil/db:info/db:title)[1])"/>
 
-  <xsl:value-of select="$title != $ptitle"/>
+  <xsl:sequence select="$title != $ptitle"/>
 </xsl:function>
 
 <xsl:template match="db:slides/db:info">

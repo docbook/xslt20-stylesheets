@@ -38,7 +38,7 @@
 <!-- ============================================================ -->
 
 <doc:function name="f:dir"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Return the writing direction of a particular element</refpurpose>
 
 <refdescription>
@@ -69,10 +69,10 @@ parameter if no such attribute can be found.
   <xsl:variable name="dir" select="$element/ancestor-or-self::*[@dir][1]"/>
   <xsl:choose>
     <xsl:when test="$dir">
-      <xsl:value-of select="$dir/@dir"/>
+      <xsl:sequence select="string($dir/@dir)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$writing.mode"/>
+      <xsl:sequence select="$writing.mode"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -80,7 +80,7 @@ parameter if no such attribute can be found.
 <!-- ============================================================ -->
 
 <doc:function name="f:verbatim-trim-blank-lines"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Return true if blank lines should be trimmed off the end of the verbatim element</refpurpose>
 
 <refdescription>
@@ -107,7 +107,7 @@ lines should be removed from the specified verbatim environment.</para>
   <xsl:param name="verbatim" as="element()"/>
 
   <xsl:variable name="trim"
-		select="f:pi(f:in-scope-pis($verbatim, 'dbhtml'), 'trim-verbatim')"/>
+                select="f:pi(f:in-scope-pis($verbatim, 'dbhtml'), 'trim-verbatim')"/>
 
   <xsl:choose>
     <xsl:when test="empty($trim)">
@@ -169,11 +169,11 @@ context node.</para>
   <xsl:choose>
     <xsl:when test="ancestor::db:bibliolist">
       <xsl:number from="db:bibliolist" count="db:biblioentry|db:bibliomixed"
-		  level="any" format="1"/>
+                  level="any" format="1"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:number from="db:bibliography" count="db:biblioentry|db:bibliomixed"
-		  level="any" format="1"/>
+                  level="any" format="1"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
@@ -208,11 +208,11 @@ not have a title, it returns “???”.</para>
   <u:test>
     <u:variable name="mydoc">
       <db:book>
-	<db:title>Some Title</db:title>
-	<db:chapter>
-	  <db:title>Some Chapter Title</db:title>
-	  <db:para>My para.</db:para>
-	</db:chapter>
+        <db:title>Some Title</db:title>
+        <db:chapter>
+          <db:title>Some Chapter Title</db:title>
+          <db:para>My para.</db:para>
+        </db:chapter>
       </db:book>
     </u:variable>
     <u:param select="$mydoc/db:book"/>
@@ -230,34 +230,34 @@ not have a title, it returns “???”.</para>
     <xsl:when test="contains($value,'{')">
       <xsl:variable name="pre" select="substring-before($value,'{')"/>
       <xsl:variable name="var"
-		    select="substring-after(substring-before($value,'}'),'{')"/>
+                    select="substring-after(substring-before($value,'}'),'{')"/>
       <xsl:variable name="rest" select="substring-after($value,'}')"/>
 
       <xsl:variable name="exp">
-	<xsl:choose>
-	  <xsl:when test="$var = '$title.font.family'">
-	    <xsl:value-of select="$title.font.family"/>
-	  </xsl:when>
-	  <xsl:when test="$var = '$body.font.family'">
-	    <xsl:value-of select="$body.font.family"/>
-	  </xsl:when>
-	  <xsl:when test="$var = '$body.fontset'">
-	    <xsl:value-of select="$body.fontset"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:message>
-	      <xsl:text>Unrecognized value in f:fake-eval-avt(): </xsl:text>
-	      <xsl:value-of select="$var"/>
-	    </xsl:message>
-	    <xsl:value-of select="''"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$var = '$title.font.family'">
+            <xsl:sequence select="$title.font.family"/>
+          </xsl:when>
+          <xsl:when test="$var = '$body.font.family'">
+            <xsl:sequence select="$body.font.family"/>
+          </xsl:when>
+          <xsl:when test="$var = '$body.fontset'">
+            <xsl:sequence select="$body.fontset"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:message>
+              <xsl:text>Unrecognized value in f:fake-eval-avt(): </xsl:text>
+              <xsl:sequence select="$var"/>
+            </xsl:message>
+            <xsl:sequence select="''"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:variable>
 
-      <xsl:value-of select="concat($pre,$exp,f:fake-eval-avt($rest))"/>
+      <xsl:sequence select="concat($pre,$exp,f:fake-eval-avt($rest))"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$value"/>
+      <xsl:sequence select="$value"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -275,14 +275,14 @@ not have a title, it returns “???”.</para>
     <xsl:when test="string($title) = ''">
       <xsl:text>???</xsl:text>
       <xsl:if test="$verbosity &gt; 0">
-	<xsl:message>
-	  <xsl:text>Warning: no title for root element: </xsl:text>
-	  <xsl:value-of select="local-name($node)"/>
-	</xsl:message>
+        <xsl:message>
+          <xsl:text>Warning: no title for root element: </xsl:text>
+          <xsl:sequence select="local-name($node)"/>
+        </xsl:message>
       </xsl:if>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$title"/>
+      <xsl:sequence select="$title"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -303,7 +303,7 @@ not have a title, it returns “???”.</para>
   </xsl:variable>
 
   <xsl:variable name="params"
-		select="f:find-toc-params($context, $linenumbering)"/>
+                select="f:find-toc-params($context, $linenumbering)"/>
 
   <xsl:variable name="cfgval"
                 select="if ($params/@*[local-name(.) = $name])
@@ -382,33 +382,33 @@ not have a title, it returns “???”.</para>
 
   <xsl:choose>
     <xsl:when test="$units = 'pt'">
-      <xsl:value-of select="$magnitude"/>
+      <xsl:sequence select="$magnitude"/>
     </xsl:when>
     <xsl:when test="$units = 'cm'">
-      <xsl:value-of select="$magnitude div 2.54 * 72.0"/>
+      <xsl:sequence select="$magnitude div 2.54 * 72.0"/>
     </xsl:when>
     <xsl:when test="$units = 'mm'">
-      <xsl:value-of select="$magnitude div 25.4 * 72.0"/>
+      <xsl:sequence select="$magnitude div 25.4 * 72.0"/>
     </xsl:when>
     <xsl:when test="$units = 'in'">
-      <xsl:value-of select="$magnitude * 72.0"/>
+      <xsl:sequence select="$magnitude * 72.0"/>
     </xsl:when>
     <xsl:when test="$units = 'pc'">
-      <xsl:value-of select="$magnitude * 12.0"/>
+      <xsl:sequence select="$magnitude * 12.0"/>
     </xsl:when>
     <xsl:when test="$units = 'px'">
-      <xsl:value-of select="$magnitude div $pixels.per.inch * 72.0"/>
+      <xsl:sequence select="$magnitude div $pixels.per.inch * 72.0"/>
     </xsl:when>
     <xsl:when test="$units = 'em'">
-      <xsl:value-of select="$magnitude * $em.size"/>
+      <xsl:sequence select="$magnitude * $em.size"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:message>
         <xsl:text>Unrecognized unit of measure: </xsl:text>
-        <xsl:value-of select="$units"/>
+        <xsl:sequence select="$units"/>
         <xsl:text>; using pt.</xsl:text>
       </xsl:message>
-      <xsl:value-of select="$magnitude"/>
+      <xsl:sequence select="$magnitude"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -416,11 +416,11 @@ not have a title, it returns “???”.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:group-index"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the ordinal number of index group to which supplied term belongs.</refpurpose>
 
 <refdescription>
-<para>Returns the ordinal number of index group to which supplied term belongs in a given language. 
+<para>Returns the ordinal number of index group to which supplied term belongs in a given language.
 This number is used to group index terms and to define order of groups.</para>
 </refdescription>
 
@@ -447,14 +447,14 @@ This number is used to group index terms and to define order of groups.</para>
 <xsl:function name="f:group-index">
   <xsl:param name="term" as="xs:string"/>
   <xsl:param name="lang" as="xs:string"/>
-  
+
   <xsl:variable name="letters" as="element()*">
     <xsl:variable name="l10n.letters"
       select="($localization
-			 //l:l10n[@language=$lang]
-			 /l:letters,
+                         //l:l10n[@language=$lang]
+                         /l:letters,
                f:load-locale($lang)/l:letters)[1]"/>
-    
+
     <xsl:choose>
       <xsl:when test="$l10n.letters">
         <xsl:copy-of select="$l10n.letters"/>
@@ -473,11 +473,11 @@ This number is used to group index terms and to define order of groups.</para>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:message>
-        
+
         <xsl:copy-of select="($localization
-			 //l:l10n[@language='en']
-			 /l:letters,
-			 f:load-locale('en')/l:letters)[1]"/>
+                         //l:l10n[@language='en']
+                         /l:letters,
+                         f:load-locale('en')/l:letters)[1]"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -501,11 +501,11 @@ This number is used to group index terms and to define order of groups.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:group-label"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the label of specified index group.</refpurpose>
 
 <refdescription>
-<para>Returns the label of specified index group in a given language. 
+<para>Returns the label of specified index group in a given language.
 The label is used to label corresponding index group. The label is usually just one letter, but
 it can be also longer text like "Symbols" or "Ch".</para>
 </refdescription>
@@ -533,14 +533,14 @@ it can be also longer text like "Symbols" or "Ch".</para>
 <xsl:function name="f:group-label">
   <xsl:param name="index" as="xs:integer"/>
   <xsl:param name="lang" as="xs:string"/>
-  
+
   <xsl:variable name="letters" as="element()*">
     <xsl:variable name="l10n.letters"
       select="($localization
-			 //l:l10n[@language=$lang]
-			 /l:letters,
-	       f:load-locale($lang)/l:letters)[1]"/>
-    
+                         //l:l10n[@language=$lang]
+                         /l:letters,
+               f:load-locale($lang)/l:letters)[1]"/>
+
     <xsl:choose>
       <xsl:when test="$l10n.letters">
         <xsl:copy-of select="$l10n.letters"/>
@@ -559,11 +559,11 @@ it can be also longer text like "Symbols" or "Ch".</para>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:message>
-        
+
         <xsl:copy-of select="($localization
-			 //l:l10n[@language='en']
-			 /l:letters,
-			 f:load-locale('en')/l:letters)[1]"/>
+                         //l:l10n[@language='en']
+                         /l:letters,
+                         f:load-locale('en')/l:letters)[1]"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -637,14 +637,14 @@ and the <function>section-level</function> of this section is less than
   <xsl:choose>
     <xsl:when test="empty($autolabel.elements/*[node-name(.) = node-name($section)])">
       <!-- If sections aren't being auto-labelled, then the answer is always false. -->
-      <xsl:value-of select="false()"/>
+      <xsl:sequence select="false()"/>
     </xsl:when>
     <xsl:when test="f:section-level($section)
-		    &lt;= $section.autolabel.max.depth">
-      <xsl:value-of select="not(empty($autolabel.elements/db:section))"/>
+                    &lt;= $section.autolabel.max.depth">
+      <xsl:sequence select="not(empty($autolabel.elements/db:section))"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="false()"/>
+      <xsl:sequence select="false()"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -652,7 +652,7 @@ and the <function>section-level</function> of this section is less than
 <!-- ============================================================ -->
 
 <doc:function name="f:procedure-step-numeration"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the numeration style for procedure steps</refpurpose>
 
 <refdescription>
@@ -683,37 +683,37 @@ or <tag>steps</tag>.</para>
   <xsl:param name="context" as="element()"/>
 
   <xsl:variable name="format.length"
-		select="count($procedure.step.numeration.styles)"/>
+                select="count($procedure.step.numeration.styles)"/>
 
   <xsl:choose>
     <xsl:when test="$context/self::db:substeps">
       <xsl:variable name="ssdepth"
-		    select="count($context/ancestor::db:substeps)"/>
+                    select="count($context/ancestor::db:substeps)"/>
       <xsl:variable name="sstype" select="($ssdepth mod $format.length)+2"/>
       <xsl:choose>
-	<xsl:when test="$sstype &gt; $format.length">
-	  <xsl:value-of select="$procedure.step.numeration.styles[1]"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="subsequence($procedure.step.numeration.styles,
-				            $sstype,1)"/>
-	</xsl:otherwise>
+        <xsl:when test="$sstype &gt; $format.length">
+          <xsl:sequence select="$procedure.step.numeration.styles[1]"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="subsequence($procedure.step.numeration.styles,
+                                            $sstype,1)"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:when test="$context/self::db:step">
       <xsl:variable name="sdepth"
-		    select="count($context/ancestor::db:substeps)"/>
+                    select="count($context/ancestor::db:substeps)"/>
       <xsl:variable name="stype" select="($sdepth mod $format.length)+1"/>
-      <xsl:value-of select="subsequence($procedure.step.numeration.styles,
-			                $stype,1)"/>
+      <xsl:sequence select="subsequence($procedure.step.numeration.styles,
+                                        $stype,1)"/>
     </xsl:when>
     <xsl:when test="$context/self::db:procedure">
-      <xsl:value-of select="subsequence($procedure.step.numeration.styles,1,1)"/>
+      <xsl:sequence select="subsequence($procedure.step.numeration.styles,1,1)"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:message>
-	<xsl:text>Unexpected context in f:procedure-step-numeration: </xsl:text>
-	<xsl:value-of select="local-name($context)"/>
+        <xsl:text>Unexpected context in f:procedure-step-numeration: </xsl:text>
+        <xsl:sequence select="local-name($context)"/>
       </xsl:message>
     </xsl:otherwise>
   </xsl:choose>
@@ -722,7 +722,7 @@ or <tag>steps</tag>.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:next-itemizedlist-symbol"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the next symbol style</refpurpose>
 
 <refdescription>
@@ -755,14 +755,14 @@ is the first style in that list.</para>
 
   <xsl:choose>
     <xsl:when test="not($pos)">
-      <xsl:value-of select="$itemizedlist.numeration.symbols[1]"/>
+      <xsl:sequence select="$itemizedlist.numeration.symbols[1]"/>
     </xsl:when>
     <xsl:when test="subsequence($itemizedlist.numeration.symbols,$pos+1,1)">
-      <xsl:value-of select="subsequence($itemizedlist.numeration.symbols,
-			                $pos+1,1)"/>
+      <xsl:sequence select="subsequence($itemizedlist.numeration.symbols,
+                                        $pos+1,1)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$itemizedlist.numeration.symbols[1]"/>
+      <xsl:sequence select="$itemizedlist.numeration.symbols[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -770,7 +770,7 @@ is the first style in that list.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:itemizedlist-symbol"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the mark that should be used for the specified
 <tag>listitem</tag> or <tag>itemizedlist</tag></refpurpose>
 
@@ -819,19 +819,19 @@ it is specified.</para>
 
   <xsl:choose>
     <xsl:when test="$node/@mark">
-      <xsl:value-of select="$node/@mark"/>
+      <xsl:sequence select="string($node/@mark)"/>
     </xsl:when>
     <xsl:when test="$node/@override">
-      <xsl:value-of select="$node/@override"/>
+      <xsl:sequence select="string($node/@override)"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:choose>
         <xsl:when test="$node/ancestor::itemizedlist">
-	  <xsl:value-of select="f:next-itemizedlist-symbol(f:itemizedlist-symbol($node/ancestor::db:itemizedlist[1]))"/>
-	</xsl:when>
+          <xsl:sequence select="f:next-itemizedlist-symbol(f:itemizedlist-symbol($node/ancestor::db:itemizedlist[1]))"/>
+        </xsl:when>
         <xsl:otherwise>
-	  <xsl:value-of select="f:next-itemizedlist-symbol('default')"/>
-	</xsl:otherwise>
+          <xsl:sequence select="f:next-itemizedlist-symbol('default')"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -840,7 +840,7 @@ it is specified.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:next-orderedlist-numeration"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the next numeration style</refpurpose>
 
 <refdescription>
@@ -872,14 +872,14 @@ is the first style in that list.</para>
 
   <xsl:choose>
     <xsl:when test="not($pos)">
-      <xsl:value-of select="$orderedlist.numeration.styles[1]"/>
+      <xsl:sequence select="$orderedlist.numeration.styles[1]"/>
     </xsl:when>
     <xsl:when test="subsequence($orderedlist.numeration.styles,$pos+1,1)">
-      <xsl:value-of select="subsequence($orderedlist.numeration.styles,
-			                $pos+1,1)"/>
+      <xsl:sequence select="subsequence($orderedlist.numeration.styles,
+                                        $pos+1,1)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$orderedlist.numeration.styles[1]"/>
+      <xsl:sequence select="$orderedlist.numeration.styles[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -887,7 +887,7 @@ is the first style in that list.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:orderedlist-numeration"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the next numeration style</refpurpose>
 
 <refdescription>
@@ -921,15 +921,15 @@ be calculated.</para>
 
   <xsl:choose>
     <xsl:when test="$list/@numeration">
-      <xsl:value-of select="$list/@numeration"/>
+      <xsl:sequence select="string($list/@numeration)"/>
     </xsl:when>
     <xsl:when test="$list/ancestor::db:orderedlist">
       <xsl:variable name="prevnumeration"
-		    select="f:orderedlist-numeration($list/ancestor::db:orderedlist[1])"/>
-      <xsl:value-of select="f:next-orderedlist-numeration($prevnumeration)"/>
+                    select="f:orderedlist-numeration($list/ancestor::db:orderedlist[1])"/>
+      <xsl:sequence select="f:next-orderedlist-numeration($prevnumeration)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$orderedlist.numeration.styles[1]"/>
+      <xsl:sequence select="$orderedlist.numeration.styles[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -937,7 +937,7 @@ be calculated.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:orderedlist-item-number"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the item number of the specified <tag>listitem</tag>
 in an <tag>orderedlist</tag></refpurpose>
 
@@ -985,15 +985,16 @@ style should be calculated.</para>
 
   <xsl:choose>
     <xsl:when test="$node/@override">
-      <xsl:value-of select="$node/@override"/>
+      <xsl:sequence select="xs:integer($node/@override)"/>
     </xsl:when>
 
     <xsl:when test="$node/preceding-sibling::db:listitem">
-      <xsl:value-of select="f:orderedlist-item-number($node/preceding-sibling::db:listitem[1]) + 1"/>
+      <xsl:sequence
+          select="f:orderedlist-item-number($node/preceding-sibling::db:listitem[1]) + 1"/>
     </xsl:when>
 
     <xsl:otherwise>
-      <xsl:value-of select="f:orderedlist-starting-number($node/parent::db:orderedlist)"/>
+      <xsl:sequence select="f:orderedlist-starting-number($node/parent::db:orderedlist)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -1043,11 +1044,11 @@ node does not have an ID, the XSLT
   <u:test>
     <u:variable name="mydoc">
       <db:book>
-	<db:title>Some Title</db:title>
-	<db:chapter>
-	  <db:title>Some Chapter Title</db:title>
-	  <db:para>My para.</db:para>
-	</db:chapter>
+        <db:title>Some Title</db:title>
+        <db:chapter>
+          <db:title>Some Chapter Title</db:title>
+          <db:para>My para.</db:para>
+        </db:chapter>
       </db:book>
     </u:variable>
     <u:param select="$mydoc//db:para[1]"/>
@@ -1056,11 +1057,11 @@ node does not have an ID, the XSLT
   <u:test>
     <u:param select="//db:para[1]">
       <db:book>
-	<db:title>Some Title</db:title>
-	<db:chapter>
-	  <db:title>Some Chapter Title</db:title>
-	  <db:para>My para.</db:para>
-	</db:chapter>
+        <db:title>Some Title</db:title>
+        <db:chapter>
+          <db:title>Some Chapter Title</db:title>
+          <db:para>My para.</db:para>
+        </db:chapter>
       </db:book>
     </u:param>
     <u:result>'R.1.2.2'</u:result>
@@ -1073,27 +1074,27 @@ node does not have an ID, the XSLT
 
   <xsl:choose>
     <xsl:when test="$node/@xml:id">
-      <xsl:value-of select="$node/@xml:id"/>
+      <xsl:sequence select="string($node/@xml:id)"/>
     </xsl:when>
     <xsl:when test="$node/@id">
-      <xsl:value-of select="$node/@id"/>
+      <xsl:sequence select="string($node/@id)"/>
     </xsl:when>
     <xsl:when test="$persistent.generated.ids">
       <xsl:variable name="xpid" select="f:xptr-id($node)"/>
       <xsl:choose>
-	<!-- FIXME: what if $node/key('id', $xpid)? I can't test that because
-	     sometimes $node isn't in a tree and then that test causes
-	     a runtime error. -->
-	<xsl:when test="$xpid = ''">
-	  <xsl:value-of select="generate-id($node)"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="$xpid"/>
-	</xsl:otherwise>
+        <!-- FIXME: what if $node/key('id', $xpid)? I can't test that because
+             sometimes $node isn't in a tree and then that test causes
+             a runtime error. -->
+        <xsl:when test="$xpid = ''">
+          <xsl:sequence select="generate-id($node)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="$xpid"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="generate-id($node)"/>
+      <xsl:sequence select="generate-id($node)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>

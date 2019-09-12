@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:xsla="http://www.w3.org/1999/XSL/TransformAlias"
-		version="2.0">
+                xmlns:xsla="http://www.w3.org/1999/XSL/TransformAlias"
+                version="2.0">
 
 <xsl:param name="type"/>
 <xsl:param name="name"/>
@@ -17,11 +17,11 @@
     </xsl:if>
     <xsl:result-document href="{$name}.xml">
 <refentry xmlns="http://docbook.org/ns/docbook"
-	  xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
-	  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	  xmlns:xlink="http://www.w3.org/1999/xlink"
-	  version="5.0"
-	  xml:id="{$name}">
+          xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+          xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="5.0"
+          xml:id="{$name}">
 <refmeta>
 <refentrytitle><xsl:value-of select="$name"/></refentrytitle>
 <refmiscinfo role="type"><xsl:value-of select="$type"/></refmiscinfo>
@@ -59,4 +59,4 @@
 </xsl:template>
 
 </xsl:stylesheet>
-		
+

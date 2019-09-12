@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:ext="http://docbook.org/extensions/xslt20"
                 xmlns:xdmp="http://marklogic.com/xdmp"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:tp="http://docbook.org/xslt/ns/template/private"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:tp="http://docbook.org/xslt/ns/template/private"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="doc h f m mp fn db t ext xdmp xs tp"
+                exclude-result-prefixes="doc h f m mp fn db t ext xdmp xs tp"
                 version="2.0">
 
 <xsl:template match="db:programlistingco|db:screenco">
@@ -75,17 +75,17 @@
   <xsl:variable name="startnum" as="xs:decimal">
     <xsl:choose>
       <xsl:when test="$listing/@continuation != 'continues'">
-        <xsl:value-of select="0"/>
+        <xsl:sequence select="0"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="prev"
              select="$listing/preceding::*[node-name(.)=node-name($listing)][1]"/>
         <xsl:choose>
           <xsl:when test="empty($prev)">
-            <xsl:value-of select="0"/>
+            <xsl:sequence select="0"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="f:lastLineNumber($prev)"/>
+            <xsl:sequence select="f:lastLineNumber($prev)"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -93,11 +93,11 @@
   </xsl:variable>
 
   <xsl:variable name="alltext" select="string-join($listing//text(), ' ')"/>
-  <xsl:value-of select="count(tokenize($alltext,'&#10;'))"/>
+  <xsl:sequence select="count(tokenize($alltext,'&#10;'))"/>
 </xsl:function>
 
 <xsl:template match="db:programlisting|db:synopsis"
-	      mode="m:verbatim">
+              mode="m:verbatim">
   <xsl:param name="lines" select="()" as="xs:string*"/>
   <xsl:variable name="this" select="."/>
 
@@ -212,7 +212,7 @@
 </xsl:template>
 
 <xsl:template match="db:screen|db:literallayout[@class='monospaced']"
-	      mode="m:verbatim">
+              mode="m:verbatim">
   <xsl:variable name="this" select="."/>
   <pre>
     <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
@@ -224,7 +224,7 @@
 </xsl:template>
 
 <xsl:template match="db:literallayout|db:address"
-	      mode="m:verbatim">
+              mode="m:verbatim">
   <xsl:variable name="this" select="."/>
   <pre>
     <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:html="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:html="http://www.w3.org/1999/xhtml"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:fp="http://docbook.org/xslt/ns/extension/private"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:fp="http://docbook.org/xslt/ns/extension/private"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fp ghost h m u xs html"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db doc f fp ghost h m u xs html"
                 version="2.0">
 
 <doc:template name="adjust-column-widths" xmlns="http://docbook.org/ns/docbook">
@@ -44,8 +44,8 @@ acceptable to HTML or XSL-FO.</para>
   <listitem>
   <para>If the table width is relative, all the column widths are converted
         to absolute widths based on a
-	<parameter>table.width.nominal</parameter>. Then each width is
-	converted back to a percentage and those are returned.</para>
+        <parameter>table.width.nominal</parameter>. Then each width is
+        converted back to a percentage and those are returned.</para>
   </listitem>
   </itemizedlist>
 </listitem>
@@ -85,19 +85,19 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
     <u:param name="table-width" select="'6in'"/>
     <u:param name="colgroup" as="element()">
       <colgroup xmlns="http://www.w3.org/1999/xhtml">
-	<col width="3.5*"/>
-	<col width="2*"/>
-	<col/>
-	<col width="1*"/>
+        <col width="3.5*"/>
+        <col width="2*"/>
+        <col/>
+        <col width="1*"/>
       </colgroup>
     </u:param>
     <u:param name="abspixels">1</u:param>
     <u:result as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="47%"/>
-	<col width="27%"/>
-	<col width="13%"/>
-	<col width="13%"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="47%"/>
+        <col width="27%"/>
+        <col width="13%"/>
+        <col width="13%"/>
       </colgroup>
     </u:result>
   </u:test>
@@ -105,97 +105,97 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
     <u:param name="table-width">6in</u:param>
     <u:param name="colgroup" as="element()">
       <colgroup xmlns="http://www.w3.org/1999/xhtml">
-	<col width="2in"/>
-	<col width="3in"/>
-	<col width="8pt"/>
-	<col width="1in"/>
+        <col width="2in"/>
+        <col width="3in"/>
+        <col width="8pt"/>
+        <col width="1in"/>
       </colgroup>
     </u:param>
     <u:param name="abspixels">1</u:param>
     <u:result as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="192"/>
-	<col width="288"/>
-	<col width="10"/>
-	<col width="96"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="192"/>
+        <col width="288"/>
+        <col width="10"/>
+        <col width="96"/>
       </colgroup>
     </u:result>
   </u:test>
   <u:test>
     <u:param name="table-width">6in</u:param>
     <u:param name="colgroup" as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="3.5*+2in" colname="foo"/>
-	<col width="2*"/>
-	<col/>
-	<col width="1in" align="right"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="3.5*+2in" colname="foo"/>
+        <col width="2*"/>
+        <col/>
+        <col width="1in" align="right"/>
       </colgroup>
     </u:param>
     <u:param name="abspixels">1</u:param>
     <u:result as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="502" colname="foo"/>
-	<col width="177"/>
-	<col width="89"/>
-	<col width="96" align="right"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="502" colname="foo"/>
+        <col width="177"/>
+        <col width="89"/>
+        <col width="96" align="right"/>
       </colgroup>
     </u:result>
   </u:test>
   <u:test>
     <u:param name="table-width">'100%'</u:param>
     <u:param name="colgroup" as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="3.5*+2in" colname="foo"/>
-	<col width="2*"/>
-	<col/>
-	<col width="1in" align="right"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="3.5*+2in" colname="foo"/>
+        <col width="2*"/>
+        <col/>
+        <col width="1in" align="right"/>
       </colgroup>
     </u:param>
     <u:param name="abspixels">1</u:param>
     <u:result as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="58.12%" colname="foo"/>
-	<col width="20.51%"/>
-	<col width="10.26%"/>
-	<col width="11.11%" align="right"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="58.12%" colname="foo"/>
+        <col width="20.51%"/>
+        <col width="10.26%"/>
+        <col width="11.11%" align="right"/>
       </colgroup>
     </u:result>
   </u:test>
   <u:test>
     <u:param name="table-width">6in</u:param>
     <u:param name="colgroup" as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="3.5*+2in" colname="foo"/>
-	<col width="2*"/>
-	<col/>
-	<col width="1in" align="right"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="3.5*+2in" colname="foo"/>
+        <col width="2*"/>
+        <col/>
+        <col width="1in" align="right"/>
       </colgroup>
     </u:param>
     <u:result as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="5.23in" colname="foo"/>
-	<col width="1.85in"/>
-	<col width="0.92in"/>
-	<col width="1.00in" align="right"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="5.23in" colname="foo"/>
+        <col width="1.85in"/>
+        <col width="0.92in"/>
+        <col width="1.00in" align="right"/>
       </colgroup>
     </u:result>
   </u:test>
   <u:test>
     <u:param name="table-width">100%</u:param>
     <u:param name="colgroup" as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="1in"/>
-	<col width="1*"/>
-	<col width="5*"/>
-	<col width="1*+0.5in"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="1in"/>
+        <col width="1*"/>
+        <col width="5*"/>
+        <col width="1*+0.5in"/>
       </colgroup>
     </u:param>
     <u:result as="element()">
-      <colgroup xmlns="http://www.w3.org/1999/xhtml"> 
-	<col width="5.23in" colname="foo"/>
-	<col width="1.85in"/>
-	<col width="0.92in"/>
-	<col width="1.00in" align="right"/>
+      <colgroup xmlns="http://www.w3.org/1999/xhtml">
+        <col width="5.23in" colname="foo"/>
+        <col width="1.85in"/>
+        <col width="0.92in"/>
+        <col width="1.00in" align="right"/>
       </colgroup>
     </u:result>
   </u:test>
@@ -213,30 +213,30 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
   <xsl:variable name="parsedcols" as="element()*">
     <xsl:for-each select="$colgroup/*">
       <xsl:choose>
-	<xsl:when test="not(@width)">
-	  <col ghost:rel="1" ghost:abs="0">
-	    <xsl:copy-of select="@*"/>
-	  </col>
-	</xsl:when>
-	<xsl:when test="contains(@width, '*')">
-	  <col ghost:rel="{substring-before(@width, '*')}"
-	       ghost:abs="{if (substring-after(@width, '*') = '')
-			   then 0
-			   else f:convert-length(substring-after(@width, '*'))}">
-	    <xsl:copy-of select="@*"/>
-	  </col>
-	</xsl:when>
-	<xsl:when test="matches(@width, '^\d+$')">
-	  <col ghost:rel="0"
-	       ghost:abs="{f:convert-length(concat(@width,'px'))}">
-	    <xsl:copy-of select="@*"/>
-	  </col>
-	</xsl:when>
-	<xsl:otherwise>
-	  <col ghost:rel="0" ghost:abs="{f:convert-length(@width)}">
-	    <xsl:copy-of select="@*"/>
-	  </col>
-	</xsl:otherwise>
+        <xsl:when test="not(@width)">
+          <col ghost:rel="1" ghost:abs="0">
+            <xsl:copy-of select="@*"/>
+          </col>
+        </xsl:when>
+        <xsl:when test="contains(@width, '*')">
+          <col ghost:rel="{substring-before(@width, '*')}"
+               ghost:abs="{if (substring-after(@width, '*') = '')
+                           then 0
+                           else f:convert-length(substring-after(@width, '*'))}">
+            <xsl:copy-of select="@*"/>
+          </col>
+        </xsl:when>
+        <xsl:when test="matches(@width, '^\d+$')">
+          <col ghost:rel="0"
+               ghost:abs="{f:convert-length(concat(@width,'px'))}">
+            <xsl:copy-of select="@*"/>
+          </col>
+        </xsl:when>
+        <xsl:otherwise>
+          <col ghost:rel="0" ghost:abs="{f:convert-length(@width)}">
+            <xsl:copy-of select="@*"/>
+          </col>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:for-each>
   </xsl:variable>
@@ -244,9 +244,9 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
   <colgroup xmlns="http://www.w3.org/1999/xhtml">
     <xsl:choose>
       <xsl:when test="sum($parsedcols/@ghost:rel) = 0">
-	<xsl:for-each select="$parsedcols">
-	  <col class="tcol{position()}">
-	    <xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
+        <xsl:for-each select="$parsedcols">
+          <col class="tcol{position()}">
+            <xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
             <xsl:if test="$specify-widths">
               <xsl:attribute name="width">
                 <xsl:choose>
@@ -262,77 +262,77 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
               </xsl:attribute>
             </xsl:if>
           </col>
-	</xsl:for-each>
+        </xsl:for-each>
       </xsl:when>
       <xsl:when test="sum($parsedcols/@ghost:abs) = 0">
-	<xsl:variable name="relTotal" select="sum($parsedcols/@ghost:rel)"/>
-	<xsl:for-each select="$parsedcols">
-	  <col class="tcol{position()}">
-	    <xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
+        <xsl:variable name="relTotal" select="sum($parsedcols/@ghost:rel)"/>
+        <xsl:for-each select="$parsedcols">
+          <col class="tcol{position()}">
+            <xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
             <xsl:if test="$specify-widths">
               <xsl:attribute name="width">
                 <xsl:value-of select="round(@ghost:rel div $relTotal * 100)"/>
                 <xsl:text>%</xsl:text>
               </xsl:attribute>
             </xsl:if>
-	  </col>
-	</xsl:for-each>
+          </col>
+        </xsl:for-each>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:variable name="relTotal" select="sum($parsedcols/@ghost:rel)"/>
-	<xsl:variable name="pixelwidth"
-		      select="if (contains($table-width, '%'))
-			      then f:convert-length($table.width.nominal)
-			      else f:convert-length($table-width)"/>
+        <xsl:variable name="relTotal" select="sum($parsedcols/@ghost:rel)"/>
+        <xsl:variable name="pixelwidth"
+                      select="if (contains($table-width, '%'))
+                              then f:convert-length($table.width.nominal)
+                              else f:convert-length($table-width)"/>
         <xsl:variable name="relwidth"
                       select="$pixelwidth - sum($parsedcols/@ghost:abs)"/>
 
-	<xsl:variable name="convcols" as="element()*">
-	  <xsl:for-each select="$parsedcols">
+        <xsl:variable name="convcols" as="element()*">
+          <xsl:for-each select="$parsedcols">
 
             <!--
-	    <xsl:message>
-	      <xsl:value-of select="position()"/>
-	      <xsl:text>=</xsl:text>
-	      <xsl:value-of select="@ghost:rel"/>
-	      <xsl:text>,</xsl:text>
-	      <xsl:value-of select="@ghost:abs"/>
-	      <xsl:text>; </xsl:text>
-	      <xsl:value-of select="$relTotal"/>
-	      <xsl:text>; </xsl:text>
-	      <xsl:value-of select="$pixelwidth"/>
-	      <xsl:text>; </xsl:text>
-	      <xsl:value-of select="$relwidth"/>
-	    </xsl:message>
+            <xsl:message>
+              <xsl:value-of select="position()"/>
+              <xsl:text>=</xsl:text>
+              <xsl:value-of select="@ghost:rel"/>
+              <xsl:text>,</xsl:text>
+              <xsl:value-of select="@ghost:abs"/>
+              <xsl:text>; </xsl:text>
+              <xsl:value-of select="$relTotal"/>
+              <xsl:text>; </xsl:text>
+              <xsl:value-of select="$pixelwidth"/>
+              <xsl:text>; </xsl:text>
+              <xsl:value-of select="$relwidth"/>
+            </xsl:message>
             -->
 
-	    <col class="tcol{position()}">
-	      <xsl:copy-of select="@*"/>
-	      <xsl:attribute name="ghost:rel"
-			     select="(@ghost:rel div $relTotal * $relwidth)
-				     + @ghost:abs"/>
-	    </col>
-	  </xsl:for-each>
-	</xsl:variable>
+            <col class="tcol{position()}">
+              <xsl:copy-of select="@*"/>
+              <xsl:attribute name="ghost:rel"
+                             select="(@ghost:rel div $relTotal * $relwidth)
+                                     + @ghost:abs"/>
+            </col>
+          </xsl:for-each>
+        </xsl:variable>
 
-	<xsl:variable name="absTotal" select="sum($convcols/@ghost:rel)"/>
+        <xsl:variable name="absTotal" select="sum($convcols/@ghost:rel)"/>
 
-	<xsl:if test="$absTotal &gt; $pixelwidth">
-	  <xsl:message>
-	    <xsl:text>Warning: table is wider than specified width. (</xsl:text>
-	    <xsl:value-of select="$absTotal"/>
-	    <xsl:text> vs. </xsl:text>
-	    <xsl:value-of select="$pixelwidth"/>
-	    <xsl:text>)</xsl:text>
-	  </xsl:message>
-	</xsl:if>
+        <xsl:if test="$absTotal &gt; $pixelwidth">
+          <xsl:message>
+            <xsl:text>Warning: table is wider than specified width. (</xsl:text>
+            <xsl:value-of select="$absTotal"/>
+            <xsl:text> vs. </xsl:text>
+            <xsl:value-of select="$pixelwidth"/>
+            <xsl:text>)</xsl:text>
+          </xsl:message>
+        </xsl:if>
 
-	<xsl:choose>
-	  <xsl:when test="contains($table-width, '%')">
-	    <xsl:for-each select="$convcols">
-	      <col class="tcol{position()}">
-		<xsl:copy-of select="@*[namespace-uri(.)
-			        != 'http://docbook.org/ns/docbook/ephemeral']"/>
+        <xsl:choose>
+          <xsl:when test="contains($table-width, '%')">
+            <xsl:for-each select="$convcols">
+              <col class="tcol{position()}">
+                <xsl:copy-of select="@*[namespace-uri(.)
+                                != 'http://docbook.org/ns/docbook/ephemeral']"/>
                 <xsl:if test="$specify-widths">
                   <xsl:attribute name="width">
                     <xsl:value-of select="format-number(@ghost:rel div $absTotal * 100,
@@ -340,19 +340,19 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
                     <xsl:text>%</xsl:text>
                   </xsl:attribute>
                 </xsl:if>
-	      </col>
-	    </xsl:for-each>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:for-each select="$convcols">
-	      <col class="tcol{position()}">
-		<xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
+              </col>
+            </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:for-each select="$convcols">
+              <col class="tcol{position()}">
+                <xsl:copy-of select="@*[namespace-uri(.) != 'http://docbook.org/ns/docbook/ephemeral']"/>
                 <xsl:if test="$specify-widths">
                   <xsl:attribute name="width">
                     <xsl:choose>
                       <xsl:when test="$abspixels = 0">
                         <xsl:value-of select="format-number(@ghost:rel div $pixels.per.inch,
-					                    '0.00')"/>
+                                                            '0.00')"/>
                         <xsl:text>in</xsl:text>
                       </xsl:when>
                       <xsl:otherwise>
@@ -361,10 +361,10 @@ on the <parameter>pixels.per.inch</parameter> parameter.</para>
                     </xsl:choose>
                   </xsl:attribute>
                 </xsl:if>
-	      </col>
-	    </xsl:for-each>
-	  </xsl:otherwise>
-	</xsl:choose>
+              </col>
+            </xsl:for-each>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
   </colgroup>
@@ -438,39 +438,39 @@ length specified was a percentage, in which case it is returned unchanged.</para
     </xsl:when>
     <xsl:when test="matches($length, '^[\+\-]?\d+\.?\d*\w+$')">
       <xsl:variable name="spaced"
-		    select="replace($length,
-			            '(^[\+\-]?\d+\.?\d*)(\w+)$',
-				    '$1 $2')"/>
+                    select="replace($length,
+                                    '(^[\+\-]?\d+\.?\d*)(\w+)$',
+                                    '$1 $2')"/>
       <xsl:variable name="magnitude"
-		    select="xs:double(substring-before($spaced, ' '))"/>
+                    select="xs:double(substring-before($spaced, ' '))"/>
       <xsl:variable name="units" select="substring-after($spaced, ' ')"/>
       <xsl:choose>
-	<xsl:when test="$units = 'in'">
-	  <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch)"/>
-	</xsl:when>
-	<xsl:when test="$units = 'cm'">
-	  <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch div 2.54)"/>
-	</xsl:when>
-	<xsl:when test="$units = 'mm'">
-	  <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch div 25.4)"/>
-	</xsl:when>
-	<xsl:when test="$units = 'pc'">
-	  <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch div 72 * 12)"/>
-	</xsl:when>
-	<xsl:when test="$units = 'pt'">
-	  <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch div 72)"/>
-	</xsl:when>
-	<xsl:when test="$units = 'px'">
-	  <xsl:value-of select="xs:integer($magnitude)"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:message>
-	    <xsl:text>Unrecognized units in f:convert-length: </xsl:text>
-	    <xsl:value-of select="$units"/>
-	  </xsl:message>
-	  <!-- 1in -->
-	  <xsl:value-of select="$pixels.per.inch"/>
-	</xsl:otherwise>
+        <xsl:when test="$units = 'in'">
+          <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch)"/>
+        </xsl:when>
+        <xsl:when test="$units = 'cm'">
+          <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch div 2.54)"/>
+        </xsl:when>
+        <xsl:when test="$units = 'mm'">
+          <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch div 25.4)"/>
+        </xsl:when>
+        <xsl:when test="$units = 'pc'">
+          <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch div 72 * 12)"/>
+        </xsl:when>
+        <xsl:when test="$units = 'pt'">
+          <xsl:value-of select="xs:integer($magnitude * $pixels.per.inch div 72)"/>
+        </xsl:when>
+        <xsl:when test="$units = 'px'">
+          <xsl:value-of select="xs:integer($magnitude)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:message>
+            <xsl:text>Unrecognized units in f:convert-length: </xsl:text>
+            <xsl:value-of select="$units"/>
+          </xsl:message>
+          <!-- 1in -->
+          <xsl:value-of select="$pixels.per.inch"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
   </xsl:choose>
@@ -559,8 +559,8 @@ See <function role="named-template">generate-colgroup</function>.
     <xsl:otherwise>
       <xsl:variable name="colspec" select="$colspecs[$count=position()]"/>
       <xsl:variable name="colspec.colnum">
-	<xsl:choose>
-	  <xsl:when test="$colspec/@colnum">
+        <xsl:choose>
+          <xsl:when test="$colspec/@colnum">
             <xsl:value-of select="$colspec/@colnum"/>
           </xsl:when>
           <xsl:otherwise>
@@ -570,36 +570,36 @@ See <function role="named-template">generate-colgroup</function>.
       </xsl:variable>
 
       <xsl:choose>
-	<xsl:when test="$colspec.colnum=$countcol">
-	  <col>
-	    <xsl:if test="$colspec/@colwidth">
-	      <xsl:attribute name="width">
-		<xsl:choose>
-		  <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
-		    <xsl:value-of select="'1*'"/>
-		  </xsl:when>
-		  <xsl:otherwise>
-		    <xsl:value-of select="$colspec/@colwidth"/>
-		  </xsl:otherwise>
-		</xsl:choose>
-	      </xsl:attribute>
-	    </xsl:if>
+        <xsl:when test="$colspec.colnum=$countcol">
+          <col>
+            <xsl:if test="$colspec/@colwidth">
+              <xsl:attribute name="width">
+                <xsl:choose>
+                  <xsl:when test="normalize-space($colspec/@colwidth) = '*'">
+                    <xsl:value-of select="'1*'"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="$colspec/@colwidth"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:attribute>
+            </xsl:if>
 
-	    <xsl:choose>
-	      <xsl:when test="$colspec/@align">
-		<xsl:attribute name="align">
-		  <xsl:value-of select="$colspec/@align"/>
-		</xsl:attribute>
-	      </xsl:when>
-	      <!-- Suggested by Pavel ZAMPACH <zampach@nemcb.cz> -->
-	      <xsl:when test="$colspecs/parent::db:tgroup/@align">
-		<xsl:attribute name="align">
+            <xsl:choose>
+              <xsl:when test="$colspec/@align">
+                <xsl:attribute name="align">
+                  <xsl:value-of select="$colspec/@align"/>
+                </xsl:attribute>
+              </xsl:when>
+              <!-- Suggested by Pavel ZAMPACH <zampach@nemcb.cz> -->
+              <xsl:when test="$colspecs/parent::db:tgroup/@align">
+                <xsl:attribute name="align">
                   <xsl:value-of select="$colspecs/parent::db:tgroup/@align"/>
-		</xsl:attribute>
+                </xsl:attribute>
               </xsl:when>
             </xsl:choose>
 
-	    <xsl:if test="$colspec/@char">
+            <xsl:if test="$colspec/@char">
               <xsl:attribute name="char">
                 <xsl:value-of select="$colspec/@char"/>
               </xsl:attribute>
@@ -610,9 +610,9 @@ See <function role="named-template">generate-colgroup</function>.
                 <xsl:value-of select="$colspec/@charoff"/>
               </xsl:attribute>
             </xsl:if>
-	  </col>
-	</xsl:when>
-	<xsl:otherwise>
+          </col>
+        </xsl:when>
+        <xsl:otherwise>
           <xsl:call-template name="generate-col">
             <xsl:with-param name="countcol" select="$countcol"/>
             <xsl:with-param name="colspecs" select="$colspecs"/>

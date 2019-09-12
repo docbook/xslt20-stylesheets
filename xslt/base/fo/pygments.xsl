@@ -1,6 +1,6 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:p="http://pygments.org/"
                 version="2.0"

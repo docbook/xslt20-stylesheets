@@ -6,7 +6,7 @@
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
                 exclude-result-prefixes="db f h m t ghost"
                 version="2.0">
 

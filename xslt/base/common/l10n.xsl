@@ -3,7 +3,7 @@
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:xdmp="http://marklogic.com/xdmp"
                 xmlns:mldb="http://docbook.org/vendor/marklogic/locales"
@@ -39,7 +39,7 @@
 <!-- ============================================================ -->
 
 <doc:template name="t:user-localization-data"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>A hook for customizer localization data</refpurpose>
 
 <refdescription>
@@ -91,17 +91,17 @@ target.</para>
 
 <xsl:function name="f:l10n-language" as="xs:string">
   <xsl:param name="target" as="element()"/>
-  <xsl:value-of select="f:l10n-language($target,false())"/>
+  <xsl:sequence select="f:l10n-language($target,false())"/>
 </xsl:function>
 
 <xsl:function name="f:l10n-language" as="xs:string">
   <xsl:param name="target" as="element()"/>
   <xsl:param name="xref-context" as="xs:boolean"/>
 
-  <xsl:variable name="mc-language">
+  <xsl:variable name="mc-language" as="xs:string">
     <xsl:choose>
       <xsl:when test="$l10n.gentext.language != ''">
-        <xsl:value-of select="$l10n.gentext.language"/>
+        <xsl:sequence select="$l10n.gentext.language"/>
       </xsl:when>
 
       <xsl:when test="$xref-context or $l10n.gentext.use.xref.language">
@@ -113,10 +113,10 @@ target.</para>
                       select="($lang-scope/@lang | $lang-scope/@xml:lang)[1]"/>
         <xsl:choose>
           <xsl:when test="string($lang-attr) = ''">
-            <xsl:value-of select="$l10n.gentext.default.language"/>
+            <xsl:sequence select="$l10n.gentext.default.language"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="$lang-attr"/>
+            <xsl:sequence select="$lang-attr"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
@@ -131,10 +131,10 @@ target.</para>
 
         <xsl:choose>
           <xsl:when test="string($lang-attr) = ''">
-            <xsl:value-of select="$l10n.gentext.default.language"/>
+            <xsl:sequence select="$l10n.gentext.default.language"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="$lang-attr"/>
+            <xsl:sequence select="$lang-attr"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -148,12 +148,12 @@ target.</para>
   <xsl:variable name="adjusted.language">
     <xsl:choose>
       <xsl:when test="contains($language,'-')">
-        <xsl:value-of select="substring-before($language,'-')"/>
+        <xsl:sequence select="substring-before($language,'-')"/>
         <xsl:text>_</xsl:text>
-        <xsl:value-of select="substring-after($language,'-')"/>
+        <xsl:sequence select="substring-after($language,'-')"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$language"/>
+        <xsl:sequence select="$language"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -161,32 +161,32 @@ target.</para>
   <xsl:choose>
     <xsl:when test="$localization/l:l10n[@language=$adjusted.language]
                     or f:check-locale($adjusted.language)">
-      <xsl:value-of select="$adjusted.language"/>
+      <xsl:sequence select="$adjusted.language"/>
     </xsl:when>
     <!-- try just the lang code without country -->
     <xsl:when test="$localization/l:l10n[@language=substring-before($adjusted.language,'_')]
                     or f:check-locale(substring-before($adjusted.language,'_'))">
-      <xsl:value-of select="substring-before($adjusted.language,'_')"/>
+      <xsl:sequence select="substring-before($adjusted.language,'_')"/>
     </xsl:when>
     <!-- or use the default -->
     <xsl:otherwise>
       <xsl:message>
         <xsl:text>No localization exists for "</xsl:text>
-        <xsl:value-of select="$adjusted.language"/>
+        <xsl:sequence select="$adjusted.language"/>
         <xsl:text>" or "</xsl:text>
-        <xsl:value-of select="substring-before($adjusted.language,'_')"/>
+        <xsl:sequence select="substring-before($adjusted.language,'_')"/>
         <xsl:text>". Using default "</xsl:text>
-        <xsl:value-of select="$l10n.gentext.default.language"/>
+        <xsl:sequence select="$l10n.gentext.default.language"/>
         <xsl:text>".</xsl:text>
       </xsl:message>
-      <xsl:value-of select="$l10n.gentext.default.language"/>
+      <xsl:sequence select="$l10n.gentext.default.language"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
 
 <xsl:function name="f:lang" as="xs:string">
   <xsl:param name="target" as="element()"/>
-  <xsl:value-of select="f:l10n-language($target,false())"/>
+  <xsl:sequence select="f:l10n-language($target,false())"/>
 </xsl:function>
 
 <!-- ============================================================ -->
@@ -218,10 +218,10 @@ an in-scope language declaration.</para>
 <xsl:template name="lang-attribute" as="attribute()?">
   <xsl:param name="node" select="."/>
 
-  <xsl:variable name="language">
+  <xsl:variable name="language" as="xs:string">
     <xsl:choose>
       <xsl:when test="$l10n.gentext.language != ''">
-        <xsl:value-of select="$l10n.gentext.language"/>
+        <xsl:sequence select="$l10n.gentext.language"/>
       </xsl:when>
 
       <xsl:otherwise>
@@ -234,10 +234,10 @@ an in-scope language declaration.</para>
 
         <xsl:choose>
           <xsl:when test="string($lang-attr) = ''">
-            <xsl:value-of select="$l10n.gentext.default.language"/>
+            <xsl:sequence select="$l10n.gentext.default.language"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="$lang-attr"/>
+            <xsl:sequence select="$lang-attr"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -246,7 +246,7 @@ an in-scope language declaration.</para>
 
   <xsl:if test="$language != ''">
     <xsl:attribute name="lang">
-      <xsl:value-of select="$language"/>
+      <xsl:sequence select="$language"/>
     </xsl:attribute>
   </xsl:if>
 </xsl:template>
@@ -306,8 +306,8 @@ context node.</para>
   <xsl:param name="lang"/>
 
   <xsl:variable name="l10n.gentext"
-		select="($localization/key('l10n-gentext', concat($lang, '#', $key)),
-		         f:load-locale($lang)/key('l10n-gentext', concat($lang, '#', $key)))[1]"/>
+                select="($localization/key('l10n-gentext', concat($lang, '#', $key)),
+                         f:load-locale($lang)/key('l10n-gentext', concat($lang, '#', $key)))[1]"/>
 
   <xsl:choose>
     <xsl:when test="$l10n.gentext">
@@ -437,10 +437,10 @@ parameters.</para>
   <xsl:param name="origname" select="$name"/>
 
   <xsl:variable name="user.localization.nodes"
-		select="$localization//l:l10n[@language=$lang]"/>
+                select="$localization//l:l10n[@language=$lang]"/>
 
   <xsl:variable name="localization.nodes"
-    select="f:load-locale($lang)"/>
+                select="f:load-locale($lang)"/>
 
   <xsl:if test="not($localization.nodes | $user.localization.nodes)">
     <xsl:message>
@@ -484,7 +484,7 @@ parameters.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:choose>
-	<xsl:when test="contains($name, '/')">
+        <xsl:when test="contains($name, '/')">
           <xsl:call-template name="gentext-template">
             <xsl:with-param name="context" select="$context"/>
             <xsl:with-param name="name" select="substring-after($name, '/')"/>
@@ -495,9 +495,9 @@ parameters.</para>
             <xsl:with-param name="lang" select="$lang"/>
           </xsl:call-template>
         </xsl:when>
-	<xsl:otherwise>
+        <xsl:otherwise>
           <xsl:message>
-	    <xsl:text>No template for "</xsl:text>
+            <xsl:text>No template for "</xsl:text>
             <xsl:value-of select="$origname"/>
             <xsl:text>" (or any of its leaves) exists
 in the context named "</xsl:text>
@@ -515,7 +515,7 @@ in the context named "</xsl:text>
 <!-- ============================================================ -->
 
 <doc:template name="gentext-template-exists"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Tests if the generated text template associated with a particular set
 of criteria exists</refpurpose>
 
@@ -574,16 +574,16 @@ the specified parameters.</para>
   <xsl:param name="lang" select="f:l10n-language(.)"/>
 
   <xsl:variable name="user.localization.nodes"
-		select="$localization//l:l10n[@language=$lang]"/>
+                select="$localization//l:l10n[@language=$lang]"/>
 
   <xsl:variable name="localization.nodes"
-		select="f:load-locale($lang)"/>
+                select="f:load-locale($lang)"/>
 
   <xsl:variable name="user.context.nodes"
-		select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
+                select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
 
   <xsl:variable name="context.nodes"
-		select="$localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
+                select="$localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
 
   <xsl:variable name="template.node"
                 select="(($user.context.nodes/l:template[@name=$name
@@ -602,18 +602,18 @@ the specified parameters.</para>
     <xsl:when test="$template.node/@text">1</xsl:when>
     <xsl:otherwise>
       <xsl:choose>
-	<xsl:when test="contains($name, '/')">
-	  <xsl:call-template name="gentext-template-exists">
-	    <xsl:with-param name="context" select="$context"/>
-	    <xsl:with-param name="name" select="substring-after($name, '/')"/>
-	    <xsl:with-param name="origname" select="$origname"/>
-	    <xsl:with-param name="purpose" select="$purpose"/>
-	    <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
-	    <xsl:with-param name="referrer" select="$referrer"/>
-	    <xsl:with-param name="lang" select="$lang"/>
-	  </xsl:call-template>
-	</xsl:when>
-	<xsl:otherwise>0</xsl:otherwise>
+        <xsl:when test="contains($name, '/')">
+          <xsl:call-template name="gentext-template-exists">
+            <xsl:with-param name="context" select="$context"/>
+            <xsl:with-param name="name" select="substring-after($name, '/')"/>
+            <xsl:with-param name="origname" select="$origname"/>
+            <xsl:with-param name="purpose" select="$purpose"/>
+            <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+            <xsl:with-param name="referrer" select="$referrer"/>
+            <xsl:with-param name="lang" select="$lang"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>0</xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -694,7 +694,7 @@ the specified parameters.</para>
 <!-- ============================================================ -->
 
 <doc:template name="gentext-nestedstartquote"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the symbol associated with “nestedstartquote”</refpurpose>
 
 <refdescription>
@@ -713,7 +713,7 @@ the specified parameters.</para>
 <!-- ============================================================ -->
 
 <doc:template name="gentext-nestedendquote"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the symbol associated with “nestedendquote”</refpurpose>
 
 <refdescription>
@@ -768,7 +768,7 @@ locale value will be used as the default.</para>
   <xsl:param name="context" as="node()"/>
   <xsl:param name="dingbat" as="xs:string"/>
 
-  <xsl:value-of select="f:dingbat($context, $dingbat, f:l10n-language($context))"/>
+  <xsl:sequence select="f:dingbat($context, $dingbat, f:l10n-language($context))"/>
 </xsl:function>
 
 <!-- ============================================================ -->
@@ -819,17 +819,17 @@ the English locale value will be used as the default.</para>
 
   <xsl:choose>
     <xsl:when test="$l10n.dingbat">
-      <xsl:value-of select="$l10n.dingbat/@text"/>
+      <xsl:sequence select="string($l10n.dingbat/@text)"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:message>
         <xsl:text>No "</xsl:text>
-        <xsl:value-of select="$lang"/>
+        <xsl:sequence select="$lang"/>
         <xsl:text>" localization of dingbat </xsl:text>
-        <xsl:value-of select="$dingbat"/>
+        <xsl:sequence select="$dingbat"/>
         <xsl:text> exists; using "en".</xsl:text>
       </xsl:message>
-      <xsl:value-of select="($localization/key('l10n-dingbat', concat('en#', $dingbat)),
+      <xsl:sequence select="($localization/key('l10n-dingbat', concat('en#', $dingbat)),
                              f:load-locale('en')/key('l10n-dingbat', concat('en#', $dingbat)))[1]"/>
     </xsl:otherwise>
   </xsl:choose>
@@ -955,4 +955,3 @@ the English locale value will be used as the default.</para>
 </xsl:function>
 
 </xsl:stylesheet>
-

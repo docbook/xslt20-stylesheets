@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db f fn h m t xs"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db f fn h m t xs"
                 version="2.0">
 
 <!-- many info elements are handled by ../common/inlines.xsl -->
@@ -37,10 +37,10 @@
 
     <span class="years">
       <xsl:call-template name="t:copyright-years">
-	<xsl:with-param name="years" select="db:year"/>
-	<xsl:with-param name="print.ranges" select="$make.year.ranges"/>
-	<xsl:with-param name="single.year.ranges"
-			select="$make.single.year.ranges"/>
+        <xsl:with-param name="years" select="db:year"/>
+        <xsl:with-param name="print.ranges" select="$make.year.ranges"/>
+        <xsl:with-param name="single.year.ranges"
+                        select="$make.single.year.ranges"/>
       </xsl:call-template>
     </span>
 
@@ -74,7 +74,7 @@
   <xsl:variable name="has-revnumber" select="db:revision/db:revnumber"/>
   <xsl:variable name="has-date" select="db:revision/db:date"/>
   <xsl:variable name="has-author" select="db:revision/db:author
-					  |db:revision/db:authorinitials"/>
+                                          |db:revision/db:authorinitials"/>
   <xsl:variable name="has-desc" select="db:revision/db:revdescription"/>
   <xsl:variable name="has-remark" select="db:revision/db:revremark"/>
 

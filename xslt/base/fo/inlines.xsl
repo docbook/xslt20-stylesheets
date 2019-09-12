@@ -6,7 +6,7 @@
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 exclude-result-prefixes="db doc f fn m t u xlink"
@@ -69,46 +69,46 @@ context item.</para>
   <xsl:variable name="link">
     <xsl:choose>
       <xsl:when test="$node/@xlink:href
-		      and (not($node/@xlink:type)
-		           or $node/@xlink:type='simple')">
+                      and (not($node/@xlink:type)
+                           or $node/@xlink:type='simple')">
 
-	<xsl:variable name="url">
-	  <xsl:choose>
-	    <!-- if the href starts with # and does not contain an "(" -->
-	    <!-- or if the href starts with #xpointer(id(, it's just an ID -->
-	    <xsl:when test="starts-with($node/@xlink:href,'#')
+        <xsl:variable name="url">
+          <xsl:choose>
+            <!-- if the href starts with # and does not contain an "(" -->
+            <!-- or if the href starts with #xpointer(id(, it's just an ID -->
+            <xsl:when test="starts-with($node/@xlink:href,'#')
                             and (not(contains($node/@xlink:href,'&#40;'))
                             or starts-with($node/@xlink:href,
-			                   '#xpointer&#40;id&#40;'))">
-	      <xsl:variable name="idref" select="f:xpointer-idref($node/@xlink:href)"/>	      
+                                           '#xpointer&#40;id&#40;'))">
+              <xsl:variable name="idref" select="f:xpointer-idref($node/@xlink:href)"/>
 
-	      <xsl:variable name="target" select="key('id',$idref)[1]"/>
+              <xsl:variable name="target" select="key('id',$idref)[1]"/>
 
-	      <xsl:choose>
-		<xsl:when test="not($target)">
-		  <xsl:message>
-		    <xsl:text>XLink to nonexistent id: </xsl:text>
-		    <xsl:value-of select="$idref"/>
-		  </xsl:message>
-		  <xsl:text>???</xsl:text>
-		</xsl:when>
-		<xsl:otherwise>
-		  <!--FIXME:fo-->
-		</xsl:otherwise>
-	      </xsl:choose>
-	    </xsl:when>
+              <xsl:choose>
+                <xsl:when test="not($target)">
+                  <xsl:message>
+                    <xsl:text>XLink to nonexistent id: </xsl:text>
+                    <xsl:value-of select="$idref"/>
+                  </xsl:message>
+                  <xsl:text>???</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <!--FIXME:fo-->
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
 
-	    <!-- otherwise it's a URI -->
-	    <xsl:otherwise>
-	      <xsl:value-of select="$node/@xlink:href"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:variable>
+            <!-- otherwise it's a URI -->
+            <xsl:otherwise>
+              <xsl:value-of select="$node/@xlink:href"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
 
-	<fo:basic-link xsl:use-attribute-sets="xref.properties"
-		       external-destination="url({$url})">
-	  <xsl:copy-of select="$content"/>
-	</fo:basic-link>
+        <fo:basic-link xsl:use-attribute-sets="xref.properties"
+                       external-destination="url({$url})">
+          <xsl:copy-of select="$content"/>
+        </fo:basic-link>
       </xsl:when>
       <xsl:otherwise>
         <xsl:copy-of select="$content"/>
@@ -125,21 +125,21 @@ context item.</para>
   <xsl:variable name="annotations" as="element()*">
     <xsl:sequence select="if (@annotations)
                           then key('id',tokenize(@annotations,'\s'))
-			  else ()"/>
+                          else ()"/>
     <xsl:sequence select="if ($id)
-			  then //db:annotation[tokenize(@annotates,'\s')=$id]
-			  else ()"/>
+                          then //db:annotation[tokenize(@annotates,'\s')=$id]
+                          else ()"/>
   </xsl:variable>
 
   <xsl:for-each select="$annotations">
     <xsl:variable name="id"
-		    select="concat(f:node-id(.),'-',generate-id($inline))"/>
+                    select="concat(f:node-id(.),'-',generate-id($inline))"/>
     <fo:a style="display: inline" onclick="show_annotation('{$id}')"
-	  id="annot-{$id}-on">
+          id="annot-{$id}-on">
       <fo:img border="0" src="{$annotation.graphic.open}" alt="[A+]"/>
     </fo:a>
     <fo:a style="display: none" onclick="hide_annotation('{$id}')"
-	  id="annot-{$id}-off">
+          id="annot-{$id}-off">
       <fo:img border="0" src="{$annotation.graphic.close}" alt="[A-]"/>
     </fo:a>
     <fo:block style="display: none" id="annot-{$id}">
@@ -188,7 +188,7 @@ calling “apply templates” with the current context node.</para>
     </u:context>
     <u:result>
       <fo:inline xmlns:fo="http://www.w3.org/1999/XSL/Format"
-	    id="varfoo">someVarName</fo:inline>
+            id="varfoo">someVarName</fo:inline>
     </u:result>
   </u:test>
 </u:unittests>
@@ -207,7 +207,7 @@ calling “apply templates” with the current context node.</para>
 <!-- FIXME: there is no title in FO. Need to use different approach -->
 <!--     <xsl:if test="db:alt"> -->
 <!--       <xsl:attribute name="title"> -->
-<!-- 	<xsl:value-of select="db:alt"/> -->
+<!--    <xsl:value-of select="db:alt"/> -->
 <!--       </xsl:attribute> -->
 <!--     </xsl:if> -->
     <xsl:if test="@dir">
@@ -772,7 +772,7 @@ the default is “element”.</para>
     </u:context>
     <u:result>
       <fo:strong xmlns:fo="http://www.w3.org/1999/XSL/Format"
-	      class="emphasis">Something strongly emphasized</fo:strong>
+              class="emphasis">Something strongly emphasized</fo:strong>
     </u:result>
   </u:test>
 </u:unittests>
@@ -781,18 +781,18 @@ the default is “element”.</para>
   <xsl:call-template name="t:simple-xlink">
     <xsl:with-param name="content">
       <xsl:choose>
-	<xsl:when test="@role='bold' or @role='strong'">
-	  <fo:inline font-weight="bold">
-	    <xsl:call-template name="t:id"/>
-	    <xsl:apply-templates/>
-	  </fo:inline>
-	</xsl:when>
-	<xsl:otherwise>
-	  <fo:inline font-style="italic">
-	    <xsl:call-template name="t:id"/>
-	    <xsl:apply-templates/>
-	  </fo:inline>
-	</xsl:otherwise>
+        <xsl:when test="@role='bold' or @role='strong'">
+          <fo:inline font-weight="bold">
+            <xsl:call-template name="t:id"/>
+            <xsl:apply-templates/>
+          </fo:inline>
+        </xsl:when>
+        <xsl:otherwise>
+          <fo:inline font-style="italic">
+            <xsl:call-template name="t:id"/>
+            <xsl:apply-templates/>
+          </fo:inline>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -833,14 +833,14 @@ the default is “element”.</para>
     <xsl:with-param name="content">
       <xsl:apply-templates/>
       <xsl:choose>
-	<xsl:when test="@class = 'copyright'">&#x00A9;</xsl:when>
-	<xsl:when test="@class = 'registered'">&#x00AE;</xsl:when>
-	<xsl:when test="@class = 'service'">
-	  <xsl:call-template name="t:inline-superscriptseq">
-	    <xsl:with-param name="content">SM</xsl:with-param>
-	  </xsl:call-template>
-	</xsl:when>
-	<xsl:otherwise>&#x2122;</xsl:otherwise>
+        <xsl:when test="@class = 'copyright'">&#x00A9;</xsl:when>
+        <xsl:when test="@class = 'registered'">&#x00AE;</xsl:when>
+        <xsl:when test="@class = 'service'">
+          <xsl:call-template name="t:inline-superscriptseq">
+            <xsl:with-param name="content">SM</xsl:with-param>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>&#x2122;</xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -879,51 +879,51 @@ and <tag>firstterm</tag> elements.</para>
 
     <xsl:choose>
       <xsl:when test="(not($firstterm.only.link) or ($firstterm = 1)) and @linkend">
-	<!-- FIXME:
-	<xsl:variable name="target" select="key('id',@linkend)[1]"/>
-	-->
+        <!-- FIXME:
+        <xsl:variable name="target" select="key('id',@linkend)[1]"/>
+        -->
       </xsl:when>
 
       <xsl:when test="not(@linkend)
-		      and (not($firstterm.only.link) or ($firstterm = 1))
-		      and $glossterm.auto.link">
-	<xsl:variable name="term">
-	  <xsl:choose>
-	    <xsl:when test="@baseform">
-	      <xsl:value-of select="normalize-space(@baseform)"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:value-of select="normalize-space(.)"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:variable>
+                      and (not($firstterm.only.link) or ($firstterm = 1))
+                      and $glossterm.auto.link">
+        <xsl:variable name="term">
+          <xsl:choose>
+            <xsl:when test="@baseform">
+              <xsl:value-of select="normalize-space(@baseform)"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
 
-	<xsl:variable name="targets"
-		      select="//db:glossentry
-			        [normalize-space(db:glossterm) = $term
-			         or normalize-space(db:glossterm/@baseform)
-				    = $term]"/>
+        <xsl:variable name="targets"
+                      select="//db:glossentry
+                                [normalize-space(db:glossterm) = $term
+                                 or normalize-space(db:glossterm/@baseform)
+                                    = $term]"/>
 
-	<xsl:variable name="target" select="$targets[1]"/>
+        <xsl:variable name="target" select="$targets[1]"/>
 
-	<xsl:choose>
-	  <xsl:when test="count($targets)=0">
-	    <xsl:message>
-	      <xsl:text>Error: no glossentry for glossterm: </xsl:text>
-	      <xsl:value-of select="."/>
-	      <xsl:text>.</xsl:text>
-	    </xsl:message>
-	    <xsl:apply-templates/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <!--FIXME:fo-->
-	    <xsl:apply-templates/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="count($targets)=0">
+            <xsl:message>
+              <xsl:text>Error: no glossentry for glossterm: </xsl:text>
+              <xsl:value-of select="."/>
+              <xsl:text>.</xsl:text>
+            </xsl:message>
+            <xsl:apply-templates/>
+          </xsl:when>
+          <xsl:otherwise>
+            <!--FIXME:fo-->
+            <xsl:apply-templates/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
 
       <xsl:otherwise>
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </fo:inline>
@@ -957,5 +957,3 @@ and <tag>firstterm</tag> elements.</para>
 <!-- ==================================================================== -->
 
 </xsl:stylesheet>
-
-

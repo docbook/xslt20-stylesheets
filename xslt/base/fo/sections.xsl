@@ -1,12 +1,12 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="db f m t"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                exclude-result-prefixes="db f m t"
                 version='2.0'>
 
 <!-- ********************************************************************
@@ -83,13 +83,13 @@
       <xsl:choose>
         <xsl:when test="$level = 1">
           <xsl:element name="fo:{$section.container.element}"
-		       use-attribute-sets="section.level1.properties">
-	    <xsl:call-template name="t:section-content"/>
+                       use-attribute-sets="section.level1.properties">
+            <xsl:call-template name="t:section-content"/>
           </xsl:element>
         </xsl:when>
         <xsl:when test="$level = 2">
           <xsl:element name="fo:{$section.container.element}"
-		       use-attribute-sets="section.level2.properties">
+                       use-attribute-sets="section.level2.properties">
             <xsl:call-template name="t:section-content"/>
           </xsl:element>
         </xsl:when>
@@ -107,13 +107,13 @@
         </xsl:when>
         <xsl:when test="$level = 5">
           <xsl:element name="fo:{$section.container.element}"
-		       use-attribute-sets="section.level5.properties">
+                       use-attribute-sets="section.level5.properties">
             <xsl:call-template name="t:section-content"/>
           </xsl:element>
         </xsl:when>
         <xsl:otherwise>
           <xsl:element name="fo:{$section.container.element}"
-		       use-attribute-sets="section.level6.properties">
+                       use-attribute-sets="section.level6.properties">
             <xsl:call-template name="t:section-content"/>
           </xsl:element>
         </xsl:otherwise>
@@ -124,7 +124,7 @@
 
 <xsl:template name="t:section-content">
   <xsl:variable name="toc.params"
-		select="f:find-toc-params(., $generate.toc)"/>
+                select="f:find-toc-params(., $generate.toc)"/>
 
   <fo:block>
     <xsl:call-template name="t:id"/>
@@ -134,9 +134,9 @@
     <xsl:call-template name="make-lots">
       <xsl:with-param name="toc.params" select="$toc.params"/>
       <xsl:with-param name="toc">
-	<xsl:call-template name="t:section-toc">
-	  <xsl:with-param name="toc.title" select="$toc.params/@title != 0"/>
-	</xsl:call-template>
+        <xsl:call-template name="t:section-toc">
+          <xsl:with-param name="toc.title" select="$toc.params/@title != 0"/>
+        </xsl:call-template>
       </xsl:with-param>
     </xsl:call-template>
 
@@ -172,35 +172,35 @@
 
 <xsl:template match="db:sect1">
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level1.properties">
+               use-attribute-sets="section.level1.properties">
     <xsl:call-template name="t:section-content"/>
   </xsl:element>
 </xsl:template>
 
 <xsl:template match="db:sect2">
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level2.properties">
+               use-attribute-sets="section.level2.properties">
     <xsl:call-template name="t:section-content"/>
   </xsl:element>
 </xsl:template>
 
 <xsl:template match="db:sect3">
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level3.properties">
+               use-attribute-sets="section.level3.properties">
     <xsl:call-template name="t:section-content"/>
   </xsl:element>
 </xsl:template>
 
 <xsl:template match="db:sect4">
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level4.properties">
+               use-attribute-sets="section.level4.properties">
     <xsl:call-template name="t:section-content"/>
   </xsl:element>
 </xsl:template>
 
 <xsl:template match="db:sect5">
   <xsl:element name="fo:{$section.container.element}"
-	       use-attribute-sets="section.level5.properties">
+               use-attribute-sets="section.level5.properties">
     <xsl:call-template name="t:section-content"/>
   </xsl:element>
 </xsl:template>
@@ -372,4 +372,3 @@
 -->
 
 </xsl:stylesheet>
-

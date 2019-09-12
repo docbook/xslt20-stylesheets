@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:db="http://docbook.org/ns/docbook"
-		exclude-result-prefixes="f m fn db t"
+                xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:db="http://docbook.org/ns/docbook"
+                exclude-result-prefixes="f m fn db t"
                 version="2.0">
 
 <!-- ============================================================ -->
@@ -19,31 +19,31 @@
 
   <xsl:choose>
     <xsl:when test="parent::db:listitem
-		    and not(preceding-sibling::*)
-		    and not(@role)">
+                    and not(preceding-sibling::*)
+                    and not(@role)">
       <xsl:variable name="list"
-		    select="(ancestor::db:orderedlist
-			     |ancestor::db:itemizedlist
-			     |ancestor::db:variablelist)[last()]"/>
+                    select="(ancestor::db:orderedlist
+                             |ancestor::db:itemizedlist
+                             |ancestor::db:variablelist)[last()]"/>
       <xsl:choose>
-	<xsl:when test="$list/@spacing='compact'">
-	  <xsl:apply-templates/>
-	</xsl:when>
+        <xsl:when test="$list/@spacing='compact'">
+          <xsl:apply-templates/>
+        </xsl:when>
 
-	<xsl:otherwise>
-	  <fo:block>
-	    <xsl:call-template name="t:id"/>
-	    <xsl:copy-of select="$runin"/>
-	    <xsl:apply-templates/>
-	  </fo:block>
-	</xsl:otherwise>
+        <xsl:otherwise>
+          <fo:block>
+            <xsl:call-template name="t:id"/>
+            <xsl:copy-of select="$runin"/>
+            <xsl:apply-templates/>
+          </fo:block>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
       <fo:block xsl:use-attribute-sets="normal.para.spacing">
-	<xsl:call-template name="t:id"/>
-	<xsl:copy-of select="$runin"/>
-	<xsl:apply-templates/>
+        <xsl:call-template name="t:id"/>
+        <xsl:copy-of select="$runin"/>
+        <xsl:apply-templates/>
       </fo:block>
     </xsl:otherwise>
   </xsl:choose>
@@ -91,7 +91,7 @@
   <fo:block>
     <xsl:if test="db:info/db:title">
       <fo:block>
-	<xsl:apply-templates select="db:info/db:title/node()"/>
+        <xsl:apply-templates select="db:info/db:title/node()"/>
       </fo:block>
     </xsl:if>
     <xsl:apply-templates select="* except (db:info|db:attribution)"/>

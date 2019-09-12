@@ -1,16 +1,16 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:out="http://docbook.org/xslt/ns/output"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:out="http://docbook.org/xslt/ns/output"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f ghost h m t u xs"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db doc f ghost h m t u xs"
                 version="2.0">
 
 <!-- ********************************************************************
@@ -24,14 +24,14 @@
      ******************************************************************** -->
 
 <xsl:output name="out:xhtml"
-	    method="xhtml"
-	    encoding="utf-8"
-	    indent="no"/>
+            method="xhtml"
+            encoding="utf-8"
+            indent="no"/>
 
 <xsl:output name="out:xml"
-	    method="xml"
-	    encoding="utf-8"
-	    indent="no"/>
+            method="xml"
+            encoding="utf-8"
+            indent="no"/>
 
 <!-- ==================================================================== -->
 

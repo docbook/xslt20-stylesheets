@@ -4,9 +4,9 @@
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 exclude-result-prefixes="db doc f l m xs ghost"
                 version='2.0'>
 
@@ -44,13 +44,13 @@ that should be used to generate its title.</para>
     <xsl:when test="$autolabel.elements/db:chapter">
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title-numbered'"/>
-	<xsl:with-param name="name" select="f:xpath-location(.)"/>
+        <xsl:with-param name="name" select="f:xpath-location(.)"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title-unnumbered'"/>
-	<xsl:with-param name="name" select="f:xpath-location(.)"/>
+        <xsl:with-param name="name" select="f:xpath-location(.)"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -61,32 +61,32 @@ that should be used to generate its title.</para>
     <xsl:when test="$autolabel.elements/db:appendix">
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title-numbered'"/>
-	<xsl:with-param name="name" select="f:xpath-location(.)"/>
+        <xsl:with-param name="name" select="f:xpath-location(.)"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title-unnumbered'"/>
-	<xsl:with-param name="name" select="f:xpath-location(.)"/>
+        <xsl:with-param name="name" select="f:xpath-location(.)"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
 <xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5
-		     |db:simplesect|db:bridgehead"
-	      mode="m:object-title-template">
+                     |db:simplesect|db:bridgehead"
+              mode="m:object-title-template">
   <xsl:choose>
     <xsl:when test="f:label-this-section(.)">
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title-numbered'"/>
-	<xsl:with-param name="name" select="f:xpath-location(.)"/>
+        <xsl:with-param name="name" select="f:xpath-location(.)"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title-unnumbered'"/>
-	<xsl:with-param name="name" select="f:xpath-location(.)"/>
+        <xsl:with-param name="name" select="f:xpath-location(.)"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -97,14 +97,14 @@ that should be used to generate its title.</para>
     <xsl:when test="$formal.procedures and title">
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title'"/>
-	<xsl:with-param name="name"
-			select="concat(f:xpath-location(.), '.formal')"/>
+        <xsl:with-param name="name"
+                        select="concat(f:xpath-location(.), '.formal')"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <xsl:call-template name="gentext-template">
         <xsl:with-param name="context" select="'title'"/>
-	<xsl:with-param name="name" select="f:xpath-location(.)"/>
+        <xsl:with-param name="name" select="f:xpath-location(.)"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -113,7 +113,7 @@ that should be used to generate its title.</para>
 <!-- ============================================================ -->
 
 <doc:mode name="m:object-subtitle-template"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for locating the subtitle markup template for an element
 </refpurpose>
 
@@ -139,7 +139,7 @@ that should be used to generate its subtitle.</para>
 <!-- ============================================================ -->
 
 <doc:mode name="m:object-xref-template"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for locating the cross-reference (<tag>xref</tag>)
 markup template for an element</refpurpose>
 
@@ -203,7 +203,7 @@ that should be used to generate a cross-reference to it.</para>
 <!-- ============================================================ -->
 
 <doc:mode name="m:autonumbered"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for determining if an element should be numbered</refpurpose>
 
 <refdescription>
@@ -222,7 +222,7 @@ Any element processed in this mode should return “1” if it should be numbere
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5" 
+<xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5"
               mode="m:autonumbered">
   <xsl:choose>
     <xsl:when test="f:label-this-section(.)">1</xsl:when>
@@ -252,7 +252,7 @@ Any element processed in this mode should return “1” if it should be numbere
 <!-- ============================================================ -->
 
 <doc:mode name="m:object-title-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for formatting object titles</refpurpose>
 
 <refdescription>
@@ -282,7 +282,7 @@ Any element processed in this mode should return its formatted title.
 <!-- ============================================================ -->
 
 <doc:mode name="m:object-titleabbrev-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for formatting the abbreviated title of an element</refpurpose>
 
 <refdescription>
@@ -305,7 +305,7 @@ rendition of its abbreviated title.</para>
 <!-- ============================================================ -->
 
 <doc:mode name="m:object-subtitle-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for formatting the subtitle of an element</refpurpose>
 
 <refdescription>
@@ -327,7 +327,7 @@ rendition of its subtitle.</para>
 <!-- ============================================================ -->
 
 <doc:mode name="m:object-xref-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for formatting cross-references to an element</refpurpose>
 
 <refdescription>
@@ -606,8 +606,8 @@ a cross-reference.</para>
               <xsl:choose>
                 <xsl:when test="count($title) = 1 and $title is $ghost:marker">
                   <xsl:apply-templates select="." mode="m:title-content">
-		    <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
-		    <xsl:with-param name="verbose" select="$verbose"/>
+                    <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+                    <xsl:with-param name="verbose" select="$verbose"/>
                     <xsl:with-param name="template" select="'%t'"/>
                   </xsl:apply-templates>
                 </xsl:when>
@@ -909,7 +909,7 @@ defaults to the language of the context node.</para>
                 <xsl:value-of select="$target.elem"/>
               </xsl:when>
               <xsl:otherwise>
-		<xsl:value-of select="f:xpath-location(.)"/>
+                <xsl:value-of select="f:xpath-location(.)"/>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:with-param>
@@ -952,11 +952,11 @@ defaults to the language of the context node.</para>
       </xsl:when>
     </xsl:choose>
   </xsl:if>
-  
+
   <!-- special case: use regular xref template if just turning off page -->
   <xsl:if test="($pagetype = 'nopage' or $docnametype = 'nodocname')
                   and local-name($referrer) != 'olink'
-                  and $labeltype = '' 
+                  and $labeltype = ''
                   and $titletype = ''">
     <xsl:apply-templates select="." mode="m:object-xref-template">
       <xsl:with-param name="purpose" select="$purpose"/>
@@ -1011,7 +1011,7 @@ defaults to the language of the context node.</para>
     </xsl:choose>
 
   </xsl:if>
-  
+
 </xsl:template>
 
 </xsl:stylesheet>

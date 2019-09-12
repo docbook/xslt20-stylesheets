@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="f m fn db t xs"
+                exclude-result-prefixes="f m fn db t xs"
                 version="2.0">
 
   <xsl:include href="../VERSION.xsl"/>
@@ -91,53 +91,53 @@
 
   <fo:root xsl:use-attribute-sets="root.properties">
       <!--
-	<xsl:attribute name="language">
-	  <xsl:call-template name="l10n.language">
-	    <xsl:with-param name="target" select="/*[1]"/>
-	  </xsl:call-template>
-	</xsl:attribute>
+        <xsl:attribute name="language">
+          <xsl:call-template name="l10n.language">
+            <xsl:with-param name="target" select="/*[1]"/>
+          </xsl:call-template>
+        </xsl:attribute>
       -->
 
       <!--
-	<xsl:if test="$fo.processor = 'xep'">
-	  <xsl:call-template name="xep-pis"/>
-	  <xsl:call-template name="xep-document-information"/>
-	</xsl:if>
+        <xsl:if test="$fo.processor = 'xep'">
+          <xsl:call-template name="xep-pis"/>
+          <xsl:call-template name="xep-document-information"/>
+        </xsl:if>
 
-	<xsl:if test="$fo.processor = 'axf'">
-	  <xsl:call-template name="axf-document-information"/>
-	</xsl:if>
+        <xsl:if test="$fo.processor = 'axf'">
+          <xsl:call-template name="axf-document-information"/>
+        </xsl:if>
       -->
 
       <xsl:call-template name="t:setup-pagemasters"/>
 
       <!--
-	<xsl:if test="$fo.processor = 'fop'">
-	  <xsl:apply-templates select="$root" mode="fop.outline"/>
-	</xsl:if>
+        <xsl:if test="$fo.processor = 'fop'">
+          <xsl:apply-templates select="$root" mode="fop.outline"/>
+        </xsl:if>
 
-	<xsl:if test="$fo.processor = 'fop1'">
-	  <xsl:variable name="bookmarks">
-	    <xsl:apply-templates select="$root" 
-				 mode="fop1.outline"/>
-	  </xsl:variable>
-	  <xsl:if test="string($bookmarks) != ''">
-	    <fo:bookmark-tree>
-	      <xsl:copy-of select="$bookmarks"/>
-	    </fo:bookmark-tree>
-	  </xsl:if>
-	</xsl:if>
+        <xsl:if test="$fo.processor = 'fop1'">
+          <xsl:variable name="bookmarks">
+            <xsl:apply-templates select="$root"
+                                 mode="fop1.outline"/>
+          </xsl:variable>
+          <xsl:if test="string($bookmarks) != ''">
+            <fo:bookmark-tree>
+              <xsl:copy-of select="$bookmarks"/>
+            </fo:bookmark-tree>
+          </xsl:if>
+        </xsl:if>
 
-	<xsl:if test="$fo.processor = 'xep'">
-	  <xsl:variable name="bookmarks">
-	    <xsl:apply-templates select="$root" mode="xep.outline"/>
-	  </xsl:variable>
-	  <xsl:if test="string($bookmarks) != ''">
-	    <rx:outline xmlns:rx="http://www.renderx.com/XSL/Extensions">
-	      <xsl:copy-of select="$bookmarks"/>
-	    </rx:outline>
-	  </xsl:if>
-	</xsl:if>
+        <xsl:if test="$fo.processor = 'xep'">
+          <xsl:variable name="bookmarks">
+            <xsl:apply-templates select="$root" mode="xep.outline"/>
+          </xsl:variable>
+          <xsl:if test="string($bookmarks) != ''">
+            <rx:outline xmlns:rx="http://www.renderx.com/XSL/Extensions">
+              <xsl:copy-of select="$bookmarks"/>
+            </rx:outline>
+          </xsl:if>
+        </xsl:if>
       -->
 
       <xsl:apply-templates/>
@@ -151,11 +151,11 @@
       <xsl:text>&lt;</xsl:text>
       <xsl:value-of select="name(.)"/>
       <xsl:for-each select="@*">
-	<xsl:text> </xsl:text>
-	<xsl:value-of select="name(.)"/>
-	<xsl:text>="</xsl:text>
-	<xsl:value-of select="."/>
-	<xsl:text>"</xsl:text>
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="name(.)"/>
+        <xsl:text>="</xsl:text>
+        <xsl:value-of select="."/>
+        <xsl:text>"</xsl:text>
       </xsl:for-each>
       <xsl:text>&gt;</xsl:text>
     </fo:inline>

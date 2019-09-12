@@ -2,17 +2,17 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 xmlns:html="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:css="https://github.com/docbook/css-rules"
-		exclude-result-prefixes="db doc f ghost h m t u xs html css"
+                exclude-result-prefixes="db doc f ghost h m t u xs html css"
                 version="2.0">
 
 <xsl:param name="table.width.nominal" select="'6.5in'"/>
@@ -176,11 +176,11 @@
       <fo:block-container reference-orientation="90"
             padding="6pt"
             xsl:use-attribute-sets="list.block.spacing">
-	<!-- FIXME: 
+        <!-- FIXME:
         <xsl:attribute name="width">
           <xsl:call-template name="table.width"/>
-	</xsl:attribute> 
-	-->
+        </xsl:attribute>
+        -->
         <fo:block start-indent="0pt" end-indent="0pt">
           <xsl:copy-of select="$table.block"/>
         </fo:block>
@@ -212,13 +212,13 @@
 
 <xsl:template match="db:tgroup" name="db:tgroup" mode="m:cals">
   <xsl:variable name="summary"
-		select="f:pi(processing-instruction('dbhtml'),'table-summary')"/>
+                select="f:pi(processing-instruction('dbhtml'),'table-summary')"/>
 
   <xsl:variable name="cellspacing"
-		select="f:pi(processing-instruction('dbhtml'),'cellspacing')"/>
+                select="f:pi(processing-instruction('dbhtml'),'cellspacing')"/>
 
   <xsl:variable name="cellpadding"
-		select="f:pi(processing-instruction('dbhtml'),'cellpadding')"/>
+                select="f:pi(processing-instruction('dbhtml'),'cellpadding')"/>
 
   <fo:table>
     <xsl:if test="../@pgwide=1 or self::db:entrytbl">
@@ -227,27 +227,27 @@
 
     <xsl:call-template name="t:table-frame">
       <xsl:with-param name="frame" select="if (../@frame)
-					   then ../@frame
-					   else $table.frame.default"/>
+                                           then ../@frame
+                                           else $table.frame.default"/>
     </xsl:call-template>
 
     <xsl:variable name="colgroup" as="element()">
       <colgroup>
-	<xsl:call-template name="generate-colgroup">
+        <xsl:call-template name="generate-colgroup">
           <xsl:with-param name="cols" select="@cols"/>
-	</xsl:call-template>
+        </xsl:call-template>
       </colgroup>
     </xsl:variable>
 
     <xsl:variable name="explicit.table.width"
-		  select="f:pi(processing-instruction('dbfo'),'table-width')"/>
+                  select="f:pi(processing-instruction('dbfo'),'table-width')"/>
 
     <xsl:variable name="table.width">
       <xsl:choose>
-	<xsl:when test="$explicit.table.width != ''">
+        <xsl:when test="$explicit.table.width != ''">
           <xsl:value-of select="$explicit.table.width"/>
         </xsl:when>
-	<xsl:when test="string($table.width.default) = ''">
+        <xsl:when test="string($table.width.default) = ''">
           <xsl:text>100%</xsl:text>
         </xsl:when>
         <xsl:otherwise>
@@ -259,24 +259,24 @@
     <xsl:if test="string($table.width.default) != ''
                   or $explicit.table.width != ''">
       <xsl:attribute name="width"
-		     select="f:convert-length($table.width)"/>
+                     select="f:convert-length($table.width)"/>
     </xsl:if>
 
     <!-- FIXME: * should be mapped to proportional-column-width() and width="auto" -->
     <xsl:variable name="adjusted-colgroup" as="element()">
       <xsl:call-template name="adjust-column-widths">
-	<xsl:with-param name="table-width" select="$table.width"/>
-	<xsl:with-param name="colgroup" select="$colgroup"/>
-	<xsl:with-param name="abspixels" select="0"/>
+        <xsl:with-param name="table-width" select="$table.width"/>
+        <xsl:with-param name="colgroup" select="$colgroup"/>
+        <xsl:with-param name="abspixels" select="0"/>
       </xsl:call-template>
     </xsl:variable>
 
     <xsl:choose>
       <xsl:when test="every $c in $adjusted-colgroup/html:col satisfies contains($c/@width, '%')">
-	<xsl:attribute name="table-layout">auto</xsl:attribute>
+        <xsl:attribute name="table-layout">auto</xsl:attribute>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:attribute name="table-layout">fixed</xsl:attribute>
+        <xsl:attribute name="table-layout">fixed</xsl:attribute>
       </xsl:otherwise>
     </xsl:choose>
 
@@ -505,10 +505,10 @@
 
 <xsl:template match="db:row" mode="m:cals">
   <xsl:variable name="row-height"
-		select="f:pi(processing-instruction('dbfo'),'row-height')"/>
+                select="f:pi(processing-instruction('dbfo'),'row-height')"/>
 
   <xsl:variable name="bgcolor"
-		select="f:pi(processing-instruction('dbfo'),'bgcolor')"/>
+                select="f:pi(processing-instruction('dbfo'),'bgcolor')"/>
 
   <fo:table-row>
     <xsl:if test="$row-height != ''">
@@ -539,7 +539,7 @@
   <xsl:variable name="empty.cell" select="not(node())"/>
 
   <xsl:variable name="bgcolor"
-		select="f:pi(processing-instruction('dbfo'),'bgcolor')"/>
+                select="f:pi(processing-instruction('dbfo'),'bgcolor')"/>
 
   <fo:table-cell xsl:use-attribute-sets="table.cell.properties">
     <!-- FIXME: handle @revisionflag -->
@@ -558,13 +558,13 @@
 
     <xsl:if test="@colsep &gt; 0 and following-sibling::*">
       <xsl:call-template name="t:border">
-	<xsl:with-param name="side" select="'right'"/>
+        <xsl:with-param name="side" select="'right'"/>
       </xsl:call-template>
     </xsl:if>
 
     <xsl:if test="@rowsep &gt; 0 and (parent::*/following-sibling::db:row or ../../(following-sibling::db:tbody|following-sibling::db:tfoot))">
       <xsl:call-template name="t:border">
-	<xsl:with-param name="side" select="'bottom'"/>
+        <xsl:with-param name="side" select="'bottom'"/>
       </xsl:call-template>
     </xsl:if>
 
@@ -572,43 +572,43 @@
 
     <xsl:if test="@valign != ''">
       <xsl:attribute name="display-align">
-	<xsl:choose>
-	  <xsl:when test="@valign='top'">before</xsl:when>
-	  <xsl:when test="@valign='middle'">center</xsl:when>
-	  <xsl:when test="@valign='bottom'">after</xsl:when>
-	  <xsl:otherwise>
-	    <xsl:message>
-	      <xsl:text>Unexpected valign value: </xsl:text>
-	      <xsl:value-of select="@valign"/>
-	      <xsl:text>, center used.</xsl:text>
-	    </xsl:message>
-	    <xsl:text>center</xsl:text>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="@valign='top'">before</xsl:when>
+          <xsl:when test="@valign='middle'">center</xsl:when>
+          <xsl:when test="@valign='bottom'">after</xsl:when>
+          <xsl:otherwise>
+            <xsl:message>
+              <xsl:text>Unexpected valign value: </xsl:text>
+              <xsl:value-of select="@valign"/>
+              <xsl:text>, center used.</xsl:text>
+            </xsl:message>
+            <xsl:text>center</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:attribute>
     </xsl:if>
 
     <xsl:choose>
       <xsl:when test="@align = 'char' and @char != ''">
-	<xsl:attribute name="text-align">
-	  <xsl:value-of select="@char"/>
-	</xsl:attribute>
+        <xsl:attribute name="text-align">
+          <xsl:value-of select="@char"/>
+        </xsl:attribute>
       </xsl:when>
       <xsl:when test="@align != ''">
-	<xsl:attribute name="text-align">
-	  <xsl:value-of select="@align"/>
-	</xsl:attribute>
+        <xsl:attribute name="text-align">
+          <xsl:value-of select="@align"/>
+        </xsl:attribute>
       </xsl:when>
     </xsl:choose>
 
     <fo:block>
       <xsl:choose>
-	<xsl:when test="$empty.cell">
-	  <xsl:text>&#160;</xsl:text>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:apply-templates/>
-	</xsl:otherwise>
+        <xsl:when test="$empty.cell">
+          <xsl:text>&#160;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates/>
+        </xsl:otherwise>
       </xsl:choose>
     </fo:block>
   </fo:table-cell>
@@ -619,12 +619,12 @@
   <fo:table-cell>
     <xsl:if test="@colsep &gt; 0 and following-sibling::*">
       <xsl:call-template name="t:border">
-	<xsl:with-param name="side" select="'right'"/>
+        <xsl:with-param name="side" select="'right'"/>
       </xsl:call-template>
     </xsl:if>
     <xsl:if test="@rowsep &gt; 0 and parent::*/following-sibling::db:row">
       <xsl:call-template name="t:border">
-	<xsl:with-param name="side" select="'bottom'"/>
+        <xsl:with-param name="side" select="'bottom'"/>
       </xsl:call-template>
     </xsl:if>
   </fo:table-cell>
@@ -643,7 +643,7 @@
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()|text()"
-	      mode="m:cals">
+              mode="m:cals">
   <xsl:copy/>
 </xsl:template>
 

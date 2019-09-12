@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:db="http://docbook.org/ns/docbook"
-		exclude-result-prefixes="h f m fn db t"
+                xmlns:db="http://docbook.org/ns/docbook"
+                exclude-result-prefixes="h f m fn db t"
                 version="2.0">
 
 <!-- ============================================================ -->
@@ -15,7 +15,7 @@
 <xsl:template match="db:msgset">
   <xsl:call-template name="t:semiformal-object">
     <xsl:with-param name="placement"
-	    select="$formal.title.placement[self::db:msgset]/@placement"/>
+            select="$formal.title.placement[self::db:msgset]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
       <div>
@@ -27,7 +27,7 @@
 </xsl:template>
 
 <xsl:template match="db:msgset/db:info/db:title"
-	      mode="m:titlepage-mode"
+              mode="m:titlepage-mode"
               priority="100">
   <div class="title">
     <xsl:next-match/>
@@ -37,7 +37,7 @@
 <xsl:template match="db:msgentry">
   <xsl:call-template name="t:semiformal-object">
     <xsl:with-param name="placement"
-	    select="$formal.title.placement[self::db:msgentry]/@placement"/>
+            select="$formal.title.placement[self::db:msgentry]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
       <div>
@@ -49,7 +49,7 @@
 </xsl:template>
 
 <xsl:template match="db:msgentry/db:info/db:title"
-	      mode="m:titlepage-mode"
+              mode="m:titlepage-mode"
               priority="100">
   <div class="title">
     <xsl:next-match/>
@@ -66,7 +66,7 @@
 <xsl:template match="db:msg">
   <xsl:call-template name="t:semiformal-object">
     <xsl:with-param name="placement"
-	    select="$formal.title.placement[self::db:msg]/@placement"/>
+            select="$formal.title.placement[self::db:msg]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
       <div>
@@ -78,7 +78,7 @@
 </xsl:template>
 
 <xsl:template match="db:msg/db:info/db:title"
-	      mode="m:titlepage-mode"
+              mode="m:titlepage-mode"
               priority="100">
   <div class="title">
     <xsl:next-match/>
@@ -153,7 +153,7 @@
 <xsl:template match="db:msgexplan">
   <xsl:call-template name="t:semiformal-object">
     <xsl:with-param name="placement"
-	    select="$formal.title.placement[self::db:msgexplan]/@placement"/>
+            select="$formal.title.placement[self::db:msgexplan]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
       <div>
@@ -165,7 +165,7 @@
 </xsl:template>
 
 <xsl:template match="db:msgexplan/db:info/db:title"
-	      mode="m:titlepage-mode"
+              mode="m:titlepage-mode"
               priority="100">
   <div class="title">
     <xsl:next-match/>

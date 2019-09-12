@@ -1,7 +1,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:db = "http://docbook.org/ns/docbook"
-		xmlns:tp="http://docbook.org/xslt/ns/template/private"
-		xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:db = "http://docbook.org/ns/docbook"
+                xmlns:tp="http://docbook.org/xslt/ns/template/private"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 exclude-result-prefixes="db tp f mp"
@@ -37,13 +37,13 @@
 </xsl:template>
 
 <xsl:template match="bookinfo|chapterinfo|articleinfo|artheader|appendixinfo
-		     |blockinfo
+                     |blockinfo
                      |bibliographyinfo|glossaryinfo|indexinfo|setinfo
-		     |setindexinfo
+                     |setindexinfo
                      |sect1info|sect2info|sect3info|sect4info|sect5info
                      |sectioninfo
                      |refsect1info|refsect2info|refsect3info|refsectioninfo
-		     |referenceinfo|partinfo"
+                     |referenceinfo|partinfo"
               priority="200">
   <info>
     <xsl:call-template name="copy.attributes"/>
@@ -126,8 +126,8 @@
 </xsl:template>
 
 <xsl:template match="objectinfo|prefaceinfo|refsynopsisdivinfo
-		     |screeninfo|sidebarinfo"
-	      priority="200">
+                     |screeninfo|sidebarinfo"
+              priority="200">
   <info>
     <xsl:call-template name="copy.attributes"/>
 
@@ -152,7 +152,7 @@
         <xsl:apply-templates select="following-sibling::title" mode="mp:copy"/>
       </xsl:when>
       <xsl:otherwise>
-	<!-- it's ok if there's no title on these -->
+        <!-- it's ok if there's no title on these -->
       </xsl:otherwise>
     </xsl:choose>
 
@@ -244,23 +244,23 @@
     </xsl:call-template>
     <xsl:if test="@class">
       <xsl:choose>
-	<xsl:when test="@class = 'source'
-		        or @class = 'version'
-		        or @class = 'manual'
-		        or @class = 'sectdesc'
-		        or @class = 'software'">
-	  <xsl:attribute name="class">
-	    <xsl:value-of select="@class"/>
-	  </xsl:attribute>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:attribute name="class">
-	    <xsl:value-of select="'other'"/>
-	  </xsl:attribute>
-	  <xsl:attribute name="otherclass">
-	    <xsl:value-of select="@class"/>
-	  </xsl:attribute>
-	</xsl:otherwise>
+        <xsl:when test="@class = 'source'
+                        or @class = 'version'
+                        or @class = 'manual'
+                        or @class = 'sectdesc'
+                        or @class = 'software'">
+          <xsl:attribute name="class">
+            <xsl:value-of select="@class"/>
+          </xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="class">
+            <xsl:value-of select="'other'"/>
+          </xsl:attribute>
+          <xsl:attribute name="otherclass">
+            <xsl:value-of select="@class"/>
+          </xsl:attribute>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:if>
     <xsl:apply-templates/>
@@ -330,14 +330,14 @@
 
 <xsl:template match="dedication|preface|chapter|appendix|part|partintro
                      |article|bibliography|glossary|glossdiv|index
-		     |reference[not(referenceinfo)]|book"
+                     |reference[not(referenceinfo)]|book"
               priority="200"
              >
   <xsl:choose>
     <xsl:when test="not(dedicationinfo|prefaceinfo|chapterinfo
-		        |appendixinfo|partinfo
+                        |appendixinfo|partinfo
                         |articleinfo|artheader|bibliographyinfo
-			|glossaryinfo|indexinfo
+                        |glossaryinfo|indexinfo
                         |bookinfo)">
       <xsl:copy>
         <xsl:call-template name="copy.attributes"/>
@@ -364,10 +364,10 @@
 <xsl:template match="formalpara|figure|table[tgroup]|example|blockquote
                      |caution|important|note|warning|tip
                      |bibliodiv|glossarydiv|indexdiv
-		     |orderedlist|itemizedlist|variablelist|procedure
-		     |task|tasksummary|taskprerequisites|taskrelated
-		     |sidebar"
-	      priority="200"
+                     |orderedlist|itemizedlist|variablelist|procedure
+                     |task|tasksummary|taskprerequisites|taskrelated
+                     |sidebar"
+              priority="200"
              >
   <xsl:choose>
     <xsl:when test="blockinfo">
@@ -380,13 +380,13 @@
       <xsl:copy>
         <xsl:call-template name="copy.attributes"/>
 
-	<xsl:if test="title|titleabbrev|subtitle">
-	  <info>
-	    <xsl:apply-templates select="title" mode="mp:copy"/>
-	    <xsl:apply-templates select="titleabbrev" mode="mp:copy"/>
-	    <xsl:apply-templates select="subtitle" mode="mp:copy"/>
-	  </info>
-	</xsl:if>
+        <xsl:if test="title|titleabbrev|subtitle">
+          <info>
+            <xsl:apply-templates select="title" mode="mp:copy"/>
+            <xsl:apply-templates select="titleabbrev" mode="mp:copy"/>
+            <xsl:apply-templates select="subtitle" mode="mp:copy"/>
+          </info>
+        </xsl:if>
 
         <xsl:apply-templates/>
       </xsl:copy>
@@ -430,7 +430,7 @@
 </xsl:template>
 
 <xsl:template match="sect1|sect2|sect3|sect4|sect5|section"
-	      priority="200"
+              priority="200"
              >
   <section>
     <xsl:call-template name="copy.attributes"/>
@@ -448,7 +448,7 @@
 </xsl:template>
 
 <xsl:template match="simplesect"
-	      priority="200"
+              priority="200"
              >
   <simplesect>
     <xsl:call-template name="copy.attributes"/>
@@ -534,7 +534,7 @@
   <inlinemediaobject>
     <imageobject>
       <imagedata>
-	<xsl:call-template name="copy.attributes"/>
+        <xsl:call-template name="copy.attributes"/>
       </imagedata>
     </imageobject>
   </inlinemediaobject>
@@ -546,7 +546,7 @@
   <mediaobject>
     <textobject>
       <textdata>
-	<xsl:call-template name="copy.attributes"/>
+        <xsl:call-template name="copy.attributes"/>
       </textdata>
     </textobject>
   </mediaobject>
@@ -558,7 +558,7 @@
   <mediaobject>
     <imageobject>
       <imagedata>
-	<xsl:call-template name="copy.attributes"/>
+        <xsl:call-template name="copy.attributes"/>
       </imagedata>
     </imageobject>
   </mediaobject>
@@ -647,8 +647,8 @@
 </xsl:template>
 
 <xsl:template match="biblioid[count(*) = 1
-		              and ulink
-			      and normalize-space(text()) = '']"
+                              and ulink
+                              and normalize-space(text()) = '']"
               priority="200"
              >
   <biblioid xlink:href="{ulink/@url}">
@@ -724,7 +724,7 @@
                      |bibliomset/titleabbrev|bibliomset/subtitle
                      |biblioset/titleabbrev|biblioset/subtitle
                      |bibliomixed/titleabbrev|bibliomixed/subtitle"
-	      priority="400"
+              priority="400"
              >
   <xsl:copy>
     <xsl:copy-of select="@*"/>
@@ -769,10 +769,10 @@
       </xsl:call-template>
 
       <link xlink:href="{@url}">
-	<xsl:call-template name="copy.attributes">
-	  <xsl:with-param name="suppress" select="'url'"/>
-	</xsl:call-template>
-	<xsl:apply-templates/>
+        <xsl:call-template name="copy.attributes">
+          <xsl:with-param name="suppress" select="'url'"/>
+        </xsl:call-template>
+        <xsl:apply-templates/>
       </link>
     </xsl:when>
     <xsl:otherwise>
@@ -783,10 +783,10 @@
       </xsl:call-template>
 
       <uri xlink:href="{@url}">
-	<xsl:call-template name="copy.attributes">
-	  <xsl:with-param name="suppress" select="'url'"/>
-	</xsl:call-template>
-	<xsl:value-of select="@url"/>
+        <xsl:call-template name="copy.attributes">
+          <xsl:with-param name="suppress" select="'url'"/>
+        </xsl:call-template>
+        <xsl:value-of select="@url"/>
       </uri>
     </xsl:otherwise>
   </xsl:choose>
@@ -810,23 +810,23 @@
       </xsl:call-template>
 
       <olink targetdoc="{unparsed-entity-uri(@targetdocent)}">
-	<xsl:for-each select="@*">
-	  <xsl:if test="name(.) != 'targetdocent'
-	                and name(.) != 'linkmode'">
-	    <xsl:copy/>
-	  </xsl:if>
-	</xsl:for-each>
-	<xsl:apply-templates/>
+        <xsl:for-each select="@*">
+          <xsl:if test="name(.) != 'targetdocent'
+                        and name(.) != 'linkmode'">
+            <xsl:copy/>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:apply-templates/>
       </olink>
     </xsl:when>
     <xsl:otherwise>
       <olink>
-	<xsl:for-each select="@*">
-	  <xsl:if test="name(.) != 'linkmode'">
-	    <xsl:copy/>
-	  </xsl:if>
-	</xsl:for-each>
-	<xsl:apply-templates/>
+        <xsl:for-each select="@*">
+          <xsl:if test="name(.) != 'linkmode'">
+            <xsl:copy/>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:apply-templates/>
       </olink>
     </xsl:otherwise>
   </xsl:choose>
@@ -876,18 +876,18 @@
 <xsl:template match="date|pubdate" priority="200">
   <xsl:variable name="rp1" select="substring-before(normalize-space(.), ' ')"/>
   <xsl:variable name="rp2"
-		select="substring-before(substring-after(normalize-space(.), ' '),
-		                         ' ')"/>
+                select="substring-before(substring-after(normalize-space(.), ' '),
+                                         ' ')"/>
   <xsl:variable name="rp3"
-		select="substring-after(substring-after(normalize-space(.), ' '), ' ')"/>
+                select="substring-after(substring-after(normalize-space(.), ' '), ' ')"/>
 
   <xsl:variable name="p1">
     <xsl:choose>
       <xsl:when test="contains($rp1, ',')">
-	<xsl:value-of select="substring-before($rp1, ',')"/>
+        <xsl:value-of select="substring-before($rp1, ',')"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$rp1"/>
+        <xsl:value-of select="$rp1"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -895,10 +895,10 @@
   <xsl:variable name="p2">
     <xsl:choose>
       <xsl:when test="contains($rp2, ',')">
-	<xsl:value-of select="substring-before($rp2, ',')"/>
+        <xsl:value-of select="substring-before($rp2, ',')"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$rp2"/>
+        <xsl:value-of select="$rp2"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -906,10 +906,10 @@
   <xsl:variable name="p3">
     <xsl:choose>
       <xsl:when test="contains($rp3, ',')">
-	<xsl:value-of select="substring-before($rp3, ',')"/>
+        <xsl:value-of select="substring-before($rp3, ',')"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$rp3"/>
+        <xsl:value-of select="$rp3"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -917,141 +917,141 @@
   <xsl:variable name="date">
     <xsl:choose>
       <xsl:when test="string($p1+1) != 'NaN' and string($p3+1) != 'NaN'">
-	<xsl:choose>
-	  <xsl:when test="$p2 = 'Jan' or $p2 = 'January'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-01-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Feb' or $p2 = 'February'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-02-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Mar' or $p2 = 'March'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-03-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Apr' or $p2 = 'April'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-04-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'May'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-05-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Jun' or $p2 = 'June'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-06-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Jul' or $p2 = 'July'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-07-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Aug' or $p2 = 'August'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-08-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Sep' or $p2 = 'September'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-09-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Oct' or $p2 = 'October'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-10-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Nov' or $p2 = 'November'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-11-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p2 = 'Dec' or $p2 = 'December'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-12-</xsl:text>
-	    <xsl:number value="$p1" format="01"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$p2 = 'Jan' or $p2 = 'January'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-01-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Feb' or $p2 = 'February'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-02-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Mar' or $p2 = 'March'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-03-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Apr' or $p2 = 'April'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-04-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'May'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-05-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Jun' or $p2 = 'June'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-06-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Jul' or $p2 = 'July'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-07-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Aug' or $p2 = 'August'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-08-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Sep' or $p2 = 'September'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-09-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Oct' or $p2 = 'October'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-10-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Nov' or $p2 = 'November'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-11-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p2 = 'Dec' or $p2 = 'December'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-12-</xsl:text>
+            <xsl:number value="$p1" format="01"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:when test="string($p2+1) != 'NaN' and string($p3+1) != 'NaN'">
-	<xsl:choose>
-	  <xsl:when test="$p1 = 'Jan' or $p1 = 'January'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-01-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Feb' or $p1 = 'February'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-02-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Mar' or $p1 = 'March'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-03-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Apr' or $p1 = 'April'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-04-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'May'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-05-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Jun' or $p1 = 'June'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-06-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Jul' or $p1 = 'July'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-07-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Aug' or $p1 = 'August'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-08-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Sep' or $p1 = 'September'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-09-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Oct' or $p1 = 'October'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-10-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Nov' or $p1 = 'November'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-11-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:when test="$p1 = 'Dec' or $p1 = 'December'">
-	    <xsl:number value="$p3" format="0001"/>
-	    <xsl:text>-12-</xsl:text>
-	    <xsl:number value="$p2" format="01"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$p1 = 'Jan' or $p1 = 'January'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-01-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Feb' or $p1 = 'February'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-02-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Mar' or $p1 = 'March'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-03-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Apr' or $p1 = 'April'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-04-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'May'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-05-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Jun' or $p1 = 'June'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-06-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Jul' or $p1 = 'July'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-07-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Aug' or $p1 = 'August'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-08-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Sep' or $p1 = 'September'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-09-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Oct' or $p1 = 'October'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-10-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Nov' or $p1 = 'November'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-11-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:when test="$p1 = 'Dec' or $p1 = 'December'">
+            <xsl:number value="$p3" format="0001"/>
+            <xsl:text>-12-</xsl:text>
+            <xsl:number value="$p2" format="01"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -1070,15 +1070,15 @@
       </xsl:call-template>
 
       <xsl:copy>
-	<xsl:copy-of select="@*"/>
-	<xsl:value-of select="$date"/>
+        <xsl:copy-of select="@*"/>
+        <xsl:value-of select="$date"/>
       </xsl:copy>
     </xsl:when>
 
     <xsl:otherwise>
       <xsl:copy>
-	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates/>
+        <xsl:copy-of select="@*"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
@@ -1092,7 +1092,7 @@
   <xsl:if test="not(contains(name(parent::*),'info'))">
     <xsl:call-template name="tp:emit-message">
       <xsl:with-param name="message">
-	<xsl:text>Check abstract; moved into info correctly?</xsl:text>
+        <xsl:text>Check abstract; moved into info correctly?</xsl:text>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:if>
@@ -1103,7 +1103,7 @@
   <indexterm>
     <xsl:call-template name="copy.attributes">
       <xsl:with-param name="suppress">
-	<xsl:if test="@significance = 'normal'">significance</xsl:if>
+        <xsl:if test="@significance = 'normal'">significance</xsl:if>
       </xsl:with-param>
     </xsl:call-template>
     <xsl:apply-templates/>
@@ -1120,7 +1120,7 @@
 </xsl:template>
 
 <xsl:template match="lot|lotentry|tocback|tocchap|tocfront|toclevel1|
-		     toclevel2|toclevel3|toclevel4|toclevel5|tocpart"
+                     toclevel2|toclevel3|toclevel4|toclevel5|tocpart"
               priority="200"
              >
   <tocdiv>
@@ -1200,8 +1200,8 @@
       </xsl:when>
       <xsl:when test="$suppress = local-name(.)"/>
       <xsl:when test="local-name(.) = 'float'">
-	<xsl:choose>
-	  <xsl:when test=". = '1'">
+        <xsl:choose>
+          <xsl:when test=". = '1'">
             <xsl:call-template name="tp:emit-message">
               <xsl:with-param name="message">
                 <xsl:text>Discarding float on </xsl:text>
@@ -1209,7 +1209,7 @@
               </xsl:with-param>
             </xsl:call-template>
             <xsl:if test="not($src/@floatstyle)">
-	      <xsl:call-template name="tp:emit-message">
+              <xsl:call-template name="tp:emit-message">
                 <xsl:with-param name="message">
                   <xsl:text>Adding floatstyle='normal' on </xsl:text>
                   <xsl:value-of select="local-name($src)"/>
@@ -1217,19 +1217,19 @@
               </xsl:call-template>
               <xsl:attribute name="floatstyle">
                 <xsl:text>normal</xsl:text>
-	      </xsl:attribute>
-	    </xsl:if>
-	  </xsl:when>
-	  <xsl:when test=". = '0'">
-	    <xsl:call-template name="tp:emit-message">
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test=". = '0'">
+            <xsl:call-template name="tp:emit-message">
               <xsl:with-param name="message">
                 <xsl:text>Discarding float on </xsl:text>
                 <xsl:value-of select="local-name($src)"/>
               </xsl:with-param>
             </xsl:call-template>
           </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:call-template name="tp:emit-message">
+          <xsl:otherwise>
+            <xsl:call-template name="tp:emit-message">
           <xsl:with-param name="message">
             <xsl:text>Discarding float on </xsl:text>
             <xsl:value-of select="local-name($src)"/>
@@ -1245,32 +1245,32 @@
                 </xsl:with-param>
               </xsl:call-template>
               <xsl:attribute name="floatstyle">
-		<xsl:value-of select="."/>
-	      </xsl:attribute>
-	    </xsl:if>
-	  </xsl:otherwise>
-	</xsl:choose>
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:when test="local-name(.) = 'entityref'">
-	<xsl:attribute name="fileref">
-	  <xsl:value-of select="unparsed-entity-uri(.)"/>
-	</xsl:attribute>
+        <xsl:attribute name="fileref">
+          <xsl:value-of select="unparsed-entity-uri(.)"/>
+        </xsl:attribute>
       </xsl:when>
 
       <xsl:when test="local-name($src) = 'simplemsgentry'
-	              and local-name(.) = 'audience'">
+                      and local-name(.) = 'audience'">
         <xsl:attribute name="msgaud">
           <xsl:value-of select="."/>
         </xsl:attribute>
       </xsl:when>
       <xsl:when test="local-name($src) = 'simplemsgentry'
-	              and local-name(.) = 'origin'">
+                      and local-name(.) = 'origin'">
         <xsl:attribute name="msgorig">
           <xsl:value-of select="."/>
         </xsl:attribute>
       </xsl:when>
       <xsl:when test="local-name($src) = 'simplemsgentry'
-	              and local-name(.) = 'level'">
+                      and local-name(.) = 'level'">
         <xsl:attribute name="msglevel">
           <xsl:value-of select="."/>
         </xsl:attribute>
@@ -1314,25 +1314,25 @@
   <xsl:choose>
     <xsl:when test="namespace-uri(.) = ''">
       <xsl:element name="{local-name(.)}"
-		   namespace="http://docbook.org/ns/docbook">
+                   namespace="http://docbook.org/ns/docbook">
         <xsl:copy-of select="@*"/>
-	<xsl:if test="not(parent::*)">
-	  <xsl:attribute name="version">5.0</xsl:attribute>
+        <xsl:if test="not(parent::*)">
+          <xsl:attribute name="version">5.0</xsl:attribute>
           <xsl:namespace name="xlink" select="'http://www.w3.org/1999/xlink'"/>
           <xsl:if test="not(@xml:base) and not(empty($base-uri))">
             <xsl:attribute name="xml:base" select="$base-uri"/>
           </xsl:if>
-	</xsl:if>
-	<xsl:apply-templates mode="mp:addNS"/>
+        </xsl:if>
+        <xsl:apply-templates mode="mp:addNS"/>
       </xsl:element>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy>
-	<xsl:if test="not(parent::*)">
-	  <xsl:attribute name="version">5.0</xsl:attribute>
-	</xsl:if>
-	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates mode="mp:addNS"/>
+        <xsl:if test="not(parent::*)">
+          <xsl:attribute name="version">5.0</xsl:attribute>
+        </xsl:if>
+        <xsl:copy-of select="@*"/>
+        <xsl:apply-templates mode="mp:addNS"/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>

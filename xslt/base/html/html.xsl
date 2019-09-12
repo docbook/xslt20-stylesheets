@@ -130,7 +130,7 @@ and the node has no <tag class="attribute">role</tag>.</para>
   <xsl:param name="default-role"/>
 
   <xsl:variable name="role"
-		select="if ($node/@role) then $node/@role else $default-role"/>
+                select="if ($node/@role) then $node/@role else $default-role"/>
 
   <xsl:if test="$force != 0 or $node/@role">
     <xsl:attribute name="class" select="$role"/>
@@ -279,7 +279,7 @@ and a CSS style is specified.</para>
 
   <xsl:choose>
     <xsl:when test="$syntax-highlighter">
-      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet" 
+      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet"
             type="text/css"/>
       <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet"
             type="text/css"/>
@@ -371,7 +371,7 @@ HTML document. It is responsible for generating any necessary
           <xsl:value-of select="."/>
           <xsl:if test="position() &lt; last()">
             <xsl:text> </xsl:text>
-	  </xsl:if>
+          </xsl:if>
         </xsl:for-each>
       </xsl:attribute>
     </meta>
@@ -458,11 +458,11 @@ when chunking.)</para>
   <u:test>
     <u:variable name="mydoc">
       <db:book>
-	<db:title>Some Title</db:title>
-	<db:chapter>
-	  <db:title>Some Chapter Title</db:title>
-	  <db:para>My para.</db:para>
-	</db:chapter>
+        <db:title>Some Title</db:title>
+        <db:chapter>
+          <db:title>Some Chapter Title</db:title>
+          <db:para>My para.</db:para>
+        </db:chapter>
       </db:book>
     </u:variable>
     <u:param select="$mydoc"/>
@@ -476,7 +476,7 @@ when chunking.)</para>
 <xsl:function name="f:href" as="xs:string">
   <xsl:param name="context" as="node()"/>
   <xsl:param name="node" as="element()"/>
-  <xsl:value-of select="concat('#', f:node-id($node))"/>
+  <xsl:sequence select="concat('#', f:node-id($node))"/>
 </xsl:function>
 
 <!-- ====================================================================== -->
@@ -518,11 +518,11 @@ for the specified node.</para>
   <u:test>
     <u:variable name="mydoc">
       <db:book>
-	<db:title>Some Title</db:title>
-	<db:chapter>
-	  <db:title>Some Chapter Title</db:title>
-	  <db:para>My para.</db:para>
-	</db:chapter>
+        <db:title>Some Title</db:title>
+        <db:chapter>
+          <db:title>Some Chapter Title</db:title>
+          <db:para>My para.</db:para>
+        </db:chapter>
       </db:book>
     </u:variable>
     <u:param select="$mydoc//db:chapter[1]"/>
@@ -534,7 +534,7 @@ for the specified node.</para>
 
 <xsl:function name="f:href-target-uri" as="xs:string">
   <xsl:param name="node" as="element()"/>
-  <xsl:value-of select="concat('#', f:node-id($node))"/>
+  <xsl:sequence select="concat('#', f:node-id($node))"/>
 </xsl:function>
 
 <!-- ====================================================================== -->
@@ -576,12 +576,12 @@ is preserved, only the wrapping <tag>a</tag> is stripped away.</para>
 </xsl:template>
 
 <xsl:template match="h:sup[@class='footnote']"
-	      mode="m:strip-anchors" priority="100">
+              mode="m:strip-anchors" priority="100">
   <!-- strip it -->
 </xsl:template>
 
 <xsl:template match="text()|comment()|processing-instruction()"
-	      mode="m:strip-anchors">
+              mode="m:strip-anchors">
   <xsl:copy/>
 </xsl:template>
 
@@ -674,13 +674,13 @@ HTML document. It is responsible for generating the keyword-related
       <xsl:sequence select="tokenize($node/@role, '\s+')"/>
     </xsl:if>
     <xsl:if test="$node/@revision">
-      <xsl:value-of select="concat('rf-', $node/@revision)"/>
+      <xsl:sequence select="concat('rf-', $node/@revision)"/>
     </xsl:if>
     <xsl:sequence select="$extra"/>
   </xsl:variable>
 
   <xsl:if test="exists($classes)">
-    <xsl:value-of select="string-join(distinct-values($classes), ' ')"/>
+    <xsl:sequence select="string-join(distinct-values($classes), ' ')"/>
   </xsl:if>
 </xsl:function>
 

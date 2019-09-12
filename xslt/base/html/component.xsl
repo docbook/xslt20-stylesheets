@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="h f m fn db t"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                exclude-result-prefixes="h f m fn db t"
                 version="2.0">
 
 <xsl:template match="db:dedication
-		     |db:preface|db:chapter|db:appendix
-		     |db:colophon|db:article">
+                     |db:preface|db:chapter|db:appendix
+                     |db:colophon|db:article">
   <article>
     <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
     <xsl:call-template name="t:titlepage"/>
@@ -33,8 +33,8 @@
 </xsl:template>
 
 <xsl:template match="db:dedication
-		     |db:preface|db:chapter|db:appendix
-		     |db:colophon|db:article" mode="m:toc">
+                     |db:preface|db:chapter|db:appendix
+                     |db:colophon|db:article" mode="m:toc">
   <xsl:param name="toc.params"
              select="f:find-toc-params(., $generate.toc)"/>
 

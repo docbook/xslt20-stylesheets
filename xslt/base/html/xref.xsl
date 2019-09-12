@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fn h m t u xlink xs"
+                exclude-result-prefixes="db doc f fn h m t u xlink xs"
                 version="2.0">
 
 <xsl:param name="use.role.as.xrefstyle" select="0"/>
@@ -70,15 +70,15 @@ identified.</entry>
   <xsl:choose>
     <xsl:when test="node()">
       <xsl:choose>
-	<xsl:when test="$href != ''">
-	  <a href="{$href}">
+        <xsl:when test="$href != ''">
+          <a href="{$href}">
             <xsl:sequence select="f:html-attributes(.)"/>
-	    <xsl:if test="$title != ''">
-	      <xsl:attribute name="title" select="$title"/>
-	    </xsl:if>
-	    <xsl:apply-templates/>
-	  </a>
-	</xsl:when>
+            <xsl:if test="$title != ''">
+              <xsl:attribute name="title" select="$title"/>
+            </xsl:if>
+            <xsl:apply-templates/>
+          </a>
+        </xsl:when>
         <xsl:when test="@linkend">
           <xsl:choose>
             <xsl:when test="not(f:findid(@linkend,.))">
@@ -93,15 +93,15 @@ identified.</entry>
                 <xsl:text>@@</xsl:text>
               </span>
             </xsl:when>
-	    <xsl:otherwise>
-	      <a href="{f:href(., f:findid(@linkend,.))}">
+            <xsl:otherwise>
+              <a href="{f:href(., f:findid(@linkend,.))}">
                 <xsl:sequence select="f:html-attributes(.)"/>
-	        <xsl:if test="$title != ''">
-	          <xsl:attribute name="title" select="$title"/>
-	        </xsl:if>
-	        <xsl:apply-templates/>
-	      </a>
-	    </xsl:otherwise>
+                <xsl:if test="$title != ''">
+                  <xsl:attribute name="title" select="$title"/>
+                </xsl:if>
+                <xsl:apply-templates/>
+              </a>
+            </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
@@ -117,15 +117,15 @@ identified.</entry>
     </xsl:when>
     <xsl:otherwise>
       <xsl:choose>
-	<xsl:when test="$href != ''">
-	  <a href="{$href}">
+        <xsl:when test="$href != ''">
+          <a href="{$href}">
             <xsl:sequence select="f:html-attributes(.)"/>
-	    <xsl:value-of select="$href"/>
-	  </a>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:call-template name="db:xref"/>
-	</xsl:otherwise>
+            <xsl:value-of select="$href"/>
+          </a>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="db:xref"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -134,7 +134,7 @@ identified.</entry>
 <!-- ============================================================ -->
 
 <doc:template name="db:xref" match="db:xref"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Template for processing xref elements</refpurpose>
 
 <refdescription>
@@ -169,9 +169,9 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
       </xsl:message>
       <span class="markup-error">
         <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
-	<xsl:text>@@LINKEND: </xsl:text>
+        <xsl:text>@@LINKEND: </xsl:text>
         <xsl:value-of select="$linkend"/>
-	<xsl:text>@@</xsl:text>
+        <xsl:text>@@</xsl:text>
       </span>
     </xsl:when>
 
@@ -179,42 +179,42 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
       <xsl:variable name="etarget" select="f:findid(@endterm,.)[1]"/>
 
       <xsl:if test="count(f:findid(@endterm,.)) &gt; 1">
-	<xsl:message>
-	  <xsl:text>Warning: the ID '</xsl:text>
-	  <xsl:value-of select="@endterm"/>
-	  <xsl:text>' is not unique.</xsl:text>
-	</xsl:message>
+        <xsl:message>
+          <xsl:text>Warning: the ID '</xsl:text>
+          <xsl:value-of select="@endterm"/>
+          <xsl:text>' is not unique.</xsl:text>
+        </xsl:message>
       </xsl:if>
 
       <xsl:choose>
-	<xsl:when test="count($etarget) = 0">
+        <xsl:when test="count($etarget) = 0">
           <xsl:message>
             <xsl:text>Endterm points to nonexistent id: </xsl:text>
-	    <xsl:value-of select="@endterm"/>
+            <xsl:value-of select="@endterm"/>
           </xsl:message>
-	  <a href="{f:href(/,$target)}">
+          <a href="{f:href(/,$target)}">
             <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
             <span class="markup-error">
-	      <xsl:text>@@ENDTERM: </xsl:text>
+              <xsl:text>@@ENDTERM: </xsl:text>
               <xsl:value-of select="@endterm"/>
-	      <xsl:text>@@</xsl:text>
+              <xsl:text>@@</xsl:text>
             </span>
-	  </a>
+          </a>
         </xsl:when>
         <xsl:otherwise>
-	  <a href="{f:href(/,$target)}">
+          <a href="{f:href(/,$target)}">
             <xsl:sequence select="f:html-attributes(., @xml:id, ())"/>
-	    <xsl:apply-templates select="$etarget" mode="m:endterm"/>
-	  </a>
-	</xsl:otherwise>
+            <xsl:apply-templates select="$etarget" mode="m:endterm"/>
+          </a>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
 
     <xsl:when test="$target/@xreflabel">
       <a href="{f:href(/,$target)}">
-	<xsl:call-template name="t:xref-xreflabel">
-	  <xsl:with-param name="target" select="$target"/>
-	</xsl:call-template>
+        <xsl:call-template name="t:xref-xreflabel">
+          <xsl:with-param name="target" select="$target"/>
+        </xsl:call-template>
       </a>
     </xsl:when>
 
@@ -222,24 +222,24 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
       <xsl:apply-templates select="$target" mode="m:xref-to-prefix"/>
 
       <a href="{f:href(/,$target)}">
-	<xsl:if test="$target/db:info/db:title">
-	  <xsl:attribute name="title" select="string($target/db:info/db:title)"/>
-	</xsl:if>
-	<xsl:apply-templates select="$target" mode="m:xref-to">
-	  <xsl:with-param name="referrer" select="."/>
-	  <xsl:with-param name="xrefstyle">
-	    <xsl:choose>
-	      <xsl:when test="@role and not(@xrefstyle)
-			      and $use.role.as.xrefstyle != 0">
-		<xsl:value-of select="@role"/>
-	      </xsl:when>
-	      <xsl:otherwise>
-		<xsl:value-of select="@xrefstyle"/>
-	      </xsl:otherwise>
-	    </xsl:choose>
-	  </xsl:with-param>
-	</xsl:apply-templates>
-	</a>
+        <xsl:if test="$target/db:info/db:title">
+          <xsl:attribute name="title" select="string($target/db:info/db:title)"/>
+        </xsl:if>
+        <xsl:apply-templates select="$target" mode="m:xref-to">
+          <xsl:with-param name="referrer" select="."/>
+          <xsl:with-param name="xrefstyle">
+            <xsl:choose>
+              <xsl:when test="@role and not(@xrefstyle)
+                              and $use.role.as.xrefstyle != 0">
+                <xsl:value-of select="@role"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@xrefstyle"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:apply-templates>
+        </a>
 
       <xsl:apply-templates select="$target" mode="m:xref-to-suffix"/>
     </xsl:otherwise>
@@ -283,7 +283,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
   <!-- xreflabels come out in the right font for different targets, -->
   <!-- for example. -->
   <xsl:param name="target" select="."/>
-  <xsl:value-of select="$target/@xreflabel"/>
+  <xsl:sequence select="string($target/@xreflabel)"/>
 </xsl:template>
 
 <!-- ============================================================ -->
@@ -296,7 +296,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
   <xsl:variable name="targetptr.att" select="@targetptr"/>
 
   <xsl:variable name="olink.lang" select="f:l10n-language(.,true())"/>
-    
+
   <xsl:variable name="target.database.filename">
     <xsl:call-template name="t:select-target-database">
       <xsl:with-param name="targetdoc.att" select="$targetdoc.att"/>
@@ -304,10 +304,10 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
       <xsl:with-param name="olink.lang" select="$olink.lang"/>
     </xsl:call-template>
   </xsl:variable>
-    
-  <xsl:variable name="target.database" 
-		select="document($target.database.filename,/)"/>
-    
+
+  <xsl:variable name="target.database"
+                select="document($target.database.filename,/)"/>
+
   <xsl:if test="$olink.debug != 0">
     <xsl:message>
       <xsl:text>Olink debug: root element of target.database '</xsl:text>
@@ -317,7 +317,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
       <xsl:text>'.</xsl:text>
     </xsl:message>
   </xsl:if>
-    
+
   <xsl:variable name="olink.key">
     <xsl:call-template name="t:select-olink-key">
       <xsl:with-param name="targetdoc.att" select="$targetdoc.att"/>
@@ -326,7 +326,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
       <xsl:with-param name="target.database" select="$target.database"/>
     </xsl:call-template>
   </xsl:variable>
-    
+
   <xsl:if test="string-length($olink.key) = 0">
     <xsl:message>
       <xsl:text>Error: unresolved olink: </xsl:text>
@@ -372,7 +372,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
   <xsl:choose>
     <xsl:when test="$href != ''">
       <a href="{$href}" class="olink">
-	<xsl:copy-of select="$hottext"/>
+        <xsl:copy-of select="$hottext"/>
       </a>
       <xsl:copy-of select="$olink.page.citation"/>
       <xsl:copy-of select="$olink.docname.citation"/>
@@ -521,7 +521,7 @@ in this mode should generate its label (number).</para>
 <!-- ==================================================================== -->
 
 <doc:mode name="m:insert-pagenumber-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for inserting page number markup</refpurpose>
 
 <refdescription>
@@ -541,7 +541,7 @@ in this mode should generate its page number.</para>
 <!-- ==================================================================== -->
 
 <doc:mode name="m:insert-direction-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for inserting “direction” markup</refpurpose>
 
 <refdescription>
@@ -562,7 +562,7 @@ calculated from a reference and a referent (above or below, for example).</para>
 <!-- ==================================================================== -->
 
 <doc:mode name="m:insert-olink-docname-markup"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for inserting <tag>olink</tag> document name markup</refpurpose>
 
 <refdescription>
@@ -618,38 +618,38 @@ attributes.</para>
   <xsl:choose>
     <xsl:when test="node-name(.) = h:a">
       <xsl:choose>
-	<xsl:when test="(@name and count(@*) = 1)
-			or (@id and count(@*) = 1)
-			or (@id and @name and count(@*) = 2)">
-	  <xsl:apply-templates mode="m:remove-ids"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:copy>
-	    <xsl:for-each select="@*">
-	      <xsl:choose>
-		<xsl:when test="name(.) != 'name' and name(.) != 'id'">
-		  <xsl:copy/>
-		</xsl:when>
-		<xsl:otherwise>
-		  <!-- nop -->
-		</xsl:otherwise>
+        <xsl:when test="(@name and count(@*) = 1)
+                        or (@id and count(@*) = 1)
+                        or (@id and @name and count(@*) = 2)">
+          <xsl:apply-templates mode="m:remove-ids"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy>
+            <xsl:for-each select="@*">
+              <xsl:choose>
+                <xsl:when test="name(.) != 'name' and name(.) != 'id'">
+                  <xsl:copy/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <!-- nop -->
+                </xsl:otherwise>
               </xsl:choose>
             </xsl:for-each>
-	  </xsl:copy>
-	  <xsl:apply-templates mode="m:remove-ids"/>
-	</xsl:otherwise>
+          </xsl:copy>
+          <xsl:apply-templates mode="m:remove-ids"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy>
-	<xsl:for-each select="@*">
+        <xsl:for-each select="@*">
           <xsl:choose>
             <xsl:when test="name(.) != 'id'">
               <xsl:copy/>
             </xsl:when>
-	    <xsl:otherwise>
-	      <!-- nop -->
-	    </xsl:otherwise>
+            <xsl:otherwise>
+              <!-- nop -->
+            </xsl:otherwise>
           </xsl:choose>
         </xsl:for-each>
         <xsl:apply-templates mode="m:remove-ids"/>
@@ -661,7 +661,7 @@ attributes.</para>
 <!-- ==================================================================== -->
 
 <doc:mode name="m:xref-to-prefix"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for inserting cross reference prefixes</refpurpose>
 
 <refdescription>
@@ -672,7 +672,7 @@ to cross references to that element.</para>
 </doc:mode>
 
 <xsl:template match="db:biblioentry|db:bibliomixed" mode="m:xref-to-prefix"
-	      priority="100">
+              priority="100">
   <xsl:text>[</xsl:text>
 </xsl:template>
 
@@ -681,7 +681,7 @@ to cross references to that element.</para>
 <!-- ==================================================================== -->
 
 <doc:mode name="m:xref-to-suffix"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for inserting cross reference suffixes</refpurpose>
 
 <refdescription>
@@ -692,7 +692,7 @@ to cross references to that element.</para>
 </doc:mode>
 
 <xsl:template match="db:biblioentry|db:bibliomixed" mode="m:xref-to-suffix"
-	      priority="100">
+              priority="100">
   <xsl:text>]</xsl:text>
 </xsl:template>
 
@@ -701,7 +701,7 @@ to cross references to that element.</para>
 <!-- ==================================================================== -->
 
 <doc:mode name="m:xref-to"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for inserting cross references</refpurpose>
 
 <refdescription>
@@ -741,14 +741,14 @@ cross references to that element.</para>
 </xsl:template>
 
 <xsl:template match="db:abstract|db:authorblurb|db:personblurb|db:bibliodiv
-		     |db:bibliomset|db:biblioset|db:blockquote|db:calloutlist
-		     |db:caution|db:colophon|db:constraintdef|db:formalpara
-		     |db:glossdiv|db:important|db:indexdiv|db:itemizedlist
-		     |db:legalnotice|db:lot|db:msg|db:msgexplan|db:msgmain
-		     |db:msgrel|db:msgset|db:msgsub|db:note|db:orderedlist
-		     |db:partintro|db:productionset|db:qandadiv
-		     |db:refsynopsisdiv|db:segmentedlist|db:set|db:setindex
-		     |db:sidebar|db:tip|db:toc|db:variablelist|db:warning"
+                     |db:bibliomset|db:biblioset|db:blockquote|db:calloutlist
+                     |db:caution|db:colophon|db:constraintdef|db:formalpara
+                     |db:glossdiv|db:important|db:indexdiv|db:itemizedlist
+                     |db:legalnotice|db:lot|db:msg|db:msgexplan|db:msgmain
+                     |db:msgrel|db:msgset|db:msgsub|db:note|db:orderedlist
+                     |db:partintro|db:productionset|db:qandadiv
+                     |db:refsynopsisdiv|db:segmentedlist|db:set|db:setindex
+                     |db:sidebar|db:tip|db:toc|db:variablelist|db:warning"
               mode="m:xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
@@ -764,7 +764,7 @@ cross references to that element.</para>
 </xsl:template>
 
 <xsl:template match="db:author|db:editor|db:othercredit|db:personname"
-	      mode="m:xref-to">
+              mode="m:xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
 
@@ -811,7 +811,7 @@ cross references to that element.</para>
 </xsl:template>
 
 <xsl:template match="db:dedication|db:preface
-		     |db:chapter|db:appendix|db:article" mode="m:xref-to">
+                     |db:chapter|db:appendix|db:article" mode="m:xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
 
@@ -838,22 +838,22 @@ cross references to that element.</para>
   <xsl:param name="xrefstyle"/>
 
   <xsl:variable name="context" select="(ancestor::db:bibliography
-				       |ancestor::db:bibliolist)[last()]"/>
+                                       |ancestor::db:bibliolist)[last()]"/>
 
   <!-- handles both biblioentry and bibliomixed -->
   <xsl:choose>
     <xsl:when test="$bibliography.numbered">
       <xsl:choose>
-	<xsl:when test="$context/self::db:bibliography">
-	  <xsl:number from="db:bibliography"
-		      count="db:biblioentry|db:bibliomixed"
-		      level="any" format="1"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:number from="db:bibliolist"
-		      count="db:biblioentry|db:bibliomixed"
-		      level="any" format="1"/>
-	</xsl:otherwise>
+        <xsl:when test="$context/self::db:bibliography">
+          <xsl:number from="db:bibliography"
+                      count="db:biblioentry|db:bibliomixed"
+                      level="any" format="1"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:number from="db:bibliolist"
+                      count="db:biblioentry|db:bibliomixed"
+                      level="any" format="1"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:when test="*[1]/self::db:abbrev">
@@ -925,7 +925,7 @@ cross references to that element.</para>
 <xsl:template match="db:section|db:simplesect
                      |db:sect1|db:sect2|db:sect3|db:sect4|db:sect5
                      |db:refsect1|db:refsect2|db:refsect3|db:refsection"
-	      mode="m:xref-to">
+              mode="m:xref-to">
   <xsl:param name="referrer"/>
   <xsl:param name="xrefstyle"/>
 
@@ -1079,19 +1079,19 @@ cross references to that element.</para>
 <xsl:template match="db:areaset" mode="m:xref-to">
   <xsl:call-template name="t:callout-bug">
     <xsl:with-param name="conum"
-		    select="count(preceding-sibling::db:areaset
-			    |preceding-sibling::db:area)
-			    +1"/>
+                    select="count(preceding-sibling::db:areaset
+                            |preceding-sibling::db:area)
+                            +1"/>
   </xsl:call-template>
 </xsl:template>
 
 <xsl:template match="db:area" mode="m:xref-to">
   <xsl:call-template name="t:callout-bug">
     <xsl:with-param name="conum"
-		    select="count(parent::db:areaset/preceding-sibling::db:areaset
-			          |parent::db:areaset/preceding-sibling::db:area
-				  |preceding-sibling::db:area)
-			    +1"/>
+                    select="count(parent::db:areaset/preceding-sibling::db:areaset
+                                  |parent::db:areaset/preceding-sibling::db:area
+                                  |preceding-sibling::db:area)
+                            +1"/>
   </xsl:call-template>
 </xsl:template>
 

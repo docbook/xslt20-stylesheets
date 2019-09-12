@@ -6,7 +6,7 @@
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db f m t xs"
+                exclude-result-prefixes="db f m t xs"
                 version='2.0'>
 
 <!-- ********************************************************************
@@ -28,9 +28,9 @@
 
       <fo:page-sequence hyphenate="{$hyphenate}"
                         master-reference="{$master-reference}">
-	<xsl:call-template name="t:page-sequence-attributes"/>
+        <xsl:call-template name="t:page-sequence-attributes"/>
 
-	<xsl:apply-templates select="." mode="m:running-head-mode">
+        <xsl:apply-templates select="." mode="m:running-head-mode">
           <xsl:with-param name="master-reference" select="$master-reference"/>
         </xsl:apply-templates>
 
@@ -44,9 +44,9 @@
             <xsl:with-param name="master-reference" select="$master-reference"/>
           </xsl:call-template>
 
-	  <fo:block>
-	    <xsl:call-template name="t:id"/>
-	    <xsl:apply-templates select="db:info" mode="t:titlepage-mode"/>
+          <fo:block>
+            <xsl:call-template name="t:id"/>
+            <xsl:apply-templates select="db:info" mode="t:titlepage-mode"/>
           </fo:block>
 
           <xsl:apply-templates/>
@@ -57,9 +57,9 @@
       <fo:block space-before.minimum="1em"
                 space-before.optimum="1.5em"
                 space-before.maximum="2em">
-	<xsl:call-template name="t:id"/>
-	<xsl:apply-templates select="db:info" mode="t:titlepage-mode"/>
-	<xsl:apply-templates/>
+        <xsl:call-template name="t:id"/>
+        <xsl:apply-templates select="db:info" mode="t:titlepage-mode"/>
+        <xsl:apply-templates/>
       </fo:block>
     </xsl:otherwise>
   </xsl:choose>
@@ -102,10 +102,10 @@
     <xsl:text>] </xsl:text>
     <xsl:choose>
       <xsl:when test="self::db:biblioentry">
-	<xsl:apply-templates mode="m:biblioentry-mode"/>
+        <xsl:apply-templates mode="m:biblioentry-mode"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates mode="m:bibliomixed-mode"/>
+        <xsl:apply-templates mode="m:bibliomixed-mode"/>
       </xsl:otherwise>
     </xsl:choose>
   </fo:block>
@@ -157,7 +157,7 @@
   </fo:inline>
 </xsl:template>
 
-<xsl:template match="db:article/db:info" 
+<xsl:template match="db:article/db:info"
               mode="m:biblioentry-mode">
   <fo:inline>
     <xsl:apply-templates mode="m:biblioentry-mode"/>
@@ -222,7 +222,7 @@
   </fo:inline>
 </xsl:template>
 
-<xsl:template match="db:biblioset/db:title|db:biblioset/db:citetitle" 
+<xsl:template match="db:biblioset/db:title|db:biblioset/db:citetitle"
               mode="m:biblioentry-mode">
   <xsl:variable name="relation" select="../@relation"/>
   <xsl:choose>
@@ -394,7 +394,7 @@
 </xsl:template>
 
 <xsl:template match="db:indexterm" mode="m:biblioentry-mode">
-  <xsl:apply-templates select="."/> 
+  <xsl:apply-templates select="."/>
 </xsl:template>
 
 <xsl:template match="db:invpartnumber" mode="m:biblioentry-mode">
@@ -715,7 +715,7 @@
   </fo:inline>
 </xsl:template>
 
-<xsl:template match="db:bibliomset/db:title|db:bibliomset/db:citetitle" 
+<xsl:template match="db:bibliomset/db:title|db:bibliomset/db:citetitle"
               mode="m:bibliomixed-mode">
   <xsl:variable name="relation" select="../@relation"/>
   <xsl:choose>
@@ -840,7 +840,7 @@
 </xsl:template>
 
 <xsl:template match="db:indexterm" mode="m:bibliomixed-mode">
-  <xsl:apply-templates select="."/> 
+  <xsl:apply-templates select="."/>
 </xsl:template>
 
 <xsl:template match="db:invpartnumber" mode="m:bibliomixed-mode">

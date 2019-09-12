@@ -736,7 +736,7 @@ or 0 if no object is selected.</para>
         <xsl:if test="@role = $preferred.mediaobject.role and
                       not(preceding-sibling::*
                           [@role = $preferred.mediaobject.role])">
-          <xsl:value-of select="position()"/>
+          <xsl:sequence select="position()"/>
         </xsl:if>
       </xsl:for-each>
     </xsl:when>
@@ -748,7 +748,7 @@ or 0 if no object is selected.</para>
         <xsl:if test="@role = $stylesheet.result.type and
                       not(preceding-sibling::*
                           [@role = $stylesheet.result.type])">
-          <xsl:value-of select="position()"/>
+          <xsl:sequence select="position()"/>
         </xsl:if>
       </xsl:for-each>
     </xsl:when>
@@ -761,13 +761,13 @@ or 0 if no object is selected.</para>
       <xsl:for-each select="$olist">
         <xsl:if test="@role = 'html' and
                       not(preceding-sibling::*[@role = 'html'])">
-          <xsl:value-of select="position()"/>
+          <xsl:sequence select="position()"/>
         </xsl:if>
       </xsl:for-each>
     </xsl:when>
 
     <xsl:otherwise>
-      <xsl:value-of select="fp:select-mediaobject-index($olist,1)"/>
+      <xsl:sequence select="fp:select-mediaobject-index($olist,1)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -778,7 +778,7 @@ or 0 if no object is selected.</para>
 
   <xsl:choose>
     <xsl:when test="$count &gt; count($olist)">
-      <xsl:value-of select="0"/>
+      <xsl:sequence select="0"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="object" select="$olist[position()=$count]"/>
@@ -791,18 +791,18 @@ or 0 if no object is selected.</para>
                           and $object/@role='tex'
                           and $stylesheet.result.type = 'fo'
                           and $tex.math.in.alt != ''">
-            <xsl:value-of select="1"/>
+            <xsl:sequence select="1"/>
           </xsl:when>
 
           <!-- Otherwise, phrase is never used -->
           <xsl:when test="$object/self::db:textobject and $object/db:phrase">
-            <xsl:value-of select="0"/>
+            <xsl:sequence select="0"/>
           </xsl:when>
 
           <!-- The first textobject is a reasonable fallback -->
           <xsl:when test="$object/self::db:textobject
                           and $object[not(@role) or @role != 'tex']">
-            <xsl:value-of select="1"/>
+            <xsl:sequence select="1"/>
           </xsl:when>
 
           <!-- don't use graphic when output is FO, TeX Math is used
@@ -811,12 +811,12 @@ or 0 if no object is selected.</para>
                           and $object/ancestor::db:equation/db:alt[@role='tex']
                           and $stylesheet.result.type = 'fo'
                           and $tex.math.in.alt != ''">
-            <xsl:value-of select="0"/>
+            <xsl:sequence select="0"/>
           </xsl:when>
 
           <!-- If there's only one object, use it -->
           <xsl:when test="$count = 1 and count($olist) = 1">
-            <xsl:value-of select="1"/>
+            <xsl:sequence select="1"/>
           </xsl:when>
 
           <!-- Otherwise, see if this one is a useable graphic -->
@@ -824,11 +824,11 @@ or 0 if no object is selected.</para>
             <xsl:choose>
               <!-- peek inside imageobjectco to simplify the test -->
               <xsl:when test="$object/self::db:imageobjectco">
-                <xsl:value-of select="f:is-acceptable-mediaobject
+                <xsl:sequence select="f:is-acceptable-mediaobject
                                       ($object/db:imageobject)"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:value-of select="f:is-acceptable-mediaobject($object)"/>
+                <xsl:sequence select="f:is-acceptable-mediaobject($object)"/>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:otherwise>
@@ -837,11 +837,11 @@ or 0 if no object is selected.</para>
 
       <xsl:choose>
         <xsl:when test="$useobject != '0'">
-          <xsl:value-of select="$count"/>
+          <xsl:sequence select="$count"/>
         </xsl:when>
 
         <xsl:otherwise>
-          <xsl:value-of select="fp:select-mediaobject-index($olist, $count+1)"/>
+          <xsl:sequence select="fp:select-mediaobject-index($olist, $count+1)"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
@@ -976,11 +976,11 @@ object is recognized as a graphic.</para>
   <xsl:variable name="outdir" as="xs:string">
     <xsl:choose>
       <xsl:when test="function-available('ext:cwd') and $output.dir = ''">
-        <xsl:value-of use-when="function-available('ext:cwd')" select="ext:cwd()"/>
-        <xsl:value-of use-when="not(function-available('ext:cwd'))" select="$output.dir"/>
+        <xsl:sequence use-when="function-available('ext:cwd')" select="ext:cwd()"/>
+        <xsl:sequence use-when="not(function-available('ext:cwd'))" select="$output.dir"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$output.dir"/>
+        <xsl:sequence select="$output.dir"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -988,19 +988,19 @@ object is recognized as a graphic.</para>
   <!--
   <xsl:message>
     <xsl:text>mediaobject-href: </xsl:text>
-    <xsl:value-of select="$filename"/>
+    <xsl:sequence select="$filename"/>
     <xsl:text>&#10;</xsl:text>
     <xsl:text>against base uri: </xsl:text>
-    <xsl:value-of select="$outdir"/>
+    <xsl:sequence select="$outdir"/>
   </xsl:message>
   -->
 
   <xsl:choose>
     <xsl:when test="$outdir != ''">
-      <xsl:value-of select="f:relative-uri($filename, $outdir)"/>
+      <xsl:sequence select="f:relative-uri($filename, $outdir)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$filename"/>
+      <xsl:sequence select="$filename"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -1034,14 +1034,14 @@ object is recognized as a graphic.</para>
       <!-- common start of URLs was trimmed we have to 
            use ../ to reach proper level in directory structure -->
       <xsl:for-each select="(1 to $depth)">
-        <xsl:value-of select="'../'"/>
+        <xsl:sequence select="'../'"/>
       </xsl:for-each>
     </xsl:if>
   </xsl:variable>
 
   <xsl:variable name="reluri" select="string-join(($prefix, $srcurl.trimmed), '')"/>
 
-  <xsl:value-of select="$reluri"/>
+  <xsl:sequence select="$reluri"/>
 </xsl:function>
 
 <xsl:template name="t:xml-base-dirs">

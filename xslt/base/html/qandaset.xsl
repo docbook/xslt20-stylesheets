@@ -1,12 +1,12 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="db f h m t"
+                exclude-result-prefixes="db f h m t"
                 version="2.0">
 
 <xsl:template match="db:qandaset|db:qandadiv">
@@ -21,7 +21,7 @@
 
     <xsl:if test="db:qandaentry">
       <table class="qandaentries" border="0" summary="Q&amp;A Set">
-	<xsl:apply-templates select="db:qandaentry"/>
+        <xsl:apply-templates select="db:qandaentry"/>
       </table>
     </xsl:if>
   </div>
@@ -71,20 +71,20 @@
 
       <xsl:apply-templates select="." mode="m:label-content"/>
       <xsl:if test="$deflabel = 'number' and not(label)">
-	<xsl:apply-templates select="." mode="m:intralabel-punctuation"/>
+        <xsl:apply-templates select="." mode="m:intralabel-punctuation"/>
       </xsl:if>
     </td>
 
     <td align="left" valign="top">
       <xsl:attribute name="class">
-	<xsl:choose>
-	  <xsl:when test="$deflabel = 'none' and not(db:label)">
-	    <xsl:text>question-no-label</xsl:text>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:text>question</xsl:text>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$deflabel = 'none' and not(db:label)">
+            <xsl:text>question-no-label</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>question</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:attribute>
       <xsl:apply-templates select="*[not(self::db:label)]"/>
     </td>
@@ -111,24 +111,24 @@
       <xsl:sequence select="f:html-attributes(., f:node-id(.), 'answer-label')"/>
 
       <xsl:variable name="label">
-	<xsl:apply-templates select="." mode="m:label-content"/>
+        <xsl:apply-templates select="." mode="m:label-content"/>
       </xsl:variable>
 
       <xsl:if test="$deflabel = 'number' and not(label) and $label != ''">
-	<xsl:apply-templates select="." mode="m:intralabel-punctuation"/>
+        <xsl:apply-templates select="." mode="m:intralabel-punctuation"/>
       </xsl:if>
     </td>
 
     <td align="left" valign="top">
       <xsl:attribute name="class">
-	<xsl:choose>
-	  <xsl:when test="$deflabel = 'none' and not(db:label)">
-	    <xsl:text>answer-no-label</xsl:text>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:text>answer</xsl:text>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$deflabel = 'none' and not(db:label)">
+            <xsl:text>answer-no-label</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>answer</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:attribute>
       <xsl:apply-templates select="*[not(self::db:label)]"/>
     </td>

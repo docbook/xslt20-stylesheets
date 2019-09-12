@@ -1,15 +1,15 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+                xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f m t xs"
-		version='2.0'>
+                exclude-result-prefixes="db doc f m t xs"
+                version='2.0'>
 
 <!-- ********************************************************************
      $Id: pi.xsl 7666 2008-02-06 19:46:32Z mzjn $
@@ -55,7 +55,7 @@
 <!-- FIXME: what the heck is this? -->
 <xsl:template name="pi.dbfo-need">
   <xsl:variable name="pi-height"
-		select="f:dbfo-pi-attribute(.,'height')"/>
+                select="f:dbfo-pi-attribute(.,'height')"/>
 
   <xsl:variable name="height">
     <xsl:choose>
@@ -67,7 +67,7 @@
   </xsl:variable>
 
   <xsl:variable name="pi-before"
-		select="f:dbfo-pi-attribute(.,'space-before')"/>
+                select="f:dbfo-pi-attribute(.,'space-before')"/>
 
   <xsl:variable name="spacer">
     <fo:block-container width="100%" height="{$height}">
@@ -87,7 +87,7 @@
       </fo:block>
     </xsl:when>
     <xsl:when test="following-sibling::db:para">
-      <fo:block space-after="0pt" 
+      <fo:block space-after="0pt"
         xsl:use-attribute-sets="normal.para.spacing">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
@@ -96,7 +96,7 @@
       following-sibling::db:figure or
       following-sibling::db:example or
       following-sibling::db:equation">
-      <fo:block space-after="0pt" 
+      <fo:block space-after="0pt"
         xsl:use-attribute-sets="formal.object.properties">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
@@ -105,7 +105,7 @@
       following-sibling::db:informalfigure or
       following-sibling::db:informalexample or
       following-sibling::db:informalequation">
-      <fo:block space-after="0pt" 
+      <fo:block space-after="0pt"
         xsl:use-attribute-sets="informal.object.properties">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
@@ -114,14 +114,14 @@
       following-sibling::db:orderedlist or
       following-sibling::db:variablelist or
       following-sibling::db:simplelist">
-      <fo:block space-after="0pt" 
+      <fo:block space-after="0pt"
         xsl:use-attribute-sets="informal.object.properties">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
     </xsl:when>
     <xsl:when test="following-sibling::db:listitem or
       following-sibling::db:step">
-      <fo:list-item space-after="0pt" 
+      <fo:list-item space-after="0pt"
         xsl:use-attribute-sets="informal.object.properties">
         <fo:list-item-label/>
         <fo:list-item-body start-indent="0pt" end-indent="0pt">
@@ -135,7 +135,7 @@
       following-sibling::db:sect4 or
       following-sibling::db:sect5 or
       following-sibling::db:section">
-      <fo:block space-after="0pt" 
+      <fo:block space-after="0pt"
         xsl:use-attribute-sets="section.title.properties">
         <xsl:copy-of select="$spacer"/>
       </fo:block>
