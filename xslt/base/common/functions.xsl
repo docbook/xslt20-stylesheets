@@ -305,11 +305,10 @@ be impossible.</para>
   <xsl:param name="node" as="element()"/>
   <xsl:param name="path" as="xs:string"/>
 
-  <xsl:variable name="next.path">
-    <xsl:sequence select="local-name($node)"/>
-    <xsl:if test="$path != ''">/</xsl:if>
-    <xsl:sequence select="$path"/>
-  </xsl:variable>
+  <xsl:variable name="next.path"
+                select="concat(local-name($node),
+                               if ($path ne '') then '/' else '',
+                               $path)"/>
 
   <xsl:choose>
     <xsl:when test="$node/parent::*">
@@ -967,18 +966,18 @@ expects “/” to be the component separator.</para>
 
 <!-- ================================================================== -->
 
-<xsl:function name="f:length-units">
+<xsl:function name="f:length-units" as="xs:string">
   <xsl:param name="length" as="xs:string"/>
   <xsl:sequence select="f:length-units($length, 'px')"/>
 </xsl:function>
 
-<xsl:function name="f:length-units">
+<xsl:function name="f:length-units" as="xs:string">
   <xsl:param name="length" as="xs:string"/>
   <xsl:param name="default.units" as="xs:string"/>
 
   <xsl:variable name="units"
-                select="if (matches(normalize-space($length), '^[0-9\.]+.*?'))
-                        then replace(normalize-space($length),'^[0-9\.]+(.*?)$','$1')
+                select="if (matches(normalize-space($length), '^[0-9\.]+\s*.*?'))
+                        then replace(normalize-space($length),'^[0-9\.]+\s*(.*?)$','$1')
                         else ''"/>
 
   <xsl:choose>
@@ -1022,7 +1021,7 @@ expects “/” to be the component separator.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:message>
-        <xsl:text>Unrecognized unit of measure: </xsl:text>
+        <xsl:text>Unrecognized measurement unit: </xsl:text>
         <xsl:sequence select="$units"/>
         <xsl:text>; using </xsl:text>
         <xsl:sequence select="$default.units"/>

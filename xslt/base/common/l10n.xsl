@@ -98,7 +98,7 @@ target.</para>
   <xsl:param name="target" as="element()"/>
   <xsl:param name="xref-context" as="xs:boolean"/>
 
-  <xsl:variable name="mc-language">
+  <xsl:variable name="mc-language" as="xs:string">
     <xsl:choose>
       <xsl:when test="$l10n.gentext.language != ''">
         <xsl:sequence select="$l10n.gentext.language"/>
@@ -218,7 +218,7 @@ an in-scope language declaration.</para>
 <xsl:template name="lang-attribute" as="attribute()?">
   <xsl:param name="node" select="."/>
 
-  <xsl:variable name="language">
+  <xsl:variable name="language" as="xs:string">
     <xsl:choose>
       <xsl:when test="$l10n.gentext.language != ''">
         <xsl:sequence select="$l10n.gentext.language"/>
@@ -440,7 +440,7 @@ parameters.</para>
                 select="$localization//l:l10n[@language=$lang]"/>
 
   <xsl:variable name="localization.nodes"
-    select="f:load-locale($lang)"/>
+                select="f:load-locale($lang)"/>
 
   <xsl:if test="not($localization.nodes | $user.localization.nodes)">
     <xsl:message>
