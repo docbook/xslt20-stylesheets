@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:tp="http://docbook.org/xslt/ns/template/private"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:tp="http://docbook.org/xslt/ns/template/private"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fn h m t tp u xlink xs"
+                exclude-result-prefixes="db doc f fn h m t tp u xlink xs"
                 version="2.0">
 
 <!-- ============================================================ -->
@@ -91,41 +91,41 @@ calling “apply templates”.</para>
   <xsl:variable name="link">
     <xsl:choose>
       <xsl:when test="@xlink:href
-		      and (not(@xlink:type)
-		           or @xlink:type='simple')">
-	<a>
-	  <xsl:if test="@xlink.title">
-	    <xsl:attribute name="title" select="@xlink:title"/>
-	  </xsl:if>
+                      and (not(@xlink:type)
+                           or @xlink:type='simple')">
+        <a>
+          <xsl:if test="@xlink.title">
+            <xsl:attribute name="title" select="@xlink:title"/>
+          </xsl:if>
 
-	  <xsl:attribute name="href">
-	    <xsl:choose>
-	      <!-- if the href starts with # and does not contain an "(" -->
+          <xsl:attribute name="href">
+            <xsl:choose>
+              <!-- if the href starts with # and does not contain an "(" -->
               <!-- or if the href starts with #xpointer(id(, it's just an ID -->
               <xsl:when test="starts-with(@xlink:href,'#')
                               and (not(contains(@xlink:href,'&#40;'))
                               or starts-with(@xlink:href,
-			                     '#xpointer&#40;id&#40;'))">
+                                             '#xpointer&#40;id&#40;'))">
                 <xsl:variable name="idref" select="f:xpointer-idref(@xlink:href)"/>
                 <xsl:variable name="target" select="key('id',$idref)[1]"/>
 
                 <xsl:choose>
                   <xsl:when test="not($target)">
-		    <xsl:message>
-		      <xsl:text>XLink to nonexistent id: </xsl:text>
-		      <xsl:value-of select="$idref"/>
-		    </xsl:message>
+                    <xsl:message>
+                      <xsl:text>XLink to nonexistent id: </xsl:text>
+                      <xsl:value-of select="$idref"/>
+                    </xsl:message>
                     <xsl:text>???</xsl:text>
                   </xsl:when>
-		  <xsl:otherwise>
-		    <xsl:attribute name="href" select="f:href(/,$target)"/>
-		  </xsl:otherwise>
-		</xsl:choose>
+                  <xsl:otherwise>
+                    <xsl:attribute name="href" select="f:href(/,$target)"/>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:when>
 
               <!-- otherwise it's a URI -->
               <xsl:otherwise>
-		<xsl:value-of select="@xlink:href"/>
+                <xsl:value-of select="@xlink:href"/>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -146,21 +146,21 @@ calling “apply templates”.</para>
   <xsl:variable name="annotations" as="element()*">
     <xsl:sequence select="if (@annotations)
                           then key('id',tokenize(@annotations,'\s'))
-			  else ()"/>
+                          else ()"/>
     <xsl:sequence select="if ($id)
-			  then //db:annotation[tokenize(@annotates,'\s')=$id]
-			  else ()"/>
+                          then //db:annotation[tokenize(@annotates,'\s')=$id]
+                          else ()"/>
   </xsl:variable>
 
   <xsl:for-each select="$annotations">
     <xsl:variable name="id"
-		    select="concat(f:node-id(.),'-',generate-id($inline))"/>
+                    select="concat(f:node-id(.),'-',generate-id($inline))"/>
     <a style="display: inline" onclick="show_annotation('{$id}')"
-	  id="annot-{$id}-on">
+          id="annot-{$id}-on">
       <img border="0" src="{$annotation.graphic.open}" alt="[A+]"/>
     </a>
     <a style="display: none" onclick="hide_annotation('{$id}')"
-	  id="annot-{$id}-off">
+          id="annot-{$id}-off">
       <img border="0" src="{$annotation.graphic.close}" alt="[A-]"/>
     </a>
     <div style="display: none" id="annot-{$id}">

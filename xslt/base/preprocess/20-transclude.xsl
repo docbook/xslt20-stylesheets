@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:fp="http://docbook.org/xslt/ns/extension/private"
-		xmlns:mp="http://docbook.org/xslt/ns/mode/private"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		xmlns:ta="http://docbook.org/xslt/ns/transclusion-annotation"
-		exclude-result-prefixes="f fp mp xs">
+                xmlns:mp="http://docbook.org/xslt/ns/mode/private"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:ta="http://docbook.org/xslt/ns/transclusion-annotation"
+                exclude-result-prefixes="f fp mp xs">
 
 <xsl:import href="../common/functions.xsl"/>
 
@@ -70,14 +70,14 @@
     <xsl:copy-of select="@* except @xml:id"/>
     <xsl:if test="@xml:id">
       <xsl:choose>
-	<xsl:when test="($idfixup = 'none') or @ta:linkscope">
-	  <xsl:copy-of select="@xml:id"/>
-	</xsl:when>
-	<xsl:when test="$idfixup = 'strip'">
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:attribute name="xml:id" select="concat($prefix, @xml:id)"/>
-	</xsl:otherwise>
+        <xsl:when test="($idfixup = 'none') or @ta:linkscope">
+          <xsl:copy-of select="@xml:id"/>
+        </xsl:when>
+        <xsl:when test="$idfixup = 'strip'">
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="xml:id" select="concat($prefix, @xml:id)"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:if>
     <xsl:apply-templates mode="mp:transclude">
@@ -95,19 +95,19 @@
   <xsl:variable name="content">
     <xsl:choose>
       <xsl:when test="@definitionfile">
-	<xsl:variable name="defs" select="f:expand-definitions(doc(@definitionfile))"/>
+        <xsl:variable name="defs" select="f:expand-definitions(doc(@definitionfile))"/>
 
-	<xsl:choose>
-	  <xsl:when test="$defs/db:def[@name = $name]">
-	    <xsl:sequence select="($defs/db:def[@name = $name])[last()]/node()"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:message>Error: definition of "<xsl:value-of select="$name"/>" was not found.</xsl:message>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$defs/db:def[@name = $name]">
+            <xsl:sequence select="($defs/db:def[@name = $name])[last()]/node()"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:message>Error: definition of "<xsl:value-of select="$name"/>" was not found.</xsl:message>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:sequence select="f:definition-for-name(@name, .)"/>
+        <xsl:sequence select="f:definition-for-name(@name, .)"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -119,10 +119,10 @@
   <xsl:variable name="prefix">
     <xsl:choose>
       <xsl:when test="$idfixup = 'auto'">
-	<xsl:sequence select="concat(generate-id(.), $psep)"/>
+        <xsl:sequence select="concat(generate-id(.), $psep)"/>
       </xsl:when>
       <xsl:when test="$idfixup = 'prefix'">
-	<xsl:sequence select="string(@prefix)"/>
+        <xsl:sequence select="string(@prefix)"/>
       </xsl:when>
       <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
@@ -139,23 +139,23 @@
       <xsl:variable name="xmlid" select="if ($ref-xmlid) then $ref-xmlid else @xml:id"/>
       <xsl:copy-of select="@* except @xml:id"/>
       <xsl:if test="self::*">
-	<xsl:choose>
-	  <xsl:when test="$idfixup = 'none' and $xmlid">
-	    <xsl:attribute name="xml:id" select="$xmlid"/>
-	  </xsl:when>
-	  <xsl:when test="($idfixup = 'strip' and not($ref-xmlid)) or not($xmlid)">
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:attribute name="xml:id" select="concat($prefix, @xml:id)"/>
-	  </xsl:otherwise>
-	</xsl:choose>
-	<!-- <xsl:attribute name="xml:base" select="$baseuri"/> -->
-	<xsl:attribute name="ta:linkscope" select="$linkscope"/>
-	<xsl:attribute name="ta:prefix" select="$prefix"/>
+        <xsl:choose>
+          <xsl:when test="$idfixup = 'none' and $xmlid">
+            <xsl:attribute name="xml:id" select="$xmlid"/>
+          </xsl:when>
+          <xsl:when test="($idfixup = 'strip' and not($ref-xmlid)) or not($xmlid)">
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="xml:id" select="concat($prefix, @xml:id)"/>
+          </xsl:otherwise>
+        </xsl:choose>
+        <!-- <xsl:attribute name="xml:base" select="$baseuri"/> -->
+        <xsl:attribute name="ta:linkscope" select="$linkscope"/>
+        <xsl:attribute name="ta:prefix" select="$prefix"/>
       </xsl:if>
       <xsl:apply-templates mode="mp:transclude">
-	<xsl:with-param name="idfixup" select="$idfixup" tunnel="yes"/>
-	<xsl:with-param name="prefix" select="$prefix" tunnel="yes"/>
+        <xsl:with-param name="idfixup" select="$idfixup" tunnel="yes"/>
+        <xsl:with-param name="prefix" select="$prefix" tunnel="yes"/>
       </xsl:apply-templates>
     </xsl:copy>
   </xsl:for-each>
@@ -170,12 +170,12 @@
   <xsl:choose>
     <xsl:when test="$closest-info-with-defs">
       <xsl:choose>
-	<xsl:when test="$closest-info-with-defs/db:definitions/db:def[@name = $name]">
-	  <xsl:sequence select="($closest-info-with-defs/db:definitions/db:def[@name = $name])[last()]/node()"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:sequence select="f:definition-for-name($name, $closest-info-with-defs/../..)"/>
-	</xsl:otherwise>
+        <xsl:when test="$closest-info-with-defs/db:definitions/db:def[@name = $name]">
+          <xsl:sequence select="($closest-info-with-defs/db:definitions/db:def[@name = $name])[last()]/node()"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="f:definition-for-name($name, $closest-info-with-defs/../..)"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
@@ -205,14 +205,14 @@
   <xsl:variable name="doc">
     <xsl:choose>
       <xsl:when test="@xpointer">
-	<xsl:sequence select="f:transclude(doc($baseuri)//*[@xml:id = current()/@xpointer])"/>
+        <xsl:sequence select="f:transclude(doc($baseuri)//*[@xml:id = current()/@xpointer])"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:sequence select="f:transclude(doc($baseuri))"/>
+        <xsl:sequence select="f:transclude(doc($baseuri))"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
-  
+
   <xsl:variable name="idfixup" select="if (@idfixup) then @idfixup else 'auto'"/>
 
   <xsl:variable name="linkscope" select="if (@linkscope) then @linkscope else 'near'"/>
@@ -220,10 +220,10 @@
   <xsl:variable name="prefix">
     <xsl:choose>
       <xsl:when test="$idfixup = 'auto'">
-	<xsl:sequence select="concat(generate-id(.), $psep)"/>
+        <xsl:sequence select="concat(generate-id(.), $psep)"/>
       </xsl:when>
       <xsl:when test="$idfixup = 'prefix'">
-	<xsl:sequence select="string(@prefix)"/>
+        <xsl:sequence select="string(@prefix)"/>
       </xsl:when>
       <xsl:otherwise></xsl:otherwise>
     </xsl:choose>
@@ -236,23 +236,23 @@
       <xsl:variable name="xmlid" select="if ($ref-xmlid) then $ref-xmlid else @xml:id"/>
       <xsl:copy-of select="@* except @xml:id"/>
       <xsl:if test="self::*">
-	<xsl:choose>
-	  <xsl:when test="$idfixup = 'none' and $xmlid">
-	    <xsl:attribute name="xml:id" select="$xmlid"/>
-	  </xsl:when>
-	  <xsl:when test="($idfixup = 'strip' and not($ref-xmlid)) or not($xmlid)">
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:attribute name="xml:id" select="concat($prefix, @xml:id)"/>
-	  </xsl:otherwise>
-	</xsl:choose>
-	<xsl:attribute name="xml:base" select="$baseuri"/>
-	<xsl:attribute name="ta:linkscope" select="$linkscope"/>
-	<xsl:attribute name="ta:prefix" select="$prefix"/>
+        <xsl:choose>
+          <xsl:when test="$idfixup = 'none' and $xmlid">
+            <xsl:attribute name="xml:id" select="$xmlid"/>
+          </xsl:when>
+          <xsl:when test="($idfixup = 'strip' and not($ref-xmlid)) or not($xmlid)">
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="xml:id" select="concat($prefix, @xml:id)"/>
+          </xsl:otherwise>
+        </xsl:choose>
+        <xsl:attribute name="xml:base" select="$baseuri"/>
+        <xsl:attribute name="ta:linkscope" select="$linkscope"/>
+        <xsl:attribute name="ta:prefix" select="$prefix"/>
       </xsl:if>
       <xsl:apply-templates mode="mp:transclude">
-	<xsl:with-param name="idfixup" select="$idfixup" tunnel="yes"/>
-	<xsl:with-param name="prefix" select="$prefix" tunnel="yes"/>
+        <xsl:with-param name="idfixup" select="$idfixup" tunnel="yes"/>
+        <xsl:with-param name="prefix" select="$prefix" tunnel="yes"/>
       </xsl:apply-templates>
     </xsl:copy>
     <xsl:copy-of select="following-sibling::node()"/>
@@ -283,16 +283,16 @@
   <xsl:attribute name="{local-name(.)}">
     <xsl:choose>
       <xsl:when test="$linkscope = 'user'">
-	<xsl:value-of select="$idref"/>
+        <xsl:value-of select="$idref"/>
       </xsl:when>
       <xsl:when test="$linkscope = 'local'">
-	<xsl:value-of select="concat($prefix, $idref)"/>
+        <xsl:value-of select="concat($prefix, $idref)"/>
       </xsl:when>
       <xsl:when test="$linkscope = 'near'">
-	<xsl:value-of select="f:nearest-matching-id($idref, ..)"/>
+        <xsl:value-of select="f:nearest-matching-id($idref, ..)"/>
       </xsl:when>
       <xsl:when test="$linkscope = 'global'">
-	<xsl:value-of select="f:nearest-matching-id($idref, root(.))"/>
+        <xsl:value-of select="f:nearest-matching-id($idref, root(.))"/>
       </xsl:when>
     </xsl:choose>
   </xsl:attribute>
@@ -304,7 +304,7 @@
 
   <!-- FIXME: key() requires document-node() rooted subtree -->
   <!--  <xsl:variable name="targets" select="key('unprefixed-id', f:unprefixed-id($idref, $context), $context)"/> -->
-  <xsl:variable name="targets" select="$context//*[@xml:id][f:unprefixed-id(@xml:id, .) eq f:unprefixed-id($idref, $context)]"/> 
+  <xsl:variable name="targets" select="$context//*[@xml:id][f:unprefixed-id(@xml:id, .) eq f:unprefixed-id($idref, $context)]"/>
 
   <xsl:choose>
     <xsl:when test="not($targets) and $context/..">

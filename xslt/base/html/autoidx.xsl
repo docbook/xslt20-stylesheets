@@ -37,14 +37,14 @@
                 (string-length($role) = 0 and string-length($type) = 0))'>
 ]>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="h f m fn db t"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                exclude-result-prefixes="h f m fn db t"
                 version="2.0">
 
 
@@ -89,15 +89,15 @@
 
   <div class="generated-index">
     <xsl:for-each-group select="//db:indexterm[&scope;][not(@class = 'endofrange')]"
-			group-by="f:group-index(&primary;, $lang)">
+                        group-by="f:group-index(&primary;, $lang)">
       <xsl:sort select="f:group-index(&primary;, $lang)" data-type="number"/>
       <xsl:apply-templates select="." mode="m:index-div">
-	<xsl:with-param name="scope" select="$scope"/>
-	<xsl:with-param name="role" select="$role"/>
-	<xsl:with-param name="type" select="$type"/>
-	<xsl:with-param name="lang" select="$lang"/>
-	<xsl:with-param name="nodes" select="current-group()"/>
-	<xsl:with-param name="group-index" select="current-grouping-key()"/>
+        <xsl:with-param name="scope" select="$scope"/>
+        <xsl:with-param name="role" select="$role"/>
+        <xsl:with-param name="type" select="$type"/>
+        <xsl:with-param name="lang" select="$lang"/>
+        <xsl:with-param name="nodes" select="current-group()"/>
+        <xsl:with-param name="group-index" select="current-grouping-key()"/>
       </xsl:apply-templates>
     </xsl:for-each-group>
   </div>
@@ -117,15 +117,15 @@
         <xsl:value-of select="f:group-label($group-index, $lang)"/>
       </h3>
       <dl>
-	<xsl:for-each-group select="$nodes" group-by="&primary;">
-	  <xsl:sort select="&primary;" lang="{$lang}"/>
-	  <xsl:apply-templates select="current-group()[1]" mode="m:index-primary">
-	    <xsl:with-param name="scope" select="$scope"/>
-	    <xsl:with-param name="role" select="$role"/>
-	    <xsl:with-param name="type" select="$type"/>
-	    <xsl:with-param name="lang" select="$lang"/>
-	  </xsl:apply-templates>
-	</xsl:for-each-group>
+        <xsl:for-each-group select="$nodes" group-by="&primary;">
+          <xsl:sort select="&primary;" lang="{$lang}"/>
+          <xsl:apply-templates select="current-group()[1]" mode="m:index-primary">
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:with-param name="lang" select="$lang"/>
+          </xsl:apply-templates>
+        </xsl:for-each-group>
       </dl>
     </div>
   </xsl:if>
@@ -142,7 +142,7 @@
   <dt>
     <xsl:value-of select="db:primary"/>
     <xsl:for-each-group select="$refs[not(db:secondary) and not(db:see)]"
-			group-by="concat(&primary;, &sep;, &section.id;)">
+                        group-by="concat(&primary;, &sep;, &section.id;)">
       <xsl:apply-templates select="." mode="m:reference">
         <xsl:with-param name="scope" select="$scope"/>
         <xsl:with-param name="role" select="$role"/>
@@ -152,45 +152,45 @@
 
     <xsl:if test="$refs[not(db:secondary)]/*[self::db:see]">
       <xsl:for-each-group select="$refs[db:see]"
-			  group-by="concat(&primary;, &sep;, &sep;, &sep;, db:see)">
-	<xsl:apply-templates select="." mode="m:index-see">
-	  <xsl:with-param name="scope" select="$scope"/>
-	  <xsl:with-param name="role" select="$role"/>
-	  <xsl:with-param name="type" select="$type"/>
-	  <xsl:with-param name="lang" select="$lang"/>
-	  <xsl:sort select="fn:upper-case(db:see)" lang="{$lang}"/>
-	</xsl:apply-templates>
+                          group-by="concat(&primary;, &sep;, &sep;, &sep;, db:see)">
+        <xsl:apply-templates select="." mode="m:index-see">
+          <xsl:with-param name="scope" select="$scope"/>
+          <xsl:with-param name="role" select="$role"/>
+          <xsl:with-param name="type" select="$type"/>
+          <xsl:with-param name="lang" select="$lang"/>
+          <xsl:sort select="fn:upper-case(db:see)" lang="{$lang}"/>
+        </xsl:apply-templates>
       </xsl:for-each-group>
     </xsl:if>
   </dt>
   <xsl:if test="$refs/db:secondary or $refs[not(db:secondary)]/*[self::db:seealso]">
     <dd>
       <dl>
-	<xsl:if test="count(db:seealso) &gt; 1">
-	  <xsl:message>Multiple see also's not supported: only using first</xsl:message>
-	</xsl:if>
+        <xsl:if test="count(db:seealso) &gt; 1">
+          <xsl:message>Multiple see also's not supported: only using first</xsl:message>
+        </xsl:if>
 
-	<xsl:for-each-group select="$refs[db:seealso]"
-			    group-by="concat(&primary;, &sep;, &sep;, &sep;, db:seealso[1])">
-	  <xsl:apply-templates select="." mode="m:index-seealso">
-	    <xsl:with-param name="scope" select="$scope"/>
-	    <xsl:with-param name="role" select="$role"/>
-	    <xsl:with-param name="type" select="$type"/>
-	    <xsl:with-param name="lang" select="$lang"/>
-	    <xsl:sort select="fn:upper-case(db:seealso[1])" lang="{$lang}"/>
-	  </xsl:apply-templates>
-	</xsl:for-each-group>
-	<xsl:for-each-group select="$refs[db:secondary]" 
-			    group-by="concat(&primary;, &sep;, &secondary;)">
-	  <xsl:apply-templates select="." mode="m:index-secondary">
-	    <xsl:with-param name="scope" select="$scope"/>
-	    <xsl:with-param name="role" select="$role"/>
-	    <xsl:with-param name="type" select="$type"/>
-	    <xsl:with-param name="lang" select="$lang"/>
-	    <xsl:with-param name="refs" select="current-group()"/>
-	    <xsl:sort select="fn:upper-case(&secondary;)" lang="{$lang}"/>
-	  </xsl:apply-templates>
-	</xsl:for-each-group>
+        <xsl:for-each-group select="$refs[db:seealso]"
+                            group-by="concat(&primary;, &sep;, &sep;, &sep;, db:seealso[1])">
+          <xsl:apply-templates select="." mode="m:index-seealso">
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:with-param name="lang" select="$lang"/>
+            <xsl:sort select="fn:upper-case(db:seealso[1])" lang="{$lang}"/>
+          </xsl:apply-templates>
+        </xsl:for-each-group>
+        <xsl:for-each-group select="$refs[db:secondary]"
+                            group-by="concat(&primary;, &sep;, &secondary;)">
+          <xsl:apply-templates select="." mode="m:index-secondary">
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:with-param name="lang" select="$lang"/>
+            <xsl:with-param name="refs" select="current-group()"/>
+            <xsl:sort select="fn:upper-case(&secondary;)" lang="{$lang}"/>
+          </xsl:apply-templates>
+        </xsl:for-each-group>
       </dl>
     </dd>
   </xsl:if>
@@ -207,57 +207,57 @@
   <dt>
     <xsl:value-of select="db:secondary"/>
     <xsl:for-each-group select="$refs[not(db:tertiary) and not(db:see)]"
-			group-by="concat($key, &sep;, &section.id;)">
+                        group-by="concat($key, &sep;, &section.id;)">
       <xsl:apply-templates select="." mode="m:reference">
         <xsl:with-param name="scope" select="$scope"/>
         <xsl:with-param name="role" select="$role"/>
         <xsl:with-param name="type" select="$type"/>
-	<xsl:with-param name="lang" select="$lang"/>
+        <xsl:with-param name="lang" select="$lang"/>
       </xsl:apply-templates>
     </xsl:for-each-group>
 
     <xsl:if test="$refs[not(db:tertiary)]/*[self::db:see]">
       <xsl:for-each-group select="$refs[db:see]"
-			  group-by="concat(&primary;, &sep;, &secondary;, &sep;, &sep;, db:see)">
-	<xsl:apply-templates select="." mode="m:index-see">
-	  <xsl:with-param name="scope" select="$scope"/>
-	  <xsl:with-param name="role" select="$role"/>
-	  <xsl:with-param name="type" select="$type"/>
-	  <xsl:with-param name="lang" select="$lang"/>
-	  <xsl:sort select="fn:upper-case(db:see)" lang="{$lang}"/>
-	</xsl:apply-templates>
+                          group-by="concat(&primary;, &sep;, &secondary;, &sep;, &sep;, db:see)">
+        <xsl:apply-templates select="." mode="m:index-see">
+          <xsl:with-param name="scope" select="$scope"/>
+          <xsl:with-param name="role" select="$role"/>
+          <xsl:with-param name="type" select="$type"/>
+          <xsl:with-param name="lang" select="$lang"/>
+          <xsl:sort select="fn:upper-case(db:see)" lang="{$lang}"/>
+        </xsl:apply-templates>
       </xsl:for-each-group>
     </xsl:if>
   </dt>
   <xsl:if test="$refs/db:tertiary or $refs[not(db:tertiary)]/*[self::db:seealso]">
     <dd>
       <dl>
-	<xsl:if test="count(db:seealso) &gt; 1">
-	  <xsl:message>Multiple see also's not supported: only using first</xsl:message>
-	</xsl:if>
+        <xsl:if test="count(db:seealso) &gt; 1">
+          <xsl:message>Multiple see also's not supported: only using first</xsl:message>
+        </xsl:if>
 
-	<xsl:for-each-group select="$refs[db:seealso]" 
-			    group-by="concat(&primary;, &sep;, &secondary;, &sep;, &sep;, db:seealso[1])">
-	  <xsl:apply-templates select="." mode="m:index-seealso">
-	    <xsl:with-param name="scope" select="$scope"/>
-	    <xsl:with-param name="role" select="$role"/>
-	    <xsl:with-param name="type" select="$type"/>
-	    <xsl:with-param name="lang" select="$lang"/>
-	    <xsl:sort select="fn:upper-case(db:seealso[1])" lang="{$lang}"/>
-	  </xsl:apply-templates>
-	</xsl:for-each-group>
+        <xsl:for-each-group select="$refs[db:seealso]"
+                            group-by="concat(&primary;, &sep;, &secondary;, &sep;, &sep;, db:seealso[1])">
+          <xsl:apply-templates select="." mode="m:index-seealso">
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:with-param name="lang" select="$lang"/>
+            <xsl:sort select="fn:upper-case(db:seealso[1])" lang="{$lang}"/>
+          </xsl:apply-templates>
+        </xsl:for-each-group>
 
-	<xsl:for-each-group select="$refs[db:tertiary]" 
-			    group-by="concat($key, &sep;, &tertiary;)">
-	  <xsl:apply-templates select="." mode="m:index-tertiary">
-	    <xsl:with-param name="scope" select="$scope"/>
-	    <xsl:with-param name="role" select="$role"/>
-	    <xsl:with-param name="type" select="$type"/>
-	    <xsl:with-param name="lang" select="$lang"/>
-	    <xsl:with-param name="refs" select="current-group()"/>
-	    <xsl:sort select="fn:upper-case(&tertiary;)" lang="{$lang}"/>
-	  </xsl:apply-templates>
-	</xsl:for-each-group>
+        <xsl:for-each-group select="$refs[db:tertiary]"
+                            group-by="concat($key, &sep;, &tertiary;)">
+          <xsl:apply-templates select="." mode="m:index-tertiary">
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:with-param name="lang" select="$lang"/>
+            <xsl:with-param name="refs" select="current-group()"/>
+            <xsl:sort select="fn:upper-case(&tertiary;)" lang="{$lang}"/>
+          </xsl:apply-templates>
+        </xsl:for-each-group>
       </dl>
     </dd>
   </xsl:if>
@@ -274,45 +274,45 @@
   <dt>
     <xsl:value-of select="db:tertiary"/>
     <xsl:for-each-group select="$refs[not(db:see)]"
-			group-by="concat($key, &sep;, &section.id;)">
+                        group-by="concat($key, &sep;, &section.id;)">
       <xsl:apply-templates select="." mode="m:reference">
-	<xsl:with-param name="scope" select="$scope"/>
-	<xsl:with-param name="role" select="$role"/>
-	<xsl:with-param name="type" select="$type"/>
-	<xsl:with-param name="lang" select="$lang"/>
+        <xsl:with-param name="scope" select="$scope"/>
+        <xsl:with-param name="role" select="$role"/>
+        <xsl:with-param name="type" select="$type"/>
+        <xsl:with-param name="lang" select="$lang"/>
       </xsl:apply-templates>
     </xsl:for-each-group>
 
     <xsl:if test="$refs/db:see">
       <xsl:for-each-group select="$refs[db:see]"
-			  group-by="concat(&primary;, &sep;, &secondary;, &sep;, &tertiary;, &sep;, db:see)">
-	<xsl:apply-templates select="." mode="m:index-see">
-	  <xsl:with-param name="scope" select="$scope"/>
-	  <xsl:with-param name="role" select="$role"/>
-	  <xsl:with-param name="type" select="$type"/>
-	  <xsl:with-param name="lang" select="$lang"/>
-	  <xsl:sort select="fn:upper-case(db:see)" lang="{$lang}"/>
-	</xsl:apply-templates>
+                          group-by="concat(&primary;, &sep;, &secondary;, &sep;, &tertiary;, &sep;, db:see)">
+        <xsl:apply-templates select="." mode="m:index-see">
+          <xsl:with-param name="scope" select="$scope"/>
+          <xsl:with-param name="role" select="$role"/>
+          <xsl:with-param name="type" select="$type"/>
+          <xsl:with-param name="lang" select="$lang"/>
+          <xsl:sort select="fn:upper-case(db:see)" lang="{$lang}"/>
+        </xsl:apply-templates>
       </xsl:for-each-group>
     </xsl:if>
   </dt>
   <xsl:if test="$refs/db:seealso">
     <dd>
       <dl>
-	<xsl:if test="count(db:seealso) &gt; 1">
-	  <xsl:message>Multiple see also's not supported: only using first</xsl:message>
-	</xsl:if>
+        <xsl:if test="count(db:seealso) &gt; 1">
+          <xsl:message>Multiple see also's not supported: only using first</xsl:message>
+        </xsl:if>
 
-	<xsl:for-each-group select="$refs[db:seealso]"
-			    group-by="concat(&primary;, &sep;, &secondary;, &sep;, &tertiary;, &sep;, db:seealso[1])">
-	  <xsl:apply-templates select="." mode="m:index-seealso">
-	    <xsl:with-param name="scope" select="$scope"/>
-	    <xsl:with-param name="role" select="$role"/>
-	    <xsl:with-param name="type" select="$type"/>
-	    <xsl:with-param name="lang" select="$lang"/>
-	    <xsl:sort select="fn:upper-case(db:seealso[1])" lang="{$lang}"/>
-	  </xsl:apply-templates>
-	</xsl:for-each-group>
+        <xsl:for-each-group select="$refs[db:seealso]"
+                            group-by="concat(&primary;, &sep;, &secondary;, &sep;, &tertiary;, &sep;, db:seealso[1])">
+          <xsl:apply-templates select="." mode="m:index-seealso">
+            <xsl:with-param name="scope" select="$scope"/>
+            <xsl:with-param name="role" select="$role"/>
+            <xsl:with-param name="type" select="$type"/>
+            <xsl:with-param name="lang" select="$lang"/>
+            <xsl:sort select="fn:upper-case(db:seealso[1])" lang="{$lang}"/>
+          </xsl:apply-templates>
+        </xsl:for-each-group>
       </dl>
     </dd>
   </xsl:if>

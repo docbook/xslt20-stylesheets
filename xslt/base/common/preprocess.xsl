@@ -7,7 +7,7 @@
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fp m mp xs"
+                exclude-result-prefixes="db doc f fp m mp xs"
                 version="2.0">
 
 <xsl:import href="../preprocess/1-logstruct.xsl"/>
@@ -18,7 +18,7 @@
 <xsl:import href="../preprocess/4-normalize.xsl"/>
 
 <doc:function name="f:preprocess" xmlns="http://docbook.org/ns/docbook">
-<refpurpose>Returns result of preprocessing of input document by set of steps defined in 
+<refpurpose>Returns result of preprocessing of input document by set of steps defined in
 <parameter>preprocess</parameter> parameter.</refpurpose>
 
 <refdescription>
@@ -83,7 +83,7 @@ oreder.</para>
 
       <xsl:variable name="profile"
                     select="if (index-of($steps, 'profile'))
-			    then f:profile($preprofile, $profile.separator, $profile.lang,
+                            then f:profile($preprofile, $profile.separator, $profile.lang,
                                            $profile.revisionflag, $profile.role,
                                            $profile.arch,
                                            $profile.audience,

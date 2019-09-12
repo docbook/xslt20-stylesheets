@@ -6,7 +6,7 @@
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 exclude-result-prefixes="db doc f fn m t u xlink"
@@ -61,7 +61,7 @@ calling “apply templates” with the current context node.</para>
     </u:context>
     <u:result>
       <span xmlns="http://www.w3.org/1999/xhtml"
-	    class="varname" id="varfoo">someVarName</span>
+            class="varname" id="varfoo">someVarName</span>
     </u:result>
   </u:test>
 </u:unittests>
@@ -536,7 +536,7 @@ the default is “element”.</para>
     </u:context>
     <u:result>
       <strong xmlns="http://www.w3.org/1999/xhtml"
-	      class="emphasis">Something strongly emphasized</strong>
+              class="emphasis">Something strongly emphasized</strong>
     </u:result>
   </u:test>
 </u:unittests>
@@ -596,21 +596,21 @@ the default is “element”.</para>
     <xsl:with-param name="content">
       <xsl:apply-templates/>
       <xsl:choose>
-	<xsl:when test="@class = 'copyright'">
+        <xsl:when test="@class = 'copyright'">
           <sup>©</sup>
         </xsl:when>
-	<xsl:when test="@class = 'registered'">
+        <xsl:when test="@class = 'registered'">
           <sup>®</sup>
         </xsl:when>
-	<xsl:when test="@class = 'service'">
-	  <sup>℠</sup>
-	</xsl:when>
-	<xsl:when test="@class = 'trade'">
+        <xsl:when test="@class = 'service'">
+          <sup>℠</sup>
+        </xsl:when>
+        <xsl:when test="@class = 'trade'">
           <sup>™</sup>
         </xsl:when>
         <xsl:otherwise>
-	  <!-- nop -->
-	</xsl:otherwise>
+          <!-- nop -->
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -625,16 +625,16 @@ the default is “element”.</para>
     <xsl:with-param name="content">
       <xsl:apply-templates/>
       <xsl:choose>
-	<xsl:when test="@class = 'copyright'">
+        <xsl:when test="@class = 'copyright'">
           <sup>&#x00A9;</sup>
         </xsl:when>
-	<xsl:when test="@class = 'registered'">
+        <xsl:when test="@class = 'registered'">
           <sup>&#x00AE;</sup>
         </xsl:when>
-	<xsl:when test="@class = 'service'">
-	  <sup>SM</sup>
-	</xsl:when>
-	<xsl:otherwise>&#x2122;</xsl:otherwise>
+        <xsl:when test="@class = 'service'">
+          <sup>SM</sup>
+        </xsl:when>
+        <xsl:otherwise>&#x2122;</xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -668,54 +668,54 @@ and <tag>firstterm</tag> elements.</para>
 
     <xsl:choose>
       <xsl:when test="(not($firstterm.only.link) or $firstterm = 1) and @linkend">
-	<xsl:variable name="target" select="key('id',@linkend)[1]"/>
+        <xsl:variable name="target" select="key('id',@linkend)[1]"/>
 
-	<a href="{f:href(/,$target)}">
-	  <xsl:apply-templates/>
-	</a>
+        <a href="{f:href(/,$target)}">
+          <xsl:apply-templates/>
+        </a>
       </xsl:when>
 
       <xsl:when test="not(@linkend)
-		      and (not($firstterm.only.link) or $firstterm = 1)
-		      and $glossterm.auto.link">
-	<xsl:variable name="term">
-	  <xsl:choose>
-	    <xsl:when test="@baseform">
-	      <xsl:value-of select="normalize-space(@baseform)"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:value-of select="normalize-space(.)"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:variable>
+                      and (not($firstterm.only.link) or $firstterm = 1)
+                      and $glossterm.auto.link">
+        <xsl:variable name="term">
+          <xsl:choose>
+            <xsl:when test="@baseform">
+              <xsl:value-of select="normalize-space(@baseform)"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
 
-	<xsl:variable name="targets"
-		      select="//db:glossentry
-			        [db:glossterm/normalize-space(.) = $term
-			         or db:glossterm/normalize-space(@baseform)
-				    = $term]"/>
+        <xsl:variable name="targets"
+                      select="//db:glossentry
+                                [db:glossterm/normalize-space(.) = $term
+                                 or db:glossterm/normalize-space(@baseform)
+                                    = $term]"/>
 
-	<xsl:variable name="target" select="$targets[1]"/>
+        <xsl:variable name="target" select="$targets[1]"/>
 
-	<xsl:choose>
-	  <xsl:when test="count($targets)=0">
-	    <xsl:message>
-	      <xsl:text>Error: no glossentry for glossterm: </xsl:text>
-	      <xsl:value-of select="."/>
-	      <xsl:text>.</xsl:text>
-	    </xsl:message>
-	    <xsl:apply-templates/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <a href="{f:href(/,$target)}">
-	      <xsl:apply-templates/>
-	    </a>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="count($targets)=0">
+            <xsl:message>
+              <xsl:text>Error: no glossentry for glossterm: </xsl:text>
+              <xsl:value-of select="."/>
+              <xsl:text>.</xsl:text>
+            </xsl:message>
+            <xsl:apply-templates/>
+          </xsl:when>
+          <xsl:otherwise>
+            <a href="{f:href(/,$target)}">
+              <xsl:apply-templates/>
+            </a>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
 
       <xsl:otherwise>
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </em>
@@ -741,11 +741,11 @@ and <tag>firstterm</tag> elements.</para>
     <xsl:with-param name="content">
       <xsl:text>&lt;</xsl:text>
       <a>
-	<xsl:attribute name="href">
-	  <xsl:text>mailto:</xsl:text>
-	  <xsl:value-of select="."/>
-	</xsl:attribute>
-	<xsl:apply-templates/>
+        <xsl:attribute name="href">
+          <xsl:text>mailto:</xsl:text>
+          <xsl:value-of select="."/>
+        </xsl:attribute>
+        <xsl:apply-templates/>
       </a>
       <xsl:text>&gt;</xsl:text>
     </xsl:with-param>
@@ -767,5 +767,3 @@ and <tag>firstterm</tag> elements.</para>
 <!-- ==================================================================== -->
 
 </xsl:stylesheet>
-
-

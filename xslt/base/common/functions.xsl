@@ -93,12 +93,12 @@ same XPointer IDs.</para>
     <xsl:otherwise>
       <xsl:variable name="ps" select="count($node/preceding-sibling::*)+1"/>
       <xsl:choose>
-	<xsl:when test="not($node/parent::*)">
+        <xsl:when test="not($node/parent::*)">
           <xsl:sequence select="concat('R.', $ps)"/>
         </xsl:when>
-	<xsl:otherwise>
-	  <xsl:sequence select="concat(f:xptr-id($node/parent::*), '.', $ps)"/>
-	</xsl:otherwise>
+        <xsl:otherwise>
+          <xsl:sequence select="concat(f:xptr-id($node/parent::*), '.', $ps)"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -107,7 +107,7 @@ same XPointer IDs.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:orderedlist-starting-number"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the number of the first item in an ordered list</refpurpose>
 
 <refdescription>
@@ -136,7 +136,7 @@ is to be determined.</para>
   <xsl:param name="list" as="element(db:orderedlist)"/>
 
   <xsl:variable name="pi-start"
-		select="f:pi($list/processing-instruction('db-xsl'), 'start')"/>
+                select="f:pi($list/processing-instruction('db-xsl'), 'start')"/>
 
   <xsl:choose>
     <xsl:when test="$list/@startingnumber">
@@ -150,16 +150,16 @@ is to be determined.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="prevlist"
-		    select="$list/preceding::db:orderedlist[1]"/>
+                    select="$list/preceding::db:orderedlist[1]"/>
       <xsl:choose>
-	<xsl:when test="count($prevlist) = 0">
-	  <xsl:sequence select="1"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:variable name="prevlength" select="count($prevlist/db:listitem)"/>
-	  <xsl:variable name="prevstart"
-			select="f:orderedlist-starting-number($prevlist)"/>
-	  <xsl:sequence select="$prevstart + $prevlength"/>
+        <xsl:when test="count($prevlist) = 0">
+          <xsl:sequence select="1"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="prevlength" select="count($prevlist/db:listitem)"/>
+          <xsl:variable name="prevstart"
+                        select="f:orderedlist-starting-number($prevlist)"/>
+          <xsl:sequence select="$prevstart + $prevlength"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
@@ -449,27 +449,27 @@ Top level sections are at level “1”.</para>
       <xsl:when test="$node/self::db:sect4">4</xsl:when>
       <xsl:when test="$node/self::db:sect5">5</xsl:when>
       <xsl:when test="$node/self::db:section">
-	<xsl:sequence select="count($node/ancestor::db:section)+1"/>
+        <xsl:sequence select="count($node/ancestor::db:section)+1"/>
       </xsl:when>
       <xsl:when test="$node/self::db:refsect1 or
-		      $node/self::db:refsect2 or
-		      $node/self::db:refsect3 or
-		      $node/self::db:refsection or
-		      $node/self::db:refsynopsisdiv">
-	<xsl:sequence select="f:refentry-section-level($node)"/>
+                      $node/self::db:refsect2 or
+                      $node/self::db:refsect3 or
+                      $node/self::db:refsection or
+                      $node/self::db:refsynopsisdiv">
+        <xsl:sequence select="f:refentry-section-level($node)"/>
       </xsl:when>
       <xsl:when test="$node/self::db:simplesect">
-	<xsl:choose>
-	  <xsl:when test="$node/parent::db:sect1">2</xsl:when>
-	  <xsl:when test="$node/parent::db:sect2">3</xsl:when>
-	  <xsl:when test="$node/parent::db:sect3">4</xsl:when>
-	  <xsl:when test="$node/parent::db:sect4">5</xsl:when>
-	  <xsl:when test="$node/parent::db:sect5">6</xsl:when>
-	  <xsl:when test="$node/parent::db:section">
-	    <xsl:sequence select="count($node/ancestor::db:section)+2"/>
-	  </xsl:when>
-	  <xsl:otherwise>1</xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$node/parent::db:sect1">2</xsl:when>
+          <xsl:when test="$node/parent::db:sect2">3</xsl:when>
+          <xsl:when test="$node/parent::db:sect3">4</xsl:when>
+          <xsl:when test="$node/parent::db:sect4">5</xsl:when>
+          <xsl:when test="$node/parent::db:sect5">6</xsl:when>
+          <xsl:when test="$node/parent::db:section">
+            <xsl:sequence select="count($node/ancestor::db:section)+2"/>
+          </xsl:when>
+          <xsl:otherwise>1</xsl:otherwise>
+        </xsl:choose>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -488,7 +488,7 @@ Top level sections are at level “1”.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:pseudo-section-level"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the nesting depth of the specified element</refpurpose>
 
 <refdescription>
@@ -525,22 +525,22 @@ of elements such as <tag>qanda</tag>.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="section"
-		    select="($node/ancestor::db:section
-			    |$node/ancestor::db:simplesect
-			    |$node/ancestor::db:sect5
-			    |$node/ancestor::db:sect4
-			    |$node/ancestor::db:sect3
-			    |$node/ancestor::db:sect2
-			    |$node/ancestor::db:sect1
-			    |$node/ancestor::db:refsection
-			    |$node/ancestor::db:refsect3
-			    |$node/ancestor::db:refsect2
-			    |$node/ancestor::db:refsect1)[last()]"/>
+                    select="($node/ancestor::db:section
+                            |$node/ancestor::db:simplesect
+                            |$node/ancestor::db:sect5
+                            |$node/ancestor::db:sect4
+                            |$node/ancestor::db:sect3
+                            |$node/ancestor::db:sect2
+                            |$node/ancestor::db:sect1
+                            |$node/ancestor::db:refsection
+                            |$node/ancestor::db:refsect3
+                            |$node/ancestor::db:refsect2
+                            |$node/ancestor::db:refsect1)[last()]"/>
       <xsl:choose>
-	<xsl:when test="not($section)">1</xsl:when>
-	<xsl:otherwise>
-	  <xsl:sequence select="f:section-level($section) + 1"/>
-	</xsl:otherwise>
+        <xsl:when test="not($section)">1</xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="f:section-level($section) + 1"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -549,7 +549,7 @@ of elements such as <tag>qanda</tag>.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:refentry-section-level"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the nesting depth of the specified <tag>refentry</tag>
 section</refpurpose>
 
@@ -580,7 +580,7 @@ enclosing <tag>refentry</tag>; see <function>refentry-level</function>.
   <xsl:param name="section" as="element()"/>
 
   <xsl:variable name="RElevel"
-		select="f:refentry-level($section/ancestor::db:refentry[1])"/>
+                select="f:refentry-level($section/ancestor::db:refentry[1])"/>
 
   <xsl:variable name="levelinRE" as="xs:integer">
     <xsl:choose>
@@ -589,7 +589,7 @@ enclosing <tag>refentry</tag>; see <function>refentry-level</function>.
       <xsl:when test="$section/self::db:refsect2">2</xsl:when>
       <xsl:when test="$section/self::db:refsect3">3</xsl:when>
       <xsl:when test="$section/self::db:refsection">
-	<xsl:sequence select="count($section/ancestor::db:refsection)+1"/>
+        <xsl:sequence select="count($section/ancestor::db:refsection)+1"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise> <!-- this can't happen -->
     </xsl:choose>
@@ -601,7 +601,7 @@ enclosing <tag>refentry</tag>; see <function>refentry-level</function>.
 <!-- ============================================================ -->
 
 <doc:function name="f:refentry-level"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the nesting depth of the specified <tag>refentry</tag>
 </refpurpose>
 
@@ -635,10 +635,10 @@ be calculated.</para>
   <xsl:variable name="container"
                 select="($refentry/ancestor::db:section
                          | $refentry/ancestor::db:sect1
-			 | $refentry/ancestor::db:sect2
-			 | $refentry/ancestor::db:sect3
-			 | $refentry/ancestor::db:sect4
-			 | $refentry/ancestor::db:sect5)[last()]"/>
+                         | $refentry/ancestor::db:sect2
+                         | $refentry/ancestor::db:sect3
+                         | $refentry/ancestor::db:sect4
+                         | $refentry/ancestor::db:sect5)[last()]"/>
 
   <xsl:choose>
     <xsl:when test="$container">
@@ -715,7 +715,7 @@ that is <parameter>count</parameter> characters long.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:find-node-in-sequence"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Finds a particular node in a sequence of nodes</refpurpose>
 
 <refdescription>
@@ -766,7 +766,7 @@ for another node with the same name to appear in the sequence.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:sequence select="f:find-node-in-sequence($nodes, $target,
-			                            $start+1)"/>
+                                                    $start+1)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -774,7 +774,7 @@ for another node with the same name to appear in the sequence.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:find-toc-params"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Finds the TOC parameters for an element</refpurpose>
 
 <refdescription>
@@ -826,7 +826,7 @@ matching path.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:sequence select="fp:find-toc-params($node, $toc,
-			         substring-after($location, '/'))"/>
+                                 substring-after($location, '/'))"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -834,7 +834,7 @@ matching path.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:trim-common-uri-paths"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Trim common leading path information from a URI</refpurpose>
 
 <refdescription>
@@ -874,14 +874,14 @@ components that it has in common with <parameter>uriB</parameter>.</para>
     </xsl:when>
     <xsl:when test="not(contains($uriA, '/'))
                     or not(contains($uriB, '/'))
-		    or substring-before($uriA, '/') 
-		       != substring-before($uriB, '/')">
+                    or substring-before($uriA, '/')
+                       != substring-before($uriB, '/')">
       <xsl:sequence select="$uriA"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:sequence select="f:trim-common-uri-paths(
-			        substring-after($uriA, '/'),
-			        substring-after($uriB, '/'))"/>
+                                substring-after($uriA, '/'),
+                                substring-after($uriB, '/'))"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -889,7 +889,7 @@ components that it has in common with <parameter>uriB</parameter>.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:filename-basename"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Return the filename part of a directory name</refpurpose>
 
 <refdescription>
@@ -960,8 +960,8 @@ expects “/” to be the component separator.</para>
 
   <xsl:if test="matches(normalize-space($length), '^[0-9\.]+')">
     <xsl:sequence select="xs:double(replace(normalize-space($length),
-			                    '(^[0-9\.]+).*',
-				            '$1'))"/>
+                                            '(^[0-9\.]+).*',
+                                            '$1'))"/>
   </xsl:if>
 </xsl:function>
 
@@ -1039,11 +1039,11 @@ expects “/” to be the component separator.</para>
   <xsl:param name="context" as="element()"/>
 
   <xsl:variable name="pnode"
-		select="$node/preceding::*[node-name(.)=node-name($node)][1]"/>
+                select="$node/preceding::*[node-name(.)=node-name($node)][1]"/>
 
   <xsl:sequence select="if ($pnode)
-			then ($pnode &lt;&lt; $context) or ($pnode eq $context)
-			else true()"/>
+                        then ($pnode &lt;&lt; $context) or ($pnode eq $context)
+                        else true()"/>
 </xsl:function>
 
 <!-- ============================================================ -->
@@ -1082,7 +1082,7 @@ expects “/” to be the component separator.</para>
           <xsl:sequence select="substring-before(substring($rest,2),$quote)"/>
         </xsl:when>
         <xsl:otherwise>
-	  <xsl:sequence select="f:pi-attribute($pis,$attribute,$count + 1)"/>
+          <xsl:sequence select="f:pi-attribute($pis,$attribute,$count + 1)"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
@@ -1092,7 +1092,7 @@ expects “/” to be the component separator.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:xpointer-idref"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the ID portion of an XPointer</refpurpose>
 
 <refdescription>
@@ -1128,7 +1128,7 @@ the empty string.</para>
   <xsl:choose>
     <xsl:when test="starts-with($xpointer, '#xpointer(id(')">
       <xsl:variable name="rest"
-		    select="substring-after($xpointer, '#xpointer(id(')"/>
+                    select="substring-after($xpointer, '#xpointer(id(')"/>
       <xsl:variable name="quote" select="substring($rest, 1, 1)"/>
       <xsl:sequence select="substring-before(substring-after($xpointer, $quote), $quote)"/>
     </xsl:when>
@@ -1145,7 +1145,7 @@ the empty string.</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:resolve-path"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Resolves a relative URI against an absolute path</refpurpose>
 
 <refdescription>
@@ -1288,7 +1288,7 @@ an absolute URI (including a scheme!).</para>
 <!-- ============================================================ -->
 
 <doc:function name="f:strip-file-uri-scheme"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Strip file: URI shemes off URIs</refpurpose>
 
 <refdescription>

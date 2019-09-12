@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:axf="http://www.antennahouse.com/names/XSL/Extensions"
@@ -52,7 +52,7 @@
       <xsl:with-param name="years" select="db:year"/>
       <xsl:with-param name="print.ranges" select="$make.year.ranges"/>
       <xsl:with-param name="single.year.ranges"
-		      select="$make.single.year.ranges"/>
+                      select="$make.single.year.ranges"/>
     </xsl:call-template>
     <xsl:apply-templates select="db:holder"/>
   </xsl:element>

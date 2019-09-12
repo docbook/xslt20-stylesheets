@@ -1,13 +1,13 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db f h m t xs"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db f h m t xs"
                 version='2.0'>
 
 <!-- ********************************************************************
@@ -47,11 +47,11 @@
                     select="count($prec-footnotes except $oob-footnotes) + 1"/>
 
       <xsl:choose>
-	<xsl:when test="string-length($table.footnote.number.symbols)&gt;= $tfnum">
+        <xsl:when test="string-length($table.footnote.number.symbols)&gt;= $tfnum">
           <xsl:value-of select="substring($table.footnote.number.symbols, $tfnum, 1)"/>
-	</xsl:when>
+        </xsl:when>
         <xsl:otherwise>
-	  <xsl:number value="$tfnum" format="{$table.footnote.number.format}"/>
+          <xsl:number value="$tfnum" format="{$table.footnote.number.format}"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
@@ -63,8 +63,8 @@
       <xsl:variable name="fnum" select="count($pfoot) - count($ptfoot) + 1"/>
 
       <xsl:choose>
-	<xsl:when test="string-length($footnote.number.symbols) &gt;= $fnum">
-	  <xsl:value-of select="substring($footnote.number.symbols, $fnum, 1)"/>
+        <xsl:when test="string-length($footnote.number.symbols) &gt;= $fnum">
+          <xsl:value-of select="substring($footnote.number.symbols, $fnum, 1)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:number value="$fnum" format="{$footnote.number.format}"/>

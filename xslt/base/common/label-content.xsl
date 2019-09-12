@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f m fn xs"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db doc f m fn xs"
                 version="2.0">
 
 <!-- ********************************************************************
@@ -22,7 +22,7 @@
 <!-- ============================================================ -->
 
 <doc:mode name="m:intralabel-punctuation"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for producing intra-label punctuation</refpurpose>
 
 <refdescription>
@@ -40,7 +40,7 @@ places where compound labels are necessary.</para>
 <!-- ============================================================ -->
 
 <doc:mode name="m:label-content"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for producing label markup</refpurpose>
 
 <refdescription>
@@ -75,7 +75,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -100,11 +100,11 @@ processed in this mode should generate their label.</para>
 
 <xsl:template match="db:preface|db:chapter|db:appendix" mode="m:label-content">
   <xsl:variable name="label" select="$autolabel.elements
-				     /*[node-name(.) = node-name(current())]"/>
+                                     /*[node-name(.) = node-name(current())]"/>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -123,30 +123,30 @@ processed in this mode should generate their label.</para>
 
     <xsl:when test="$label">
       <xsl:if test="$component.label.includes.part.label and
-		    ancestor::db:part">
-	<xsl:variable name="part.label">
+                    ancestor::db:part">
+        <xsl:variable name="part.label">
           <xsl:apply-templates select="ancestor::db:part"
-			       mode="m:label-content"/>
-	</xsl:variable>
-	<xsl:if test="$part.label != ''">
+                               mode="m:label-content"/>
+        </xsl:variable>
+        <xsl:if test="$part.label != ''">
           <xsl:value-of select="$part.label"/>
           <xsl:apply-templates select="ancestor::db:part"
-			       mode="m:intralabel-punctuation"/>
-	</xsl:if>
+                               mode="m:intralabel-punctuation"/>
+        </xsl:if>
       </xsl:if>
 
       <xsl:choose>
         <xsl:when test="$label.from.part and ancestor::db:part">
-	  <xsl:number from="db:part" format="{$format}" level="any"/>
+          <xsl:number from="db:part" format="{$format}" level="any"/>
         </xsl:when>
-	<xsl:when test="ancestor::db:article">
-	  <xsl:number from="db:article" format="{$format}" level="any"/>
+        <xsl:when test="ancestor::db:article">
+          <xsl:number from="db:article" format="{$format}" level="any"/>
         </xsl:when>
-	<xsl:when test="ancestor::db:book">
-	  <xsl:number from="db:book" format="{$format}" level="any"/>
+        <xsl:when test="ancestor::db:book">
+          <xsl:number from="db:book" format="{$format}" level="any"/>
         </xsl:when>
         <xsl:otherwise>
-	  <xsl:number format="{$format}" level="any"/>
+          <xsl:number format="{$format}" level="any"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
@@ -170,7 +170,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -197,7 +197,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -211,23 +211,23 @@ processed in this mode should generate their label.</para>
     </xsl:if>
 
     <xsl:if test="$section.label.includes.component.label
-		  and parent::* instance of element()
-		  and f:is-component(..)">
+                  and parent::* instance of element()
+                  and f:is-component(..)">
       <xsl:variable name="parent.label">
-	<xsl:apply-templates select=".." mode="m:label-content"/>
+        <xsl:apply-templates select=".." mode="m:label-content"/>
       </xsl:variable>
       <xsl:if test="$parent.label != ''">
-	<xsl:copy-of select="$parent.label"/>
-	<xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
+        <xsl:copy-of select="$parent.label"/>
+        <xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
       </xsl:if>
     </xsl:if>
 
     <xsl:choose>
       <xsl:when test="@label">
-	<xsl:value-of select="@label"/>
+        <xsl:value-of select="@label"/>
       </xsl:when>
       <xsl:when test="$label">
-	<xsl:number format="{$format}"/>
+        <xsl:number format="{$format}"/>
       </xsl:when>
     </xsl:choose>
   </xsl:if>
@@ -239,7 +239,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -248,22 +248,22 @@ processed in this mode should generate their label.</para>
   <xsl:if test="@label or f:label-this-section(.)">
     <!-- if the parent is a component, maybe label that too -->
     <xsl:if test="$section.label.includes.component.label
-		  and f:is-component(..)">
+                  and f:is-component(..)">
       <xsl:variable name="parent.label">
-	<xsl:apply-templates select=".." mode="m:label-content"/>
+        <xsl:apply-templates select=".." mode="m:label-content"/>
       </xsl:variable>
       <xsl:if test="$parent.label != ''">
-	<xsl:copy-of select="$parent.label"/>
-	<xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
+        <xsl:copy-of select="$parent.label"/>
+        <xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
       </xsl:if>
     </xsl:if>
 
     <xsl:choose>
       <xsl:when test="@label">
-	<xsl:value-of select="@label"/>
+        <xsl:value-of select="@label"/>
       </xsl:when>
       <xsl:when test="$label">
-	<xsl:number format="{$format}"/>
+        <xsl:number format="{$format}"/>
       </xsl:when>
     </xsl:choose>
   </xsl:if>
@@ -275,7 +275,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -290,10 +290,10 @@ processed in this mode should generate their label.</para>
 
     <xsl:choose>
       <xsl:when test="@label">
-	<xsl:value-of select="@label"/>
+        <xsl:value-of select="@label"/>
       </xsl:when>
       <xsl:when test="$label">
-	<xsl:number format="{$format}"/>
+        <xsl:number format="{$format}"/>
       </xsl:when>
     </xsl:choose>
   </xsl:if>
@@ -308,7 +308,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -330,7 +330,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -352,7 +352,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -370,10 +370,10 @@ processed in this mode should generate their label.</para>
 
     <xsl:choose>
       <xsl:when test="@label">
-	<xsl:value-of select="@label"/>
+        <xsl:value-of select="@label"/>
       </xsl:when>
       <xsl:when test="$label">
-	<xsl:number format="{$format}"/>
+        <xsl:number format="{$format}"/>
       </xsl:when>
     </xsl:choose>
   </xsl:if>
@@ -385,7 +385,7 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="format" as="xs:string">
     <xsl:choose>
       <xsl:when test="$label/@format">
-	<xsl:value-of select="$label/@format"/>
+        <xsl:value-of select="$label/@format"/>
       </xsl:when>
       <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
@@ -394,37 +394,37 @@ processed in this mode should generate their label.</para>
   <xsl:if test="@label or $label or f:label-this-section(.)">
     <!-- if this is a nested section, label the parent -->
     <xsl:if test="../self::db:section
-		  | ../self::db:sect1
-		  | ../self::db:sect2
-		  | ../self::db:sect3
-		  | ../self::db:sect4
-		  | ../self::db:sect5">
+                  | ../self::db:sect1
+                  | ../self::db:sect2
+                  | ../self::db:sect3
+                  | ../self::db:sect4
+                  | ../self::db:sect5">
       <xsl:variable name="parent.section.label">
-	<xsl:apply-templates select=".." mode="m:label-content"/>
+        <xsl:apply-templates select=".." mode="m:label-content"/>
       </xsl:variable>
       <xsl:if test="$parent.section.label != ''">
-	<xsl:copy-of select="$parent.section.label"/>
-	<xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
+        <xsl:copy-of select="$parent.section.label"/>
+        <xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
       </xsl:if>
     </xsl:if>
 
     <xsl:if test="$section.label.includes.component.label
-		  and f:is-component(..)">
+                  and f:is-component(..)">
       <xsl:variable name="parent.label">
-	<xsl:apply-templates select=".." mode="m:label-content"/>
+        <xsl:apply-templates select=".." mode="m:label-content"/>
       </xsl:variable>
       <xsl:if test="$parent.label != ''">
-	<xsl:copy-of select="$parent.label"/>
-	<xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
+        <xsl:copy-of select="$parent.label"/>
+        <xsl:apply-templates select=".." mode="m:intralabel-punctuation"/>
       </xsl:if>
     </xsl:if>
 
     <xsl:choose>
       <xsl:when test="@label">
-	<xsl:value-of select="@label"/>
+        <xsl:value-of select="@label"/>
       </xsl:when>
       <xsl:when test="$label">
-	<xsl:number format="{$format}"/>
+        <xsl:number format="{$format}"/>
       </xsl:when>
     </xsl:choose>
   </xsl:if>
@@ -437,20 +437,20 @@ processed in this mode should generate their label.</para>
 <xsl:template match="db:qandadiv" mode="m:label-content">
   <xsl:if test="$autolabel.elements/db:qandadiv">
     <xsl:variable name="lparent" select="(ancestor::db:set
-					  |ancestor::db:book
-					  |ancestor::db:chapter
-					  |ancestor::db:appendix
-					  |ancestor::db:preface
-					  |ancestor::db:section
-					  |ancestor::db:simplesect
-					  |ancestor::db:sect1
-					  |ancestor::db:sect2
-					  |ancestor::db:sect3
-					  |ancestor::db:sect4
-					  |ancestor::db:sect5
-					  |ancestor::db:refsect1
-					  |ancestor::db:refsect2
-					  |ancestor::db:refsect3)[last()]"/>
+                                          |ancestor::db:book
+                                          |ancestor::db:chapter
+                                          |ancestor::db:appendix
+                                          |ancestor::db:preface
+                                          |ancestor::db:section
+                                          |ancestor::db:simplesect
+                                          |ancestor::db:sect1
+                                          |ancestor::db:sect2
+                                          |ancestor::db:sect3
+                                          |ancestor::db:sect4
+                                          |ancestor::db:sect5
+                                          |ancestor::db:refsect1
+                                          |ancestor::db:refsect2
+                                          |ancestor::db:refsect3)[last()]"/>
 
     <xsl:variable name="lparent.prefix">
       <xsl:apply-templates select="$lparent" mode="m:label-content"/>
@@ -458,11 +458,11 @@ processed in this mode should generate their label.</para>
 
     <xsl:variable name="prefix">
       <xsl:if test="$qanda.inherit.numeration">
-	<xsl:if test="$lparent.prefix != ''">
-	  <xsl:copy-of select="$lparent.prefix"/>
-	  <xsl:apply-templates select="$lparent"
-			       mode="m:intralabel-punctuation"/>
-	</xsl:if>
+        <xsl:if test="$lparent.prefix != ''">
+          <xsl:copy-of select="$lparent.prefix"/>
+          <xsl:apply-templates select="$lparent"
+                               mode="m:intralabel-punctuation"/>
+        </xsl:if>
       </xsl:if>
     </xsl:variable>
 
@@ -502,21 +502,21 @@ processed in this mode should generate their label.</para>
   <xsl:variable name="prefix">
     <xsl:if test="$qanda.inherit.numeration">
       <xsl:if test="$lparent.prefix != ''">
-	<xsl:copy-of select="$lparent.prefix"/>
-	<xsl:apply-templates select="$lparent" mode="m:intralabel-punctuation"/>
+        <xsl:copy-of select="$lparent.prefix"/>
+        <xsl:apply-templates select="$lparent" mode="m:intralabel-punctuation"/>
       </xsl:if>
 
       <xsl:if test="ancestor::db:qandadiv">
         <xsl:apply-templates select="ancestor::db:qandadiv[1]"
-			     mode="m:label-content"/>
-	<xsl:apply-templates select="ancestor::db:qandadiv[1]"
-			     mode="m:intralabel-punctuation"/>
+                             mode="m:label-content"/>
+        <xsl:apply-templates select="ancestor::db:qandadiv[1]"
+                             mode="m:intralabel-punctuation"/>
       </xsl:if>
     </xsl:if>
   </xsl:variable>
 
   <xsl:variable name="inhlabel"
-		select="ancestor-or-self::db:qandaset/@defaultlabel[1]"/>
+                select="ancestor-or-self::db:qandaset/@defaultlabel[1]"/>
 
   <xsl:variable name="deflabel">
     <xsl:choose>
@@ -536,15 +536,15 @@ processed in this mode should generate their label.</para>
 
     <xsl:when test="$deflabel = 'qanda'">
       <xsl:if test="self::db:question">
-	<xsl:call-template name="gentext">
-	  <xsl:with-param name="key" select="'Question'"/>
-	</xsl:call-template>
+        <xsl:call-template name="gentext">
+          <xsl:with-param name="key" select="'Question'"/>
+        </xsl:call-template>
       </xsl:if>
 
       <xsl:if test="self::db:anser">
-	<xsl:call-template name="gentext">
-	  <xsl:with-param name="key" select="'Answer'"/>
-	</xsl:call-template>
+        <xsl:call-template name="gentext">
+          <xsl:with-param name="key" select="'Answer'"/>
+        </xsl:call-template>
       </xsl:if>
     </xsl:when>
 
@@ -556,14 +556,14 @@ processed in this mode should generate their label.</para>
 </xsl:template>
 
 <xsl:template match="db:bibliography|db:glossary|db:index|db:setindex"
-	      mode="m:label-content">
+              mode="m:label-content">
   <xsl:if test="@label">
     <xsl:value-of select="@label"/>
   </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:bibliodiv|db:glossdiv|db:indexdiv"
-	      mode="m:label-content">
+              mode="m:label-content">
   <xsl:if test="@label">
     <xsl:value-of select="@label"/>
   </xsl:if>
@@ -606,7 +606,7 @@ processed in this mode should generate their label.</para>
 
           <xsl:number format="1" value="count($count) + 1"/>
         </xsl:when>
-	<xsl:when test="ancestor::db:book|ancestor::db:article">
+        <xsl:when test="ancestor::db:book|ancestor::db:article">
           <xsl:variable name="anc" select="(ancestor::db:book|ancestor::db:article)[last()]"/>
           <xsl:variable name="count" as="xs:string*">
             <xsl:for-each select="$anc//db:table intersect preceding::db:table">
@@ -615,7 +615,7 @@ processed in this mode should generate their label.</para>
           </xsl:variable>
 
           <xsl:number format="1" value="count($count) + 1"/>
-	</xsl:when>
+        </xsl:when>
         <xsl:otherwise>
           <xsl:variable name="count" as="xs:string*">
             <xsl:for-each select="preceding::db:table">
@@ -646,22 +646,22 @@ processed in this mode should generate their label.</para>
     <xsl:otherwise>
       <xsl:choose>
         <xsl:when test="$pchap">
-	  <xsl:variable name="prefix">
-	    <xsl:apply-templates select="$pchap" mode="m:label-content"/>
-	  </xsl:variable>
+          <xsl:variable name="prefix">
+            <xsl:apply-templates select="$pchap" mode="m:label-content"/>
+          </xsl:variable>
 
-	  <xsl:if test="$prefix != ''">
-	    <xsl:copy-of select="$prefix"/>
-	    <xsl:apply-templates select="$pchap"
-				 mode="m:intralabel-punctuation"/>
-	  </xsl:if>
-	  <xsl:number format="1" from="db:chapter|db:appendix" level="any"/>
+          <xsl:if test="$prefix != ''">
+            <xsl:copy-of select="$prefix"/>
+            <xsl:apply-templates select="$pchap"
+                                 mode="m:intralabel-punctuation"/>
+          </xsl:if>
+          <xsl:number format="1" from="db:chapter|db:appendix" level="any"/>
         </xsl:when>
-	<xsl:when test="ancestor::db:book|ancestor::db:article">
+        <xsl:when test="ancestor::db:book|ancestor::db:article">
           <xsl:number format="1" from="db:book|db:article" level="any"/>
-	</xsl:when>
+        </xsl:when>
         <xsl:otherwise>
-	  <xsl:number format="1" level="any"/>
+          <xsl:number format="1" level="any"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
@@ -680,26 +680,26 @@ processed in this mode should generate their label.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:if test="$pchap">
-	<xsl:variable name="prefix">
-	  <xsl:apply-templates select="$pchap" mode="m:label-content"/>
-	</xsl:variable>
+        <xsl:variable name="prefix">
+          <xsl:apply-templates select="$pchap" mode="m:label-content"/>
+        </xsl:variable>
 
-	<xsl:if test="$prefix != ''">
-	  <xsl:copy-of select="$prefix"/>
-	  <xsl:apply-templates select="$pchap"
-			       mode="m:intralabel-punctuation"/>
-	</xsl:if>
+        <xsl:if test="$prefix != ''">
+          <xsl:copy-of select="$prefix"/>
+          <xsl:apply-templates select="$pchap"
+                               mode="m:intralabel-punctuation"/>
+        </xsl:if>
       </xsl:if>
 
       <xsl:choose>
-	<xsl:when test="ancestor::db:chapter or ancestor::db:appendix">
-	  <xsl:number format="1" count="db:equation[db:title or db:info/db:title]"
-		      from="db:chapter|db:appendix" level="any"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:number format="1" count="db:equation[db:title or db:info/db:title]"
-		      level="any"/>
-	</xsl:otherwise>
+        <xsl:when test="ancestor::db:chapter or ancestor::db:appendix">
+          <xsl:number format="1" count="db:equation[db:title or db:info/db:title]"
+                      from="db:chapter|db:appendix" level="any"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:number format="1" count="db:equation[db:title or db:info/db:title]"
+                      level="any"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -726,7 +726,7 @@ processed in this mode should generate their label.</para>
   </xsl:variable>
 
   <xsl:number value="f:orderedlist-item-number(.)"
-	      format="{$type}"/>
+              format="{$type}"/>
 </xsl:template>
 
 <xsl:template match="db:abstract" mode="m:label-content">

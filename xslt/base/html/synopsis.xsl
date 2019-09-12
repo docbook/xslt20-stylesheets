@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
@@ -8,7 +8,7 @@
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="db doc f fn h m t"
+                exclude-result-prefixes="db doc f fn h m t"
                 version="2.0">
 
 <xsl:include href="oosynopsis.xsl"/>
@@ -223,39 +223,39 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
     </xsl:when>
     <xsl:otherwise>
       <xsl:variable name="pis"
-		    select="ancestor::db:funcsynopsis
-			    //processing-instruction('dbhtml')"/>
+                    select="ancestor::db:funcsynopsis
+                            //processing-instruction('dbhtml')"/>
       <xsl:variable name="html-style" select="f:pi($pis, 'funcsynopsis-style')"/>
 
       <xsl:variable name="style">
-	<xsl:choose>
-	  <xsl:when test="$html-style != ''">
-	    <xsl:value-of select="$html-style"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:value-of select="$funcsynopsis.style"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$html-style != ''">
+            <xsl:value-of select="$html-style"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$funcsynopsis.style"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:variable>
 
       <xsl:variable name="tabular-p"
-		    select="$funcsynopsis.tabular.threshold &gt; 0
-			    and string-length(.)
-			    &gt; $funcsynopsis.tabular.threshold"/>
+                    select="$funcsynopsis.tabular.threshold &gt; 0
+                            and string-length(.)
+                            &gt; $funcsynopsis.tabular.threshold"/>
 
       <xsl:choose>
-	<xsl:when test="$style = 'kr' and $tabular-p">
-	  <xsl:apply-templates select="." mode="m:kr-tabular"/>
-	</xsl:when>
-	<xsl:when test="$style = 'kr'">
-	  <xsl:apply-templates select="." mode="m:kr-nontabular"/>
-	</xsl:when>
-	<xsl:when test="$style = 'ansi' and $tabular-p">
-	  <xsl:apply-templates select="." mode="m:ansi-tabular"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:apply-templates select="." mode="m:ansi-nontabular"/>
-	</xsl:otherwise>
+        <xsl:when test="$style = 'kr' and $tabular-p">
+          <xsl:apply-templates select="." mode="m:kr-tabular"/>
+        </xsl:when>
+        <xsl:when test="$style = 'kr'">
+          <xsl:apply-templates select="." mode="m:kr-nontabular"/>
+        </xsl:when>
+        <xsl:when test="$style = 'ansi' and $tabular-p">
+          <xsl:apply-templates select="." mode="m:ansi-tabular"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="." mode="m:ansi-nontabular"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -361,7 +361,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
 <xsl:template match="db:funcprototype" mode="m:kr-tabular">
   <table border="0" summary="Function synopsis"
-	 cellspacing="0" cellpadding="0"
+         cellspacing="0" cellpadding="0"
          style="padding-bottom: 1em">
     <xsl:sequence select="f:html-attributes(.)"/>
     <tr>
@@ -369,7 +369,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
         <xsl:apply-templates select="db:funcdef" mode="m:kr-tabular"/>
       </td>
       <xsl:apply-templates select="(db:void|db:varargs|db:paramdef)[1]"
-			   mode="m:kr-tabular"/>
+                           mode="m:kr-tabular"/>
     </tr>
     <xsl:for-each select="(db:void|db:varargs|db:paramdef)[position() &gt; 1]">
       <tr>
@@ -381,7 +381,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
   <xsl:if test="db:paramdef">
     <table border="0"
-	   summary="Function argument synopsis"
+           summary="Function argument synopsis"
            cellspacing="0" cellpadding="0">
       <xsl:sequence select="f:html-attributes(.)"/>
       <!--
@@ -390,7 +390,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
       </xsl:if>
       -->
       <xsl:apply-templates select="db:paramdef"
-			   mode="m:kr-tabular-funcsynopsis-mode"/>
+                           mode="m:kr-tabular-funcsynopsis-mode"/>
     </table>
   </xsl:if>
 </xsl:template>
@@ -465,13 +465,13 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
     <xsl:choose>
       <xsl:when test="db:type and db:funcparams">
         <td>
-	  <xsl:apply-templates select="db:type"
-			       mode="m:kr-tabular-funcsynopsis-mode"/>
+          <xsl:apply-templates select="db:type"
+                               mode="m:kr-tabular-funcsynopsis-mode"/>
           <xsl:text>&#160;</xsl:text>
         </td>
         <td>
           <xsl:apply-templates select="db:type/following-sibling::node()"
-			       mode="m:kr-tabular-funcsynopsis-mode"/>
+                               mode="m:kr-tabular-funcsynopsis-mode"/>
         </td>
       </xsl:when>
       <xsl:when test="db:funcparams">
@@ -498,7 +498,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 </xsl:template>
 
 <xsl:template match="db:paramdef/db:parameter"
-	      mode="m:kr-tabular-funcsynopsis-mode">
+              mode="m:kr-tabular-funcsynopsis-mode">
   <xsl:choose>
     <xsl:when test="$funcsynopsis.decoration != 0">
       <var class="pdparam">
@@ -594,8 +594,8 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
 <xsl:template match="db:funcprototype" mode="m:ansi-tabular">
   <table border="0"
-	 summary="Function synopsis"
-	 cellspacing="0" cellpadding="0">
+         summary="Function synopsis"
+         cellspacing="0" cellpadding="0">
     <xsl:sequence select="f:html-attributes(.)"/>
     <!--
     <xsl:if test="following-sibling::db:funcprototype">
@@ -607,7 +607,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
         <xsl:apply-templates select="db:funcdef" mode="m:ansi-tabular"/>
       </td>
       <xsl:apply-templates select="(db:void|db:varargs|db:paramdef)[1]"
-			   mode="m:ansi-tabular"/>
+                           mode="m:ansi-tabular"/>
     </tr>
     <xsl:for-each select="(db:void|db:varargs|db:paramdef)[position() &gt; 1]">
       <tr>
@@ -659,7 +659,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
     <xsl:when test="db:type and db:funcparams">
       <td>
         <xsl:apply-templates select="db:type"
-			     mode="m:kr-tabular-funcsynopsis-mode"/>
+                             mode="m:kr-tabular-funcsynopsis-mode"/>
         <xsl:text>&#160;</xsl:text>
       </td>
       <td>
@@ -715,7 +715,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <!-- XSLT2 templates and functions -->
 
 <doc:mode name="m:funcprototype-xslt2-function"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for formatting XSLT 2.0 function prototypes</refpurpose>
 
 <refdescription>
@@ -725,14 +725,14 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
 <xsl:template match="db:funcprototype" mode="m:funcprototype-xslt2-function">
   <xsl:apply-templates select="db:funcdef/db:function"
-		       mode="m:funcprototype-xslt2-function"/>
+                       mode="m:funcprototype-xslt2-function"/>
   <xsl:text>(</xsl:text>
   <xsl:apply-templates select="db:paramdef" mode="m:funcprototype-xslt2-function"/>
   <xsl:text>)</xsl:text>
   <xsl:if test="db:funcdef/db:type">
     <xsl:text> as </xsl:text>
     <xsl:apply-templates select="db:funcdef/db:type"
-			 mode="m:funcprototype-xslt2-function"/>
+                         mode="m:funcprototype-xslt2-function"/>
   </xsl:if>
 </xsl:template>
 
@@ -752,11 +752,11 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
 <xsl:template match="db:paramdef" mode="m:funcprototype-xslt2-function">
   <xsl:apply-templates select="db:parameter"
-		       mode="m:funcprototype-xslt2-function"/>
+                       mode="m:funcprototype-xslt2-function"/>
   <xsl:if test="db:type">
     <xsl:text> as </xsl:text>
     <xsl:apply-templates select="db:type"
-			 mode="m:funcprototype-xslt2-function"/>
+                         mode="m:funcprototype-xslt2-function"/>
   </xsl:if>
 
   <xsl:if test="following-sibling::db:paramdef">, </xsl:if>
@@ -772,7 +772,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 <!-- ============================================================ -->
 
 <doc:mode name="m:funcprototype-xslt2-template"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for formatting XSLT 2.0 named templates</refpurpose>
 
 <refdescription>
@@ -795,7 +795,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
     <xsl:text>&gt;&#10;</xsl:text>
 
     <xsl:apply-templates select="db:paramdef"
-			 mode="m:funcprototype-xslt2-template"/>
+                         mode="m:funcprototype-xslt2-template"/>
 
     <xsl:text>&lt;/xsl:call-template&gt;</xsl:text>
   </pre>
@@ -821,12 +821,12 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
 
     <xsl:choose>
       <xsl:when test="db:initializer[@role='content']">
-	<xsl:text>&gt;</xsl:text>
-	<xsl:copy-of select="db:initializer[@role='content']/node()"/>
-	<xsl:text>&lt;/xsl:with-param&gt;</xsl:text>
+        <xsl:text>&gt;</xsl:text>
+        <xsl:copy-of select="db:initializer[@role='content']/node()"/>
+        <xsl:text>&lt;/xsl:with-param&gt;</xsl:text>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:text>/&gt;</xsl:text>
+        <xsl:text>/&gt;</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -835,7 +835,7 @@ paramdef      ::= (#PCDATA|type|replaceable|parameter|funcparams)*
   <xsl:choose>
     <xsl:when test="@role = 'recursive'">
       <i>
-	<xsl:copy-of select="$with-param"/>
+        <xsl:copy-of select="$with-param"/>
       </i>
     </xsl:when>
     <xsl:otherwise>

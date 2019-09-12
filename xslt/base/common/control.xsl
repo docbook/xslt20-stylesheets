@@ -7,7 +7,7 @@
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f m mp t xs"
+                exclude-result-prefixes="db doc f m mp t xs"
                 version="2.0">
 
 <xsl:key name="id" match="*" use="@xml:id"/>
@@ -28,10 +28,10 @@
   <xsl:variable name="root" as="element()">
     <xsl:choose>
       <xsl:when test="exists($rootid) and ($rootid != '')">
-	<xsl:sequence select="key('id', $rootid, $document)"/>
+        <xsl:sequence select="key('id', $rootid, $document)"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:sequence select="$document/*[1]"/>
+        <xsl:sequence select="$document/*[1]"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -90,7 +90,7 @@ element (or the element selected for processing with
 
     <xsl:text>must be one of the following elements: </xsl:text>
     <xsl:value-of select="for $elem in $root.elements/*[position() &lt; last()]
-			  return local-name($elem)" separator=", "/>
+                          return local-name($elem)" separator=", "/>
     <xsl:text>, or </xsl:text>
     <xsl:value-of select="local-name($root.elements/*[last()])"/>
     <xsl:text>.</xsl:text>

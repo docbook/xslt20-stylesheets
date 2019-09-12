@@ -6,7 +6,7 @@
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
                 exclude-result-prefixes="db doc f fn m t u xlink"
@@ -319,7 +319,7 @@ vertical alignment.</para>
 
   <fo:external-graphic>
     <xsl:attribute name="src" select="f:fo-external-image($filename)"/>
-    
+
     <xsl:attribute name="width">
       <xsl:choose>
         <xsl:when test="$ignore.image.scaling">auto</xsl:when>
@@ -327,10 +327,10 @@ vertical alignment.</para>
           <xsl:value-of select="@width"/>
         </xsl:when>
         <xsl:when test="@width and not(@width = '')">
-	  <xsl:value-of select="f:length-spec(@width)"/>
+          <xsl:value-of select="f:length-spec(@width)"/>
         </xsl:when>
         <xsl:when test="not(@depth) and $default.image.width != ''">
-	  <xsl:value-of select="f:length-spec($default.image.width)"/>
+          <xsl:value-of select="f:length-spec($default.image.width)"/>
         </xsl:when>
         <xsl:otherwise>auto</xsl:otherwise>
       </xsl:choose>
@@ -343,7 +343,7 @@ vertical alignment.</para>
           <xsl:value-of select="@depth"/>
         </xsl:when>
         <xsl:when test="@depth">
-	  <xsl:value-of select="f:length-spec(@depth)"/>
+          <xsl:value-of select="f:length-spec(@depth)"/>
         </xsl:when>
         <xsl:otherwise>auto</xsl:otherwise>
       </xsl:choose>
@@ -356,7 +356,7 @@ vertical alignment.</para>
           <xsl:value-of select="@contentwidth"/>
         </xsl:when>
         <xsl:when test="@contentwidth">
-	  <xsl:value-of select="f:length-spec(@contentwidth)"/>
+          <xsl:value-of select="f:length-spec(@contentwidth)"/>
         </xsl:when>
         <xsl:when test="number($scale) != 1.0">
           <xsl:value-of select="$scale * 100"/>
@@ -374,7 +374,7 @@ vertical alignment.</para>
           <xsl:value-of select="@contentdepth"/>
         </xsl:when>
         <xsl:when test="@contentdepth">
-	  <xsl:value-of select="f:length-spec(@contentdepth)"/>
+          <xsl:value-of select="f:length-spec(@contentdepth)"/>
         </xsl:when>
         <xsl:when test="number($scale) != 1.0">
           <xsl:value-of select="$scale * 100"/>

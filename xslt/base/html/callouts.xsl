@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
                 xmlns:xlink='http://www.w3.org/1999/xlink'
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f ghost h m t u xlink xs"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db doc f ghost h m t u xlink xs"
                 version="2.0">
 
 <!-- ********************************************************************
@@ -80,14 +80,14 @@
     <xsl:value-of select="@xml:id"/>
     <xsl:text> </xsl:text>
     <xsl:number count="db:co"
-		level="single"
-		format="1"/>
+                level="single"
+                format="1"/>
     <xsl:text>, </xsl:text>
     <xsl:number count="db:co"
-		level="any"
-		from="db:programlisting|db:screen|db:synopsis
-		      |db:literallayout|db:address"
-		format="1"/>
+                level="any"
+                from="db:programlisting|db:screen|db:synopsis
+                      |db:literallayout|db:address"
+                format="1"/>
   </xsl:message>
   -->
 
@@ -155,7 +155,7 @@
     <xsl:call-template name="t:titlepage"/>
 
     <xsl:apply-templates select="*[not(self::db:info)
-				   and not(self::db:callout)]"/>
+                                   and not(self::db:callout)]"/>
 
     <dl>
       <xsl:apply-templates select="db:callout"/>
@@ -172,70 +172,70 @@
       <xsl:variable name="target" select="key('id',.,$doc)[1]"/>
 
       <xsl:choose>
-	<xsl:when test="count($target)=0">
-	  <xsl:message>
-	    <xsl:text>Error? callout points to non-existent id: </xsl:text>
-	    <xsl:value-of select="."/>
-	  </xsl:message>
-	  <xsl:text>???</xsl:text>
-	</xsl:when>
+        <xsl:when test="count($target)=0">
+          <xsl:message>
+            <xsl:text>Error? callout points to non-existent id: </xsl:text>
+            <xsl:value-of select="."/>
+          </xsl:message>
+          <xsl:text>???</xsl:text>
+        </xsl:when>
 
-	<xsl:when test="$target/self::db:co">
-	  <a href="{f:href($doc,$target)}" class="callout-link">
-	    <xsl:apply-templates select="$target" mode="m:callout-bug"/>
-	  </a>
-	  <xsl:text>&#160;</xsl:text>
-	</xsl:when>
+        <xsl:when test="$target/self::db:co">
+          <a href="{f:href($doc,$target)}" class="callout-link">
+            <xsl:apply-templates select="$target" mode="m:callout-bug"/>
+          </a>
+          <xsl:text>&#160;</xsl:text>
+        </xsl:when>
 
-	<xsl:when test="$target/self::db:areaset">
+        <xsl:when test="$target/self::db:areaset">
           <xsl:choose>
             <xsl:when test="not($syntax-highlighter)">
-	      <xsl:call-template name="t:callout-bug">
-	        <xsl:with-param name="conum"
+              <xsl:call-template name="t:callout-bug">
+                <xsl:with-param name="conum"
                                 select="tokenize($target//db:area[1]/@coords, '\s+')[1]"/>
-	      </xsl:call-template>
+              </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-	      <xsl:call-template name="t:callout-line-bug">
-	        <xsl:with-param name="conum"
+              <xsl:call-template name="t:callout-line-bug">
+                <xsl:with-param name="conum"
                                 select="tokenize($target//db:area[1]/@coords, '\s+')[1]"/>
-	      </xsl:call-template>
+              </xsl:call-template>
             </xsl:otherwise>
           </xsl:choose>
-	</xsl:when>
+        </xsl:when>
 
-	<xsl:when test="$target/self::db:area
+        <xsl:when test="$target/self::db:area
                         and $target/ancestor::db:imageobjectco">
-	  <xsl:call-template name="t:callout-bug">
-	    <xsl:with-param name="conum"
-			    select="count($target/preceding-sibling::*) + 1"/>
+          <xsl:call-template name="t:callout-bug">
+            <xsl:with-param name="conum"
+                            select="count($target/preceding-sibling::*) + 1"/>
           </xsl:call-template>
         </xsl:when>
 
-	<xsl:when test="$target/self::db:area"> <!-- not imageobjectco -->
+        <xsl:when test="$target/self::db:area"> <!-- not imageobjectco -->
           <xsl:choose>
             <xsl:when test="not($syntax-highlighter)">
-	      <xsl:call-template name="t:callout-bug">
-	        <xsl:with-param name="conum"
-			        select="tokenize($target/@coords,'\s+')[1]"/>
-	      </xsl:call-template>
+              <xsl:call-template name="t:callout-bug">
+                <xsl:with-param name="conum"
+                                select="tokenize($target/@coords,'\s+')[1]"/>
+              </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
-	      <xsl:call-template name="t:callout-line-bug">
-	        <xsl:with-param name="conum"
-			        select="tokenize($target/@coords,'\s+')[1]"/>
-	      </xsl:call-template>
+              <xsl:call-template name="t:callout-line-bug">
+                <xsl:with-param name="conum"
+                                select="tokenize($target/@coords,'\s+')[1]"/>
+              </xsl:call-template>
             </xsl:otherwise>
           </xsl:choose>
-	</xsl:when>
+        </xsl:when>
 
-	<xsl:otherwise>
-	  <xsl:message>
-	    <xsl:text>Error? callout points to </xsl:text>
-	    <xsl:value-of select="name($target)"/>
-	  </xsl:message>
-	  <xsl:text>???</xsl:text>
-	</xsl:otherwise>
+        <xsl:otherwise>
+          <xsl:message>
+            <xsl:text>Error? callout points to </xsl:text>
+            <xsl:value-of select="name($target)"/>
+          </xsl:message>
+          <xsl:text>???</xsl:text>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:for-each>
   </dt>

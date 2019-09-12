@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:u="http://nwalsh.com/xsl/unittests#"
-		xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f ghost h m t u xs"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                exclude-result-prefixes="db doc f ghost h m t u xs"
                 version="2.0">
 
 <xsl:attribute-set name="pgwide.properties"/>
@@ -42,10 +42,10 @@
     </xsl:if>
     <xsl:choose>
       <xsl:when test="not(empty($object))">
-	<xsl:sequence select="$object"/>
+        <xsl:sequence select="$object"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:if test="$placement != 'before'">
@@ -56,11 +56,11 @@
   </xsl:variable>
 
   <xsl:variable name="keep.together"><!--
-	<xsl:call-template name="pi.dbfo_keep-together"/>
+        <xsl:call-template name="pi.dbfo_keep-together"/>
    --></xsl:variable>
 
   <xsl:choose>
-    <!-- tables have their own templates and 
+    <!-- tables have their own templates and
          are not handled by formal-object -->
     <xsl:when test="self::db:figure">
       <fo:block id="{$id}" xsl:use-attribute-sets="figure.properties">
@@ -74,8 +74,8 @@
       <fo:block id="{$id}" xsl:use-attribute-sets="example.properties">
         <xsl:if test="$keep.together != ''">
           <xsl:attribute name="keep-together.within-column" select="$keep.together"/>
-	</xsl:if>
-	<xsl:copy-of select="$content"/>
+        </xsl:if>
+        <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:when>
     <xsl:when test="self::db:equation">
@@ -98,7 +98,7 @@
       <fo:block id="{$id}" xsl:use-attribute-sets="formal.object.properties">
         <xsl:if test="$keep.together != ''">
           <xsl:attribute name="keep-together.within-column" select="$keep.together"/>
-	</xsl:if>
+        </xsl:if>
         <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:otherwise>
@@ -156,16 +156,16 @@
   <xsl:variable name="content">
     <xsl:choose>
       <xsl:when test="not(empty($object))">
-	<xsl:sequence select="$object"/>
+        <xsl:sequence select="$object"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
   <xsl:choose>
-    <!-- informaltables have their own templates and 
+    <!-- informaltables have their own templates and
          are not handled by formal.object -->
     <xsl:when test="self::db:equation">
       <xsl:choose>
@@ -199,7 +199,7 @@
           <xsl:attribute name="keep-together.within-column"><xsl:value-of
                           select="$keep.together"/></xsl:attribute>
         </xsl:if>
-	<xsl:copy-of select="$content"/>
+        <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:when>
     <xsl:when test="self::db:informalfigure">
@@ -212,7 +212,7 @@
               <xsl:attribute name="keep-together.within-column"><xsl:value-of
                               select="$keep.together"/></xsl:attribute>
             </xsl:if>
-	    <xsl:copy-of select="$content"/>
+            <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:when>
         <xsl:otherwise>
@@ -222,7 +222,7 @@
               <xsl:attribute name="keep-together.within-column"><xsl:value-of
                               select="$keep.together"/></xsl:attribute>
             </xsl:if>
-	    <xsl:copy-of select="$content"/>
+            <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:otherwise>
       </xsl:choose>
@@ -237,7 +237,7 @@
               <xsl:attribute name="keep-together.within-column"><xsl:value-of
                               select="$keep.together"/></xsl:attribute>
             </xsl:if>
-	    <xsl:copy-of select="$content"/>
+            <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:when>
         <xsl:otherwise>
@@ -247,7 +247,7 @@
               <xsl:attribute name="keep-together.within-column"><xsl:value-of
                               select="$keep.together"/></xsl:attribute>
             </xsl:if>
-	    <xsl:copy-of select="$content"/>
+            <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:otherwise>
       </xsl:choose>
@@ -262,7 +262,7 @@
               <xsl:attribute name="keep-together.within-column"><xsl:value-of
                               select="$keep.together"/></xsl:attribute>
             </xsl:if>
-	    <xsl:copy-of select="$content"/>
+            <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:when>
         <xsl:otherwise>
@@ -272,19 +272,19 @@
               <xsl:attribute name="keep-together.within-column"><xsl:value-of
                               select="$keep.together"/></xsl:attribute>
             </xsl:if>
-	    <xsl:copy-of select="$content"/>
+            <xsl:copy-of select="$content"/>
           </fo:block>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <fo:block id="{$id}" 
+      <fo:block id="{$id}"
                 xsl:use-attribute-sets="informal.object.properties">
         <xsl:if test="$keep.together != ''">
           <xsl:attribute name="keep-together.within-column"><xsl:value-of
                           select="$keep.together"/></xsl:attribute>
         </xsl:if>
-	<xsl:copy-of select="$content"/>
+        <xsl:copy-of select="$content"/>
       </fo:block>
     </xsl:otherwise>
   </xsl:choose>
@@ -297,12 +297,12 @@
     <xsl:when test="db:title|db:info/db:title">
       <xsl:call-template name="t:formal-object">
         <xsl:with-param name="placement" select="$placement"/>
-	<xsl:with-param name="object" select="$object"/>
+        <xsl:with-param name="object" select="$object"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <xsl:call-template name="t:informal-object">
-	<xsl:with-param name="object" select="$object"/>
+        <xsl:with-param name="object" select="$object"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -446,7 +446,7 @@
     <xsl:message terminate="yes">
       <xsl:text>Broken table: tr descendent of CALS Table.</xsl:text>
       <xsl:text>The text in the first tr is:&#10;</xsl:text>
-      <xsl:value-of 
+      <xsl:value-of
                select="(db:tgroup//db:tr)[1]"/>
     </xsl:message>
   </xsl:if>
@@ -454,7 +454,7 @@
     <xsl:message terminate="yes">
       <xsl:text>Broken table: row descendent of HTML table.</xsl:text>
       <xsl:text>The text in the first row is:&#10;</xsl:text>
-      <xsl:value-of 
+      <xsl:value-of
                select=".//db:row[1]"/>
     </xsl:message>
   </xsl:if>

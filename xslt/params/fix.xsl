@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://docbook.org/ns/docbook"
-		xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
-		version="2.0">
+                xmlns="http://docbook.org/ns/docbook"
+                xmlns:src="http://nwalsh.com/xmlns/litprog/fragment"
+                version="2.0">
 
 <xsl:output method="xml" encoding="utf-8" indent="no"
-	    omit-xml-declaration="yes"/>
+            omit-xml-declaration="yes"/>
 
 <xsl:preserve-space elements="*"/>
 
@@ -29,17 +29,17 @@
 
   <xsl:result-document href="{$uri}">
     <xsl:element name="{name(.)}"
-		 namespace="http://docbook.org/ns/docbook">
+                 namespace="http://docbook.org/ns/docbook">
       <xsl:namespace name="src"
-		     select="'http://nwalsh.com/xmlns/litprog/fragment'"/>
+                     select="'http://nwalsh.com/xmlns/litprog/fragment'"/>
       <xsl:namespace name="xsl"
-		     select="'http://www.w3.org/1999/XSL/Transform'"/>
+                     select="'http://www.w3.org/1999/XSL/Transform'"/>
       <xsl:namespace name="xlink"
-		     select="'http://www.w3.org/1999/xlink'"/>
+                     select="'http://www.w3.org/1999/xlink'"/>
       <xsl:copy-of select="@*[not(name(.)='id')]"/>
       <xsl:attribute name="version" select="'5.0'"/>
       <xsl:if test="@id">
-	<xsl:attribute name="xml:id" select="@id"/>
+        <xsl:attribute name="xml:id" select="@id"/>
       </xsl:if>
       <xsl:apply-templates/>
     </xsl:element>
@@ -61,7 +61,7 @@
       <xsl:text>&#10;</xsl:text>
     </xsl:if>
   </xsl:element>
-</xsl:template>    
+</xsl:template>
 
 <xsl:template match="src:*">
   <xsl:element name="{name(.)}">
@@ -71,18 +71,18 @@
     </xsl:if>
     <xsl:apply-templates/>
   </xsl:element>
-</xsl:template>    
+</xsl:template>
 
 <xsl:template match="xsl:*">
   <xsl:element name="{name(.)}">
     <xsl:copy-of select="@*"/>
     <xsl:apply-templates/>
   </xsl:element>
-</xsl:template>    
+</xsl:template>
 
 <xsl:template match="*">
   <xsl:element name="{name(.)}"
-	       namespace="http://docbook.org/ns/docbook">
+               namespace="http://docbook.org/ns/docbook">
     <xsl:copy-of select="@*[not(name(.)='id')]"/>
     <xsl:if test="@id">
       <xsl:attribute name="xml:id" select="@id"/>

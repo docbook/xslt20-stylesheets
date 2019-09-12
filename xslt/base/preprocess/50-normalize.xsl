@@ -7,7 +7,7 @@
                 xmlns:mp="http://docbook.org/xslt/ns/mode/private"
                 xmlns:n="http://docbook.org/xslt/ns/normalize"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f ghost m mp n xs"
+                exclude-result-prefixes="db doc f ghost m mp n xs"
                 version="2.0">
 
 <xsl:import href="../common/functions.xsl"/>
@@ -96,19 +96,19 @@ copied by normalization.</para>
 
     <xsl:choose>
       <xsl:when test="db:info">
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:when>
       <xsl:when test="db:title|db:subtitle|db:titleabbrev">
-	<xsl:element name="info" namespace="{$docbook-namespace}">
-	  <xsl:call-template name="n:normalize-dbinfo">
-	    <xsl:with-param name="copynodes"
-			    select="db:title|db:subtitle|db:titleabbrev"/>
-	  </xsl:call-template>
-	</xsl:element>
-	<xsl:apply-templates/>
+        <xsl:element name="info" namespace="{$docbook-namespace}">
+          <xsl:call-template name="n:normalize-dbinfo">
+            <xsl:with-param name="copynodes"
+                            select="db:title|db:subtitle|db:titleabbrev"/>
+          </xsl:call-template>
+        </xsl:element>
+        <xsl:apply-templates/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:apply-templates/>
+        <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:copy>
@@ -138,35 +138,35 @@ copied by normalization.</para>
     <xsl:when test="not(node())"> <!-- totally empty -->
       <xsl:variable name="id" select="(@id|@xml:id)[1]"/>
       <xsl:choose>
-	<xsl:when test="not($id)">
-	  <xsl:message>
-	    <xsl:text>Error: </xsl:text>
-	    <xsl:text>empty </xsl:text>
-	    <xsl:value-of select="local-name(.)"/>
-	    <xsl:text> with no id.</xsl:text>
-	  </xsl:message>
-	</xsl:when>
-	<xsl:when test="$external.bibliography/key('id', $id)">
-	  <xsl:apply-templates select="$external.bibliography/key('id', $id)"
-			      />
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:message>
-	    <xsl:text>Error: </xsl:text>
-	    <xsl:text>$bibliography.collection doesn't contain </xsl:text>
-	    <xsl:value-of select="$id"/>
-	  </xsl:message>
-	  <xsl:copy>
-	    <xsl:copy-of select="@*"/>
-	    <xsl:text>???</xsl:text>
-	  </xsl:copy>
-	</xsl:otherwise>
+        <xsl:when test="not($id)">
+          <xsl:message>
+            <xsl:text>Error: </xsl:text>
+            <xsl:text>empty </xsl:text>
+            <xsl:value-of select="local-name(.)"/>
+            <xsl:text> with no id.</xsl:text>
+          </xsl:message>
+        </xsl:when>
+        <xsl:when test="$external.bibliography/key('id', $id)">
+          <xsl:apply-templates select="$external.bibliography/key('id', $id)"
+                              />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:message>
+            <xsl:text>Error: </xsl:text>
+            <xsl:text>$bibliography.collection doesn't contain </xsl:text>
+            <xsl:value-of select="$id"/>
+          </xsl:message>
+          <xsl:copy>
+            <xsl:copy-of select="@*"/>
+            <xsl:text>???</xsl:text>
+          </xsl:copy>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy>
-	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates/>
+        <xsl:copy-of select="@*"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
@@ -182,53 +182,53 @@ copied by normalization.</para>
   <xsl:choose>
     <xsl:when test="$glossary/db:glossary[@role='auto']">
       <xsl:if test="not($external.glossary)">
-	<xsl:message>
-	  <xsl:text>Warning: processing automatic glossary </xsl:text>
-	  <xsl:text>without an external glossary.</xsl:text>
-	</xsl:message>
+        <xsl:message>
+          <xsl:text>Warning: processing automatic glossary </xsl:text>
+          <xsl:text>without an external glossary.</xsl:text>
+        </xsl:message>
       </xsl:if>
 
       <xsl:element name="glossary" namespace="{$docbook-namespace}">
-	<xsl:for-each select="$glossary/db:glossary/@*">
-	  <xsl:if test="name(.) != 'role'">
-	    <xsl:copy-of select="."/>
-	  </xsl:if>
-	</xsl:for-each>
-	<xsl:copy-of select="$glossary/db:glossary/db:info"/>
+        <xsl:for-each select="$glossary/db:glossary/@*">
+          <xsl:if test="name(.) != 'role'">
+            <xsl:copy-of select="."/>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:copy-of select="$glossary/db:glossary/db:info"/>
 
-	<xsl:variable name="seealsos" as="element()*">
-	  <xsl:for-each select="$external.glossary//db:glossseealso">
-	    <xsl:copy-of select="if (key('id', @otherterm))
-				  then key('id', @otherterm)[1]
-				  else key('glossterm', string(.))"/>
-	  </xsl:for-each>
-	</xsl:variable>
+        <xsl:variable name="seealsos" as="element()*">
+          <xsl:for-each select="$external.glossary//db:glossseealso">
+            <xsl:copy-of select="if (key('id', @otherterm))
+                                  then key('id', @otherterm)[1]
+                                  else key('glossterm', string(.))"/>
+          </xsl:for-each>
+        </xsl:variable>
 
-	<xsl:variable name="divs"
-		      select="$glossary//db:glossary/db:glossdiv"/>
+        <xsl:variable name="divs"
+                      select="$glossary//db:glossary/db:glossdiv"/>
 
-	<xsl:choose>
-	  <xsl:when test="$divs and $external.glossary//db:glossdiv">
-	    <xsl:apply-templates select="$external.glossary//db:glossdiv"
-				 mode="m:copy-external-glossary">
-	      <xsl:with-param name="terms"
-			      select="//db:glossterm[not(parent::db:glossdef)]
-				      |//db:firstterm
-				      |$seealsos"/>
-	      <xsl:with-param name="divs" select="$divs"/>
-	    </xsl:apply-templates>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:apply-templates select="$external.glossary//db:glossentry"
-				 mode="m:copy-external-glossary">
-	      <xsl:with-param name="terms"
-			      select="//db:glossterm[not(parent::db:glossdef)]
-				      |//db:firstterm
-				      |$seealsos"/>
-	      <xsl:with-param name="divs" select="$divs"/>
-	    </xsl:apply-templates>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$divs and $external.glossary//db:glossdiv">
+            <xsl:apply-templates select="$external.glossary//db:glossdiv"
+                                 mode="m:copy-external-glossary">
+              <xsl:with-param name="terms"
+                              select="//db:glossterm[not(parent::db:glossdef)]
+                                      |//db:firstterm
+                                      |$seealsos"/>
+              <xsl:with-param name="divs" select="$divs"/>
+            </xsl:apply-templates>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="$external.glossary//db:glossentry"
+                                 mode="m:copy-external-glossary">
+              <xsl:with-param name="terms"
+                              select="//db:glossterm[not(parent::db:glossdef)]
+                                      |//db:firstterm
+                                      |$seealsos"/>
+              <xsl:with-param name="divs" select="$divs"/>
+            </xsl:apply-templates>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:element>
     </xsl:when>
     <xsl:otherwise>
@@ -294,7 +294,7 @@ copied by normalization.</para>
 <!-- ============================================================ -->
 
 <doc:template name="n:normalize-generated-title"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Generate a title, if necessary, and see that its moved into
 <tag>info</tag></refpurpose>
 
@@ -330,43 +330,43 @@ necessary.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy>
-	<xsl:copy-of select="@*"/>
+        <xsl:copy-of select="@*"/>
 
-	<xsl:choose>
-	  <xsl:when test="db:info">
-	    <xsl:element name="info" namespace="{$docbook-namespace}">
-	      <xsl:copy-of select="db:info/@*"/>
-	      <xsl:element name="title" namespace="{$docbook-namespace}">
-		<xsl:apply-templates select="." mode="n:normalized-title">
-		  <xsl:with-param name="title-key" select="$title-key"/>
-		</xsl:apply-templates>
-	      </xsl:element>
-	      <xsl:copy-of select="db:info/preceding-sibling::node()"/>
-	      <xsl:copy-of select="db:info/*"/>
-	    </xsl:element>
+        <xsl:choose>
+          <xsl:when test="db:info">
+            <xsl:element name="info" namespace="{$docbook-namespace}">
+              <xsl:copy-of select="db:info/@*"/>
+              <xsl:element name="title" namespace="{$docbook-namespace}">
+                <xsl:apply-templates select="." mode="n:normalized-title">
+                  <xsl:with-param name="title-key" select="$title-key"/>
+                </xsl:apply-templates>
+              </xsl:element>
+              <xsl:copy-of select="db:info/preceding-sibling::node()"/>
+              <xsl:copy-of select="db:info/*"/>
+            </xsl:element>
 
-	    <xsl:apply-templates select="db:info/following-sibling::node()"
-				/>
-	  </xsl:when>
+            <xsl:apply-templates select="db:info/following-sibling::node()"
+                                />
+          </xsl:when>
 
-	  <xsl:otherwise>
-	    <xsl:variable name="node-tree">
-	      <xsl:element name="title" namespace="{$docbook-namespace}">
-		<xsl:attribute name="ghost:title" select="'yes'"/>
-		<xsl:apply-templates select="." mode="n:normalized-title">
-		  <xsl:with-param name="title-key" select="$title-key"/>
-		</xsl:apply-templates>
-	      </xsl:element>
-	    </xsl:variable>
+          <xsl:otherwise>
+            <xsl:variable name="node-tree">
+              <xsl:element name="title" namespace="{$docbook-namespace}">
+                <xsl:attribute name="ghost:title" select="'yes'"/>
+                <xsl:apply-templates select="." mode="n:normalized-title">
+                  <xsl:with-param name="title-key" select="$title-key"/>
+                </xsl:apply-templates>
+              </xsl:element>
+            </xsl:variable>
 
-	    <xsl:element name="info" namespace="{$docbook-namespace}">
-	      <xsl:call-template name="n:normalize-dbinfo">
-		<xsl:with-param name="copynodes" select="$node-tree/*"/>
-	      </xsl:call-template>
-	    </xsl:element>
-	    <xsl:apply-templates/>
-	  </xsl:otherwise>
-	</xsl:choose>
+            <xsl:element name="info" namespace="{$docbook-namespace}">
+              <xsl:call-template name="n:normalize-dbinfo">
+                <xsl:with-param name="copynodes" select="$node-tree/*"/>
+              </xsl:call-template>
+            </xsl:element>
+            <xsl:apply-templates/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
@@ -392,7 +392,7 @@ necessary.</para>
 <!-- ============================================================ -->
 
 <doc:template name="n:normalize-dbinfo"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Copy the specified nodes, normalizing other content
 if appropriate</refpurpose>
 
@@ -433,16 +433,16 @@ if appropriate</refpurpose>
 </xsl:template>
 
 <xsl:template match="db:inlinemediaobject
-		     [(parent::db:programlisting
-		       or parent::db:screen
-		       or parent::db:literallayout
-		       or parent::db:address
-		       or parent::db:funcsynopsisinfo)
-		     and db:imageobject
-		     and db:imageobject/db:imagedata[@format='linespecific']]">
+                     [(parent::db:programlisting
+                       or parent::db:screen
+                       or parent::db:literallayout
+                       or parent::db:address
+                       or parent::db:funcsynopsisinfo)
+                     and db:imageobject
+                     and db:imageobject/db:imagedata[@format='linespecific']]">
   <xsl:variable name="data"
-		select="(db:imageobject
-			 /db:imagedata[@format='linespecific'])[1]"/>
+                select="(db:imageobject
+                         /db:imagedata[@format='linespecific'])[1]"/>
   <xsl:choose>
     <xsl:when test="$data/@entityref">
       <xsl:value-of select="unparsed-text(unparsed-entity-uri($data/@entityref))"/>
@@ -455,12 +455,12 @@ if appropriate</refpurpose>
 </xsl:template>
 
 <xsl:template match="db:textobject
-		     [parent::db:programlisting
-		      or parent::db:screen
-		      or parent::db:literallayout
-		      or parent::db:address
-		      or parent::db:funcsynopsisinfo]"
-	     >
+                     [parent::db:programlisting
+                      or parent::db:screen
+                      or parent::db:literallayout
+                      or parent::db:address
+                      or parent::db:funcsynopsisinfo]"
+             >
   <xsl:choose>
     <xsl:when test="db:textdata/@entityref">
       <xsl:value-of select="unparsed-text(unparsed-entity-uri(db:textdata/@entityref))"/>
@@ -496,8 +496,8 @@ if appropriate</refpurpose>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy>
-	<xsl:copy-of select="@*"/>
-	<xsl:apply-templates/>
+        <xsl:copy-of select="@*"/>
+        <xsl:apply-templates/>
       </xsl:copy>
     </xsl:otherwise>
   </xsl:choose>
@@ -511,7 +511,7 @@ if appropriate</refpurpose>
 <!-- copy external glossary -->
 
 <doc:mode name="m:copy-external-glossary"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for copying external glossary entries</refpurpose>
 
 <refdescription>
@@ -534,14 +534,14 @@ if appropriate</refpurpose>
   <xsl:if test="$entries">
     <xsl:choose>
       <xsl:when test="$divs">
-	<xsl:copy>
-	  <xsl:copy-of select="@*"/>
-	  <xsl:copy-of select="db:info"/>
-	  <xsl:copy-of select="$entries"/>
-	</xsl:copy>
+        <xsl:copy>
+          <xsl:copy-of select="@*"/>
+          <xsl:copy-of select="db:info"/>
+          <xsl:copy-of select="$entries"/>
+        </xsl:copy>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:copy-of select="$entries"/>
+        <xsl:copy-of select="$entries"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:if>
@@ -553,7 +553,7 @@ if appropriate</refpurpose>
 
   <xsl:variable name="include"
                 select="for $dterm in $terms
-                           return 
+                           return
                               for $gterm in db:glossterm
                                  return
                                     if (string($dterm) = string($gterm)
@@ -583,7 +583,7 @@ if appropriate</refpurpose>
 
 <xsl:template match="db:informaltable[db:tr]
                      |db:table[db:tr]"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
 
@@ -604,7 +604,7 @@ if appropriate</refpurpose>
 
 <!-- If we're unifying titles, turn the caption into a title. -->
 <xsl:template match="db:table/db:caption"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
   <xsl:choose>
     <xsl:when test="$unify.table.titles != '0'">
       <info>

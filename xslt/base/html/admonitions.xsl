@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://www.w3.org/1999/xhtml"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:ghost="http://docbook.org/ns/docbook/ephemeral"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="h f m fn db doc xs t ghost"
+                exclude-result-prefixes="h f m fn db doc xs t ghost"
                 version="2.0">
 
 <xsl:template match="db:note|db:important|db:warning|db:caution|db:tip|db:danger">
@@ -19,14 +19,14 @@
       <xsl:apply-templates select="." mode="m:graphical-admonition"/>
     </xsl:when>
     <xsl:otherwise>
-      
+
 
       <div>
         <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
                                 f:html-extra-class-values(., 'admonition'))"/>
         <xsl:call-template name="t:titlepage"/>
         <div class="admonition-body">
-	  <xsl:apply-templates/>
+          <xsl:apply-templates/>
         </div>
       </div>
     </xsl:otherwise>
@@ -46,7 +46,7 @@ the graphical form.</para>
 </doc:mode>
 
 <xsl:template match="db:note|db:important|db:warning|db:caution|db:tip"
-	      mode="m:graphical-admonition">
+              mode="m:graphical-admonition">
   <xsl:variable name="admon.type">
     <xsl:choose>
       <xsl:when test="self::db:note">Note</xsl:when>
@@ -75,30 +75,30 @@ the graphical form.</para>
     </xsl:apply-templates>
 
     <table border="0" cellspacing="0" cellpadding="4"
-	   summary="Presentation of a {local-name(.)}">
+           summary="Presentation of a {local-name(.)}">
       <tbody>
-	<tr>
-	  <td valign="top">
-	    <span class="admon-graphic">
-	      <img alt="{$alt}">
-		<xsl:attribute name="src">
-		  <xsl:call-template name="admonition-graphic"/>
-		</xsl:attribute>
-	      </img>
-	    </span>
-	  </td>
-	  <td>
-	    <xsl:if test="db:info/db:title[not(@ghost:title)
-			                   or $admonition.default.titles]">
-	      <div class="admon-title-text">
-		<xsl:call-template name="t:titlepage"/>
-	      </div>
-	    </xsl:if>
-	    <div class="admon-text">
-	      <xsl:apply-templates/>
-	    </div>
-	  </td>
-	</tr>
+        <tr>
+          <td valign="top">
+            <span class="admon-graphic">
+              <img alt="{$alt}">
+                <xsl:attribute name="src">
+                  <xsl:call-template name="admonition-graphic"/>
+                </xsl:attribute>
+              </img>
+            </span>
+          </td>
+          <td>
+            <xsl:if test="db:info/db:title[not(@ghost:title)
+                                           or $admonition.default.titles]">
+              <div class="admon-title-text">
+                <xsl:call-template name="t:titlepage"/>
+              </div>
+            </xsl:if>
+            <div class="admon-text">
+              <xsl:apply-templates/>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

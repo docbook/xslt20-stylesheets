@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
@@ -8,7 +8,7 @@
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f h m t xs"
+                exclude-result-prefixes="db doc f h m t xs"
                 version="2.0">
 
 <!-- ============================================================ -->
@@ -42,14 +42,14 @@ title.</para>
     <figure>
       <xsl:sequence select="f:html-attributes($context, f:node-id($context), concat($class,'-wrapper'))"/>
       <xsl:choose>
-	<xsl:when test="$placement = 'before'">
-	  <xsl:sequence select="$title"/>
-	  <xsl:sequence select="$object"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:sequence select="$object"/>
-	  <xsl:sequence select="$title"/>
-	</xsl:otherwise>
+        <xsl:when test="$placement = 'before'">
+          <xsl:sequence select="$title"/>
+          <xsl:sequence select="$object"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="$object"/>
+          <xsl:sequence select="$title"/>
+        </xsl:otherwise>
       </xsl:choose>
     </figure>
   </xsl:variable>
@@ -57,7 +57,7 @@ title.</para>
   <xsl:choose>
     <xsl:when test="$context/@floatstyle">
       <div class="float-{$context/@floatstyle}">
-	<xsl:copy-of select="$wrapper"/>
+        <xsl:copy-of select="$wrapper"/>
       </div>
     </xsl:when>
     <xsl:otherwise>
@@ -69,7 +69,7 @@ title.</para>
 <!-- ============================================================ -->
 
 <doc:template name="t:formal-object-heading"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Template for processing the title of formal objects</refpurpose>
 
 <refdescription>
@@ -116,7 +116,7 @@ title.</para>
   <xsl:choose>
     <xsl:when test="$context/@floatstyle">
       <div class="float-{$context/@floatstyle}">
-	<xsl:copy-of select="$wrapper"/>
+        <xsl:copy-of select="$wrapper"/>
       </div>
     </xsl:when>
     <xsl:otherwise>
@@ -146,15 +146,15 @@ formal, sometimes informal, by calling the appropriate template.
   <xsl:choose>
     <xsl:when test="db:title|db:info/db:title">
       <xsl:call-template name="t:formal-object">
-	<xsl:with-param name="placement" select="$placement"/>
-	<xsl:with-param name="class" select="$class"/>
-	<xsl:with-param name="object" select="$object"/>
+        <xsl:with-param name="placement" select="$placement"/>
+        <xsl:with-param name="class" select="$class"/>
+        <xsl:with-param name="object" select="$object"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <xsl:call-template name="t:informal-object">
-	<xsl:with-param name="class" select="$class"/>
-	<xsl:with-param name="object" select="$object"/>
+        <xsl:with-param name="class" select="$class"/>
+        <xsl:with-param name="object" select="$object"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -172,12 +172,12 @@ formal, sometimes informal, by calling the appropriate template.
 <xsl:template match="db:figure">
   <xsl:call-template name="t:formal-object">
     <xsl:with-param name="placement"
-	    select="$formal.title.placement[self::db:figure]/@placement"/>
+            select="$formal.title.placement[self::db:figure]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
       <div>
         <xsl:sequence select="f:html-attributes(., ())"/>
-	<xsl:apply-templates select="*[not(self::db:caption)]"/>
+        <xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
   </xsl:call-template>
@@ -189,7 +189,7 @@ formal, sometimes informal, by calling the appropriate template.
     <xsl:with-param name="object" as="element()">
       <div>
         <xsl:sequence select="f:html-attributes(., ())"/>
-	<xsl:apply-templates select="*[not(self::db:caption)]"/>
+        <xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
   </xsl:call-template>
@@ -198,12 +198,12 @@ formal, sometimes informal, by calling the appropriate template.
 <xsl:template match="db:example">
   <xsl:call-template name="t:formal-object">
     <xsl:with-param name="placement"
-	    select="$formal.title.placement[self::db:example]/@placement"/>
+            select="$formal.title.placement[self::db:example]/@placement"/>
     <xsl:with-param name="class" select="local-name(.)"/>
     <xsl:with-param name="object" as="element()">
       <div>
         <xsl:sequence select="f:html-attributes(., ())"/>
-	<xsl:apply-templates select="*[not(self::db:caption)]"/>
+        <xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
   </xsl:call-template>
@@ -215,7 +215,7 @@ formal, sometimes informal, by calling the appropriate template.
     <xsl:with-param name="object" as="element()">
       <div>
         <xsl:sequence select="f:html-attributes(., ())"/>
-	<xsl:apply-templates select="*[not(self::db:caption)]"/>
+        <xsl:apply-templates select="*[not(self::db:caption)]"/>
       </div>
     </xsl:with-param>
   </xsl:call-template>

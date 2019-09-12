@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
@@ -11,7 +11,7 @@
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:tp="http://docbook.org/xslt/ns/template/private"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc f fn h m mp t tp xs"
+                exclude-result-prefixes="db doc f fn h m mp t tp xs"
                 version="2.0">
 
 <!-- ********************************************************************
@@ -234,12 +234,12 @@ division (book, part, etc.).</para>
   <xsl:call-template name="tp:make-toc">
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="nodes"
-		    select="db:part|db:reference
-			    |db:preface|db:chapter|db:appendix
-			    |db:article
-			    |db:bibliography|db:glossary|db:index
-			    |db:refentry
-			    |db:bridgehead[$bridgehead.in.toc]"/>
+                    select="db:part|db:reference
+                            |db:preface|db:chapter|db:appendix
+                            |db:article
+                            |db:bibliography|db:glossary|db:index
+                            |db:refentry
+                            |db:bridgehead[$bridgehead.in.toc]"/>
 
   </xsl:call-template>
 </xsl:template>
@@ -278,20 +278,20 @@ component (chapter, article, etc.).</para>
     <xsl:with-param name="toc-context" select="$toc-context"/>
     <xsl:with-param name="toc.title" select="$toc.title"/>
     <xsl:with-param name="nodes"
-		    select="db:section|db:sect1|db:refentry
-			    |db:article|db:bibliography|db:glossary
-			    |db:appendix|db:index
-			    |db:bridgehead[not(@renderas)
-			                   and $bridgehead.in.toc]
-			    |.//db:bridgehead[@renderas='sect1'
-			                      and $bridgehead.in.toc]"/>
+                    select="db:section|db:sect1|db:refentry
+                            |db:article|db:bibliography|db:glossary
+                            |db:appendix|db:index
+                            |db:bridgehead[not(@renderas)
+                                           and $bridgehead.in.toc]
+                            |.//db:bridgehead[@renderas='sect1'
+                                              and $bridgehead.in.toc]"/>
   </xsl:call-template>
 </xsl:template>
 
 <!-- ============================================================ -->
 
 <doc:template name="t:component-toc-separator"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make a separator for component ToCs</refpurpose>
 
 <refdescription>
@@ -344,9 +344,9 @@ section.</para>
     <xsl:with-param name="toc.title" select="$toc.title"/>
     <xsl:with-param name="nodes"
                     select="db:section
-			    |db:sect1|db:sect2|db:sect3|db:sect4|db:sect5
-			    |db:refentry
-			    |db:bridgehead[$bridgehead.in.toc]"/>
+                            |db:sect1|db:sect2|db:sect3|db:sect4|db:sect5
+                            |db:refentry
+                            |db:bridgehead[$bridgehead.in.toc]"/>
 
   </xsl:call-template>
 </xsl:template>
@@ -354,7 +354,7 @@ section.</para>
 <!-- ============================================================ -->
 
 <doc:template name="t:section-toc-separator"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make a separator for section ToCs</refpurpose>
 
 <refdescription>
@@ -414,7 +414,7 @@ Lists of Titles for a qandaset.</para>
 <!-- ============================================================ -->
 
 <doc:template name="t:qanda-toc-separator"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Make a separator for qandaset ToCs</refpurpose>
 
 <refdescription>
@@ -472,9 +472,9 @@ Lists of Titles for a qandaset.</para>
       <xsl:when test="self::db:refsect2">2</xsl:when>
       <xsl:when test="self::db:refsect3">3</xsl:when>
       <xsl:when test="self::db:simplesect">
-	<!-- sigh... -->
-	<xsl:choose>
-	  <xsl:when test="parent::db:section">
+        <!-- sigh... -->
+        <xsl:choose>
+          <xsl:when test="parent::db:section">
             <xsl:value-of select="count(ancestor::db:section)"/>
           </xsl:when>
           <xsl:when test="parent::db:sect1">2</xsl:when>
@@ -493,14 +493,14 @@ Lists of Titles for a qandaset.</para>
   </xsl:variable>
 
   <xsl:variable name="depth.from.context"
-		select="count(ancestor::*)-count($toc-context/ancestor::*)"/>
+                select="count(ancestor::*)-count($toc-context/ancestor::*)"/>
 
   <xsl:variable name="subtoc.list" select="$subtoc"/>
 
   <xsl:variable name="show.subtoc" as="xs:boolean"
-		select="count($subtoc/*) &gt; 0
-			and $toc.section.depth > $depth and exists($nodes)
-			and $toc.max.depth > $depth.from.context"/>
+                select="count($subtoc/*) &gt; 0
+                        and $toc.section.depth > $depth and exists($nodes)
+                        and $toc.max.depth > $depth.from.context"/>
 
   <li>
     <xsl:call-template name="tp:toc-line">
@@ -535,11 +535,11 @@ Lists of Titles for a qandaset.</para>
     <a href="{f:href(/,.)}">
       <span class="label">
         <xsl:variable name="label">
-	  <xsl:apply-templates select="." mode="m:label-content"/>
+          <xsl:apply-templates select="." mode="m:label-content"/>
         </xsl:variable>
         <xsl:copy-of select="$label"/>
         <xsl:if test="$label != ''">
-	  <xsl:value-of select="$autotoc.label.separator"/>
+          <xsl:value-of select="$autotoc.label.separator"/>
         </xsl:if>
       </span>
       <xsl:apply-templates select="." mode="m:titleabbrev-content"/>
@@ -830,7 +830,7 @@ Lists of Titles for a qandaset.</para>
 </xsl:template>
 
 <xsl:template match="db:figure|db:table|db:example|db:equation|db:procedure"
-	      mode="mp:toc">
+              mode="mp:toc">
   <xsl:param name="toc-context" select="."/>
 
   <li>

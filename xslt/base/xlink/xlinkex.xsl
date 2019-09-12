@@ -15,7 +15,7 @@
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns="http://docbook.org/ns/docbook"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
-		exclude-result-prefixes="xs db"
+                exclude-result-prefixes="xs db"
                 version="2.0">
 
     <t:output method="xml" indent="no"/>

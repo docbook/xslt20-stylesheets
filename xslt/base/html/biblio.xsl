@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
@@ -8,7 +8,7 @@
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="db doc f fn h m t"
+                exclude-result-prefixes="db doc f fn h m t"
                 version="2.0">
 
 <xsl:template match="db:bibliography">
@@ -58,12 +58,12 @@
       </span>
       <span class="entry">
       <xsl:choose>
-	<xsl:when test="self::db:biblioentry">
-	  <xsl:apply-templates mode="m:biblioentry"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:apply-templates mode="m:bibliomixed"/>
-	</xsl:otherwise>
+        <xsl:when test="self::db:biblioentry">
+          <xsl:apply-templates mode="m:biblioentry"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates mode="m:bibliomixed"/>
+        </xsl:otherwise>
       </xsl:choose>
       </span>
     </p>
@@ -73,7 +73,7 @@
 <!-- ============================================================ -->
 
 <doc:mode name="m:bibliomixed"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for formatting <tag>bibliomixed</tag> elements</refpurpose>
 
 <refdescription>
@@ -94,22 +94,22 @@ for the content of a bibliography entry.</para>
 </xsl:template>
 
 <xsl:template match="db:bibliomset/db:title|db:bibliomset/db:citetitle"
-	      mode="m:bibliomixed">
+              mode="m:bibliomixed">
   <xsl:variable name="relation" select="../@relation"/>
 
   <xsl:call-template name="t:simple-xlink">
     <xsl:with-param name="content">
       <xsl:choose>
-	<xsl:when test="$relation='article' or @pubwork='article'">
-	  <xsl:call-template name="gentext-startquote"/>
-	  <xsl:apply-templates mode="m:bibliomixed"/>
-	  <xsl:call-template name="gentext-endquote"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <cite>
-	    <xsl:apply-templates mode="m:bibliomixed"/>
-	  </cite>
-	</xsl:otherwise>
+        <xsl:when test="$relation='article' or @pubwork='article'">
+          <xsl:call-template name="gentext-startquote"/>
+          <xsl:apply-templates mode="m:bibliomixed"/>
+          <xsl:call-template name="gentext-endquote"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <cite>
+            <xsl:apply-templates mode="m:bibliomixed"/>
+          </cite>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -119,18 +119,18 @@ for the content of a bibliography entry.</para>
   <xsl:call-template name="t:simple-xlink">
     <xsl:with-param name="content">
       <span class="{name(.)}">
-	<xsl:choose>
-	  <xsl:when test="@pubwork = 'article'">
-	    <xsl:call-template name="gentext-startquote"/>
-	    <xsl:apply-templates mode="m:bibliomixed"/>
-	    <xsl:call-template name="gentext-endquote"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <cite>
-	      <xsl:apply-templates mode="m:bibliomixed"/>
-	    </cite>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="@pubwork = 'article'">
+            <xsl:call-template name="gentext-startquote"/>
+            <xsl:apply-templates mode="m:bibliomixed"/>
+            <xsl:call-template name="gentext-endquote"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <cite>
+              <xsl:apply-templates mode="m:bibliomixed"/>
+            </cite>
+          </xsl:otherwise>
+        </xsl:choose>
       </span>
     </xsl:with-param>
   </xsl:call-template>
@@ -141,55 +141,55 @@ for the content of a bibliography entry.</para>
 </xsl:template>
 
 <xsl:template match="db:abstract
-		     |db:address
-		     |db:affiliation
-		     |db:artpagenums
-		     |db:authorblurb
-		     |db:authorinitials
-		     |db:bibliocoverage
-		     |db:biblioid
-		     |db:bibliomisc
-		     |db:bibliomset
-		     |db:bibliorelation
-		     |db:biblioset
-		     |db:bibliosource
-		     |db:collab
-		     |db:confgroup
-		     |db:contractnum
-		     |db:contractsponsor
-		     |db:contrib
-		     |db:corpauthor
-		     |db:corpcredit
-		     |db:corpname
-		     |db:date
-		     |db:edition
-		     |db:firstname
-		     |db:honorific
-		     |db:invpartnumber
-		     |db:isbn
-		     |db:issn
-		     |db:issuenum
-		     |db:jobtitle
-		     |db:lineage
-		     |db:orgname
-		     |db:othername
-		     |db:pagenums
-		     |db:personblurb
-		     |db:printhistory
-		     |db:productname
-		     |db:productnumber
-		     |db:pubdate
-		     |db:publisher
-		     |db:publishername
-		     |db:pubsnumber
-		     |db:releaseinfo
-		     |db:seriesvolnums
-		     |db:shortaffil
-		     |db:subtitle
-		     |db:surname
-		     |db:titleabbrev
-		     |db:volumenum"
-	      mode="m:bibliomixed">
+                     |db:address
+                     |db:affiliation
+                     |db:artpagenums
+                     |db:authorblurb
+                     |db:authorinitials
+                     |db:bibliocoverage
+                     |db:biblioid
+                     |db:bibliomisc
+                     |db:bibliomset
+                     |db:bibliorelation
+                     |db:biblioset
+                     |db:bibliosource
+                     |db:collab
+                     |db:confgroup
+                     |db:contractnum
+                     |db:contractsponsor
+                     |db:contrib
+                     |db:corpauthor
+                     |db:corpcredit
+                     |db:corpname
+                     |db:date
+                     |db:edition
+                     |db:firstname
+                     |db:honorific
+                     |db:invpartnumber
+                     |db:isbn
+                     |db:issn
+                     |db:issuenum
+                     |db:jobtitle
+                     |db:lineage
+                     |db:orgname
+                     |db:othername
+                     |db:pagenums
+                     |db:personblurb
+                     |db:printhistory
+                     |db:productname
+                     |db:productnumber
+                     |db:pubdate
+                     |db:publisher
+                     |db:publishername
+                     |db:pubsnumber
+                     |db:releaseinfo
+                     |db:seriesvolnums
+                     |db:shortaffil
+                     |db:subtitle
+                     |db:surname
+                     |db:titleabbrev
+                     |db:volumenum"
+              mode="m:bibliomixed">
   <span>
     <xsl:sequence select="f:html-attributes(.)"/>
     <xsl:apply-templates mode="m:bibliomixed"/>
@@ -199,7 +199,7 @@ for the content of a bibliography entry.</para>
 <!-- ============================================================ -->
 
 <doc:mode name="m:biblioentry"
-	  xmlns="http://docbook.org/ns/docbook">
+          xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Mode for formatting <tag>biblioentry</tag> elements</refpurpose>
 
 <refdescription>
@@ -233,21 +233,21 @@ for the content of a bibliography entry.</para>
 
 <xsl:template match="db:biblioset/db:title|db:biblioset/db:citetitle
                      |db:bibliomset/db:title|db:bibliomset/db:citetitle"
-	      mode="m:biblioentry">
+              mode="m:biblioentry">
   <xsl:variable name="relation" select="../@relation"/>
   <xsl:call-template name="t:simple-xlink">
     <xsl:with-param name="content">
       <xsl:choose>
-	<xsl:when test="$relation='article' or @pubwork='article'">
-	  <xsl:call-template name="gentext-startquote"/>
-	  <xsl:apply-templates mode="m:biblioentry"/>
-	  <xsl:call-template name="gentext-endquote"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <cite>
-	    <xsl:apply-templates mode="m:biblioentry"/>
-	  </cite>
-	</xsl:otherwise>
+        <xsl:when test="$relation='article' or @pubwork='article'">
+          <xsl:call-template name="gentext-startquote"/>
+          <xsl:apply-templates mode="m:biblioentry"/>
+          <xsl:call-template name="gentext-endquote"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <cite>
+            <xsl:apply-templates mode="m:biblioentry"/>
+          </cite>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -258,18 +258,18 @@ for the content of a bibliography entry.</para>
   <xsl:call-template name="t:simple-xlink">
     <xsl:with-param name="content">
       <span class="{name(.)}">
-	<xsl:choose>
-	  <xsl:when test="@pubwork = 'article'">
-	    <xsl:call-template name="gentext-startquote"/>
-	    <xsl:apply-templates mode="m:biblioentry"/>
-	    <xsl:call-template name="gentext-endquote"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <cite>
-	      <xsl:apply-templates mode="m:biblioentry"/>
-	    </cite>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="@pubwork = 'article'">
+            <xsl:call-template name="gentext-startquote"/>
+            <xsl:apply-templates mode="m:biblioentry"/>
+            <xsl:call-template name="gentext-endquote"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <cite>
+              <xsl:apply-templates mode="m:biblioentry"/>
+            </cite>
+          </xsl:otherwise>
+        </xsl:choose>
       </span>
     </xsl:with-param>
   </xsl:call-template>

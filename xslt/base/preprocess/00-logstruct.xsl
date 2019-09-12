@@ -2,7 +2,7 @@
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db f xs"
+                exclude-result-prefixes="db f xs"
                 version="2.0">
 
 <!-- This stylesheet attempts to preserve the logical structure of an
@@ -36,7 +36,7 @@
 
 <xsl:template match="db:imagedata[@entityref]
                      |db:textdata[@entityref]
-		     |db:videodata[@entityref]
+                     |db:videodata[@entityref]
                      |db:audiodata[@entityref]">
   <xsl:copy>
     <xsl:copy-of select="@*[node-name(.) != xs:QName('entityref')]"/>

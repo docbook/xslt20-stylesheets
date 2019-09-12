@@ -14,7 +14,7 @@
                 xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:tp="http://docbook.org/xslt/ns/template/private"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db doc h f fp ghost m fn db h t ext xs tp"
+                exclude-result-prefixes="db doc h f fp ghost m fn db h t ext xs tp"
                 version="2.0">
 
 <!-- ====================================================================== -->
@@ -150,7 +150,7 @@
 
   <xsl:variable name="pl-no-lb" as="node()*">
     <xsl:apply-templates select="$pl-empty-tags"
-			 mode="mp:pl-no-lb"/>
+                         mode="mp:pl-no-lb"/>
   </xsl:variable>
 
   <!--
@@ -250,15 +250,15 @@
   <xsl:call-template name="t:callout-bug">
     <xsl:with-param name="conum">
       <xsl:choose>
-	<xsl:when test="@number">
-	  <xsl:value-of select="@number"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:number count="ghost:co"
-		      level="any"
-		      from="db:programlisting|db:screen|db:literallayout|db:synopsis"
-		      format="1"/>
-	</xsl:otherwise>
+        <xsl:when test="@number">
+          <xsl:value-of select="@number"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:number count="ghost:co"
+                      level="any"
+                      from="db:programlisting|db:screen|db:literallayout|db:synopsis"
+                      format="1"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:with-param>
   </xsl:call-template>
@@ -276,7 +276,7 @@
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()|text()"
-	      mode="mp:expand-ghost-co">
+              mode="mp:expand-ghost-co">
   <xsl:copy/>
 </xsl:template>
 
@@ -294,7 +294,7 @@
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()|text()"
-	      mode="mp:remove-ghost-tree">
+              mode="mp:remove-ghost-tree">
   <xsl:copy/>
 </xsl:template>
 -->
@@ -315,7 +315,7 @@
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()|text()"
-	      mode="mp:pl-cleanup">
+              mode="mp:pl-cleanup">
   <xsl:copy/>
 </xsl:template>
 
@@ -347,16 +347,16 @@
   <xsl:variable name="expanded-text" as="node()*">
     <xsl:for-each select="$listing/node()">
       <xsl:choose>
-	<xsl:when test="self::db:inlinemediaobject
-			and db:textobject/db:textdata">
-	  <xsl:apply-templates select="."/>
-	</xsl:when>
-	<xsl:when test="self::db:textobject and db:textdata">
-	  <xsl:apply-templates select="."/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:sequence select="."/>
-	</xsl:otherwise>
+        <xsl:when test="self::db:inlinemediaobject
+                        and db:textobject/db:textdata">
+          <xsl:apply-templates select="."/>
+        </xsl:when>
+        <xsl:when test="self::db:textobject and db:textdata">
+          <xsl:apply-templates select="."/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:sequence select="."/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:for-each>
   </xsl:variable>
@@ -367,7 +367,7 @@
 
   <xsl:variable name="pl-no-lb" as="node()*">
     <xsl:apply-templates select="$pl-empty-tags"
-			 mode="mp:pl-no-lb"/>
+                         mode="mp:pl-no-lb"/>
   </xsl:variable>
 
   <xsl:variable name="pl-no-wrap-lb" as="node()*">
@@ -415,7 +415,7 @@
   <xsl:choose>
     <xsl:when test="ghost:end">
       <xsl:call-template name="t:restore-content">
-	<xsl:with-param name="nodes" select="node()"/>
+        <xsl:with-param name="nodes" select="node()"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
@@ -459,7 +459,7 @@
 <refdescription>
 <para>This template reverses the flattening process performed by
 the <code>m:patch-empty-elements</code> mode. It replaces pairs of
-empty elements and their corresponding <tag>ghost:end</tag>s with 
+empty elements and their corresponding <tag>ghost:end</tag>s with
 an element that has content.</para>
 </refdescription>
 
@@ -508,27 +508,27 @@ an element that has content.</para>
 
       <!--
       <xsl:message>
-	<xsl:text>Restore </xsl:text>
-	<xsl:value-of select="$id"/>
-	<xsl:text>, </xsl:text>
-	<xsl:value-of select="count($end)"/>
+        <xsl:text>Restore </xsl:text>
+        <xsl:value-of select="$id"/>
+        <xsl:text>, </xsl:text>
+        <xsl:value-of select="count($end)"/>
       </xsl:message>
       -->
 
       <xsl:variable name="endpos"
-		    select="f:find-node-in-sequence($rest, $end, 2)"/>
+                    select="f:find-node-in-sequence($rest, $end, 2)"/>
 
       <xsl:element name="{name($mark)}"
-		   namespace="{namespace-uri($mark)}">
-	<xsl:copy-of select="$mark/@*"/>
-	<xsl:call-template name="t:restore-content">
-	  <xsl:with-param name="nodes"
-			  select="subsequence($rest, 2, $endpos - 2)"/>
-	</xsl:call-template>
+                   namespace="{namespace-uri($mark)}">
+        <xsl:copy-of select="$mark/@*"/>
+        <xsl:call-template name="t:restore-content">
+          <xsl:with-param name="nodes"
+                          select="subsequence($rest, 2, $endpos - 2)"/>
+        </xsl:call-template>
       </xsl:element>
       <xsl:call-template name="t:restore-content">
-	<xsl:with-param name="nodes"
-			select="subsequence($rest, $endpos+1)"/>
+        <xsl:with-param name="nodes"
+                        select="subsequence($rest, $endpos+1)"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -543,8 +543,8 @@ an element that has content.</para>
   <xsl:choose>
     <xsl:when test="$areas[@ghost:line = $linenumber]">
       <xsl:call-template name="tp:addcallouts">
-	<xsl:with-param name="areas" select="$areas[@ghost:line = $linenumber]"/>
-	<xsl:with-param name="line" select="."/>
+        <xsl:with-param name="areas" select="$areas[@ghost:line = $linenumber]"/>
+        <xsl:with-param name="line" select="."/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
@@ -560,8 +560,8 @@ an element that has content.</para>
   <xsl:variable name="newline" as="element(ghost:line)">
     <ghost:line>
       <xsl:call-template name="tp:addcallout">
-	<xsl:with-param name="area" select="$areas[1]"/>
-	<xsl:with-param name="nodes" select="$line/node()"/>
+        <xsl:with-param name="area" select="$areas[1]"/>
+        <xsl:with-param name="nodes" select="$line/node()"/>
       </xsl:call-template>
     </ghost:line>
   </xsl:variable>
@@ -572,8 +572,8 @@ an element that has content.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:call-template name="tp:addcallouts">
-	<xsl:with-param name="areas" select="$areas[position() &gt; 1]"/>
-	<xsl:with-param name="line" select="$newline"/>
+        <xsl:with-param name="areas" select="$areas[position() &gt; 1]"/>
+        <xsl:with-param name="line" select="$newline"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -587,44 +587,44 @@ an element that has content.</para>
   <xsl:choose>
     <xsl:when test="not($nodes)">
       <xsl:if test="$pos &lt; $area/@ghost:col">
-	<xsl:value-of select="f:pad(xs:integer($area/@ghost:col) - $pos, ' ')"/>
-	<xsl:apply-templates select="$area" mode="mp:insert-callout"/>
+        <xsl:value-of select="f:pad(xs:integer($area/@ghost:col) - $pos, ' ')"/>
+        <xsl:apply-templates select="$area" mode="mp:insert-callout"/>
       </xsl:if>
     </xsl:when>
     <xsl:when test="$nodes[1] instance of text()">
       <xsl:choose>
-	<xsl:when test="$pos = $area/@ghost:col">
-	  <xsl:apply-templates select="$area" mode="mp:insert-callout"/>
-	  <xsl:copy-of select="$nodes"/>
-	</xsl:when>
-	<xsl:when test="string-length($nodes[1]) = 1">
-	  <xsl:copy-of select="$nodes[1]"/>
-	  <xsl:call-template name="tp:addcallout">
-	    <xsl:with-param name="area" select="$area"/>
-	    <xsl:with-param name="nodes" select="$nodes[position() &gt; 1]"/>
-	    <xsl:with-param name="pos" select="$pos+1"/>
-	  </xsl:call-template>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:value-of select="substring($nodes[1], 1, 1)"/>
-	  <xsl:variable name="rest" as="text()">
-	    <xsl:value-of select="substring($nodes[1], 2)"/>
-	  </xsl:variable>
-	  <xsl:call-template name="tp:addcallout">
-	    <xsl:with-param name="area" select="$area"/>
-	    <xsl:with-param name="nodes"
-			    select="($rest, $nodes[position() &gt; 1])"/>
-	    <xsl:with-param name="pos" select="$pos+1"/>
-	  </xsl:call-template>
-	</xsl:otherwise>
+        <xsl:when test="$pos = $area/@ghost:col">
+          <xsl:apply-templates select="$area" mode="mp:insert-callout"/>
+          <xsl:copy-of select="$nodes"/>
+        </xsl:when>
+        <xsl:when test="string-length($nodes[1]) = 1">
+          <xsl:copy-of select="$nodes[1]"/>
+          <xsl:call-template name="tp:addcallout">
+            <xsl:with-param name="area" select="$area"/>
+            <xsl:with-param name="nodes" select="$nodes[position() &gt; 1]"/>
+            <xsl:with-param name="pos" select="$pos+1"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="substring($nodes[1], 1, 1)"/>
+          <xsl:variable name="rest" as="text()">
+            <xsl:value-of select="substring($nodes[1], 2)"/>
+          </xsl:variable>
+          <xsl:call-template name="tp:addcallout">
+            <xsl:with-param name="area" select="$area"/>
+            <xsl:with-param name="nodes"
+                            select="($rest, $nodes[position() &gt; 1])"/>
+            <xsl:with-param name="pos" select="$pos+1"/>
+          </xsl:call-template>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy-of select="$nodes[1]"/>
       <xsl:call-template name="tp:addcallout">
-	<xsl:with-param name="area" select="$area"/>
-	<xsl:with-param name="nodes" select="$nodes[position() &gt; 1]"/>
-	<xsl:with-param name="pos" select="$pos"/>
+        <xsl:with-param name="area" select="$area"/>
+        <xsl:with-param name="nodes" select="$nodes[position() &gt; 1]"/>
+        <xsl:with-param name="pos" select="$pos"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -648,18 +648,18 @@ an element that has content.</para>
       <!-- FIXME: this is where f:verbatim-trim-blink-lines() should be called,
            but sometimes there's no context item. -->
       <xsl:when test="string($verbatim.trim.blank.lines) != '0'">
-	<xsl:sequence select="fp:trim-trailing-br($nodes)"/>
+        <xsl:sequence select="fp:trim-trailing-br($nodes)"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:choose>
-	  <xsl:when test="$nodes[last()][self::ghost:br]">
-	    <!-- because group-by will not form a group after the last one -->
-	    <xsl:sequence select="($nodes, $br)"/>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:sequence select="$nodes"/>
-	  </xsl:otherwise>
-	</xsl:choose>
+        <xsl:choose>
+          <xsl:when test="$nodes[last()][self::ghost:br]">
+            <!-- because group-by will not form a group after the last one -->
+            <xsl:sequence select="($nodes, $br)"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:sequence select="$nodes"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -667,9 +667,9 @@ an element that has content.</para>
   <xsl:for-each-group select="$wrapnodes" group-ending-with="ghost:br">
     <ghost:line>
       <xsl:for-each select="current-group()">
-	<xsl:if test="not(self::ghost:br)">
-	  <xsl:copy-of select="."/>
-	</xsl:if>
+        <xsl:if test="not(self::ghost:br)">
+          <xsl:copy-of select="."/>
+        </xsl:if>
       </xsl:for-each>
     </ghost:line>
   </xsl:for-each-group>
@@ -739,40 +739,40 @@ that it had been nested within.</para>
     <xsl:when test="$content[1] instance of element()
                     and node-name($content[1]) = $unwrap">
       <xsl:call-template name="tp:close-stack">
-	<xsl:with-param name="stack" select="$stack"/>
+        <xsl:with-param name="stack" select="$stack"/>
       </xsl:call-template>
       <xsl:copy-of select="$content[1]"/>
       <xsl:call-template name="tp:open-stack">
-	<xsl:with-param name="stack" select="$stack"/>
+        <xsl:with-param name="stack" select="$stack"/>
       </xsl:call-template>
       <xsl:call-template name="t:unwrap">
-	<xsl:with-param name="unwrap" select="$unwrap"/>
-	<xsl:with-param name="content" select="$content[position() &gt; 1]"/>
-	<xsl:with-param name="stack" select="$stack"/>
+        <xsl:with-param name="unwrap" select="$unwrap"/>
+        <xsl:with-param name="content" select="$content[position() &gt; 1]"/>
+        <xsl:with-param name="stack" select="$stack"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:when test="$content[1][self::ghost:end]">
       <xsl:copy-of select="$content[1]"/>
       <xsl:call-template name="t:unwrap">
-	<xsl:with-param name="unwrap" select="$unwrap"/>
-	<xsl:with-param name="content" select="$content[position() &gt; 1]"/>
-	<xsl:with-param name="stack" select="$stack[position() &lt; last()]"/>
+        <xsl:with-param name="unwrap" select="$unwrap"/>
+        <xsl:with-param name="content" select="$content[position() &gt; 1]"/>
+        <xsl:with-param name="stack" select="$stack[position() &lt; last()]"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:when test="$content[1] instance of element()">
       <xsl:copy-of select="$content[1]"/>
       <xsl:call-template name="t:unwrap">
-	<xsl:with-param name="unwrap" select="$unwrap"/>
-	<xsl:with-param name="content" select="$content[position() &gt; 1]"/>
-	<xsl:with-param name="stack" select="($stack, $content[1])"/>
+        <xsl:with-param name="unwrap" select="$unwrap"/>
+        <xsl:with-param name="content" select="$content[position() &gt; 1]"/>
+        <xsl:with-param name="stack" select="($stack, $content[1])"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:otherwise>
       <xsl:copy-of select="$content[1]"/>
       <xsl:call-template name="t:unwrap">
-	<xsl:with-param name="unwrap" select="$unwrap"/>
-	<xsl:with-param name="content" select="$content[position() &gt; 1]"/>
-	<xsl:with-param name="stack" select="$stack"/>
+        <xsl:with-param name="unwrap" select="$unwrap"/>
+        <xsl:with-param name="content" select="$content[position() &gt; 1]"/>
+        <xsl:with-param name="stack" select="$stack"/>
       </xsl:call-template>
     </xsl:otherwise>
   </xsl:choose>
@@ -842,7 +842,7 @@ that it had been nested within.</para>
 </xsl:template>
 
 <xsl:template match="text()" as="node()*"
-	      mode="mp:pl-no-lb">
+              mode="mp:pl-no-lb">
 
   <xsl:choose>
     <!-- There's a bug in MarkLogic server V4.2-1 that coalesces the nodes returned
@@ -913,7 +913,7 @@ that it had been nested within.</para>
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()" as="node()*"
-	      mode="mp:pl-no-lb">
+              mode="mp:pl-no-lb">
   <xsl:copy/>
 </xsl:template>
 
@@ -926,7 +926,7 @@ that it had been nested within.</para>
 <para>This mode is used to completely flatten all nesting in a tree.
 Every start tag is replaced with an empty tag that has a
 <tag class="attribute">ghost:id</tag> attribute. Every end tag is
-replaced with an empty <tag>ghost:end</tag> element that has an 
+replaced with an empty <tag>ghost:end</tag> element that has an
 <tag class="attribute">idref</tag> attribute pointing to the
 appropriate <tag class="attribute">ghost:id</tag>.</para>
 
@@ -945,7 +945,7 @@ appropriate <tag class="attribute">ghost:id</tag>.</para>
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()|text()"
-	      mode="m:patch-empty-elements">
+              mode="m:patch-empty-elements">
   <xsl:copy/>
 </xsl:template>
 
@@ -972,12 +972,12 @@ in a verbatim environment.</para>
 </xsl:template>
 
 <xsl:template match="text()"
-	      mode="m:remove-lb">
+              mode="m:remove-lb">
   <xsl:value-of select="replace(.,'&#10;',' ')"/>
 </xsl:template>
 
 <xsl:template match="comment()|processing-instruction()"
-	      mode="m:remove-lb">
+              mode="m:remove-lb">
   <xsl:copy/>
 </xsl:template>
 
@@ -991,23 +991,23 @@ in a verbatim environment.</para>
   <db:area>
     <xsl:copy-of select="@*[name(.) != 'coords']"/>
     <xsl:if test="(not(@units)
-		   or @units='linecolumn'
-		   or @units='linecolumnpair')">
+                   or @units='linecolumn'
+                   or @units='linecolumnpair')">
       <xsl:choose>
-	<xsl:when test="not(contains(normalize-space(@coords), ' '))">
-	  <xsl:attribute name="ghost:line" select="normalize-space(@coords)"/>
-	  <xsl:attribute name="ghost:col" select="$callout.defaultcolumn"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:variable name="toks"
-			select="tokenize(normalize-space(@coords), ' ')"/>
-	  <xsl:attribute name="ghost:line" select="$toks[1]"/>
-	  <xsl:attribute name="ghost:col" select="$toks[2]"/>
-	</xsl:otherwise>
+        <xsl:when test="not(contains(normalize-space(@coords), ' '))">
+          <xsl:attribute name="ghost:line" select="normalize-space(@coords)"/>
+          <xsl:attribute name="ghost:col" select="$callout.defaultcolumn"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="toks"
+                        select="tokenize(normalize-space(@coords), ' ')"/>
+          <xsl:attribute name="ghost:line" select="$toks[1]"/>
+          <xsl:attribute name="ghost:col" select="$toks[2]"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:if>
     <xsl:attribute name="ghost:number"
-		   select="count(preceding-sibling::db:area
+                   select="count(preceding-sibling::db:area
                                  |preceding-sibling::db:areaset)+1"/>
   </db:area>
 </xsl:template>
@@ -1021,25 +1021,25 @@ in a verbatim environment.</para>
     </xsl:if>
 
     <xsl:if test="(not(@units)
-		   or @units='linecolumn'
-		   or @units='linecolumnpair')">
+                   or @units='linecolumn'
+                   or @units='linecolumnpair')">
       <xsl:choose>
-	<xsl:when test="not(contains(normalize-space(@coords), ' '))">
-	  <xsl:attribute name="ghost:line" select="normalize-space(@coords)"/>
-	  <xsl:attribute name="ghost:col" select="$callout.defaultcolumn"/>
-	</xsl:when>
-	<xsl:otherwise>
-	  <xsl:variable name="toks"
-			select="tokenize(normalize-space(@coords), ' ')"/>
-	  <xsl:attribute name="ghost:line" select="$toks[1]"/>
-	  <xsl:attribute name="ghost:col" select="$toks[2]"/>
-	</xsl:otherwise>
+        <xsl:when test="not(contains(normalize-space(@coords), ' '))">
+          <xsl:attribute name="ghost:line" select="normalize-space(@coords)"/>
+          <xsl:attribute name="ghost:col" select="$callout.defaultcolumn"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="toks"
+                        select="tokenize(normalize-space(@coords), ' ')"/>
+          <xsl:attribute name="ghost:line" select="$toks[1]"/>
+          <xsl:attribute name="ghost:col" select="$toks[2]"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:if>
     <xsl:attribute name="ghost:number"
-		   select="count(parent::db:areaset/preceding-sibling::db:area
+                   select="count(parent::db:areaset/preceding-sibling::db:area
                              |parent::db:areaset/preceding-sibling::db:areaset)
-			   + 1"/>
+                           + 1"/>
   </db:area>
 </xsl:template>
 
@@ -1057,7 +1057,7 @@ in a verbatim environment.</para>
       <xsl:sort data-type="number" select="@ghost:col"/>
       <xsl:sort data-type="number" select="@ghost:number"/>
       <xsl:if test="@ghost:line">
-	<xsl:copy-of select="."/>
+        <xsl:copy-of select="."/>
       </xsl:if>
     </xsl:for-each>
   </xsl:variable>
@@ -1071,7 +1071,7 @@ in a verbatim environment.</para>
 <!-- ============================================================ -->
 
 <xsl:template match="db:programlisting|db:screen"
-	      mode="m:verbatim">
+              mode="m:verbatim">
   <xsl:param name="areas" select="()"/>
   <xsl:copy>
     <xsl:apply-templates select="@*"/>

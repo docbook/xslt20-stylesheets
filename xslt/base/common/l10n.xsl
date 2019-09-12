@@ -3,7 +3,7 @@
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:xdmp="http://marklogic.com/xdmp"
                 xmlns:mldb="http://docbook.org/vendor/marklogic/locales"
@@ -39,7 +39,7 @@
 <!-- ============================================================ -->
 
 <doc:template name="t:user-localization-data"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>A hook for customizer localization data</refpurpose>
 
 <refdescription>
@@ -306,8 +306,8 @@ context node.</para>
   <xsl:param name="lang"/>
 
   <xsl:variable name="l10n.gentext"
-		select="($localization/key('l10n-gentext', concat($lang, '#', $key)),
-		         f:load-locale($lang)/key('l10n-gentext', concat($lang, '#', $key)))[1]"/>
+                select="($localization/key('l10n-gentext', concat($lang, '#', $key)),
+                         f:load-locale($lang)/key('l10n-gentext', concat($lang, '#', $key)))[1]"/>
 
   <xsl:choose>
     <xsl:when test="$l10n.gentext">
@@ -437,7 +437,7 @@ parameters.</para>
   <xsl:param name="origname" select="$name"/>
 
   <xsl:variable name="user.localization.nodes"
-		select="$localization//l:l10n[@language=$lang]"/>
+                select="$localization//l:l10n[@language=$lang]"/>
 
   <xsl:variable name="localization.nodes"
     select="f:load-locale($lang)"/>
@@ -484,7 +484,7 @@ parameters.</para>
     </xsl:when>
     <xsl:otherwise>
       <xsl:choose>
-	<xsl:when test="contains($name, '/')">
+        <xsl:when test="contains($name, '/')">
           <xsl:call-template name="gentext-template">
             <xsl:with-param name="context" select="$context"/>
             <xsl:with-param name="name" select="substring-after($name, '/')"/>
@@ -495,9 +495,9 @@ parameters.</para>
             <xsl:with-param name="lang" select="$lang"/>
           </xsl:call-template>
         </xsl:when>
-	<xsl:otherwise>
+        <xsl:otherwise>
           <xsl:message>
-	    <xsl:text>No template for "</xsl:text>
+            <xsl:text>No template for "</xsl:text>
             <xsl:value-of select="$origname"/>
             <xsl:text>" (or any of its leaves) exists
 in the context named "</xsl:text>
@@ -515,7 +515,7 @@ in the context named "</xsl:text>
 <!-- ============================================================ -->
 
 <doc:template name="gentext-template-exists"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Tests if the generated text template associated with a particular set
 of criteria exists</refpurpose>
 
@@ -574,16 +574,16 @@ the specified parameters.</para>
   <xsl:param name="lang" select="f:l10n-language(.)"/>
 
   <xsl:variable name="user.localization.nodes"
-		select="$localization//l:l10n[@language=$lang]"/>
+                select="$localization//l:l10n[@language=$lang]"/>
 
   <xsl:variable name="localization.nodes"
-		select="f:load-locale($lang)"/>
+                select="f:load-locale($lang)"/>
 
   <xsl:variable name="user.context.nodes"
-		select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
+                select="$user.localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
 
   <xsl:variable name="context.nodes"
-		select="$localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
+                select="$localization.nodes/key('l10n-context', concat($lang, '#', $context))"/>
 
   <xsl:variable name="template.node"
                 select="(($user.context.nodes/l:template[@name=$name
@@ -602,18 +602,18 @@ the specified parameters.</para>
     <xsl:when test="$template.node/@text">1</xsl:when>
     <xsl:otherwise>
       <xsl:choose>
-	<xsl:when test="contains($name, '/')">
-	  <xsl:call-template name="gentext-template-exists">
-	    <xsl:with-param name="context" select="$context"/>
-	    <xsl:with-param name="name" select="substring-after($name, '/')"/>
-	    <xsl:with-param name="origname" select="$origname"/>
-	    <xsl:with-param name="purpose" select="$purpose"/>
-	    <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
-	    <xsl:with-param name="referrer" select="$referrer"/>
-	    <xsl:with-param name="lang" select="$lang"/>
-	  </xsl:call-template>
-	</xsl:when>
-	<xsl:otherwise>0</xsl:otherwise>
+        <xsl:when test="contains($name, '/')">
+          <xsl:call-template name="gentext-template-exists">
+            <xsl:with-param name="context" select="$context"/>
+            <xsl:with-param name="name" select="substring-after($name, '/')"/>
+            <xsl:with-param name="origname" select="$origname"/>
+            <xsl:with-param name="purpose" select="$purpose"/>
+            <xsl:with-param name="xrefstyle" select="$xrefstyle"/>
+            <xsl:with-param name="referrer" select="$referrer"/>
+            <xsl:with-param name="lang" select="$lang"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>0</xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
   </xsl:choose>
@@ -694,7 +694,7 @@ the specified parameters.</para>
 <!-- ============================================================ -->
 
 <doc:template name="gentext-nestedstartquote"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the symbol associated with “nestedstartquote”</refpurpose>
 
 <refdescription>
@@ -713,7 +713,7 @@ the specified parameters.</para>
 <!-- ============================================================ -->
 
 <doc:template name="gentext-nestedendquote"
-	      xmlns="http://docbook.org/ns/docbook">
+              xmlns="http://docbook.org/ns/docbook">
 <refpurpose>Returns the symbol associated with “nestedendquote”</refpurpose>
 
 <refdescription>
@@ -955,4 +955,3 @@ the English locale value will be used as the default.</para>
 </xsl:function>
 
 </xsl:stylesheet>
-

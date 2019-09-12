@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns="http://www.w3.org/1999/xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
@@ -8,7 +8,7 @@
                 xmlns:h="http://www.w3.org/1999/xhtml"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:t="http://docbook.org/xslt/ns/template"
-		exclude-result-prefixes="db doc f fn h m t"
+                exclude-result-prefixes="db doc f fn h m t"
                 version="2.0">
 
 <xsl:variable name="default-classsynopsis-language">java</xsl:variable>
@@ -21,10 +21,10 @@
   <xsl:param name="language">
     <xsl:choose>
       <xsl:when test="@language">
-	<xsl:value-of select="@language"/>
+        <xsl:value-of select="@language"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="$default-classsynopsis-language"/>
+        <xsl:value-of select="$default-classsynopsis-language"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:param>
@@ -44,14 +44,14 @@
     </xsl:when>
     <xsl:otherwise>
       <xsl:message>
-	<xsl:text>Unrecognized language on </xsl:text>
+        <xsl:text>Unrecognized language on </xsl:text>
         <xsl:value-of select="local-name(.)"/>
         <xsl:text>: </xsl:text>
-	<xsl:value-of select="$language"/>
+        <xsl:value-of select="$language"/>
       </xsl:message>
       <xsl:apply-templates select=".">
-	<xsl:with-param name="language"
-	  select="$default-classsynopsis-language"/>
+        <xsl:with-param name="language"
+          select="$default-classsynopsis-language"/>
       </xsl:apply-templates>
     </xsl:otherwise>
   </xsl:choose>
@@ -81,8 +81,8 @@
       <xsl:text> extends</xsl:text>
       <xsl:apply-templates select="db:ooclass[position() &gt; 1]" mode="java"/>
       <xsl:if test="db:oointerface|db:ooexception">
-	<br/>
-	<xsl:call-template name="t:synop-indent"/>
+        <br/>
+        <xsl:call-template name="t:synop-indent"/>
       </xsl:if>
     </xsl:if>
     <xsl:if test="db:oointerface">
@@ -90,7 +90,7 @@
       <xsl:apply-templates select="db:oointerface" mode="java"/>
       <xsl:if test="db:ooexception">
         <br/>
-	<xsl:call-template name="t:synop-indent"/>
+        <xsl:call-template name="t:synop-indent"/>
       </xsl:if>
     </xsl:if>
     <xsl:if test="db:ooexception">
@@ -283,7 +283,7 @@
       <xsl:apply-templates select="db:ooclass[position() &gt; 1]" mode="cpp"/>
       <xsl:if test="db:oointerface|db:ooexception">
         <br/>
-	<xsl:call-template name="t:synop-indent"/>
+        <xsl:call-template name="t:synop-indent"/>
       </xsl:if>
     </xsl:if>
     <xsl:if test="db:oointerface">
@@ -291,7 +291,7 @@
       <xsl:apply-templates select="db:oointerface" mode="cpp"/>
       <xsl:if test="db:ooexception">
         <br/>
-	<xsl:call-template name="t:synop-indent"/>
+        <xsl:call-template name="t:synop-indent"/>
       </xsl:if>
     </xsl:if>
     <xsl:if test="db:ooexception">
@@ -472,7 +472,7 @@
       <xsl:apply-templates select="db:ooclass[position() &gt; 1]" mode="idl"/>
       <xsl:if test="db:oointerface|db:ooexception">
         <br/>
-	<xsl:call-template name="t:synop-indent"/>
+        <xsl:call-template name="t:synop-indent"/>
       </xsl:if>
     </xsl:if>
     <xsl:if test="db:oointerface">
@@ -480,7 +480,7 @@
       <xsl:apply-templates select="db:oointerface" mode="idl"/>
       <xsl:if test="db:ooexception">
         <br/>
-	<xsl:call-template name="t:synop-indent"/>
+        <xsl:call-template name="t:synop-indent"/>
       </xsl:if>
     </xsl:if>
     <xsl:if test="db:ooexception">

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-		xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:m="http://docbook.org/xslt/ns/mode"
                 xmlns:f="http://docbook.org/xslt/ns/extension"
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:rx="http://www.renderx.com/XSL/Extensions"
                 exclude-result-prefixes="f t db xs m"
@@ -514,7 +514,7 @@
     <fo:flow flow-name="xsl-region-body">
       <fo:block>
         <xsl:call-template name="t:titlepage"/>
-	<fo:block xsl:use-attribute-sets="foil.properties">
+        <fo:block xsl:use-attribute-sets="foil.properties">
           <xsl:apply-templates/>
         </fo:block>
       </fo:block>
@@ -658,8 +658,8 @@
       <xsl:variable name="fnum" select="count($pfoot) - count($ptfoot) + 1"/>
 
       <xsl:choose>
-	<xsl:when test="string-length($footnote.number.symbols) &gt;= $fnum">
-	  <xsl:value-of select="substring($footnote.number.symbols, $fnum, 1)"/>
+        <xsl:when test="string-length($footnote.number.symbols) &gt;= $fnum">
+          <xsl:value-of select="substring($footnote.number.symbols, $fnum, 1)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:number value="$fnum" format="{$footnote.number.format}"/>

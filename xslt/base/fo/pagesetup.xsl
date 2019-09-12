@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
-		xmlns:db="http://docbook.org/ns/docbook"
-		xmlns:f="http://docbook.org/xslt/ns/extension"
-		xmlns:m="http://docbook.org/xslt/ns/mode"
-		xmlns:t="http://docbook.org/xslt/ns/template"
+                xmlns:db="http://docbook.org/ns/docbook"
+                xmlns:f="http://docbook.org/xslt/ns/extension"
+                xmlns:m="http://docbook.org/xslt/ns/mode"
+                xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		exclude-result-prefixes="db f m t xs"
+                exclude-result-prefixes="db f m t xs"
                 version="2.0">
 
 <!-- ********************************************************************
@@ -65,7 +65,7 @@
     <xsl:otherwise>true</xsl:otherwise>
   </xsl:choose>
 </xsl:param>
-  
+
 <xsl:template name="t:setup-pagemasters">
   <fo:layout-master-set>
     <!-- blank pages -->
@@ -151,7 +151,7 @@
       <fo:region-after region-name="xsl-region-after-odd"
                        extent="{$region.after.extent}"
                         display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">titlepage</xsl:with-param>
@@ -181,7 +181,7 @@
       <fo:region-after region-name="xsl-region-after-even"
                        extent="{$region.after.extent}"
                         display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">titlepage</xsl:with-param>
@@ -212,7 +212,7 @@
       <fo:region-after region-name="xsl-region-after-first"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">lot</xsl:with-param>
@@ -242,7 +242,7 @@
       <fo:region-after region-name="xsl-region-after-odd"
                        extent="{$region.after.extent}"
                         display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">lot</xsl:with-param>
@@ -272,7 +272,7 @@
       <fo:region-after region-name="xsl-region-after-even"
                        extent="{$region.after.extent}"
                         display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">lot</xsl:with-param>
@@ -303,7 +303,7 @@
       <fo:region-after region-name="xsl-region-after-first"
                        extent="{$region.after.extent}"
                         display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">front</xsl:with-param>
@@ -333,7 +333,7 @@
       <fo:region-after region-name="xsl-region-after-odd"
                        extent="{$region.after.extent}"
                         display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">front</xsl:with-param>
@@ -363,7 +363,7 @@
       <fo:region-after region-name="xsl-region-after-even"
                        extent="{$region.after.extent}"
                         display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">front</xsl:with-param>
@@ -394,7 +394,7 @@
       <fo:region-after region-name="xsl-region-after-first"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">body</xsl:with-param>
@@ -424,7 +424,7 @@
       <fo:region-after region-name="xsl-region-after-odd"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">body</xsl:with-param>
@@ -454,7 +454,7 @@
       <fo:region-after region-name="xsl-region-after-even"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">body</xsl:with-param>
@@ -485,7 +485,7 @@
       <fo:region-after region-name="xsl-region-after-first"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">back</xsl:with-param>
@@ -515,7 +515,7 @@
       <fo:region-after region-name="xsl-region-after-odd"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">back</xsl:with-param>
@@ -545,7 +545,7 @@
       <fo:region-after region-name="xsl-region-after-even"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">back</xsl:with-param>
@@ -576,7 +576,7 @@
       <fo:region-after region-name="xsl-region-after-first"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">index</xsl:with-param>
@@ -606,7 +606,7 @@
       <fo:region-after region-name="xsl-region-after-odd"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">index</xsl:with-param>
@@ -636,7 +636,7 @@
       <fo:region-after region-name="xsl-region-after-even"
                        extent="{$region.after.extent}"
                        display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">index</xsl:with-param>
@@ -673,7 +673,7 @@
         <fo:region-after region-name="xsl-region-after-blank"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>      
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">blank</xsl:with-param>
           <xsl:with-param name="pageclass">blank</xsl:with-param>
@@ -711,7 +711,7 @@
         <fo:region-after region-name="xsl-region-after-first"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>      
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">titlepage</xsl:with-param>
@@ -785,7 +785,7 @@
         <fo:region-after region-name="xsl-region-after-even"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>      
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">titlepage</xsl:with-param>
@@ -823,7 +823,7 @@
         <fo:region-after region-name="xsl-region-after-first"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>      
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">lot</xsl:with-param>
@@ -860,7 +860,7 @@
         <fo:region-after region-name="xsl-region-after-odd"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>      
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">lot</xsl:with-param>
@@ -897,7 +897,7 @@
         <fo:region-after region-name="xsl-region-after-even"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">lot</xsl:with-param>
@@ -935,7 +935,7 @@
         <fo:region-after region-name="xsl-region-after-first"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">front</xsl:with-param>
@@ -972,7 +972,7 @@
         <fo:region-after region-name="xsl-region-after-odd"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">front</xsl:with-param>
@@ -1009,7 +1009,7 @@
         <fo:region-after region-name="xsl-region-after-even"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">front</xsl:with-param>
@@ -1047,7 +1047,7 @@
         <fo:region-after region-name="xsl-region-after-first"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">body</xsl:with-param>
@@ -1084,7 +1084,7 @@
         <fo:region-after region-name="xsl-region-after-odd"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">body</xsl:with-param>
@@ -1121,7 +1121,7 @@
         <fo:region-after region-name="xsl-region-after-even"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">body</xsl:with-param>
@@ -1159,7 +1159,7 @@
         <fo:region-after region-name="xsl-region-after-first"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">back</xsl:with-param>
@@ -1196,7 +1196,7 @@
         <fo:region-after region-name="xsl-region-after-odd"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">back</xsl:with-param>
@@ -1233,7 +1233,7 @@
         <fo:region-after region-name="xsl-region-after-even"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">back</xsl:with-param>
@@ -1271,7 +1271,7 @@
         <fo:region-after region-name="xsl-region-after-first"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">first</xsl:with-param>
           <xsl:with-param name="pageclass">index</xsl:with-param>
@@ -1308,7 +1308,7 @@
         <fo:region-after region-name="xsl-region-after-odd"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">odd</xsl:with-param>
           <xsl:with-param name="pageclass">index</xsl:with-param>
@@ -1345,7 +1345,7 @@
         <fo:region-after region-name="xsl-region-after-even"
                          extent="{$region.after.extent}"
                          display-align="after"
-                        precedence="{$has.precedence}"/>    
+                        precedence="{$has.precedence}"/>
         <xsl:call-template name="region.start">
           <xsl:with-param name="sequence">even</xsl:with-param>
           <xsl:with-param name="pageclass">index</xsl:with-param>
@@ -1366,7 +1366,7 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="titlepage-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
+        <fo:conditional-page-master-reference
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
@@ -1387,7 +1387,7 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="lot-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
+        <fo:conditional-page-master-reference
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
@@ -1408,7 +1408,7 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="front-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
+        <fo:conditional-page-master-reference
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
@@ -1429,7 +1429,7 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="body-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
+        <fo:conditional-page-master-reference
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
@@ -1450,7 +1450,7 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="back-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
+        <fo:conditional-page-master-reference
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
@@ -1471,7 +1471,7 @@
                                               page-position="first"/>
         <fo:conditional-page-master-reference master-reference="index-odd"
                                               odd-or-even="odd"/>
-        <fo:conditional-page-master-reference 
+        <fo:conditional-page-master-reference
                                               odd-or-even="even">
           <xsl:attribute name="master-reference">
             <xsl:choose>
@@ -1493,7 +1493,7 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="titlepage-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
+          <fo:conditional-page-master-reference
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
@@ -1514,7 +1514,7 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="lot-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
+          <fo:conditional-page-master-reference
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
@@ -1535,7 +1535,7 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="front-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
+          <fo:conditional-page-master-reference
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
@@ -1556,7 +1556,7 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="body-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
+          <fo:conditional-page-master-reference
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
@@ -1577,7 +1577,7 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="back-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
+          <fo:conditional-page-master-reference
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
@@ -1598,7 +1598,7 @@
                                                 page-position="first"/>
           <fo:conditional-page-master-reference master-reference="index-odd-draft"
                                                 odd-or-even="odd"/>
-          <fo:conditional-page-master-reference 
+          <fo:conditional-page-master-reference
                                                 odd-or-even="even">
             <xsl:attribute name="master-reference">
               <xsl:choose>
@@ -2327,7 +2327,7 @@
 
   <!-- Select the first content that the stylesheet places
        after the TOC -->
-  <xsl:variable name="first.book.content" 
+  <xsl:variable name="first.book.content"
                 select="ancestor::book/*[
                           not(self::title or
                               self::subtitle or
@@ -2343,19 +2343,19 @@
       <xsl:choose>
         <xsl:when test="$element = 'toc'">auto-odd</xsl:when>
         <xsl:when test="$element = 'book'">1</xsl:when>
-	<!-- preface typically continues TOC roman numerals -->
-	<!-- Change page.number.format if not -->
+        <!-- preface typically continues TOC roman numerals -->
+        <!-- Change page.number.format if not -->
         <xsl:when test="$element = 'preface'">auto-odd</xsl:when>
-        <xsl:when test="($element = 'dedication' or $element = 'article') 
-	            and not(preceding::chapter
+        <xsl:when test="($element = 'dedication' or $element = 'article')
+                    and not(preceding::chapter
                             or preceding::preface
                             or preceding::appendix
                             or preceding::article
                             or preceding::dedication
                             or parent::part
                             or parent::reference)">1</xsl:when>
-	<xsl:when test="generate-id($first.book.content) =
-	                generate-id(.)">1</xsl:when>
+        <xsl:when test="generate-id($first.book.content) =
+                        generate-id(.)">1</xsl:when>
         <xsl:otherwise>auto-odd</xsl:otherwise>
       </xsl:choose>
     </xsl:when>
@@ -2374,8 +2374,8 @@
                             or preceding::dedication
                             or parent::part
                             or parent::reference)">1</xsl:when>
-	<xsl:when test="generate-id($first.book.content) =
-	                generate-id(.)">1</xsl:when>
+        <xsl:when test="generate-id($first.book.content) =
+                        generate-id(.)">1</xsl:when>
         <xsl:otherwise>auto</xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
@@ -2410,7 +2410,7 @@
                     starts-with($master-reference, 'front') or
                     starts-with($master-reference, 'titlepage') or
                     $element = 'preface' or
-		    (starts-with($master-reference, 'back') and $element = 'appendix')">
+                    (starts-with($master-reference, 'back') and $element = 'appendix')">
       <xsl:attribute name="start-indent">
         <xsl:sequence select="$body.start.indent"/>
       </xsl:attribute>
@@ -2565,18 +2565,18 @@
 
   <!-- Select the first content that the stylesheet places
        after the TOC -->
-  <xsl:variable name="first.book.content" 
+  <xsl:variable name="first.book.content"
                 select="$context/ancestor::db:book/*[
                           not(self::db:info or
                               self::db:dedication or
                               self::db:preface or
                               self::db:toc or
                               self::db:lot)
-			][1]"/>
+                        ][1]"/>
 
   <xsl:variable name="auto" select="if ($double.sided)
                                     then 'auto-odd'
-				    else 'auto'"/>
+                                    else 'auto'"/>
 
   <xsl:choose>
     <xsl:when test="$element = 'toc'">
@@ -2590,14 +2590,14 @@
     <xsl:when test="$element = 'preface'">
       <xsl:sequence select="$auto"/>
     </xsl:when>
-    <xsl:when test="($element = 'dedication' or $element = 'article') 
-		    and not($context/preceding::db:chapter
-		            or $context/preceding::db:preface
-			    or $context/preceding::db:appendix
-			    or $context/preceding::db:article
-			    or $context/preceding::db:dedication
-			    or $context/parent::db:part
-			    or $context/parent::db:reference)">
+    <xsl:when test="($element = 'dedication' or $element = 'article')
+                    and not($context/preceding::db:chapter
+                            or $context/preceding::db:preface
+                            or $context/preceding::db:appendix
+                            or $context/preceding::db:article
+                            or $context/preceding::db:dedication
+                            or $context/parent::db:part
+                            or $context/parent::db:reference)">
       <xsl:sequence select="'1'"/>
     </xsl:when>
     <xsl:when test="generate-id($first.book.content) = generate-id($context)">
@@ -2679,12 +2679,12 @@
 
 
   <!-- ==================================================================== -->
-  
+
   <!-- Customize this template for custom side regions -->
   <xsl:template name="region.start">
     <xsl:param name="sequence">blank</xsl:param>
     <xsl:param name="pageclass">blank</xsl:param>
-    
+
     <xsl:choose>
       <xsl:when test="$sequence = 'first' or $sequence = 'odd'">
         <fo:region-start xsl:use-attribute-sets="region.inner.properties">
@@ -2710,12 +2710,12 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <!-- Customize this template for custom side regions -->
   <xsl:template name="region.end">
     <xsl:param name="sequence">blank</xsl:param>
     <xsl:param name="pageclass">blank</xsl:param>
-    
+
     <xsl:choose>
       <xsl:when test="$sequence = 'first' or $sequence = 'odd'">
         <fo:region-end xsl:use-attribute-sets="region.outer.properties">
@@ -2741,5 +2741,5 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
 </xsl:stylesheet>

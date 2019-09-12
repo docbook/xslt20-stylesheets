@@ -26,13 +26,13 @@
 
     <xsl:choose>
       <xsl:when test="string($pifn) != ''">
-	<xsl:sequence select="string($pifn)"/>
+        <xsl:sequence select="string($pifn)"/>
       </xsl:when>
       <xsl:when test="string($pibn) != ''">
-	<xsl:sequence select="concat($pibn, $html.ext)"/>
+        <xsl:sequence select="concat($pibn, $html.ext)"/>
       </xsl:when>
       <xsl:when test="$chunk/@xml:id and $use.id.as.filename">
-	<xsl:sequence select="concat($chunk/@xml:id,$html.ext)"/>
+        <xsl:sequence select="concat($chunk/@xml:id,$html.ext)"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:sequence select="concat('chunk-', local-name($chunk),
