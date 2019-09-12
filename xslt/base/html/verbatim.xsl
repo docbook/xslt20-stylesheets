@@ -75,17 +75,17 @@
   <xsl:variable name="startnum" as="xs:decimal">
     <xsl:choose>
       <xsl:when test="$listing/@continuation != 'continues'">
-        <xsl:value-of select="0"/>
+        <xsl:sequence select="0"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="prev"
              select="$listing/preceding::*[node-name(.)=node-name($listing)][1]"/>
         <xsl:choose>
           <xsl:when test="empty($prev)">
-            <xsl:value-of select="0"/>
+            <xsl:sequence select="0"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="f:lastLineNumber($prev)"/>
+            <xsl:sequence select="f:lastLineNumber($prev)"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -93,7 +93,7 @@
   </xsl:variable>
 
   <xsl:variable name="alltext" select="string-join($listing//text(), ' ')"/>
-  <xsl:value-of select="count(tokenize($alltext,'&#10;'))"/>
+  <xsl:sequence select="count(tokenize($alltext,'&#10;'))"/>
 </xsl:function>
 
 <xsl:template match="db:programlisting|db:synopsis"

@@ -69,10 +69,10 @@ parameter if no such attribute can be found.
   <xsl:variable name="dir" select="$element/ancestor-or-self::*[@dir][1]"/>
   <xsl:choose>
     <xsl:when test="$dir">
-      <xsl:value-of select="$dir/@dir"/>
+      <xsl:sequence select="string($dir/@dir)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$writing.mode"/>
+      <xsl:sequence select="$writing.mode"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -236,28 +236,28 @@ not have a title, it returns “???”.</para>
       <xsl:variable name="exp">
 	<xsl:choose>
 	  <xsl:when test="$var = '$title.font.family'">
-	    <xsl:value-of select="$title.font.family"/>
+	    <xsl:sequence select="$title.font.family"/>
 	  </xsl:when>
 	  <xsl:when test="$var = '$body.font.family'">
-	    <xsl:value-of select="$body.font.family"/>
+	    <xsl:sequence select="$body.font.family"/>
 	  </xsl:when>
 	  <xsl:when test="$var = '$body.fontset'">
-	    <xsl:value-of select="$body.fontset"/>
+	    <xsl:sequence select="$body.fontset"/>
 	  </xsl:when>
 	  <xsl:otherwise>
 	    <xsl:message>
 	      <xsl:text>Unrecognized value in f:fake-eval-avt(): </xsl:text>
-	      <xsl:value-of select="$var"/>
+	      <xsl:sequence select="$var"/>
 	    </xsl:message>
-	    <xsl:value-of select="''"/>
+	    <xsl:sequence select="''"/>
 	  </xsl:otherwise>
 	</xsl:choose>
       </xsl:variable>
 
-      <xsl:value-of select="concat($pre,$exp,f:fake-eval-avt($rest))"/>
+      <xsl:sequence select="concat($pre,$exp,f:fake-eval-avt($rest))"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$value"/>
+      <xsl:sequence select="$value"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -277,12 +277,12 @@ not have a title, it returns “???”.</para>
       <xsl:if test="$verbosity &gt; 0">
 	<xsl:message>
 	  <xsl:text>Warning: no title for root element: </xsl:text>
-	  <xsl:value-of select="local-name($node)"/>
+	  <xsl:sequence select="local-name($node)"/>
 	</xsl:message>
       </xsl:if>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$title"/>
+      <xsl:sequence select="$title"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -382,33 +382,33 @@ not have a title, it returns “???”.</para>
 
   <xsl:choose>
     <xsl:when test="$units = 'pt'">
-      <xsl:value-of select="$magnitude"/>
+      <xsl:sequence select="$magnitude"/>
     </xsl:when>
     <xsl:when test="$units = 'cm'">
-      <xsl:value-of select="$magnitude div 2.54 * 72.0"/>
+      <xsl:sequence select="$magnitude div 2.54 * 72.0"/>
     </xsl:when>
     <xsl:when test="$units = 'mm'">
-      <xsl:value-of select="$magnitude div 25.4 * 72.0"/>
+      <xsl:sequence select="$magnitude div 25.4 * 72.0"/>
     </xsl:when>
     <xsl:when test="$units = 'in'">
-      <xsl:value-of select="$magnitude * 72.0"/>
+      <xsl:sequence select="$magnitude * 72.0"/>
     </xsl:when>
     <xsl:when test="$units = 'pc'">
-      <xsl:value-of select="$magnitude * 12.0"/>
+      <xsl:sequence select="$magnitude * 12.0"/>
     </xsl:when>
     <xsl:when test="$units = 'px'">
-      <xsl:value-of select="$magnitude div $pixels.per.inch * 72.0"/>
+      <xsl:sequence select="$magnitude div $pixels.per.inch * 72.0"/>
     </xsl:when>
     <xsl:when test="$units = 'em'">
-      <xsl:value-of select="$magnitude * $em.size"/>
+      <xsl:sequence select="$magnitude * $em.size"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:message>
         <xsl:text>Unrecognized unit of measure: </xsl:text>
-        <xsl:value-of select="$units"/>
+        <xsl:sequence select="$units"/>
         <xsl:text>; using pt.</xsl:text>
       </xsl:message>
-      <xsl:value-of select="$magnitude"/>
+      <xsl:sequence select="$magnitude"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -637,14 +637,14 @@ and the <function>section-level</function> of this section is less than
   <xsl:choose>
     <xsl:when test="empty($autolabel.elements/*[node-name(.) = node-name($section)])">
       <!-- If sections aren't being auto-labelled, then the answer is always false. -->
-      <xsl:value-of select="false()"/>
+      <xsl:sequence select="false()"/>
     </xsl:when>
     <xsl:when test="f:section-level($section)
 		    &lt;= $section.autolabel.max.depth">
-      <xsl:value-of select="not(empty($autolabel.elements/db:section))"/>
+      <xsl:sequence select="not(empty($autolabel.elements/db:section))"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="false()"/>
+      <xsl:sequence select="false()"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -692,10 +692,10 @@ or <tag>steps</tag>.</para>
       <xsl:variable name="sstype" select="($ssdepth mod $format.length)+2"/>
       <xsl:choose>
 	<xsl:when test="$sstype &gt; $format.length">
-	  <xsl:value-of select="$procedure.step.numeration.styles[1]"/>
+	  <xsl:sequence select="$procedure.step.numeration.styles[1]"/>
 	</xsl:when>
 	<xsl:otherwise>
-	  <xsl:value-of select="subsequence($procedure.step.numeration.styles,
+	  <xsl:sequence select="subsequence($procedure.step.numeration.styles,
 				            $sstype,1)"/>
 	</xsl:otherwise>
       </xsl:choose>
@@ -704,16 +704,16 @@ or <tag>steps</tag>.</para>
       <xsl:variable name="sdepth"
 		    select="count($context/ancestor::db:substeps)"/>
       <xsl:variable name="stype" select="($sdepth mod $format.length)+1"/>
-      <xsl:value-of select="subsequence($procedure.step.numeration.styles,
+      <xsl:sequence select="subsequence($procedure.step.numeration.styles,
 			                $stype,1)"/>
     </xsl:when>
     <xsl:when test="$context/self::db:procedure">
-      <xsl:value-of select="subsequence($procedure.step.numeration.styles,1,1)"/>
+      <xsl:sequence select="subsequence($procedure.step.numeration.styles,1,1)"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:message>
 	<xsl:text>Unexpected context in f:procedure-step-numeration: </xsl:text>
-	<xsl:value-of select="local-name($context)"/>
+	<xsl:sequence select="local-name($context)"/>
       </xsl:message>
     </xsl:otherwise>
   </xsl:choose>
@@ -755,14 +755,14 @@ is the first style in that list.</para>
 
   <xsl:choose>
     <xsl:when test="not($pos)">
-      <xsl:value-of select="$itemizedlist.numeration.symbols[1]"/>
+      <xsl:sequence select="$itemizedlist.numeration.symbols[1]"/>
     </xsl:when>
     <xsl:when test="subsequence($itemizedlist.numeration.symbols,$pos+1,1)">
-      <xsl:value-of select="subsequence($itemizedlist.numeration.symbols,
+      <xsl:sequence select="subsequence($itemizedlist.numeration.symbols,
 			                $pos+1,1)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$itemizedlist.numeration.symbols[1]"/>
+      <xsl:sequence select="$itemizedlist.numeration.symbols[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -819,18 +819,18 @@ it is specified.</para>
 
   <xsl:choose>
     <xsl:when test="$node/@mark">
-      <xsl:value-of select="$node/@mark"/>
+      <xsl:sequence select="string($node/@mark)"/>
     </xsl:when>
     <xsl:when test="$node/@override">
-      <xsl:value-of select="$node/@override"/>
+      <xsl:sequence select="string($node/@override)"/>
     </xsl:when>
     <xsl:otherwise>
       <xsl:choose>
         <xsl:when test="$node/ancestor::itemizedlist">
-	  <xsl:value-of select="f:next-itemizedlist-symbol(f:itemizedlist-symbol($node/ancestor::db:itemizedlist[1]))"/>
+	  <xsl:sequence select="f:next-itemizedlist-symbol(f:itemizedlist-symbol($node/ancestor::db:itemizedlist[1]))"/>
 	</xsl:when>
         <xsl:otherwise>
-	  <xsl:value-of select="f:next-itemizedlist-symbol('default')"/>
+	  <xsl:sequence select="f:next-itemizedlist-symbol('default')"/>
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:otherwise>
@@ -872,14 +872,14 @@ is the first style in that list.</para>
 
   <xsl:choose>
     <xsl:when test="not($pos)">
-      <xsl:value-of select="$orderedlist.numeration.styles[1]"/>
+      <xsl:sequence select="$orderedlist.numeration.styles[1]"/>
     </xsl:when>
     <xsl:when test="subsequence($orderedlist.numeration.styles,$pos+1,1)">
-      <xsl:value-of select="subsequence($orderedlist.numeration.styles,
+      <xsl:sequence select="subsequence($orderedlist.numeration.styles,
 			                $pos+1,1)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$orderedlist.numeration.styles[1]"/>
+      <xsl:sequence select="$orderedlist.numeration.styles[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -921,15 +921,15 @@ be calculated.</para>
 
   <xsl:choose>
     <xsl:when test="$list/@numeration">
-      <xsl:value-of select="$list/@numeration"/>
+      <xsl:sequence select="string($list/@numeration)"/>
     </xsl:when>
     <xsl:when test="$list/ancestor::db:orderedlist">
       <xsl:variable name="prevnumeration"
 		    select="f:orderedlist-numeration($list/ancestor::db:orderedlist[1])"/>
-      <xsl:value-of select="f:next-orderedlist-numeration($prevnumeration)"/>
+      <xsl:sequence select="f:next-orderedlist-numeration($prevnumeration)"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$orderedlist.numeration.styles[1]"/>
+      <xsl:sequence select="$orderedlist.numeration.styles[1]"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -985,15 +985,16 @@ style should be calculated.</para>
 
   <xsl:choose>
     <xsl:when test="$node/@override">
-      <xsl:value-of select="$node/@override"/>
+      <xsl:sequence select="xs:integer($node/@override)"/>
     </xsl:when>
 
     <xsl:when test="$node/preceding-sibling::db:listitem">
-      <xsl:value-of select="f:orderedlist-item-number($node/preceding-sibling::db:listitem[1]) + 1"/>
+      <xsl:sequence
+          select="f:orderedlist-item-number($node/preceding-sibling::db:listitem[1]) + 1"/>
     </xsl:when>
 
     <xsl:otherwise>
-      <xsl:value-of select="f:orderedlist-starting-number($node/parent::db:orderedlist)"/>
+      <xsl:sequence select="f:orderedlist-starting-number($node/parent::db:orderedlist)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -1073,10 +1074,10 @@ node does not have an ID, the XSLT
 
   <xsl:choose>
     <xsl:when test="$node/@xml:id">
-      <xsl:value-of select="$node/@xml:id"/>
+      <xsl:sequence select="string($node/@xml:id)"/>
     </xsl:when>
     <xsl:when test="$node/@id">
-      <xsl:value-of select="$node/@id"/>
+      <xsl:sequence select="string($node/@id)"/>
     </xsl:when>
     <xsl:when test="$persistent.generated.ids">
       <xsl:variable name="xpid" select="f:xptr-id($node)"/>
@@ -1085,15 +1086,15 @@ node does not have an ID, the XSLT
 	     sometimes $node isn't in a tree and then that test causes
 	     a runtime error. -->
 	<xsl:when test="$xpid = ''">
-	  <xsl:value-of select="generate-id($node)"/>
+	  <xsl:sequence select="generate-id($node)"/>
 	</xsl:when>
 	<xsl:otherwise>
-	  <xsl:value-of select="$xpid"/>
+	  <xsl:sequence select="$xpid"/>
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="generate-id($node)"/>
+      <xsl:sequence select="generate-id($node)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>

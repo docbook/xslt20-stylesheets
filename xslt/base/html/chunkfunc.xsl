@@ -26,16 +26,16 @@
 
     <xsl:choose>
       <xsl:when test="string($pifn) != ''">
-	<xsl:value-of select="$pifn"/>
+	<xsl:sequence select="string($pifn)"/>
       </xsl:when>
       <xsl:when test="string($pibn) != ''">
-	<xsl:value-of select="concat($pibn, $html.ext)"/>
+	<xsl:sequence select="concat($pibn, $html.ext)"/>
       </xsl:when>
       <xsl:when test="$chunk/@xml:id and $use.id.as.filename">
-	<xsl:value-of select="concat($chunk/@xml:id,$html.ext)"/>
+	<xsl:sequence select="concat($chunk/@xml:id,$html.ext)"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="concat('chunk-', local-name($chunk),
+        <xsl:sequence select="concat('chunk-', local-name($chunk),
                                      '-', generate-id($chunk), $html.ext)"/>
       </xsl:otherwise>
     </xsl:choose>
@@ -52,21 +52,21 @@
 
     <xsl:choose>
       <xsl:when test="$context-chunk = $node-chunk">
-        <xsl:value-of select="concat('#', f:node-id($node))"/>
+        <xsl:sequence select="concat('#', f:node-id($node))"/>
       </xsl:when>
       <xsl:when test="$node-chunk = $node">
-        <xsl:value-of select="f:chunk-filename($node-chunk)"/>
+        <xsl:sequence select="f:chunk-filename($node-chunk)"/>
       </xsl:when>
       <xsl:when test="empty($node-chunk)">
         <xsl:message>
           <xsl:text>Warning: broken link to </xsl:text>
-          <xsl:value-of select="f:node-id($node)"/>
+          <xsl:sequence select="f:node-id($node)"/>
           <xsl:text>; not in output.</xsl:text>
         </xsl:message>
-        <xsl:value-of select="concat('#',f:node-id($node))"/>
+        <xsl:sequence select="concat('#',f:node-id($node))"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="concat(f:chunk-filename($node-chunk),'#',f:node-id($node))"/>
+        <xsl:sequence select="concat(f:chunk-filename($node-chunk),'#',f:node-id($node))"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:function>

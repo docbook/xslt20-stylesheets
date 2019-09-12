@@ -69,11 +69,11 @@
   <xsl:choose>
     <xsl:when test="$start &gt; count($nodes)">0</xsl:when>
     <xsl:when test="$nodes[$start] is $target">
-      <xsl:value-of select="$start"/>
+      <xsl:sequence select="$start"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="f:find-node-in-sequence($nodes, $target,
-			                            $start+1)"/>
+      <xsl:sequence select="f:find-node-in-sequence($nodes, $target,
+                                                    $start+1)"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -327,17 +327,17 @@
   <xsl:variable name="startnum" as="xs:decimal">
     <xsl:choose>
       <xsl:when test="$listing/@continuation != 'continues'">
-        <xsl:value-of select="0"/>
+        <xsl:sequence select="0"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="prev"
              select="$listing/preceding::*[node-name(.)=node-name($listing)][1]"/>
         <xsl:choose>
           <xsl:when test="empty($prev)">
-            <xsl:value-of select="0"/>
+            <xsl:sequence select="0"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="f:lastLineNumber($prev)"/>
+            <xsl:sequence select="f:lastLineNumber($prev)"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -383,7 +383,7 @@
     </xsl:call-template>
   </xsl:variable>
 
-  <xsl:value-of select="count($pl-lines)"/>
+  <xsl:sequence select="count($pl-lines)"/>
 </xsl:function>
 
 <xsl:template match="ghost:line" mode="mp:pl-restore-lines">
@@ -893,9 +893,7 @@ that it had been nested within.</para>
             <xsl:sequence select="."/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of>
-              <xsl:value-of select="."/>
-            </xsl:value-of>
+            <xsl:value-of select="."/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>

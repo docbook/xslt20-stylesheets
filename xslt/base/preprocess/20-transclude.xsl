@@ -320,7 +320,7 @@
            it alone and assume someone else will generate the error
            if it is an error.
       -->
-      <xsl:value-of select="$idref"/>
+      <xsl:sequence select="$idref"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>

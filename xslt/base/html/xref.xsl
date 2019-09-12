@@ -283,7 +283,7 @@ attribute or a <tag class="attribute">linkend</tag> attribute</para>
   <!-- xreflabels come out in the right font for different targets, -->
   <!-- for example. -->
   <xsl:param name="target" select="."/>
-  <xsl:value-of select="$target/@xreflabel"/>
+  <xsl:sequence select="string($target/@xreflabel)"/>
 </xsl:template>
 
 <!-- ============================================================ -->

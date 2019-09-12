@@ -247,17 +247,17 @@
   <xsl:variable name="startnum" as="xs:decimal">
     <xsl:choose>
       <xsl:when test="$listing/@continuation != 'continues'">
-        <xsl:value-of select="0"/>
+        <xsl:sequence select="0"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="prev"
              select="$listing/preceding::*[node-name(.)=node-name($listing)][1]"/>
         <xsl:choose>
           <xsl:when test="empty($prev)">
-            <xsl:value-of select="0"/>
+            <xsl:sequence select="0"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="f:lastLineNumber($prev)"/>
+            <xsl:sequence select="f:lastLineNumber($prev)"/>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:otherwise>
@@ -303,7 +303,7 @@
     </xsl:call-template>
   </xsl:variable>
 
-  <xsl:value-of select="count($pl-lines)"/>
+  <xsl:sequence select="count($pl-lines)"/>
 </xsl:function>
 
 <xsl:template match="ghost:line" mode="mp:pl-restore-lines">

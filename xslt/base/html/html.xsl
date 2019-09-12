@@ -476,7 +476,7 @@ when chunking.)</para>
 <xsl:function name="f:href" as="xs:string">
   <xsl:param name="context" as="node()"/>
   <xsl:param name="node" as="element()"/>
-  <xsl:value-of select="concat('#', f:node-id($node))"/>
+  <xsl:sequence select="concat('#', f:node-id($node))"/>
 </xsl:function>
 
 <!-- ====================================================================== -->
@@ -534,7 +534,7 @@ for the specified node.</para>
 
 <xsl:function name="f:href-target-uri" as="xs:string">
   <xsl:param name="node" as="element()"/>
-  <xsl:value-of select="concat('#', f:node-id($node))"/>
+  <xsl:sequence select="concat('#', f:node-id($node))"/>
 </xsl:function>
 
 <!-- ====================================================================== -->
@@ -674,13 +674,13 @@ HTML document. It is responsible for generating the keyword-related
       <xsl:sequence select="tokenize($node/@role, '\s+')"/>
     </xsl:if>
     <xsl:if test="$node/@revision">
-      <xsl:value-of select="concat('rf-', $node/@revision)"/>
+      <xsl:sequence select="concat('rf-', $node/@revision)"/>
     </xsl:if>
     <xsl:sequence select="$extra"/>
   </xsl:variable>
 
   <xsl:if test="exists($classes)">
-    <xsl:value-of select="string-join(distinct-values($classes), ' ')"/>
+    <xsl:sequence select="string-join(distinct-values($classes), ' ')"/>
   </xsl:if>
 </xsl:function>
 

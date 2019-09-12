@@ -26,20 +26,19 @@
   <xsl:variable name="path"
 		select="f:pi($context/processing-instruction('dbhtml'),'dir')"/>
 
-  <xsl:value-of>
-    <xsl:choose>
-      <xsl:when test="empty($path)">
-	<xsl:value-of select="$ppath"/>
-      </xsl:when>
-      <xsl:otherwise>
-	<xsl:if test="$ppath != ''">
-	  <xsl:value-of select="$ppath"/>
-	  <xsl:if test="not(ends-with($ppath, '/'))">/</xsl:if>
-	</xsl:if>
-	<xsl:value-of select="concat($path,'/')"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:value-of>
+  <xsl:choose>
+    <xsl:when test="empty($path)">
+      <xsl:sequence select="$ppath"/>
+    </xsl:when>
+    <xsl:when test="$ppath != ''">
+      <xsl:sequence select="concat($ppath,
+                                   if (ends-with($ppath, '/')) then '' else '/',
+                                   $path, '/')"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:sequence select="concat($path,'/')"/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:function>
 
 </xsl:stylesheet>

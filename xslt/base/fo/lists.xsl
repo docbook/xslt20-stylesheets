@@ -834,7 +834,7 @@
 
 <xsl:function name="f:font-size" as="xs:string">
   <xsl:param name="context" as="element()"/>
-  <xsl:value-of select="'inherit'"/>
+  <xsl:sequence select="'inherit'"/>
 </xsl:function>
 
 </xsl:stylesheet>

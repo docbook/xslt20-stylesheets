@@ -1624,7 +1624,7 @@
 
 <xsl:function name="f:select-pagemaster" as="xs:string">
   <xsl:param name="element-node" as="element()"/>
-  <xsl:value-of select="f:select-pagemaster($element-node,'')"/>
+  <xsl:sequence select="f:select-pagemaster($element-node,'')"/>
 </xsl:function>
 
 <xsl:function name="f:select-pagemaster" as="xs:string">
@@ -1636,7 +1636,7 @@
   <xsl:variable name="pagemaster">
     <xsl:choose>
       <xsl:when test="$pageclass != ''">
-        <xsl:value-of select="$pageclass"/>
+        <xsl:sequence select="$pageclass"/>
       </xsl:when>
       <xsl:when test="$pageclass = 'lot'">lot</xsl:when>
       <xsl:when test="$element = 'dedication'">front</xsl:when>
@@ -1679,7 +1679,7 @@
 
   <!-- by default, return the default. But if you've created your own
        pagemasters in user.pagemasters, you might want to select one here. -->
-  <xsl:value-of select="$default-pagemaster"/>
+  <xsl:sequence select="$default-pagemaster"/>
 </xsl:template>
 
 <!-- ==================================================================== -->
@@ -1718,10 +1718,10 @@
   <xsl:variable name="pageclass">
     <xsl:choose>
       <xsl:when test="contains($master-reference, '-draft')">
-        <xsl:value-of select="substring-before($master-reference, '-draft')"/>
+        <xsl:sequence select="substring-before($master-reference, '-draft')"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$master-reference"/>
+        <xsl:sequence select="$master-reference"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -1928,13 +1928,13 @@
 
 <!--
   <fo:block>
-    <xsl:value-of select="$pageclass"/>
+    <xsl:sequence select="$pageclass"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="$sequence"/>
+    <xsl:sequence select="$sequence"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="$position"/>
+    <xsl:sequence select="$position"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="$gentext-key"/>
+    <xsl:sequence select="$gentext-key"/>
   </fo:block>
 -->
 
@@ -1997,10 +1997,10 @@
   <xsl:variable name="width.set">
     <xsl:choose>
       <xsl:when test="$location = 'header'">
-        <xsl:value-of select="normalize-space($header.column.widths)"/>
+        <xsl:sequence select="normalize-space($header.column.widths)"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="normalize-space($footer.column.widths)"/>
+        <xsl:sequence select="normalize-space($footer.column.widths)"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -2009,13 +2009,13 @@
   <xsl:variable name="width">
     <xsl:choose>
       <xsl:when test="$position = 1">
-        <xsl:value-of select="substring-before($width.set, ' ')"/>
+        <xsl:sequence select="substring-before($width.set, ' ')"/>
       </xsl:when>
       <xsl:when test="$position = 2">
-        <xsl:value-of select="substring-before(substring-after($width.set, ' '), ' ')"/>
+        <xsl:sequence select="substring-before(substring-after($width.set, ' '), ' ')"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="substring-after(substring-after($width.set, ' '), ' ')"/>
+        <xsl:sequence select="substring-after(substring-after($width.set, ' '), ' ')"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -2023,10 +2023,10 @@
   <!-- Make sure it is a number -->
   <xsl:choose>
     <xsl:when test = "$width = number($width)">
-      <xsl:value-of select="$width"/>
+      <xsl:sequence select="$width"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:message>Error: value in <xsl:value-of select="$location"/>.column.widths at position <xsl:value-of select="$position"/> is not a number.</xsl:message>
+      <xsl:message>Error: value in <xsl:sequence select="$location"/>.column.widths at position <xsl:sequence select="$position"/> is not a number.</xsl:message>
       <xsl:text>1</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
@@ -2063,10 +2063,10 @@
   <xsl:variable name="pageclass">
     <xsl:choose>
       <xsl:when test="contains($master-reference, '-draft')">
-        <xsl:value-of select="substring-before($master-reference, '-draft')"/>
+        <xsl:sequence select="substring-before($master-reference, '-draft')"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$master-reference"/>
+        <xsl:sequence select="$master-reference"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -2252,13 +2252,13 @@
 
 <!--
   <fo:block>
-    <xsl:value-of select="$pageclass"/>
+    <xsl:sequence select="$pageclass"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="$sequence"/>
+    <xsl:sequence select="$sequence"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="$position"/>
+    <xsl:sequence select="$position"/>
     <xsl:text>, </xsl:text>
-    <xsl:value-of select="$gentext-key"/>
+    <xsl:sequence select="$gentext-key"/>
   </fo:block>
 -->
 
@@ -2412,10 +2412,10 @@
                     $element = 'preface' or
 		    (starts-with($master-reference, 'back') and $element = 'appendix')">
       <xsl:attribute name="start-indent">
-        <xsl:value-of select="$body.start.indent"/>
+        <xsl:sequence select="$body.start.indent"/>
       </xsl:attribute>
       <xsl:attribute name="end-indent">
-        <xsl:value-of select="$body.end.indent"/>
+        <xsl:sequence select="$body.end.indent"/>
       </xsl:attribute>
     </xsl:when>
   </xsl:choose>
@@ -2458,19 +2458,19 @@
   <fo:page-sequence hyphenate="{$hyphenate}"
                     master-reference="{$master-reference}">
     <xsl:attribute name="language">
-      <xsl:value-of select="$language"/>
+      <xsl:sequence select="$language"/>
     </xsl:attribute>
 
     <xsl:attribute name="format">
-      <xsl:value-of select="$format"/>
+      <xsl:sequence select="$format"/>
     </xsl:attribute>
 
     <xsl:attribute name="initial-page-number">
-      <xsl:value-of select="$initial-page-number"/>
+      <xsl:sequence select="$initial-page-number"/>
     </xsl:attribute>
 
     <xsl:attribute name="force-page-count">
-      <xsl:value-of select="$force-page-count"/>
+      <xsl:sequence select="$force-page-count"/>
     </xsl:attribute>
 
     <xsl:attribute name="hyphenation-character">
@@ -2517,13 +2517,13 @@
 
 <xsl:function name="f:page-number-format" as="xs:string">
   <xsl:param name="context" as="element()"/>
-  <xsl:value-of select="f:page-number-format($context, local-name($context), '')"/>
+  <xsl:sequence select="f:page-number-format($context, local-name($context), '')"/>
 </xsl:function>
 
 <xsl:function name="f:page-number-format" as="xs:string">
   <xsl:param name="context" as="element()"/>
   <xsl:param name="element" as="xs:string"/>
-  <xsl:value-of select="f:page-number-format($context, $element, '')"/>
+  <xsl:sequence select="f:page-number-format($context, $element, '')"/>
 </xsl:function>
 
 <xsl:function name="f:page-number-format" as="xs:string">
@@ -2533,29 +2533,29 @@
 
   <xsl:choose>
     <xsl:when test="$element = 'toc' and $context/self::book">
-      <xsl:value-of select="'i'"/>
+      <xsl:sequence select="'i'"/>
     </xsl:when>
     <xsl:when test="$element = 'preface'">
-      <xsl:value-of select="'i'"/>
+      <xsl:sequence select="'i'"/>
     </xsl:when>
     <xsl:when test="$element = 'dedication'">
-      <xsl:value-of select="'i'"/>
+      <xsl:sequence select="'i'"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="'1'"/>
+      <xsl:sequence select="'1'"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
 
 <xsl:function name="f:initial-page-number" as="xs:string">
   <xsl:param name="context" as="element()"/>
-  <xsl:value-of select="f:initial-page-number($context, local-name($context), '')"/>
+  <xsl:sequence select="f:initial-page-number($context, local-name($context), '')"/>
 </xsl:function>
 
 <xsl:function name="f:initial-page-number" as="xs:string">
   <xsl:param name="context" as="element()"/>
   <xsl:param name="element" as="xs:string"/>
-  <xsl:value-of select="f:initial-page-number($context, $element,'')"/>
+  <xsl:sequence select="f:initial-page-number($context, $element,'')"/>
 </xsl:function>
 
 <xsl:function name="f:initial-page-number" as="xs:string">
@@ -2580,15 +2580,15 @@
 
   <xsl:choose>
     <xsl:when test="$element = 'toc'">
-      <xsl:value-of select="$auto"/>
+      <xsl:sequence select="$auto"/>
     </xsl:when>
     <xsl:when test="$element = 'book'">
-      <xsl:value-of select="'1'"/>
+      <xsl:sequence select="'1'"/>
     </xsl:when>
     <!-- preface typically continues TOC roman numerals -->
     <!-- Change page.number.format if not -->
     <xsl:when test="$element = 'preface'">
-      <xsl:value-of select="$auto"/>
+      <xsl:sequence select="$auto"/>
     </xsl:when>
     <xsl:when test="($element = 'dedication' or $element = 'article') 
 		    and not($context/preceding::db:chapter
@@ -2598,26 +2598,26 @@
 			    or $context/preceding::db:dedication
 			    or $context/parent::db:part
 			    or $context/parent::db:reference)">
-      <xsl:value-of select="'1'"/>
+      <xsl:sequence select="'1'"/>
     </xsl:when>
     <xsl:when test="generate-id($first.book.content) = generate-id($context)">
-      <xsl:value-of select="'1'"/>
+      <xsl:sequence select="'1'"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$auto"/>
+      <xsl:sequence select="$auto"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
 
 <xsl:function name="f:force-page-count" as="xs:string">
   <xsl:param name="context" as="element()"/>
-  <xsl:value-of select="f:force-page-count($context,local-name($context),'')"/>
+  <xsl:sequence select="f:force-page-count($context,local-name($context),'')"/>
 </xsl:function>
 
 <xsl:function name="f:force-page-count" as="xs:string">
   <xsl:param name="context" as="element()"/>
   <xsl:param name="element" as="xs:string"/>
-  <xsl:value-of select="f:force-page-count($context,$element,'')"/>
+  <xsl:sequence select="f:force-page-count($context,$element,'')"/>
 </xsl:function>
 
 <xsl:function name="f:force-page-count" as="xs:string">
@@ -2628,11 +2628,11 @@
   <xsl:choose>
     <!-- double-sided output -->
     <xsl:when test="$double.sided">
-      <xsl:value-of select="'end-on-even'"/>
+      <xsl:sequence select="'end-on-even'"/>
     </xsl:when>
     <!-- single-sided output -->
     <xsl:otherwise>
-      <xsl:value-of select="'no-force'"/>
+      <xsl:sequence select="'no-force'"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:function>
@@ -2648,10 +2648,10 @@
   <xsl:variable name="pageclass">
     <xsl:choose>
       <xsl:when test="contains($master-reference, '-draft')">
-        <xsl:value-of select="substring-before($master-reference, '-draft')"/>
+        <xsl:sequence select="substring-before($master-reference, '-draft')"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="$master-reference"/>
+        <xsl:sequence select="$master-reference"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
@@ -2668,10 +2668,10 @@
                     (starts-with($pageclass, 'back') and
                     $element = 'appendix')">
       <xsl:attribute name="start-indent">
-        <xsl:value-of select="$body.start.indent"/>
+        <xsl:sequence select="$body.start.indent"/>
       </xsl:attribute>
       <xsl:attribute name="end-indent">
-        <xsl:value-of select="$body.end.indent"/>
+        <xsl:sequence select="$body.end.indent"/>
       </xsl:attribute>
     </xsl:when>
   </xsl:choose>
@@ -2690,10 +2690,10 @@
         <fo:region-start xsl:use-attribute-sets="region.inner.properties">
           <xsl:attribute name="region-name">
             <xsl:text>xsl-region-inner-</xsl:text>
-            <xsl:value-of select="$sequence"/>
+            <xsl:sequence select="$sequence"/>
           </xsl:attribute>
           <xsl:attribute name="extent">
-            <xsl:value-of select="$region.inner.extent"/>
+            <xsl:sequence select="$region.inner.extent"/>
           </xsl:attribute>
         </fo:region-start>
       </xsl:when>
@@ -2701,10 +2701,10 @@
         <fo:region-start xsl:use-attribute-sets="region.outer.properties">
           <xsl:attribute name="region-name">
             <xsl:text>xsl-region-outer-</xsl:text>
-            <xsl:value-of select="$sequence"/>
+            <xsl:sequence select="$sequence"/>
           </xsl:attribute>
           <xsl:attribute name="extent">
-            <xsl:value-of select="$region.outer.extent"/>
+            <xsl:sequence select="$region.outer.extent"/>
           </xsl:attribute>
         </fo:region-start>
       </xsl:otherwise>
@@ -2721,10 +2721,10 @@
         <fo:region-end xsl:use-attribute-sets="region.outer.properties">
           <xsl:attribute name="region-name">
             <xsl:text>xsl-region-outer-</xsl:text>
-            <xsl:value-of select="$sequence"/>
+            <xsl:sequence select="$sequence"/>
           </xsl:attribute>
           <xsl:attribute name="extent">
-            <xsl:value-of select="$region.outer.extent"/>
+            <xsl:sequence select="$region.outer.extent"/>
           </xsl:attribute>
         </fo:region-end>
       </xsl:when>
@@ -2732,10 +2732,10 @@
         <fo:region-end xsl:use-attribute-sets="region.inner.properties">
           <xsl:attribute name="region-name">
             <xsl:text>xsl-region-inner-</xsl:text>
-            <xsl:value-of select="$sequence"/>
+            <xsl:sequence select="$sequence"/>
           </xsl:attribute>
           <xsl:attribute name="extent">
-            <xsl:value-of select="$region.inner.extent"/>
+            <xsl:sequence select="$region.inner.extent"/>
           </xsl:attribute>
         </fo:region-end>
       </xsl:otherwise>
