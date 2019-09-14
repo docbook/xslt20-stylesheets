@@ -186,6 +186,8 @@ public class XSLT20 {
                 tempcat = new File(catalogFilename);
             }
 
+            logger.debug("Transient catalog file: " + tempcat.getAbsolutePath());
+
             PrintStream catstream = new PrintStream(tempcat);
             catstream.print(xformed.toString());
             catstream.close();
