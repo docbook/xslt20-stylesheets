@@ -347,10 +347,10 @@ public class XSLT20 {
 
         @Override
         public Source resolve(String href, String base) throws TransformerException {
-            // We go last
-            Source src = nextResolver.resolve(href, base);
+            // We go first
+            Source src = resolver.resolve(href, base);
             if (src == null) {
-                return resolver.resolve(href, base);
+                return nextResolver.resolve(href, base);
             } else {
                 return src;
             }
