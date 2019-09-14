@@ -26,11 +26,11 @@
                 select="if (starts-with($name, '/resources/'))
                         then $resourcesVersion
                         else $version"/>
-  <xsl:for-each select="('latest', $rsrcver)">
+  <xsl:for-each select="('current', $rsrcver)">
     <xsl:variable name="path"
                   select="if (starts-with($name, '/resources/'))
                           then concat('resources/', ., substring-after($name, '/resources'))
-                          else concat('release/', ., $name)"/>
+                          else concat('release/xsl20/', ., $name)"/>
     <uri xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
       <xsl:attribute name="name" select="concat($https, $path)"/>
       <xsl:attribute name="uri" select="concat($jarloc, $name)"/>
