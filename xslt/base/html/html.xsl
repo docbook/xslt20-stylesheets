@@ -248,26 +248,28 @@ and a CSS style is specified.</para>
 
   <xsl:variable name="numbered" select="f:syntax-highlight($node)"/>
 
-  <xsl:if test="$syntax-highlighter">
-    <xsl:variable name="language" select="$node/@language/string()"/>
-    <xsl:variable name="mapped-language"
-                  select="($syntax.highlight.map[@key=$language]/@value/string(),
-                           $language)[1]"/>
+  <!-- We do this irrespective of whether or not syntax highlighting is enabled.
+       If it's not enabled, these values may allow a downstream process
+       to do the highlighting. Also, output the language value untransformed. -->
 
-    <xsl:variable name="language" as="xs:string?"
-                  select="if ($mapped-language)
-                          then concat('language-', $mapped-language)
-                          else 'language-none'"/>
+  <xsl:variable name="language" select="$node/@language/string()"/>
+  <xsl:variable name="mapped-language"
+                select="($syntax.highlight.map[@key=$language]/@value/string(),
+                         $language)[1]"/>
 
-    <xsl:variable name="numbers" as="xs:string?"
-                  select="if ($node/ancestor::db:programlistingco
-                              or $node/ancestor::db:screenco
-                              or not($numbered))
-                          then ()
-                          else 'line-numbers'"/>
+  <xsl:variable name="language" as="xs:string?"
+                select="if ($mapped-language)
+                        then concat('language-', $mapped-language)
+                        else 'language-none'"/>
 
-    <xsl:sequence select="($language,$numbers,$node/@role)"/>
-  </xsl:if>
+  <xsl:variable name="numbers" as="xs:string?"
+                select="if ($node/ancestor::db:programlistingco
+                            or $node/ancestor::db:screenco
+                            or not($numbered))
+                        then ()
+                        else 'line-numbers'"/>
+
+  <xsl:sequence select="($language,$numbers,$node/@language,$node/@role)"/>
 </xsl:function>
 
 <!-- ====================================================================== -->
