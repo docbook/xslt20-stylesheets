@@ -9,6 +9,7 @@ buildscript {
     mavenCentral()
   }
 
+  // See also: buildSrc/build.gradle
   dependencies {
     classpath files("lib")
     classpath fileTree(dir: 'lib').include("*.jar")
@@ -57,7 +58,7 @@ dependencies {
   compile (
     [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
     [group: 'org.relaxng', name: 'jing', version: '20181222' ],
-    [group: 'org.xmlresolver', name: 'xmlresolver', version: '1.0.4'],
+    [group: 'org.xmlresolver', name: 'xmlresolver', version: '1.0.5'],
     [group: 'com.xmlcalabash', name: 'xmlcalabash', version: xmlCalabashVersion],
     [group: 'com.xmlcalabash', name: 'xmlcalabash1-gradle', version: '1.3.5'],
 
@@ -230,6 +231,12 @@ schemas.each { String rnc ->
 // ======================================================================
 // Run tests
 
+/*
+test {
+  systemProperty "log4j.configurationFile", "/Users/ndw/java/log4j2-debug.xml"
+}
+*/
+
 task test_html(dependsOn: [ "setupTestResources" ]) {
   // just a task to hang dependencies on
 };
@@ -262,6 +269,7 @@ tests.each { File file ->
     inputs.dir "src/main/gentext"
     inputs.dir "tools/test"
     outputs.file "build/test/actual-html/" + testname + ".html"
+    inputs.file "src/test/xml/" + testname + ".xml"
     option("name", testname)
     param("output.dir", outputDir)
     option("preprocess", pre_html)
