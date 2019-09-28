@@ -986,20 +986,22 @@ object is recognized as a graphic.</para>
   </xsl:variable>
 
   <!--
-  <xsl:message>
-    <xsl:text>mediaobject-href: </xsl:text>
-    <xsl:sequence select="$filename"/>
-    <xsl:text>&#10;</xsl:text>
-    <xsl:text>against base uri: </xsl:text>
-    <xsl:sequence select="$outdir"/>
-  </xsl:message>
+  <xsl:message>FILENAME  : <xsl:sequence select="$filename"/></xsl:message>
+  <xsl:message>OUTDIR    : <xsl:sequence select="$outdir"/></xsl:message>
+  <xsl:message>OUTPUT.DIR: <xsl:sequence select="$output.dir"/></xsl:message>
   -->
 
   <xsl:choose>
     <xsl:when test="$outdir != ''">
+      <!--
+      <xsl:message>HREF      : <xsl:sequence select="f:relative-uri($filename, $outdir)"/></xsl:message>
+      -->
       <xsl:sequence select="f:relative-uri($filename, $outdir)"/>
     </xsl:when>
     <xsl:otherwise>
+      <!--
+      <xsl:message>HREF      : <xsl:sequence select="$filename"/></xsl:message>
+      -->
       <xsl:sequence select="$filename"/>
     </xsl:otherwise>
   </xsl:choose>
@@ -1009,16 +1011,17 @@ object is recognized as a graphic.</para>
 
 <xsl:function name="f:relative-uri" as="xs:string">
   <xsl:param name="absuri" as="xs:string"/>
-  <xsl:param name="destdir" as="xs:string"/>
+  <xsl:param name="desturi" as="xs:string"/>
 
-  <xsl:variable name="srcurl">
-    <xsl:call-template name="t:strippath">
-      <xsl:with-param name="filename"
-                      select="if (starts-with($absuri, 'file:/'))
-                              then substring-after($absuri, 'file:')
-                              else $absuri"/>
-    </xsl:call-template>
-  </xsl:variable>
+  <xsl:variable name="srcurl"
+                select="f:strippath(if (starts-with($absuri, 'file:/'))
+                                    then substring-after($absuri, 'file:')
+                                    else $absuri)"/>
+
+  <xsl:variable name="destdir"
+                select="if (starts-with($desturi, 'file:/'))
+                        then substring-after($desturi, 'file:')
+                        else $desturi"/>
 
   <xsl:variable name="srcurl.trimmed"
                 select="f:trim-common-uri-paths($srcurl, $destdir)"/>
@@ -1031,7 +1034,7 @@ object is recognized as a graphic.</para>
 
   <xsl:variable name="prefix" as="xs:string*">
     <xsl:if test="$srcurl ne $srcurl.trimmed">
-      <!-- common start of URLs was trimmed we have to 
+      <!-- common start of URLs was trimmed we have to
            use ../ to reach proper level in directory structure -->
       <xsl:for-each select="(1 to $depth)">
         <xsl:sequence select="'../'"/>
@@ -1044,7 +1047,7 @@ object is recognized as a graphic.</para>
   <xsl:sequence select="$reluri"/>
 </xsl:function>
 
-<xsl:template name="t:xml-base-dirs">
+<xsl:template name="t:xml-base-dirs" as="xs:string">
   <xsl:param name="base.elem" select="()"/>
 
   <!-- Recursively resolve xml:base attributes -->
@@ -1054,58 +1057,52 @@ object is recognized as a graphic.</para>
                       select="$base.elem/ancestor::*[@xml:base != ''][1]"/>
     </xsl:call-template>
   </xsl:if>
-  <xsl:call-template name="t:getdir">
-    <xsl:with-param name="filename" select="$base.elem/@xml:base"/>
-  </xsl:call-template>
+  <xsl:sequence select="f:getdir($base.elem/@xml:base)"/>
 </xsl:template>
 
-<xsl:template name="t:strippath">
-  <xsl:param name="filename" select="''"/>
+<xsl:function name="f:strippath">
+  <xsl:param name="filename"/>
+
+  <!-- Replace all occurrences of /a/../ with /
+       /a/b/../c       => /a/c
+       ../a/b          => ../a/b
+       a               => a
+       /a/b/../../c    => c
+       /a/b/../../../c => ../c
+   -->
 
   <xsl:choose>
-    <!-- ./ can be ignored -->
-    <xsl:when test="starts-with($filename, './')">
-      <xsl:call-template name="t:strippath">
-        <xsl:with-param name="filename"
-          select="substring-after($filename, './')"/>
-      </xsl:call-template>
-    </xsl:when>
-    <!-- Leading .. are not eliminated -->
-    <xsl:when test="starts-with($filename, '../')">
-      <xsl:value-of select="'../'"/>
-      <xsl:call-template name="t:strippath">
-        <xsl:with-param name="filename"
-                        select="substring-after($filename, '../')"/>
-      </xsl:call-template>
-    </xsl:when>
-    <xsl:when test="contains($filename, '/../')">
-      <xsl:call-template name="t:strippath">
-        <xsl:with-param name="filename">
-          <xsl:call-template name="t:getdir">
-            <xsl:with-param name="filename"
-                            select="substring-before($filename, '/../')"/>
-          </xsl:call-template>
-          <xsl:value-of select="substring-after($filename, '/../')"/>
-        </xsl:with-param>
-      </xsl:call-template>
+    <xsl:when test="matches($filename, '^.*?[^/]+/\.\./')">
+      <xsl:sequence select="f:strippath(replace($filename, '^(.*?)[^/]+/\.\./(.*)$', '$1$2'))"/>
     </xsl:when>
     <xsl:otherwise>
-      <xsl:value-of select="$filename"/>
+      <xsl:sequence select="$filename"/>
     </xsl:otherwise>
   </xsl:choose>
-</xsl:template>
+</xsl:function>
 
-<xsl:template name="t:getdir">
-  <xsl:param name="filename" select="''"/>
-  <xsl:if test="contains($filename, '/')">
-    <xsl:value-of select="substring-before($filename, '/')"/>
-    <xsl:text>/</xsl:text>
-    <xsl:call-template name="t:getdir">
-      <xsl:with-param name="filename"
-                      select="substring-after($filename, '/')"/>
-    </xsl:call-template>
-  </xsl:if>
-</xsl:template>
+<xsl:function name="f:getdir" as="xs:string">
+  <xsl:param name="filename"/>
+
+  <!--
+      /a/b/c/ => /a/b/c/
+      /a/b/c  => /a/b/
+      a/b/c   => a/b/
+      a/b     => a/
+      /       => /
+      a       => ()
+  -->
+
+  <xsl:choose>
+    <xsl:when test="not(contains($filename, '/'))">
+      <xsl:sequence select="''"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="dirs" select="tokenize($filename, '/')"/>
+      <xsl:sequence select="concat(string-join(subsequence($dirs, 1, count($dirs) - 1), '/'), '/')"/>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:function>
 
 <xsl:template name="t:root-messages">
   <!-- nop -->
