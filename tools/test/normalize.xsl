@@ -15,10 +15,7 @@
 <xsl:template match="html:head">
   <xsl:copy>
     <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="*">
-      <xsl:sort select="local-name(.)" order="ascending"/>
-      <xsl:sort select="(@content|@name|@href|@src)[1]" order="ascending"/>
-    </xsl:apply-templates>
+    <xsl:apply-templates select="*"/>
   </xsl:copy>
 </xsl:template>
 
