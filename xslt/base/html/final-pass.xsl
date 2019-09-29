@@ -74,17 +74,15 @@
 
   <xsl:apply-templates select="*" mode="m:pre-root"/>
   <html>
+    <xsl:if test="/*/@status">
+      <xsl:attribute name="class" select="/*/@status"/>
+    </xsl:if>
     <head>
       <xsl:apply-templates select="*" mode="mp:html-head"/>
     </head>
     <body>
       <xsl:call-template name="t:body-attributes"/>
-      <xsl:if test="/*/@status">
-        <xsl:attribute name="class" select="/*/@status"/>
-      </xsl:if>
-
       <xsl:apply-templates/>
-
       <xsl:apply-templates select="." mode="mp:javascript-body"/>
       <xsl:apply-templates select="." mode="m:javascript-body"/>
     </body>
