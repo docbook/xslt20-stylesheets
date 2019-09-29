@@ -180,10 +180,10 @@
   <xsl:choose>
     <xsl:when test="not($syntax-highlighter) and $numbered">
       <div class="numbered-verbatim">
-        <table border="0">
+        <table border="0" class="linenumber-table">
           <tr>
             <td align="right" valign="top">
-              <pre class="line-numbers">
+              <pre class="line-numbers-column">
                 <xsl:for-each
                     select="tokenize(string-join($pre/h:code//text(),''),'&#10;')">
                   <code class="line-number">

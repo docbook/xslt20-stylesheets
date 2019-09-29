@@ -11,21 +11,20 @@
 </refmeta>
 <refnamediv>
 <refname>docbook.css</refname>
-<refpurpose>Name of a CSS file to use for documents formatted as HTML</refpurpose>
+<refpurpose>Name of a custom CSS file to use for documents formatted as HTML</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
 <src:fragment xml:id="docbook.css.frag">
-<xsl:param name="docbook.css" as="xs:string"
-	   select="concat($resource.root, 'css/default.css')"/>
+<xsl:param name="docbook.css" as="xs:string" select="''"/>
 </src:fragment>
 </refsynopsisdiv>
 
 <refsect1><title>Description</title>
 
-<para>The CSS URI named by this parameter will be used as the CSS
-for formatted HTML.
-</para>
+<para>This used to be set by default to ‘<filename>default.css</filename>’. Starting in 2.4.0, the
+default stylesheet is always included first. If you specify <parameter>$docbook.css</parameter>, it will
+be added last, so that it will have the highest priority in the cascade.</para>
 
 </refsect1>
 </refentry>

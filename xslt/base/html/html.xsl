@@ -262,6 +262,7 @@ and a CSS style is specified.</para>
                         then concat('language-', $mapped-language)
                         else 'language-none'"/>
 
+  <!-- Prism numbers listings that have the 'line-numbers' class. -->
   <xsl:variable name="numbers" as="xs:string?"
                 select="if ($node/ancestor::db:programlistingco
                             or $node/ancestor::db:screenco
@@ -279,10 +280,11 @@ and a CSS style is specified.</para>
     <link rel="stylesheet" type="text/css" href="{$cdn.jqueryui.css}"/>
   </xsl:if>
 
+  <link href="{concat($resource.root, 'css/default.css')}" rel="stylesheet"
+        type="text/css"/>
+
   <xsl:choose>
     <xsl:when test="$syntax-highlighter">
-      <link href="{concat($resource.root, 'css/prism.css')}" rel="stylesheet"
-            type="text/css"/>
       <link href="{concat($resource.root, 'css/db-prism.css')}" rel="stylesheet"
             type="text/css"/>
     </xsl:when>
