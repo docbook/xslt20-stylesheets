@@ -112,7 +112,7 @@ class DocBookTask extends XMLCalabashTask {
         // Don't attempt to overwrite anything that's already been set.
 
         if (pipelineURI == null) {
-            pipelineURI = "https://cdn.docbook.org/release/latest/xslt/base/pipelines/docbook.xpl"
+            pipelineURI = "https://cdn.docbook.org/release/xsl20/current/xslt/base/pipelines/docbook.xpl";
         }
 
         if (!seenOptions.containsKey("format")) {
