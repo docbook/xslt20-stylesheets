@@ -10,9 +10,7 @@
                 type="dbp:docbook-css-print">
 <p:input port="source" sequence="true" primary="true"/>
 <p:input port="parameters" kind="parameter"/>
-<p:output port="result" sequence="true" primary="true">
-  <p:pipe step="process-secondary" port="result"/>
-</p:output>
+<p:output port="result" sequence="true" primary="true"/>
 <p:output port="secondary" sequence="true" primary="false">
   <p:empty/>
 </p:output>
@@ -116,122 +114,61 @@
   </p:otherwise>
 </p:choose>
 
-<p:delete name="strip-css"
-          match="h:head/h:link" xmlns:h="http://www.w3.org/1999/xhtml"/>
+<p:for-each>
+  <p:iteration-source>
+    <p:pipe step="final-pass" port="result"/>
+    <p:pipe step="final-pass" port="secondary"/>
+  </p:iteration-source>
 
-<p:choose name="postprocess">
-  <p:when test="$postprocess = ''">
-    <p:output port="result" sequence="true" primary="true"/>
-    <p:output port="secondary" sequence="true">
-      <p:pipe step="secondary" port="result"/>
-    </p:output>
-    <p:identity name="secondary">
-      <p:input port="source">
-        <p:pipe step="final-pass" port="secondary"/>
-      </p:input>
-    </p:identity>
-    <p:identity>
-      <p:input port="source">
-        <p:pipe step="strip-css" port="result"/>
-      </p:input>
-      <p:log port="result" href="/tmp/final-pass.xml"/>
-    </p:identity>
-  </p:when>
-  <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
-    <p:output port="result" sequence="true" primary="true">
-      <p:pipe step="primary" port="result"/>
-    </p:output>
-    <p:output port="secondary" sequence="true">
-      <p:pipe step="secondary" port="result"/>
-    </p:output>
+  <!-- This is a mandatory post-processing step -->
+  <p:xslt name="csscleanup">
+    <p:input port="stylesheet">
+      <p:document href="csscleanup.xsl"/>
+    </p:input>
+    <p:with-param name="discard-script" select="$discard-script"/>
+  </p:xslt>
 
-    <p:load name="load-style">
-      <p:with-option name="href" select="resolve-uri($postprocess, exf:cwd())"/>
-    </p:load>
-
-    <p:xslt name="primary">
-      <p:input port="stylesheet">
-        <p:pipe step="load-style" port="result"/>
-      </p:input>
-      <p:input port="source">
-        <p:pipe step="strip-css" port="result"/>
-      </p:input>
-    </p:xslt>
-
-    <p:for-each name="secondary">
-      <p:iteration-source>
-        <p:pipe step="final-pass" port="secondary"/>
-      </p:iteration-source>
-      <p:output port="result"/>
-
+  <!-- Then apply the user-specified one, if there is one -->
+  <p:choose>
+    <p:when test="$postprocess = ''">
+      <p:identity/>
+    </p:when>
+    <p:otherwise xmlns:exf="http://exproc.org/standard/functions">
+      <p:load name="load-style">
+        <p:with-option name="href" select="resolve-uri($postprocess, exf:cwd())"/>
+      </p:load>
       <p:xslt>
         <p:input port="stylesheet">
           <p:pipe step="load-style" port="result"/>
         </p:input>
+        <p:input port="source">
+          <p:pipe step="csscleanup" port="result"/>
+        </p:input>
       </p:xslt>
-    </p:for-each>
-  </p:otherwise>
-</p:choose>
+    </p:otherwise>
+  </p:choose>
+</p:for-each>
 
-<p:choose name="discard-script">
-  <p:when test="$discard-script = 'false'">
-    <p:output port="result" sequence="true" primary="true"/>
-    <p:output port="secondary" sequence="true">
-      <p:pipe step="secondary" port="result"/>
-    </p:output>
-    <p:identity name="secondary">
-      <p:input port="source">
-        <p:pipe step="postprocess" port="secondary"/>
-      </p:input>
-    </p:identity>
-    <p:identity>
-      <p:input port="source">
-        <p:pipe step="postprocess" port="result"/>
-      </p:input>
-    </p:identity>
-  </p:when>
-  <p:otherwise>
-    <p:output port="result" sequence="true" primary="true"/>
-    <p:output port="secondary" sequence="true">
-      <p:pipe step="secondary" port="result"/>
-    </p:output>
-    <p:for-each name="secondary">
-      <p:iteration-source>
-        <p:pipe step="postprocess" port="secondary"/>
-      </p:iteration-source>
-      <p:output port="result"/>
-      <p:delete match="h:script" xmlns:h="http://www.w3.org/1999/xhtml"/>
-    </p:for-each>
-    <p:delete match="h:script" xmlns:h="http://www.w3.org/1999/xhtml">
-      <p:input port="source">
-        <p:pipe step="postprocess" port="result"/>
-      </p:input>
-    </p:delete>
-  </p:otherwise>
-</p:choose>
+<p:identity>
+  <p:log href="/tmp/cssprint.xml" port="result"/>
+</p:identity>
 
-<p:choose name="process-secondary">
+<p:choose name="process-all">
   <p:when test="p:value-available('css')">
-    <p:output port="result">
+    <p:output port="result" primary="true">
       <p:pipe step="css" port="result"/>
     </p:output>
     <cx:css-formatter name="css" content-type="application/pdf">
-      <p:input port="source">
-        <p:pipe step="discard-script" port="result"/>
-      </p:input>
       <p:with-option xmlns:exf="http://exproc.org/standard/functions"
                      name="href" select="resolve-uri($pdf, exf:cwd())"/>
       <p:with-option name="css" select="resolve-uri($css, exf:cwd())"/>
     </cx:css-formatter>
   </p:when>
   <p:otherwise>
-    <p:output port="result">
+    <p:output port="result" primary="true">
       <p:pipe step="css" port="result"/>
     </p:output>
     <cx:css-formatter name="css" content-type="application/pdf">
-      <p:input port="source">
-        <p:pipe step="discard-script" port="result"/>
-      </p:input>
       <p:with-option xmlns:exf="http://exproc.org/standard/functions"
                      name="href" select="resolve-uri($pdf, exf:cwd())"/>
     </cx:css-formatter>

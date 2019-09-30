@@ -237,17 +237,17 @@ test {
 }
 */
 
-task test_html(dependsOn: [ "setupTestResources" ]) {
+task test_html() {
   // just a task to hang dependencies on
 };
 test.dependsOn test_html
 
-task test_print_css(dependsOn: [ "setupTestResources" ]) {
+task test_print_css() {
   // just a task to hang dependencies on
 };
 test.dependsOn test_print_css
 
-task test_print_fo(dependsOn: [ "setupTestResources" ]) {
+task test_print_fo() {
   // just a task to hang dependencies on
 };
 test.dependsOn test_print_fo
@@ -264,7 +264,7 @@ tests.each { File file ->
   pos = outputDir.lastIndexOf(File.separator)
   outputDir = outputDir.substring(0, pos+1)
 
-  Task t = task "test_html_$testname"(type: XMLCalabashTask) {
+  Task t = task "test_html_$testname"(type: XMLCalabashTask, dependsOn: [ "setupTestResources" ]) {
     inputs.dir "xslt"
     inputs.dir "src/main/gentext"
     inputs.dir "tools/test"
@@ -274,12 +274,14 @@ tests.each { File file ->
     param("output.dir", outputDir)
     option("preprocess", pre_html)
     option("postprocess", post_html)
+    option("ignore-head", ignoreHead)
+    option("ignore-prism", ignorePrism)
     pipeline "tools/test/htmltest.xpl"
   }
   t.dependsOn "compileXslt"
   test_html.dependsOn "test_html_$testname"
 
-  t = task "test_print_css_$testname"(type: XMLCalabashTask) {
+  t = task "test_print_css_$testname"(type: XMLCalabashTask, dependsOn: [ "setupTestResources" ]) {
     inputs.dir "xslt"
     inputs.dir "src/main/gentext"
     inputs.dir "tools/test"
@@ -290,15 +292,16 @@ tests.each { File file ->
     option("expecteddir", "../../src/test/expected-print-css/")
     option("diffdir", "../../build/test/diff-print-css/")
     option("format", "cssprint")
-    option("css", "build/xslt/base/css/print.css")
+    option("css", "build/test/resources/css/paged-media.css")
     option("preprocess", pre_print_css)
     option("postprocess", post_print_css)
+    param("syntax-highlighter", "false")
     pipeline "tools/test/printtest.xpl"
   }
   t.dependsOn "compileXslt"
   test_print_css.dependsOn "test_print_css_$testname"
 
-  t = task "test_print_fo_$testname"(type: XMLCalabashTask) {
+  t = task "test_print_fo_$testname"(type: XMLCalabashTask, dependsOn: [ "setupTestResources" ]) {
     inputs.dir "xslt"
     inputs.dir "src/main/gentext"
     inputs.dir "tools/test"
