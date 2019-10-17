@@ -992,43 +992,45 @@ expects “/” to be the component separator.</para>
 
 <!-- ================================================================== -->
 
-<xsl:function name="f:length-spec">
+<xsl:function name="f:length-spec" as="xs:string">
   <xsl:param name="length" as="xs:string"/>
   <xsl:sequence select="f:length-spec($length, 'px')"/>
 </xsl:function>
 
-<xsl:function name="f:length-spec">
+<xsl:function name="f:length-spec" as="xs:string">
   <xsl:param name="length" as="xs:string"/>
   <xsl:param name="default.units" as="xs:string"/>
 
   <xsl:variable name="magnitude" select="f:length-magnitude($length)"/>
   <xsl:variable name="units" select="f:length-units($length)"/>
 
-  <xsl:sequence select="$magnitude"/>
-
-  <xsl:choose>
-    <xsl:when test="$units='cm'
-                    or $units='mm'
-                    or $units='in'
-                    or $units='pt'
-                    or $units='pc'
-                    or $units='px'
-                    or $units='em'">
-      <xsl:sequence select="$units"/>
-    </xsl:when>
-    <xsl:when test="$units = ''">
-      <xsl:sequence select="$default.units"/>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:message>
-        <xsl:text>Unrecognized measurement unit: </xsl:text>
+  <xsl:variable name="magunits" as="xs:string">
+    <xsl:choose>
+      <xsl:when test="$units='cm'
+                       or $units='mm'
+                       or $units='in'
+                       or $units='pt'
+                       or $units='pc'
+                       or $units='px'
+                       or $units='em'">
         <xsl:sequence select="$units"/>
-        <xsl:text>; using </xsl:text>
+      </xsl:when>
+      <xsl:when test="$units = ''">
         <xsl:sequence select="$default.units"/>
-      </xsl:message>
-      <xsl:sequence select="$default.units"/>
-    </xsl:otherwise>
-  </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:message>
+          <xsl:text>Unrecognized measurement unit: </xsl:text>
+          <xsl:sequence select="$units"/>
+          <xsl:text>; using </xsl:text>
+          <xsl:sequence select="$default.units"/>
+        </xsl:message>
+        <xsl:sequence select="$default.units"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:variable>
+
+  <xsl:sequence select="concat($magnitude, $magunits)"/>
 </xsl:function>
 
 <!-- ================================================================== -->
