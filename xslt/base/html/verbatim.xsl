@@ -229,9 +229,7 @@
   <pre>
     <xsl:sequence select="f:html-attributes(., @xml:id, local-name(.),
                                             f:syntax-highlight-class($this))"/>
-    <code>
-      <xsl:apply-templates/>
-    </code>
+    <xsl:apply-templates/>
   </pre>
 </xsl:template>
 
