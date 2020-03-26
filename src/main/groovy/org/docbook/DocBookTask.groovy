@@ -17,6 +17,8 @@ class DocBookTask extends XMLCalabashTask {
     DocBookTask() {
     }
 
+    @org.gradle.api.tasks.Input
+    @org.gradle.api.tasks.Optional
     String getFormat() {
         format
     }
@@ -26,6 +28,8 @@ class DocBookTask extends XMLCalabashTask {
         return this
     }
 
+    @org.gradle.api.tasks.Input
+    @org.gradle.api.tasks.Optional
     String getStyle() {
         return style
     }
@@ -35,6 +39,8 @@ class DocBookTask extends XMLCalabashTask {
         return this
     }
 
+    @org.gradle.api.tasks.Input
+    @org.gradle.api.tasks.Optional
     String getPreprocess() {
         return preprocess
     }
@@ -44,6 +50,8 @@ class DocBookTask extends XMLCalabashTask {
         return this
     }
 
+    @org.gradle.api.tasks.Input
+    @org.gradle.api.tasks.Optional
     String getPostprocess() {
         return postprocess
     }
@@ -53,6 +61,8 @@ class DocBookTask extends XMLCalabashTask {
         return this
     }
 
+    @org.gradle.api.tasks.Input
+    @org.gradle.api.tasks.Optional
     String getReturnSecondary() {
         return returnSecondary
     }
@@ -62,6 +72,8 @@ class DocBookTask extends XMLCalabashTask {
         return this
     }
 
+    @org.gradle.api.tasks.Input
+    @org.gradle.api.tasks.Optional
     String getPdf() {
         return pdf
     }
@@ -71,6 +83,8 @@ class DocBookTask extends XMLCalabashTask {
         return this
     }
 
+    @org.gradle.api.tasks.Input
+    @org.gradle.api.tasks.Optional
     String getCss() {
         return css
     }
@@ -80,6 +94,8 @@ class DocBookTask extends XMLCalabashTask {
         return this
     }
 
+    @org.gradle.api.tasks.Input
+    @org.gradle.api.tasks.Optional
     String getCatalogFile() {
         return catalogFilename
     }

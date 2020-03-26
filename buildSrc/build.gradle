@@ -9,9 +9,9 @@ repositories {
 }
 
 dependencies {
-  compile (
+  implementation (
     [group: 'com.nwalsh', name: 'nwalsh-annotations', version: '1.0.1'],
     // FIXME: this should use ../gradle.properties...
-    [group: 'net.sf.saxon', name: 'Saxon-HE', version: "9.9.1-5"],
+    [group: 'net.sf.saxon', name: 'Saxon-HE', version: "9.9.1-7"],
   )
 }
