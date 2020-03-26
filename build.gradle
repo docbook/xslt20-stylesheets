@@ -15,7 +15,7 @@ buildscript {
     classpath fileTree(dir: 'lib').include("*.jar")
     classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-print', version: '1.1.5'
     classpath group: 'com.xmlcalabash', name: 'xmlcalabash', version: xmlCalabashVersion
-    classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-gradle', version: '1.3.5'
+    classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-gradle', version: '1.4.0'
     classpath group: 'com.xmlcalabash', name: 'xmlcalabash1-deltaxml', version: '1.1.5'
     classpath group: 'org.docbook', name: 'docbook-schemas', version: '5.1-1'
   }
@@ -24,10 +24,9 @@ buildscript {
 plugins {
   id "java"
   id "groovy"
-  id "maven"
   id "maven-publish"
   id "signing"
-  id "de.undercouch.download" version "3.4.3"
+  id "de.undercouch.download" version "4.0.4"
 }
 
 defaultTasks 'compileXslt'
@@ -51,11 +50,13 @@ configurations.all {
 
 configurations {
   pluginApi
+  projectImplementationClasspath.extendsFrom(implementation)
+  projectRuntimeClasspath.extendsFrom(runtimeOnly)
 }
 
 dependencies {
-  compile fileTree(dir: 'lib').include("*.jar")
-  compile (
+  implementation fileTree(dir: 'lib').include("*.jar")
+  implementation (
     [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
     [group: 'org.relaxng', name: 'jing', version: '20181222' ],
     [group: 'org.xmlresolver', name: 'xmlresolver', version: '1.0.5'],
@@ -66,7 +67,7 @@ dependencies {
     [group: 'commons-cli', name: 'commons-cli', version: '1.2']
   )
 
-  runtime (
+  runtimeOnly (
     [group: 'org.relaxng', name: 'trang', version: '20181222' ],
     [group: 'com.xmlcalabash', name: 'xmlcalabash1-print', version: '1.1.5'],
   )
@@ -84,8 +85,8 @@ pos = saxonVersion.indexOf("-")
 
 project.ext.saxonRelease = saxonVersion.substring(0,pos)
 project.ext.saxonBranch  = major + minor
-project.ext.releaseVersion = version
-project.ext.distVersion = version + "-" + saxonBranch + snapshot
+project.ext.releaseVersion = relVersion
+project.ext.distVersion = relVersion + "-" + saxonBranch + snapshot
 
 if (!hasProperty("sonatypeUsername")) {
   ext.sonatypeUsername=""
@@ -101,12 +102,13 @@ compileGroovy {
 
 compileJava {
   classpath += configurations.pluginApi
+  options.compilerArgs += ["-Xlint:unchecked"]
 }
 
 sourceSets {
   main {
     resources {
-      srcDirs "src/main/resources", "build/stage/jar"
+      srcDirs "build/stage/jar"
     }
   }
 }
@@ -130,7 +132,7 @@ task copyXsltSources(type: Copy) {
 }
 
 task foParams(type: JavaExec) {
-  classpath = configurations.runtime
+  classpath = configurations.projectRuntimeClasspath
 
   inputs.file  "tools/mkparam.xsl"
   inputs.files fileTree(dir: "xslt/params/")
@@ -144,7 +146,7 @@ task foParams(type: JavaExec) {
 }
 
 task htmlParams(type: JavaExec) {
-  classpath = configurations.runtime
+  classpath = configurations.projectRuntimeClasspath
 
   inputs.file "tools/mkparam.xsl"
   inputs.files fileTree(dir: "xslt/params/")
@@ -185,13 +187,13 @@ locales.each { File file ->
 }
 
 task makeVersion(type: JavaExec) {
-  classpath = configurations.runtime
+  classpath = configurations.projectRuntimeClasspath
 
   main = 'net.sf.saxon.Transform'
   args('-it:main',
        '-o:build/xslt/base/VERSION.xsl',
        '-xsl:tools/version.xsl',
-       'version=' + version,
+       'version=' + relVersion,
        'resourcesVersion=' + resourcesVersion)
 }
 
@@ -215,7 +217,7 @@ schemas.each { String rnc ->
   String rng = rnc.substring(0, rnc.lastIndexOf(".")) + ".rng"
 
   Task t = task "compile_rng_$rnc"(type: JavaExec) {
-    classpath = configurations.runtime
+    classpath = configurations.projectRuntimeClasspath
 
     inputs.dir "src/main/schemas"
     outputs.file "build/schemas/" + rng
@@ -431,17 +433,17 @@ task copyVendors(type: Copy) {
 }
 
 task zip(type: Zip, dependsOn: [ "stageZip" ]) {
+  archiveFileName = "docbook-xslt2-" + relVersion + ".zip"
   from('build/stage/zip')
-  into 'docbook-xslt2-' + version
-  archiveName 'docbook-xslt2-' + version + ".zip"
+  into 'docbook-xslt2-' + relVersion
 }
 
 task zipApp(type: Zip, dependsOn: [ "jar" ]) {
-  String jarfn = "docbook-xslt2-" + version + ".jar"
+  String jarfn = "docbook-xslt2-" + relVersion + ".jar"
   FileTree tree = fileTree(dir: 'build/libs').include(jarfn).include("lib/*.jar")
+  archiveFileName = 'docbook-xslt2-' + relVersion + "-app.zip"
   from tree
-  into 'docbook-xslt2-' + version + "-app"
-  archiveName 'docbook-xslt2-' + version + "-app.zip"
+  into 'docbook-xslt2-' + relVersion + "-app"
 }
 
 // ======================================================================
@@ -467,18 +469,20 @@ task sourcesJar(type: Jar) {
   from sourceSets.main.allSource
 }
 
+/*
 artifacts {
   archives jar
   archives sourcesJar
   archives javadocJar
 }
+*/
 
 task makeVersionProperties() {
   doFirst {
     mkdir("build/stage/jar/etc")
   }
   doLast {
-    new File("build/stage/jar/etc/version.properties").text = """version=$version
+    new File("build/stage/jar/etc/version.properties").text = """version=$relVersion
 resourcesVersion=$resourcesVersion
 """
   }
@@ -497,10 +501,10 @@ task makeUris(type: XMLCalabashTask, dependsOn: [ "compileXslt", "copyResources"
 }
 
 task copyLib(type: Copy) {
-  FileCollection runtime  = configurations.runtime
-  FileCollection compile  = configurations.compile
+  FileCollection runtimeOnly  = configurations.projectRuntimeClasspath
+  FileCollection implementation  = configurations.projectImplementationClasspath
   FileCollection localLib = fileTree(dir: 'lib').include("*.jar")
-  FileCollection lib = compile + runtime - localLib
+  FileCollection lib = implementation + runtimeOnly - localLib
   String path = ""
   lib.each {
     File file -> path += " lib/" + file.name
@@ -514,12 +518,12 @@ jar.dependsOn copyLib
 
 task copyJar(type: Copy, dependsOn: [ "jar" ]) {
   from('build/libs')
-  include 'docbook-xslt2-' + version + ".jar"
+  include 'docbook-xslt2-' + relVersion + ".jar"
   into 'build/distributions/'
 }
 
 jar {
-  baseName "docbook-xslt2"
+  archiveBaseName = "docbook-xslt2"
   manifest {
     attributes "Built-By": builtBy
     attributes "Implementation-Vendor": "Norman Walsh"
@@ -564,9 +568,9 @@ task zipExtra(type: Copy, dependsOn: [ "jar" ]) {
 }
 
 task jarZip(type: Zip, dependsOn: [ "stageJarZip" ]) {
+  archiveFileName = "docbook-xslt2-" + relVersion + "-" + saxonBranch + "-jar.zip"
   from('build/stage/jarzip')
-  into 'docbook-xslt2-' + version
-  archiveName 'docbook-xslt2-' + version + "-" + saxonBranch + "-jar.zip"
+  into 'docbook-xslt2-' + relVersion + "-" + saxonBranch + "-jar"
 }
 
 // ======================================================================
@@ -633,69 +637,60 @@ clean {
 // Sign, publish, and upload
 
 signing {
-  required { gradle.taskGraph.hasTask("uploadArchives") }
-  sign configurations.archives
+  sign publishing.publications
 }
 
 publishing {
   publications {
     mavenJava(MavenPublication) {
-      groupId group
-      artifactId 'docbook-xslt2'
-      version version
-      from components.java
-    }
-  }
-  repositories {
-    maven {
-      url 'file://tmp/repo'
-    }
-  }
-}
-
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      beforeDeployment { MavenDeployment deployment ->
-        signing.signPom(deployment)
-      }
-
-      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: sonatypeUsername, password: sonatypePassword)
-      }
-
-      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: sonatypeUsername, password: sonatypePassword)
-      }
-
-      pom.project {
-        name 'DocBook XSLT 2.0 Stylesheets'
-        packaging 'jar'
-        description 'DocBook XSLT 2.0 stylesheets'
-        url 'https://github.com/docbook/xslt20-stylesheets'
+      pom {
+        name = 'DocBook XSLT 2.0 Stylesheets'
+        description = 'DocBook XSLT 2.0 stylesheets'
+        url = 'https://github.com/docbook/xslt20-stylesheets'
 
         scm {
-          url 'scm:git@github.com:docbook/xslt20-stylesheets.git'
-          connection 'scm:git@github.com:docbook/xslt20-stylesheets.git'
-          developerConnection 'scm:git@github.com:docbook/xslt20-stylesheets.git'
+          url = 'scm:git@github.com:docbook/xslt20-stylesheets.git'
+          connection = 'scm:git@github.com:docbook/xslt20-stylesheets.git'
+          developerConnection = 'scm:git@github.com:docbook/xslt20-stylesheets.git'
         }
 
         licenses {
           license {
-            name 'Apache License version 2.0'
-            url 'https://www.apache.org/licenses/LICENSE-2.0'
-            distribution 'repo'
+            name = 'Apache License version 2.0'
+            url = 'https://www.apache.org/licenses/LICENSE-2.0'
+            distribution = 'repo'
           }
         }
 
         developers {
           developer {
-            id 'ndw'
-            name 'Norman Walsh'
+            id = 'ndw'
+            name = 'Norman Walsh'
           }
         }
       }
+
+      groupId = group
+      artifactId = 'docbook-xslt2'
+      version = relVersion
+      from components.java
+      artifact javadocJar
+      artifact sourcesJar
+    }
+  }
+
+  repositories {
+/*
+    maven {
+      url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+      credentials {
+        username = sonatypeUsername
+        password = sonatypePassword
+      }
+*/
+
+    maven {
+      url 'file://tmp/repo'
     }
   }
 }
-

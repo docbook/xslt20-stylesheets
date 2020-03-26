@@ -207,7 +207,7 @@ public class ImageProperties extends ExtensionFunctionDefinition {
 
             if (width >= 0) {
                 Int64Value[] props = { new Int64Value(width), new Int64Value(depth) };
-                ArrayIterator iter = new ArrayIterator(props);
+                ArrayIterator<Int64Value> iter = new ArrayIterator<Int64Value>(props);
                 return new AtomicArray(iter);
             } else {
                 return EmptySequence.getInstance();
