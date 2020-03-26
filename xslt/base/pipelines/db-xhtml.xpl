@@ -188,6 +188,7 @@
                        select="if ($format = 'html') then '5' else '1.0'"/>
         <p:with-option name="href" select="base-uri(/)"/>
       </p:store>
+<!--
       <cx:message xmlns:cx="http://xmlcalabash.com/ns/extensions">
         <p:input port="source">
           <p:pipe step="store-chunk" port="result"/>
@@ -196,8 +197,8 @@
           <p:pipe step="store-chunk" port="result"/>
         </p:with-option>
       </cx:message>
+-->
     </p:for-each>
-    <p:sink/>
     <p:identity>
       <p:input port="source">
         <p:pipe step="postprocess" port="result"/>
