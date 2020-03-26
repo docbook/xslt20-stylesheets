@@ -686,6 +686,7 @@ publishing {
         username = sonatypeUsername
         password = sonatypePassword
       }
+    }
     /*
     maven {
       url 'file://tmp/repo'
