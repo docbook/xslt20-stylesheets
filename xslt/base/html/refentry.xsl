@@ -32,7 +32,7 @@
 
 <xsl:template match="db:refnamediv">
   <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:choose>
       <xsl:when test="$refentry.generate.name">
@@ -99,7 +99,7 @@
 
 <xsl:template match="db:refsynopsisdiv">
   <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <h2>
       <xsl:choose>
@@ -120,7 +120,7 @@
 
 <xsl:template match="db:refsection|db:refsect1|db:refsect2|db:refsect3">
   <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
+    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
     <xsl:call-template name="t:titlepage"/>
 
