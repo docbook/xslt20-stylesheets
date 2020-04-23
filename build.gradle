@@ -57,6 +57,7 @@ configurations {
 dependencies {
   implementation fileTree(dir: 'lib').include("*.jar")
   implementation (
+    [group: 'com.nwalsh', name: 'nwalsh-annotations', version: '1.0.0'],
     [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
     [group: 'org.relaxng', name: 'jing', version: '20181222' ],
     [group: 'org.xmlresolver', name: 'xmlresolver', version: '1.0.5'],
@@ -469,14 +470,6 @@ task sourcesJar(type: Jar) {
   from sourceSets.main.allSource
 }
 
-/*
-artifacts {
-  archives jar
-  archives sourcesJar
-  archives javadocJar
-}
-*/
-
 task makeVersionProperties() {
   doFirst {
     mkdir("build/stage/jar/etc")
@@ -539,7 +532,7 @@ jar {
     attributes "DynamicImport-Package": "*"
     // This is a bit of a hack; special case the three most likely
     // commercial jar files for printing with CSS or FO.
-    attributes"Class-Path": project.ext.runtimeClasspath \
+    attributes "Class-Path": project.ext.runtimeClasspath \
               + " lib/XfoJavaCtl.jar lib/xep.jar lib/prince.jar"
   }
 }
