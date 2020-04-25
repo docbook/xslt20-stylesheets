@@ -24,7 +24,48 @@
 
 <!-- ==================================================================== -->
 
-<xsl:template match="*" mode="m:title-content" as="node()*">
+<!-- Profiling revealed that a lot of time was being spent computing
+     titles. Since it's reasonable to expect that the title will be
+     needed for every titled element, we compute them all once, up
+     front, so that they're available every time they are needed.
+-->
+<xsl:variable name="all-titles" as="document-node()?">
+  <xsl:document>
+    <titles>
+      <xsl:apply-templates select="/" mode="mp:all-title-content"/>
+    </titles>
+  </xsl:document>
+</xsl:variable>
+
+<xsl:template match="/" mode="mp:all-title-content">
+  <xsl:apply-templates select="*" mode="mp:all-title-content"/>
+</xsl:template>
+
+<xsl:template match="*" mode="mp:all-title-content">
+  <xsl:if test="db:title or db:info/db:title">
+    <object xml:id="{generate-id(.)}" type="{local-name(.)}">
+      <title allow-anchors="false">
+        <xsl:apply-templates select="." mode="mp:get-title-content">
+          <xsl:with-param name="allow-anchors" select="false()"/>
+          <xsl:with-param name="template" select="'%t'"/>
+        </xsl:apply-templates>
+      </title>
+      <title allow-anchors="true">
+        <xsl:apply-templates select="." mode="mp:get-title-content">
+          <xsl:with-param name="allow-anchors" select="true()"/>
+          <xsl:with-param name="template" select="'%t'"/>
+        </xsl:apply-templates>
+      </title>
+      <xsl:apply-templates select="*" mode="mp:all-title-content"/>
+    </object>
+  </xsl:if>
+</xsl:template>
+
+<xsl:template match="db:info" mode="mp:all-title-content"/>
+
+<!-- ==================================================================== -->
+
+<xsl:template match="*" mode="mp:get-title-content" as="node()*">
   <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
   <xsl:param name="template">
     <xsl:apply-templates select="." mode="m:object-title-template"/>
@@ -55,6 +96,27 @@
     <xsl:with-param name="label" select="$label"/>
     <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
   </xsl:call-template>
+</xsl:template>
+
+<xsl:template match="*" mode="m:title-content" as="node()*">
+  <xsl:param name="allow-anchors" select="false()" as="xs:boolean"/>
+  <xsl:param name="template">
+    <xsl:apply-templates select="." mode="m:object-title-template"/>
+  </xsl:param>
+
+  <xsl:variable name="object" select="key('id', generate-id(.), $all-titles)"/>
+  <xsl:choose>
+    <xsl:when test="$object">
+      <xsl:variable name="aa" select="string($allow-anchors)"/>
+      <xsl:sequence select="$object/title[@allow-anchors=$aa]/node()"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:apply-templates select="." mode="mp:get-title-content">
+        <xsl:with-param name="allow-anchors" select="$allow-anchors"/>
+        <xsl:with-param name="template" select="$template"/>
+      </xsl:apply-templates>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <!-- ==================================================================== -->
