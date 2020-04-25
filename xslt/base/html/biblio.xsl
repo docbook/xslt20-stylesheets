@@ -12,23 +12,29 @@
                 version="2.0">
 
 <xsl:template match="db:bibliography">
-  <article>
-    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <article>
+      <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
-    <xsl:call-template name="t:titlepage"/>
+      <xsl:call-template name="t:titlepage"/>
 
-    <xsl:apply-templates/>
-  </article>
+      <xsl:apply-templates/>
+    </article>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:bibliodiv">
-  <div>
-    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <div>
+      <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
-    <xsl:call-template name="t:titlepage"/>
+      <xsl:call-template name="t:titlepage"/>
 
-    <xsl:apply-templates/>
-  </div>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:bibliolist">

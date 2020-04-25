@@ -11,38 +11,41 @@
                 version="2.0">
 
 <xsl:template match="db:index|db:setindex">
-  <article>
-    <xsl:sequence select="f:html-attributes(., f:node-id(.))" />
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <article>
+      <xsl:sequence select="f:html-attributes(., f:node-id(.))" />
 
-    <xsl:call-template name="t:titlepage" />
+      <xsl:call-template name="t:titlepage" />
 
-    <xsl:apply-templates
-      select="*[not(self::db:indexdiv)
-                                   and not(self::db:indexentry)]" />
+      <xsl:apply-templates
+          select="*[not(self::db:indexdiv)
+                    and not(self::db:indexentry)]"/>
 
-    <!-- An empty index element indicates that the index -->
-    <!-- should be generated automatically -->
-    <!-- when generate.index is not false -->
-    <xsl:if test="count(*) > 0 or $generate.index">
-      <xsl:choose>
-        <xsl:when test="not(db:indexentry) and not(db:indexdiv)">
-          <xsl:call-template name="generate-index">
-            <xsl:with-param name="scope" select="parent::*" />
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:when test="db:indexentry">
-          <div class="indexdiv">
-            <dl>
-              <xsl:apply-templates select="db:indexentry" />
-            </dl>
-          </div>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates select="db:indexdiv" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:if>
-  </article>
+      <!-- An empty index element indicates that the index -->
+      <!-- should be generated automatically -->
+      <!-- when generate.index is not false -->
+      <xsl:if test="count(*) > 0 or $generate.index">
+        <xsl:choose>
+          <xsl:when test="not(db:indexentry) and not(db:indexdiv)">
+            <xsl:call-template name="generate-index">
+              <xsl:with-param name="scope" select="parent::*" />
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:when test="db:indexentry">
+            <div class="indexdiv">
+              <dl>
+                <xsl:apply-templates select="db:indexentry" />
+              </dl>
+            </div>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:apply-templates select="db:indexdiv" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:if>
+    </article>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:indexterm">

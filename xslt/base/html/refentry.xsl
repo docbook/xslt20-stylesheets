@@ -11,23 +11,26 @@
                 version="2.0">
 
 <xsl:template match="db:refentry">
-  <article>
-    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <article>
+      <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
 
-    <xsl:if test="$refentry.separator and preceding-sibling::db:refentry">
-      <div class="refentry-separator">
-        <hr/>
+      <xsl:if test="$refentry.separator and preceding-sibling::db:refentry">
+        <div class="refentry-separator">
+          <hr/>
+        </div>
+      </xsl:if>
+
+      <xsl:call-template name="t:titlepage"/>
+
+      <div class="content">
+        <xsl:apply-templates/>
       </div>
-    </xsl:if>
 
-    <xsl:call-template name="t:titlepage"/>
-
-    <div class="content">
-      <xsl:apply-templates/>
-    </div>
-
-    <xsl:call-template name="t:process-footnotes"/>
-  </article>
+      <xsl:call-template name="t:process-footnotes"/>
+    </article>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:refnamediv">

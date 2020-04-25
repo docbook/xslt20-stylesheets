@@ -57,7 +57,7 @@
   <xsl:include href="html.xsl"/>
   <xsl:include href="index.xsl"/>
   <xsl:include href="autoidx.xsl"/>
-  <xsl:include href="chunker.xsl"/>
+  <xsl:include href="chunks.xsl"/>
 
 <!-- ============================================================ -->
 
@@ -72,21 +72,54 @@
     <xsl:message>Styling...</xsl:message>
   </xsl:if>
 
-  <xsl:apply-templates select="*" mode="m:pre-root"/>
-  <html>
-    <xsl:if test="/*/@status">
-      <xsl:attribute name="class" select="/*/@status"/>
-    </xsl:if>
-    <head>
-      <xsl:apply-templates select="*" mode="mp:html-head"/>
-    </head>
-    <body>
-      <xsl:call-template name="t:body-attributes"/>
-      <xsl:apply-templates/>
-      <xsl:apply-templates select="." mode="mp:javascript-body"/>
-      <xsl:apply-templates select="." mode="m:javascript-body"/>
-    </body>
-  </html>
+  <xsl:choose>
+    <xsl:when test="empty($chunk-tree)">
+      <xsl:apply-templates select="*" mode="m:pre-root"/>
+      <html>
+        <xsl:if test="/*/@status">
+          <xsl:attribute name="class" select="/*/@status"/>
+        </xsl:if>
+        <head>
+          <xsl:apply-templates select="*" mode="mp:html-head"/>
+        </head>
+        <body>
+          <xsl:call-template name="t:body-attributes"/>
+          <xsl:apply-templates/>
+          <xsl:apply-templates select="." mode="mp:javascript-body"/>
+          <xsl:apply-templates select="." mode="m:javascript-body"/>
+        </body>
+      </html>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:variable name="chunks" as="element()*">
+        <xsl:choose>
+          <xsl:when test="empty($rootid) or $rootid = ''">
+            <xsl:sequence select="$chunk-elements"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:sequence select="$chunk-elements[@xml:id=$rootid]"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:if test="empty($chunks)">
+        <xsl:message terminate="yes">
+          <xsl:text>There is no chunk with the ID: </xsl:text>
+          <xsl:value-of select="$rootid"/>
+        </xsl:message>
+      </xsl:if>
+
+      <xsl:for-each select="$chunks">
+        <xsl:call-template name="t:chunk">
+          <xsl:with-param name="content">
+            <xsl:apply-templates select=".">
+              <xsl:with-param name="processing-chunk-root" select="true()"/>
+            </xsl:apply-templates>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:for-each>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="*">

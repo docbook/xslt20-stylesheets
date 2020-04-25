@@ -13,23 +13,29 @@
 
 <xsl:template match="db:section|db:sect1|db:sect2|db:sect3|db:sect4|db:sect5"
               name="db:section">
-  <section>
-    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
-    <xsl:call-template name="t:titlepage"/>
-    <div class="content">
-      <xsl:apply-templates/>
-    </div>
-  </section>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <section>
+      <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
+      <xsl:call-template name="t:titlepage"/>
+      <div class="content">
+        <xsl:apply-templates/>
+      </div>
+    </section>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:simplesect">
-  <section>
-    <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
-    <xsl:call-template name="t:titlepage"/>
-    <div class="content">
-      <xsl:apply-templates/>
-    </div>
-  </section>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <section>
+      <xsl:sequence select="f:html-attributes(., f:node-id(.))"/>
+      <xsl:call-template name="t:titlepage"/>
+      <div class="content">
+        <xsl:apply-templates/>
+      </div>
+    </section>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:bridgehead">

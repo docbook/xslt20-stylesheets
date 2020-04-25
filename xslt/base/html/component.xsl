@@ -13,23 +13,26 @@
 <xsl:template match="db:dedication
                      |db:preface|db:chapter|db:appendix
                      |db:colophon|db:article">
-  <article>
-    <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
-    <xsl:call-template name="t:titlepage"/>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <article>
+      <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
+      <xsl:call-template name="t:titlepage"/>
 
-    <xsl:if test="not(db:toc)">
-      <!-- only generate a toc automatically if there's no explicit toc -->
-      <xsl:apply-templates select="." mode="m:toc"/>
-    </xsl:if>
+      <xsl:if test="not(db:toc)">
+        <!-- only generate a toc automatically if there's no explicit toc -->
+        <xsl:apply-templates select="." mode="m:toc"/>
+      </xsl:if>
 
-    <div class="content">
-      <xsl:apply-templates/>
-    </div>
+      <div class="content">
+        <xsl:apply-templates/>
+      </div>
 
-    <xsl:if test="not(parent::db:article)">
-      <xsl:call-template name="t:process-footnotes"/>
-    </xsl:if>
-  </article>
+      <xsl:if test="not(parent::db:article)">
+        <xsl:call-template name="t:process-footnotes"/>
+      </xsl:if>
+    </article>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:dedication

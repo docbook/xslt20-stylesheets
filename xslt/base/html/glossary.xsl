@@ -15,40 +15,46 @@
 <!-- ==================================================================== -->
 
 <xsl:template match="db:glossary">
-  <article>
-    <xsl:sequence select="f:html-attributes(.)"/>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <article>
+      <xsl:sequence select="f:html-attributes(.)"/>
 
-    <xsl:call-template name="t:titlepage"/>
+      <xsl:call-template name="t:titlepage"/>
 
-    <xsl:choose>
-      <xsl:when test="db:glossdiv">
-        <xsl:apply-templates/>
-      </xsl:when>
-      <xsl:otherwise>
-        <dl>
+      <xsl:choose>
+        <xsl:when test="db:glossdiv">
           <xsl:apply-templates/>
-        </dl>
-      </xsl:otherwise>
-    </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <dl>
+            <xsl:apply-templates/>
+          </dl>
+        </xsl:otherwise>
+      </xsl:choose>
 
-    <xsl:if test="not(parent::db:article)">
-      <xsl:call-template name="t:process-footnotes"/>
-    </xsl:if>
-  </article>
+      <xsl:if test="not(parent::db:article)">
+        <xsl:call-template name="t:process-footnotes"/>
+      </xsl:if>
+    </article>
+  </xsl:if>
 </xsl:template>
 
 <!-- ==================================================================== -->
 
 <xsl:template match="db:glossdiv">
-  <div>
-    <xsl:sequence select="f:html-attributes(.)"/>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <div>
+      <xsl:sequence select="f:html-attributes(.)"/>
 
-    <xsl:call-template name="t:titlepage"/>
+      <xsl:call-template name="t:titlepage"/>
 
-    <dl>
-      <xsl:apply-templates/>
-    </dl>
-  </div>
+      <dl>
+        <xsl:apply-templates/>
+      </dl>
+    </div>
+  </xsl:if>
 </xsl:template>
 
 <!-- ==================================================================== -->
