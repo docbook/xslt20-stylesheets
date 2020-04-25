@@ -11,19 +11,22 @@
                 version="2.0">
 
 <xsl:template match="db:set|db:book|db:part|db:reference">
-  <article>
-    <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
-    <xsl:call-template name="t:titlepage"/>
+  <xsl:param name="processing-chunk-root" select="false()"/>
+  <xsl:if test="$processing-chunk-root or not(f:chunk(.))">
+    <article>
+      <xsl:sequence select="f:html-attributes(.,f:node-id(.))"/>
+      <xsl:call-template name="t:titlepage"/>
 
-    <xsl:if test="not(db:toc)">
-      <!-- only generate a toc automatically if there's no explicit toc -->
-      <xsl:apply-templates select="." mode="m:toc"/>
-    </xsl:if>
+      <xsl:if test="not(db:toc)">
+        <!-- only generate a toc automatically if there's no explicit toc -->
+        <xsl:apply-templates select="." mode="m:toc"/>
+      </xsl:if>
 
-    <div class="content">
-      <xsl:apply-templates/>
-    </div>
-  </article>
+      <div class="content">
+        <xsl:apply-templates/>
+      </div>
+    </article>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="db:set|db:book|db:part|db:reference" mode="m:toc">

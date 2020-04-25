@@ -480,7 +480,10 @@ when chunking.)</para>
 <xsl:function name="f:href" as="xs:string">
   <xsl:param name="context" as="node()"/>
   <xsl:param name="node" as="element()"/>
-  <xsl:sequence select="concat('#', f:node-id($node))"/>
+
+  <xsl:sequence select="if (empty($chunk-tree))
+                        then concat('#', f:node-id($node))
+                        else f:chunk-href($context, $node)"/>
 </xsl:function>
 
 <!-- ====================================================================== -->
