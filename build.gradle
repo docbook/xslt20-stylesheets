@@ -517,6 +517,7 @@ task copyJar(type: Copy, dependsOn: [ "jar" ]) {
 
 jar {
   archiveBaseName = "docbook-xslt2"
+  archiveVersion = relVersion
   manifest {
     attributes "Built-By": builtBy
     attributes "Implementation-Vendor": "Norman Walsh"
