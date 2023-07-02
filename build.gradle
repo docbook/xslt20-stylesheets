@@ -39,13 +39,14 @@ import de.undercouch.gradle.tasks.download.Download
 repositories {
   mavenLocal()
   mavenCentral()
-  maven { url "https://maven.restlet.com" }
+  // maven { url "https://maven.restlet.com" }
 }
 
 configurations.all {
   resolutionStrategy {
     force 'xml-apis:xml-apis:1.4.01'
   }
+  exclude group: 'org.restlet.jee'
 }
 
 configurations {
@@ -57,8 +58,7 @@ configurations {
 dependencies {
   implementation fileTree(dir: 'lib').include("*.jar")
   implementation (
-    [group: 'com.nwalsh', name: 'nwalsh-annotations', version: '1.0.0'],
-    [group: 'net.sf.saxon', name: 'Saxon-HE', version: saxonVersion],
+    [group: 'com.nwalsh', name: 'nwalsh-annotations', version: '1.0.1'],
     [group: 'org.relaxng', name: 'jing', version: '20181222' ],
     [group: 'org.xmlresolver', name: 'xmlresolver', version: '1.0.5'],
     [group: 'com.xmlcalabash', name: 'xmlcalabash', version: xmlCalabashVersion],
@@ -67,6 +67,7 @@ dependencies {
     // 1.2 because that's what gradleApi requires :-(
     [group: 'commons-cli', name: 'commons-cli', version: '1.2']
   )
+  implementation("net.sf.saxon:Saxon-HE:${saxonVersion}")
 
   runtimeOnly (
     [group: 'org.relaxng', name: 'trang', version: '20181222' ],
@@ -76,10 +77,11 @@ dependencies {
   pluginApi gradleApi()
 }
 
-// Assuming the pattern for Saxon versions is 1.2.3-4
+// Assuming the pattern for Saxon versions is 1.2
 int pos = saxonVersion.indexOf(".")
 String major = saxonVersion.substring(0, pos)
 String temp = saxonVersion.substring(pos+1)
+/*
 pos = temp.indexOf(".")
 String minor = temp.substring(0, pos)
 pos = saxonVersion.indexOf("-")
@@ -88,6 +90,11 @@ project.ext.saxonRelease = saxonVersion.substring(0,pos)
 project.ext.saxonBranch  = major + minor
 project.ext.releaseVersion = relVersion
 project.ext.distVersion = relVersion + "-" + saxonBranch + snapshot
+ */
+project.ext.saxonRelease = saxonVersion
+project.ext.saxonBranch  = major + temp
+project.ext.releaseVersion = relVersion
+project.ext.distVersion = saxonVersion
 
 if (!hasProperty("sonatypeUsername")) {
   ext.sonatypeUsername=""
@@ -98,6 +105,7 @@ if (!hasProperty("sonatypePassword")) {
 }
 
 compileGroovy {
+  dependsOn("setupResources")
   classpath += configurations.pluginApi
 }
 
@@ -461,12 +469,14 @@ task stageJar(type: Copy, dependsOn: [ "compileXslt", "makeUris",
 processResources.dependsOn stageJar
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
+  // classifier = 'javadoc'
+  getArchiveClassifier().set("javadoc")
   from javadoc.destinationDir
 }
 
 task sourcesJar(type: Jar) {
-  classifier = 'sources'
+  // classifier = 'sources'
+  getArchiveClassifier().set("sources")
   from sourceSets.main.allSource
 }
 
