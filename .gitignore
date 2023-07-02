@@ -8,3 +8,5 @@
 /buildSrc/build/
 # Local libraries that should not be committed or distributed
 /lib/
+.idea/
+*.hprof
