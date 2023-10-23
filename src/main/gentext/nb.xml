@@ -138,14 +138,14 @@
 <gentext key="unsupported" text="ikke st&#248;ttet"/>
 <gentext key="xrefto" text="xref til"/>
 
-<gentext key="listofequations" text="Formeloversikt"/>
-<gentext key="ListofEquations" text="formeloversikt"/>
+<gentext key="ListofEquations" text="Formeloversikt"/>
+<gentext key="listofequations" text="formeloversikt"/>
 <gentext key="ListofExamples" text="Eksempeloversikt"/>
 <gentext key="listofexamples" text="eksempeloversikt"/>
 <gentext key="ListofFigures" text="Figuroversikt"/>
 <gentext key="listoffigures" text="figuroversikt"/>
-<gentext key="listoftables" text="Tabelloversikt"/>
-<gentext key="ListofTables" text="tabelloversikt"/>
+<gentext key="ListofTables" text="Tabelloversikt"/>
+<gentext key="listoftables" text="tabelloversikt"/>
 <gentext key="ListofUnknown" text="???-oversikt"/>
 <gentext key="listofunknown" text="???-oversikt"/>
 
